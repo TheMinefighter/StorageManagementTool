@@ -24,8 +24,8 @@ namespace StorageManagementTool
             if (NewUSFPath_tb.Text == "")
             {
                 MessageBox.Show("Wählen sie einen neuen Ort für den UserShellFolder um diesen öffnen zu können", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
+                            }
+                            else
             {
                 Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, NewUSFPath_tb.Text, false, false, false);
             }
@@ -34,7 +34,7 @@ namespace StorageManagementTool
         {
             EnableComponents();
             UserShellFolder currentUSF = UserShellFolder.AllEditableUserUserShellFolders[ExistingUSF_lb.SelectedIndex];
-            Wrapper.GetRegValue(currentUSF.RegPaths[0], out object regValue,currentUSF.AccessAsUser);
+            Wrapper.GetRegistryValue(currentUSF.RegPaths[0], out object regValue,currentUSF.AccessAsUser);
             CurrentUSFPath_tb.Text = (string)regValue ?? "Fehler: Wert nicht vorhanden";
         }
 

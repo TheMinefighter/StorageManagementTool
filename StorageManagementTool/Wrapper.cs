@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
 using System.Globalization;
+using System.Resources;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,6 +15,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
+using StorageManagementTool.GlobalizationRessources;
 
 namespace StorageManagementTool
 {
@@ -22,6 +24,7 @@ namespace StorageManagementTool
     /// </summary>
     public static class Wrapper
     {
+       // public static ResourceManager _rmg= new ResourceManager("WrapperStrings",typeof(Wrapper).Assembly);
         private static readonly string[] ExecuteableExtensions = {".exe", ".pif", ".com", ".bat", ".cmd"};
         public static readonly string WinPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
 
@@ -65,7 +68,7 @@ namespace StorageManagementTool
             }
         }
 
-        public static bool GetRegValue(RegPath path, out object toReturn, bool asUser = false)
+        public static bool GetRegistryValue(RegPath path, out object toReturn, bool asUser = false)
         {
             toReturn = null;
             if (asUser)
@@ -128,11 +131,14 @@ namespace StorageManagementTool
             {
                 toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, null);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return MessageBox.Show($"Bei dem lesen des Registry Wertes {path} ist ein Fehler aufgetreten.",
-                           "Fehler", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry &&
-                       GetRegValue(path, out toReturn, asUser);
+                return MessageBox.Show(
+                           string.Format(WrapperStrings.GetRegistryValue_Exception,
+                               path.ValueName, path.RegistryKey,e.Message),
+                           WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
+                       DialogResult.Retry &&
+                       GetRegistryValue(path, out toReturn, asUser);
             }
 
             return true;
@@ -160,8 +166,8 @@ namespace StorageManagementTool
             if (!File.Exists(filename))
             {
                 if (MessageBox.Show(
-                        $"Das Program \"{filename}\" Konnte nicht ausgeführt werden, da dieses nicht unter dem erwarteten Pfad verfügbar war. Möchten sie den richtigen Pfad des Programms auswählen?",
-                        "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound,filename),
+                        WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                     {
@@ -176,8 +182,9 @@ namespace StorageManagementTool
             if (!ExecuteableExtensions.Contains(new FileInfo(filename).Extension))
             {
                 if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-                    $"Es sollte das Program\"{filename}\" ausgeführt werden, jedoch ist nicht bekannt das Dateien mit der Dateiendung {new FileInfo(filename).Extension} unter Windows ausführbar sind. Soll trotzdem versucht werden diese Datei auszuführen?",
-                    "Fehler",
+                    string.Format(WrapperStrings.ExecuteExecuteable_WrongEnding,
+                        filename, new FileInfo(filename).Extension),
+                    WrapperStrings.Error,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
                 {
                     return false;
@@ -225,8 +232,10 @@ namespace StorageManagementTool
             catch (Win32Exception)
             {
                 DialogResult retry = MessageBox.Show(
-                    $"Fehler beim ausführen der Datei \" {filename} \" hat der Nutzer hat dem Programm den Zugriff auf Administroteren Privilegien verwehrt, die für dessen Ausführung wahrscheinlich nötig gewesen wären. Soll das Programm den Vorgang abbrechen, den Vorgang wiederholen oder das Problem ignorieren und den Befehl ohne Adminstratorrechte ausführen",
-                    "Fehler", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                    string.Format(
+                        WrapperStrings.ExecuteExecuteable_AdminError,
+                        filename),
+                    WrapperStrings.Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
                 switch (retry)
                 {
                     case DialogResult.Retry:
@@ -423,8 +432,10 @@ namespace StorageManagementTool
             catch (SecurityException)
             {
                 if (MessageBox.Show(
-                        $"Fehler beim setzen des Registry Wertes\"{valueLocation.ValueName}\", welcher unter \"{valueLocation.ValueName}\" gespeichert ist, auf den wert\"{content}\" mit dem Typ \"{registryValueKind}\"ist ein Fehler aufgetreten, da dieser Wert schreibgeschützt ist",
-                        "Fehler", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                        string.Format(
+                            WrapperStrings.SetRegistryValue_Security,
+                            valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
+                        WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     return SetRegistryValue(valueLocation, content, registryValueKind);
                 }
@@ -434,8 +445,10 @@ namespace StorageManagementTool
             catch (UnauthorizedAccessException)
             {
                 if (MessageBox.Show(
-                        $"Fehler beim setzen des Registry Wertes\"{valueLocation.ValueName}\", welcher unter \"{valueLocation.ValueName}\" gespeichert ist, auf den wert\"{content}\" mit dem Typ \"{registryValueKind}\"ist ein Fehler aufgetreten, da dieses Programm aktuell nicht die nötigen Berechtigungen besitzt um diese operation durchzuführen. Wollen sie die Anwendung mit Administratoren-Privilegien neustarten?",
-                        "Fehler",
+                        string.Format(
+                            WrapperStrings.SetRegistryValue_UnauthorizedAccess,
+                            valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
+                        WrapperStrings.Error,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     RestartAsAdministrator();
@@ -444,11 +457,13 @@ namespace StorageManagementTool
 
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 if (MessageBox.Show(
-                        $"Fehler beim setzen des Registry Wertes\"{valueLocation.ValueName}\", welcher unter \"{valueLocation.ValueName}\" gespeichert ist, auf den wert\"{content}\" mit dem Typ \"{registryValueKind}\"ist ein Fehler aufgetreten",
-                        "Fehler", MessageBoxButtons.RetryCancel,
+                        string.Format(
+                            WrapperStrings.SetRegistry_Exception,
+                            valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind, e.Message),
+                        WrapperStrings.Error, MessageBoxButtons.RetryCancel,
                         MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     return SetRegistryValue(valueLocation, content, registryValueKind);
@@ -585,21 +600,22 @@ namespace StorageManagementTool
         {
             try
             {
-                FileSystem.CopyFile(src.FullName,to.FullName,UIOption.AllDialogs);
+                FileSystem.CopyFile(src.FullName, to.FullName, UIOption.AllDialogs);
             }
             catch (Exception)
             {
                 return false;
             }
+
             return true;
         }
 
-        public static bool DeleteFile(FileInfo toDelete, bool deletePermanent=true)
+        public static bool DeleteFile(FileInfo toDelete, bool deletePermanent = true)
         {
             try
             {
-                FileSystem.DeleteFile(toDelete.FullName,UIOption.AllDialogs,deletePermanent?RecycleOption.DeletePermanently:RecycleOption.SendToRecycleBin );
-
+                FileSystem.DeleteFile(toDelete.FullName, UIOption.AllDialogs,
+                    deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
             }
             catch (Exception)
             {

@@ -81,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplyPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplyPreset.Designer.cs">
+      <DependentUpon>ApplyPreset.cs</DependentUpon>
+    </Compile>
     <Compile Include="BackGroundNotificationCreator.cs" />
     <Compile Include="ConsoleIO.cs" />
     <Compile Include="EditUserShellFolders.cs">
@@ -94,6 +100,16 @@
     </Compile>
     <Compile Include="EditWindowsSearchSettings.designer.cs">
       <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalizationRessources\ApplyPresetStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplyPresetStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalizationRessources\OperatingMethodsStrings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OperatingMethodsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="InsertCredentials.cs" />
     <Compile Include="InsertCredentialsDialog.cs">
@@ -125,14 +141,36 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegPath.cs" />
+    <Compile Include="ScenarioPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Session.cs" />
+    <Compile Include="UIStrings.cs" />
     <Compile Include="UserShellFolder.cs" />
     <Compile Include="Wrapper.cs" />
+    <Compile Include="GlobalizationRessources\WrapperStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WrapperStrings.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ApplyPreset.resx">
+      <DependentUpon>ApplyPreset.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditUserShellFolders.resx">
       <DependentUpon>EditUserShellFolders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditWindowsSearchSettings.resx">
       <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplyPresetStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertCredentialsDialog.ko-KP.resx">
       <DependentUpon>InsertCredentialsDialog.cs</DependentUpon>
@@ -158,6 +196,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GlobalizationRessources\WrapperStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\WrapperStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\WrapperStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WrapperStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

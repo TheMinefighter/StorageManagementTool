@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -24,8 +25,12 @@ namespace StorageManagementTool
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+            System.Threading.Thread.CurrentThread.CurrentUICulture =
+                System.Globalization.CultureInfo.GetCultureInfo("de-DE");
+            //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
+            //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
             HDDSavePathText.Text = Session.Singleton.CfgJson.DefaultHDDPath;
-
             string[] rec = OperatingMethods.GetRecommendedPaths();
             foreach (string item in rec)
             {

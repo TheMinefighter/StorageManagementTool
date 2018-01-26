@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -44,11 +45,23 @@ namespace StorageManagementTool
         /// </summary>
         public int Swapstadium;
 
+        public UIStrings.UILanguage CurrentLanguage;
+
         /// <summary>
         /// Creates a new Session
         /// </summary>
         public Session()
         {
+            switch (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)
+            {
+                case "de":
+                    CurrentLanguage = UIStrings.UILanguage.German;
+                    break;
+                default:
+                    CurrentLanguage = UIStrings.UILanguage.English;
+                    break;
+            }
+
             Singleton = this;
         }
 
@@ -59,7 +72,7 @@ namespace StorageManagementTool
         {
             if (Wrapper.IsPathSymbolic(@"C:\swapfile.sys"))
             {
-                Wrapper.GetRegValue(new RegPath(
+                Wrapper.GetRegistryValue(new RegPath(
                     @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                     "SwapFileControl"), out object regValue);
                 Swapstadium =
@@ -69,7 +82,7 @@ namespace StorageManagementTool
             }
             else
             {
-                Wrapper.GetRegValue(new RegPath(
+                Wrapper.GetRegistryValue(new RegPath(
                     @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                     "SwapFileControl"), out object regValue);
                 Swapstadium =

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using StorageManagementTool.GlobalizationRessources;
 
 namespace StorageManagementTool
 {
@@ -18,7 +19,7 @@ namespace StorageManagementTool
         {
             return item.IsReady
                 ? item.VolumeLabel + " (" + item.Name + " ; " +
-                  GermanDriveType(item.DriveType) + ')'
+                  DriveType2String(item.DriveType) + ')'
                 : item.Name;
         }
 
@@ -44,7 +45,7 @@ namespace StorageManagementTool
         {
             if (dir == newLocation)
             {
-                if (MessageBox.Show("Fehler", "Fehler: Die Pfade dürfen nicht gleich sein",
+                if (MessageBox.Show(OperatingMethodsStrings.Error, OperatingMethodsStrings.MoveFolderOrFile_PathsEqual,
                         MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                     MoveFolder(dir, newLocation);
             }
@@ -69,8 +70,8 @@ namespace StorageManagementTool
                 }
             }
 
-            return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true,true);
-            throw new NotImplementedException();
+            return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+            // throw new NotImplementedException();
         }
 
         public static bool MoveFile(FileInfo file, FileInfo newLocation)
@@ -78,10 +79,15 @@ namespace StorageManagementTool
             if (file == newLocation)
             {
                 if (
-                    MessageBox.Show("Fehler", "Fehler: Die Pfade dürfen nicht gleich sein",
+                    MessageBox.Show(OperatingMethodsStrings.Error, OperatingMethodsStrings.MoveFolderOrFile_PathsEqual,
                         MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                {
                     MoveFile(file, newLocation);
-                else return false;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
             if (!newLocation.Directory.Exists)
@@ -115,6 +121,7 @@ namespace StorageManagementTool
         /// <param name="oldPath">The old path of the data to move</param>
         /// <param name="file">Whether its a file or a directory</param>
         /// <returns></returns>
+        /*
         public static bool MoveFolderOrFile(string newPath, string oldPath, bool file)
         {
             if (oldPath == "" || newPath == "")
@@ -201,7 +208,7 @@ namespace StorageManagementTool
                 return true;
             }
         }
-
+        */
         public static bool ChangeSwapfileStadium(int currentStadium, bool fwd)
         {
             if (currentStadium == 1 && !fwd)
@@ -273,7 +280,7 @@ namespace StorageManagementTool
 
                         string newPath = (Session.Singleton.CfgJson.DefaultHDDPath + "\\" + new string(HDDList.ToArray()));
                         string oldPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
-                        MoveFile(new FileInfo(oldPath),new FileInfo(newPath) );
+                        MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
                         break;
                     case 3:
                         try
@@ -362,23 +369,22 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Gets German Names for DriveTypes
+        /// Gets names of DriveTypes
         /// </summary>
         /// <param name="toName">The DriveType Object, which name should be returned</param>
-        /// <returns>The German name of the DriveType Object</returns>
-        public static string GermanDriveType(DriveType toName)
+        /// <returns>The  name of the DriveType Object</returns>
+        public static string DriveType2String(DriveType toName)
         {
             switch (toName)
             {
-                // Namen von https://msdn.microsoft.com/de-de/library/system.io.drivetype.aspx
-                case DriveType.CDRom: return "CD-ROM/DVD";
-                case DriveType.Fixed: return "Fester Datenträger";
-                case DriveType.Network: return "Netzwerk Datenträger";
-                case DriveType.Ram: return "RAM-Datenträger";
-                case DriveType.Removable: return "Wechseldatenträger";
-                case DriveType.NoRootDirectory: return "Fehler: kein Stammverzeichniss";
+                case DriveType.CDRom: return OperatingMethodsStrings.DriveType2String_CDRom;
+                case DriveType.Fixed: return OperatingMethodsStrings.DriveType2String_Fixed;
+                case DriveType.Network: return OperatingMethodsStrings.DriveType2String_Network;
+                case DriveType.Ram: return OperatingMethodsStrings.DriveType2String_RAM;
+                case DriveType.Removable: return OperatingMethodsStrings.DriveType2String_Removable;
+                case DriveType.NoRootDirectory: return OperatingMethodsStrings.DriveType2String_NoRootDirectory;
                 case DriveType.Unknown:
-                default: return "Unbekannter Datenträger";
+                default: return OperatingMethodsStrings.DriveType2String_Unknown;
             }
         }
 
@@ -390,7 +396,7 @@ namespace StorageManagementTool
         /// <param name="minSize">The minimum Size of the Pagefile</param>
         /// 
         /// <returns>Whether the Operation were successfull</returns>
-        public static bool ChangePagefilesettings(string currentSelection, int maxSize, int minSize)
+        public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize)
         {
             Session.Singleton.RefreshDriveInformation();
             List<string> tempDriveInfoList = Session.Singleton.FillWithDriveInfo().ToList();
@@ -402,7 +408,7 @@ namespace StorageManagementTool
             }
             else
             {
-                MessageBox.Show("Die ausgewählte Partition konnte nichtmehr gefunden werden", "Fehler",
+                MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_SelectedPartitionMissing, OperatingMethodsStrings.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -410,14 +416,14 @@ namespace StorageManagementTool
             DriveInfo toUse = Session.Singleton.CurrentDrives[selectedPartitionIndex];
             if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
             {
-                MessageBox.Show("Die minimale Größe der Pagefile kann nicht größer sein als derren die maximale Größe!",
-                    "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_MinGreaterMax,
+                    OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (toUse.AvailableFreeSpace < minSize * 1048576L) //Tests whether enough space is available
             {
-                MessageBox.Show("Auf der ausgewählten Partition ist nicht genug Speicherplatz verfügbar.", "Fehler",
+                MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_NotEnoughSpace, OperatingMethodsStrings.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -443,8 +449,8 @@ namespace StorageManagementTool
                         asUser: false);
                     if (!bool.Parse(tmp[2].Split('=')[1]))
                     {
-                        MessageBox.Show("Parameter \"AutomaticManagedPagefile\" konnte nicht auf False gesetzt werden",
-                            "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_CouldntDisableManagement,
+                            OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -469,11 +475,11 @@ namespace StorageManagementTool
                 hidden: true); //Checks wether there is exactly 1 pagefile existing
             if (tmp.Length != 2)
             {
-                switch (MessageBox.Show("Beim ändern der Pagefile-Konfiguration ist ein Fehler aufgetreten.", "Fehler",
+                switch (MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_Not1Pagefile, OperatingMethodsStrings.Error,
                     MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
                 {
                     case DialogResult.Cancel: return false;
-                    case DialogResult.Retry: return ChangePagefilesettings(currentSelection, maxSize, minSize);
+                    case DialogResult.Retry: return ChangePagefileSettings(currentSelection, maxSize, minSize);
                 }
             }
 
@@ -485,63 +491,55 @@ namespace StorageManagementTool
         /// </summary>
         /// <param name="oldDir">The old Directory of</param>
         /// <param name="newDir">The new Directory of the new </param>
-        /// <param name="usfIndex"></param>
+        /// <param name="usf">The UserShellFolder to edit</param>
         /// <returns>Whether the Operation were successful</returns>
         public static bool ChangeUserShellFolder(DirectoryInfo oldDir, DirectoryInfo newDir, UserShellFolder usf)
         {
-            if (newDir.Exists)
+            if (!newDir.Exists)
             {
-                if (usf.RegPaths.All(x =>
-                    Wrapper.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
+                newDir.Create();
+            }
+
+            if (usf.RegPaths.All(x =>
+                Wrapper.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
+            {
+                if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles && MessageBox.Show(
+                        OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Text,
+                        OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Title,
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
+                        MessageBoxDefaultButton.Button1) ==
+                    DialogResult.Yes)
                 {
-                    if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles && MessageBox.Show(
-                            "Der UserShellFolder wurde erfolgreich geändert, sollen dessen Inhalte" +
-                            " an seinen neuen Speicherort verschoben werden?",
-                            "Dateien an neuen Speicherort verschieben",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
-                            MessageBoxDefaultButton.Button1) ==
-                        DialogResult.Yes)
+                    if (Wrapper.CopyDirectory(oldDir, newDir))
                     {
-                        if (Wrapper.CopyDirectory(oldDir, newDir))
+                        if (MessageBox.Show(
+                                string.Format(
+                                    OperatingMethodsStrings.ChangeUserShellFolder_DeleteContent_Text,
+                                    oldDir.FullName, newDir.FullName),
+                                OperatingMethodsStrings.ChangeUserShellFolder_DeleteContent_Title,
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                                MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
-                            if (MessageBox.Show($"Soll der Ordner {oldDir.FullName} gelöscht werden," +
-                                                $" da seine Inhalte in {newDir.FullName} gespeichert sind?",
-                                    "Alte Dateien löschen?",
-                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                                    MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                            if (Wrapper.DeleteDirectory(oldDir) && !oldDir.Exists)
                             {
-                                if (Wrapper.DeleteDirectory(oldDir) && !oldDir.Exists)
-                                {
-                                    Wrapper.ExecuteCommand($"mklink /D {oldDir.FullName}\\ {newDir.FullName}", true,
-                                        true);
-                                }
+                                Wrapper.ExecuteCommand($"mklink /D {oldDir.FullName}\\ {newDir.FullName}", true,
+                                    true);
                             }
                         }
                     }
-
-                    if (MessageBox.Show("Sollen die Änderungen durch einen Neustart des Explorers angewendet werden? " +
-                                        "Dies kann dazu führen dass der Bildschirm für kurze Zeit ein falsches oder garkein Bild anzeigt," +
-                                        " außerdem Werden Änderungen an der Anordnung von Objekten auf dem Desktop und im Startmenü zurückgesetzt," +
-                                        " wenn der Benutzer nach der Änderung noch nicht abgemeldet wurde." +
-                                        " Tipp: Die Ändeungen können auch durch das Ab- und wieder Anmelden des Benutzers angewendet werden.",
-                            "Änderungen anwenden und Explorer neustarten?", MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                    {
-                        Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);
-                    }
-
-                    return true;
                 }
 
-                return false;
-            }
-            else
-            {
-                MessageBox.Show("Der angegebene Pfad existiert nicht", "Fehler", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                if (MessageBox.Show(
+                        OperatingMethodsStrings.ChangeUserShellFolder_RestartExplorer_Text,OperatingMethodsStrings.ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);
+                }
 
-                return false;
+                return true;
             }
+
+            return false;
         }
     }
 }

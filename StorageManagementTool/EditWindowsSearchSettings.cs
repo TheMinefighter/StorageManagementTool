@@ -109,7 +109,7 @@ namespace StorageManagementTool
             //(string) Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Microsoft")
             //.OpenSubKey("Windows Search").GetValue("DataDirectory");
 
-            if (Wrapper.GetRegValue(SearchDatatDirectoryRegPath, out object text, true))
+            if (Wrapper.GetRegistryValue(SearchDatatDirectoryRegPath, out object text, true))
             {
                 string displayedSearchDataPath;
                 try
