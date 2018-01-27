@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static StorageManagementTool.GlobalizationRessources.ApplyPresetStrings;
 
@@ -22,19 +15,19 @@ namespace StorageManagementTool
         {
             if (!Session.Singleton.Isadmin)
             {
-                if (MessageBox.Show(Load_AdministratorRequired,Error,MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1)==DialogResult.Yes)
+                if (MessageBox.Show(Load_AdministratorRequired, Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Wrapper.RestartAsAdministrator();
                 }
                 else
                 {
-                    this.Close();
+                    Close();
                 }
             }
 
             Session.Singleton.FillWithDriveInfo(SelectHDD_lb);
             Session.Singleton.FillWithDriveInfo(SelectSSD_lb);
-
         }
     }
 }

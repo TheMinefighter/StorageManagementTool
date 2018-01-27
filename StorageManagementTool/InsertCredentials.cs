@@ -6,24 +6,26 @@ namespace StorageManagementTool
     public sealed class InsertCredentials
     {
         /// <summary>
-        /// Stores Credentials for later use when an Administartor Account is required
+        ///     Stores Credentials for later use when an Administartor Account is required
         /// </summary>
-        private static Credentials _forAdmin=new Credentials();
+        private static Credentials _forAdmin = new Credentials();
+
         /// <summary>
-        /// Stores Credentials for later use
+        ///     Stores Credentials for later use
         /// </summary>
-        private static Credentials _forStandard=new Credentials();
-/// <summary>
-/// Gives credentials meeting specified requirements
-/// </summary>
-/// <param name="adminNeeded">Whether the Credentials need to fit for an administrator Account</param>
-/// <param name="credentials">The Credentials requested</param>
-/// <returns>Whether the Operation were successful</returns>
+        private static Credentials _forStandard = new Credentials();
+
+        /// <summary>
+        ///     Gives credentials meeting specified requirements
+        /// </summary>
+        /// <param name="adminNeeded">Whether the Credentials need to fit for an administrator Account</param>
+        /// <param name="credentials">The Credentials requested</param>
+        /// <returns>Whether the Operation were successful</returns>
         public static bool GetCredentials(bool adminNeeded, out Credentials credentials)
         {
             if (adminNeeded)
             {
-                if (_forAdmin.Username!=null)
+                if (_forAdmin.Username != null)
                 {
                     credentials = _forAdmin;
                     return true;
@@ -31,48 +33,58 @@ namespace StorageManagementTool
             }
             else
             {
-                if (_forStandard.Username!=null)
+                if (_forStandard.Username != null)
                 {
                     credentials = _forStandard;
                     return true;
                 }
             }
-             credentials = new Credentials();
-            InsertCredentialsDialog dialog = new InsertCredentialsDialog() {Tag=new DialogReturnData(adminNeeded)};
+
+            credentials = new Credentials();
+            InsertCredentialsDialog dialog = new InsertCredentialsDialog {Tag = new DialogReturnData(adminNeeded)};
             dialog.ShowDialog();
-            if (((DialogReturnData)dialog.Tag).IsAborted)
+            if (((DialogReturnData) dialog.Tag).IsAborted)
             {
                 return false;
             }
+
             credentials = ((DialogReturnData) dialog.Tag).GivenCredentials;
-            _forStandard= ((DialogReturnData)dialog.Tag).GivenCredentials;
-            if (((DialogReturnData)dialog.Tag).IsAdmin)
+            _forStandard = ((DialogReturnData) dialog.Tag).GivenCredentials;
+            if (((DialogReturnData) dialog.Tag).IsAdmin)
             {
-                _forAdmin= ((DialogReturnData)dialog.Tag).GivenCredentials;
+                _forAdmin = ((DialogReturnData) dialog.Tag).GivenCredentials;
             }
+
             return !((DialogReturnData) dialog.Tag).IsAborted;
         }
+
         /// <summary>
-        /// Class for storing Windows Credentials
+        ///     Class for storing Windows Credentials
         /// </summary>
         public sealed class Credentials
         {
+            [Browsable(false)] public SecureString Password;
+
+            public string Username;
+
             public Credentials()
             {
-                Password=new SecureString();
+                Password = new SecureString();
             }
-            [BrowsableAttribute(false)]
-            public SecureString Password;
-            public string Username;
         }
-/// <summary>
-/// Class for the the return data of the insert credentials dialog
-/// </summary>
+
+        /// <summary>
+        ///     Class for the the return data of the insert credentials dialog
+        /// </summary>
         public class DialogReturnData
         {
+            public bool IsAborted { get; set; }
+            public Credentials GivenCredentials { get; set; }
+            public bool IsAdmin { get; set; }
+            public bool AdminRequired { get; set; }
+
             public DialogReturnData()
             {
-                
             }
 
             public DialogReturnData(bool adminAccountRequired)
@@ -81,10 +93,6 @@ namespace StorageManagementTool
                 AdminRequired = adminAccountRequired;
                 IsAborted = true;
             }
-            public bool IsAborted { get; set; }
-            public Credentials GivenCredentials { get; set; }
-            public bool IsAdmin { get; set; }
-            public bool AdminRequired { get; set; }
         }
     }
 }

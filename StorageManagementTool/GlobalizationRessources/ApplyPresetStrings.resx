@@ -123,4 +123,7 @@
   <data name="Load_AdministratorRequired" xml:space="preserve">
     <value />
   </data>
+  <data name="Presets_LocalsHDDAndSSD" xml:space="preserve">
+    <value />
+  </data>
 </root>

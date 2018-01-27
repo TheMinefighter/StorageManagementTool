@@ -21,7 +21,7 @@ namespace StorageManagementTool
             if (Directory.Exists(CurrentPath_tb.Text))
             {
                 Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath,
-                    CurrentPath_tb.Text, false, false, false);
+                    CurrentPath_tb.Text);
             }
         }
 
@@ -30,7 +30,7 @@ namespace StorageManagementTool
             if (Directory.Exists(NewPath_tb.Text))
             {
                 Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath,
-                    NewPath_tb.Text, false, false, false);
+                    NewPath_tb.Text);
             }
         }
 
@@ -43,8 +43,8 @@ namespace StorageManagementTool
         private void ShowFurtherSettings_btn_Click(object sender, EventArgs e)
         {
             {
-                Wrapper.ExecuteExecuteable(  Path.Combine(Wrapper.WinPath,@"System32\rundll32.exe"),
-                    " shell32.dll,Control_RunDLL srchadmin.dll", false, false, false);
+                Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, @"rundll32.exe"),
+                    " shell32.dll,Control_RunDLL srchadmin.dll");
             }
         }
 
@@ -61,12 +61,12 @@ namespace StorageManagementTool
                             "Neustarten?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         Wrapper.ExecuteExecuteable(
-                            Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.WinPath,
-                                @"system32\shutdown.exe")), " /R /T 0", false,
+                            Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
+                                @"shutdown.exe")), " /R /T 0", false,
                             true, false);
                     }
 
-                    this.Close();
+                    Close();
                 }
             }
             else
@@ -78,7 +78,7 @@ namespace StorageManagementTool
 
         private void Abort_btn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void CurrentPath_tb_TextChanged(object sender, EventArgs e)

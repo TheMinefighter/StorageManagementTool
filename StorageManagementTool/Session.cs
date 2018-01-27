@@ -9,46 +9,46 @@ using Newtonsoft.Json;
 namespace StorageManagementTool
 {
     /// <summary>
-    /// Stores session data
+    ///     Stores session data
     /// </summary>
     public class Session
     {
         /// <summary>
-        /// Reference to the Session Object
+        ///     Reference to the Session Object
         /// </summary>
         public static Session Singleton;
-
-        /// <summary>
-        /// The List of drives currently available
-        /// </summary>
-        public List<DriveInfo> CurrentDrives;
-
-        /// <summary>
-        /// The current JSON configuration
-        /// </summary>
-        public JSONConfig CfgJson;
 
         private MainWindow _mainForm;
 
         /// <summary>
-        /// Whether the program runs as administrator
+        ///     The current JSON configuration
         /// </summary>
-        public bool Isadmin;
+        public JSONConfig CfgJson;
 
         /// <summary>
-        /// The path of the configuration file
+        ///     The path of the configuration file
         /// </summary>
         public string CfgPath;
 
         /// <summary>
-        /// The stadium of the swapfile
+        ///     The List of drives currently available
         /// </summary>
-        public int Swapstadium;
+        public List<DriveInfo> CurrentDrives;
 
         public UIStrings.UILanguage CurrentLanguage;
 
         /// <summary>
-        /// Creates a new Session
+        ///     Whether the program runs as administrator
+        /// </summary>
+        public bool Isadmin;
+
+        /// <summary>
+        ///     The stadium of the swapfile
+        /// </summary>
+        public int Swapstadium;
+
+        /// <summary>
+        ///     Creates a new Session
         /// </summary>
         public Session()
         {
@@ -63,10 +63,12 @@ namespace StorageManagementTool
             }
 
             Singleton = this;
+            ScenarioPreset.LoadPresets();
+            UserShellFolder.LoadEditable();
         }
 
         /// <summary>
-        /// Refreshes the current Stadium of the Swapfile Movement
+        ///     Refreshes the current Stadium of the Swapfile Movement
         /// </summary>
         public void RefreshSwapfileStadium()
         {
@@ -93,7 +95,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Fills an given Listbox with information about the available Drives
+        ///     Fills an given Listbox with information about the available Drives
         /// </summary>
         /// <param name="toFill"></param>
         public void FillWithDriveInfo(ListBox toFill)
@@ -106,7 +108,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Stores the configuration in a JSON file
+        ///     Stores the configuration in a JSON file
         /// </summary>
         public void SaveCfg()
         {
@@ -115,7 +117,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Creates an IEnumerable with all current DriveInfos
+        ///     Creates an IEnumerable with all current DriveInfos
         /// </summary>
         /// <returns>All DriveInfos</returns>
         public IEnumerable<string> FillWithDriveInfo()

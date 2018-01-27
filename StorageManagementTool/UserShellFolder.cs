@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.IO;
+using System.Linq;
 
 namespace StorageManagementTool
 {
@@ -20,17 +20,18 @@ namespace StorageManagementTool
         private const string ProgramPathDefinitionRoot =
             @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion";
 
-        public UserShellFolder(string Name, RegPath[] Regpaths, bool moveExistingFiles = true, bool accessAsUser=false)
+        public UserShellFolder(string Name, RegPath[] Regpaths, bool moveExistingFiles = true,
+            bool accessAsUser = false)
         {
-            this.ViewedName = Name;
-            this.RegPaths = Regpaths;
-            this.MoveExistingFiles = moveExistingFiles;
-            this.AccessAsUser = accessAsUser;
+            ViewedName = Name;
+            RegPaths = Regpaths;
+            MoveExistingFiles = moveExistingFiles;
+            AccessAsUser = accessAsUser;
         }
 
         //   public UserShellFolder()  {  }
 
-        static UserShellFolder NormalUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
+        private static UserShellFolder NormalUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
         {
             return new UserShellFolder
             {
@@ -42,7 +43,7 @@ namespace StorageManagementTool
             };
         }
 
-        static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
+        private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
         {
             return new UserShellFolder
             {
@@ -59,11 +60,17 @@ namespace StorageManagementTool
         public bool MoveExistingFiles;
         public bool AccessAsUser;
 
-        public static readonly UserShellFolder[] AllEditableUserUserShellFolders =
+        public static void LoadEditable()
+        {
+        }
+
+        public static UserShellFolder[] AllEditableUserUserShellFolders =
         {
             #region Based upon https://support.microsoft.com/en-us/help/931087/how-to-redirect-user-shell-folders-to-a-specified-path-by-using-profil access on 22.01.2017
 
+            NormalUSF("Desktop", "Desktop"),
             NormalUSF("Eigene Dokumente", "Personal"),
+            NormalUSF("Eigene Videos", "My Video"),
             NormalUSF("Eigene Musik", "My Music"),
             NormalUSF("Eigene Bilder", "My Pictures"),
             NormalUSF("Senden an", "SendTo"),
@@ -82,7 +89,8 @@ namespace StorageManagementTool
             NormalUSF("Netzwerkverknüpfungen", "NetHood", false),
             NormalUSF("Druckerverknüpfung", "PrintHood", false),
             NormalUSF("Internetcache", "Cache", false),
-            NormalUSF("Cache zum CD brennen","CD Burning",false),
+            NormalUSF("Cache zum CD brennen", "CD Burning", false),
+            NormalUSF("Downloads", "{374DE290-123F-4565-9164-39C4925E467B}"),
 
             #endregion
 
@@ -104,19 +112,34 @@ namespace StorageManagementTool
                 new[]
                 {
                     new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir (x86)")
-                }, false,true),
+                }, false, true),
             new UserShellFolder("Installationspfad für x64 basierte Programme",
                 new[]
                 {
                     new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir"),
-                    new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir"),
-                },false,true)
+                    new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir")
+                }, false, true)
         };
 
+        public static UserShellFolder GetUSFById(string id)
+        {
+            return AllEditableUserUserShellFolders.First(x => x.RegPaths.Any(y => y.ValueName == id));
+        }
 
         public static UserShellFolder GetUSFByName(string name)
         {
-            return AllEditableUserUserShellFolders.FirstOrDefault(x => x.ViewedName == name);
+            return AllEditableUserUserShellFolders.First(x => x.ViewedName == name);
+        }
+
+        public DirectoryInfo GetPath()
+        {
+            return GetPath(this);
+        }
+
+        public static DirectoryInfo GetPath(UserShellFolder currentUSF)
+        {
+            Wrapper.GetRegistryValue(currentUSF.RegPaths[0], out object regValue, currentUSF.AccessAsUser);
+            return new DirectoryInfo((string) regValue ?? "Fehler");
         }
     }
 }

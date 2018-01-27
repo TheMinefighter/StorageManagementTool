@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
 using System.Globalization;
-using System.Resources;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -24,10 +23,10 @@ namespace StorageManagementTool
     /// </summary>
     public static class Wrapper
     {
-       // public static ResourceManager _rmg= new ResourceManager("WrapperStrings",typeof(Wrapper).Assembly);
+        // public static ResourceManager _rmg= new ResourceManager("WrapperStrings",typeof(Wrapper).Assembly);
         private static readonly string[] ExecuteableExtensions = {".exe", ".pif", ".com", ".bat", ".cmd"};
         public static readonly string WinPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-
+        public static readonly string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
         public static readonly string ExplorerPath =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
@@ -73,7 +72,7 @@ namespace StorageManagementTool
             toReturn = null;
             if (asUser)
             {
-                if (!ExecuteExecuteable(Path.Combine(WinPath, @"System32\reg.exe"),
+                if (!ExecuteExecuteable(Path.Combine(System32Path, @"reg.exe"),
                     $" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _,
                     true, true, true, false, true))
                 {
@@ -135,7 +134,7 @@ namespace StorageManagementTool
             {
                 return MessageBox.Show(
                            string.Format(WrapperStrings.GetRegistryValue_Exception,
-                               path.ValueName, path.RegistryKey,e.Message),
+                               path.ValueName, path.RegistryKey, e.Message),
                            WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
                        DialogResult.Retry &&
                        GetRegistryValue(path, out toReturn, asUser);
@@ -166,7 +165,7 @@ namespace StorageManagementTool
             if (!File.Exists(filename))
             {
                 if (MessageBox.Show(
-                        string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound,filename),
+                        string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound, filename),
                         WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
@@ -307,7 +306,7 @@ namespace StorageManagementTool
         public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
             bool waitforexit = true, bool debug = false, bool readReturnData = false)
         {
-            if (ExecuteExecuteable(Path.Combine(WinPath, @"system32\cmd.exe"),
+            if (ExecuteExecuteable(Path.Combine(System32Path, @"cmd.exe"),
                 (debug ? " /K " : " /C ") + cmd, out returnData, out int tmp, readReturnData, waitforexit, hidden,
                 admin, false))
             {
@@ -338,7 +337,7 @@ namespace StorageManagementTool
         #endregion
 
         /// <summary>
-        /// Copies a Directory
+        ///     Copies a Directory
         /// </summary>
         /// <param name="src">The Directory to copy from</param>
         /// <param name="target">The Directory, where the contents of src should be copied to</param>
@@ -358,7 +357,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Deletes a Directory
+        ///     Deletes a Directory
         /// </summary>
         /// <param name="toBeDeleted">The Folder to delete</param>
         /// <param name="deletePermanent">Whether the Folder should be deleted permanently</param>
@@ -379,7 +378,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Sets an Registry Value
+        ///     Sets an Registry Value
         /// </summary>
         /// <param name="valueLocation">The Location of the Value to change</param>
         /// <param name="content">The content to write into the content</param>
@@ -415,7 +414,7 @@ namespace StorageManagementTool
                 }
 
                 string kind = RegistryValueKind.String.ToString();
-                if (!ExecuteExecuteable(Path.Combine(WinPath, @"system32\reg.exe"),
+                if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
                         $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\"",
                         out string[] ret, out int tmpExitCode, true, true, true, false,
                         true) || tmpExitCode == 1)
@@ -489,6 +488,78 @@ namespace StorageManagementTool
         }
 
         #endregion
+
+        /// <summary>
+        ///     Runs a given Action for each Element of an IEnumerable
+        /// </summary>
+        /// <param name="Base">The IEnumerable to perform Actions with</param>
+        /// <param name="action">The Action to perform with each Element of the Base</param>
+        /// <typeparam name="T">The Type of the IEnumerable</typeparam>
+        public static void ForEach<T>(this IEnumerable<T> Base, Action<T> action)
+        {
+            foreach (T variable in Base)
+            {
+                action(variable);
+            }
+        }
+
+        /// <summary>
+        ///     Restarts Program as Administartor
+        /// </summary>
+        public static void RestartAsAdministrator()
+        {
+            if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true, false, false))
+            {
+                Environment.Exit(0);
+            }
+        }
+
+        public static bool CopyFile(FileInfo src, FileInfo to)
+        {
+            try
+            {
+                FileSystem.CopyFile(src.FullName, to.FullName, UIOption.AllDialogs);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool DeleteFile(FileInfo toDelete, bool deletePermanent = true)
+        {
+            try
+            {
+                FileSystem.DeleteFile(toDelete.FullName, UIOption.AllDialogs,
+                    deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        ///     Reads the whole content of an StreamReader
+        /// </summary>
+        /// <param name="reader">The StreamReader to read from</param>
+        /// <returns>The Strings saved in the StreamReader</returns>
+        public static string[] FromStream(this StreamReader reader)
+        {
+            List<string> ret = new List<string>();
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    ret.Add(line);
+                }
+            }
+            return ret.ToArray();
+        }
 
         #region From https://stackoverflow.com/a/38308957/6730162 access on 30.9.2017
 
@@ -570,59 +641,5 @@ namespace StorageManagementTool
         }
 
         #endregion
-
-        /// <summary>
-        ///     Runs a given Action for each Element of an IEnumerable
-        /// </summary>
-        /// <param name="Base">The IEnumerable to perform Actions with</param>
-        /// <param name="action">The Action to perform with each Element of the Base</param>
-        /// <typeparam name="T">The Type of the IEnumerable</typeparam>
-        public static void ForEach<T>(this IEnumerable<T> Base, Action<T> action)
-        {
-            foreach (T variable in Base)
-            {
-                action(variable);
-            }
-        }
-
-        /// <summary>
-        ///     Restarts Program as Administartor
-        /// </summary>
-        public static void RestartAsAdministrator()
-        {
-            if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true, false, false))
-            {
-                Environment.Exit(0);
-            }
-        }
-
-        public static bool CopyFile(FileInfo src, FileInfo to)
-        {
-            try
-            {
-                FileSystem.CopyFile(src.FullName, to.FullName, UIOption.AllDialogs);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public static bool DeleteFile(FileInfo toDelete, bool deletePermanent = true)
-        {
-            try
-            {
-                FileSystem.DeleteFile(toDelete.FullName, UIOption.AllDialogs,
-                    deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

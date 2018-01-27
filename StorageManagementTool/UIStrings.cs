@@ -115,6 +115,7 @@ namespace StorageManagementTool
                     }
                 }
             }
+
             public static string RegistrySetUnauthorizedAccess
             {
                 get

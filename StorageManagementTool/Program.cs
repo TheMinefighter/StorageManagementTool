@@ -10,22 +10,22 @@ using Newtonsoft.Json;
 namespace StorageManagementTool
 {
     /// <summary>
-    /// Main class of this Program
+    ///     Main class of this Program
     /// </summary>
     public static class Program
     {
         /// <summary>
-        /// A reference to an object containig methods for the console IO operations
+        ///     A reference to an object containig methods for the console IO operations
         /// </summary>
         public static ConsoleIO ConsoleIOObject { get; set; }
 
         /// <summary>
-        /// Whether the Programm runs from any shell / commandline
+        ///     Whether the Programm runs from any shell / commandline
         /// </summary>
         public static bool CommandLineMode { get; private set; }
 
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -43,14 +43,14 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Processes aguments
+        ///     Processes aguments
         /// </summary>
         /// <param name="args">The arguments to process</param>
         private static void ProcessCommandlineArguments(List<string> args)
         {
             if (false) //For debugging purposes only
             {
-                MessageBox.Show(String.Join(",", args));
+                MessageBox.Show(string.Join(",", args));
             }
 
             if (args.Count == 0)
@@ -217,7 +217,6 @@ namespace StorageManagementTool
                                             }
 
                                             ArgumentError(args);
-                                            break;
                                         }
                                         else
                                         {
@@ -269,7 +268,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Processes arguments for -move
+        ///     Processes arguments for -move
         /// </summary>
         /// <param name="args">The arguments to process</param>
         private static void MoveObjectFromCommandline(List<string> args)
@@ -337,13 +336,14 @@ namespace StorageManagementTool
 
                 if (fileOrFolder)
                 {
-                    OperatingMethods.MoveFile(new FileInfo(oldPath),new FileInfo(newPath));
+                    OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
                 }
                 else
                 {
                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath));
                 }
-             //   OperatingMethods.MoveFolderOrFile(newPath, oldPath, fileOrFolder);
+
+                //   OperatingMethods.MoveFolderOrFile(newPath, oldPath, fileOrFolder);
             }
             else
             {
@@ -352,7 +352,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Initalizes a new session
+        ///     Initalizes a new session
         /// </summary>
         private static void SessionInitalizer()
         {
@@ -375,7 +375,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Displays an error message for wrong arguments and quits
+        ///     Displays an error message for wrong arguments and quits
         /// </summary>
         /// <param name="args">The arguments to quit with</param>
         private static void ArgumentError(IEnumerable<string> args)

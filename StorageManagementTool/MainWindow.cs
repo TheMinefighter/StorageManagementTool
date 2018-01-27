@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using IWshRuntimeLibrary;
 using File = System.IO.File;
@@ -25,9 +27,8 @@ namespace StorageManagementTool
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            System.Threading.Thread.CurrentThread.CurrentUICulture =
-                System.Globalization.CultureInfo.GetCultureInfo("de-DE");
+            Thread.CurrentThread.CurrentUICulture =
+                CultureInfo.GetCultureInfo("de-DE");
             //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
             //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
             HDDSavePathText.Text = Session.Singleton.CfgJson.DefaultHDDPath;
@@ -45,7 +46,7 @@ namespace StorageManagementTool
         }
 
         /// <summary>
-        /// Enables/Disables/Changes components when needed to prevent illegal actions
+        ///     Enables/Disables/Changes components when needed to prevent illegal actions
         /// </summary>
         private void EnableComponents()
         {
@@ -72,7 +73,7 @@ namespace StorageManagementTool
                     "Auf HDD Speichern.lnk");
                 IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
                 shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
-                shortcut.TargetPath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
                 shortcut.Arguments = " -move -auto-detect -SrcPath";
                 shortcut.Save();
 
@@ -145,7 +146,7 @@ namespace StorageManagementTool
             hddList.RemoveAt(1);
             string newPath = Session.Singleton.CfgJson.DefaultHDDPath + "\\" + new string(hddList.ToArray());
             string oldPath = FolderToMove_tb.Text;
-            ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath),new DirectoryInfo(newPath) )
+            ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath))
                 ? "Ordner erfolgreich verschoben"
                 : "Ordner aufgrund eines Fehlers nicht verschoben";
             FolderToMove_tb.Text = "";

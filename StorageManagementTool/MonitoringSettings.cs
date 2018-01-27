@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static StorageManagementTool.JSONConfig;
@@ -13,14 +14,17 @@ namespace StorageManagementTool
     {
         private static readonly XNamespace TaskNamespace = XNamespace.Get("http://schemas.microsoft.com/windows/2004/02/mit/task");
 
+        private readonly Dictionary<MonitoringAction, RadioButton> _forFilesDictionary =
+            new Dictionary<MonitoringAction, RadioButton>();
+
 
         private readonly Dictionary<MonitoringAction, RadioButton> _forFoldersDictionary =
             new Dictionary<MonitoringAction, RadioButton>();
-        private readonly Dictionary<MonitoringAction, RadioButton> _forFilesDictionary =
-            new Dictionary<MonitoringAction, RadioButton>();
+
         private MonitoringSetting _editedSettings = new MonitoringSetting();
         private List<Control> _whenEnabled = new List<Control>();
         private List<Control> _whenSelected = new List<Control>();
+
         public MonitoringSettings()
         {
             InitializeComponent();
@@ -41,7 +45,7 @@ namespace StorageManagementTool
             _forFilesDictionary.Add(MonitoringAction.Ignore, IgnoreForFiles_rb);
             _forFilesDictionary.Add(MonitoringAction.Move, AutomaticMoveForFiles_rb);
             _editedSettings = Session.Singleton.CfgJson.MonitoringSettings ?? new MonitoringSetting();
-            _whenEnabled = new List<Control>()
+            _whenEnabled = new List<Control>
             {
                 AllFolders_lb,
                 Addfolder_btn,
@@ -51,7 +55,7 @@ namespace StorageManagementTool
                 ActionForFolders_gb,
                 ChangeFolder_btn
             };
-            _whenSelected = new List<Control>()
+            _whenSelected = new List<Control>
             {
                 OpenSelectedfolder_btn,
                 RemoveSelectedFolder_btn,
@@ -65,6 +69,7 @@ namespace StorageManagementTool
                 _editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
             EnableNotifications_cb.Checked = _editedSettings.SSDMonitoringEnabled;
         }
+
         private void EnableControls()
         {
             bool itemSelected = AllFolders_lb.SelectedIndex != -1;
@@ -88,11 +93,12 @@ namespace StorageManagementTool
                 }
             }
         }
+
         private void OpenSelectedfolder_btn_Click(object sender, EventArgs e)
         {
             Wrapper.ExecuteExecuteable(
                 Wrapper.ExplorerPath,
-                (string)AllFolders_lb.SelectedItem, false, false, false);
+                (string) AllFolders_lb.SelectedItem, false, false, false);
         }
 
         private void RemoveselectedFolder_btn_Click(object sender, EventArgs e)
@@ -104,7 +110,7 @@ namespace StorageManagementTool
         private void Addfolder_btn_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog browser =
-                new FolderBrowserDialog { Description = "Wählen sie den zu überwachenden Ordner aus" };
+                new FolderBrowserDialog {Description = "Wählen sie den zu überwachenden Ordner aus"};
             browser.ShowDialog();
             _editedSettings.MonitoredFolders.Add(new MonitoredFolder(browser.SelectedPath));
             AllFolders_lb.Items.Add(browser.SelectedPath);
@@ -132,7 +138,7 @@ namespace StorageManagementTool
         private void ChangeFolder_btn_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog browser =
-                new FolderBrowserDialog { Description = "Wählen sie den zu überwachenden Ordner aus" };
+                new FolderBrowserDialog {Description = "Wählen sie den zu überwachenden Ordner aus"};
             browser.ShowDialog();
             _editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].TargetPath = browser.SelectedPath;
             AllFolders_lb.Items[AllFolders_lb.SelectedIndex] = browser.SelectedPath;
@@ -143,74 +149,74 @@ namespace StorageManagementTool
         {
             Session.Singleton.CfgJson.MonitoringSettings = _editedSettings;
             Session.Singleton.SaveCfg();
-            this.Close();
+            Close();
         }
 
         private void Abort_btn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void ForFoldersChanged(object sender, EventArgs e)
         {
-            if (((RadioButton)sender).Checked)
+            if (((RadioButton) sender).Checked)
             {
                 _editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders =
-                    _forFoldersDictionary.FirstOrDefault(x => x.Value == (RadioButton)sender).Key;
+                    _forFoldersDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
             }
         }
+
         private void ForFilesChanged(object sender, EventArgs e)
         {
-            if (((RadioButton)sender).Checked)
+            if (((RadioButton) sender).Checked)
             {
                 _editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles =
-                    _forFilesDictionary.FirstOrDefault(x => x.Value == (RadioButton)sender).Key;
+                    _forFilesDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
             }
         }
 
         private void InitalizeSSDMonitoring_btn_Click(object sender, EventArgs e)
         {
             string task = new XDocument(new XDeclaration("1.0", "UTF-16", null),
-            new XElement(TaskNamespace + "Task", new XAttribute("version", "1.4"),
-                new XElement(TaskNamespace + "RegistrationInfo",
-                    new XElement(TaskNamespace + "Date", "2017-10-30T07:51:31.6284447"),
-                    new XElement(TaskNamespace + "Author", System.Security.Principal.WindowsIdentity.GetCurrent().Name),
-                    new XElement(TaskNamespace + "Description",
-                        "Ueberwachte gegebene Pfade und fuehrt mit neuen Elementen konfigurierte Aktionen aus"),
-                    new XElement(TaskNamespace + "URI", "\\SSD Überwachung")),
-                new XElement(TaskNamespace + "Triggers",
-                    new XElement(TaskNamespace + "LogonTrigger", new XElement(TaskNamespace + "Enabled", "true"))),
-                new XElement(TaskNamespace + "Principals",
-                    new XElement(TaskNamespace + "Principal", new XAttribute("id", "Author"),
-                        new XElement(TaskNamespace + "GroupId", "S-1-5-32-545"),
-                        new XElement(TaskNamespace + "RunLevel", "HighestAvailable"))),
-                new XElement(TaskNamespace + "Settings",
-                    new XElement(TaskNamespace + "MultipleInstancesPolicy", "Parallel"),
-                    new XElement(TaskNamespace + "DisallowStartIfOnBatteries", "false"),
-                    new XElement(TaskNamespace + "StopIfGoingOnBatteries", "true"),
-                    new XElement(TaskNamespace + "AllowHardTerminate", "false"),
-                    new XElement(TaskNamespace + "StartWhenAvailable", "false"),
-                    new XElement(TaskNamespace + "RunOnlyIfNetworkAvailable", "false"),
-                    new XElement(TaskNamespace + "IdleSettings", new XElement(TaskNamespace + "StopOnIdleEnd", "true"),
-                        new XElement(TaskNamespace + "RestartOnIdle", "false")),
-                    new XElement(TaskNamespace + "AllowStartOnDemand", "true"),
-                    new XElement(TaskNamespace + "Enabled", "true"), new XElement(TaskNamespace + "Hidden", "false"),
-                    new XElement(TaskNamespace + "RunOnlyIfIdle", "false"),
-                    new XElement(TaskNamespace + "DisallowStartOnRemoteAppSession", "false"),
-                    new XElement(TaskNamespace + "UseUnifiedSchedulingEngine", "true"),
-                    new XElement(TaskNamespace + "WakeToRun", "false"),
-                    new XElement(TaskNamespace + "ExecutionTimeLimit", "PT0S"),
-                    new XElement(TaskNamespace + "Priority", "7")),
-                new XElement(TaskNamespace + "Actions", new XAttribute("Context", "Author"),
-                    new XElement(TaskNamespace + "Exec",
-                        new XElement(TaskNamespace + "Command", System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName),
-                        new XElement(TaskNamespace + "Arguments", "/b"))))).ToString();
+                new XElement(TaskNamespace + "Task", new XAttribute("version", "1.4"),
+                    new XElement(TaskNamespace + "RegistrationInfo",
+                        new XElement(TaskNamespace + "Date", "2017-10-30T07:51:31.6284447"),
+                        new XElement(TaskNamespace + "Author", WindowsIdentity.GetCurrent().Name),
+                        new XElement(TaskNamespace + "Description",
+                            "Ueberwachte gegebene Pfade und fuehrt mit neuen Elementen konfigurierte Aktionen aus"),
+                        new XElement(TaskNamespace + "URI", "\\SSD Überwachung")),
+                    new XElement(TaskNamespace + "Triggers",
+                        new XElement(TaskNamespace + "LogonTrigger", new XElement(TaskNamespace + "Enabled", "true"))),
+                    new XElement(TaskNamespace + "Principals",
+                        new XElement(TaskNamespace + "Principal", new XAttribute("id", "Author"),
+                            new XElement(TaskNamespace + "GroupId", "S-1-5-32-545"),
+                            new XElement(TaskNamespace + "RunLevel", "HighestAvailable"))),
+                    new XElement(TaskNamespace + "Settings",
+                        new XElement(TaskNamespace + "MultipleInstancesPolicy", "Parallel"),
+                        new XElement(TaskNamespace + "DisallowStartIfOnBatteries", "false"),
+                        new XElement(TaskNamespace + "StopIfGoingOnBatteries", "true"),
+                        new XElement(TaskNamespace + "AllowHardTerminate", "false"),
+                        new XElement(TaskNamespace + "StartWhenAvailable", "false"),
+                        new XElement(TaskNamespace + "RunOnlyIfNetworkAvailable", "false"),
+                        new XElement(TaskNamespace + "IdleSettings", new XElement(TaskNamespace + "StopOnIdleEnd", "true"),
+                            new XElement(TaskNamespace + "RestartOnIdle", "false")),
+                        new XElement(TaskNamespace + "AllowStartOnDemand", "true"),
+                        new XElement(TaskNamespace + "Enabled", "true"), new XElement(TaskNamespace + "Hidden", "false"),
+                        new XElement(TaskNamespace + "RunOnlyIfIdle", "false"),
+                        new XElement(TaskNamespace + "DisallowStartOnRemoteAppSession", "false"),
+                        new XElement(TaskNamespace + "UseUnifiedSchedulingEngine", "true"),
+                        new XElement(TaskNamespace + "WakeToRun", "false"),
+                        new XElement(TaskNamespace + "ExecutionTimeLimit", "PT0S"),
+                        new XElement(TaskNamespace + "Priority", "7")),
+                    new XElement(TaskNamespace + "Actions", new XAttribute("Context", "Author"),
+                        new XElement(TaskNamespace + "Exec",
+                            new XElement(TaskNamespace + "Command", Process.GetCurrentProcess().MainModule.FileName),
+                            new XElement(TaskNamespace + "Arguments", "/b"))))).ToString();
 
             File.WriteAllText(Environment.ExpandEnvironmentVariables($"{Path.GetTempPath()}\\SSDHDDTool.Task.xml"), task);
             Wrapper.ExecuteCommand(
                 $"SCHTASKS /Create /XML \"{Path.GetTempPath()}%temp%\\SSDHDDTool.Task.xml\" /TN SSDUerberwachung /RP * /RU {Environment.UserName}",
                 true, false, true, false);
-
         }
     }
 }

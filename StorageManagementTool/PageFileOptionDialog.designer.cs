@@ -106,7 +106,6 @@
             this.PagefileSettings_gb.TabIndex = 1;
             this.PagefileSettings_gb.TabStop = false;
             this.PagefileSettings_gb.Text = "pagefile.sys";
-            this.PagefileSettings_gb.Enter += new System.EventHandler(this.PagefileSettings_gb_Enter);
             // 
             // MinimumPagefileSize_nud
             // 
@@ -241,7 +240,6 @@
             this.SwapfileSettings_gb.TabIndex = 2;
             this.SwapfileSettings_gb.TabStop = false;
             this.SwapfileSettings_gb.Text = "swapfile.sys (nur >= Windows 8)";
-            this.SwapfileSettings_gb.Enter += new System.EventHandler(this.SwapfileSettings_gb_Enter);
             // 
             // Swapfilepartition_lb
             // 

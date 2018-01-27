@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using System.Security;
+using System.Windows.Forms;
 using static StorageManagementTool.InsertCredentials;
 
 namespace StorageManagementTool
@@ -25,13 +26,14 @@ namespace StorageManagementTool
                 Username_tb.Focus();
                 return;
             }
+
             if (Wrapper.IsUserInLocalGroup(Username_tb.Text, "Administratoren"))
             {
-                ((DialogReturnData)this.Tag).IsAdmin = true;
+                ((DialogReturnData) Tag).IsAdmin = true;
             }
             else
             {
-                if (((DialogReturnData)this.Tag).AdminRequired)
+                if (((DialogReturnData) Tag).AdminRequired)
                 {
                     MessageBox.Show("Der gennante Benutzer verfügt nicht über Administratoren-privilegien.", "Fehler",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -40,14 +42,13 @@ namespace StorageManagementTool
                     Username_tb.Focus();
                     return;
                 }
-                else
-                {
-                    ((DialogReturnData)this.Tag).IsAdmin = false;
-                }
+
+                ((DialogReturnData) Tag).IsAdmin = false;
             }
+
             Process pProcess = new Process
             {
-                StartInfo = new ProcessStartInfo(Environment.ExpandEnvironmentVariables(@"%windir%\system32\cmd.exe"), " /C exit")
+                StartInfo = new ProcessStartInfo(Path.Combine(Wrapper.System32Path,"cmd.exe"), " /C exit")
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     UseShellExecute = false,
@@ -61,7 +62,6 @@ namespace StorageManagementTool
                 pProcess.StartInfo.Password.AppendChar(c);
             }
 
-
             try
             {
                 pProcess.Start();
@@ -74,24 +74,24 @@ namespace StorageManagementTool
                 Password_tb.Focus();
                 return;
             }
-            ((DialogReturnData)this.Tag).GivenCredentials.Username = Username_tb.Text;
+
+            ((DialogReturnData) Tag).GivenCredentials.Username = Username_tb.Text;
             Password_tb.Text.ToCharArray().ToList()
-                .ForEach(x => ((DialogReturnData)this.Tag).GivenCredentials.Password.AppendChar(x));
-            ((DialogReturnData)this.Tag).IsAborted = false;
-            this.Close();
+                .ForEach(x => ((DialogReturnData) Tag).GivenCredentials.Password.AppendChar(x));
+            ((DialogReturnData) Tag).IsAborted = false;
+            Close();
         }
 
 
         private void Abort_btn_Click(object sender, EventArgs e)
         {
-            ((DialogReturnData)this.Tag).IsAborted = true;
-            this.Close();
+            ((DialogReturnData) Tag).IsAborted = true;
+            Close();
         }
 
         private void InsertCredentialsDialog_Load(object sender, EventArgs e)
         {
-
-            if (((DialogReturnData)this.Tag).AdminRequired)
+            if (((DialogReturnData) Tag).AdminRequired)
             {
                 Headline1_lbl.Text = "für einen Administratorenbenutzer ein ";
                 if (Wrapper.IsUserInLocalGroup(Environment.UserName, "Administratoren"))
@@ -107,8 +107,12 @@ namespace StorageManagementTool
 
         private void Password_tb_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) { Ok_btn_Click(null, null); }
+            if (e.KeyCode == Keys.Enter)
+            {
+                Ok_btn_Click(null, null);
+            }
         }
+
         private void InsertCredentialsDialog_closing(object sender, EventArgs e)
         {
         }

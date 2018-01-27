@@ -77,5 +77,14 @@ namespace StorageManagementTool.GlobalizationRessources {
                 return ResourceManager.GetString("Load_AdministratorRequired", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Presets_LocalsHDDAndSSD {
+            get {
+                return ResourceManager.GetString("Presets_LocalsHDDAndSSD", resourceCulture);
+            }
+        }
     }
 }
