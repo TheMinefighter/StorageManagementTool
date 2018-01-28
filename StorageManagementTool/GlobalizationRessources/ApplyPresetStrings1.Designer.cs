@@ -81,9 +81,54 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string NoHDDSelectedButRequired {
+            get {
+                return ResourceManager.GetString("NoHDDSelectedButRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string NoScenarioSelected {
+            get {
+                return ResourceManager.GetString("NoScenarioSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string NoSSDSelectedButRequired {
+            get {
+                return ResourceManager.GetString("NoSSDSelectedButRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Presets_LocalsHDDAndSSD {
             get {
                 return ResourceManager.GetString("Presets_LocalsHDDAndSSD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SelectHDD_lbl_Text {
+            get {
+                return ResourceManager.GetString("SelectHDD_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SelectSSD_lbl_Text {
+            get {
+                return ResourceManager.GetString("SelectSSD_lbl_Text", resourceCulture);
             }
         }
     }

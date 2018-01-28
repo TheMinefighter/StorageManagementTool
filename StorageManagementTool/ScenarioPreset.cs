@@ -8,8 +8,9 @@ namespace StorageManagementTool
 {
     public class ScenarioPreset
     {
-        public static List<ScenarioPreset> AvailablePresets;
+        public static ScenarioPreset[] AvailablePresets;
         public bool HDDRequired;
+        public bool SSDRequired;
         public string Name;
         public Action<DriveInfo, DriveInfo> toRun;
 
@@ -37,7 +38,7 @@ namespace StorageManagementTool
                 i++;
             } while (!empty);
 
-            DirectoryInfo baseDir = HDD.RootDirectory.CreateSubdirectory($"SSD {i}");
+            DirectoryInfo baseDir = HDD.RootDirectory.CreateSubdirectory($"SSD{i}");
             Session.Singleton.CfgJson.DefaultHDDPath = baseDir.FullName;
             Session.Singleton.SaveCfg();
             DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
@@ -50,11 +51,13 @@ namespace StorageManagementTool
 
             int memory = (int) (new ComputerInfo().TotalPhysicalMemory / 1048576L);
             OperatingMethods.ChangePagefileSettings(HDD, memory, memory * 2);
+            OperatingMethods.EnableSendToHDD();
         }
 
         public static void LoadPresets()
         {
-            AvailablePresets.Add(new ScenarioPreset {HDDRequired = true, Name = Presets_LocalsHDDAndSSD, toRun = LocalSSDAndHDD});
+            AvailablePresets = new[]
+                {new ScenarioPreset {HDDRequired = true,SSDRequired=true, Name = Presets_LocalsHDDAndSSD, toRun = LocalSSDAndHDD}};
         }
     }
 }

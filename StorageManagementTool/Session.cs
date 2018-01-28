@@ -103,7 +103,7 @@ namespace StorageManagementTool
             toFill.Items.Clear();
             foreach (DriveInfo item in CurrentDrives)
             {
-                toFill.Items.Add(OperatingMethods.DriveInfoAsString(item));
+                toFill.Items.Add(OperatingMethods.DriveInfo2String(item));
             }
         }
 
@@ -122,7 +122,7 @@ namespace StorageManagementTool
         /// <returns>All DriveInfos</returns>
         public IEnumerable<string> FillWithDriveInfo()
         {
-            return CurrentDrives.Select(OperatingMethods.DriveInfoAsString).ToList();
+            return CurrentDrives.Select(OperatingMethods.DriveInfo2String).ToList();
         }
 
         public void RefreshDriveInformation()

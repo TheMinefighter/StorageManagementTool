@@ -33,14 +33,14 @@
             this.SelectSSD_lb = new System.Windows.Forms.ListBox();
             this.SelectHDD_lb = new System.Windows.Forms.ListBox();
             this.SelectSSD_lbl = new System.Windows.Forms.Label();
-            this.SlectHDD_lbl = new System.Windows.Forms.Label();
+            this.SelectHDD_lbl = new System.Windows.Forms.Label();
             this.ApplyPreset_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectScenario_lb
             // 
             this.SelectScenario_lb.FormattingEnabled = true;
-            this.SelectScenario_lb.Location = new System.Drawing.Point(12, 143);
+            this.SelectScenario_lb.Location = new System.Drawing.Point(9, 139);
             this.SelectScenario_lb.Name = "SelectScenario_lb";
             this.SelectScenario_lb.Size = new System.Drawing.Size(158, 43);
             this.SelectScenario_lb.TabIndex = 0;
@@ -48,7 +48,7 @@
             // SelectScenario_lbl
             // 
             this.SelectScenario_lbl.AutoSize = true;
-            this.SelectScenario_lbl.Location = new System.Drawing.Point(9, 127);
+            this.SelectScenario_lbl.Location = new System.Drawing.Point(9, 123);
             this.SelectScenario_lbl.Name = "SelectScenario_lbl";
             this.SelectScenario_lbl.Size = new System.Drawing.Size(35, 13);
             this.SelectScenario_lbl.TabIndex = 1;
@@ -57,7 +57,7 @@
             // SelectSSD_lb
             // 
             this.SelectSSD_lb.FormattingEnabled = true;
-            this.SelectSSD_lb.Location = new System.Drawing.Point(15, 29);
+            this.SelectSSD_lb.Location = new System.Drawing.Point(12, 25);
             this.SelectSSD_lb.Name = "SelectSSD_lb";
             this.SelectSSD_lb.Size = new System.Drawing.Size(155, 95);
             this.SelectSSD_lb.TabIndex = 2;
@@ -65,7 +65,7 @@
             // SelectHDD_lb
             // 
             this.SelectHDD_lb.FormattingEnabled = true;
-            this.SelectHDD_lb.Location = new System.Drawing.Point(183, 29);
+            this.SelectHDD_lb.Location = new System.Drawing.Point(183, 25);
             this.SelectHDD_lb.Name = "SelectHDD_lb";
             this.SelectHDD_lb.Size = new System.Drawing.Size(143, 95);
             this.SelectHDD_lb.TabIndex = 3;
@@ -79,23 +79,24 @@
             this.SelectSSD_lbl.TabIndex = 4;
             this.SelectSSD_lbl.Text = "label2";
             // 
-            // SlectHDD_lbl
+            // SelectHDD_lbl
             // 
-            this.SlectHDD_lbl.AutoSize = true;
-            this.SlectHDD_lbl.Location = new System.Drawing.Point(180, 13);
-            this.SlectHDD_lbl.Name = "SlectHDD_lbl";
-            this.SlectHDD_lbl.Size = new System.Drawing.Size(35, 13);
-            this.SlectHDD_lbl.TabIndex = 5;
-            this.SlectHDD_lbl.Text = "label3";
+            this.SelectHDD_lbl.AutoSize = true;
+            this.SelectHDD_lbl.Location = new System.Drawing.Point(180, 9);
+            this.SelectHDD_lbl.Name = "SelectHDD_lbl";
+            this.SelectHDD_lbl.Size = new System.Drawing.Size(35, 13);
+            this.SelectHDD_lbl.TabIndex = 5;
+            this.SelectHDD_lbl.Text = "label3";
             // 
             // ApplyPreset_btn
             // 
-            this.ApplyPreset_btn.Location = new System.Drawing.Point(183, 163);
+            this.ApplyPreset_btn.Location = new System.Drawing.Point(251, 159);
             this.ApplyPreset_btn.Name = "ApplyPreset_btn";
             this.ApplyPreset_btn.Size = new System.Drawing.Size(75, 23);
             this.ApplyPreset_btn.TabIndex = 6;
             this.ApplyPreset_btn.Text = "button1";
             this.ApplyPreset_btn.UseVisualStyleBackColor = true;
+            this.ApplyPreset_btn.Click += new System.EventHandler(this.ApplyPreset_btn_Click);
             // 
             // ApplyPreset
             // 
@@ -103,7 +104,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(343, 198);
             this.Controls.Add(this.ApplyPreset_btn);
-            this.Controls.Add(this.SlectHDD_lbl);
+            this.Controls.Add(this.SelectHDD_lbl);
             this.Controls.Add(this.SelectSSD_lbl);
             this.Controls.Add(this.SelectHDD_lb);
             this.Controls.Add(this.SelectSSD_lb);
@@ -124,7 +125,7 @@
         private System.Windows.Forms.ListBox SelectSSD_lb;
         private System.Windows.Forms.ListBox SelectHDD_lb;
         private System.Windows.Forms.Label SelectSSD_lbl;
-        private System.Windows.Forms.Label SlectHDD_lbl;
+        private System.Windows.Forms.Label SelectHDD_lbl;
         private System.Windows.Forms.Button ApplyPreset_btn;
     }
 }

@@ -66,23 +66,11 @@ namespace StorageManagementTool
         {
             if (SetSendToHDD_btn.Text == "Senden an HDD aktivieren")
             {
-                #region From https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
-
-                WshShell shell = new WshShell();
-                string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-                    "Auf HDD Speichern.lnk");
-                IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
-                shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
-                shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
-                shortcut.Arguments = " -move -auto-detect -SrcPath";
-                shortcut.Save();
-
-                #endregion
+                OperatingMethods.EnableSendToHDD(true);
             }
             else
             {
-                File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-                    "Auf HDD Speichern.lnk"));
+                OperatingMethods.EnableSendToHDD(false);
             }
 
             EnableComponents();
@@ -222,6 +210,11 @@ namespace StorageManagementTool
         private void button1_Click(object sender, EventArgs e)
         {
             new EditUserShellFolders().ShowDialog();
+        }
+
+        private void ApplyPresetDialog_btn_Click(object sender, EventArgs e)
+        {
+            new ApplyPreset().ShowDialog();
         }
     }
 }

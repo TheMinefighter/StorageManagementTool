@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using StorageManagementTool.GlobalizationRessources;
+using File = System.IO.File;
 
 namespace StorageManagementTool
 {
@@ -22,7 +25,7 @@ namespace StorageManagementTool
         /// </summary>
         /// <param name="item">The DriveInfo object to represent</param>
         /// <returns>The string representation</returns>
-        public static string DriveInfoAsString(DriveInfo item)
+        public static string DriveInfo2String(DriveInfo item)
         {
             return item.IsReady
                 ? item.VolumeLabel + " (" + item.Name + " ; " +
@@ -278,7 +281,6 @@ namespace StorageManagementTool
                 case DriveType.Ram: return OperatingMethodsStrings.DriveType2String_RAM;
                 case DriveType.Removable: return OperatingMethodsStrings.DriveType2String_Removable;
                 case DriveType.NoRootDirectory: return OperatingMethodsStrings.DriveType2String_NoRootDirectory;
-                case DriveType.Unknown:
                 default: return OperatingMethodsStrings.DriveType2String_Unknown;
             }
         }
@@ -298,7 +300,6 @@ namespace StorageManagementTool
             if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
             {
                 selectedPartitionIndex = tempDriveInfoList.IndexOf(currentSelection);
-                currentSelection = tempDriveInfoList[selectedPartitionIndex];
             }
             else
             {
@@ -334,7 +335,7 @@ namespace StorageManagementTool
                 wmicPath, "computersystem get AutomaticManagedPagefile /Value"
                 , out string[] tmp, out int _, true, true, true, true)) //Tests
             {
-                if (bool.Parse(tmp[2].Split('=')[1]))
+                if (Boolean.Parse(tmp[2].Split('=')[1]))
                 {
                     Wrapper.ExecuteCommand(
                         wmicPath
@@ -345,7 +346,7 @@ namespace StorageManagementTool
                         wmicPath
                         , "computersystem get AutomaticManagedPagefile /Value"
                         , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
-                    if (!bool.Parse(tmp[2].Split('=')[1]))
+                    if (!Boolean.Parse(tmp[2].Split('=')[1]))
                     {
                         MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_CouldntDisableManagement,
                             OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -411,7 +412,7 @@ namespace StorageManagementTool
                     if (Wrapper.CopyDirectory(oldDir, newDir))
                     {
                         if (DeleteOldContents == QuestionAnswer.Yes || DeleteOldContents == QuestionAnswer.Ask && MessageBox.Show(
-                                string.Format(
+                                String.Format(
                                     OperatingMethodsStrings.ChangeUserShellFolder_DeleteContent_Text,
                                     oldDir.FullName, newDir.FullName),
                                 OperatingMethodsStrings.ChangeUserShellFolder_DeleteContent_Title,
@@ -439,6 +440,30 @@ namespace StorageManagementTool
             }
 
             return false;
+        }
+
+        public static void EnableSendToHDD(bool Enable = true)
+        {
+            if (Enable)
+            {
+                #region From https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
+
+                WshShell shell = new WshShell();
+                string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+                    "Auf HDD Speichern.lnk");
+                IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
+                shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
+                shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
+                shortcut.Arguments = " -move -auto-detect -SrcPath";
+                shortcut.Save();
+
+                #endregion
+            }
+            else
+            {
+                File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+                    "Auf HDD Speichern.lnk"));
+            }
         }
     }
 }

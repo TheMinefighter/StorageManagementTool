@@ -52,7 +52,7 @@ namespace StorageManagementTool
                 {
                     if (driveInfo.AvailableFreeSpace >= 16 * 1048576)
                     {
-                        Swapfilepartition_lb.Items.Add(OperatingMethods.DriveInfoAsString(driveInfo));
+                        Swapfilepartition_lb.Items.Add(OperatingMethods.DriveInfo2String(driveInfo));
                     }
                 }
                 catch (IOException)
@@ -131,9 +131,6 @@ namespace StorageManagementTool
             Session.Singleton.FillWithDriveInfo(Pagefilepartition_lb);
         }
 
-        private void SwapfileSettings_gb_Enter(object sender, EventArgs e)
-        {
-        }
 
 
         private void ExtendedPagefileOptions_btn_Click(object sender, EventArgs e)
@@ -143,7 +140,7 @@ namespace StorageManagementTool
             Thread.Sleep(500);
             MessageBox.Show(
                 "Öffne den Tab \"Erweitert\" und klicke dort auf \"Ändern...\" um die Weiteren Optionen für Arbeitsspeicherauslagerungas Dateien zu öffnen ",
-                "Information", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
         private void ApplyPagefileChanges_btn_Click(object sender, EventArgs e)

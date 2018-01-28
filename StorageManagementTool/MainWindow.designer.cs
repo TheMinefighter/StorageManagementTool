@@ -56,6 +56,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.SetSendToHDD_btn = new System.Windows.Forms.Button();
             this.FurtherSettings_gb = new System.Windows.Forms.GroupBox();
+            this.ApplyPresetDialog_btn = new System.Windows.Forms.Button();
             this.CustomFolderOrFileSelection_gb.SuspendLayout();
             this.Suggestions_gb.SuspendLayout();
             this.MoveFilesOrFolder_gb.SuspendLayout();
@@ -100,7 +101,7 @@
             this.HDDSavePath.UseVisualStyleBackColor = true;
             this.HDDSavePath.Click += new System.EventHandler(this.HDDSavePath_Click);
             // 
-            // FolderToMoveText
+            // FolderToMove_tb
             // 
             this.FolderToMove_tb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -242,7 +243,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.OpenWindowsSearchsettings_btn.Location = new System.Drawing.Point(6, 76);
             this.OpenWindowsSearchsettings_btn.Name = "OpenWindowsSearchsettings_btn";
-            this.OpenWindowsSearchsettings_btn.Size = new System.Drawing.Size(216, 23);
+            this.OpenWindowsSearchsettings_btn.Size = new System.Drawing.Size(213, 23);
             this.OpenWindowsSearchsettings_btn.TabIndex = 10;
             this.OpenWindowsSearchsettings_btn.Text = "Suchindizierung anpassen";
             this.OpenWindowsSearchsettings_btn.UseVisualStyleBackColor = true;
@@ -254,7 +255,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.EditSSDMonitoring.Location = new System.Drawing.Point(6, 134);
             this.EditSSDMonitoring.Name = "EditSSDMonitoring";
-            this.EditSSDMonitoring.Size = new System.Drawing.Size(216, 23);
+            this.EditSSDMonitoring.Size = new System.Drawing.Size(213, 23);
             this.EditSSDMonitoring.TabIndex = 20;
             this.EditSSDMonitoring.Text = "SSD Überwachung anpassen";
             this.EditSSDMonitoring.UseVisualStyleBackColor = true;
@@ -268,7 +269,7 @@
             this.AdministartorStatus_tb.Multiline = true;
             this.AdministartorStatus_tb.Name = "AdministartorStatus_tb";
             this.AdministartorStatus_tb.ReadOnly = true;
-            this.AdministartorStatus_tb.Size = new System.Drawing.Size(215, 38);
+            this.AdministartorStatus_tb.Size = new System.Drawing.Size(213, 38);
             this.AdministartorStatus_tb.TabIndex = 13;
             // 
             // RestartAsAdministartor_btn
@@ -278,7 +279,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RestartAsAdministartor_btn.Location = new System.Drawing.Point(6, 19);
             this.RestartAsAdministartor_btn.Name = "RestartAsAdministartor_btn";
-            this.RestartAsAdministartor_btn.Size = new System.Drawing.Size(215, 23);
+            this.RestartAsAdministartor_btn.Size = new System.Drawing.Size(213, 23);
             this.RestartAsAdministartor_btn.TabIndex = 14;
             this.RestartAsAdministartor_btn.Text = "Neustarten mit Adminstatorrechten";
             this.RestartAsAdministartor_btn.UseVisualStyleBackColor = true;
@@ -289,9 +290,9 @@
             this.AdministratorSettings_gb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AdministratorSettings_gb.Controls.Add(this.RestartAsAdministartor_btn);
             this.AdministratorSettings_gb.Controls.Add(this.AdministartorStatus_tb);
-            this.AdministratorSettings_gb.Location = new System.Drawing.Point(427, 181);
+            this.AdministratorSettings_gb.Location = new System.Drawing.Point(429, 210);
             this.AdministratorSettings_gb.Name = "AdministratorSettings_gb";
-            this.AdministratorSettings_gb.Size = new System.Drawing.Size(227, 94);
+            this.AdministratorSettings_gb.Size = new System.Drawing.Size(225, 94);
             this.AdministratorSettings_gb.TabIndex = 16;
             this.AdministratorSettings_gb.TabStop = false;
             this.AdministratorSettings_gb.Text = "Administratorenprivilegien";
@@ -314,7 +315,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(6, 105);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(216, 23);
+            this.button2.Size = new System.Drawing.Size(213, 23);
             this.button2.TabIndex = 19;
             this.button2.Text = "Arbeitsspeicherauslagerungs Dateien";
             this.button2.UseVisualStyleBackColor = true;
@@ -326,7 +327,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(6, 47);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(216, 23);
+            this.button1.Size = new System.Drawing.Size(213, 23);
             this.button1.TabIndex = 21;
             this.button1.Text = "UserShellFolder bearbeiten";
             this.button1.UseVisualStyleBackColor = true;
@@ -338,7 +339,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SetSendToHDD_btn.Location = new System.Drawing.Point(6, 18);
             this.SetSendToHDD_btn.Name = "SetSendToHDD_btn";
-            this.SetSendToHDD_btn.Size = new System.Drawing.Size(216, 23);
+            this.SetSendToHDD_btn.Size = new System.Drawing.Size(213, 23);
             this.SetSendToHDD_btn.TabIndex = 22;
             this.SetSendToHDD_btn.Text = "Senden an HDD aktivieren";
             this.SetSendToHDD_btn.UseVisualStyleBackColor = true;
@@ -347,6 +348,7 @@
             // FurtherSettings_gb
             // 
             this.FurtherSettings_gb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FurtherSettings_gb.Controls.Add(this.ApplyPresetDialog_btn);
             this.FurtherSettings_gb.Controls.Add(this.EditSSDMonitoring);
             this.FurtherSettings_gb.Controls.Add(this.OpenWindowsSearchsettings_btn);
             this.FurtherSettings_gb.Controls.Add(this.button2);
@@ -354,10 +356,22 @@
             this.FurtherSettings_gb.Controls.Add(this.SetSendToHDD_btn);
             this.FurtherSettings_gb.Location = new System.Drawing.Point(429, 12);
             this.FurtherSettings_gb.Name = "FurtherSettings_gb";
-            this.FurtherSettings_gb.Size = new System.Drawing.Size(228, 163);
+            this.FurtherSettings_gb.Size = new System.Drawing.Size(225, 192);
             this.FurtherSettings_gb.TabIndex = 24;
             this.FurtherSettings_gb.TabStop = false;
             this.FurtherSettings_gb.Text = "Weitere Einstellungen";
+            // 
+            // ApplyPresetDialog_btn
+            // 
+            this.ApplyPresetDialog_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ApplyPresetDialog_btn.Location = new System.Drawing.Point(6, 163);
+            this.ApplyPresetDialog_btn.Name = "ApplyPresetDialog_btn";
+            this.ApplyPresetDialog_btn.Size = new System.Drawing.Size(213, 23);
+            this.ApplyPresetDialog_btn.TabIndex = 23;
+            this.ApplyPresetDialog_btn.Text = "Automatische Einrichtung";
+            this.ApplyPresetDialog_btn.UseVisualStyleBackColor = true;
+            this.ApplyPresetDialog_btn.Click += new System.EventHandler(this.ApplyPresetDialog_btn_Click);
             // 
             // MainWindow
             // 
@@ -413,7 +427,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button SetSendToHDD_btn;
         private System.Windows.Forms.GroupBox FurtherSettings_gb;
-
+        private System.Windows.Forms.Button ApplyPresetDialog_btn;
     }
 }
 
