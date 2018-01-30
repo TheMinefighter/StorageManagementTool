@@ -124,27 +124,27 @@
     <value>Error</value>
   </data>
   <data name="Load_AdministratorRequired" xml:space="preserve">
-    <value />
+    <value>The selected operation requires the access to administrator priviliges. Do you want to restart the program with administartor priviliges?</value>
   </data>
   <data name="NoHDDSelectedButRequired" xml:space="preserve">
-    <value />
+    <value>The selected scenario requires a HDD, but no HDD were selected.</value>
   </data>
   <data name="NoScenarioSelected" xml:space="preserve">
-    <value />
+    <value>No scenario were selected.</value>
   </data>
   <data name="NoSSDSelectedButRequired" xml:space="preserve">
-    <value />
+    <value>The selected scenario requires a SSD, but no SSD were selected.</value>
   </data>
   <data name="Presets_LocalHDDAndSSD" xml:space="preserve">
-    <value />
+    <value>Local SSD and HDD</value>
   </data>
   <data name="SelectHDD_lbl_Text" xml:space="preserve">
-    <value />
+    <value>HDD</value>
   </data>
   <data name="SelectScenario_lbl_Text" xml:space="preserve">
-    <value />
+    <value>Scenario</value>
   </data>
   <data name="SelectSSD_lbl_Text" xml:space="preserve">
-    <value />
+    <value>SSD</value>
   </data>
 </root>
