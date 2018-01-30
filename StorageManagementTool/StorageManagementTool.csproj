@@ -120,7 +120,7 @@
     <Compile Include="EnterCredentialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InsertCredentialsDialog.designer.cs">
+    <Compile Include="EnterCredentialsDialog.designer.cs">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="JsonConfig.cs" />
@@ -181,10 +181,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertCredentialsDialog.ko-KP.resx">
+    <EmbeddedResource Include="EnterCredentialsDialog.ko-KP.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertCredentialsDialog.resx">
+    <EmbeddedResource Include="EnterCredentialsDialog.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
