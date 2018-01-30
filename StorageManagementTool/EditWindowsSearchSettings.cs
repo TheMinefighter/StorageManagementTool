@@ -52,8 +52,7 @@ namespace StorageManagementTool
         {
             if (Directory.Exists(NewPath_tb.Text))
             {
-                new DirectoryInfo(NewPath_tb.Text).CreateSubdirectory("Search").CreateSubdirectory("Data");
-                if (Wrapper.SetRegistryValue(SearchDatatDirectoryRegPath, NewPath_tb.Text, RegistryValueKind.String,
+                if (Wrapper.SetRegistryValue(SearchDatatDirectoryRegPath, new DirectoryInfo(NewPath_tb.Text).CreateSubdirectory("Search").CreateSubdirectory("Data").FullName, RegistryValueKind.String,
                     true))
                 {
                     if (MessageBox.Show(
@@ -62,8 +61,8 @@ namespace StorageManagementTool
                     {
                         Wrapper.ExecuteExecuteable(
                             Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
-                                @"shutdown.exe")), " /R /T 0", false,
-                            true, false);
+                                @"shutdown.exe")), " /R /T 1", false,
+                            true);
                     }
 
                     Close();
@@ -114,7 +113,7 @@ namespace StorageManagementTool
                 string displayedSearchDataPath;
                 try
                 {
-                    DirectoryInfo readPath = new DirectoryInfo((string) text);
+                    DirectoryInfo readPath = new DirectoryInfo((string)text);
                     displayedSearchDataPath = readPath.Parent.Parent.FullName;
                 }
                 catch (Exception)

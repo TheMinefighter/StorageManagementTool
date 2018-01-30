@@ -63,6 +63,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ApplyPreset_btn_Text {
+            get {
+                return ResourceManager.GetString("ApplyPreset_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
@@ -120,6 +129,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string SelectHDD_lbl_Text {
             get {
                 return ResourceManager.GetString("SelectHDD_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SelectScenario_lbl_Text {
+            get {
+                return ResourceManager.GetString("SelectScenario_lbl_Text", resourceCulture);
             }
         }
         

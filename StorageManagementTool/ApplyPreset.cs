@@ -29,6 +29,8 @@ namespace StorageManagementTool
             }
             SelectHDD_lbl.Text = SelectHDD_lbl_Text;
             SelectSSD_lbl.Text = SelectSSD_lbl_Text;
+            ApplyPreset_btn.Text = ApplyPreset_btn_Text;
+            SelectScenario_lbl.Text = SelectScenario_lbl_Text;
             Session.Singleton.FillWithDriveInfo(SelectHDD_lb);
             Session.Singleton.FillWithDriveInfo(SelectSSD_lb);
 

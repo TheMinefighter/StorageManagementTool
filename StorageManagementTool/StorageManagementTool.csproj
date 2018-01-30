@@ -160,6 +160,8 @@
     <EmbeddedResource Include="EditWindowsSearchSettings.resx">
       <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.en-US.resx" />
     <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ApplyPresetStrings1.Designer.cs</LastGenOutput>
