@@ -31,6 +31,7 @@ namespace StorageManagementTool
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public static void Main(string[] args)
         {
+
             string parentName = Process.GetCurrentProcess().ProcessName;
             CommandLineMode = parentName.Contains("cmd") || parentName.Contains("powershell");
             ConsoleIO.SetVisibility(CommandLineMode);

@@ -19,8 +19,8 @@ namespace StorageManagementToolLauncher
         private static void Main(string[] args)
         {
             IntPtr handle = GetConsoleWindow();
-            ShowWindow(handle, SW_HIDE);
-            ShowWindow(handle, SW_SHOW);
+           // ShowWindow(handle, SW_HIDE);
+         //   ShowWindow(handle, SW_SHOW);
             StorageManagementTool.Program.ConsoleIOObject = new ConsoleIO
             {
                 WriteLineToConsole = Console.WriteLine,

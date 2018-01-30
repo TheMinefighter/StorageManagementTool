@@ -115,7 +115,7 @@ namespace StorageManagementTool.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to InvalidThreadLanguage.
         /// </summary>
         internal static string Presets_LocalHDDAndSSD {
             get {
@@ -133,7 +133,7 @@ namespace StorageManagementTool.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to InvalidThreadLanguage.
         /// </summary>
         internal static string SelectScenario_lbl_Text {
             get {

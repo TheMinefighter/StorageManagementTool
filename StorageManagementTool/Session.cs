@@ -35,8 +35,6 @@ namespace StorageManagementTool
         /// </summary>
         public List<DriveInfo> CurrentDrives;
 
-        public UIStrings.UILanguage CurrentLanguage;
-
         /// <summary>
         ///     Whether the program runs as administrator
         /// </summary>
@@ -52,15 +50,7 @@ namespace StorageManagementTool
         /// </summary>
         public Session()
         {
-            switch (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)
-            {
-                case "de":
-                    CurrentLanguage = UIStrings.UILanguage.German;
-                    break;
-                default:
-                    CurrentLanguage = UIStrings.UILanguage.English;
-                    break;
-            }
+            
 
             Singleton = this;
             ScenarioPreset.LoadPresets();

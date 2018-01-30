@@ -14,7 +14,10 @@ namespace StorageManagementTool
         public string Name;
         public Action<DriveInfo, DriveInfo> toRun;
 
-
+        public ScenarioPreset()
+        {
+            
+        }
         private static void LocalSSDAndHDD(DriveInfo SSD, DriveInfo HDD)
         {
             Dictionary<string, string> usfToMove = new Dictionary<string, string>
