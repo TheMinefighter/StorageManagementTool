@@ -59,5 +59,104 @@ namespace StorageManagementTool.GlobalizationRessources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Abort_btn_Text {
+            get {
+                return ResourceManager.GetString("Abort_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AdministratorInstructions {
+            get {
+                return ResourceManager.GetString("AdministratorInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string EnterAUsername {
+            get {
+                return ResourceManager.GetString("EnterAUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string EnteredCredentialsAreInvalid {
+            get {
+                return ResourceManager.GetString("EnteredCredentialsAreInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string NormalInstructions {
+            get {
+                return ResourceManager.GetString("NormalInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string NotAdministratorButRequired {
+            get {
+                return ResourceManager.GetString("NotAdministratorButRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Ok_btn_Text {
+            get {
+                return ResourceManager.GetString("Ok_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Password_lbl_Text {
+            get {
+                return ResourceManager.GetString("Password_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Username_lbl_Text {
+            get {
+                return ResourceManager.GetString("Username_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Window_Title {
+            get {
+                return ResourceManager.GetString("Window_Title", resourceCulture);
+            }
+        }
     }
 }

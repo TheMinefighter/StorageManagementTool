@@ -37,7 +37,6 @@ namespace StorageManagementTool
             this.Password_lbl = new System.Windows.Forms.Label();
             this.Password_tb = new System.Windows.Forms.TextBox();
             this.Username_lbl = new System.Windows.Forms.Label();
-            this.Headline1_lbl = new System.Windows.Forms.Label();
             this.Abort_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -74,11 +73,6 @@ namespace StorageManagementTool
             resources.ApplyResources(this.Username_lbl, "Username_lbl");
             this.Username_lbl.Name = "Username_lbl";
             // 
-            // Headline1_lbl
-            // 
-            resources.ApplyResources(this.Headline1_lbl, "Headline1_lbl");
-            this.Headline1_lbl.Name = "Headline1_lbl";
-            // 
             // Abort_btn
             // 
             resources.ApplyResources(this.Abort_btn, "Abort_btn");
@@ -86,12 +80,11 @@ namespace StorageManagementTool
             this.Abort_btn.UseVisualStyleBackColor = true;
             this.Abort_btn.Click += new System.EventHandler(this.Abort_btn_Click);
             // 
-            // InsertCredentialsDialog
+            // EnterCredentialsDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.Abort_btn);
-            this.Controls.Add(this.Headline1_lbl);
             this.Controls.Add(this.Username_lbl);
             this.Controls.Add(this.Password_lbl);
             this.Controls.Add(this.Password_tb);
@@ -113,7 +106,6 @@ namespace StorageManagementTool
         private System.Windows.Forms.Label Password_lbl;
         private System.Windows.Forms.TextBox Password_tb;
         private System.Windows.Forms.Label Username_lbl;
-        private System.Windows.Forms.Label Headline1_lbl;
         private Button Abort_btn;
     }
 }
