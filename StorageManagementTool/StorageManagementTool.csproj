@@ -111,12 +111,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OperatingMethodsStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="InsertCredentials.cs" />
-    <Compile Include="InsertCredentialsDialog.cs">
+    <Compile Include="EnterCredentials.cs" />
+    <Compile Include="EnterCredentialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InsertCredentialsDialog.designer.cs">
-      <DependentUpon>InsertCredentialsDialog.cs</DependentUpon>
+    <Compile Include="EnterCredentialsDialog.designer.cs">
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="JsonConfig.cs" />
     <Compile Include="MainWindow.cs">
@@ -171,11 +171,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertCredentialsDialog.ko-KP.resx">
-      <DependentUpon>InsertCredentialsDialog.cs</DependentUpon>
+    <EmbeddedResource Include="EnterCredentialsDialog.ko-KP.resx">
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertCredentialsDialog.resx">
-      <DependentUpon>InsertCredentialsDialog.cs</DependentUpon>
+    <EmbeddedResource Include="EnterCredentialsDialog.resx">
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
