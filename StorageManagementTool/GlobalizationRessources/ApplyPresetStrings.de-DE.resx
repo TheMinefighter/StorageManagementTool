@@ -139,12 +139,12 @@
     <value>Lokale HDD und SSD</value>
   </data>
   <data name="SelectHDD_lbl_Text" xml:space="preserve">
-    <value>Wählen sie eine HDD aus</value>
+    <value>HDD</value>
   </data>
   <data name="SelectScenario_lbl_Text" xml:space="preserve">
-    <value>Wählen sie ein Anwendungsszenario aus</value>
+    <value>Anwendungsszenario</value>
   </data>
   <data name="SelectSSD_lbl_Text" xml:space="preserve">
-    <value>Wählen sie eine SSD aus</value>
+    <value>SSD</value>
   </data>
 </root>
