@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -51,10 +51,10 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>9CC2A588835476B1A7AF727E67001BC622FCBE96</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>1F1A0D9C5C9172C8FC5DAB2A2D36020763B33AD5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>StorageManagementTool_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>StorageManagementTool_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -120,7 +120,7 @@
     <Compile Include="EnterCredentialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EnterCredentialsDialog.designer.cs">
+    <Compile Include="InsertCredentialsDialog.designer.cs">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="JsonConfig.cs" />
@@ -148,7 +148,6 @@
     <Compile Include="RegPath.cs" />
     <Compile Include="ScenarioPreset.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="UIStrings.cs" />
     <Compile Include="UserShellFolder.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="GlobalizationRessources\WrapperStrings.Designer.cs">
@@ -182,10 +181,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="EnterCredentialsDialog.ko-KP.resx">
+    <EmbeddedResource Include="InsertCredentialsDialog.ko-KP.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EnterCredentialsDialog.resx">
+    <EmbeddedResource Include="InsertCredentialsDialog.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
@@ -222,7 +221,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="StorageManagementTool_1_TemporaryKey.pfx" />
+    <None Include="StorageManagementTool_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
