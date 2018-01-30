@@ -117,9 +117,9 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Presets_LocalsHDDAndSSD {
+        internal static string Presets_LocalHDDAndSSD {
             get {
-                return ResourceManager.GetString("Presets_LocalsHDDAndSSD", resourceCulture);
+                return ResourceManager.GetString("Presets_LocalHDDAndSSD", resourceCulture);
             }
         }
         

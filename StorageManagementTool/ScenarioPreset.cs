@@ -57,7 +57,7 @@ namespace StorageManagementTool
         public static void LoadPresets()
         {
             AvailablePresets = new[]
-                {new ScenarioPreset {HDDRequired = true,SSDRequired=true, Name = Presets_LocalsHDDAndSSD, toRun = LocalSSDAndHDD}};
+                {new ScenarioPreset {HDDRequired = true,SSDRequired=true, Name = Presets_LocalHDDAndSSD, toRun = LocalSSDAndHDD}};
         }
     }
 }

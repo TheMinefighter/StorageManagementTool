@@ -33,8 +33,12 @@ namespace StorageManagementTool
             SelectScenario_lbl.Text = SelectScenario_lbl_Text;
             Session.Singleton.FillWithDriveInfo(SelectHDD_lb);
             Session.Singleton.FillWithDriveInfo(SelectSSD_lb);
+            foreach (ScenarioPreset availablePreset in ScenarioPreset.AvailablePresets)
+            {
+                SelectScenario_lb.Items.Add(availablePreset.Name);
+            }
 
-            SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.Name).Cast<object>().ToArray());
+          //  SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.Name).ToArray());
 
         }
 
