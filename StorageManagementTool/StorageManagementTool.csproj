@@ -106,17 +106,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplyPresetStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="GlobalizationRessources\EnterCredentials.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnterCredentials.resx</DependentUpon>
+    </Compile>
     <Compile Include="GlobalizationRessources\OperatingMethodsStrings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OperatingMethodsStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="InsertCredentials.cs" />
-    <Compile Include="InsertCredentialsDialog.cs">
+    <Compile Include="EnterCredentials.cs" />
+    <Compile Include="EnterCredentialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InsertCredentialsDialog.designer.cs">
-      <DependentUpon>InsertCredentialsDialog.cs</DependentUpon>
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="JsonConfig.cs" />
     <Compile Include="MainWindow.cs">
@@ -143,7 +148,6 @@
     <Compile Include="RegPath.cs" />
     <Compile Include="ScenarioPreset.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="UIStrings.cs" />
     <Compile Include="UserShellFolder.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="GlobalizationRessources\WrapperStrings.Designer.cs">
@@ -165,6 +169,12 @@
     <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentials.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentials.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentials.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnterCredentials.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.en-US.resx" />
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.resx">
@@ -172,10 +182,10 @@
       <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertCredentialsDialog.ko-KP.resx">
-      <DependentUpon>InsertCredentialsDialog.cs</DependentUpon>
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertCredentialsDialog.resx">
-      <DependentUpon>InsertCredentialsDialog.cs</DependentUpon>
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

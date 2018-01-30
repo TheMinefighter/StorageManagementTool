@@ -3,7 +3,7 @@ using System.Security;
 
 namespace StorageManagementTool
 {
-    public sealed class InsertCredentials
+    public static class EnterCredentials
     {
         /// <summary>
         ///     Stores Credentials for later use when an Administartor Account is required
@@ -41,7 +41,7 @@ namespace StorageManagementTool
             }
 
             credentials = new Credentials();
-            InsertCredentialsDialog dialog = new InsertCredentialsDialog {Tag = new DialogReturnData(adminNeeded)};
+            EnterCredentialsDialog dialog = new EnterCredentialsDialog {Tag = new DialogReturnData(adminNeeded)};
             dialog.ShowDialog();
             if (((DialogReturnData) dialog.Tag).IsAborted)
             {

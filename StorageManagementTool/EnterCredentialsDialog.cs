@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Windows.Forms;
-using static StorageManagementTool.InsertCredentials;
+using static StorageManagementTool.EnterCredentials;
 
 namespace StorageManagementTool
 {
-    public sealed partial class InsertCredentialsDialog : Form
+    public sealed partial class EnterCredentialsDialog : Form
     {
-        public InsertCredentialsDialog()
+        public EnterCredentialsDialog()
         {
             InitializeComponent();
         }

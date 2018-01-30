@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 namespace StorageManagementTool
 {
-    sealed partial class InsertCredentialsDialog
+    sealed partial class EnterCredentialsDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace StorageManagementTool
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InsertCredentialsDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnterCredentialsDialog));
             this.Username_tb = new System.Windows.Forms.TextBox();
             this.Headline0_lbl = new System.Windows.Forms.Label();
             this.Ok_btn = new System.Windows.Forms.Button();
@@ -98,7 +98,7 @@ namespace StorageManagementTool
             this.Controls.Add(this.Ok_btn);
             this.Controls.Add(this.Headline0_lbl);
             this.Controls.Add(this.Username_tb);
-            this.Name = "InsertCredentialsDialog";
+            this.Name = "EnterCredentialsDialog";
             this.Load += new System.EventHandler(this.InsertCredentialsDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

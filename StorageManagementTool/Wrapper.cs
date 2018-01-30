@@ -206,7 +206,7 @@ namespace StorageManagementTool
             startInfo.UseShellExecute = false;
             if (asUser)
             {
-                if (!InsertCredentials.GetCredentials(admin, out InsertCredentials.Credentials tmp))
+                if (!EnterCredentials.GetCredentials(admin, out EnterCredentials.Credentials tmp))
                 {
                     return false;
                 }
