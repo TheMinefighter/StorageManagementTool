@@ -124,7 +124,7 @@
     <value>Fehler</value>
   </data>
   <data name="Load_AdministratorRequired" xml:space="preserve">
-    <value>Für diesen Vorgang werden Administratorenprivilegien benötigt </value>
+    <value>Für diesen Vorgang werden Administratorenprivilegien benötigt. Soll das Programm mit diesen neugestartet werden?</value>
   </data>
   <data name="NoHDDSelectedButRequired" xml:space="preserve">
     <value>Das ausgewählte Anwendungsszenario setzt eine HDD vorraus , jedoch wurde keine HDD ausgewählt.</value>
