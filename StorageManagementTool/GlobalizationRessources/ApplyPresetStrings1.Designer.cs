@@ -115,7 +115,7 @@ namespace StorageManagementTool.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to InvalidThreadLanguage.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string Presets_LocalHDDAndSSD {
             get {
@@ -133,7 +133,7 @@ namespace StorageManagementTool.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to InvalidThreadLanguage.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string SelectScenario_lbl_Text {
             get {
@@ -147,6 +147,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string SelectSSD_lbl_Text {
             get {
                 return ResourceManager.GetString("SelectSSD_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
             }
         }
     }

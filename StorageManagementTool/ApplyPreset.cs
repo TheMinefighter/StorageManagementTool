@@ -33,7 +33,7 @@ namespace StorageManagementTool
             SelectScenario_lbl.Text = SelectScenario_lbl_Text;
             Session.Singleton.FillWithDriveInfo(SelectHDD_lb);
             Session.Singleton.FillWithDriveInfo(SelectSSD_lb);
-
+            this.Text = WindowTitle;
             SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.Name).ToArray());
 
         }

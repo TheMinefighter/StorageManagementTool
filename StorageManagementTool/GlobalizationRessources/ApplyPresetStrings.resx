@@ -136,15 +136,18 @@
     <value />
   </data>
   <data name="Presets_LocalHDDAndSSD" xml:space="preserve">
-    <value>InvalidThreadLanguage</value>
+    <value />
   </data>
   <data name="SelectHDD_lbl_Text" xml:space="preserve">
     <value />
   </data>
   <data name="SelectScenario_lbl_Text" xml:space="preserve">
-    <value>InvalidThreadLanguage</value>
+    <value />
   </data>
   <data name="SelectSSD_lbl_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
     <value />
   </data>
 </root>

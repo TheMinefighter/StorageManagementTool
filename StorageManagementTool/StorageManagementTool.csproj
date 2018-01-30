@@ -164,7 +164,6 @@
     <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.en-US.resx" />
     <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ApplyPresetStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.en-US.resx" />

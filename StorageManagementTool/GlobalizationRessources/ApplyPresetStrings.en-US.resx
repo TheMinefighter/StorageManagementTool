@@ -147,4 +147,7 @@
   <data name="SelectSSD_lbl_Text" xml:space="preserve">
     <value>SSD</value>
   </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Apply Preset</value>
+  </data>
 </root>
