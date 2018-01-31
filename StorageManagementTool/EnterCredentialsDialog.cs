@@ -18,7 +18,9 @@ namespace StorageManagementTool
 
         private void Ok_btn_Click(object sender, EventArgs e)
         {
-            if (!Wrapper.IsUserInLocalGroup(Username_tb.Text, "Benutzer"))
+            if (!Wrapper.IsUser(Username_tb.Text)
+              //  Wrapper.IsUserInLocalGroup(Username_tb.Text, "Benutzer")
+                )
             {
                 MessageBox.Show(EnterAUsername, Error, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

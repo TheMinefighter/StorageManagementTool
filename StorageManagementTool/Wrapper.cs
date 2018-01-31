@@ -561,7 +561,7 @@ namespace StorageManagementTool
             return ret.ToArray();
         }
 
-        static bool IsUser(string name)
+        public static bool IsUser(string name)
         {
             return (UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null);
         }
