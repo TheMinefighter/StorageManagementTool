@@ -51,6 +51,7 @@ namespace StorageManagementTool
         public Session()
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture=CultureInfo.GetCultureInfo("de-DE");
+            
 
             Singleton = this;
             ScenarioPreset.LoadPresets();

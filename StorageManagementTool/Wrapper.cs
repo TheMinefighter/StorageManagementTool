@@ -561,6 +561,25 @@ namespace StorageManagementTool
             return ret.ToArray();
         }
 
+        static bool IsUser(string name)
+        {
+            return (UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null);
+        }
+        public static bool IsAdmin(string Username)
+        {
+            SecurityIdentifier id = new SecurityIdentifier("S-1-5-32-544");
+            bool any = false;
+            foreach (Principal x in UserPrincipal.FindByIdentity(new PrincipalContext(ContextType.Machine), IdentityType.SamAccountName, Username).GetGroups())
+            {
+                if (x.Sid == id)
+                {
+                    any = true;
+                    break;
+                }
+            }
+
+            return (any);
+        }
         #region From https://stackoverflow.com/a/38308957/6730162 access on 30.9.2017
 
         [DllImport("kernel32.dll", EntryPoint = "CreateFileW", CharSet = CharSet.Unicode, SetLastError = true)]

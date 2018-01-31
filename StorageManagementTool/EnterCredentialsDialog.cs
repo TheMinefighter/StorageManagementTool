@@ -20,7 +20,7 @@ namespace StorageManagementTool
         {
             if (!Wrapper.IsUserInLocalGroup(Username_tb.Text, "Benutzer"))
             {
-                MessageBox.Show("Bitte geben sie den Namen eines Benutzers an!", "Fehler", MessageBoxButtons.OK,
+                MessageBox.Show(EnterAUsername, Error, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 Password_tb.Text = "";
                 Username_tb.Text = "";
@@ -28,7 +28,10 @@ namespace StorageManagementTool
                 return;
             }
 
-            if (Wrapper.IsUserInLocalGroup(Username_tb.Text, "Administratoren"))
+            if (
+           //     Wrapper.IsUserInLocalGroup(Username_tb.Text, "Administratoren")
+                Wrapper.IsAdmin(Username_tb.Text)
+                )
             {
                 ((DialogReturnData) Tag).IsAdmin = true;
             }
@@ -36,7 +39,7 @@ namespace StorageManagementTool
             {
                 if (((DialogReturnData) Tag).AdminRequired)
                 {
-                    MessageBox.Show("Der gennante Benutzer verfügt nicht über Administratoren-privilegien.", "Fehler",
+                    MessageBox.Show(NotAdministratorButRequired, Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Password_tb.Text = "";
                     Username_tb.Text = "";
@@ -69,7 +72,7 @@ namespace StorageManagementTool
             }
             catch (Exception)
             {
-                MessageBox.Show("Die angegebenen Anmeldedaten sind ungültig", "Fehler", MessageBoxButtons.OK,
+                MessageBox.Show(EnteredCredentialsAreInvalid, Error, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 Password_tb.Text = "";
                 Password_tb.Focus();
