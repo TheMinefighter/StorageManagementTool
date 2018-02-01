@@ -106,10 +106,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplyPresetStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="GlobalizationRessources\EnterCredentials.Designer.cs">
+    <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EnterCredentials.resx</DependentUpon>
+      <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="GlobalizationRessources\OperatingMethodsStrings1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -170,9 +170,9 @@
     <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalizationRessources\EnterCredentials.de-DE.resx" />
-    <EmbeddedResource Include="GlobalizationRessources\EnterCredentials.en-US.resx" />
-    <EmbeddedResource Include="GlobalizationRessources\EnterCredentials.resx">
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EnterCredentials.Designer.cs</LastGenOutput>
     </EmbeddedResource>

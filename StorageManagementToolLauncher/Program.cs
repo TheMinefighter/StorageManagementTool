@@ -19,8 +19,6 @@ namespace StorageManagementToolLauncher
         private static void Main(string[] args)
         {
             IntPtr handle = GetConsoleWindow();
-           // ShowWindow(handle, SW_HIDE);
-         //   ShowWindow(handle, SW_SHOW);
             StorageManagementTool.Program.ConsoleIOObject = new ConsoleIO
             {
                 WriteLineToConsole = Console.WriteLine,
@@ -34,10 +32,10 @@ namespace StorageManagementToolLauncher
         #region From https://stackoverflow.com/a/3571628/6730162 access on 08.01.2018
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr GetConsoleWindow();
+        private static extern IntPtr GetConsoleWindow();
 
         [DllImport("user32.dll")]
-        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;

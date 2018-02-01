@@ -19,27 +19,27 @@ namespace StorageManagementTool.GlobalizationRessources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EnterCredentialsStrings {
+    public class EnterCredentialsStrings_de_DE {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EnterCredentialsStrings() {
+        internal EnterCredentialsStrings_de_DE() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.GlobalizationRessources.EnterCredentialsStrings", typeof(EnterCredentialsStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.GlobalizationRessources.EnterCredentialsStrings.de-DE", typeof(EnterCredentialsStrings_de_DE).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace StorageManagementTool.GlobalizationRessources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,99 +61,99 @@ namespace StorageManagementTool.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Abbrechen.
         /// </summary>
-        internal static string Abort_btn_Text {
+        public static string Abort_btn_Text {
             get {
                 return ResourceManager.GetString("Abort_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Bitte geben sie die Anmeldedaten eines Administratoren-Benutzers an. {0} Dieser Vorgang kann einige Sekunden brauchen.
         /// </summary>
-        internal static string AdministratorInstructions {
+        public static string AdministratorInstructions {
             get {
                 return ResourceManager.GetString("AdministratorInstructions", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Der Benutzername ist inkorrekt.
         /// </summary>
-        internal static string EnterAUsername {
+        public static string EnterAUsername {
             get {
                 return ResourceManager.GetString("EnterAUsername", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Die angegebenen Anmeldedaten sind ungültig.
         /// </summary>
-        internal static string EnteredCredentialsAreInvalid {
+        public static string EnteredCredentialsAreInvalid {
             get {
                 return ResourceManager.GetString("EnteredCredentialsAreInvalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Fehler.
         /// </summary>
-        internal static string Error {
+        public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Bitte geben sie die Anmeldedaten eines Benutzers an. {0} Dieser Vorgang kann einige Sekunden brauchen.
         /// </summary>
-        internal static string NormalInstructions {
+        public static string NormalInstructions {
             get {
                 return ResourceManager.GetString("NormalInstructions", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &quot;Der gennante Benutzer verfügt nicht über Administratoren-privilegien.&quot;.
         /// </summary>
-        internal static string NotAdministratorButRequired {
+        public static string NotAdministratorButRequired {
             get {
                 return ResourceManager.GetString("NotAdministratorButRequired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string Ok_btn_Text {
+        public static string Ok_btn_Text {
             get {
                 return ResourceManager.GetString("Ok_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Passwort.
         /// </summary>
-        internal static string Password_lbl_Text {
+        public static string Password_lbl_Text {
             get {
                 return ResourceManager.GetString("Password_lbl_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Benutzername.
         /// </summary>
-        internal static string Username_lbl_Text {
+        public static string Username_lbl_Text {
             get {
                 return ResourceManager.GetString("Username_lbl_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Anmeldedaten eingeben.
         /// </summary>
-        internal static string Window_Title {
+        public static string Window_Title {
             get {
                 return ResourceManager.GetString("Window_Title", resourceCulture);
             }

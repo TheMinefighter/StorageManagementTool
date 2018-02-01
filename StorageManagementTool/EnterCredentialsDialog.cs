@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security;
 using System.Windows.Forms;
 using static StorageManagementTool.EnterCredentials;
-using static StorageManagementTool.GlobalizationRessources.EnterCredentials;
+using static StorageManagementTool.GlobalizationRessources.EnterCredentialsStrings;
 
 namespace StorageManagementTool
 {
@@ -101,8 +101,9 @@ namespace StorageManagementTool
 
             if (((DialogReturnData) Tag).AdminRequired)
             {
+
                 Headline0_lbl.Text = string.Format(AdministratorInstructions,Environment.NewLine);
-                if (Wrapper.IsUserInLocalGroup(Environment.UserName, "Administratoren"))
+                if (Wrapper.IsAdmin(Environment.UserName))
                 {
                     Username_tb.Text = Environment.UserName;
                 }
@@ -125,10 +126,6 @@ namespace StorageManagementTool
             {
                 Ok_btn_Click(null, null);
             }
-        }
-
-        private void InsertCredentialsDialog_closing(object sender, EventArgs e)
-        {
         }
     }
 }

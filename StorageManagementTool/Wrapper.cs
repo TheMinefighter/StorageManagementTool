@@ -568,17 +568,8 @@ namespace StorageManagementTool
         public static bool IsAdmin(string Username)
         {
             SecurityIdentifier id = new SecurityIdentifier("S-1-5-32-544");
-            bool any = false;
-            foreach (Principal x in UserPrincipal.FindByIdentity(new PrincipalContext(ContextType.Machine), IdentityType.SamAccountName, Username).GetGroups())
-            {
-                if (x.Sid == id)
-                {
-                    any = true;
-                    break;
-                }
-            }
-
-            return (any);
+            return UserPrincipal.FindByIdentity(new PrincipalContext(ContextType.Machine), IdentityType.SamAccountName, Username).GetGroups()
+                .Any(x => x.Sid == id);
         }
         #region From https://stackoverflow.com/a/38308957/6730162 access on 30.9.2017
 
