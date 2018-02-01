@@ -153,6 +153,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string Common_Startup_Name {
+            get {
+                return ResourceManager.GetString("Common_Startup_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Common_Templates_Name {
             get {
                 return ResourceManager.GetString("Common_Templates_Name", resourceCulture);
@@ -246,6 +255,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string History_Name {
             get {
                 return ResourceManager.GetString("History_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Libraries_Name {
+            get {
+                return ResourceManager.GetString("Libraries_Name", resourceCulture);
             }
         }
         

@@ -118,114 +118,120 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Administrative_Tools_Name" xml:space="preserve">
-    <value />
+    <value>Administratorenwerkzeuge</value>
   </data>
   <data name="Appdata_Name" xml:space="preserve">
-    <value />
+    <value>Anwendungsdaten</value>
   </data>
   <data name="Cache_Name" xml:space="preserve">
-    <value />
+    <value>Internetcache</value>
   </data>
   <data name="CD_Burning_Name" xml:space="preserve">
-    <value />
+    <value>Temporäre Dateien zum CD brennen</value>
   </data>
   <data name="CommonMusic_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Musik</value>
   </data>
   <data name="CommonPictures_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Bilder</value>
   </data>
   <data name="CommonVideo_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Videos</value>
   </data>
   <data name="Common_Administrative_Tools_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Anwendungsdaten</value>
   </data>
   <data name="Common_AppData_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Anwendungsdaten</value>
   </data>
   <data name="Common_Desktop_Name" xml:space="preserve">
-    <value />
+    <value>Öffentlicher Desktop</value>
   </data>
   <data name="Common_Documents_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Dokumente</value>
   </data>
   <data name="Common_Programs_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Starmenü Programme</value>
   </data>
   <data name="Common_Start_Menu_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliches Startmenü</value>
   </data>
   <data name="Common_Templates_Name" xml:space="preserve">
-    <value />
+    <value>Öffentliche Vorlagen</value>
   </data>
   <data name="Cookies_Name" xml:space="preserve">
-    <value />
+    <value>Cookies</value>
   </data>
   <data name="Desktop_Name" xml:space="preserve">
-    <value />
+    <value>Desktop</value>
   </data>
   <data name="Downloads_Name" xml:space="preserve">
-    <value />
+    <value>Downloads</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value />
+    <value>Fehler</value>
   </data>
   <data name="Favorites_Names" xml:space="preserve">
-    <value />
+    <value>Favoriten</value>
   </data>
   <data name="Fonts_Name" xml:space="preserve">
-    <value />
+    <value>Schriftarten</value>
   </data>
   <data name="History_Name" xml:space="preserve">
-    <value />
+    <value>Verlauf</value>
   </data>
   <data name="Local_AppData_Name" xml:space="preserve">
-    <value />
+    <value>Anwendungsdaten\Local</value>
   </data>
   <data name="My_Music_Name" xml:space="preserve">
-    <value />
+    <value>Eigene Musik</value>
   </data>
   <data name="My_Pictures_Name" xml:space="preserve">
-    <value />
+    <value>Eigene Bilder</value>
   </data>
   <data name="My_Video_Name" xml:space="preserve">
-    <value />
+    <value>Eigene Videos</value>
   </data>
   <data name="NetHood_Name" xml:space="preserve">
-    <value />
+    <value>Netzwerkverknüpfungen</value>
   </data>
   <data name="OEM_Links_Name" xml:space="preserve">
-    <value />
+    <value>Hersteller Links</value>
   </data>
   <data name="Personal_Name" xml:space="preserve">
-    <value />
+    <value>Eigene Dokumente</value>
   </data>
   <data name="PrintHood_Name" xml:space="preserve">
-    <value />
+    <value>Druckerverknüpfung</value>
   </data>
   <data name="ProgramFilesDir_x86_Name" xml:space="preserve">
-    <value />
+    <value>Installationspfad für x86 basierte Programme</value>
   </data>
   <data name="ProgramFilesDir_Name" xml:space="preserve">
-    <value />
+    <value>Installationspfad für x64 basierte Programme</value>
   </data>
   <data name="Programs_Name" xml:space="preserve">
-    <value />
+    <value>Startmenü Programme</value>
   </data>
   <data name="Recent_Name" xml:space="preserve">
-    <value />
+    <value>Zuletzt verwendet</value>
   </data>
   <data name="SendTo_Name" xml:space="preserve">
-    <value />
+    <value>Senden an</value>
   </data>
   <data name="Startup_Name" xml:space="preserve">
-    <value />
+    <value>Autostart</value>
   </data>
   <data name="Start_Menu_Name" xml:space="preserve">
-    <value />
+    <value>Startmenü</value>
   </data>
   <data name="Templates_Name" xml:space="preserve">
-    <value />
+    <value>Vorlagen</value>
+  </data>
+  <data name="Common_Startup_Name" xml:space="preserve">
+    <value>Öffentlicher Autostart</value>
+  </data>
+  <data name="Libraries_Name" xml:space="preserve">
+    <value>Bibliotheken</value>
   </data>
 </root>

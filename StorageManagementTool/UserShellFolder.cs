@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using static StorageManagementTool.GlobalizationRessources.EditUserShellFolderStrings;
 
 namespace StorageManagementTool
 {
@@ -66,53 +67,54 @@ namespace StorageManagementTool
         {
                 #region Based upon https://support.microsoft.com/en-us/help/931087/how-to-redirect-user-shell-folders-to-a-specified-path-by-using-profil access on 22.01.2017
 
-                NormalUSF("Desktop", "Desktop"),
-            NormalUSF("Eigene Dokumente", "Personal"),
-            NormalUSF("Eigene Videos", "My Video"),
-            NormalUSF("Eigene Musik", "My Music"),
-            NormalUSF("Eigene Bilder", "My Pictures"),
-            NormalUSF("Senden an", "SendTo"),
-            NormalUSF("Anwendungsdaten\\Local", "Local AppData"),
-            NormalUSF("Anwendungsdaten\\Roaming", "AppData"),
-            NormalUSF("Startmenü Inhalt", "Programs"),
-            NormalUSF("Startmenü", "Start Menu"),
-            NormalUSF("Autostart", "Startup"),
-            NormalUSF("Verlauf", "History"),
-            NormalUSF("Favoriten", "Favorites"),
-            NormalUSF("Schriftarten", "Fonts", false),
-            NormalUSF("Zuletzt verwendet", "Recent"),
-            NormalUSF("Vorlagen", "Templates"),
-            NormalUSF("Administratorenwerkzeuge", "Administrative Tools", false),
-            NormalUSF("Cookies", "Cookies", false),
-            NormalUSF("Netzwerkverknüpfungen", "NetHood", false),
-            NormalUSF("Druckerverknüpfung", "PrintHood", false),
-            NormalUSF("Internetcache", "Cache", false),
-            NormalUSF("Cache zum CD brennen", "CD Burning", false),
-            NormalUSF("Downloads", "{374DE290-123F-4565-9164-39C4925E467B}"),
+                NormalUSF(Desktop_Name, "Desktop"),
+            NormalUSF(Personal_Name, "Personal"),
+            NormalUSF(My_Video_Name, "My Video"),
+            NormalUSF(My_Music_Name, "My Music"),
+            NormalUSF(My_Pictures_Name, "My Pictures"),
+            NormalUSF(SendTo_Name, "SendTo"),
+            NormalUSF(Local_AppData_Name, "Local AppData"),
+            NormalUSF(Appdata_Name, "AppData"),
+            NormalUSF(Programs_Name, "Programs"),
+            NormalUSF(Start_Menu_Name, "Start Menu"),
+            NormalUSF(Startup_Name, "Startup"),
+            NormalUSF(History_Name, "History"),
+            NormalUSF(Favorites_Names, "Favorites"),
+            NormalUSF(Fonts_Name, "Fonts", false),
+            NormalUSF(Recent_Name, "Recent"),
+            NormalUSF(Templates_Name, "Templates"),
+            NormalUSF(Administrative_Tools_Name, "Administrative Tools", false),
+            NormalUSF(Cookies_Name, "Cookies", false),
+            NormalUSF(NetHood_Name, "NetHood", false),
+            NormalUSF(PrintHood_Name, "PrintHood", false),
+            NormalUSF(Cache_Name, "Cache", false),
+            NormalUSF(CD_Burning_Name, "CD Burning", false),
+            NormalUSF(Downloads_Name, "{374DE290-123F-4565-9164-39C4925E467B}"),
+            NormalUSF(Libraries_Name,"{1B3EA5DC-B587-4786-B4EF-BD1DC332AEAE}",false),
 
             #endregion
 
             //Common 
-            CommonUSF("Öffentliche Dokumente", "Common Documents"),
-            CommonUSF("Öffentliche Videos", "CommonVideo"),
+            CommonUSF(Common_Documents_Name, "Common Documents"),
+            CommonUSF(CommonVideo_Name, "CommonVideo"),
 
-            CommonUSF("Öffentliche Bilder", "CommonPictures"),
-            CommonUSF("Öffentliche Musik", "CommonMusic"),
-            CommonUSF("Öffentlicher Desktop", "Common Desktop"),
-            CommonUSF("Öffentliche Anwendungsdaten", "Common AppData"),
-            CommonUSF("Öffentlicher Autostart", "Common Start Menu"),
-            CommonUSF("Öffentliche Starmenü Programme", "Common Programs"),
-            CommonUSF("Öffentliche Vorlagen", "Common Templates"),
-            CommonUSF("Öffentliches Startmenü", "Common Start Menu"),
-            CommonUSF("Hersteller Links", "OEM Links", false),
-            CommonUSF("Öffentliche Administratorenwerkzeuge", "Common Administrative Tools", false),
+            CommonUSF(CommonPictures_Name, "CommonPictures"),
+            CommonUSF(CommonMusic_Name, "CommonMusic"),
+            CommonUSF(Common_Desktop_Name, "Common Desktop"),
+            CommonUSF(Common_AppData_Name, "Common AppData"),
+            CommonUSF(Common_Startup_Name, "Common Startup"),
+            CommonUSF(Common_Programs_Name, "Common Programs"),
+            CommonUSF(Common_Templates_Name, "Common Templates"),
+            CommonUSF(Common_Start_Menu_Name, "Common Start Menu"),
+            CommonUSF(OEM_Links_Name, "OEM Links", false),
+            CommonUSF(Common_Administrative_Tools_Name, "Common Administrative Tools", false),
             //No real USF
-            new UserShellFolder("Installationspfad für x86 basierte Programme",
+            new UserShellFolder(ProgramFilesDir_x86_Name,
                 new[]
                 {
                     new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir (x86)")
                 }, false, true),
-            new UserShellFolder("Installationspfad für x64 basierte Programme",
+            new UserShellFolder(ProgramFilesDir_Name,
                 new[]
                 {
                     new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir"),

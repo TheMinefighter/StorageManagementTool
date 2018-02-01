@@ -153,6 +153,9 @@
   <data name="Common_Programs_Name" xml:space="preserve">
     <value />
   </data>
+  <data name="Common_Startup_Name" xml:space="preserve">
+    <value />
+  </data>
   <data name="Common_Start_Menu_Name" xml:space="preserve">
     <value />
   </data>
@@ -178,6 +181,9 @@
     <value />
   </data>
   <data name="History_Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Libraries_Name" xml:space="preserve">
     <value />
   </data>
   <data name="Local_AppData_Name" xml:space="preserve">
