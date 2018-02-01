@@ -62,13 +62,11 @@ namespace StorageManagementTool
 
         public static void LoadEditable()
         {
-        }
-
-        public static UserShellFolder[] AllEditableUserUserShellFolders =
+            AllEditableUserUserShellFolders =new []
         {
-            #region Based upon https://support.microsoft.com/en-us/help/931087/how-to-redirect-user-shell-folders-to-a-specified-path-by-using-profil access on 22.01.2017
+                #region Based upon https://support.microsoft.com/en-us/help/931087/how-to-redirect-user-shell-folders-to-a-specified-path-by-using-profil access on 22.01.2017
 
-            NormalUSF("Desktop", "Desktop"),
+                NormalUSF("Desktop", "Desktop"),
             NormalUSF("Eigene Dokumente", "Personal"),
             NormalUSF("Eigene Videos", "My Video"),
             NormalUSF("Eigene Musik", "My Music"),
@@ -95,8 +93,9 @@ namespace StorageManagementTool
             #endregion
 
             //Common 
-            CommonUSF("Öffentliche Videos", "CommonVideo"),
             CommonUSF("Öffentliche Dokumente", "Common Documents"),
+            CommonUSF("Öffentliche Videos", "CommonVideo"),
+
             CommonUSF("Öffentliche Bilder", "CommonPictures"),
             CommonUSF("Öffentliche Musik", "CommonMusic"),
             CommonUSF("Öffentlicher Desktop", "Common Desktop"),
@@ -106,7 +105,7 @@ namespace StorageManagementTool
             CommonUSF("Öffentliche Vorlagen", "Common Templates"),
             CommonUSF("Öffentliches Startmenü", "Common Start Menu"),
             CommonUSF("Hersteller Links", "OEM Links", false),
-            CommonUSF("Öffentliche Administratorenwerkzeuge", "OEM Links", false),
+            CommonUSF("Öffentliche Administratorenwerkzeuge", "Common Administrative Tools", false),
             //No real USF
             new UserShellFolder("Installationspfad für x86 basierte Programme",
                 new[]
@@ -120,6 +119,9 @@ namespace StorageManagementTool
                     new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir")
                 }, false, true)
         };
+        }
+
+        public static UserShellFolder[] AllEditableUserUserShellFolders;
 
         public static UserShellFolder GetUSFById(string id)
         {
