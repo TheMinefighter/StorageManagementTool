@@ -143,7 +143,7 @@ namespace StorageManagementTool
         public static DirectoryInfo GetPath(UserShellFolder currentUSF)
         {
             Wrapper.GetRegistryValue(currentUSF.RegPaths[0], out object regValue, currentUSF.AccessAsUser);
-            return new DirectoryInfo((string) regValue ?? "Fehler");
+            return new DirectoryInfo((string) regValue ?? Error);
         }
     }
 }

@@ -234,4 +234,22 @@
   <data name="Libraries_Name" xml:space="preserve">
     <value>Bibliotheken</value>
   </data>
+  <data name="SetUSF_NoneSelected" xml:space="preserve">
+    <value>Bitte wählen sie einen UserShellFolder aus um diesen zu editieren.</value>
+  </data>
+  <data name="SetUSF_NoNewPath" xml:space="preserve">
+    <value>Bitte wählen sie einen neuen Pfad  für den UserShellFolder aus.</value>
+  </data>
+  <data name="USFOpenCurrentpath_InvalidPath" xml:space="preserve">
+    <value>Der aktuelle Pfad ({0}) existiert nicht.</value>
+  </data>
+  <data name="USFOpenCurrentPath_NoPathSelected" xml:space="preserve">
+    <value>Wählen sie einen UserShellFolder aus um dessen aktuellen Pfad öffnen zu können</value>
+  </data>
+  <data name="USFOpenNewPath_InvalidPath" xml:space="preserve">
+    <value>Der augewählte Pfad ({0}) existiert nicht.</value>
+  </data>
+  <data name="USFOpenNewPath_NoPathSelected" xml:space="preserve">
+    <value>Wählen sie einen neuen Pfad für den UserShellFolder um diesen öffnen zu können</value>
+  </data>
 </root>

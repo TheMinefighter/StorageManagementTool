@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using static StorageManagementTool.GlobalizationRessources.EditUserShellFolderStrings;
 
 namespace StorageManagementTool
 {
@@ -15,26 +16,45 @@ namespace StorageManagementTool
         {
             if (CurrentUSFPath_tb.Text == "")
             {
-                MessageBox.Show("Wählen sie einen UserShellFolder aus um dessen aktuellen Pfad öffnen zu können", "Fehler",
+                MessageBox.Show("Wählen sie einen UserShellFolder aus um dessen aktuellen Pfad öffnen zu können", Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+            if (!Directory.Exists(CurrentUSFPath_tb.Text))
             {
-                Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, CurrentUSFPath_tb.Text);
+                if (MessageBox.Show(string.Format(USFOpenCurrentpath_InvalidPath, CurrentUSFPath_tb.Text), Error,
+                        MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) ==
+                    DialogResult.Retry)
+                {
+                    USFOpenCurrentPath_btn_Click(null, null);
+                }
+
+                return;
             }
+            Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, CurrentUSFPath_tb.Text);
         }
 
         private void USFOpenNewPath_btn_Click(object sender, EventArgs e)
         {
             if (NewUSFPath_tb.Text == "")
             {
-                MessageBox.Show("Wählen sie einen neuen Ort für den UserShellFolder um diesen öffnen zu können", "Fehler",
+                MessageBox.Show("Wählen sie einen neuen Pfad für den UserShellFolder um diesen öffnen zu können", Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            if (!Directory.Exists(NewUSFPath_tb.Text))
             {
-                Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, NewUSFPath_tb.Text);
+                if (MessageBox.Show(string.Format(USFOpenNewPath_InvalidPath, NewUSFPath_tb.Text), Error,
+                        MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) ==
+                    DialogResult.Retry)
+                {
+                    USFOpenNewPath_btn_Click (null, null);
+                }
+
+                return;
             }
+            Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, NewUSFPath_tb.Text);
         }
 
         private void ExistingUSF_lb_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,10 +86,23 @@ namespace StorageManagementTool
 
         private void SetUSF_btn_Click(object sender, EventArgs e)
         {
+            if (ExistingUSF_lb.SelectedIndex==-1)
+            {
+                MessageBox.Show(SetUSF_NoneSelected, Error,MessageBoxButtons.OK,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (NewUSFPath_tb.Text=="")
+            {
+                MessageBox.Show(SetUSF_NoNewPath, Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1);
+                return;
+            }
             if (OperatingMethods.ChangeUserShellFolder(new DirectoryInfo(CurrentUSFPath_tb.Text), new DirectoryInfo(NewUSFPath_tb.Text),
                 UserShellFolder.AllEditableUserUserShellFolders[ExistingUSF_lb.SelectedIndex]))
             {
-                CurrentUSFPath_tb.Text = NewUSFPath_tb.Text;
+                RefreshUSF();
+                ExistingUSF_lb_SelectedIndexChanged(null,null);
             }
         }
 

@@ -234,4 +234,22 @@
   <data name="Templates_Name" xml:space="preserve">
     <value />
   </data>
+  <data name="SetUSF_NoneSelected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetUSF_NoNewPath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="USFOpenCurrentpath_InvalidPath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="USFOpenCurrentPath_NoPathSelected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="USFOpenNewPath_InvalidPath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="USFOpenNewPath_NoPathSelected" xml:space="preserve">
+    <value />
+  </data>
 </root>

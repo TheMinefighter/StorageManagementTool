@@ -387,6 +387,24 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string SetUSF_NoneSelected {
+            get {
+                return ResourceManager.GetString("SetUSF_NoneSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetUSF_NoNewPath {
+            get {
+                return ResourceManager.GetString("SetUSF_NoNewPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Start_Menu_Name {
             get {
                 return ResourceManager.GetString("Start_Menu_Name", resourceCulture);
@@ -408,6 +426,42 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string Templates_Name {
             get {
                 return ResourceManager.GetString("Templates_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string USFOpenCurrentpath_InvalidPath {
+            get {
+                return ResourceManager.GetString("USFOpenCurrentpath_InvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string USFOpenCurrentPath_NoPathSelected {
+            get {
+                return ResourceManager.GetString("USFOpenCurrentPath_NoPathSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string USFOpenNewPath_InvalidPath {
+            get {
+                return ResourceManager.GetString("USFOpenNewPath_InvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string USFOpenNewPath_NoPathSelected {
+            get {
+                return ResourceManager.GetString("USFOpenNewPath_NoPathSelected", resourceCulture);
             }
         }
     }
