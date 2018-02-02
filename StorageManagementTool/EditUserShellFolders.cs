@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using static StorageManagementTool.GlobalizationRessources.EditUserShellFolderStrings;
 
@@ -11,12 +12,23 @@ namespace StorageManagementTool
         {
             InitializeComponent();
         }
-
+        private void EditUserShellFolders_Load(object sender, EventArgs e)
+        {
+            CurrentUSFPath_lbl.Text = CurrentUSFPath_lbl_Text;
+            USFOpenCurrentPath_btn.Text = USFOpenCurrentPath_btn_Text;
+            NewUSFPath_lbl.Text = NewUSFPath_lbl_Text;
+            USFOpenNewPath_btn.Text = USFOpenNewPath_btn_Text;
+            SetNewUSFPath_btn.Text = SelectNewUSFPath_btn_Text;
+            Abort_btn.Text = Abort_btn_Text;
+            SetUSF_btn.Text = SetUSF_btn_Text;
+            EnableComponents();
+            RefreshUSF();
+        }
         private void USFOpenCurrentPath_btn_Click(object sender, EventArgs e)
         {
             if (CurrentUSFPath_tb.Text == "")
             {
-                MessageBox.Show("Wählen sie einen UserShellFolder aus um dessen aktuellen Pfad öffnen zu können", Error,
+                MessageBox.Show(USFOpenCurrentPath_NoPathSelected, Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -38,7 +50,7 @@ namespace StorageManagementTool
         {
             if (NewUSFPath_tb.Text == "")
             {
-                MessageBox.Show("Wählen sie einen neuen Pfad für den UserShellFolder um diesen öffnen zu können", Error,
+                MessageBox.Show(USFOpenNewPath_NoPathSelected, Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -70,18 +82,16 @@ namespace StorageManagementTool
             NewUSFPath_tb.Text = NewUSFPath_fbd.SelectedPath;
         }
 
-        private void EditUserShellFolders_Load(object sender, EventArgs e)
-        {
-            EnableComponents();
-            RefreshUSF();
-        }
+
 
         private void RefreshUSF()
         {
-            foreach (UserShellFolder usf in UserShellFolder.AllEditableUserUserShellFolders)
-            {
-                ExistingUSF_lb.Items.Add(usf.ViewedName);
-            }
+            ExistingUSF_lb.Items.Clear();
+            ExistingUSF_lb.Items.AddRange(UserShellFolder.AllEditableUserUserShellFolders.Select(x=>x.ViewedName).ToArray());
+            //foreach (UserShellFolder usf in UserShellFolder.AllEditableUserUserShellFolders)
+            //{
+            //    ExistingUSF_lb.Items.Add(usf.ViewedName);
+            //}
         }
 
         private void SetUSF_btn_Click(object sender, EventArgs e)

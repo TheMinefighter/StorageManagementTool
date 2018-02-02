@@ -148,6 +148,7 @@
             // 
             // Abort_btn
             // 
+            this.Abort_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Abort_btn.Location = new System.Drawing.Point(12, 330);
             this.Abort_btn.Name = "Abort_btn";
             this.Abort_btn.Size = new System.Drawing.Size(91, 23);
