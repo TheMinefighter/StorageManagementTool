@@ -234,17 +234,38 @@
   <data name="Libraries_Name" xml:space="preserve">
     <value>Bibliotheken</value>
   </data>
+  <data name="Abort_btn_Text" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="CurrentUSFPath_lbl_Text" xml:space="preserve">
+    <value>Aktueller Pfad</value>
+  </data>
+  <data name="NewUSFPath_lbl_Text" xml:space="preserve">
+    <value>Neuer Pfad</value>
+  </data>
+  <data name="SelectNewUSFPath_btn_Text" xml:space="preserve">
+    <value>Neuen Pfad auswählen</value>
+  </data>
+  <data name="SetUSF_btn_Text" xml:space="preserve">
+    <value>Neuen Pfad übernehmen</value>
+  </data>
   <data name="SetUSF_NoneSelected" xml:space="preserve">
     <value>Bitte wählen sie einen UserShellFolder aus um diesen zu editieren.</value>
   </data>
   <data name="SetUSF_NoNewPath" xml:space="preserve">
     <value>Bitte wählen sie einen neuen Pfad  für den UserShellFolder aus.</value>
   </data>
+  <data name="USFOpenCurrentPath_btn_Text" xml:space="preserve">
+    <value>Aktuellen Pfad öffnen</value>
+  </data>
   <data name="USFOpenCurrentpath_InvalidPath" xml:space="preserve">
     <value>Der aktuelle Pfad ({0}) existiert nicht.</value>
   </data>
   <data name="USFOpenCurrentPath_NoPathSelected" xml:space="preserve">
     <value>Wählen sie einen UserShellFolder aus um dessen aktuellen Pfad öffnen zu können</value>
+  </data>
+  <data name="USFOpenNewPath_btn_Text" xml:space="preserve">
+    <value>Neuen Pfad öffnen</value>
   </data>
   <data name="USFOpenNewPath_InvalidPath" xml:space="preserve">
     <value>Der augewählte Pfad ({0}) existiert nicht.</value>

@@ -39,6 +39,7 @@
             this.NewUSFPath_fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.USFOpenNewPath_btn = new System.Windows.Forms.Button();
             this.SetNewUSFPath_btn = new System.Windows.Forms.Button();
+            this.Abort_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // USFOpenCurrentPath_btn
@@ -57,9 +58,9 @@
             // 
             this.SetUSF_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SetUSF_btn.Location = new System.Drawing.Point(12, 331);
+            this.SetUSF_btn.Location = new System.Drawing.Point(109, 331);
             this.SetUSF_btn.Name = "SetUSF_btn";
-            this.SetUSF_btn.Size = new System.Drawing.Size(269, 23);
+            this.SetUSF_btn.Size = new System.Drawing.Size(172, 23);
             this.SetUSF_btn.TabIndex = 12;
             this.SetUSF_btn.Text = "Neuen Pfad übernehmen";
             this.SetUSF_btn.UseVisualStyleBackColor = true;
@@ -145,11 +146,22 @@
             this.SetNewUSFPath_btn.UseVisualStyleBackColor = true;
             this.SetNewUSFPath_btn.Click += new System.EventHandler(this.SetNewUSFPath_btn_Click);
             // 
+            // Abort_btn
+            // 
+            this.Abort_btn.Location = new System.Drawing.Point(12, 330);
+            this.Abort_btn.Name = "Abort_btn";
+            this.Abort_btn.Size = new System.Drawing.Size(91, 23);
+            this.Abort_btn.TabIndex = 20;
+            this.Abort_btn.Text = "Abbrechen";
+            this.Abort_btn.UseVisualStyleBackColor = true;
+            this.Abort_btn.Click += new System.EventHandler(this.Abort_btn_Click);
+            // 
             // EditUserShellFolders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 366);
+            this.Controls.Add(this.Abort_btn);
             this.Controls.Add(this.SetNewUSFPath_btn);
             this.Controls.Add(this.USFOpenNewPath_btn);
             this.Controls.Add(this.USFOpenCurrentPath_btn);
@@ -179,5 +191,6 @@
         private System.Windows.Forms.FolderBrowserDialog NewUSFPath_fbd;
         private System.Windows.Forms.Button USFOpenNewPath_btn;
         private System.Windows.Forms.Button SetNewUSFPath_btn;
+        private System.Windows.Forms.Button Abort_btn;
     }
 }

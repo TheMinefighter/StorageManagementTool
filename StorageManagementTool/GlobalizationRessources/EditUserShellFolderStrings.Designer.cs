@@ -63,6 +63,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string Abort_btn_Text {
+            get {
+                return ResourceManager.GetString("Abort_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Administrative_Tools_Name {
             get {
                 return ResourceManager.GetString("Administrative_Tools_Name", resourceCulture);
@@ -207,6 +216,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string CurrentUSFPath_lbl_Text {
+            get {
+                return ResourceManager.GetString("CurrentUSFPath_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Desktop_Name {
             get {
                 return ResourceManager.GetString("Desktop_Name", resourceCulture);
@@ -315,6 +333,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string NewUSFPath_lbl_Text {
+            get {
+                return ResourceManager.GetString("NewUSFPath_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string OEM_Links_Name {
             get {
                 return ResourceManager.GetString("OEM_Links_Name", resourceCulture);
@@ -378,9 +405,27 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string SelectNewUSFPath_btn_Text {
+            get {
+                return ResourceManager.GetString("SelectNewUSFPath_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SendTo_Name {
             get {
                 return ResourceManager.GetString("SendTo_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetUSF_btn_Text {
+            get {
+                return ResourceManager.GetString("SetUSF_btn_Text", resourceCulture);
             }
         }
         
@@ -432,6 +477,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string USFOpenCurrentPath_btn_Text {
+            get {
+                return ResourceManager.GetString("USFOpenCurrentPath_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string USFOpenCurrentpath_InvalidPath {
             get {
                 return ResourceManager.GetString("USFOpenCurrentpath_InvalidPath", resourceCulture);
@@ -444,6 +498,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string USFOpenCurrentPath_NoPathSelected {
             get {
                 return ResourceManager.GetString("USFOpenCurrentPath_NoPathSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string USFOpenNewPath_btn_Text {
+            get {
+                return ResourceManager.GetString("USFOpenNewPath_btn_Text", resourceCulture);
             }
         }
         

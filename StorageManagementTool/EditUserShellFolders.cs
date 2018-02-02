@@ -123,5 +123,10 @@ namespace StorageManagementTool
             USFOpenCurrentPath_btn.Enabled = CurrentUSFPath_tb.Text != "";
             SetNewUSFPath_btn.Enabled = ExistingUSF_lb.SelectedIndex != -1;
         }
+
+        private void Abort_btn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
