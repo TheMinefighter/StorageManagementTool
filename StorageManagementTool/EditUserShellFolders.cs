@@ -18,7 +18,7 @@ namespace StorageManagementTool
             USFOpenCurrentPath_btn.Text = USFOpenCurrentPath_btn_Text;
             NewUSFPath_lbl.Text = NewUSFPath_lbl_Text;
             USFOpenNewPath_btn.Text = USFOpenNewPath_btn_Text;
-            SetNewUSFPath_btn.Text = SelectNewUSFPath_btn_Text;
+            SelectNewUSFPath_btn.Text = SelectNewUSFPath_btn_Text;
             Abort_btn.Text = Abort_btn_Text;
             SetUSF_btn.Text = SetUSF_btn_Text;
             EnableComponents();
@@ -76,7 +76,7 @@ namespace StorageManagementTool
             CurrentUSFPath_tb.Text = UserShellFolder.GetPath(currentUSF).FullName;
         }
 
-        private void SetNewUSFPath_btn_Click(object sender, EventArgs e)
+        private void SelectNewUSFPath_btn_Click(object sender, EventArgs e)
         {
             NewUSFPath_fbd.ShowDialog();
             NewUSFPath_tb.Text = NewUSFPath_fbd.SelectedPath;
@@ -88,10 +88,6 @@ namespace StorageManagementTool
         {
             ExistingUSF_lb.Items.Clear();
             ExistingUSF_lb.Items.AddRange(UserShellFolder.AllEditableUserUserShellFolders.Select(x=>x.ViewedName).ToArray());
-            //foreach (UserShellFolder usf in UserShellFolder.AllEditableUserUserShellFolders)
-            //{
-            //    ExistingUSF_lb.Items.Add(usf.ViewedName);
-            //}
         }
 
         private void SetUSF_btn_Click(object sender, EventArgs e)
@@ -131,7 +127,7 @@ namespace StorageManagementTool
         {
             new[] {SetUSF_btn, USFOpenNewPath_btn}.ForEach(x => x.Enabled = NewUSFPath_tb.Text != "");
             USFOpenCurrentPath_btn.Enabled = CurrentUSFPath_tb.Text != "";
-            SetNewUSFPath_btn.Enabled = ExistingUSF_lb.SelectedIndex != -1;
+            SelectNewUSFPath_btn.Enabled = ExistingUSF_lb.SelectedIndex != -1;
         }
 
         private void Abort_btn_Click(object sender, EventArgs e)

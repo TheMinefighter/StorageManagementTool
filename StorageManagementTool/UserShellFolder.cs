@@ -60,7 +60,6 @@ namespace StorageManagementTool
         public RegPath[] RegPaths;
         public bool MoveExistingFiles;
         public bool AccessAsUser;
-
         public static void LoadEditable()
         {
             AllEditableUserUserShellFolders =new []

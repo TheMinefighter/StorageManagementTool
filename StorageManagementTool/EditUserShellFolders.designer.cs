@@ -38,7 +38,7 @@
             this.ExistingUSF_lb = new System.Windows.Forms.ListBox();
             this.NewUSFPath_fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.USFOpenNewPath_btn = new System.Windows.Forms.Button();
-            this.SetNewUSFPath_btn = new System.Windows.Forms.Button();
+            this.SelectNewUSFPath_btn = new System.Windows.Forms.Button();
             this.Abort_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -134,17 +134,17 @@
             this.USFOpenNewPath_btn.UseVisualStyleBackColor = true;
             this.USFOpenNewPath_btn.Click += new System.EventHandler(this.USFOpenNewPath_btn_Click);
             // 
-            // SetNewUSFPath_btn
+            // SelectNewUSFPath_btn
             // 
-            this.SetNewUSFPath_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.SelectNewUSFPath_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SetNewUSFPath_btn.Location = new System.Drawing.Point(12, 302);
-            this.SetNewUSFPath_btn.Name = "SetNewUSFPath_btn";
-            this.SetNewUSFPath_btn.Size = new System.Drawing.Size(269, 23);
-            this.SetNewUSFPath_btn.TabIndex = 11;
-            this.SetNewUSFPath_btn.Text = "Neuen Pfad auswählen";
-            this.SetNewUSFPath_btn.UseVisualStyleBackColor = true;
-            this.SetNewUSFPath_btn.Click += new System.EventHandler(this.SetNewUSFPath_btn_Click);
+            this.SelectNewUSFPath_btn.Location = new System.Drawing.Point(12, 302);
+            this.SelectNewUSFPath_btn.Name = "SelectNewUSFPath_btn";
+            this.SelectNewUSFPath_btn.Size = new System.Drawing.Size(269, 23);
+            this.SelectNewUSFPath_btn.TabIndex = 11;
+            this.SelectNewUSFPath_btn.Text = "Neuen Pfad auswählen";
+            this.SelectNewUSFPath_btn.UseVisualStyleBackColor = true;
+            this.SelectNewUSFPath_btn.Click += new System.EventHandler(this.SelectNewUSFPath_btn_Click);
             // 
             // Abort_btn
             // 
@@ -163,7 +163,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 366);
             this.Controls.Add(this.Abort_btn);
-            this.Controls.Add(this.SetNewUSFPath_btn);
+            this.Controls.Add(this.SelectNewUSFPath_btn);
             this.Controls.Add(this.USFOpenNewPath_btn);
             this.Controls.Add(this.USFOpenCurrentPath_btn);
             this.Controls.Add(this.ExistingUSF_lb);
@@ -191,7 +191,7 @@
         private System.Windows.Forms.ListBox ExistingUSF_lb;
         private System.Windows.Forms.FolderBrowserDialog NewUSFPath_fbd;
         private System.Windows.Forms.Button USFOpenNewPath_btn;
-        private System.Windows.Forms.Button SetNewUSFPath_btn;
+        private System.Windows.Forms.Button SelectNewUSFPath_btn;
         private System.Windows.Forms.Button Abort_btn;
     }
 }

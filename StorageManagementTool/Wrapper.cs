@@ -279,9 +279,18 @@ namespace StorageManagementTool
         public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
             bool debug = false)
         {
-            return ExecuteCommand(cmd, admin, hidden, out string[] tmp, waitforexit, debug);
+            return ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug);
         }
-
+        /// <summary>
+        /// Checks if one Path is the parent of another
+        /// </summary>
+        /// <param name="parentPath">The parent path</param>
+        /// <param name="childPath">The child path</param>
+        /// <returns>Whether parentPath is a paren of childPath</returns>
+        public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath)
+        {
+            return parentPath.FullName.StartsWith(childPath.FullName + Path.DirectorySeparatorChar);
+        }
         /// <summary>
         ///     Executes an Command using Windows Commandline
         /// </summary>
@@ -297,12 +306,6 @@ namespace StorageManagementTool
         /// </param>
         /// <param name="readReturnData">Whether to read the output of the Application</param>
         /// <returns>Whether the operation were successful</returns>
-        /*  public static bool ExecuteCommand(string cmd, bool admin, bool hidden)
-        {
-           return ExecuteCommand(cmd, admin, hidden, true);
-        }
-        */
-        //führt einen Windows-Consolen-Befehl aus
         public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
             bool waitforexit = true, bool debug = false, bool readReturnData = false)
         {
@@ -514,6 +517,12 @@ namespace StorageManagementTool
             }
         }
 
+        /// <summary>
+        /// Copies a file 
+        /// </summary>
+        /// <param name="src">The location to copy from</param>
+        /// <param name="to">The location to copy to</param>
+        /// <returns>Whether the operation were successful</returns>
         public static bool CopyFile(FileInfo src, FileInfo to)
         {
             try
@@ -527,7 +536,12 @@ namespace StorageManagementTool
 
             return true;
         }
-
+        /// <summary>
+        /// Deletes a file
+        /// </summary>
+        /// <param name="toDelete">The file to delete</param>
+        /// <param name="deletePermanent">Whether it should be deleted permanently</param>
+        /// <returns>Whether the operation were successful</returns>
         public static bool DeleteFile(FileInfo toDelete, bool deletePermanent = true)
         {
             try
@@ -547,17 +561,16 @@ namespace StorageManagementTool
         ///     Reads the whole content of an StreamReader
         /// </summary>
         /// <param name="reader">The StreamReader to read from</param>
-        /// <returns>The Strings saved in the StreamReader</returns>
+        /// <returns>The strings saved in the StreamReader</returns>
         public static string[] FromStream(this StreamReader reader)
         {
             List<string> ret = new List<string>();
+            string line;
+            while ((line = reader.ReadLine()) != null)
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    ret.Add(line);
-                }
+                ret.Add(line);
             }
+
             return ret.ToArray();
         }
 
@@ -651,5 +664,21 @@ namespace StorageManagementTool
         }
 
         #endregion
+
+        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(
+            this IEnumerable<KeyValuePair<TKey, TValue>> src)
+        {
+            return src.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
+        }
+
+        public static string AsString(this IEnumerable<char> src)
+        {
+            StringBuilder builder= new StringBuilder();
+            foreach (char c in src)
+            {
+                builder.Append(c);
+            }
+            return builder.ToString();
+        }
     }
 }

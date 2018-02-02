@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ExtendedMessageBoxLibary;
 using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using StorageManagementTool.GlobalizationRessources;
@@ -399,6 +400,40 @@ namespace StorageManagementTool
                 newDir.Create();
             }
 
+            DirectoryInfo currentPath = usf.GetPath();
+            Dictionary<UserShellFolder, DirectoryInfo> childs = UserShellFolder
+                .AllEditableUserUserShellFolders
+                .Select(x => new KeyValuePair<UserShellFolder, DirectoryInfo>(x, x.GetPath()))
+                .Where(x => Wrapper.IsSubfolder(currentPath, x.Value)).ToDictionary();
+            bool MoveAll = false;
+            foreach (KeyValuePair<UserShellFolder,DirectoryInfo> child in childs)
+            {
+                //Add strings
+                bool Move = false;
+                if (!MoveAll)
+                {
+                    //No;Yes;YesAll
+                    ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(new[] { "" }, "", new[] { "" }));
+                    if (result.NumberOfClickedButton == 2)
+                    {
+                        MoveAll = true;
+                    }
+                    else
+                    {
+                        Move = result.NumberOfClickedButton == 1;
+                    }
+                }
+
+                if (MoveAll || Move)
+                {
+                    if (!child.Key.RegPaths.All(x =>
+                        Wrapper.SetRegistryValue(x, Path.Combine(newDir.FullName, child.Value.FullName.Skip(currentPath.FullName.Length).AsString()), RegistryValueKind.String, usf.AccessAsUser)))
+                    {
+//Error
+                    }
+                }
+            }
+
             if (usf.RegPaths.All(x =>
                 Wrapper.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
             {
@@ -451,7 +486,7 @@ namespace StorageManagementTool
                 WshShell shell = new WshShell();
                 string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
                     "Auf HDD Speichern.lnk");
-                IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
+                IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
                 shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
                 shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
                 shortcut.Arguments = " -move -auto-detect -SrcPath";
