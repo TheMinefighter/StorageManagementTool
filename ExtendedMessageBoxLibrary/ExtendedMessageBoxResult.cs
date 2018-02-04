@@ -1,4 +1,6 @@
-﻿namespace ExtendedMessageBoxLibary
+﻿using ExtendedMessageBoxLibrary;
+
+namespace ExtendedMessageBoxLibary
 {
     public class ExtendedMessageBoxResult
     {

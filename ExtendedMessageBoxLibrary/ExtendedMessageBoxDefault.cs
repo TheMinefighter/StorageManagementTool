@@ -1,4 +1,4 @@
-﻿namespace ExtendedMessageBoxLibary
+﻿namespace ExtendedMessageBoxLibrary
 {
     public class ExtendedMessageBoxDefault
     {

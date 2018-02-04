@@ -5,9 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ExtendedMessageBoxLibary;
+using ExtendedMessageBoxLibrary;
 using IWshRuntimeLibrary;
 using Microsoft.Win32;
-using StorageManagementTool.GlobalizationRessources;
+using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 using File = System.IO.File;
 
 namespace StorageManagementTool
@@ -38,7 +39,7 @@ namespace StorageManagementTool
         {
             if (dir == newLocation)
             {
-                if (MessageBox.Show(OperatingMethodsStrings.Error, OperatingMethodsStrings.MoveFolderOrFile_PathsEqual,
+                if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
                         MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     MoveFolder(dir, newLocation);
@@ -74,7 +75,7 @@ namespace StorageManagementTool
             if (file == newLocation)
             {
                 if (
-                    MessageBox.Show(OperatingMethodsStrings.Error, OperatingMethodsStrings.MoveFolderOrFile_PathsEqual,
+                    MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
                         MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     MoveFile(file, newLocation);
@@ -276,13 +277,13 @@ namespace StorageManagementTool
         {
             switch (toName)
             {
-                case DriveType.CDRom: return OperatingMethodsStrings.DriveType2String_CDRom;
-                case DriveType.Fixed: return OperatingMethodsStrings.DriveType2String_Fixed;
-                case DriveType.Network: return OperatingMethodsStrings.DriveType2String_Network;
-                case DriveType.Ram: return OperatingMethodsStrings.DriveType2String_RAM;
-                case DriveType.Removable: return OperatingMethodsStrings.DriveType2String_Removable;
-                case DriveType.NoRootDirectory: return OperatingMethodsStrings.DriveType2String_NoRootDirectory;
-                default: return OperatingMethodsStrings.DriveType2String_Unknown;
+                case DriveType.CDRom: return DriveType2String_CDRom;
+                case DriveType.Fixed: return DriveType2String_Fixed;
+                case DriveType.Network: return DriveType2String_Network;
+                case DriveType.Ram: return DriveType2String_RAM;
+                case DriveType.Removable: return DriveType2String_Removable;
+                case DriveType.NoRootDirectory: return DriveType2String_NoRootDirectory;
+                default: return DriveType2String_Unknown;
             }
         }
 
@@ -304,8 +305,8 @@ namespace StorageManagementTool
             }
             else
             {
-                MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_SelectedPartitionMissing,
-                    OperatingMethodsStrings.Error,
+                MessageBox.Show(ChangePagefileSettings_SelectedPartitionMissing,
+                    Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -319,15 +320,15 @@ namespace StorageManagementTool
             string wmicPath = Path.Combine(Wrapper.System32Path, @"wbem\\wmic.exe");
             if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
             {
-                MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_MinGreaterMax,
-                    OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ChangePagefileSettings_MinGreaterMax,
+                    Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (toUse.AvailableFreeSpace < minSize * 1048576L) //Tests whether enough space is available
             {
-                MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_NotEnoughSpace,
-                    OperatingMethodsStrings.Error,
+                MessageBox.Show(ChangePagefileSettings_NotEnoughSpace,
+                    Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -349,8 +350,8 @@ namespace StorageManagementTool
                         , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
                     if (!Boolean.Parse(tmp[2].Split('=')[1]))
                     {
-                        MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_CouldntDisableManagement,
-                            OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
+                            Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -373,8 +374,8 @@ namespace StorageManagementTool
                 true); //Checks wether there is exactly 1 pagefile existing
             if (tmp.Length != 2)
             {
-                switch (MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_Not1Pagefile,
-                    OperatingMethodsStrings.Error,
+                switch (MessageBox.Show(ChangePagefileSettings_Not1Pagefile,
+                    Error,
                     MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
                 {
                     case DialogResult.Cancel: return false;
@@ -426,10 +427,20 @@ namespace StorageManagementTool
 
                 if (MoveAll || Move)
                 {
-                    if (!child.Key.RegPaths.All(x =>
-                        Wrapper.SetRegistryValue(x, Path.Combine(newDir.FullName, child.Value.FullName.Skip(currentPath.FullName.Length).AsString()), RegistryValueKind.String, usf.AccessAsUser)))
+                    string newPathOfChild = Path.Combine(newDir.FullName, child.Value.FullName.Skip(currentPath.FullName.Length).AsString());
+                    foreach (RegPath x in child.Key.RegPaths)
                     {
+                        if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
+                        {
 //Error
+                            //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.Name" located under "x.Key" to "newPathOfChild".
+                            switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration( string.Format("", child.Key.ViewedName, x.ValueName, x.RegistryKey, newPathOfChild),Error, new[] {""})).NumberOfClickedButton)
+                            {
+                                case 1: break;
+                            }
+
+                            break;
+                        }
                     }
                 }
             }
@@ -439,8 +450,8 @@ namespace StorageManagementTool
             {
                 if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles &&
                     (CopyContents == QuestionAnswer.Yes || CopyContents == QuestionAnswer.Ask && MessageBox.Show(
-                         OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Text,
-                         OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
+                         ChangeUserShellFolder_MoveContent_Text,
+                         ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
                          MessageBoxDefaultButton.Button1) ==
                      DialogResult.Yes))
                 {
@@ -448,9 +459,9 @@ namespace StorageManagementTool
                     {
                         if (DeleteOldContents == QuestionAnswer.Yes || DeleteOldContents == QuestionAnswer.Ask && MessageBox.Show(
                                 String.Format(
-                                    OperatingMethodsStrings.ChangeUserShellFolder_DeleteContent_Text,
+                                    ChangeUserShellFolder_DeleteContent_Text,
                                     oldDir.FullName, newDir.FullName),
-                                OperatingMethodsStrings.ChangeUserShellFolder_DeleteContent_Title,
+                                ChangeUserShellFolder_DeleteContent_Title,
                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                                 MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
@@ -464,8 +475,8 @@ namespace StorageManagementTool
                 }
 
                 if (MessageBox.Show(
-                        OperatingMethodsStrings.ChangeUserShellFolder_RestartExplorer_Text,
-                        OperatingMethodsStrings.ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
+                        ChangeUserShellFolder_RestartExplorer_Text,
+                        ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);

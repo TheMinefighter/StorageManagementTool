@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using ExtendedMessageBoxLibary;
 using IWshRuntimeLibrary;
 using File = System.IO.File;
 
@@ -215,6 +216,11 @@ namespace StorageManagementTool
         private void ApplyPresetDialog_btn_Click(object sender, EventArgs e)
         {
             new ApplyPreset().ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+       //     ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration())
         }
     }
 }

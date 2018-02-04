@@ -32,30 +32,30 @@ namespace ExtendedMessageBoxLibary
       private void InitializeComponent()
       {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExtendedMessageBoxDialog));
-            this.Textlbl = new System.Windows.Forms.Label();
             this.checkableBox = new System.Windows.Forms.CheckBox();
+            this.MainText_tb = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // Textlbl
-            // 
-            this.Textlbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.Textlbl.AutoSize = true;
-            this.Textlbl.Location = new System.Drawing.Point(12, 9);
-            this.Textlbl.Name = "Textlbl";
-            this.Textlbl.Size = new System.Drawing.Size(13, 13);
-            this.Textlbl.TabIndex = 6;
-            this.Textlbl.Text = "g";
             // 
             // checkableBox
             // 
             this.checkableBox.AutoSize = true;
-            this.checkableBox.Location = new System.Drawing.Point(12, 25);
+            this.checkableBox.Location = new System.Drawing.Point(12, 78);
             this.checkableBox.Name = "checkableBox";
             this.checkableBox.Size = new System.Drawing.Size(80, 17);
             this.checkableBox.TabIndex = 7;
             this.checkableBox.Text = "checkBox1";
             this.checkableBox.UseVisualStyleBackColor = true;
+            // 
+            // MainText_tb
+            // 
+            this.MainText_tb.BackColor = System.Drawing.SystemColors.Control;
+            this.MainText_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MainText_tb.Location = new System.Drawing.Point(12, 12);
+            this.MainText_tb.Multiline = true;
+            this.MainText_tb.Name = "MainText_tb";
+            this.MainText_tb.Size = new System.Drawing.Size(316, 60);
+            this.MainText_tb.TabIndex = 8;
+            this.MainText_tb.Text = "If you see this something gone wrong";
             // 
             // ExtendedMessageBoxDialog
             // 
@@ -63,8 +63,8 @@ namespace ExtendedMessageBoxLibary
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(340, 160);
+            this.Controls.Add(this.MainText_tb);
             this.Controls.Add(this.checkableBox);
-            this.Controls.Add(this.Textlbl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ExtendedMessageBoxDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -79,7 +79,7 @@ namespace ExtendedMessageBoxLibary
       }
 
       #endregion
-      private System.Windows.Forms.Label Textlbl;
       private CheckBox checkableBox;
-   }
+        private TextBox MainText_tb;
+    }
 }

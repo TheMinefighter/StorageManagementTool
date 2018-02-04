@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ExtendedMessageBoxLibrary;
 
 namespace ExtendedMessageBoxLibary
 {
@@ -21,7 +22,7 @@ namespace ExtendedMessageBoxLibary
 
         private void ExtendedMessageBoxDialog_SizeChanged(object sender, EventArgs e)
         {
-            checkableBox.Location = new Point(checkableBox.Location.X, 9 + Textlbl.Size.Height + 3 + Textlbl.Location.Y);
+            checkableBox.Location = new Point(checkableBox.Location.X, 9 + MainText_tb.Size.Height + 3 + MainText_tb.Location.Y);
             int btnY = checkableBox.Location.Y;
             if (_checkboxexisting)
             {
@@ -44,7 +45,7 @@ namespace ExtendedMessageBoxLibary
             _msgBoxOwner = (ExtendedMessageBox) Tag;
             _checkboxexisting = _msgBoxOwner.ExMsgBoxcfg.ShowCheckBox;
             Text = _msgBoxOwner.ExMsgBoxcfg.Title;
-            Textlbl.Text = ExtendedMessageBox.ConnectStringArrayWithConnector(_msgBoxOwner.ExMsgBoxcfg.Text, Environment.NewLine);
+            MainText_tb.Text =  _msgBoxOwner.ExMsgBoxcfg.Text;
             MsgBoxDialogbtns = new Button[_msgBoxOwner.ExMsgBoxcfg.NumberOfBbuttons];
             for (int i = 0; i < MsgBoxDialogbtns.Length; i++)
             {

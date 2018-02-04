@@ -57,6 +57,7 @@
             this.SetSendToHDD_btn = new System.Windows.Forms.Button();
             this.FurtherSettings_gb = new System.Windows.Forms.GroupBox();
             this.ApplyPresetDialog_btn = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.CustomFolderOrFileSelection_gb.SuspendLayout();
             this.Suggestions_gb.SuspendLayout();
             this.MoveFilesOrFolder_gb.SuspendLayout();
@@ -373,11 +374,22 @@
             this.ApplyPresetDialog_btn.UseVisualStyleBackColor = true;
             this.ApplyPresetDialog_btn.Click += new System.EventHandler(this.ApplyPresetDialog_btn_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(430, 470);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(224, 23);
+            this.button3.TabIndex = 25;
+            this.button3.Text = "The magic debug button";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(666, 518);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.FurtherSettings_gb);
             this.Controls.Add(this.ProgramStatusStrip);
             this.Controls.Add(this.AdministratorSettings_gb);
@@ -428,6 +440,7 @@
         private System.Windows.Forms.Button SetSendToHDD_btn;
         private System.Windows.Forms.GroupBox FurtherSettings_gb;
         private System.Windows.Forms.Button ApplyPresetDialog_btn;
+        private System.Windows.Forms.Button button3;
     }
 }
 
