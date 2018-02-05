@@ -444,7 +444,6 @@ namespace StorageManagementTool
                         //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.Name" located under "x.Key" to "newPathOfChild".
                         //Retry
                         //Skip this UserShellFolder
-                        //Ignore
                         //Abort
                         switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
                            string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName, x.ValueName, x.RegistryKey, newPathOfChild), Error,
