@@ -9,38 +9,38 @@ namespace StorageManagementTool
    public class ScenarioPreset
    {
       public static ScenarioPreset[] AvailablePresets;
+
       /// <summary>
-      /// Whether a HDD is required for this preset
+      ///    Whether a HDD is required for this preset
       /// </summary>
       public bool HDDRequired;
+
       /// <summary>
-      /// Whether a SSD is required for this preset
-      /// </summary>
-      public bool SSDRequired;
-      /// <summary>
-      /// The name of the preset
+      ///    The name of the preset
       /// </summary>
       public string Name;
+
       /// <summary>
-      /// the action to run
+      ///    Whether a SSD is required for this preset
+      /// </summary>
+      public bool SSDRequired;
+
+      /// <summary>
+      ///    the action to run
       /// </summary>
       public Action<DriveInfo, DriveInfo> ToRun;
 
-      public ScenarioPreset()
-      {
-
-      }
       private static void LocalSSDAndHDD(DriveInfo ssd, DriveInfo hdd)
       {
          Dictionary<string, string> usfToMove = new Dictionary<string, string>
-            {
-                {"Personal", "Documents"},
-                {"My Music", "Music"},
-                {"My Pictures", "Pictures"},
-                {"AppData", "AppData\\Roaming"},
-                {"{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"},
-                {"Desktop", "Desktop"}
-            };
+         {
+            {"Personal", "Documents"},
+            {"My Music", "Music"},
+            {"My Pictures", "Pictures"},
+            {"AppData", "AppData\\Roaming"},
+            {"{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"},
+            {"Desktop", "Desktop"}
+         };
          bool empty = false;
          int i = 0;
          do
@@ -60,21 +60,31 @@ namespace StorageManagementTool
          foreach (KeyValuePair<string, string> currentPair in usfToMove)
          {
             UserShellFolder moving = UserShellFolder.GetUSFById(currentPair.Key);
-            OperatingMethods.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value), moving,
-                OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
+            OperatingMethods.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+               moving,
+               OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
          }
 
-         int memory = (int)(new ComputerInfo().TotalPhysicalMemory / 1048576L);
+         int memory = (int) (new ComputerInfo().TotalPhysicalMemory / 1048576L);
          OperatingMethods.ChangePagefileSettings(hdd, memory, memory * 2);
          OperatingMethods.EnableSendToHDD();
       }
+
       /// <summary>
-      /// Loads all configured presets
+      ///    Loads all configured presets
       /// </summary>
       public static void LoadPresets()
       {
          AvailablePresets = new[]
-             {new ScenarioPreset {HDDRequired = true,SSDRequired=true, Name = Presets_LocalHDDAndSSD, ToRun = LocalSSDAndHDD}};
+         {
+            new ScenarioPreset
+            {
+               HDDRequired = true,
+               SSDRequired = true,
+               Name = Presets_LocalHDDAndSSD,
+               ToRun = LocalSSDAndHDD
+            }
+         };
       }
    }
 }

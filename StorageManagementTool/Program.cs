@@ -5,33 +5,31 @@ using System.IO;
 using System.Linq;
 using System.Security.Permissions;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace StorageManagementTool
 {
    /// <summary>
-   ///     Main class of this Program
+   ///    Main class of this Program
    /// </summary>
    public static class Program
    {
       /// <summary>
-      ///     A reference to an object containig methods for the console IO operations
+      ///    A reference to an object containig methods for the console IO operations
       /// </summary>
       public static ConsoleIO ConsoleIOObject { get; set; }
 
       /// <summary>
-      ///     Whether the Programm runs from any shell / commandline
+      ///    Whether the Programm runs from any shell / commandline
       /// </summary>
       public static bool CommandLineMode { get; private set; }
 
       /// <summary>
-      ///     The main entry point for the application.
+      ///    The main entry point for the application.
       /// </summary>
       [STAThread]
       [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
       public static void Main(string[] args)
       {
-
          string parentName = Process.GetCurrentProcess().ProcessName;
          CommandLineMode = parentName.Contains("cmd") || parentName.Contains("powershell");
          ConsoleIO.SetVisibility(CommandLineMode);
@@ -39,12 +37,13 @@ namespace StorageManagementTool
          {
             args[i] = args[i].Replace("/", "-").ToLower();
          }
+
          SessionInitalizer();
          ProcessCommandlineArguments(args.ToList());
       }
 
       /// <summary>
-      ///     Processes aguments
+      ///    Processes aguments
       /// </summary>
       /// <param name="args">The arguments to process</param>
       private static void ProcessCommandlineArguments(List<string> args)
@@ -58,7 +57,6 @@ namespace StorageManagementTool
 
          if (args.Count == 0)
          {
-
             Session.Singleton.StandardLaunch();
             Environment.Exit(0);
          }
@@ -108,14 +106,14 @@ namespace StorageManagementTool
                         ConsoleIO.WriteLine("-file           Stores a file at a new location");
                         ConsoleIO.WriteLine("-folder         Stores a folder at a new location");
                         ConsoleIO.WriteLine(
-                            "-auto-detect    Detects automatically, whether the given object is a file or a folder");
+                           "-auto-detect    Detects automatically, whether the given object is a file or a folder");
                         ConsoleIO.WriteLine("-srcpath        (Path of the file or folder to move)");
                         ConsoleIO.WriteLine("[-NewPath]      (Path, where file or folder should be stored");
                      }
                      else if (new[]
                      {
-                                "-file", "-folder", "-auto-detect"
-                            }.Contains(args[1]))
+                        "-file", "-folder", "-auto-detect"
+                     }.Contains(args[1]))
                      {
                         MoveObjectFromCommandline(args);
                      }
@@ -155,7 +153,7 @@ namespace StorageManagementTool
                                  case "Root.SSDMonitoring.Enabled":
                                     ConsoleIO.WriteLine("Value of Root.SSDMonitoring.Enabled:");
                                     ConsoleIO.WriteLine(Session.Singleton.CurrentConfiguration.MonitoringSettings
-                                        .SSDMonitoringEnabled.ToString());
+                                       .SSDMonitoringEnabled.ToString());
                                     break;
                                  default:
                                     ArgumentError(args);
@@ -200,8 +198,8 @@ namespace StorageManagementTool
                                        try
                                        {
                                           Session.Singleton.CurrentConfiguration.MonitoringSettings
-                                                  .SSDMonitoringEnabled =
-                                              bool.Parse(args[5]);
+                                                .SSDMonitoringEnabled =
+                                             bool.Parse(args[5]);
                                        }
                                        catch (Exception)
                                        {
@@ -230,14 +228,14 @@ namespace StorageManagementTool
                                        break;
                                     case "-value" when args[1] == "-?":
                                        ConsoleIO.WriteLine(
-                                           "Help for -Name Argument in -config -value context");
+                                          "Help for -Name Argument in -config -value context");
                                        ConsoleIO.WriteLine("-Name can be have the Following Values:");
                                        ConsoleIO.WriteLine("Root.DefaultHDDPath");
                                        ConsoleIO.WriteLine("Root.SSDMonitoring.Enabled");
                                        break;
                                     case "-name" when args[3] == " -?":
                                        ConsoleIO.WriteLine(
-                                           "Help for -Name Argument in -config -get context");
+                                          "Help for -Name Argument in -config -get context");
                                        ConsoleIO.WriteLine("-Name can be have the Following Values:");
                                        ConsoleIO.WriteLine("Root.DefaultHDDPath");
                                        ConsoleIO.WriteLine("Root.SSDMonitoring.Enabled");
@@ -268,7 +266,7 @@ namespace StorageManagementTool
       }
 
       /// <summary>
-      ///     Processes arguments for -move
+      ///    Processes arguments for -move
       /// </summary>
       /// <param name="args">The arguments to process</param>
       private static void MoveObjectFromCommandline(List<string> args)
@@ -330,7 +328,7 @@ namespace StorageManagementTool
             else
             {
                newPath = Path.Combine(
-                   Session.Singleton.CurrentConfiguration.DefaultHDDPath, oldPath.Remove(1, 1));
+                  Session.Singleton.CurrentConfiguration.DefaultHDDPath, oldPath.Remove(1, 1));
             }
 
             if (fileOrFolder)
@@ -351,17 +349,15 @@ namespace StorageManagementTool
       }
 
       /// <summary>
-      ///     Initalizes a new session
+      ///    Initalizes a new session
       /// </summary>
       private static void SessionInitalizer()
       {
          new Session();
-
-
       }
 
       /// <summary>
-      ///     Displays an error message for wrong arguments and quits
+      ///    Displays an error message for wrong arguments and quits
       /// </summary>
       /// <param name="args">The arguments to quit with</param>
       private static void ArgumentError(IEnumerable<string> args)

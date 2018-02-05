@@ -1,19 +1,17 @@
-﻿using System.Security.Principal;
-
-namespace ExtendedMessageBoxLibrary
+﻿namespace ExtendedMessageBoxLibrary
 {
    public class ExtendedMessageBoxConfiguration
    {
-      public string[] Buttons { get; set; }
-      public bool ShowCheckBox;
+      public int DefaultButton;
+      public string DefaultIdentifier;
       public int NumberOfBbuttons;
+      public bool ShowCheckBox;
       public string Text;
       public string Title;
-      public string DefaultIdentifier;
-      public int DefaultButton;
+      public string[] Buttons { get; set; }
 
       public ExtendedMessageBoxConfiguration(string[] text, string title, string[] buttons, int defaultButton = -1,
-          string defaultIdentifier = "NoDefault")
+         string defaultIdentifier = "NoDefault")
       {
          ShowCheckBox = defaultIdentifier != "NoDefault";
          NumberOfBbuttons = buttons.Length;
@@ -24,7 +22,8 @@ namespace ExtendedMessageBoxLibrary
          DefaultButton = defaultButton;
       }
 
-      public ExtendedMessageBoxConfiguration(string text, string title, string[] buttons, int defaultButton = -1, string defaultIdentifier = "NoDefault")
+      public ExtendedMessageBoxConfiguration(string text, string title, string[] buttons, int defaultButton = -1,
+         string defaultIdentifier = "NoDefault")
       {
          Buttons = buttons;
          ShowCheckBox = defaultIdentifier != "NoDefault";

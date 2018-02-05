@@ -1,226 +1,223 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using ExtendedMessageBoxLibary;
-using IWshRuntimeLibrary;
-using File = System.IO.File;
 
 namespace StorageManagementTool
 {
-    public partial class MainWindow : Form
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+   public partial class MainWindow : Form
+   {
+      public MainWindow()
+      {
+         InitializeComponent();
+      }
 
 
-        private void HDDSavePath_Click(object sender, EventArgs e)
-        {
-            HDDPath_fbd.ShowDialog();
-            HDDSavePathText.Text = HDDPath_fbd.SelectedPath;
-        }
+      private void HDDSavePath_Click(object sender, EventArgs e)
+      {
+         HDDPath_fbd.ShowDialog();
+         HDDSavePathText.Text = HDDPath_fbd.SelectedPath;
+      }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Thread.CurrentThread.CurrentUICulture =
-                CultureInfo.GetCultureInfo("de-DE");
-            //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
-            //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
-            HDDSavePathText.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
-            string[] rec = OperatingMethods.GetRecommendedPaths();
-            foreach (string item in rec)
+      private void Form1_Load(object sender, EventArgs e)
+      {
+         Thread.CurrentThread.CurrentUICulture =
+            CultureInfo.GetCultureInfo("de-DE");
+         //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
+         //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
+         HDDSavePathText.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
+         string[] rec = OperatingMethods.GetRecommendedPaths();
+         foreach (string item in rec)
+         {
+            Suggestion_lb.Items.Add(item);
+         }
+
+         AdministartorStatus_tb.Text = Session.Singleton.IsAdmin
+            ? "Das Programm wird als Adminstrator ausgeführt"
+            : "Das Programm wird NICHT als Adminstrator ausgeführt";
+         Suggestion_lb.Select();
+         EnableComponents();
+      }
+
+      /// <summary>
+      ///    Enables/Disables/Changes components when needed to prevent illegal actions
+      /// </summary>
+      private void EnableComponents()
+      {
+         if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+            "Auf HDD Speichern.lnk")))
+         {
+            SetSendToHDD_btn.Text = "Senden an HDD deaktivieren";
+         }
+         else
+         {
+            SetSendToHDD_btn.Text = "Senden an HDD aktivieren";
+            SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
+         }
+      }
+
+      private void SetSendToHDD_btn_Click(object sender, EventArgs e)
+      {
+         if (SetSendToHDD_btn.Text == "Senden an HDD aktivieren")
+         {
+            OperatingMethods.EnableSendToHDD(true);
+         }
+         else
+         {
+            OperatingMethods.EnableSendToHDD(false);
+         }
+
+         EnableComponents();
+      }
+
+      private void Suggestion_lb_SelectedIndexChanged(object sender, EventArgs e)
+      {
+         FolderToMove_tb.Text = Suggestion_lb.SelectedItem.ToString();
+      }
+
+      private void OpenSelectedFolder_btn_Click(object sender, EventArgs e)
+      {
+         Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, FolderToMove_tb.Text, false, false, false);
+      }
+
+      public void RestartAsAdministartor_btn_Click(object sender, EventArgs e)
+      {
+         Wrapper.RestartAsAdministrator();
+      }
+
+      private void FileToMoveSel_btn_Click(object sender, EventArgs e)
+      {
+         FileToMove_ofd.ShowDialog();
+         FileToMovePath_tb.Text = FileToMove_ofd.FileName;
+      }
+
+      private void FolderToMove_btn_Click(object sender, EventArgs e)
+      {
+         FolderToMove_fbd.ShowDialog();
+         FolderToMove_tb.Text = FolderToMove_fbd.SelectedPath;
+      }
+
+      private void MoveFolder_btn_Click(object sender, EventArgs e)
+      {
+         if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
+         {
+            if (MessageBox.Show(
+                   "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
+                   "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                Suggestion_lb.Items.Add(item);
+               HDDSavePath_Click(null, null);
+               MoveFolder_btn_Click(null, null);
             }
 
-            AdministartorStatus_tb.Text = Session.Singleton.IsAdmin
-                ? "Das Programm wird als Adminstrator ausgeführt"
-                : "Das Programm wird NICHT als Adminstrator ausgeführt";
-            Suggestion_lb.Select();
-            EnableComponents();
-        }
+            return;
+         }
 
-        /// <summary>
-        ///     Enables/Disables/Changes components when needed to prevent illegal actions
-        /// </summary>
-        private void EnableComponents()
-        {
-            if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-                "Auf HDD Speichern.lnk")))
+         if (FolderToMove_tb.Text == "")
+         {
+            if (MessageBox.Show("Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?", "Fehler",
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                SetSendToHDD_btn.Text = "Senden an HDD deaktivieren";
-            }
-            else
-            {
-                SetSendToHDD_btn.Text = "Senden an HDD aktivieren";
-                SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
-            }
-        }
-
-        private void SetSendToHDD_btn_Click(object sender, EventArgs e)
-        {
-            if (SetSendToHDD_btn.Text == "Senden an HDD aktivieren")
-            {
-                OperatingMethods.EnableSendToHDD(true);
-            }
-            else
-            {
-                OperatingMethods.EnableSendToHDD(false);
+               FolderToMove_btn_Click(null, null);
+               MoveFolder_btn_Click(null, null);
             }
 
-            EnableComponents();
-        }
+            return;
+         }
 
-        private void Suggestion_lb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FolderToMove_tb.Text = Suggestion_lb.SelectedItem.ToString();
-        }
+         List<char> hddList = FolderToMove_tb.Text.ToList();
+         hddList.RemoveAt(1);
+         string newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath + "\\" + new string(hddList.ToArray());
+         string oldPath = FolderToMove_tb.Text;
+         ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath))
+            ? "Ordner erfolgreich verschoben"
+            : "Ordner aufgrund eines Fehlers nicht verschoben";
+         FolderToMove_tb.Text = "";
+         Suggestion_lb.Items.Clear();
+         string[] rec = OperatingMethods.GetRecommendedPaths();
+         foreach (string item in rec)
+         {
+            Suggestion_lb.Items.Add(item);
+         }
+      }
 
-        private void OpenSelectedFolder_btn_Click(object sender, EventArgs e)
-        {
-            Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, FolderToMove_tb.Text, false, false, false);
-        }
+      private void MoveFile_btn_Click(object sender, EventArgs e)
+      {
+         #region Tritt nur bei unvollständig ausgefülltem Formular aus
 
-        public void RestartAsAdministartor_btn_Click(object sender, EventArgs e)
-        {
-            Wrapper.RestartAsAdministrator();
-        }
-
-        private void FileToMoveSel_btn_Click(object sender, EventArgs e)
-        {
-            FileToMove_ofd.ShowDialog();
-            FileToMovePath_tb.Text = FileToMove_ofd.FileName;
-        }
-
-        private void FolderToMove_btn_Click(object sender, EventArgs e)
-        {
-            FolderToMove_fbd.ShowDialog();
-            FolderToMove_tb.Text = FolderToMove_fbd.SelectedPath;
-        }
-
-        private void MoveFolder_btn_Click(object sender, EventArgs e)
-        {
-            if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
+         if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
+         {
+            if (MessageBox.Show(
+                   "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
+                   "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                if (MessageBox.Show(
-                        "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
-                        "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    HDDSavePath_Click(null, null);
-                    MoveFolder_btn_Click(null, null);
-                }
-
-                return;
+               HDDSavePath_Click(null, null);
+               MoveFile_btn_Click(null, null);
             }
 
-            if (FolderToMove_tb.Text == "")
-            {
-                if (MessageBox.Show("Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?", "Fehler",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    FolderToMove_btn_Click(null, null);
-                    MoveFolder_btn_Click(null, null);
-                }
+            return;
+         }
 
-                return;
+         if (FileToMovePath_tb.Text == "")
+         {
+            if (MessageBox.Show("Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?", "Fehler",
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+               FileToMoveSel_btn_Click(null, null);
+               MoveFile_btn_Click(null, null);
             }
 
-            List<char> hddList = FolderToMove_tb.Text.ToList();
-            hddList.RemoveAt(1);
-            string newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath + "\\" + new string(hddList.ToArray());
-            string oldPath = FolderToMove_tb.Text;
-            ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath))
-                ? "Ordner erfolgreich verschoben"
-                : "Ordner aufgrund eines Fehlers nicht verschoben";
-            FolderToMove_tb.Text = "";
-            Suggestion_lb.Items.Clear();
-            string[] rec = OperatingMethods.GetRecommendedPaths();
-            foreach (string item in rec)
-            {
-                Suggestion_lb.Items.Add(item);
-            }
-        }
+            ;
+            return;
+         }
 
-        private void MoveFile_btn_Click(object sender, EventArgs e)
-        {
-            #region Tritt nur bei unvollständig ausgefülltem Formular aus
+         #endregion
 
-            if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
-            {
-                if (MessageBox.Show(
-                        "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
-                        "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    HDDSavePath_Click(null, null);
-                    MoveFile_btn_Click(null, null);
-                }
+         string newPath = Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath,
+            FileToMovePath_tb.Text.Remove(1, 1));
+         string oldPath = FileToMovePath_tb.Text;
+         ProgramStatusStrip.Text = OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath))
+            ? "Datei-Speicherort erfolgreich verschoben"
+            : "Datei-Speicherort aufgrund eines Fehlers nicht verschoben";
+         FileToMovePath_tb.Text = "";
+      }
 
-                return;
-            }
+      private void button1_Click_1(object sender, EventArgs e)
+      {
+         new MonitoringSettings().ShowDialog();
+      }
 
-            if (FileToMovePath_tb.Text == "")
-            {
-                if (MessageBox.Show("Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?", "Fehler",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    FileToMoveSel_btn_Click(null, null);
-                    MoveFile_btn_Click(null, null);
-                }
+      private void SetHDDPathAsDefault_btn_Click(object sender, EventArgs e)
+      {
+         Session.Singleton.CurrentConfiguration.DefaultHDDPath = HDDPath_fbd.SelectedPath;
+         Session.Singleton.SaveCfg();
+      }
 
-                ;
-                return;
-            }
+      private void button2_Click_1(object sender, EventArgs e)
+      {
+         new PageFileOptionDialog().ShowDialog();
+      }
 
-            #endregion
+      private void OpenWindowsSearchsettings_btn_Click(object sender, EventArgs e)
+      {
+         new EditWindowsSearchSettings().ShowDialog();
+      }
 
-            string newPath = Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath, FileToMovePath_tb.Text.Remove(1, 1));
-            string oldPath = FileToMovePath_tb.Text;
-            ProgramStatusStrip.Text = OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath))
-                ? "Datei-Speicherort erfolgreich verschoben"
-                : "Datei-Speicherort aufgrund eines Fehlers nicht verschoben";
-            FileToMovePath_tb.Text = "";
-        }
+      private void button1_Click(object sender, EventArgs e)
+      {
+         new EditUserShellFolders().ShowDialog();
+      }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            new MonitoringSettings().ShowDialog();
-        }
+      private void ApplyPresetDialog_btn_Click(object sender, EventArgs e)
+      {
+         new ApplyPreset().ShowDialog();
+      }
 
-        private void SetHDDPathAsDefault_btn_Click(object sender, EventArgs e)
-        {
-            Session.Singleton.CurrentConfiguration.DefaultHDDPath = HDDPath_fbd.SelectedPath;
-            Session.Singleton.SaveCfg();
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            new PageFileOptionDialog().ShowDialog();
-        }
-
-        private void OpenWindowsSearchsettings_btn_Click(object sender, EventArgs e)
-        {
-            new EditWindowsSearchSettings().ShowDialog();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new EditUserShellFolders().ShowDialog();
-        }
-
-        private void ApplyPresetDialog_btn_Click(object sender, EventArgs e)
-        {
-            new ApplyPreset().ShowDialog();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-       //     ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration())
-        }
-    }
+      private void button3_Click(object sender, EventArgs e)
+      {
+         //     ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration())
+      }
+   }
 }

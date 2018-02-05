@@ -7,19 +7,16 @@ namespace StorageManagementTool
    /// </summary>
    public class JSONConfig
    {
-
-      public JSONConfig()
-      {
-         
-      }
       /// <summary>
       ///    The default path to move data to
       /// </summary>
       public string DefaultHDDPath;
+
       /// <summary>
-      /// Overrides the UI language if not null
+      ///    Overrides the UI language if not null
       /// </summary>
       public string LanguageOverride;
+
       /// <summary>
       ///    The configured SSD MonitoringSetting
       /// </summary>
