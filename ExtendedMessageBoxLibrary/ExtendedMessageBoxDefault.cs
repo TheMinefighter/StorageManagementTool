@@ -5,10 +5,10 @@
       public int AnswerNumber { get; set; }
       public string DefaultIdentifier { get; set; }
 
-      public ExtendedMessageBoxDefault(int AnswerNumber, string DefaultIdentifier)
+      public ExtendedMessageBoxDefault(int answerNumber, string defaultIdentifier)
       {
-         this.AnswerNumber = AnswerNumber;
-         this.DefaultIdentifier = DefaultIdentifier;
+         this.AnswerNumber = answerNumber;
+         this.DefaultIdentifier = defaultIdentifier;
       }
    }
 }

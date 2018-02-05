@@ -32,7 +32,7 @@ namespace ExtendedMessageBoxLibrary
       /// <returns>The strings connected with the given connector</returns>
       public static string ConnectStringArrayWithConnector(string[] strings, string connector)
       {
-         if (strings.GetLength(0) == 0)
+         if (strings.Length == 0)
          {
             return "";
          }

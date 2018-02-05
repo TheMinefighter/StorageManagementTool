@@ -109,13 +109,13 @@ namespace StorageManagementTool
       {
          //(string) Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Microsoft")
          //.OpenSubKey("Windows Search").GetValue("DataDirectory");
-
+         string displayedSearchDataPath = "Error";
          if (Wrapper.GetRegistryValue(SearchDatatDirectoryRegPath, out object text, true))
          {
-            string displayedSearchDataPath;
+
             try
             {
-               DirectoryInfo readPath = new DirectoryInfo((string) text);
+               DirectoryInfo readPath = new DirectoryInfo((string)text);
                displayedSearchDataPath = readPath.Parent.Parent.FullName;
             }
             catch (Exception)
@@ -125,8 +125,9 @@ namespace StorageManagementTool
                return;
             }
 
-            CurrentPath_tb.Text = displayedSearchDataPath;
+
          }
+         CurrentPath_tb.Text = displayedSearchDataPath;
       }
 
       private void RefreshCurrentPath_btn_Click(object sender, EventArgs e)

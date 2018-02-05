@@ -2,6 +2,7 @@
 
 namespace StorageManagementTool
 {
+
    /// <summary>
    ///    Represents the JSON serializable configuration data of program
    /// </summary>

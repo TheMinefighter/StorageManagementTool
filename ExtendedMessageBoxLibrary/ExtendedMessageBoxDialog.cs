@@ -54,7 +54,7 @@ namespace ExtendedMessageBoxLibary
             MsgBoxDialogbtns[i] = new Button
             {
                Location = new Point(12, 48),
-               Name = "button" + i.ToString(),
+               Name = $"button{i}",
                Size = new Size(75, 23),
                TabIndex = 2,
                Text = _msgBoxOwner.ExMsgBoxcfg.Buttons[i],
