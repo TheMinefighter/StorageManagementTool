@@ -126,6 +126,42 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Abort {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Abort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Ignore {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Ignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Skip {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Skip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Text {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ChangeUserShellFolder_MoveContent_Text {
             get {
                 return ResourceManager.GetString("ChangeUserShellFolder_MoveContent_Text", resourceCulture);
@@ -156,6 +192,51 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string ChangeUserShellFolder_RestartExplorer_Title {
             get {
                 return ResourceManager.GetString("ChangeUserShellFolder_RestartExplorer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_No {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_Text {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_Title {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_Yes {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_YesAll {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_YesAll", resourceCulture);
             }
         }
         

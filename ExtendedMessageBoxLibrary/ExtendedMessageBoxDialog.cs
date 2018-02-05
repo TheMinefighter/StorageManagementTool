@@ -64,6 +64,10 @@ namespace ExtendedMessageBoxLibary
                 Controls.Add(MsgBoxDialogbtns[i]);
             }
 
+            if (_msgBoxOwner.ExMsgBoxcfg.DefaultButton!=-1&&_msgBoxOwner.ExMsgBoxcfg.DefaultButton<MsgBoxDialogbtns.Length)
+            {
+                MsgBoxDialogbtns[_msgBoxOwner.ExMsgBoxcfg.DefaultButton].TabIndex = 1;
+            }
             ExtendedMessageBoxDialog_SizeChanged(null, null);
 
             //   this.Size = new Size(this.Size.Width,MsgBoxDialogbtns[0].Location.Y+MsgBoxDialogbtns[0].Size.Height+51);

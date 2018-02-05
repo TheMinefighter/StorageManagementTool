@@ -104,7 +104,7 @@ namespace StorageManagementTool
                 switch (kind)
                 {
                     case RegistryValueKind.DWord:
-                        toReturn = uint.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                        toReturn = UInt32.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
                         break;
                     case RegistryValueKind.String:
                         toReturn = data;
@@ -115,7 +115,7 @@ namespace StorageManagementTool
                         toReturn = data.Split('\0');
                         break;
                     case RegistryValueKind.QWord:
-                        toReturn = ulong.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                        toReturn = UInt64.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
                         break;
                     case RegistryValueKind.Unknown:
                         toReturn = data;
@@ -133,7 +133,7 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                 return MessageBox.Show(
-                           string.Format(WrapperStrings.GetRegistryValue_Exception,
+                           String.Format(WrapperStrings.GetRegistryValue_Exception,
                                path.ValueName, path.RegistryKey, e.Message),
                            WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
                        DialogResult.Retry &&
@@ -165,12 +165,12 @@ namespace StorageManagementTool
             if (!File.Exists(filename))
             {
                 if (MessageBox.Show(
-                        string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound, filename),
+                        String.Format(WrapperStrings.ExecuteExecuteable_FileNotFound, filename),
                         WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                     {
-                        Filter = $"Programme|*{string.Join(";*", ExecuteableExtensions)}"
+                        Filter = $"Programme|*{String.Join(";*", ExecuteableExtensions)}"
                     };
                     alternativeExecuteableSel.ShowDialog();
                     return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -181,7 +181,7 @@ namespace StorageManagementTool
             if (!ExecuteableExtensions.Contains(new FileInfo(filename).Extension))
             {
                 if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-                    string.Format(WrapperStrings.ExecuteExecuteable_WrongEnding,
+                    String.Format(WrapperStrings.ExecuteExecuteable_WrongEnding,
                         filename, new FileInfo(filename).Extension),
                     WrapperStrings.Error,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
@@ -231,7 +231,7 @@ namespace StorageManagementTool
             catch (Win32Exception)
             {
                 DialogResult retry = MessageBox.Show(
-                    string.Format(
+                    String.Format(
                         WrapperStrings.ExecuteExecuteable_AdminError,
                         filename),
                     WrapperStrings.Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
@@ -406,7 +406,7 @@ namespace StorageManagementTool
                         value = ((string) content).Replace("\"", "\"\"");
                         break;
                     case RegistryValueKind.MultiString:
-                        value = string.Join("\0", (string[]) content).Replace("\"", "\"\"");
+                        value = String.Join("\0", (string[]) content).Replace("\"", "\"\"");
                         break;
                     case RegistryValueKind.ExpandString:
                         value = ((string) content).Replace("\"", "\"\"");
@@ -434,7 +434,7 @@ namespace StorageManagementTool
             catch (SecurityException)
             {
                 if (MessageBox.Show(
-                        string.Format(
+                        String.Format(
                             WrapperStrings.SetRegistryValue_Security,
                             valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                         WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
@@ -447,7 +447,7 @@ namespace StorageManagementTool
             catch (UnauthorizedAccessException)
             {
                 if (MessageBox.Show(
-                        string.Format(
+                        String.Format(
                             WrapperStrings.SetRegistryValue_UnauthorizedAccess,
                             valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                         WrapperStrings.Error,
@@ -462,7 +462,7 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                 if (MessageBox.Show(
-                        string.Format(
+                        String.Format(
                             WrapperStrings.SetRegistry_Exception,
                             valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind, e.Message),
                         WrapperStrings.Error, MessageBoxButtons.RetryCancel,
@@ -679,6 +679,11 @@ namespace StorageManagementTool
                 builder.Append(c);
             }
             return builder.ToString();
+        }
+
+        public static string ToWin32Format(this DateTime toConvert)
+        { 
+            return $"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
         }
     }
 }

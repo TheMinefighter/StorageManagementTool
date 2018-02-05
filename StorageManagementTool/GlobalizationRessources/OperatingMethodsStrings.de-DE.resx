@@ -138,6 +138,18 @@
   <data name="ChangeUserShellFolder_DeleteContent_Title" xml:space="preserve">
     <value>Alte Dateien löschen?</value>
   </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Abort" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Ignore" xml:space="preserve">
+    <value>Fortfahren</value>
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Skip" xml:space="preserve">
+    <value>"{0}" überspringen</value>
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Text" xml:space="preserve">
+    <value>Das Programm hat versucht den Pfad von "{0}" zu ändern. Dafür hat es versucht den Registry Wert "{1}" unter "{2}" zu "{3}" zu ändern. Dabei ist ein Fehler aufgetreten.</value>
+  </data>
   <data name="ChangeUserShellFolder_MoveContent_Text" xml:space="preserve">
     <value>Der UserShellFolder wurde erfolgreich geändert, sollen dessen Inhalte an seinen neuen Speicherort verschoben werden?</value>
   </data>
@@ -149,6 +161,21 @@
   </data>
   <data name="ChangeUserShellFolder_RestartExplorer_Title" xml:space="preserve">
     <value>Änderungen anwenden und Explorer neustarten?</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Text" xml:space="preserve">
+    <value>Der UserShellFolder "{0}" ist in einem Unterordner der UserShellFolders "{2}". Soll dieser auch verschoben werden werden (empfohlen) ?</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Title" xml:space="preserve">
+    <value>Unterordner gefunden </value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_YesAll" xml:space="preserve">
+    <value>Ja, alle</value>
   </data>
   <data name="DriveType2String_CDRom" xml:space="preserve">
     <value>CD-ROM/DVD</value>
@@ -175,6 +202,6 @@
     <value>Fehler</value>
   </data>
   <data name="MoveFolderOrFile_PathsEqual" xml:space="preserve">
-    <value>Fehler: Die Pfade dürfen nicht gleich sein</value>
+    <value>Fehler: Die Pfade dürfen nicht gleich sein.</value>
   </data>
 </root>

@@ -13,503 +13,518 @@ using File = System.IO.File;
 
 namespace StorageManagementTool
 {
-    public static class OperatingMethods
-    {
-        public enum QuestionAnswer
-        {
-            Yes,
-            No,
-            Ask
-        }
+   public static class OperatingMethods
+   {
+      public enum QuestionAnswer
+      {
+         Yes,
+         No,
+         Ask
+      }
 
-        /// <summary>
-        ///     Creates a string representation of an DriveInfo
-        /// </summary>
-        /// <param name="item">The DriveInfo object to represent</param>
-        /// <returns>The string representation</returns>
-        public static string DriveInfo2String(DriveInfo item)
-        {
-            return item.IsReady
-                ? item.VolumeLabel + " (" + item.Name + " ; " +
-                  DriveType2String(item.DriveType) + ')'
-                : item.Name;
-        }
+      /// <summary>
+      ///     Creates a string representation of an DriveInfo
+      /// </summary>
+      /// <param name="item">The DriveInfo object to represent</param>
+      /// <returns>The string representation</returns>
+      public static string DriveInfo2String(DriveInfo item)
+      {
+         return item.IsReady
+             ? item.VolumeLabel + " (" + item.Name + " ; " +
+               DriveType2String(item.DriveType) + ')'
+             : item.Name;
+      }
 
-        public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation)
-        {
-            if (dir == newLocation)
+      public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation)
+      {
+         if (dir == newLocation)
+         {
+            if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
+                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
             {
-                if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
-                        MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                {
-                    MoveFolder(dir, newLocation);
-                }
+               MoveFolder(dir, newLocation);
             }
+         }
 
-            if (!newLocation.Parent.Exists)
+         if (!newLocation.Parent.Exists)
+         {
+            newLocation.Parent.Create();
+         }
+
+         if (dir.Exists)
+         {
+            if (Wrapper.CopyDirectory(dir, newLocation))
             {
-                newLocation.Parent.Create();
+               if (!Wrapper.DeleteDirectory(dir))
+               {
+                  return false;
+               }
             }
-
-            if (dir.Exists)
+            else
             {
-                if (Wrapper.CopyDirectory(dir, newLocation))
-                {
-                    if (!Wrapper.DeleteDirectory(dir))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+               return false;
             }
+         }
 
-            return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
-            // throw new NotImplementedException();
-        }
+         return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+      }
 
-        public static bool MoveFile(FileInfo file, FileInfo newLocation)
-        {
-            if (file == newLocation)
+      public static bool MoveFile(FileInfo file, FileInfo newLocation)
+      {
+         if (file == newLocation)
+         {
+            if (
+                MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
+                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
             {
-                if (
-                    MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
-                        MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                {
-                    MoveFile(file, newLocation);
-                }
-                else
-                {
-                    return false;
-                }
+               MoveFile(file, newLocation);
             }
-
-            if (!newLocation.Directory.Exists)
+            else
             {
-                newLocation.Directory.Create();
+               return false;
             }
+         }
 
-            if (file.Exists)
+         if (!newLocation.Directory.Exists)
+         {
+            newLocation.Directory.Create();
+         }
+
+         if (file.Exists)
+         {
+            if (Wrapper.CopyFile(file, newLocation))
             {
-                if (Wrapper.CopyFile(file, newLocation))
-                {
-                    if (!Wrapper.DeleteFile(file))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+               if (!Wrapper.DeleteFile(file))
+               {
+                  return false;
+               }
             }
-
-            return Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true);
-            //throw new NotImplementedException();
-        }
-
-        public static bool ChangeSwapfileStadium(int currentStadium, bool fwd)
-        {
-            if (currentStadium == 1 && !fwd)
+            else
             {
-                MessageBox.Show("Fehler", "Es gibt kein Stadium vor dem ersten", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return false;
+               return false;
             }
+         }
 
-            if (currentStadium == 4 && fwd)
-            {
-                MessageBox.Show("Fehler", "Es gibt kein Stadium nach dem letzten", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return false;
-            }
+         return Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true);
+         //throw new NotImplementedException();
+      }
 
-            if (fwd)
-            {
-                switch (Session.Singleton.Swapstadium)
-                {
-                    case 1:
-                        try
-                        {
-                            Registry.SetValue(
-                                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                                "SwapFileControl", 1, RegistryValueKind.DWord);
-                        }
-                        catch (Exception)
-                        {
-                            return false;
-                        }
+      public static bool ChangeSwapfileStadium(int currentStadium, bool fwd)
+      {
+         if (currentStadium == 1 && !fwd)
+         {
+            MessageBox.Show("Fehler", "Es gibt kein Stadium vor dem ersten", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            return false;
+         }
 
-                        break;
-                    case 2:
-                        List<char> HDDList = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys")
-                            .ToArray().ToList();
-                        HDDList.RemoveAt(1);
-                        if (Session.Singleton.CfgJson.DefaultHDDPath == "")
-                        {
-                            if (MessageBox.Show(
-                                    "Fehler", "Es wurde kein Pfad für den NewPath Speicherort eingegeben",
-                                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                            {
-                                ChangeSwapfileStadium(currentStadium, fwd);
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
+         if (currentStadium == 4 && fwd)
+         {
+            MessageBox.Show("Fehler", "Es gibt kein Stadium nach dem letzten", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            return false;
+         }
 
-                        try
-                        {
-                            new DirectoryInfo(Session.Singleton.CfgJson.DefaultHDDPath);
-                        }
-                        catch (Exception)
-                        {
-                            if (MessageBox.Show(
-                                    "Fehler", "Es wurde ein ungültiger Pfad für den NewPath Speicherort eingegeben",
-                                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                            {
-                                ChangeSwapfileStadium(currentStadium, fwd);
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-
-                        string newPath = Session.Singleton.CfgJson.DefaultHDDPath + "\\" +
-                                         new string(HDDList.ToArray());
-                        string oldPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
-                        MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
-                        break;
-                    case 3:
-                        try
-                        {
-                            Registry.SetValue(
-                                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                                "SwapFileControl", 0, RegistryValueKind.DWord);
-                            break;
-                        }
-                        catch (Exception)
-                        {
-                            return false;
-                        }
-                }
-
-                return true;
-            }
-
+         if (fwd)
+         {
             switch (Session.Singleton.Swapstadium)
             {
-                case 2:
-                    Registry.SetValue(
-                        @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                        "SwapFileControl", 1, RegistryValueKind.DWord);
-                    break;
-                case 3:
-                    File.Delete(Path.Combine(Session.Singleton.CfgJson.DefaultHDDPath,
-                        Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys").Remove(1, 1)));
-                    break;
-                case 4:
-                    Registry.SetValue(
-                        @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                        "SwapFileControl", 0, RegistryValueKind.DWord);
-                    break;
+               case 1:
+                  try
+                  {
+                     Registry.SetValue(
+                         @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+                         "SwapFileControl", 1, RegistryValueKind.DWord);
+                  }
+                  catch (Exception)
+                  {
+                     return false;
+                  }
+
+                  break;
+               case 2:
+                  List<char> HDDList = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys")
+                      .ToArray().ToList();
+                  HDDList.RemoveAt(1);
+                  if (Session.Singleton.CfgJson.DefaultHDDPath == "")
+                  {
+                     if (MessageBox.Show(
+                             "Fehler", "Es wurde kein Pfad für den NewPath Speicherort eingegeben",
+                             MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                     {
+                        ChangeSwapfileStadium(currentStadium, fwd);
+                     }
+                     else
+                     {
+                        return false;
+                     }
+                  }
+
+                  try
+                  {
+                     new DirectoryInfo(Session.Singleton.CfgJson.DefaultHDDPath);
+                  }
+                  catch (Exception)
+                  {
+                     if (MessageBox.Show(
+                             "Fehler", "Es wurde ein ungültiger Pfad für den NewPath Speicherort eingegeben",
+                             MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                     {
+                        ChangeSwapfileStadium(currentStadium, fwd);
+                     }
+                     else
+                     {
+                        return false;
+                     }
+                  }
+
+                  string newPath = Session.Singleton.CfgJson.DefaultHDDPath + "\\" +
+                                   new string(HDDList.ToArray());
+                  string oldPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
+                  MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
+                  break;
+               case 3:
+                  try
+                  {
+                     Registry.SetValue(
+                         @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+                         "SwapFileControl", 0, RegistryValueKind.DWord);
+                     break;
+                  }
+                  catch (Exception)
+                  {
+                     return false;
+                  }
             }
 
-            Registry.SetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                "SwapFileControl", 1, RegistryValueKind.DWord);
+            return true;
+         }
 
-            return false;
-        }
+         switch (Session.Singleton.Swapstadium)
+         {
+            case 2:
+               Registry.SetValue(
+                   @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+                   "SwapFileControl", 1, RegistryValueKind.DWord);
+               break;
+            case 3:
+               File.Delete(Path.Combine(Session.Singleton.CfgJson.DefaultHDDPath,
+                   Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys").Remove(1, 1)));
+               break;
+            case 4:
+               Registry.SetValue(
+                   @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+                   "SwapFileControl", 0, RegistryValueKind.DWord);
+               break;
+         }
 
-        /// <summary>
-        ///     Recommends Paths to move to NewPath
-        /// </summary>
-        /// <returns>The recommended Paths</returns>
-        public static string[] GetRecommendedPaths()
-        {
-            List<string> ret = new List<string>();
-            if (
-                !Wrapper.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%")))
-            {
-                ret.Add(Environment.ExpandEnvironmentVariables(@"%AppData%"));
-            }
+         Registry.SetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+             "SwapFileControl", 1, RegistryValueKind.DWord);
 
-            List<string> blacklist = new List<string>
+         return false;
+      }
+
+      /// <summary>
+      ///     Recommends Paths to move to NewPath
+      /// </summary>
+      /// <returns>The recommended Paths</returns>
+      public static string[] GetRecommendedPaths()
+      {
+         List<string> ret = new List<string>();
+         if (
+             !Wrapper.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%")))
+         {
+            ret.Add(Environment.ExpandEnvironmentVariables(@"%AppData%"));
+         }
+
+         List<string> blacklist = new List<string>
             {
                 Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData"),
                 Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Local\Microsoft"),
                 Environment.ExpandEnvironmentVariables(@"%temp%"),
                 Environment.ExpandEnvironmentVariables(@"%tmp%")
             };
-            string[] currentsubfolders =
-                Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%"));
-            for (int i = 0; i < currentsubfolders.GetLength(0); i++)
+         string[] currentsubfolders =
+             Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%"));
+         for (int i = 0; i < currentsubfolders.GetLength(0); i++)
+         {
+            if (!Wrapper.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
             {
-                if (!Wrapper.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
-                {
-                    ret.Add(currentsubfolders[i]);
-                }
+               ret.Add(currentsubfolders[i]);
+            }
+         }
+
+         currentsubfolders =
+             Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Local"));
+         for (int i = 0; i < currentsubfolders.GetLength(0); i++)
+         {
+            if (!Wrapper.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
+            {
+               ret.Add(currentsubfolders[i]);
+            }
+         }
+
+         return ret.ToArray();
+      }
+
+      /// <summary>
+      ///     Gets names of DriveTypes
+      /// </summary>
+      /// <param name="toName">The DriveType Object, which name should be returned</param>
+      /// <returns>The  name of the DriveType Object</returns>
+      public static string DriveType2String(DriveType toName)
+      {
+         switch (toName)
+         {
+            case DriveType.CDRom: return DriveType2String_CDRom;
+            case DriveType.Fixed: return DriveType2String_Fixed;
+            case DriveType.Network: return DriveType2String_Network;
+            case DriveType.Ram: return DriveType2String_RAM;
+            case DriveType.Removable: return DriveType2String_Removable;
+            case DriveType.NoRootDirectory: return DriveType2String_NoRootDirectory;
+            default: return DriveType2String_Unknown;
+         }
+      }
+
+      /// <summary>
+      ///     Changes the systems pagefile settings
+      /// </summary>
+      /// <param name="currentSelection">The selected partition entry</param>
+      /// <param name="maxSize">The maximum Size of the Pagefile in MB</param>
+      /// <param name="minSize">The minimum Size of the Pagefile in MB</param>
+      /// <returns>Whether the Operation were successfull</returns>
+      public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize)
+      {
+         Session.Singleton.RefreshDriveInformation();
+         List<string> tempDriveInfoList = Session.Singleton.FillWithDriveInfo().ToList();
+         int selectedPartitionIndex;
+         if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
+         {
+            selectedPartitionIndex = tempDriveInfoList.IndexOf(currentSelection);
+         }
+         else
+         {
+            MessageBox.Show(ChangePagefileSettings_SelectedPartitionMissing,
+                Error,
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+         }
+
+         DriveInfo toUse = Session.Singleton.CurrentDrives[selectedPartitionIndex];
+         return ChangePagefileSettings(toUse, maxSize, minSize);
+      }
+
+      public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize)
+      {
+         string wmicPath = Path.Combine(Wrapper.System32Path, @"wbem\\wmic.exe");
+         if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
+         {
+            MessageBox.Show(ChangePagefileSettings_MinGreaterMax,
+                Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+         }
+
+         if (toUse.AvailableFreeSpace < minSize * 1048576L) //Tests whether enough space is available
+         {
+            MessageBox.Show(ChangePagefileSettings_NotEnoughSpace,
+                Error,
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+         }
+
+         if (Wrapper.ExecuteExecuteable(
+             wmicPath, "computersystem get AutomaticManagedPagefile /Value"
+             , out string[] tmp, out int _, true, true, true, true)) //Tests
+         {
+            if (Boolean.Parse(tmp[2].Split('=')[1]))
+            {
+               Wrapper.ExecuteCommand(
+                   wmicPath
+                   + Environment.ExpandEnvironmentVariables(
+                       " computersystem where \"name='%computername%' \" set AutomaticManagedPagefile=False")
+                   , true, true, out _); //Disables automatic Pagefile  management
+               Wrapper.ExecuteExecuteable(
+                   wmicPath
+                   , "computersystem get AutomaticManagedPagefile /Value"
+                   , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
+               if (!Boolean.Parse(tmp[2].Split('=')[1]))
+               {
+                  MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
+                      Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                  return false;
+               }
+            }
+         }
+
+         Wrapper.ExecuteExecuteable(wmicPath,
+             "pagefileset delete /NOINTERACTIVE", out _, out int _, waitforexit: true,
+             hidden: true, admin: true); //Deletes all Pagefiles
+
+         Wrapper.ExecuteExecuteable(wmicPath,
+             $"pagefileset create name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\"", out _,
+             out int _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile
+
+         Wrapper.ExecuteExecuteable(wmicPath,
+             $"pagefileset where name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\" set InitialSize={minSize},MaximumSize={maxSize}",
+             out _, out int _, waitforexit: true, hidden: true, admin: true); // Sets Pagefile Size
+
+         Wrapper.ExecuteExecuteable(wmicPath,
+             " get", out tmp, out int _, true, true,
+             true); //Checks wether there is exactly 1 pagefile existing
+         if (tmp.Length != 2)
+         {
+            switch (MessageBox.Show(ChangePagefileSettings_Not1Pagefile,
+                Error,
+                MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
+            {
+               case DialogResult.Cancel: return false;
+               case DialogResult.Retry: return ChangePagefileSettings(toUse, maxSize, minSize);
+            }
+         }
+
+         return true;
+      }
+
+      /// <summary>
+      ///     Moves an User ShellFolder to a new Location
+      /// </summary>
+      /// <param name="oldDir">The old Directory of</param>
+      /// <param name="newDir">The new Directory of the new </param>
+      /// <param name="usf">The UserShellFolder to edit</param>
+      /// <returns>Whether the Operation were successful</returns>
+      public static bool ChangeUserShellFolder(DirectoryInfo oldDir, DirectoryInfo newDir, UserShellFolder usf,
+          QuestionAnswer CopyContents = QuestionAnswer.Ask, QuestionAnswer DeleteOldContents = QuestionAnswer.Ask)
+      {
+         if (!newDir.Exists)
+         {
+            newDir.Create();
+         }
+
+         DirectoryInfo currentPath = usf.GetPath();
+         Dictionary<UserShellFolder, DirectoryInfo> childs = UserShellFolder
+             .AllEditableUserUserShellFolders
+             .Select(x => new KeyValuePair<UserShellFolder, DirectoryInfo>(x, x.GetPath()))
+             .Where(x => Wrapper.IsSubfolder(currentPath, x.Value)).ToDictionary();
+         bool MoveAll = false;
+
+         foreach (KeyValuePair<UserShellFolder, DirectoryInfo> child in childs)
+         {
+            //Add strings
+            bool move = false;
+            if (!MoveAll)
+            {
+               //No;Yes;YesAll
+               ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(string.Format(ChangeUserShellFolder_SubfolderFound_Text,child.Key.ViewedName),
+                  ChangeUserShellFolder_SubfolderFound_Title,childs.Count==1? new[] { ChangeUserShellFolder_SubfolderFound_Yes,ChangeUserShellFolder_SubfolderFound_No }:
+                     new []{ChangeUserShellFolder_SubfolderFound_YesAll,ChangeUserShellFolder_SubfolderFound_Yes,ChangeUserShellFolder_SubfolderFound_No},0));
+               if (result.NumberOfClickedButton == 2)
+               {
+                  MoveAll = true;
+               }
+               else
+               {
+                  move = result.NumberOfClickedButton == 1;
+               }
             }
 
-            currentsubfolders =
-                Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Local"));
-            for (int i = 0; i < currentsubfolders.GetLength(0); i++)
+            if (MoveAll || move)
             {
-                if (!Wrapper.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
-                {
-                    ret.Add(currentsubfolders[i]);
-                }
+               string newPathOfChild = Path.Combine(newDir.FullName, child.Value.FullName.Skip(currentPath.FullName.Length).AsString());
+               foreach (RegPath x in child.Key.RegPaths)
+               {
+                  if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
+                  {
+                     bool skip = false;
+                     //Error
+                     //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.Name" located under "x.Key" to "newPathOfChild".
+                     //Skip this UserShellFolder
+                     //Ignore
+                     //Abort
+                     switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
+                         string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName, x.ValueName, x.RegistryKey, newPathOfChild), Error,
+                         new[] { string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName), ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
+                                    ChangeUserShellFolder_ErrorChangeSubfolder_Abort })).NumberOfClickedButton)
+                     {
+                        case 0:
+                           skip = true;
+                           break;
+                        case 1: break;
+                        case 2: return false;
+                     }
+                     if (skip)
+                     {
+                        break;
+                     }
+                  }
+               }
+            }
+         }
+
+         if (usf.RegPaths.All(x =>
+             Wrapper.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
+         {
+            if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles &&
+                (CopyContents == QuestionAnswer.Yes || CopyContents == QuestionAnswer.Ask && MessageBox.Show(
+                     ChangeUserShellFolder_MoveContent_Text,
+                     ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
+                     MessageBoxDefaultButton.Button1) ==
+                 DialogResult.Yes))
+            {
+               if (Wrapper.CopyDirectory(oldDir, newDir))
+               {
+                  if (DeleteOldContents == QuestionAnswer.Yes || DeleteOldContents == QuestionAnswer.Ask && MessageBox.Show(
+                          String.Format(
+                              ChangeUserShellFolder_DeleteContent_Text,
+                              oldDir.FullName, newDir.FullName),
+                          ChangeUserShellFolder_DeleteContent_Title,
+                          MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                  {
+                     if (Wrapper.DeleteDirectory(oldDir) && !oldDir.Exists)
+                     {
+                        Wrapper.ExecuteCommand($"mklink /D \"{oldDir.FullName}\\\" \"{newDir.FullName}\"", true,
+                            true);
+                     }
+                  }
+               }
             }
 
-            return ret.ToArray();
-        }
-
-        /// <summary>
-        ///     Gets names of DriveTypes
-        /// </summary>
-        /// <param name="toName">The DriveType Object, which name should be returned</param>
-        /// <returns>The  name of the DriveType Object</returns>
-        public static string DriveType2String(DriveType toName)
-        {
-            switch (toName)
+            if (MessageBox.Show(
+                    ChangeUserShellFolder_RestartExplorer_Text,
+                    ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
-                case DriveType.CDRom: return DriveType2String_CDRom;
-                case DriveType.Fixed: return DriveType2String_Fixed;
-                case DriveType.Network: return DriveType2String_Network;
-                case DriveType.Ram: return DriveType2String_RAM;
-                case DriveType.Removable: return DriveType2String_Removable;
-                case DriveType.NoRootDirectory: return DriveType2String_NoRootDirectory;
-                default: return DriveType2String_Unknown;
-            }
-        }
-
-        /// <summary>
-        ///     Changes the systems pagefile settings
-        /// </summary>
-        /// <param name="currentSelection">The selected partition entry</param>
-        /// <param name="maxSize">The maximum Size of the Pagefile in MB</param>
-        /// <param name="minSize">The minimum Size of the Pagefile in MB</param>
-        /// <returns>Whether the Operation were successfull</returns>
-        public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize)
-        {
-            Session.Singleton.RefreshDriveInformation();
-            List<string> tempDriveInfoList = Session.Singleton.FillWithDriveInfo().ToList();
-            int selectedPartitionIndex;
-            if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
-            {
-                selectedPartitionIndex = tempDriveInfoList.IndexOf(currentSelection);
-            }
-            else
-            {
-                MessageBox.Show(ChangePagefileSettings_SelectedPartitionMissing,
-                    Error,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            DriveInfo toUse = Session.Singleton.CurrentDrives[selectedPartitionIndex];
-            return ChangePagefileSettings(toUse, maxSize, minSize);
-        }
-
-        public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize)
-        {
-            string wmicPath = Path.Combine(Wrapper.System32Path, @"wbem\\wmic.exe");
-            if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
-            {
-                MessageBox.Show(ChangePagefileSettings_MinGreaterMax,
-                    Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (toUse.AvailableFreeSpace < minSize * 1048576L) //Tests whether enough space is available
-            {
-                MessageBox.Show(ChangePagefileSettings_NotEnoughSpace,
-                    Error,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (Wrapper.ExecuteExecuteable(
-                wmicPath, "computersystem get AutomaticManagedPagefile /Value"
-                , out string[] tmp, out int _, true, true, true, true)) //Tests
-            {
-                if (Boolean.Parse(tmp[2].Split('=')[1]))
-                {
-                    Wrapper.ExecuteCommand(
-                        wmicPath
-                        + Environment.ExpandEnvironmentVariables(
-                            " computersystem where \"name='%computername%' \" set AutomaticManagedPagefile=False")
-                        , true, true, out _); //Disables automatic Pagefile  management
-                    Wrapper.ExecuteExecuteable(
-                        wmicPath
-                        , "computersystem get AutomaticManagedPagefile /Value"
-                        , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
-                    if (!Boolean.Parse(tmp[2].Split('=')[1]))
-                    {
-                        MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
-                            Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-            }
-
-            Wrapper.ExecuteExecuteable(wmicPath,
-                "pagefileset delete /NOINTERACTIVE", out _, out int _, waitforexit: true,
-                hidden: true, admin: true); //Deletes all Pagefiles
-
-            Wrapper.ExecuteExecuteable(wmicPath,
-                $"pagefileset create name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\"", out _,
-                out int _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile
-
-            Wrapper.ExecuteExecuteable(wmicPath,
-                $"pagefileset where name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\" set InitialSize={minSize},MaximumSize={maxSize}",
-                out _, out int _, waitforexit: true, hidden: true, admin: true); // Sets Pagefile Size
-
-            Wrapper.ExecuteExecuteable(wmicPath,
-                " get", out tmp, out int _, true, true,
-                true); //Checks wether there is exactly 1 pagefile existing
-            if (tmp.Length != 2)
-            {
-                switch (MessageBox.Show(ChangePagefileSettings_Not1Pagefile,
-                    Error,
-                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
-                {
-                    case DialogResult.Cancel: return false;
-                    case DialogResult.Retry: return ChangePagefileSettings(toUse, maxSize, minSize);
-                }
+               Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);
             }
 
             return true;
-        }
+         }
 
-        /// <summary>
-        ///     Moves an User ShellFolder to a new Location
-        /// </summary>
-        /// <param name="oldDir">The old Directory of</param>
-        /// <param name="newDir">The new Directory of the new </param>
-        /// <param name="usf">The UserShellFolder to edit</param>
-        /// <returns>Whether the Operation were successful</returns>
-        public static bool ChangeUserShellFolder(DirectoryInfo oldDir, DirectoryInfo newDir, UserShellFolder usf,
-            QuestionAnswer CopyContents = QuestionAnswer.Ask, QuestionAnswer DeleteOldContents = QuestionAnswer.Ask)
-        {
-            if (!newDir.Exists)
-            {
-                newDir.Create();
-            }
+         return false;
+      }
 
-            DirectoryInfo currentPath = usf.GetPath();
-            Dictionary<UserShellFolder, DirectoryInfo> childs = UserShellFolder
-                .AllEditableUserUserShellFolders
-                .Select(x => new KeyValuePair<UserShellFolder, DirectoryInfo>(x, x.GetPath()))
-                .Where(x => Wrapper.IsSubfolder(currentPath, x.Value)).ToDictionary();
-            bool MoveAll = false;
-            foreach (KeyValuePair<UserShellFolder,DirectoryInfo> child in childs)
-            {
-                //Add strings
-                bool Move = false;
-                if (!MoveAll)
-                {
-                    //No;Yes;YesAll
-                    ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(new[] { "" }, "", new[] { "" }));
-                    if (result.NumberOfClickedButton == 2)
-                    {
-                        MoveAll = true;
-                    }
-                    else
-                    {
-                        Move = result.NumberOfClickedButton == 1;
-                    }
-                }
+      public static void EnableSendToHDD(bool Enable = true)
+      {
+         if (Enable)
+         {
+            #region From https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
 
-                if (MoveAll || Move)
-                {
-                    string newPathOfChild = Path.Combine(newDir.FullName, child.Value.FullName.Skip(currentPath.FullName.Length).AsString());
-                    foreach (RegPath x in child.Key.RegPaths)
-                    {
-                        if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
-                        {
-//Error
-                            //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.Name" located under "x.Key" to "newPathOfChild".
-                            switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration( string.Format("", child.Key.ViewedName, x.ValueName, x.RegistryKey, newPathOfChild),Error, new[] {""})).NumberOfClickedButton)
-                            {
-                                case 1: break;
-                            }
+            WshShell shell = new WshShell();
+            string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+                "Auf HDD Speichern.lnk");
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
+            shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
+            shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
+            shortcut.Arguments = " -move -auto-detect -SrcPath";
+            shortcut.Save();
 
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (usf.RegPaths.All(x =>
-                Wrapper.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
-            {
-                if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles &&
-                    (CopyContents == QuestionAnswer.Yes || CopyContents == QuestionAnswer.Ask && MessageBox.Show(
-                         ChangeUserShellFolder_MoveContent_Text,
-                         ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
-                         MessageBoxDefaultButton.Button1) ==
-                     DialogResult.Yes))
-                {
-                    if (Wrapper.CopyDirectory(oldDir, newDir))
-                    {
-                        if (DeleteOldContents == QuestionAnswer.Yes || DeleteOldContents == QuestionAnswer.Ask && MessageBox.Show(
-                                String.Format(
-                                    ChangeUserShellFolder_DeleteContent_Text,
-                                    oldDir.FullName, newDir.FullName),
-                                ChangeUserShellFolder_DeleteContent_Title,
-                                MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                                MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                        {
-                            if (Wrapper.DeleteDirectory(oldDir) && !oldDir.Exists)
-                            {
-                                Wrapper.ExecuteCommand($"mklink /D \"{oldDir.FullName}\\\" \"{newDir.FullName}\"", true,
-                                    true);
-                            }
-                        }
-                    }
-                }
-
-                if (MessageBox.Show(
-                        ChangeUserShellFolder_RestartExplorer_Text,
-                        ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                {
-                    Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public static void EnableSendToHDD(bool Enable = true)
-        {
-            if (Enable)
-            {
-                #region From https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
-
-                WshShell shell = new WshShell();
-                string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-                    "Auf HDD Speichern.lnk");
-                IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
-                shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
-                shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
-                shortcut.Arguments = " -move -auto-detect -SrcPath";
-                shortcut.Save();
-
-                #endregion
-            }
-            else
-            {
-                File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-                    "Auf HDD Speichern.lnk"));
-            }
-        }
-    }
+            #endregion
+         }
+         else
+         {
+            File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+                "Auf HDD Speichern.lnk"));
+         }
+      }
+   }
 }

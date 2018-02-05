@@ -48,6 +48,8 @@ namespace ExtendedMessageBoxLibary
             // 
             // MainText_tb
             // 
+            this.MainText_tb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MainText_tb.BackColor = System.Drawing.SystemColors.Control;
             this.MainText_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MainText_tb.Location = new System.Drawing.Point(12, 12);

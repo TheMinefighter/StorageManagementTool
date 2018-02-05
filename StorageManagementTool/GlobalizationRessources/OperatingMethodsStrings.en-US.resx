@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangePagefileSettings_CouldntDisableManagement" xml:space="preserve">
-    <value>An eerror occurred while setting the system parameter "AutomaticManagedPagefile" to false</value>
+    <value>An error occurred while setting the system parameter "AutomaticManagedPagefile" to false</value>
   </data>
   <data name="ChangePagefileSettings_MinGreaterMax" xml:space="preserve">
     <value>The minmum size of the pagefile can´t be greater than the maximum size.</value>
@@ -138,6 +138,18 @@
   <data name="ChangeUserShellFolder_DeleteContent_Title" xml:space="preserve">
     <value>Delete old files</value>
   </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Ignore" xml:space="preserve">
+    <value>Proceed</value>
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Skip" xml:space="preserve">
+    <value>Skip "{0}"</value>
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Text" xml:space="preserve">
+    <value>The program tried to change the Path of "{0}". Therefore it tried to change the Registry value {1}" located under "{2}" to "{3}". Thereby an error occurred</value>
+  </data>
   <data name="ChangeUserShellFolder_MoveContent_Text" xml:space="preserve">
     <value>The UserShellFolder were changed successfully. Should the contents of the UserShellFolder be moved to the new location?</value>
   </data>
@@ -149,6 +161,21 @@
   </data>
   <data name="ChangeUserShellFolder_RestartExplorer_Title" xml:space="preserve">
     <value>Restart explorer to apply changes?</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Text" xml:space="preserve">
+    <value>The UserShellFolder "{0}" is located in a subdirectory of the UserShellFolder "{1}". Should it be moved to the new location (recommended)?</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Title" xml:space="preserve">
+    <value>Refrenced Subfolder found</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_YesAll" xml:space="preserve">
+    <value>Yes, all</value>
   </data>
   <data name="DriveType2String_CDRom" xml:space="preserve">
     <value>CD-ROM/DVD</value>

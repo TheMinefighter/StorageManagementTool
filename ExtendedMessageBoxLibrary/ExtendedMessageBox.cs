@@ -17,11 +17,11 @@ namespace ExtendedMessageBoxLibrary
         }
 
         public ExtendedMessageBox(
-            string[] text, string title, string[] buttons,
+            string[] text, string title, string[] buttons, int defaultButton = -1,
             string defaultIdentifier = "NoDefault"
         )
         {
-            ExMsgBoxcfg = new ExtendedMessageBoxConfiguration(text, title, buttons);
+            ExMsgBoxcfg = new ExtendedMessageBoxConfiguration(text, title, buttons,defaultButton, defaultIdentifier);
         }
 
         /// <summary>

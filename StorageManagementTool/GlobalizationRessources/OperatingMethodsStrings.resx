@@ -138,6 +138,18 @@
   <data name="ChangeUserShellFolder_DeleteContent_Title" xml:space="preserve">
     <value />
   </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Abort" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Ignore" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Skip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Text" xml:space="preserve">
+    <value />
+  </data>
   <data name="ChangeUserShellFolder_MoveContent_Text" xml:space="preserve">
     <value />
   </data>
@@ -148,6 +160,21 @@
     <value />
   </data>
   <data name="ChangeUserShellFolder_RestartExplorer_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_No" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_Yes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeUserShellFolder_SubfolderFound_YesAll" xml:space="preserve">
     <value />
   </data>
   <data name="DriveType2String_CDRom" xml:space="preserve">

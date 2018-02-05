@@ -153,7 +153,6 @@
     <Compile Include="RegPath.cs" />
     <Compile Include="ScenarioPreset.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="UIStrings.cs" />
     <Compile Include="UserShellFolder.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="GlobalizationRessources\WrapperStrings.Designer.cs">
