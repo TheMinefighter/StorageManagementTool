@@ -432,29 +432,39 @@ namespace StorageManagementTool
                string newPathOfChild = Path.Combine(newDir.FullName, child.Value.FullName.Skip(currentPath.FullName.Length).AsString());
                foreach (RegPath x in child.Key.RegPaths)
                {
-                  if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
+                  bool retry;
+                  bool skip = false;
+                  do
                   {
-                     bool skip = false;
-                     //Error
-                     //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.Name" located under "x.Key" to "newPathOfChild".
-                     //Skip this UserShellFolder
-                     //Ignore
-                     //Abort
-                     switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                         string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName, x.ValueName, x.RegistryKey, newPathOfChild), Error,
-                         new[] { string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName), ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
-                                    ChangeUserShellFolder_ErrorChangeSubfolder_Abort })).NumberOfClickedButton)
+                     retry = false;
+                     if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
                      {
-                        case 0:
-                           skip = true;
-                           break;
-                        case 1: break;
-                        case 2: return false;
+                        
+                        //Error
+                        //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.Name" located under "x.Key" to "newPathOfChild".
+                        //Retry
+                        //Skip this UserShellFolder
+                        //Ignore
+                        //Abort
+                        switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
+                           string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName, x.ValueName, x.RegistryKey, newPathOfChild), Error,
+                           new[] {ChangeUserShellFolder_ErrorChangeSubfolder_Retry, string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
+                              ChangeUserShellFolder_ErrorChangeSubfolder_Ignore, ChangeUserShellFolder_ErrorChangeSubfolder_Abort },0)).NumberOfClickedButton)
+                        {
+                           case 0: retry = true;
+                              break;
+                           case 1:
+                              skip = true;
+                              break;
+                           case 2: break;
+                           case 3: return false;
+                        }
+                        
                      }
-                     if (skip)
-                     {
-                        break;
-                     }
+                  } while (retry);
+                  if (skip)
+                  {
+                     break;
                   }
                }
             }
@@ -473,7 +483,7 @@ namespace StorageManagementTool
                if (Wrapper.CopyDirectory(oldDir, newDir))
                {
                   if (DeleteOldContents == QuestionAnswer.Yes || DeleteOldContents == QuestionAnswer.Ask && MessageBox.Show(
-                          String.Format(
+                          string.Format(
                               ChangeUserShellFolder_DeleteContent_Text,
                               oldDir.FullName, newDir.FullName),
                           ChangeUserShellFolder_DeleteContent_Title,
@@ -503,9 +513,9 @@ namespace StorageManagementTool
          return false;
       }
 
-      public static void EnableSendToHDD(bool Enable = true)
+      public static void EnableSendToHDD(bool enable = true)
       {
-         if (Enable)
+         if (enable)
          {
             #region From https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
 

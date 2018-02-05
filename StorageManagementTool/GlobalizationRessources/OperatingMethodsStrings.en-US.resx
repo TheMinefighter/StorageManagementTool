@@ -144,6 +144,9 @@
   <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Ignore" xml:space="preserve">
     <value>Proceed</value>
   </data>
+  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
   <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Skip" xml:space="preserve">
     <value>Skip "{0}"</value>
   </data>

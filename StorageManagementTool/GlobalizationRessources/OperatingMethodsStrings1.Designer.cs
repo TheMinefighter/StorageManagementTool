@@ -144,6 +144,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Retry {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Retry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Skip {
             get {
                 return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Skip", resourceCulture);
