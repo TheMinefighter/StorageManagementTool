@@ -26,8 +26,8 @@ namespace StorageManagementTool
         /// <summary>
         ///     Dictionary from FileSystemWatchers to MonitoredFolders
         /// </summary>
-        private static readonly Dictionary<FileSystemWatcher, MonitoredFolder> FileSystemWatcher2MonitoredFolders
-            = new Dictionary<FileSystemWatcher, MonitoredFolder>();
+        private static readonly Dictionary<FileSystemWatcher, MonitoringSetting.MonitoredFolder> FileSystemWatcher2MonitoredFolders
+            = new Dictionary<FileSystemWatcher, MonitoringSetting.MonitoredFolder>();
 
         /// <summary>
         ///     Initalizes the Background Process
@@ -40,9 +40,9 @@ namespace StorageManagementTool
                 Environment.Exit(-1);
             }
 
-            foreach (MonitoredFolder monitoredFolder in _jsonConfig.MonitoringSettings.MonitoredFolders)
+            foreach (MonitoringSetting.MonitoredFolder monitoredFolder in _jsonConfig.MonitoringSettings.MonitoredFolders)
             {
-                if (monitoredFolder.ForFiles != MonitoringAction.Ignore)
+                if (monitoredFolder.ForFiles != MonitoringSetting.MonitoringAction.Ignore)
                 {
                     FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
                     tempFileSystemWatcher.Created += MonitoredFolderWatcher_FileCreated;
@@ -52,7 +52,7 @@ namespace StorageManagementTool
                     tempFileSystemWatcher.EnableRaisingEvents = true;
                 }
 
-                if (monitoredFolder.ForFolders != MonitoringAction.Ignore)
+                if (monitoredFolder.ForFolders != MonitoringSetting.MonitoringAction.Ignore)
                 {
                     FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
                     tempFileSystemWatcher.Created += MonitoredFolderWatcher_FolderCreated;
@@ -71,12 +71,12 @@ namespace StorageManagementTool
 
         private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e)
         {
-            MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
+            MonitoringSetting.MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
             switch (tmp.ForFolders)
             {
-                case MonitoringAction.Ignore:
+                case MonitoringSetting.MonitoringAction.Ignore:
                     break;
-                case MonitoringAction.Ask:
+                case MonitoringSetting.MonitoringAction.Ask:
                     if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
                             new[]
                             {
@@ -96,7 +96,7 @@ namespace StorageManagementTool
                     }
 
                     break;
-                case MonitoringAction.Move:
+                case MonitoringSetting.MonitoringAction.Move:
                     OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
                         new DirectoryInfo(Path.Combine(_jsonConfig.DefaultHDDPath,
                             e.FullPath.Remove(1, 1))));
@@ -109,12 +109,12 @@ namespace StorageManagementTool
 
         private static void MonitoredFolderWatcher_FileCreated(object sender, FileSystemEventArgs e)
         {
-            MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
+            MonitoringSetting.MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
             switch (tmp.ForFiles)
             {
-                case MonitoringAction.Ignore:
+                case MonitoringSetting.MonitoringAction.Ignore:
                     break;
-                case MonitoringAction.Ask:
+                case MonitoringSetting.MonitoringAction.Ask:
                     if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
                             new[]
                             {
@@ -134,7 +134,7 @@ namespace StorageManagementTool
                     }
 
                     break;
-                case MonitoringAction.Move:
+                case MonitoringSetting.MonitoringAction.Move:
                     OperatingMethods.MoveFile(new FileInfo(e.FullPath),
                         new FileInfo(Path.Combine(_jsonConfig.DefaultHDDPath, e.FullPath.Remove(1, 1)))
                     );

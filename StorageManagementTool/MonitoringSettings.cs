@@ -14,12 +14,12 @@ namespace StorageManagementTool
    {
       private static readonly XNamespace TaskNamespace = XNamespace.Get("http://schemas.microsoft.com/windows/2004/02/mit/task");
 
-      private readonly Dictionary<MonitoringAction, RadioButton> _forFilesDictionary =
-          new Dictionary<MonitoringAction, RadioButton>();
+      private readonly Dictionary<MonitoringSetting.MonitoringAction, RadioButton> _forFilesDictionary =
+          new Dictionary<MonitoringSetting.MonitoringAction, RadioButton>();
 
 
-      private readonly Dictionary<MonitoringAction, RadioButton> _forFoldersDictionary =
-          new Dictionary<MonitoringAction, RadioButton>();
+      private readonly Dictionary<MonitoringSetting.MonitoringAction, RadioButton> _forFoldersDictionary =
+          new Dictionary<MonitoringSetting.MonitoringAction, RadioButton>();
 
       private MonitoringSetting _editedSettings = new MonitoringSetting();
       private List<Control> _whenEnabled = new List<Control>();
@@ -38,12 +38,12 @@ namespace StorageManagementTool
 
       private void NotificationSettings_Load(object sender, EventArgs e)
       {
-         _forFoldersDictionary.Add(MonitoringAction.Ask, AskActionForFolders_rb);
-         _forFoldersDictionary.Add(MonitoringAction.Ignore, IgnoreForFolders_rb);
-         _forFoldersDictionary.Add(MonitoringAction.Move, AutomaticMoveForFolders_rb);
-         _forFilesDictionary.Add(MonitoringAction.Ask, AskActionForFiles_rb);
-         _forFilesDictionary.Add(MonitoringAction.Ignore, IgnoreForFiles_rb);
-         _forFilesDictionary.Add(MonitoringAction.Move, AutomaticMoveForFiles_rb);
+         _forFoldersDictionary.Add(MonitoringSetting.MonitoringAction.Ask, AskActionForFolders_rb);
+         _forFoldersDictionary.Add(MonitoringSetting.MonitoringAction.Ignore, IgnoreForFolders_rb);
+         _forFoldersDictionary.Add(MonitoringSetting.MonitoringAction.Move, AutomaticMoveForFolders_rb);
+         _forFilesDictionary.Add(MonitoringSetting.MonitoringAction.Ask, AskActionForFiles_rb);
+         _forFilesDictionary.Add(MonitoringSetting.MonitoringAction.Ignore, IgnoreForFiles_rb);
+         _forFilesDictionary.Add(MonitoringSetting.MonitoringAction.Move, AutomaticMoveForFiles_rb);
          _editedSettings = Session.Singleton.CfgJson.MonitoringSettings ?? new MonitoringSetting();
          _whenEnabled = new List<Control>
             {
@@ -112,7 +112,7 @@ namespace StorageManagementTool
          FolderBrowserDialog browser =
              new FolderBrowserDialog { Description = "Wählen sie den zu überwachenden Ordner aus" };
          browser.ShowDialog();
-         _editedSettings.MonitoredFolders.Add(new MonitoredFolder(browser.SelectedPath));
+         _editedSettings.MonitoredFolders.Add(new MonitoringSetting.MonitoredFolder(browser.SelectedPath));
          AllFolders_lb.Items.Add(browser.SelectedPath);
          AllFolders_lb.SelectedIndex = AllFolders_lb.Items.Count - 1;
          browser.Dispose();

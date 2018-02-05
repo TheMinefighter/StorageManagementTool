@@ -181,7 +181,7 @@
     <value>Verlauf</value>
   </data>
   <data name="Local_AppData_Name" xml:space="preserve">
-    <value>Anwendungsdaten\Local</value>
+    <value>Lokale Anwendungsdaten</value>
   </data>
   <data name="My_Music_Name" xml:space="preserve">
     <value>Eigene Musik</value>
