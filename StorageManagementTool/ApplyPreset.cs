@@ -15,7 +15,7 @@ namespace StorageManagementTool
 
         private void ApplyPreset_Load(object sender, EventArgs e)
         {
-            if (!Session.Singleton.Isadmin)
+            if (!Session.Singleton.IsAdmin)
             {
                 if (MessageBox.Show(Load_AdministratorRequired, Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error,
                         MessageBoxDefaultButton.Button1) == DialogResult.Yes)
@@ -60,7 +60,7 @@ namespace StorageManagementTool
                 return;
             }
 
-            toApply.toRun(
+            toApply.ToRun(
                 Session.Singleton.CurrentDrives.First(x =>
                     OperatingMethods.DriveInfo2String(x) == SelectSSD_lb.SelectedItem.ToString()),
                 Session.Singleton.CurrentDrives.First(x =>

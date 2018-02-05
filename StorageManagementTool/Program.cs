@@ -150,11 +150,11 @@ namespace StorageManagementTool
                               {
                                  case "Root.DefaultHDDPath":
                                     ConsoleIO.WriteLine("Value of Root.DefaultHDDPath:");
-                                    ConsoleIO.WriteLine(Session.Singleton.CfgJson.DefaultHDDPath);
+                                    ConsoleIO.WriteLine(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
                                     break;
                                  case "Root.SSDMonitoring.Enabled":
                                     ConsoleIO.WriteLine("Value of Root.SSDMonitoring.Enabled:");
-                                    ConsoleIO.WriteLine(Session.Singleton.CfgJson.MonitoringSettings
+                                    ConsoleIO.WriteLine(Session.Singleton.CurrentConfiguration.MonitoringSettings
                                         .SSDMonitoringEnabled.ToString());
                                     break;
                                  default:
@@ -186,7 +186,7 @@ namespace StorageManagementTool
                                     case "Root.DefaultHDDPath":
                                        try
                                        {
-                                          Session.Singleton.CfgJson.DefaultHDDPath = args[5];
+                                          Session.Singleton.CurrentConfiguration.DefaultHDDPath = args[5];
                                        }
                                        catch (Exception)
                                        {
@@ -199,7 +199,7 @@ namespace StorageManagementTool
                                     case "Root.SSDMonitoring.Enabled":
                                        try
                                        {
-                                          Session.Singleton.CfgJson.MonitoringSettings
+                                          Session.Singleton.CurrentConfiguration.MonitoringSettings
                                                   .SSDMonitoringEnabled =
                                               bool.Parse(args[5]);
                                        }
@@ -330,7 +330,7 @@ namespace StorageManagementTool
             else
             {
                newPath = Path.Combine(
-                   Session.Singleton.CfgJson.DefaultHDDPath, oldPath.Remove(1, 1));
+                   Session.Singleton.CurrentConfiguration.DefaultHDDPath, oldPath.Remove(1, 1));
             }
 
             if (fileOrFolder)

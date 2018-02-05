@@ -146,7 +146,7 @@ namespace StorageManagementTool
                   List<char> HDDList = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys")
                      .ToArray().ToList();
                   HDDList.RemoveAt(1);
-                  if (Session.Singleton.CfgJson.DefaultHDDPath == "")
+                  if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
                   {
                      if (MessageBox.Show(
                             "Fehler", "Es wurde kein Pfad für den NewPath Speicherort eingegeben",
@@ -162,7 +162,7 @@ namespace StorageManagementTool
 
                   try
                   {
-                     new DirectoryInfo(Session.Singleton.CfgJson.DefaultHDDPath);
+                     new DirectoryInfo(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
                   }
                   catch (Exception)
                   {
@@ -178,7 +178,7 @@ namespace StorageManagementTool
                      }
                   }
 
-                  string newPath = Session.Singleton.CfgJson.DefaultHDDPath + "\\" +
+                  string newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath + "\\" +
                                    new string(HDDList.ToArray());
                   string oldPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
                   MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
@@ -208,7 +208,7 @@ namespace StorageManagementTool
                   "SwapFileControl", 1, RegistryValueKind.DWord);
                break;
             case 3:
-               File.Delete(Path.Combine(Session.Singleton.CfgJson.DefaultHDDPath,
+               File.Delete(Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath,
                   Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys").Remove(1, 1)));
                break;
             case 4:

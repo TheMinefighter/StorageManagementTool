@@ -32,14 +32,14 @@ namespace StorageManagementTool
                 CultureInfo.GetCultureInfo("de-DE");
             //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
             //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
-            HDDSavePathText.Text = Session.Singleton.CfgJson.DefaultHDDPath;
+            HDDSavePathText.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
             string[] rec = OperatingMethods.GetRecommendedPaths();
             foreach (string item in rec)
             {
                 Suggestion_lb.Items.Add(item);
             }
 
-            AdministartorStatus_tb.Text = Session.Singleton.Isadmin
+            AdministartorStatus_tb.Text = Session.Singleton.IsAdmin
                 ? "Das Programm wird als Adminstrator ausgeführt"
                 : "Das Programm wird NICHT als Adminstrator ausgeführt";
             Suggestion_lb.Select();
@@ -59,7 +59,7 @@ namespace StorageManagementTool
             else
             {
                 SetSendToHDD_btn.Text = "Senden an HDD aktivieren";
-                SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CfgJson.DefaultHDDPath);
+                SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
             }
         }
 
@@ -106,7 +106,7 @@ namespace StorageManagementTool
 
         private void MoveFolder_btn_Click(object sender, EventArgs e)
         {
-            if (Session.Singleton.CfgJson.DefaultHDDPath == "")
+            if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
             {
                 if (MessageBox.Show(
                         "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
@@ -133,7 +133,7 @@ namespace StorageManagementTool
 
             List<char> hddList = FolderToMove_tb.Text.ToList();
             hddList.RemoveAt(1);
-            string newPath = Session.Singleton.CfgJson.DefaultHDDPath + "\\" + new string(hddList.ToArray());
+            string newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath + "\\" + new string(hddList.ToArray());
             string oldPath = FolderToMove_tb.Text;
             ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath))
                 ? "Ordner erfolgreich verschoben"
@@ -151,7 +151,7 @@ namespace StorageManagementTool
         {
             #region Tritt nur bei unvollständig ausgefülltem Formular aus
 
-            if (Session.Singleton.CfgJson.DefaultHDDPath == "")
+            if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
             {
                 if (MessageBox.Show(
                         "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
@@ -179,7 +179,7 @@ namespace StorageManagementTool
 
             #endregion
 
-            string newPath = Path.Combine(Session.Singleton.CfgJson.DefaultHDDPath, FileToMovePath_tb.Text.Remove(1, 1));
+            string newPath = Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath, FileToMovePath_tb.Text.Remove(1, 1));
             string oldPath = FileToMovePath_tb.Text;
             ProgramStatusStrip.Text = OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath))
                 ? "Datei-Speicherort erfolgreich verschoben"
@@ -194,7 +194,7 @@ namespace StorageManagementTool
 
         private void SetHDDPathAsDefault_btn_Click(object sender, EventArgs e)
         {
-            Session.Singleton.CfgJson.DefaultHDDPath = HDDPath_fbd.SelectedPath;
+            Session.Singleton.CurrentConfiguration.DefaultHDDPath = HDDPath_fbd.SelectedPath;
             Session.Singleton.SaveCfg();
         }
 

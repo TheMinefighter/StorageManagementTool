@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
-using StorageManagementTool.GlobalizationRessources;
+using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
 
 namespace StorageManagementTool
 {
@@ -23,7 +23,6 @@ namespace StorageManagementTool
     /// </summary>
     public static class Wrapper
     {
-        // public static ResourceManager _rmg= new ResourceManager("WrapperStrings",typeof(Wrapper).Assembly);
         private static readonly string[] ExecuteableExtensions = {".exe", ".pif", ".com", ".bat", ".cmd"};
         public static readonly string WinPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
         public static readonly string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
@@ -104,7 +103,7 @@ namespace StorageManagementTool
                 switch (kind)
                 {
                     case RegistryValueKind.DWord:
-                        toReturn = UInt32.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                        toReturn = uint.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
                         break;
                     case RegistryValueKind.String:
                         toReturn = data;
@@ -115,7 +114,7 @@ namespace StorageManagementTool
                         toReturn = data.Split('\0');
                         break;
                     case RegistryValueKind.QWord:
-                        toReturn = UInt64.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                        toReturn = ulong.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
                         break;
                     case RegistryValueKind.Unknown:
                         toReturn = data;
@@ -133,9 +132,9 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                 return MessageBox.Show(
-                           String.Format(WrapperStrings.GetRegistryValue_Exception,
+                           string.Format(GetRegistryValue_Exception,
                                path.ValueName, path.RegistryKey, e.Message),
-                           WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
+                           Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
                        DialogResult.Retry &&
                        GetRegistryValue(path, out toReturn, asUser);
             }
@@ -165,12 +164,12 @@ namespace StorageManagementTool
             if (!File.Exists(filename))
             {
                 if (MessageBox.Show(
-                        String.Format(WrapperStrings.ExecuteExecuteable_FileNotFound, filename),
-                        WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        string.Format(ExecuteExecuteable_FileNotFound, filename),
+                        Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                     {
-                        Filter = $"Programme|*{String.Join(";*", ExecuteableExtensions)}"
+                        Filter = $"Programme|*{string.Join(";*", ExecuteableExtensions)}"
                     };
                     alternativeExecuteableSel.ShowDialog();
                     return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -181,9 +180,9 @@ namespace StorageManagementTool
             if (!ExecuteableExtensions.Contains(new FileInfo(filename).Extension))
             {
                 if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-                    String.Format(WrapperStrings.ExecuteExecuteable_WrongEnding,
+                    string.Format(ExecuteExecuteable_WrongEnding,
                         filename, new FileInfo(filename).Extension),
-                    WrapperStrings.Error,
+                    Error,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
                 {
                     return false;
@@ -231,10 +230,10 @@ namespace StorageManagementTool
             catch (Win32Exception)
             {
                 DialogResult retry = MessageBox.Show(
-                    String.Format(
-                        WrapperStrings.ExecuteExecuteable_AdminError,
+                    string.Format(
+                        ExecuteExecuteable_AdminError,
                         filename),
-                    WrapperStrings.Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                    Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
                 switch (retry)
                 {
                     case DialogResult.Retry:
@@ -406,7 +405,7 @@ namespace StorageManagementTool
                         value = ((string) content).Replace("\"", "\"\"");
                         break;
                     case RegistryValueKind.MultiString:
-                        value = String.Join("\0", (string[]) content).Replace("\"", "\"\"");
+                        value = string.Join("\0", (string[]) content).Replace("\"", "\"\"");
                         break;
                     case RegistryValueKind.ExpandString:
                         value = ((string) content).Replace("\"", "\"\"");
@@ -434,10 +433,10 @@ namespace StorageManagementTool
             catch (SecurityException)
             {
                 if (MessageBox.Show(
-                        String.Format(
-                            WrapperStrings.SetRegistryValue_Security,
+                        string.Format(
+                            SetRegistryValue_Security,
                             valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
-                        WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                        Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     return SetRegistryValue(valueLocation, content, registryValueKind);
                 }
@@ -447,10 +446,10 @@ namespace StorageManagementTool
             catch (UnauthorizedAccessException)
             {
                 if (MessageBox.Show(
-                        String.Format(
-                            WrapperStrings.SetRegistryValue_UnauthorizedAccess,
+                        string.Format(
+                            SetRegistryValue_UnauthorizedAccess,
                             valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
-                        WrapperStrings.Error,
+                        Error,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     RestartAsAdministrator();
@@ -462,10 +461,10 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                 if (MessageBox.Show(
-                        String.Format(
-                            WrapperStrings.SetRegistry_Exception,
+                        string.Format(
+                            SetRegistry_Exception,
                             valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind, e.Message),
-                        WrapperStrings.Error, MessageBoxButtons.RetryCancel,
+                        Error, MessageBoxButtons.RetryCancel,
                         MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     return SetRegistryValue(valueLocation, content, registryValueKind);

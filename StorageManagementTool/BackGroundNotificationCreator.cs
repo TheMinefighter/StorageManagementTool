@@ -34,7 +34,7 @@ namespace StorageManagementTool
         /// </summary>
         public static void Initalize()
         {
-            _jsonConfig = Session.Singleton.CfgJson;
+            _jsonConfig = Session.Singleton.CurrentConfiguration;
             if (!_jsonConfig.MonitoringSettings.SSDMonitoringEnabled)
             {
                 Environment.Exit(-1);

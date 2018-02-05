@@ -66,7 +66,7 @@ namespace StorageManagementTool
 
         private void SwapfileStepBack_btn_Click(object sender, EventArgs e)
         {
-            if (Session.Singleton.Isadmin)
+            if (Session.Singleton.IsAdmin)
             {
                 if (OperatingMethods.ChangeSwapfileStadium(Session.Singleton.Swapstadium, false))
                 {
@@ -96,7 +96,7 @@ namespace StorageManagementTool
 
         private void SwapfileStepForward_btn_Click(object sender, EventArgs e)
         {
-            if (Session.Singleton.Isadmin)
+            if (Session.Singleton.IsAdmin)
             {
                 if (OperatingMethods.ChangeSwapfileStadium(Session.Singleton.Swapstadium, true))
                 {

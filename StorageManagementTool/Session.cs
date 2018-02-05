@@ -24,12 +24,12 @@ namespace StorageManagementTool
       /// <summary>
       ///     The current JSON configuration
       /// </summary>
-      public JSONConfig CfgJson;
+      public JSONConfig CurrentConfiguration;
 
       /// <summary>
       ///     The path of the configuration file
       /// </summary>
-      public string CfgPath;
+      public string ConfigurationPath;
 
       /// <summary>
       ///     The List of drives currently available
@@ -39,7 +39,7 @@ namespace StorageManagementTool
       /// <summary>
       ///     Whether the program runs as administrator
       /// </summary>
-      public bool Isadmin;
+      public bool IsAdmin;
 
       /// <summary>
       ///     The stadium of the swapfile
@@ -53,11 +53,11 @@ namespace StorageManagementTool
       {
         
 Singleton = this;
-         CfgPath = Path.Combine(Environment.GetFolderPath(
+         ConfigurationPath = Path.Combine(Environment.GetFolderPath(
                Environment.SpecialFolder.MyDocuments),
             "StorageManagementToolConfiguration.json");
-         CfgJson = File.Exists(CfgPath) ? JsonConvert.DeserializeObject<JSONConfig>(File.ReadAllText(CfgPath)) : new JSONConfig();
-          System.Threading.Thread.CurrentThread.CurrentUICulture =   CultureInfo.GetCultureInfo(CfgJson.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
+         CurrentConfiguration = File.Exists(ConfigurationPath) ? JsonConvert.DeserializeObject<JSONConfig>(File.ReadAllText(ConfigurationPath)) : new JSONConfig();
+          System.Threading.Thread.CurrentThread.CurrentUICulture =   CultureInfo.GetCultureInfo(CurrentConfiguration.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
          ScenarioPreset.LoadPresets();
          UserShellFolder.LoadEditable();
          }
@@ -108,7 +108,7 @@ Singleton = this;
       public void SaveCfg()
       {
          File.WriteAllText(
-             CfgPath, JsonConvert.SerializeObject(CfgJson));
+             ConfigurationPath, JsonConvert.SerializeObject(CurrentConfiguration));
       }
 
       /// <summary>
@@ -128,7 +128,7 @@ Singleton = this;
       public void StandardLaunch()
       {
          RefreshDriveInformation();
-         Isadmin = Wrapper.IsUserAdministrator();
+         IsAdmin = Wrapper.IsUserAdministrator();
          RefreshSwapfileStadium();
          Application.EnableVisualStyles();
          Application.SetCompatibleTextRenderingDefault(false);

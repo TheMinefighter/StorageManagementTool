@@ -44,7 +44,7 @@ namespace StorageManagementTool
          _forFilesDictionary.Add(MonitoringSetting.MonitoringAction.Ask, AskActionForFiles_rb);
          _forFilesDictionary.Add(MonitoringSetting.MonitoringAction.Ignore, IgnoreForFiles_rb);
          _forFilesDictionary.Add(MonitoringSetting.MonitoringAction.Move, AutomaticMoveForFiles_rb);
-         _editedSettings = Session.Singleton.CfgJson.MonitoringSettings ?? new MonitoringSetting();
+         _editedSettings = Session.Singleton.CurrentConfiguration.MonitoringSettings ?? new MonitoringSetting();
          _whenEnabled = new List<Control>
             {
                 AllFolders_lb,
@@ -147,7 +147,7 @@ namespace StorageManagementTool
 
       private void Savesettings_btn_Click(object sender, EventArgs e)
       {
-         Session.Singleton.CfgJson.MonitoringSettings = _editedSettings;
+         Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
          Session.Singleton.SaveCfg();
          Close();
       }
