@@ -74,7 +74,7 @@ namespace StorageManagementTool
                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                "SwapFileControl"), out object regValue);
             Swapstadium =
-               (uint?) regValue == null || (uint?) regValue == 1
+               (int?) regValue == null || (int?) regValue == 1
                   ? 4
                   : 3;
          }
@@ -84,7 +84,7 @@ namespace StorageManagementTool
                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                "SwapFileControl"), out object regValue);
             Swapstadium =
-               (uint?) regValue == null || (uint?) regValue == 1
+               (int?) regValue == null || (int?) regValue == 1
                   ? 1
                   : 2;
          }

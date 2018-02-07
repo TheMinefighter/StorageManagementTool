@@ -7,7 +7,7 @@ namespace StorageManagementTool
 {
    public partial class EditWindowsSearchSettings : Form
    {
-      public readonly RegPath SearchDatatDirectoryRegPath = new RegPath(
+      public static readonly RegPath SearchDatatDirectoryRegPath = new RegPath(
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
 
       //@"HKEY_LOCAL_MACHINE\SOFTWARE\TBP", "Test");
@@ -48,12 +48,13 @@ namespace StorageManagementTool
          }
       }
 
-      private void SaveSettings_btn_Click(object sender, EventArgs e)
+      private static bool SetSearchDataPath(DirectoryInfo newPath)
       {
-         if (Directory.Exists(NewPath_tb.Text))
+         
+         if (newPath.Exists)
          {
             if (Wrapper.SetRegistryValue(SearchDatatDirectoryRegPath,
-               new DirectoryInfo(NewPath_tb.Text).CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
+               newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
                RegistryValueKind.String,
                true))
             {
@@ -67,14 +68,24 @@ namespace StorageManagementTool
                      true);
                }
 
-               Close();
+               return true;
             }
+
+            return false;
          }
          else
          {
             MessageBox.Show("Der angegebene Ordner existiert nicht", "Fehler", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
+            return false;
          }
+
+      }
+      private void SaveSettings_btn_Click(object sender, EventArgs e)
+      {
+
+
+         SetSearchDataPath(new DirectoryInfo(NewPath_tb.Text));
       }
 
       private void Abort_btn_Click(object sender, EventArgs e)
@@ -108,7 +119,7 @@ namespace StorageManagementTool
       private void RefreshCurrentPath()
       {
          string displayedSearchDataPath = "Error";
-         if (Wrapper.GetRegistryValue(SearchDatatDirectoryRegPath, out object text,false))
+         if (Wrapper.GetRegistryValue(SearchDatatDirectoryRegPath, out object text, false))
          {
 
             try

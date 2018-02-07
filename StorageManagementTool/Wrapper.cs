@@ -104,7 +104,8 @@ namespace StorageManagementTool
             switch (kind)
             {
                case RegistryValueKind.DWord:
-                  toReturn = uint.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                  //actually wrong, bug allready reported: https://github.com/dotnet/corefx/issues/26936
+                  toReturn = int.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.String:
                   toReturn = data;

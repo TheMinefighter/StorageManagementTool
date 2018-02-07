@@ -3,7 +3,7 @@
    /// <summary>
    ///    Class for storing a windows registry path
    /// </summary>
-   public class RegPath
+   public struct RegPath
    {
       /// <summary>
       ///    The where the value is stored
@@ -21,8 +21,8 @@
          ValueName = valueName;
       }
 
-      public RegPath()
-      {
-      }
+      //public RegPath()
+      //{
+      //}
    }
 }

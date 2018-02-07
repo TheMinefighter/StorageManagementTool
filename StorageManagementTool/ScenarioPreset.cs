@@ -30,6 +30,11 @@ namespace StorageManagementTool
       /// </summary>
       public Action<DriveInfo, DriveInfo> ToRun;
 
+      private static void LocalSSDAndNAS(DriveInfo ssd, DriveInfo hdd)
+      {
+
+      }
+
       private static void LocalSSDAndHDD(DriveInfo ssd, DriveInfo hdd)
       {
          Dictionary<string, string> usfToMove = new Dictionary<string, string>
