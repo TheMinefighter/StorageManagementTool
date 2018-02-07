@@ -32,7 +32,43 @@ namespace StorageManagementTool
 
       private static void LocalSSDAndNAS(DriveInfo ssd, DriveInfo hdd)
       {
+         Dictionary<string, string> usfToMove = new Dictionary<string, string>
+         {
+            {"Personal", "Documents"},
+            {"My Music", "Music"},
+            {"My Pictures", "Pictures"},
+            {"AppData", "AppData\\Roaming"},
+            {"{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"},
+            {"Desktop", "Desktop"}
+         };
+         bool empty = false;
+         int i = 0;
+         do
+         {
+            if (Directory.Exists(Path.Combine(hdd.RootDirectory.FullName, $"SSD{i}")))
+            {
+               empty = true;
+            }
 
+            i++;
+         } while (!empty);
+
+         DirectoryInfo baseDir = hdd.RootDirectory.CreateSubdirectory($"SSD{i}");
+         Session.Singleton.CurrentConfiguration.DefaultHDDPath = baseDir.FullName;
+         Session.Singleton.SaveCfg();
+         DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
+         foreach (KeyValuePair<string, string> currentPair in usfToMove)
+         {
+            UserShellFolder moving = UserShellFolder.GetUSFById(currentPair.Key);
+            OperatingMethods.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+               moving,
+               OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
+         }
+
+         int memory = (int)(new ComputerInfo().TotalPhysicalMemory / 1048576L);
+         OperatingMethods.ChangePagefileSettings(hdd, memory, memory * 2);
+         OperatingMethods.EnableSendToHDD();
+         OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));
       }
 
       private static void LocalSSDAndHDD(DriveInfo ssd, DriveInfo hdd)
@@ -73,6 +109,7 @@ namespace StorageManagementTool
          int memory = (int) (new ComputerInfo().TotalPhysicalMemory / 1048576L);
          OperatingMethods.ChangePagefileSettings(hdd, memory, memory * 2);
          OperatingMethods.EnableSendToHDD();
+         OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));
       }
 
       /// <summary>

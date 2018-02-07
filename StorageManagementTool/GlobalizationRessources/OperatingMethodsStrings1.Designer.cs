@@ -329,5 +329,41 @@ namespace StorageManagementTool.GlobalizationRessources {
                 return ResourceManager.GetString("MoveFolderOrFile_PathsEqual", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetSearchDataPath_InvalidPath {
+            get {
+                return ResourceManager.GetString("SetSearchDataPath_InvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetSearchDataPath_RestartErrorService {
+            get {
+                return ResourceManager.GetString("SetSearchDataPath_RestartErrorService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetSearchDataPath_RestartNoAdmin {
+            get {
+                return ResourceManager.GetString("SetSearchDataPath_RestartNoAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetSearchDataPath_RestartNow_Title {
+            get {
+                return ResourceManager.GetString("SetSearchDataPath_RestartNow_Title", resourceCulture);
+            }
+        }
     }
 }

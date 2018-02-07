@@ -7,10 +7,6 @@ namespace StorageManagementTool
 {
    public partial class EditWindowsSearchSettings : Form
    {
-      public static readonly RegPath SearchDatatDirectoryRegPath = new RegPath(
-         @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
-
-      //@"HKEY_LOCAL_MACHINE\SOFTWARE\TBP", "Test");
       public EditWindowsSearchSettings()
       {
          InitializeComponent();
@@ -48,44 +44,9 @@ namespace StorageManagementTool
          }
       }
 
-      private static bool SetSearchDataPath(DirectoryInfo newPath)
-      {
-         
-         if (newPath.Exists)
-         {
-            if (Wrapper.SetRegistryValue(SearchDatatDirectoryRegPath,
-               newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
-               RegistryValueKind.String,
-               true))
-            {
-               if (MessageBox.Show(
-                      "Um die Änderungen zu anzuwenden muss der Computer neugestartet werden. Jetzt neustarten?",
-                      "Neustarten?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-               {
-                  Wrapper.ExecuteExecuteable(
-                     Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
-                        @"shutdown.exe")), " /R /T 1", false,
-                     true);
-               }
-
-               return true;
-            }
-
-            return false;
-         }
-         else
-         {
-            MessageBox.Show("Der angegebene Ordner existiert nicht", "Fehler", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            return false;
-         }
-
-      }
       private void SaveSettings_btn_Click(object sender, EventArgs e)
       {
-
-
-         SetSearchDataPath(new DirectoryInfo(NewPath_tb.Text));
+         OperatingMethods.SetSearchDataPath(new DirectoryInfo(NewPath_tb.Text));
       }
 
       private void Abort_btn_Click(object sender, EventArgs e)
@@ -119,7 +80,7 @@ namespace StorageManagementTool
       private void RefreshCurrentPath()
       {
          string displayedSearchDataPath = "Error";
-         if (Wrapper.GetRegistryValue(SearchDatatDirectoryRegPath, out object text, false))
+         if (Wrapper.GetRegistryValue(OperatingMethods.SearchDatatDirectoryRegPath, out object text, false))
          {
 
             try

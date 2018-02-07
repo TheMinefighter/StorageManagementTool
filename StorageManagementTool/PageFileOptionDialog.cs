@@ -14,14 +14,12 @@ namespace StorageManagementTool
 
       private void DisableHibernate_btn_Click(object sender, EventArgs e)
       {
-         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "powercfg.exe"), "/h off", true, true,
-            true);
+         OperatingMethods.SetHibernate(false);
       }
 
       private void Enablehibernate_btn_Click(object sender, EventArgs e)
       {
-         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "powercfg.exe"), "/h on", true, true,
-            true);
+         OperatingMethods.SetHibernate(true);
       }
 
       private void PageFileOptionDialog_Load(object sender, EventArgs e)
