@@ -74,7 +74,7 @@ namespace StorageManagementTool
                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                "SwapFileControl"), out object regValue);
             Swapstadium =
-               (int?) regValue == null || (int?) regValue == 1
+               (uint?) regValue == null || (uint?) regValue == 1
                   ? 4
                   : 3;
          }
@@ -84,7 +84,7 @@ namespace StorageManagementTool
                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                "SwapFileControl"), out object regValue);
             Swapstadium =
-               (int?) regValue == null || (int?) regValue == 1
+               (uint?) regValue == null || (uint?) regValue == 1
                   ? 1
                   : 2;
          }
@@ -128,11 +128,12 @@ namespace StorageManagementTool
 
       public void StandardLaunch()
       {
+         Application.EnableVisualStyles();
+         Application.SetCompatibleTextRenderingDefault(false);
          RefreshDriveInformation();
          IsAdmin = Wrapper.IsUserAdministrator();
          RefreshSwapfileStadium();
-         Application.EnableVisualStyles();
-         Application.SetCompatibleTextRenderingDefault(false);
+         
          Application.Run(new MainWindow());
       }
    }

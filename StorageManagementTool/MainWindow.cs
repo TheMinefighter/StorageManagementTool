@@ -24,8 +24,6 @@ namespace StorageManagementTool
 
       private void Form1_Load(object sender, EventArgs e)
       {
-         Thread.CurrentThread.CurrentUICulture =
-            CultureInfo.GetCultureInfo("de-DE");
          //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
          //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
          HDDSavePathText.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;

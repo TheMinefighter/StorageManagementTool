@@ -107,10 +107,8 @@ namespace StorageManagementTool
 
       private void RefreshCurrentPath()
       {
-         //(string) Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Microsoft")
-         //.OpenSubKey("Windows Search").GetValue("DataDirectory");
          string displayedSearchDataPath = "Error";
-         if (Wrapper.GetRegistryValue(SearchDatatDirectoryRegPath, out object text, true))
+         if (Wrapper.GetRegistryValue(SearchDatatDirectoryRegPath, out object text,false))
          {
 
             try
