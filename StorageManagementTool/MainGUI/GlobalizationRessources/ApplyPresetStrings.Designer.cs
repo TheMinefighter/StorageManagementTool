@@ -39,7 +39,7 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.GlobalizationRessources.ApplyPresetStrings", typeof(ApplyPresetStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.MainGUI.GlobalizationRessources.ApplyPresetStrings", typeof(ApplyPresetStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -111,24 +111,6 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         internal static string NoSSDSelectedButRequired {
             get {
                 return ResourceManager.GetString("NoSSDSelectedButRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Presets_LocalHDDAndSSD {
-            get {
-                return ResourceManager.GetString("Presets_LocalHDDAndSSD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Presets_LocalSSDAndNAS {
-            get {
-                return ResourceManager.GetString("Presets_LocalSSDAndNAS", resourceCulture);
             }
         }
         

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Microsoft.VisualBasic.Devices;
+using StorageManagementTool.GlobalizationRessources;
 using static StorageManagementTool.MainGUI.GlobalizationRessources.ApplyPresetStrings;
 
 namespace StorageManagementTool
@@ -147,7 +148,7 @@ namespace StorageManagementTool
             {
                HDDRequired = true,
                SSDRequired = true,
-               ViewedName = Presets_LocalHDDAndSSD,
+               ViewedName = ScenarioPresetStrings.Presets_LocalHDDAndSSD,
                ToRun = LocalSSDAndHDD,
                Id = "LocalSSDAndHDD"
 
@@ -155,7 +156,7 @@ namespace StorageManagementTool
             {
                HDDRequired = true,
                SSDRequired = true,
-               ViewedName = Presets_LocalSSDAndNAS,
+               ViewedName = ScenarioPresetStrings.Presets_LocalSSDAndNAS,
                ToRun = LocalSSDAndNAS,
                Id = "LocalSSDAndNAS"
             } 

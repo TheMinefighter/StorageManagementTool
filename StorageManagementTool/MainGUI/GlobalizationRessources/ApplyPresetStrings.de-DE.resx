@@ -135,10 +135,7 @@
   <data name="NoSSDSelectedButRequired" xml:space="preserve">
     <value>Das ausgewählte Anwendungsszenario setzt eine SSD vorraus , jedoch wurde keine SSD ausgewählt.</value>
   </data>
-  <data name="Presets_LocalHDDAndSSD" xml:space="preserve">
-    <value>Lokale HDD und SSD</value>
-  </data>
-  <data name="SelectHDD_lbl_Text" xml:space="preserve">
+   <data name="SelectHDD_lbl_Text" xml:space="preserve">
     <value>HDD</value>
   </data>
   <data name="SelectScenario_lbl_Text" xml:space="preserve">
@@ -149,8 +146,5 @@
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Vorlagen übernehmen</value>
-  </data>
-  <data name="Presets_LocalSSDAndNAS" xml:space="preserve">
-    <value>Lokale HDD und NAS</value>
   </data>
 </root>

@@ -135,10 +135,7 @@
   <data name="NoSSDSelectedButRequired" xml:space="preserve">
     <value>The selected scenario requires a SSD, but no SSD were selected.</value>
   </data>
-  <data name="Presets_LocalHDDAndSSD" xml:space="preserve">
-    <value>Local SSD and HDD</value>
-  </data>
-  <data name="SelectHDD_lbl_Text" xml:space="preserve">
+   <data name="SelectHDD_lbl_Text" xml:space="preserve">
     <value>HDD</value>
   </data>
   <data name="SelectScenario_lbl_Text" xml:space="preserve">
@@ -149,8 +146,5 @@
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Apply Preset</value>
-  </data>
-  <data name="Presets_LocalSSDAndNAS" xml:space="preserve">
-    <value>Local SSD and NAS</value>
   </data>
 </root>

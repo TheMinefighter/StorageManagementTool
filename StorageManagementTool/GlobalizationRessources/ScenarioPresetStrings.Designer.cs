@@ -59,5 +59,23 @@ namespace StorageManagementTool.GlobalizationRessources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Presets_LocalHDDAndSSD {
+            get {
+                return ResourceManager.GetString("Presets_LocalHDDAndSSD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Presets_LocalSSDAndNAS {
+            get {
+                return ResourceManager.GetString("Presets_LocalSSDAndNAS", resourceCulture);
+            }
+        }
     }
 }
