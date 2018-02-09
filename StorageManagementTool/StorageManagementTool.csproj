@@ -111,11 +111,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserShellFolderStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="GlobalizationRessources\UserShellFolderStrings.en-US.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserShellFolderStrings.en-US.resx</DependentUpon>
-    </Compile>
     <Compile Include="MainGUI\ApplyPreset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,7 +200,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ScenarioPresetStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.de-DE.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UserShellFolderStrings.Designer.cs</LastGenOutput>
@@ -260,11 +260,6 @@
     <EmbeddedResource Include="GlobalizationRessources\WrapperStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WrapperStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.en-US.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UserShellFolderStrings.en-US.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
