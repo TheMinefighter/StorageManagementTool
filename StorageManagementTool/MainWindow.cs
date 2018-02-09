@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using static StorageManagementTool.GlobalizationRessources.MainWindowStrings;
 
 namespace StorageManagementTool
 {

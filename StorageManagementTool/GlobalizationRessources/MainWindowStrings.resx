@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdministartorStatus_tb_Text" xml:space="preserve">
-    <value />
-  </data>
   <data name="AdministratorPriviligesAvailable" xml:space="preserve">
     <value />
   </data>
@@ -132,6 +129,9 @@
   <data name="CustomFolderOrFileSelection_gb_Text" xml:space="preserve">
     <value />
   </data>
+  <data name="DisableSendToHDD" xml:space="preserve">
+    <value />
+  </data>
   <data name="EditPagefiles_btn_Text" xml:space="preserve">
     <value />
   </data>
@@ -139,6 +139,9 @@
     <value />
   </data>
   <data name="EditUserShellFolders_btn_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Error" xml:space="preserve">
     <value />
   </data>
   <data name="FileToMoveSel_btn" xml:space="preserve">
@@ -150,13 +153,31 @@
   <data name="FurtherSettings_gb_Text" xml:space="preserve">
     <value />
   </data>
+  <data name="MoveFileError" xml:space="preserve">
+    <value />
+  </data>
   <data name="MoveFilesOrFolder_gb_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoveFileSuccessful" xml:space="preserve">
     <value />
   </data>
   <data name="MoveFile_btn_Text" xml:space="preserve">
     <value />
   </data>
+  <data name="MoveFoilder_NoNewPath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoveFolderError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoveFolderSuccessful" xml:space="preserve">
+    <value />
+  </data>
   <data name="MoveFolder_btn_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoveFolder_FilePathEmpty" xml:space="preserve">
     <value />
   </data>
   <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
@@ -178,6 +199,9 @@
     <value />
   </data>
   <data name="SetSendToHDD_btn_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StoreOnHDDLink" xml:space="preserve">
     <value />
   </data>
   <data name="Suggestions_gb_Text" xml:space="preserve">

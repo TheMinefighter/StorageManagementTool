@@ -63,15 +63,6 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AdministartorStatus_tb_Text {
-            get {
-                return ResourceManager.GetString("AdministartorStatus_tb_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string AdministratorPriviligesAvailable {
             get {
                 return ResourceManager.GetString("AdministratorPriviligesAvailable", resourceCulture);
@@ -108,6 +99,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DisableSendToHDD {
+            get {
+                return ResourceManager.GetString("DisableSendToHDD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string EditPagefiles_btn_Text {
             get {
                 return ResourceManager.GetString("EditPagefiles_btn_Text", resourceCulture);
@@ -129,6 +129,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string EditUserShellFolders_btn_Text {
             get {
                 return ResourceManager.GetString("EditUserShellFolders_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -171,6 +180,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string MoveFileError {
+            get {
+                return ResourceManager.GetString("MoveFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MoveFilesOrFolder_gb_Text {
             get {
                 return ResourceManager.GetString("MoveFilesOrFolder_gb_Text", resourceCulture);
@@ -180,9 +198,54 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string MoveFileSuccessful {
+            get {
+                return ResourceManager.GetString("MoveFileSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MoveFoilder_NoNewPath {
+            get {
+                return ResourceManager.GetString("MoveFoilder_NoNewPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MoveFolder_btn_Text {
             get {
                 return ResourceManager.GetString("MoveFolder_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MoveFolder_FilePathEmpty {
+            get {
+                return ResourceManager.GetString("MoveFolder_FilePathEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MoveFolderError {
+            get {
+                return ResourceManager.GetString("MoveFolderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MoveFolderSuccessful {
+            get {
+                return ResourceManager.GetString("MoveFolderSuccessful", resourceCulture);
             }
         }
         
@@ -246,6 +309,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string SetSendToHDD_btn_Text {
             get {
                 return ResourceManager.GetString("SetSendToHDD_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string StoreOnHDDLink {
+            get {
+                return ResourceManager.GetString("StoreOnHDDLink", resourceCulture);
             }
         }
         
