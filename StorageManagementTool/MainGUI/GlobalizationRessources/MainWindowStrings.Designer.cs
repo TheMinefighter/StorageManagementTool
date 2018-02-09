@@ -39,7 +39,7 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.GlobalizationRessources.MainWindowStrings", typeof(MainWindowStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.MainGUI.GlobalizationRessources.MainWindowStrings", typeof(MainWindowStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

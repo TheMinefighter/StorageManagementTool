@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
 		Microsoft ResX Schema
 
 		Version 1.3
@@ -58,44 +58,160 @@
 			: using a System.ComponentModel.TypeConverter
 			: and then encoded with base64 encoding.
 	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_Documents_Name" xml:space="preserve">
+    <value>Common documents</value>
+  </data>
+  <data name="CommonVideo_Name" xml:space="preserve">
+    <value>Common vIDeos</value>
+  </data>
+  <data name="CommonPictures_Name" xml:space="preserve">
+    <value>Common pictures</value>
+  </data>
+  <data name="CommonMusic_Name" xml:space="preserve">
+    <value>Common music</value>
+  </data>
+  <data name="Common_Desktop_Name" xml:space="preserve">
+    <value>Common desktop</value>
+  </data>
+  <data name="Common_AppData_Name" xml:space="preserve">
+    <value>Common appdata</value>
+  </data>
+  <data name="Common_Startup_Name" xml:space="preserve">
+    <value>Common startup</value>
+  </data>
+  <data name="Common_Programs_Name" xml:space="preserve">
+    <value>Common startmenu programs</value>
+  </data>
+  <data name="Common_Templates_Name" xml:space="preserve">
+    <value>Common templates</value>
+  </data>
+  <data name="Common_Start_Menu_Name" xml:space="preserve">
+    <value>Common startmenu</value>
+  </data>
+  <data name="OEM_Links_Name" xml:space="preserve">
+    <value>OEM links</value>
+  </data>
+  <data name="Common_Administrative_Tools_Name" xml:space="preserve">
+    <value>Common administrative tools</value>
+  </data>
+  <data name="ProgramFilesDir_x86_Name" xml:space="preserve">
+    <value>Installpath for x86 programs</value>
+  </data>
+  <data name="ProgramFilesDir_Name" xml:space="preserve">
+    <value>Installpath for x64 programs</value>
+  </data>
+  <data name="Desktop_Name" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Personal_Name" xml:space="preserve">
+    <value>My documents</value>
+  </data>
+  <data name="My_Video_Name" xml:space="preserve">
+    <value>My vIDeo</value>
+  </data>
+  <data name="My_Music_Name" xml:space="preserve">
+    <value>My music</value>
+  </data>
+  <data name="My_Pictures_Name" xml:space="preserve">
+    <value>My pictures</value>
+  </data>
+  <data name="SendTo_Name" xml:space="preserve">
+    <value>Send To</value>
+  </data>
+  <data name="Local_AppData_Name" xml:space="preserve">
+    <value>Local appdata</value>
+  </data>
+  <data name="Appdata_Name" xml:space="preserve">
+    <value>Appdata</value>
+  </data>
+  <data name="Programs_Name" xml:space="preserve">
+    <value>Startmenu programs</value>
+  </data>
+  <data name="Start_Menu_Name" xml:space="preserve">
+    <value>Startmenu</value>
+  </data>
+  <data name="Startup_Name" xml:space="preserve">
+    <value>Startup</value>
+  </data>
+  <data name="History_Name" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Favorites_Names" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="Fonts_Name" xml:space="preserve">
+    <value>Fonts</value>
+  </data>
+  <data name="Recent_Name" xml:space="preserve">
+    <value>Recent</value>
+  </data>
+  <data name="Templates_Name" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="Administrative_Tools_Name" xml:space="preserve">
+    <value>Administrative tools</value>
+  </data>
+  <data name="Cookies_Name" xml:space="preserve">
+    <value>Cookies</value>
+  </data>
+  <data name="NetHood_Name" xml:space="preserve">
+    <value>Network shortcuts</value>
+  </data>
+  <data name="PrintHood_Name" xml:space="preserve">
+    <value>Printer shortcuts</value>
+  </data>
+  <data name="Cache_Name" xml:space="preserve">
+    <value>Cache</value>
+  </data>
+  <data name="CD_Burning_Name" xml:space="preserve">
+    <value>CD burning cache</value>
+  </data>
+  <data name="Downloads_Name" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="Libraries_Name" xml:space="preserve">
+    <value>Libraries</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

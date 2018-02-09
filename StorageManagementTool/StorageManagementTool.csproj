@@ -111,6 +111,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserShellFolderStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="GlobalizationRessources\UserShellFolderStrings.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserShellFolderStrings.en-US.resx</DependentUpon>
+    </Compile>
     <Compile Include="MainGUI\ApplyPreset.cs">
       <SubType>Form</SubType>
     </Compile>

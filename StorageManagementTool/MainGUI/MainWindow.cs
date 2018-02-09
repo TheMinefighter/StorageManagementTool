@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using StorageManagementTool.GlobalizationRessources;
+//using StorageManagementTool.GlobalizationRessources;
 
 using StorageManagementTool.MainGUI;
 using StorageManagementTool.MainGUI.GlobalizationRessources;

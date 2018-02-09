@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using static StorageManagementTool.MainGUI.GlobalizationRessources.EditUserShellFolderStrings;
+using static StorageManagementTool.GlobalizationRessources.UserShellFolderStrings;
+//using static StorageManagementTool.MainGUI.GlobalizationRessources.EditUserShellFolderStrings;
 
 namespace StorageManagementTool
 {
