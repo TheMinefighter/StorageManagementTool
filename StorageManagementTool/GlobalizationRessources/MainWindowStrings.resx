@@ -144,10 +144,10 @@
   <data name="Error" xml:space="preserve">
     <value />
   </data>
-  <data name="FileToMoveSel_btn" xml:space="preserve">
+  <data name="FileToMove_btn_Text" xml:space="preserve">
     <value />
   </data>
-  <data name="FolderToMove_btn" xml:space="preserve">
+  <data name="FolderToMove_btn_Text" xml:space="preserve">
     <value />
   </data>
   <data name="FurtherSettings_gb_Text" xml:space="preserve">
@@ -208,7 +208,7 @@
     <value />
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value />
+    <value>When you see this something was an invalid language was loaded</value>
   </data>
   <data name="MoveFile_FilePathEmpty" xml:space="preserve">
     <value />

@@ -153,18 +153,18 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FileToMoveSel_btn {
+        internal static string FileToMove_btn_Text {
             get {
-                return ResourceManager.GetString("FileToMoveSel_btn", resourceCulture);
+                return ResourceManager.GetString("FileToMove_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FolderToMove_btn {
+        internal static string FolderToMove_btn_Text {
             get {
-                return ResourceManager.GetString("FolderToMove_btn", resourceCulture);
+                return ResourceManager.GetString("FolderToMove_btn_Text", resourceCulture);
             }
         }
         
@@ -349,7 +349,7 @@ namespace StorageManagementTool.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to When you see this something was an invalid language was loaded.
         /// </summary>
         internal static string WindowTitle {
             get {

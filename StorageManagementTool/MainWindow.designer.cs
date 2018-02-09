@@ -40,7 +40,7 @@
          this.CustomFolderOrFileSelection_gb = new System.Windows.Forms.GroupBox();
          this.SetHDDPathAsDefault_btn = new System.Windows.Forms.Button();
          this.FileToMovePath_tb = new System.Windows.Forms.TextBox();
-         this.FileToMoveSel_btn = new System.Windows.Forms.Button();
+         this.FileToMove_btn = new System.Windows.Forms.Button();
          this.Suggestions_gb = new System.Windows.Forms.GroupBox();
          this.OpenSelectedFolder_btn = new System.Windows.Forms.Button();
          this.MoveFilesOrFolder_gb = new System.Windows.Forms.GroupBox();
@@ -140,7 +140,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.SetHDDPathAsDefault_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FileToMovePath_tb);
-         this.CustomFolderOrFileSelection_gb.Controls.Add(this.FileToMoveSel_btn);
+         this.CustomFolderOrFileSelection_gb.Controls.Add(this.FileToMove_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FolderToMove_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.SetHDDSavePath_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FolderToMove_tb);
@@ -173,17 +173,17 @@
          this.FileToMovePath_tb.Size = new System.Drawing.Size(212, 20);
          this.FileToMovePath_tb.TabIndex = 6;
          // 
-         // FileToMoveSel_btn
+         // FileToMove_btn
          // 
-         this.FileToMoveSel_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.FileToMoveSel_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-         this.FileToMoveSel_btn.Location = new System.Drawing.Point(185, 19);
-         this.FileToMoveSel_btn.Name = "FileToMoveSel_btn";
-         this.FileToMoveSel_btn.Size = new System.Drawing.Size(212, 23);
-         this.FileToMoveSel_btn.TabIndex = 5;
-         this.FileToMoveSel_btn.Text = "Datei zum Verschieben wählen";
-         this.FileToMoveSel_btn.UseVisualStyleBackColor = true;
-         this.FileToMoveSel_btn.Click += new System.EventHandler(this.FileToMoveSel_btn_Click);
+         this.FileToMove_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.FileToMove_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+         this.FileToMove_btn.Location = new System.Drawing.Point(185, 19);
+         this.FileToMove_btn.Name = "FileToMove_btn";
+         this.FileToMove_btn.Size = new System.Drawing.Size(212, 23);
+         this.FileToMove_btn.TabIndex = 5;
+         this.FileToMove_btn.Text = "Datei zum Verschieben wählen";
+         this.FileToMove_btn.UseVisualStyleBackColor = true;
+         this.FileToMove_btn.Click += new System.EventHandler(this.FileToMoveSel_btn_Click);
          // 
          // Suggestions_gb
          // 
@@ -260,7 +260,7 @@
          this.EditSSDMonitoring_btn.TabIndex = 20;
          this.EditSSDMonitoring_btn.Text = "SSD Überwachung anpassen";
          this.EditSSDMonitoring_btn.UseVisualStyleBackColor = true;
-         this.EditSSDMonitoring_btn.Click += new System.EventHandler(this.button1_Click_1);
+         this.EditSSDMonitoring_btn.Click += new System.EventHandler(this.EditSSDMonitoring_btn_click);
          // 
          // AdministartorStatus_tb
          // 
@@ -320,7 +320,7 @@
          this.EditPagefiles_btn.TabIndex = 19;
          this.EditPagefiles_btn.Text = "Arbeitsspeicherauslagerungs Dateien";
          this.EditPagefiles_btn.UseVisualStyleBackColor = true;
-         this.EditPagefiles_btn.Click += new System.EventHandler(this.button2_Click_1);
+         this.EditPagefiles_btn.Click += new System.EventHandler(this.EditPagefiles_btn_click);
          // 
          // EditUserShellFolders_btn
          // 
@@ -376,6 +376,7 @@
          // 
          // button3
          // 
+         this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.button3.Location = new System.Drawing.Point(430, 470);
          this.button3.Name = "button3";
          this.button3.Size = new System.Drawing.Size(224, 23);
@@ -426,7 +427,7 @@
       private System.Windows.Forms.Button RestartAsAdministartor_btn;
       private System.Windows.Forms.GroupBox AdministratorSettings_gb;
       private System.Windows.Forms.TextBox FileToMovePath_tb;
-      private System.Windows.Forms.Button FileToMoveSel_btn;
+      private System.Windows.Forms.Button FileToMove_btn;
       private System.Windows.Forms.Button MoveFile_btn;
       public System.Windows.Forms.OpenFileDialog FileToMove_ofd;
       private System.Windows.Forms.Button OpenSelectedFolder_btn;

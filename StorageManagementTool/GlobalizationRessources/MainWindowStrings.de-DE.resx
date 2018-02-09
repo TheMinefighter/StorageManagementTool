@@ -147,7 +147,7 @@
   <data name="Error" xml:space="preserve">
     <value>Fehler</value>
   </data>
-  <data name="FileToMoveSel_btn_Text" xml:space="preserve">
+  <data name="FileToMove_btn_Text" xml:space="preserve">
     <value>Datei zum Verschieben wählen</value>
   </data>
   <data name="FolderToMove_btn_Text" xml:space="preserve">

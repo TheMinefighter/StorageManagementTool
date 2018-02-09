@@ -21,6 +21,8 @@ namespace StorageManagementTool
 
       private void Form1_Load(object sender, EventArgs e)
       {
+
+         LoadUIStrings();
          //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
          //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
          HDDSavePathText.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
@@ -35,6 +37,29 @@ namespace StorageManagementTool
             : NoAdministratorPriviligesAvailable;
          Suggestion_lb.Select();
          EnableComponents();
+      }
+
+      private void LoadUIStrings()
+      {
+         AdministratorSettings_gb.Text = AdministratorSettings_gb_Text;
+         ApplyPresetDialog_btn.Text = ApplyPresetDialog_btn_Text;
+         CustomFolderOrFileSelection_gb.Text = CustomFolderOrFileSelection_gb_Text;
+         EditPagefiles_btn.Text = EditPagefiles_btn_Text;
+         EditSSDMonitoring_btn.Text = EditPagefiles_btn_Text;
+         EditUserShellFolders_btn.Text = EditUserShellFolders_btn_Text;
+         FileToMove_btn.Text = FileToMove_btn_Text;
+         FolderToMove_btn.Text = FolderToMove_btn_Text;
+         FurtherSettings_gb.Text = FurtherSettings_gb_Text;
+         MoveFile_btn.Text = MoveFile_btn_Text;
+         MoveFilesOrFolder_gb.Text = MoveFilesOrFolder_gb_Text;
+         MoveFolder_btn.Text = MoveFolder_btn_Text;
+         OpenSelectedFolder_btn.Text = OpenSelectedFolder_btn_Text;
+         RestartAsAdministartor_btn.Text = RestartAsAdministartor_btn_Text;
+         //To Be reanmed
+         SetHDDPathAsDefault_btn.Text = SetHDDPathAsDefault_btn_Text;
+         SetHDDSavePath_btn.Text = SetHDDSavePath_btn_Text;
+         Suggestions_gb.Text = Suggestions_gb_Text;
+         this.Text = WindowTitle;
       }
 
       /// <summary>
@@ -173,7 +198,7 @@ namespace StorageManagementTool
          FileToMovePath_tb.Text = "";
       }
 
-      private void button1_Click_1(object sender, EventArgs e)
+      private void EditSSDMonitoring_btn_click(object sender, EventArgs e)
       {
          new MonitoringSettings().ShowDialog();
       }
@@ -184,7 +209,7 @@ namespace StorageManagementTool
          Session.Singleton.SaveCfg();
       }
 
-      private void button2_Click_1(object sender, EventArgs e)
+      private void EditPagefiles_btn_click(object sender, EventArgs e)
       {
          new PageFileOptionDialog().ShowDialog();
       }

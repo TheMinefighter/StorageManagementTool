@@ -121,7 +121,7 @@
     <value>The program has access to administartor privilges</value>
   </data>
   <data name="AdministratorSettings_gb_Text" xml:space="preserve">
-    <value>Administratorprivilges</value>
+    <value>Administrator privilges</value>
   </data>
   <data name="ApplyPresetDialog_btn_Text" xml:space="preserve">
     <value>Apply Preset</value>
@@ -144,10 +144,10 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="FileToMoveSel_btn" xml:space="preserve">
+  <data name="FileToMove_btn_Text" xml:space="preserve">
     <value>Select file to move</value>
   </data>
-  <data name="FolderToMove_btn" xml:space="preserve">
+  <data name="FolderToMove_btn_Text" xml:space="preserve">
     <value>Select folder to move</value>
   </data>
   <data name="FurtherSettings_gb_Text" xml:space="preserve">
@@ -208,12 +208,12 @@
     <value>Suggestions</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Storagemanagement Tool</value>
+    <value>Storagemanagement tool</value>
   </data>
   <data name="MoveFile_FilePathEmpty" xml:space="preserve">
-    <value />
+    <value>You didn´t select a file to move, select now a file?</value>
   </data>
   <data name="MoveFile_NoNewPath" xml:space="preserve">
-    <value />
+    <value>You didn´t select a root path to move the file to, select now a new root path?</value>
   </data>
 </root>
