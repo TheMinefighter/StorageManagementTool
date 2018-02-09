@@ -140,9 +140,9 @@ namespace StorageManagementTool
                            {
                               ConsoleIO.WriteLine("Help for -config -get");
                               ConsoleIO.WriteLine("-?       Shows this help");
-                              ConsoleIO.WriteLine("-Name=(Name of the config value to get)");
+                              ConsoleIO.WriteLine("-ViewedName=(ViewedName of the config value to get)");
                            }
-                           else if (args[2].StartsWith("-Name="))
+                           else if (args[2].StartsWith("-ViewedName="))
                            {
                               switch (args[2].Split('=')[1])
                               {
@@ -160,10 +160,10 @@ namespace StorageManagementTool
                                     break;
                               }
                            }
-                           else if (args[2] == "-Name" && args[3] == " -?")
+                           else if (args[2] == "-ViewedName" && args[3] == " -?")
                            {
-                              ConsoleIO.WriteLine("Help for -Name Argument in -config -get context");
-                              ConsoleIO.WriteLine("-Name can be have the Following Values:");
+                              ConsoleIO.WriteLine("Help for -ViewedName Argument in -config -get context");
+                              ConsoleIO.WriteLine("-ViewedName can be have the Following Values:");
                               ConsoleIO.WriteLine("Root.DefaultHDDPath");
                               ConsoleIO.WriteLine("Root.SSDMonitoring.Enabled");
                            }
@@ -223,20 +223,20 @@ namespace StorageManagementTool
                                     case "-?":
                                        ConsoleIO.WriteLine("Help for -config -set");
                                        ConsoleIO.WriteLine("-?       Shows this help");
-                                       ConsoleIO.WriteLine("-Name=(Name of the config value to get)");
+                                       ConsoleIO.WriteLine("-ViewedName=(ViewedName of the config value to get)");
                                        ConsoleIO.WriteLine("-Value=(New Value for the Config Setting)");
                                        break;
                                     case "-value" when args[1] == "-?":
                                        ConsoleIO.WriteLine(
-                                          "Help for -Name Argument in -config -value context");
-                                       ConsoleIO.WriteLine("-Name can be have the Following Values:");
+                                          "Help for -ViewedName Argument in -config -value context");
+                                       ConsoleIO.WriteLine("-ViewedName can be have the Following Values:");
                                        ConsoleIO.WriteLine("Root.DefaultHDDPath");
                                        ConsoleIO.WriteLine("Root.SSDMonitoring.Enabled");
                                        break;
                                     case "-name" when args[3] == " -?":
                                        ConsoleIO.WriteLine(
-                                          "Help for -Name Argument in -config -get context");
-                                       ConsoleIO.WriteLine("-Name can be have the Following Values:");
+                                          "Help for -ViewedName Argument in -config -get context");
+                                       ConsoleIO.WriteLine("-ViewedName can be have the Following Values:");
                                        ConsoleIO.WriteLine("Root.DefaultHDDPath");
                                        ConsoleIO.WriteLine("Root.SSDMonitoring.Enabled");
                                        break;

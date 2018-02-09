@@ -12,7 +12,7 @@ namespace StorageManagementTool
       public static ScenarioPreset[] AvailablePresets;
       public override string ToString()
       {
-         return Name;
+         return ViewedName;
       }
 
       /// <summary>
@@ -25,7 +25,7 @@ namespace StorageManagementTool
       /// <summary>
       ///    The name of the preset
       /// </summary>
-      public string Name;
+      public string ViewedName;
 
       /// <summary>
       ///    Whether a SSD is required for this preset
@@ -147,7 +147,7 @@ namespace StorageManagementTool
             {
                HDDRequired = true,
                SSDRequired = true,
-               Name = Presets_LocalHDDAndSSD,
+               ViewedName = Presets_LocalHDDAndSSD,
                ToRun = LocalSSDAndHDD,
                Id = "LocalSSDAndHDD"
 
@@ -155,7 +155,7 @@ namespace StorageManagementTool
             {
                HDDRequired = true,
                SSDRequired = true,
-               Name = Presets_LocalSSDAndNAS,
+               ViewedName = Presets_LocalSSDAndNAS,
                ToRun = LocalSSDAndNAS,
                Id = "LocalSSDAndNAS"
             } 

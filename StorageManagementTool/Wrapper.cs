@@ -681,7 +681,7 @@ namespace StorageManagementTool
       /// <summary>
       ///    Checks whether a user is Part of a localgroup
       /// </summary>
-      /// <param name="username">The Name of the User to search for</param>
+      /// <param name="username">The ViewedName of the User to search for</param>
       /// <param name="localGroup">The localgroup to search in</param>
       /// <returns>Whether the user is in the logalgroup</returns>
       public static bool IsUserInLocalGroup(string username, string localGroup)

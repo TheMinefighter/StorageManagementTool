@@ -454,7 +454,7 @@ namespace StorageManagementTool
                      if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
                      {
                         //Error
-                        //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.Name" located under "x.Key" to "newPathOfChild".
+                        //The program tried to change the Path of "child.viewedName". Therefore it tried to change the Registry value "x.ViewedName" located under "x.Key" to "newPathOfChild".
                         //Retry
                         //Skip this UserShellFolder
                         //Abort

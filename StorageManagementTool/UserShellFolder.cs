@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using static StorageManagementTool.MainGUI.GlobalizationRessources.EditUserShellFolderStrings;
 
@@ -6,6 +7,12 @@ namespace StorageManagementTool
 {
    public struct UserShellFolder
    {
+
+      public string ViewedName;
+      public RegPath[] RegPaths;
+      public bool MoveExistingFiles;
+      public bool AccessAsUser;
+      public string Identifier;
       private const string UserShellFolderRoot =
          @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders";
 
@@ -21,13 +28,18 @@ namespace StorageManagementTool
       private const string ProgramPathDefinitionRoot =
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion";
 
-      public UserShellFolder(string Name, RegPath[] Regpaths, bool moveExistingFiles = true,
+      public UserShellFolder(string name, RegPath[] regPaths, bool moveExistingFiles = true,
          bool accessAsUser = false)
       {
-         ViewedName = Name;
-         RegPaths = Regpaths;
+         if (regPaths.Length==0)
+         {
+            throw new ArgumentException("At least on required");
+         }
+         ViewedName = name;
+         RegPaths = regPaths;
          MoveExistingFiles = moveExistingFiles;
          AccessAsUser = accessAsUser;
+         Identifier = regPaths[0].ValueName;
       }
 
       //   public UserShellFolder()  {  }
@@ -40,11 +52,12 @@ namespace StorageManagementTool
             RegPaths = user
                ? new[] {new RegPath(ShellFolderRoot, id), new RegPath(UserShellFolderRoot, id)}
                : new[] {new RegPath(ShellFolderRoot, id)},
-            MoveExistingFiles = moveExistingFiles
+            MoveExistingFiles = moveExistingFiles,
+            Identifier = id
          };
       }
 
-      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
+      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true) 
       {
          return new UserShellFolder
          {
@@ -52,14 +65,11 @@ namespace StorageManagementTool
             RegPaths = user
                ? new[] {new RegPath(CommonShellFolderRooot, id), new RegPath(CommonUserShellFolderRoot, id)}
                : new[] {new RegPath(CommonShellFolderRooot, id)},
-            MoveExistingFiles = moveExistingFiles
+            MoveExistingFiles = moveExistingFiles,
+            Identifier = id
          };
       }
 
-      public string ViewedName;
-      public RegPath[] RegPaths;
-      public bool MoveExistingFiles;
-      public bool AccessAsUser;
 
       public static void LoadEditable()
       {

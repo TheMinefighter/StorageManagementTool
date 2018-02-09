@@ -35,7 +35,7 @@ namespace StorageManagementTool.MainGUI
          Session.Singleton.FillWithDriveInfo(SelectHDD_lb);
          Session.Singleton.FillWithDriveInfo(SelectSSD_lb);
          Text = ApplyPresetStrings.WindowTitle;
-         SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.Name).ToArray());
+         SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.ViewedName).ToArray());
       }
 
       private void ApplyPreset_btn_Click(object sender, EventArgs e)
