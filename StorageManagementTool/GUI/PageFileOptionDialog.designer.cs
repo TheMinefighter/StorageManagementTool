@@ -1,4 +1,4 @@
-﻿namespace StorageManagementTool
+﻿namespace StorageManagementTool.GUI
 {
     partial class PageFileOptionDialog
     {

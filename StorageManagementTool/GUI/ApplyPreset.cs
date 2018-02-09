@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using static StorageManagementTool.GlobalizationRessources.ApplyPresetStrings;
+using StorageManagementTool.GlobalizationRessources;
 
-namespace StorageManagementTool
+namespace StorageManagementTool.GUI
 {
    public partial class ApplyPreset : Form
    {
@@ -16,7 +16,7 @@ namespace StorageManagementTool
       {
          if (!Session.Singleton.IsAdmin)
          {
-            if (MessageBox.Show(Load_AdministratorRequired, Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error,
+            if (MessageBox.Show(ApplyPresetStrings.Load_AdministratorRequired, ApplyPresetStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error,
                    MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
                Wrapper.RestartAsAdministrator();
@@ -27,13 +27,13 @@ namespace StorageManagementTool
             }
          }
 
-         SelectHDD_lbl.Text = SelectHDD_lbl_Text;
-         SelectSSD_lbl.Text = SelectSSD_lbl_Text;
-         ApplyPreset_btn.Text = ApplyPreset_btn_Text;
-         SelectScenario_lbl.Text = SelectScenario_lbl_Text;
+         SelectHDD_lbl.Text = ApplyPresetStrings.SelectHDD_lbl_Text;
+         SelectSSD_lbl.Text = ApplyPresetStrings.SelectSSD_lbl_Text;
+         ApplyPreset_btn.Text = ApplyPresetStrings.ApplyPreset_btn_Text;
+         SelectScenario_lbl.Text = ApplyPresetStrings.SelectScenario_lbl_Text;
          Session.Singleton.FillWithDriveInfo(SelectHDD_lb);
          Session.Singleton.FillWithDriveInfo(SelectSSD_lb);
-         Text = WindowTitle;
+         Text = ApplyPresetStrings.WindowTitle;
          SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.Name).ToArray());
       }
 
@@ -41,7 +41,7 @@ namespace StorageManagementTool
       {
          if (SelectScenario_lb.SelectedIndex == -1)
          {
-            MessageBox.Show(NoScenarioSelected, Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+            MessageBox.Show(ApplyPresetStrings.NoScenarioSelected, ApplyPresetStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }
@@ -49,14 +49,14 @@ namespace StorageManagementTool
          ScenarioPreset toApply = ScenarioPreset.AvailablePresets[SelectScenario_lb.SelectedIndex];
          if (toApply.HDDRequired && SelectHDD_lb.SelectedIndex == -1)
          {
-            MessageBox.Show(NoHDDSelectedButRequired, Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+            MessageBox.Show(ApplyPresetStrings.NoHDDSelectedButRequired, ApplyPresetStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }
 
          if (toApply.SSDRequired && SelectSSD_lb.SelectedIndex == -1)
          {
-            MessageBox.Show(NoSSDSelectedButRequired, Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+            MessageBox.Show(ApplyPresetStrings.NoSSDSelectedButRequired, ApplyPresetStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }

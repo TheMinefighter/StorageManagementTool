@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static StorageManagementTool.GlobalizationRessources.EditUserShellFolderStrings;
+using StorageManagementTool.GlobalizationRessources;
 
-namespace StorageManagementTool
+namespace StorageManagementTool.GUI
 {
    public partial class EditUserShellFolders : Form
    {
@@ -15,13 +15,13 @@ namespace StorageManagementTool
 
       private void EditUserShellFolders_Load(object sender, EventArgs e)
       {
-         CurrentUSFPath_lbl.Text = CurrentUSFPath_lbl_Text;
-         USFOpenCurrentPath_btn.Text = USFOpenCurrentPath_btn_Text;
-         NewUSFPath_lbl.Text = NewUSFPath_lbl_Text;
-         USFOpenNewPath_btn.Text = USFOpenNewPath_btn_Text;
-         SelectNewUSFPath_btn.Text = SelectNewUSFPath_btn_Text;
-         Abort_btn.Text = Abort_btn_Text;
-         SetUSF_btn.Text = SetUSF_btn_Text;
+         CurrentUSFPath_lbl.Text = EditUserShellFolderStrings.CurrentUSFPath_lbl_Text;
+         USFOpenCurrentPath_btn.Text = EditUserShellFolderStrings.USFOpenCurrentPath_btn_Text;
+         NewUSFPath_lbl.Text = EditUserShellFolderStrings.NewUSFPath_lbl_Text;
+         USFOpenNewPath_btn.Text = EditUserShellFolderStrings.USFOpenNewPath_btn_Text;
+         SelectNewUSFPath_btn.Text = EditUserShellFolderStrings.SelectNewUSFPath_btn_Text;
+         Abort_btn.Text = EditUserShellFolderStrings.Abort_btn_Text;
+         SetUSF_btn.Text = EditUserShellFolderStrings.SetUSF_btn_Text;
          EnableComponents();
          RefreshUSF();
       }
@@ -30,14 +30,14 @@ namespace StorageManagementTool
       {
          if (CurrentUSFPath_tb.Text == "")
          {
-            MessageBox.Show(USFOpenCurrentPath_NoPathSelected, Error,
+            MessageBox.Show(EditUserShellFolderStrings.USFOpenCurrentPath_NoPathSelected, EditUserShellFolderStrings.Error,
                MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
          }
 
          if (!Directory.Exists(CurrentUSFPath_tb.Text))
          {
-            if (MessageBox.Show(string.Format(USFOpenCurrentpath_InvalidPath, CurrentUSFPath_tb.Text), Error,
+            if (MessageBox.Show(string.Format(EditUserShellFolderStrings.USFOpenCurrentpath_InvalidPath, CurrentUSFPath_tb.Text), EditUserShellFolderStrings.Error,
                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) ==
                 DialogResult.Retry)
             {
@@ -54,14 +54,14 @@ namespace StorageManagementTool
       {
          if (NewUSFPath_tb.Text == "")
          {
-            MessageBox.Show(USFOpenNewPath_NoPathSelected, Error,
+            MessageBox.Show(EditUserShellFolderStrings.USFOpenNewPath_NoPathSelected, EditUserShellFolderStrings.Error,
                MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
          }
 
          if (!Directory.Exists(NewUSFPath_tb.Text))
          {
-            if (MessageBox.Show(string.Format(USFOpenNewPath_InvalidPath, NewUSFPath_tb.Text), Error,
+            if (MessageBox.Show(string.Format(EditUserShellFolderStrings.USFOpenNewPath_InvalidPath, NewUSFPath_tb.Text), EditUserShellFolderStrings.Error,
                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) ==
                 DialogResult.Retry)
             {
@@ -99,14 +99,14 @@ namespace StorageManagementTool
       {
          if (ExistingUSF_lb.SelectedIndex == -1)
          {
-            MessageBox.Show(SetUSF_NoneSelected, Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+            MessageBox.Show(EditUserShellFolderStrings.SetUSF_NoneSelected, EditUserShellFolderStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }
 
          if (NewUSFPath_tb.Text == "")
          {
-            MessageBox.Show(SetUSF_NoNewPath, Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+            MessageBox.Show(EditUserShellFolderStrings.SetUSF_NoNewPath, EditUserShellFolderStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }

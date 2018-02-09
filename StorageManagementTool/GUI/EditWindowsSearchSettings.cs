@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
-namespace StorageManagementTool
+namespace StorageManagementTool.GUI
 {
    public partial class EditWindowsSearchSettings : Form
    {
