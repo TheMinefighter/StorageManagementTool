@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdministratorPriviligesAvailable" xml:space="preserve">
-    <value>Administratorenprivilegien</value>
+    <value>Das Programm wird als Adminstrator ausgeführt</value>
   </data>
   <data name="AdministratorSettings_gb_Text" xml:space="preserve">
-    <value>Das Programm wird als Adminstrator ausgeführt</value>
+    <value>Administratorenprivilegien</value>
   </data>
   <data name="ApplyPresetDialog_btn_Text" xml:space="preserve">
     <value>Automatische Einrichtung</value>
@@ -160,7 +160,7 @@
     <value>Datei-Speicherort aufgrund eines Fehlers nicht verschoben</value>
   </data>
   <data name="MoveFilesOrFolder_gb_Text" xml:space="preserve">
-    <value>Ordner Speicherort ändern</value>
+    <value>Datei oder Ordner Speicherort ändern</value>
   </data>
   <data name="MoveFileSuccessful" xml:space="preserve">
     <value>Datei-Speicherort erfolgreich verschoben</value>
@@ -199,13 +199,13 @@
     <value>HDD Speicherort als Standard speichern</value>
   </data>
   <data name="SetHDDSavePath_btn_Text" xml:space="preserve">
-    <value>HDD Speicherort setzen</value>
+    <value>Neuen Basis Pfad wählen</value>
   </data>
   <data name="StoreOnHDDLink" xml:space="preserve">
     <value>Auf HDD Speichern</value>
   </data>
   <data name="Suggestions_gb_Text" xml:space="preserve">
-    <value>Suggestions_gb</value>
+    <value>Vorschläge</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Speichermanagement Tool</value>

@@ -118,96 +118,96 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdministratorPriviligesAvailable" xml:space="preserve">
-    <value />
+    <value>The program has access to administartor privilges</value>
   </data>
   <data name="AdministratorSettings_gb_Text" xml:space="preserve">
-    <value />
+    <value>Administratorprivilges</value>
   </data>
   <data name="ApplyPresetDialog_btn_Text" xml:space="preserve">
-    <value />
+    <value>Apply Preset</value>
   </data>
   <data name="CustomFolderOrFileSelection_gb_Text" xml:space="preserve">
-    <value />
+    <value>Custom selection</value>
   </data>
   <data name="DisableSendToHDD" xml:space="preserve">
-    <value />
+    <value>Disable send to HDD</value>
   </data>
   <data name="EditPagefiles_btn_Text" xml:space="preserve">
-    <value />
+    <value>Pagefile settings</value>
   </data>
   <data name="EditSSDMonitoring_btn_Text" xml:space="preserve">
-    <value />
+    <value>SSD Monitoring</value>
   </data>
   <data name="EditUserShellFolders_btn_Text" xml:space="preserve">
-    <value />
+    <value>Edit UserShellFolders</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value />
+    <value>Error</value>
   </data>
   <data name="FileToMoveSel_btn" xml:space="preserve">
-    <value />
+    <value>Select file to move</value>
   </data>
   <data name="FolderToMove_btn" xml:space="preserve">
-    <value />
+    <value>Select folder to move</value>
   </data>
   <data name="FurtherSettings_gb_Text" xml:space="preserve">
-    <value />
+    <value>Further settings</value>
   </data>
   <data name="MoveFileError" xml:space="preserve">
-    <value />
+    <value>On account of an Error the program were unaible to move the file</value>
   </data>
   <data name="MoveFilesOrFolder_gb_Text" xml:space="preserve">
-    <value />
+    <value>Move file or folder</value>
   </data>
   <data name="MoveFileSuccessful" xml:space="preserve">
-    <value />
+    <value>File successfully moved</value>
   </data>
   <data name="MoveFile_btn_Text" xml:space="preserve">
-    <value />
+    <value>Move file</value>
   </data>
   <data name="MoveFolder_NoNewPath" xml:space="preserve">
-    <value />
+    <value>You didn´t select a root path to move the folder to, select now a new root path?</value>
   </data>
   <data name="MoveFolderError" xml:space="preserve">
-    <value />
+    <value>On account of an Error the program were unaible to move the folder</value>
   </data>
   <data name="MoveFolderSuccessful" xml:space="preserve">
-    <value />
+    <value>The Folder were successfully moved.</value>
   </data>
   <data name="MoveFolder_btn_Text" xml:space="preserve">
-    <value />
+    <value>Move folder</value>
   </data>
   <data name="MoveFolder_FolderPathEmpty" xml:space="preserve">
-    <value />
+    <value>You didn´t select a folder to move, select now a folder?</value>
   </data>
   <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
-    <value />
+    <value>The program can´t access administartor privilges</value>
   </data>
   <data name="OpenSelectedFolder_btn_Text" xml:space="preserve">
-    <value />
+    <value>Open selected folder</value>
   </data>
   <data name="OpenWindowsSearchsettings_btn_Text" xml:space="preserve">
-    <value />
+    <value>Edit Searchindizizing path</value>
   </data>
   <data name="RestartAsAdministartor_btn_Text" xml:space="preserve">
-    <value />
+    <value>Restart with administrator priviliges</value>
   </data>
   <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
-    <value />
+    <value>Save selected path as standard</value>
   </data>
   <data name="SetHDDSavePath_btn_Text" xml:space="preserve">
-    <value />
+    <value>Set new root path</value>
   </data>
   <data name="EnableSendToHDD" xml:space="preserve">
-    <value />
+    <value>Enable send to HDD</value>
   </data>
   <data name="StoreOnHDDLink" xml:space="preserve">
-    <value />
+    <value>Store on HDD</value>
   </data>
   <data name="Suggestions_gb_Text" xml:space="preserve">
-    <value />
+    <value>Suggestions</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value />
+    <value>Storagemanagement Tool</value>
   </data>
 </root>
