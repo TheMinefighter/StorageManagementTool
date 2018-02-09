@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using StorageManagementTool.GlobalizationRessources;
+using StorageManagementTool.MainGUI.GlobalizationRessources;
 
 namespace StorageManagementTool.MainGUI
 {

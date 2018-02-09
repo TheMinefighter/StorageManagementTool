@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementTool.GlobalizationRessources {
+namespace StorageManagementTool.MainGUI.GlobalizationRessources {
     using System;
     
     

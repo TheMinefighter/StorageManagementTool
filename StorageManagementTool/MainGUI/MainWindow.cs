@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using StorageManagementTool.GlobalizationRessources;
 
 using StorageManagementTool.MainGUI;
+using StorageManagementTool.MainGUI.GlobalizationRessources;
 
 namespace StorageManagementTool.MainGUI
 {
@@ -98,7 +99,7 @@ namespace StorageManagementTool.MainGUI
          Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, FolderToMove_tb.Text, false, false, false);
       }
 
-      public void RestartAsAdministartor_btn_Click(object sender, EventArgs e)
+      private void RestartAsAdministartor_btn_Click(object sender, EventArgs e)
       {
          Wrapper.RestartAsAdministrator();
       }
