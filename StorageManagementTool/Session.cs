@@ -7,7 +7,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
-using StorageManagementTool.GUI;
+using StorageManagementTool.MainGUI;
 
 namespace StorageManagementTool
 {

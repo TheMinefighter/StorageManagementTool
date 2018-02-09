@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace StorageManagementTool.GUI
+namespace StorageManagementTool.MainGUI
 {
    public partial class EditWindowsSearchSettings : Form
    {

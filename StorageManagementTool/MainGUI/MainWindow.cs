@@ -3,7 +3,9 @@ using System.IO;
 using System.Windows.Forms;
 using StorageManagementTool.GlobalizationRessources;
 
-namespace StorageManagementTool.GUI
+using StorageManagementTool.MainGUI;
+
+namespace StorageManagementTool.MainGUI
 {
    public partial class MainWindow : Form
    {

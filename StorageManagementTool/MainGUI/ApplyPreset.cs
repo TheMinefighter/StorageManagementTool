@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using StorageManagementTool.GlobalizationRessources;
 
-namespace StorageManagementTool.GUI
+namespace StorageManagementTool.MainGUI
 {
    public partial class ApplyPreset : Form
    {

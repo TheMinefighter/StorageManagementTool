@@ -7,7 +7,7 @@ using System.Security.Principal;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace StorageManagementTool.GUI
+namespace StorageManagementTool.MainGUI
 {
    public partial class MonitoringSettings : Form
    {

@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace StorageManagementTool.GUI
+namespace StorageManagementTool.MainGUI
 {
    public partial class PageFileOptionDialog : Form
    {

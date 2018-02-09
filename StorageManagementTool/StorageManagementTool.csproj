@@ -116,40 +116,40 @@
     <Compile Include="EnterCredentialsDialog.designer.cs">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ApplyPreset.cs">
+    <Compile Include="MainGUI\ApplyPreset.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\ApplyPreset.Designer.cs">
+    <Compile Include="MainGUI\ApplyPreset.Designer.cs">
       <DependentUpon>ApplyPreset.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\EditUserShellFolders.cs">
+    <Compile Include="MainGUI\EditUserShellFolders.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\EditUserShellFolders.designer.cs">
+    <Compile Include="MainGUI\EditUserShellFolders.designer.cs">
       <DependentUpon>EditUserShellFolders.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\EditWindowsSearchSettings.cs">
+    <Compile Include="MainGUI\EditWindowsSearchSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\EditWindowsSearchSettings.designer.cs">
+    <Compile Include="MainGUI\EditWindowsSearchSettings.designer.cs">
       <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\MainWindow.cs">
+    <Compile Include="MainGUI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\MainWindow.designer.cs">
+    <Compile Include="MainGUI\MainWindow.designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\MonitoringSettings.cs">
+    <Compile Include="MainGUI\MonitoringSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\MonitoringSettings.designer.cs">
+    <Compile Include="MainGUI\MonitoringSettings.designer.cs">
       <DependentUpon>MonitoringSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\PageFileOptionDialog.cs">
+    <Compile Include="MainGUI\PageFileOptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\PageFileOptionDialog.designer.cs">
+    <Compile Include="MainGUI\PageFileOptionDialog.designer.cs">
       <DependentUpon>PageFileOptionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="JsonConfig.cs" />
@@ -202,22 +202,22 @@
     <EmbeddedResource Include="EnterCredentialsDialog.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ApplyPreset.resx">
+    <EmbeddedResource Include="MainGUI\ApplyPreset.resx">
       <DependentUpon>ApplyPreset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\EditUserShellFolders.resx">
+    <EmbeddedResource Include="MainGUI\EditUserShellFolders.resx">
       <DependentUpon>EditUserShellFolders.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\EditWindowsSearchSettings.resx">
+    <EmbeddedResource Include="MainGUI\EditWindowsSearchSettings.resx">
       <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\MainWindow.resx">
+    <EmbeddedResource Include="MainGUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\MonitoringSettings.resx">
+    <EmbeddedResource Include="MainGUI\MonitoringSettings.resx">
       <DependentUpon>MonitoringSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\PageFileOptionDialog.resx">
+    <EmbeddedResource Include="MainGUI\PageFileOptionDialog.resx">
       <DependentUpon>PageFileOptionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
