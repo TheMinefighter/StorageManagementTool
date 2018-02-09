@@ -210,4 +210,10 @@
   <data name="WindowTitle" xml:space="preserve">
     <value>Speichermanagement Tool</value>
   </data>
+  <data name="MoveFile_FilePathEmpty" xml:space="preserve">
+    <value>Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?</value>
+  </data>
+  <data name="MoveFile_NoNewPath" xml:space="preserve">
+    <value>Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?</value>
+  </data>
 </root>

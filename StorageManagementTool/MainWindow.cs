@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using static StorageManagementTool.GlobalizationRessources.MainWindowStrings;
 
@@ -47,7 +43,7 @@ namespace StorageManagementTool
       private void EnableComponents()
       {
          if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-            StoreOnHDDLink+".lnk")))
+            StoreOnHDDLink + ".lnk")))
          {
             SetSendToHDD_btn.Text = DisableSendToHDD;
          }
@@ -104,7 +100,7 @@ namespace StorageManagementTool
          if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
          {
             if (MessageBox.Show(
-                  MoveFolder_NoNewPath,
+                   MoveFolder_NoNewPath,
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                HDDSavePath_Click(null, null);
@@ -126,11 +122,10 @@ namespace StorageManagementTool
             return;
          }
 
-         List<char> hddList = FolderToMove_tb.Text.ToList();
-         hddList.RemoveAt(1);
-         string newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath + "\\" + new string(hddList.ToArray());
+         DirectoryInfo newPath = new DirectoryInfo(Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath,
+            FolderToMove_tb.Text.Remove(1, 1)));
          string oldPath = FolderToMove_tb.Text;
-         ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath))
+         ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), newPath)
             ? MoveFolderSuccessful
             : MoveFolderError;
          FolderToMove_tb.Text = "";
@@ -144,13 +139,11 @@ namespace StorageManagementTool
 
       private void MoveFile_btn_Click(object sender, EventArgs e)
       {
-         #region Tritt nur bei unvollständig ausgefülltem Formular aus
-
          if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
          {
             if (MessageBox.Show(
-                   "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
-                   "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                   MoveFile_NoNewPath,
+                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                HDDSavePath_Click(null, null);
                MoveFile_btn_Click(null, null);
@@ -161,18 +154,15 @@ namespace StorageManagementTool
 
          if (FileToMovePath_tb.Text == "")
          {
-            if (MessageBox.Show("Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?", "Fehler",
+            if (MessageBox.Show(MoveFile_FilePathEmpty, Error,
                    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                FileToMoveSel_btn_Click(null, null);
                MoveFile_btn_Click(null, null);
             }
 
-            ;
             return;
          }
-
-         #endregion
 
          string newPath = Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath,
             FileToMovePath_tb.Text.Remove(1, 1));

@@ -210,4 +210,10 @@
   <data name="WindowTitle" xml:space="preserve">
     <value />
   </data>
+  <data name="MoveFile_FilePathEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoveFile_NoNewPath" xml:space="preserve">
+    <value />
+  </data>
 </root>

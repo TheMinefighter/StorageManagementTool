@@ -189,6 +189,24 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string MoveFile_FilePathEmpty {
+            get {
+                return ResourceManager.GetString("MoveFile_FilePathEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MoveFile_NoNewPath {
+            get {
+                return ResourceManager.GetString("MoveFile_NoNewPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MoveFileError {
             get {
                 return ResourceManager.GetString("MoveFileError", resourceCulture);
