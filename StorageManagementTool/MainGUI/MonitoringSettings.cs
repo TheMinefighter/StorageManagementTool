@@ -188,7 +188,7 @@ namespace StorageManagementTool.MainGUI
                new XElement(TaskNamespace + "Triggers",
                   new XElement(TaskNamespace + "LogonTrigger", new XElement(TaskNamespace + "Enabled", "true"))),
                new XElement(TaskNamespace + "Principals",
-                  new XElement(TaskNamespace + "Principal", new XAttribute("id", "Author"),
+                  new XElement(TaskNamespace + "Principal", new XAttribute("ID", "Author"),
                      new XElement(TaskNamespace + "GroupId", "S-1-5-32-545"),
                      new XElement(TaskNamespace + "RunLevel", "HighestAvailable"))),
                new XElement(TaskNamespace + "Settings",

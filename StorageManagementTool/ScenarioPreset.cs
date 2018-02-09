@@ -20,6 +20,8 @@ namespace StorageManagementTool
       /// </summary>
       public bool HDDRequired;
 
+      public string Id;
+
       /// <summary>
       ///    The name of the preset
       /// </summary>
@@ -146,13 +148,16 @@ namespace StorageManagementTool
                HDDRequired = true,
                SSDRequired = true,
                Name = Presets_LocalHDDAndSSD,
-               ToRun = LocalSSDAndHDD
+               ToRun = LocalSSDAndHDD,
+               Id = "LocalSSDAndHDD"
+
             }, new ScenarioPreset
             {
                HDDRequired = true,
                SSDRequired = true,
                Name = Presets_LocalSSDAndNAS,
-               ToRun = LocalSSDAndNAS
+               ToRun = LocalSSDAndNAS,
+               Id = "LocalSSDAndNAS"
             } 
          };
       }

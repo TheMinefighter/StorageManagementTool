@@ -136,7 +136,7 @@
     <value>Öffentliche Bilder</value>
   </data>
   <data name="CommonVideo_Name" xml:space="preserve">
-    <value>Öffentliche Videos</value>
+    <value>Öffentliche VIDeos</value>
   </data>
   <data name="Common_Administrative_Tools_Name" xml:space="preserve">
     <value>Öffentliche Anwendungsdaten</value>
@@ -190,7 +190,7 @@
     <value>Eigene Bilder</value>
   </data>
   <data name="My_Video_Name" xml:space="preserve">
-    <value>Eigene Videos</value>
+    <value>Eigene VIDeos</value>
   </data>
   <data name="NetHood_Name" xml:space="preserve">
     <value>Netzwerkverknüpfungen</value>
