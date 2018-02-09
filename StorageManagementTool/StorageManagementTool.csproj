@@ -144,6 +144,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainWindowStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MonitoringSettingsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="MainGUI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +241,12 @@
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MonitoringSettingsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainGUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
