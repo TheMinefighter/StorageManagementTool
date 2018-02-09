@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using Microsoft.VisualBasic.Devices;
 using static StorageManagementTool.GlobalizationRessources.ApplyPresetStrings;
 
 namespace StorageManagementTool
 {
-   public class ScenarioPreset
+   public struct ScenarioPreset
    {
       public static ScenarioPreset[] AvailablePresets;
+      public override string ToString()
+      {
+         return Name;
+      }
 
       /// <summary>
       ///    Whether a HDD is required for this preset
@@ -133,6 +138,7 @@ namespace StorageManagementTool
       /// </summary>
       public static void LoadPresets()
       {
+
          AvailablePresets = new[]
          {
             new ScenarioPreset

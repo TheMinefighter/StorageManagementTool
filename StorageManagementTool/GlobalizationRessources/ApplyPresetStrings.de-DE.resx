@@ -150,4 +150,7 @@
   <data name="WindowTitle" xml:space="preserve">
     <value>Vorlagen übernehmen</value>
   </data>
+  <data name="Presets_LocalSSDAndNAS" xml:space="preserve">
+    <value>Lokale HDD und NAS</value>
+  </data>
 </root>

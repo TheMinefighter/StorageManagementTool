@@ -1,4 +1,6 @@
-﻿namespace StorageManagementTool
+﻿using Microsoft.Win32;
+
+namespace StorageManagementTool
 {
    /// <summary>
    ///    Class for storing a windows registry path
@@ -8,12 +10,12 @@
       /// <summary>
       ///    The where the value is stored
       /// </summary>
-      public string RegistryKey { get; set; }
+      public string RegistryKey;
 
       /// <summary>
       ///    The name of the value
       /// </summary>
-      public string ValueName { get; set; }
+      public string ValueName;
 
       public RegPath(string registryKey, string valueName)
       {
@@ -21,7 +23,12 @@
          ValueName = valueName;
       }
 
-      //public RegPath()
+      public override string ToString()
+      {
+         return RegistryKey + '\\' + ValueName;
+      }
+
+//public RegPath()
       //{
       //}
    }

@@ -160,7 +160,7 @@ namespace StorageManagementTool
          Application.SetCompatibleTextRenderingDefault(false);
          RefreshDriveInformation();
          IsAdmin = Wrapper.IsUserAdministrator();
-         RefreshSwapfileStadium();
+         
          
          Application.Run(new MainWindow());
       }

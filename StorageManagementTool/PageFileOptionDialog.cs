@@ -24,6 +24,7 @@ namespace StorageManagementTool
 
       private void PageFileOptionDialog_Load(object sender, EventArgs e)
       {
+         Session.Singleton.RefreshSwapfileStadium();
          //Swapfileinfo_tb.Lines= new string[2];
          const string hint =
             "\r\nUm eine schon verschobene Swapfile auf ein weiteres Laufwerk zu verschieben muss erst zum Stadium 2 zurückgekehrt werden um sie dann auf eine andere Partition auszulagern";

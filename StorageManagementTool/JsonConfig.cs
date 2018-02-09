@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace StorageManagementTool
 {
@@ -8,6 +9,10 @@ namespace StorageManagementTool
    /// </summary>
    public class JSONConfig
    {
+      public override string ToString()
+      {
+         return JsonConvert.SerializeObject(this);
+      }
       /// <summary>
       ///    The default path to move data to
       /// </summary>
@@ -28,6 +33,10 @@ namespace StorageManagementTool
       /// </summary>
       public class MonitoringSetting
       {
+         public override string ToString()
+         {
+            return JsonConvert.SerializeObject(this);
+         }
          /// <summary>
          ///    Represents all available actions for the event, when a new file or folder has been created
          /// </summary>
@@ -73,6 +82,11 @@ namespace StorageManagementTool
          /// </summary>
          public class MonitoredFolder
          {
+            public override string ToString()
+            {
+               return JsonConvert.SerializeObject(this);
+            }
+
             /// <summary>
             ///    The MonitoringAction to execute for new files
             /// </summary>

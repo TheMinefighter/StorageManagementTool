@@ -150,4 +150,7 @@
   <data name="WindowTitle" xml:space="preserve">
     <value>Apply Preset</value>
   </data>
+  <data name="Presets_LocalSSDAndNAS" xml:space="preserve">
+    <value>Local SSD and NAS</value>
+  </data>
 </root>

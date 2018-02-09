@@ -98,7 +98,6 @@ namespace StorageManagementTool
       private void InsertCredentialsDialog_Load(object sender, EventArgs e)
       {
          Text = Window_Title;
-
          if (((DialogReturnData) Tag).AdminRequired)
          {
             Headline0_lbl.Text = string.Format(AdministratorInstructions, Environment.NewLine);
