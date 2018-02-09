@@ -101,6 +101,11 @@
     <Compile Include="EnterCredentialsDialog.designer.cs">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalizationRessources\ScenarioPresetStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScenarioPresetStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="GlobalizationRessources\UserShellFolderStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,6 +193,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EnterCredentialsDialog.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScenarioPresetStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.resx">
