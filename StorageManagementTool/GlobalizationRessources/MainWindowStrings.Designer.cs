@@ -135,6 +135,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string EnableSendToHDD {
+            get {
+                return ResourceManager.GetString("EnableSendToHDD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
@@ -207,15 +216,6 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string MoveFoilder_NoNewPath {
-            get {
-                return ResourceManager.GetString("MoveFoilder_NoNewPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string MoveFolder_btn_Text {
             get {
                 return ResourceManager.GetString("MoveFolder_btn_Text", resourceCulture);
@@ -225,9 +225,18 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string MoveFolder_FilePathEmpty {
+        internal static string MoveFolder_FolderPathEmpty {
             get {
-                return ResourceManager.GetString("MoveFolder_FilePathEmpty", resourceCulture);
+                return ResourceManager.GetString("MoveFolder_FolderPathEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MoveFolder_NoNewPath {
+            get {
+                return ResourceManager.GetString("MoveFolder_NoNewPath", resourceCulture);
             }
         }
         
@@ -300,15 +309,6 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string SetHDDSavePath_btn_Text {
             get {
                 return ResourceManager.GetString("SetHDDSavePath_btn_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SetSendToHDD_btn_Text {
-            get {
-                return ResourceManager.GetString("SetSendToHDD_btn_Text", resourceCulture);
             }
         }
         

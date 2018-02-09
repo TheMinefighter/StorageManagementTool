@@ -165,7 +165,7 @@
   <data name="MoveFile_btn_Text" xml:space="preserve">
     <value />
   </data>
-  <data name="MoveFoilder_NoNewPath" xml:space="preserve">
+  <data name="MoveFolder_NoNewPath" xml:space="preserve">
     <value />
   </data>
   <data name="MoveFolderError" xml:space="preserve">
@@ -177,7 +177,7 @@
   <data name="MoveFolder_btn_Text" xml:space="preserve">
     <value />
   </data>
-  <data name="MoveFolder_FilePathEmpty" xml:space="preserve">
+  <data name="MoveFolder_FolderPathEmpty" xml:space="preserve">
     <value />
   </data>
   <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
@@ -198,7 +198,7 @@
   <data name="SetHDDSavePath_btn_Text" xml:space="preserve">
     <value />
   </data>
-  <data name="SetSendToHDD_btn_Text" xml:space="preserve">
+  <data name="EnableSendToHDD" xml:space="preserve">
     <value />
   </data>
   <data name="StoreOnHDDLink" xml:space="preserve">

@@ -35,8 +35,8 @@ namespace StorageManagementTool
          }
 
          AdministartorStatus_tb.Text = Session.Singleton.IsAdmin
-            ? "Das Programm wird als Adminstrator ausgeführt"
-            : "Das Programm wird NICHT als Adminstrator ausgeführt";
+            ? AdministratorPriviligesAvailable
+            : NoAdministratorPriviligesAvailable;
          Suggestion_lb.Select();
          EnableComponents();
       }
@@ -47,20 +47,20 @@ namespace StorageManagementTool
       private void EnableComponents()
       {
          if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-            "Auf HDD Speichern.lnk")))
+            StoreOnHDDLink+".lnk")))
          {
-            SetSendToHDD_btn.Text = "Senden an HDD deaktivieren";
+            SetSendToHDD_btn.Text = DisableSendToHDD;
          }
          else
          {
-            SetSendToHDD_btn.Text = "Senden an HDD aktivieren";
+            SetSendToHDD_btn.Text = EnableSendToHDD;
             SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
          }
       }
 
       private void SetSendToHDD_btn_Click(object sender, EventArgs e)
       {
-         if (SetSendToHDD_btn.Text == "Senden an HDD aktivieren")
+         if (SetSendToHDD_btn.Text == EnableSendToHDD)
          {
             OperatingMethods.EnableSendToHDD(true);
          }
@@ -104,8 +104,8 @@ namespace StorageManagementTool
          if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
          {
             if (MessageBox.Show(
-                   "Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?",
-                   "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                  MoveFolder_NoNewPath,
+                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                HDDSavePath_Click(null, null);
                MoveFolder_btn_Click(null, null);
@@ -116,7 +116,7 @@ namespace StorageManagementTool
 
          if (FolderToMove_tb.Text == "")
          {
-            if (MessageBox.Show("Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?", "Fehler",
+            if (MessageBox.Show(MoveFolder_FolderPathEmpty, Error,
                    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                FolderToMove_btn_Click(null, null);
@@ -131,8 +131,8 @@ namespace StorageManagementTool
          string newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath + "\\" + new string(hddList.ToArray());
          string oldPath = FolderToMove_tb.Text;
          ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath))
-            ? "Ordner erfolgreich verschoben"
-            : "Ordner aufgrund eines Fehlers nicht verschoben";
+            ? MoveFolderSuccessful
+            : MoveFolderError;
          FolderToMove_tb.Text = "";
          Suggestion_lb.Items.Clear();
          string[] rec = OperatingMethods.GetRecommendedPaths();
@@ -178,8 +178,8 @@ namespace StorageManagementTool
             FileToMovePath_tb.Text.Remove(1, 1));
          string oldPath = FileToMovePath_tb.Text;
          ProgramStatusStrip.Text = OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath))
-            ? "Datei-Speicherort erfolgreich verschoben"
-            : "Datei-Speicherort aufgrund eines Fehlers nicht verschoben";
+            ? MoveFileSuccessful
+            : MoveFileError;
          FileToMovePath_tb.Text = "";
       }
 
