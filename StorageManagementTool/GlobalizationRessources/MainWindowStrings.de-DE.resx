@@ -168,8 +168,20 @@
   <data name="MoveFile_btn_Text" xml:space="preserve">
     <value>Datei Speicherort verschieben</value>
   </data>
+  <data name="MoveFoilder_NoNewPath" xml:space="preserve">
+    <value>Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?</value>
+  </data>
+  <data name="MoveFolderError" xml:space="preserve">
+    <value>Ordner aufgrund eines Fehlers nicht verschoben</value>
+  </data>
+  <data name="MoveFolderSuccessful" xml:space="preserve">
+    <value>Ordner erfolgreich verschoben</value>
+  </data>
   <data name="MoveFolder_btn_Text" xml:space="preserve">
     <value>Ordner Speicherort verschieben</value>
+  </data>
+  <data name="MoveFolder_FilePathEmpty" xml:space="preserve">
+    <value>Der Ordnerpfad ist leer, möchten sie jetzt einen Ordner auswählen?</value>
   </data>
   <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
     <value>Das Programm wird NICHT als Adminstrator ausgeführt</value>
