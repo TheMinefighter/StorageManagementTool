@@ -38,14 +38,16 @@ namespace StorageManagementTool
          Suggestion_lb.Select();
          EnableComponents();
       }
-
+      /// <summary>
+      /// Loads UI strings from culture sepcific ressource file
+      /// </summary>
       private void LoadUIStrings()
       {
          AdministratorSettings_gb.Text = AdministratorSettings_gb_Text;
          ApplyPresetDialog_btn.Text = ApplyPresetDialog_btn_Text;
          CustomFolderOrFileSelection_gb.Text = CustomFolderOrFileSelection_gb_Text;
          EditPagefiles_btn.Text = EditPagefiles_btn_Text;
-         EditSSDMonitoring_btn.Text = EditPagefiles_btn_Text;
+         EditSSDMonitoring_btn.Text = EditSSDMonitoring_btn_Text;
          EditUserShellFolders_btn.Text = EditUserShellFolders_btn_Text;
          FileToMove_btn.Text = FileToMove_btn_Text;
          FolderToMove_btn.Text = FolderToMove_btn_Text;
@@ -55,7 +57,6 @@ namespace StorageManagementTool
          MoveFolder_btn.Text = MoveFolder_btn_Text;
          OpenSelectedFolder_btn.Text = OpenSelectedFolder_btn_Text;
          RestartAsAdministartor_btn.Text = RestartAsAdministartor_btn_Text;
-         //To Be reanmed
          SetRootPathAsDefault_btn.Text = SetHDDPathAsDefault_btn_Text;
          SetRootPath_btn.Text = SetRootPath_btn_Text;
          Suggestions_gb.Text = Suggestions_gb_Text;

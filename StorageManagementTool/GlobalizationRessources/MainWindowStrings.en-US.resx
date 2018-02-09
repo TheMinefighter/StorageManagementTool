@@ -166,7 +166,7 @@
     <value>Move file</value>
   </data>
   <data name="MoveFolder_NoNewPath" xml:space="preserve">
-    <value>You didn´t select a root path to move the folder to, select now a new root path?</value>
+    <value>You didn't select a root path to move the folder to, select now a new root path?</value>
   </data>
   <data name="MoveFolderError" xml:space="preserve">
     <value>On account of an Error the program were unaible to move the folder</value>
@@ -178,7 +178,7 @@
     <value>Move folder</value>
   </data>
   <data name="MoveFolder_FolderPathEmpty" xml:space="preserve">
-    <value>You didn´t select a folder to move, select now a folder?</value>
+    <value>You didn't select a folder to move, select now a folder?</value>
   </data>
   <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
     <value>The program can´t access administartor privilges</value>
@@ -211,9 +211,9 @@
     <value>Storagemanagement tool</value>
   </data>
   <data name="MoveFile_FilePathEmpty" xml:space="preserve">
-    <value>You didn´t select a file to move, select now a file?</value>
+    <value>You didn't select a file to move, select now a file?</value>
   </data>
   <data name="MoveFile_NoNewPath" xml:space="preserve">
-    <value>You didn´t select a root path to move the file to, select now a new root path?</value>
+    <value>You didn't select a root path to move the file to, select now a new root path?</value>
   </data>
 </root>
