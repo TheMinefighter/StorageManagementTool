@@ -33,12 +33,12 @@
          this.FolderToMove_btn = new System.Windows.Forms.Button();
          this.MoveFolder_btn = new System.Windows.Forms.Button();
          this.HDDPath_fbd = new System.Windows.Forms.FolderBrowserDialog();
-         this.SetHDDSavePath_btn = new System.Windows.Forms.Button();
+         this.SetRootPath_btn = new System.Windows.Forms.Button();
          this.FolderToMove_tb = new System.Windows.Forms.TextBox();
          this.HDDSavePathText = new System.Windows.Forms.TextBox();
          this.Suggestion_lb = new System.Windows.Forms.ListBox();
          this.CustomFolderOrFileSelection_gb = new System.Windows.Forms.GroupBox();
-         this.SetHDDPathAsDefault_btn = new System.Windows.Forms.Button();
+         this.SetRootPathAsDefault_btn = new System.Windows.Forms.Button();
          this.FileToMovePath_tb = new System.Windows.Forms.TextBox();
          this.FileToMove_btn = new System.Windows.Forms.Button();
          this.Suggestions_gb = new System.Windows.Forms.GroupBox();
@@ -90,17 +90,17 @@
          this.MoveFolder_btn.UseVisualStyleBackColor = true;
          this.MoveFolder_btn.Click += new System.EventHandler(this.MoveFolder_btn_Click);
          // 
-         // SetHDDSavePath_btn
+         // SetRootPath_btn
          // 
-         this.SetHDDSavePath_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+         this.SetRootPath_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.SetHDDSavePath_btn.Location = new System.Drawing.Point(6, 73);
-         this.SetHDDSavePath_btn.Name = "SetHDDSavePath_btn";
-         this.SetHDDSavePath_btn.Size = new System.Drawing.Size(391, 23);
-         this.SetHDDSavePath_btn.TabIndex = 2;
-         this.SetHDDSavePath_btn.Text = "HDD Speicherort setzen";
-         this.SetHDDSavePath_btn.UseVisualStyleBackColor = true;
-         this.SetHDDSavePath_btn.Click += new System.EventHandler(this.HDDSavePath_Click);
+         this.SetRootPath_btn.Location = new System.Drawing.Point(6, 73);
+         this.SetRootPath_btn.Name = "SetRootPath_btn";
+         this.SetRootPath_btn.Size = new System.Drawing.Size(391, 23);
+         this.SetRootPath_btn.TabIndex = 2;
+         this.SetRootPath_btn.Text = "HDD Speicherort setzen";
+         this.SetRootPath_btn.UseVisualStyleBackColor = true;
+         this.SetRootPath_btn.Click += new System.EventHandler(this.SetRootPath_btn_Click);
          // 
          // FolderToMove_tb
          // 
@@ -138,11 +138,11 @@
          // 
          this.CustomFolderOrFileSelection_gb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.CustomFolderOrFileSelection_gb.Controls.Add(this.SetHDDPathAsDefault_btn);
+         this.CustomFolderOrFileSelection_gb.Controls.Add(this.SetRootPathAsDefault_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FileToMovePath_tb);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FileToMove_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FolderToMove_btn);
-         this.CustomFolderOrFileSelection_gb.Controls.Add(this.SetHDDSavePath_btn);
+         this.CustomFolderOrFileSelection_gb.Controls.Add(this.SetRootPath_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FolderToMove_tb);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.HDDSavePathText);
          this.CustomFolderOrFileSelection_gb.Location = new System.Drawing.Point(6, 18);
@@ -152,17 +152,17 @@
          this.CustomFolderOrFileSelection_gb.TabStop = false;
          this.CustomFolderOrFileSelection_gb.Text = "Manuelle  Auswahl";
          // 
-         // SetHDDPathAsDefault_btn
+         // SetRootPathAsDefault_btn
          // 
-         this.SetHDDPathAsDefault_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+         this.SetRootPathAsDefault_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.SetHDDPathAsDefault_btn.Location = new System.Drawing.Point(6, 128);
-         this.SetHDDPathAsDefault_btn.Name = "SetHDDPathAsDefault_btn";
-         this.SetHDDPathAsDefault_btn.Size = new System.Drawing.Size(391, 23);
-         this.SetHDDPathAsDefault_btn.TabIndex = 7;
-         this.SetHDDPathAsDefault_btn.Text = "HDD Speicherort als Standard speichern";
-         this.SetHDDPathAsDefault_btn.UseVisualStyleBackColor = true;
-         this.SetHDDPathAsDefault_btn.Click += new System.EventHandler(this.SetHDDPathAsDefault_btn_Click);
+         this.SetRootPathAsDefault_btn.Location = new System.Drawing.Point(6, 128);
+         this.SetRootPathAsDefault_btn.Name = "SetRootPathAsDefault_btn";
+         this.SetRootPathAsDefault_btn.Size = new System.Drawing.Size(391, 23);
+         this.SetRootPathAsDefault_btn.TabIndex = 7;
+         this.SetRootPathAsDefault_btn.Text = "HDD Speicherort als Standard speichern";
+         this.SetRootPathAsDefault_btn.UseVisualStyleBackColor = true;
+         this.SetRootPathAsDefault_btn.Click += new System.EventHandler(this.SetRootPathAsDefault_btn_Click);
          // 
          // FileToMovePath_tb
          // 
@@ -260,7 +260,7 @@
          this.EditSSDMonitoring_btn.TabIndex = 20;
          this.EditSSDMonitoring_btn.Text = "SSD Überwachung anpassen";
          this.EditSSDMonitoring_btn.UseVisualStyleBackColor = true;
-         this.EditSSDMonitoring_btn.Click += new System.EventHandler(this.EditSSDMonitoring_btn_click);
+         this.EditSSDMonitoring_btn.Click += new System.EventHandler(this.EditSSDMonitoring_btn_Click);
          // 
          // AdministartorStatus_tb
          // 
@@ -320,7 +320,7 @@
          this.EditPagefiles_btn.TabIndex = 19;
          this.EditPagefiles_btn.Text = "Arbeitsspeicherauslagerungs Dateien";
          this.EditPagefiles_btn.UseVisualStyleBackColor = true;
-         this.EditPagefiles_btn.Click += new System.EventHandler(this.EditPagefiles_btn_click);
+         this.EditPagefiles_btn.Click += new System.EventHandler(this.EditPagefiles_btn_Click);
          // 
          // EditUserShellFolders_btn
          // 
@@ -332,7 +332,7 @@
          this.EditUserShellFolders_btn.TabIndex = 21;
          this.EditUserShellFolders_btn.Text = "UserShellFolder bearbeiten";
          this.EditUserShellFolders_btn.UseVisualStyleBackColor = true;
-         this.EditUserShellFolders_btn.Click += new System.EventHandler(this.button1_Click);
+         this.EditUserShellFolders_btn.Click += new System.EventHandler(this.EditUserShellFolders_btn_Click);
          // 
          // SetSendToHDD_btn
          // 
@@ -398,7 +398,7 @@
          this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
          this.Name = "MainWindow";
          this.Text = "Speichermanagement Tool";
-         this.Load += new System.EventHandler(this.Form1_Load);
+         this.Load += new System.EventHandler(this.MainWindow_Load);
          this.CustomFolderOrFileSelection_gb.ResumeLayout(false);
          this.CustomFolderOrFileSelection_gb.PerformLayout();
          this.Suggestions_gb.ResumeLayout(false);
@@ -417,7 +417,7 @@
       private System.Windows.Forms.Button FolderToMove_btn;
       private System.Windows.Forms.Button MoveFolder_btn;
       private System.Windows.Forms.FolderBrowserDialog HDDPath_fbd;
-      private System.Windows.Forms.Button SetHDDSavePath_btn;
+      private System.Windows.Forms.Button SetRootPath_btn;
       private System.Windows.Forms.TextBox FolderToMove_tb;
       public System.Windows.Forms.TextBox HDDSavePathText;
       private System.Windows.Forms.GroupBox CustomFolderOrFileSelection_gb;
@@ -434,7 +434,7 @@
       public System.Windows.Forms.ListBox Suggestion_lb;
       private System.Windows.Forms.StatusStrip ProgramStatusStrip;
       private System.Windows.Forms.Button EditSSDMonitoring_btn;
-      private System.Windows.Forms.Button SetHDDPathAsDefault_btn;
+      private System.Windows.Forms.Button SetRootPathAsDefault_btn;
         private System.Windows.Forms.Button EditPagefiles_btn;
         private System.Windows.Forms.Button OpenWindowsSearchsettings_btn;
         private System.Windows.Forms.Button EditUserShellFolders_btn;

@@ -324,9 +324,9 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string SetHDDSavePath_btn_Text {
+        internal static string SetRootPath_btn_Text {
             get {
-                return ResourceManager.GetString("SetHDDSavePath_btn_Text", resourceCulture);
+                return ResourceManager.GetString("SetRootPath_btn_Text", resourceCulture);
             }
         }
         

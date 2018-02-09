@@ -13,13 +13,13 @@ namespace StorageManagementTool
       }
 
 
-      private void HDDSavePath_Click(object sender, EventArgs e)
+      private void SetRootPath_btn_Click(object sender, EventArgs e)
       {
          HDDPath_fbd.ShowDialog();
          HDDSavePathText.Text = HDDPath_fbd.SelectedPath;
       }
 
-      private void Form1_Load(object sender, EventArgs e)
+      private void MainWindow_Load(object sender, EventArgs e)
       {
 
          LoadUIStrings();
@@ -56,8 +56,8 @@ namespace StorageManagementTool
          OpenSelectedFolder_btn.Text = OpenSelectedFolder_btn_Text;
          RestartAsAdministartor_btn.Text = RestartAsAdministartor_btn_Text;
          //To Be reanmed
-         SetHDDPathAsDefault_btn.Text = SetHDDPathAsDefault_btn_Text;
-         SetHDDSavePath_btn.Text = SetHDDSavePath_btn_Text;
+         SetRootPathAsDefault_btn.Text = SetHDDPathAsDefault_btn_Text;
+         SetRootPath_btn.Text = SetRootPath_btn_Text;
          Suggestions_gb.Text = Suggestions_gb_Text;
          this.Text = WindowTitle;
       }
@@ -81,15 +81,7 @@ namespace StorageManagementTool
 
       private void SetSendToHDD_btn_Click(object sender, EventArgs e)
       {
-         if (SetSendToHDD_btn.Text == EnableSendToHDD)
-         {
-            OperatingMethods.EnableSendToHDD(true);
-         }
-         else
-         {
-            OperatingMethods.EnableSendToHDD(false);
-         }
-
+         OperatingMethods.EnableSendToHDD(SetSendToHDD_btn.Text == EnableSendToHDD);
          EnableComponents();
       }
 
@@ -128,7 +120,7 @@ namespace StorageManagementTool
                    MoveFolder_NoNewPath,
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-               HDDSavePath_Click(null, null);
+               SetRootPath_btn_Click(null, null);
                MoveFolder_btn_Click(null, null);
             }
 
@@ -170,7 +162,7 @@ namespace StorageManagementTool
                    MoveFile_NoNewPath,
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-               HDDSavePath_Click(null, null);
+               SetRootPath_btn_Click(null, null);
                MoveFile_btn_Click(null, null);
             }
 
@@ -198,18 +190,18 @@ namespace StorageManagementTool
          FileToMovePath_tb.Text = "";
       }
 
-      private void EditSSDMonitoring_btn_click(object sender, EventArgs e)
+      private void EditSSDMonitoring_btn_Click(object sender, EventArgs e)
       {
          new MonitoringSettings().ShowDialog();
       }
 
-      private void SetHDDPathAsDefault_btn_Click(object sender, EventArgs e)
+      private void SetRootPathAsDefault_btn_Click(object sender, EventArgs e)
       {
          Session.Singleton.CurrentConfiguration.DefaultHDDPath = HDDPath_fbd.SelectedPath;
          Session.Singleton.SaveCfg();
       }
 
-      private void EditPagefiles_btn_click(object sender, EventArgs e)
+      private void EditPagefiles_btn_Click(object sender, EventArgs e)
       {
          new PageFileOptionDialog().ShowDialog();
       }
@@ -219,7 +211,7 @@ namespace StorageManagementTool
          new EditWindowsSearchSettings().ShowDialog();
       }
 
-      private void button1_Click(object sender, EventArgs e)
+      private void EditUserShellFolders_btn_Click(object sender, EventArgs e)
       {
          new EditUserShellFolders().ShowDialog();
       }

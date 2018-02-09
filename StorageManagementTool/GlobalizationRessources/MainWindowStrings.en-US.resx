@@ -195,7 +195,7 @@
   <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
     <value>Save selected path as standard</value>
   </data>
-  <data name="SetHDDSavePath_btn_Text" xml:space="preserve">
+  <data name="SetRootPath_btn_Text" xml:space="preserve">
     <value>Set new root path</value>
   </data>
   <data name="EnableSendToHDD" xml:space="preserve">

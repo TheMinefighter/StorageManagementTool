@@ -198,7 +198,7 @@
   <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
     <value>HDD Speicherort als Standard speichern</value>
   </data>
-  <data name="SetHDDSavePath_btn_Text" xml:space="preserve">
+  <data name="SetRootPath_btn_Text" xml:space="preserve">
     <value>Neuen Basis Pfad wählen</value>
   </data>
   <data name="StoreOnHDDLink" xml:space="preserve">
