@@ -50,17 +50,45 @@ namespace StorageManagementTool
       /// </summary>
       public Session()
       {
-         Singleton = this;
+         IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new []{new []{CultureInfo.CreateSpecificCulture("en-US") }, new []{CultureInfo.CreateSpecificCulture("de-DE") }};
+         
+            Singleton = this;
          ConfigurationPath = Path.Combine(Environment.GetFolderPath(
                Environment.SpecialFolder.MyDocuments),
             "StorageManagementToolConfiguration.json");
          CurrentConfiguration = File.Exists(ConfigurationPath)
             ? JsonConvert.DeserializeObject<JSONConfig>(File.ReadAllText(ConfigurationPath))
             : new JSONConfig();
-         Thread.CurrentThread.CurrentUICulture =
+         CultureInfo requestedCulture =
             CultureInfo.GetCultureInfo(CurrentConfiguration.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
+         CultureInfo toUseCultureInfo = BestPossibleCulture(requestedCulture, availableSpecificCultures);
+         Thread.CurrentThread.CurrentUICulture=toUseCultureInfo ;
          ScenarioPreset.LoadPresets();
          UserShellFolder.LoadEditable();
+      }
+
+      private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture, IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures)
+      {
+         CultureInfo requestedParent = requestedCulture.Parent;
+         CultureInfo toUseCultureInfo = null;
+         for (int i = 0; i < availableSpecificCultures.Count(); i++)
+         {
+            if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent))
+            {
+               foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i))
+               {
+                  if (cultureInfo.Equals(requestedCulture))
+                  {
+                     toUseCultureInfo = cultureInfo;
+                  }
+               }
+               toUseCultureInfo = toUseCultureInfo ?? availableSpecificCultures.ElementAt(i).ElementAt(0);
+               break;
+            }
+         }
+
+         toUseCultureInfo = toUseCultureInfo ?? availableSpecificCultures.ElementAt(0).ElementAt(0);
+         return toUseCultureInfo;
       }
 
       /// <summary>
@@ -74,7 +102,7 @@ namespace StorageManagementTool
                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                "SwapFileControl"), out object regValue);
             Swapstadium =
-               (int?) regValue == null || (int?) regValue == 1
+               (uint?) regValue == null || (uint?) regValue == 1
                   ? 4
                   : 3;
          }
@@ -84,7 +112,7 @@ namespace StorageManagementTool
                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
                "SwapFileControl"), out object regValue);
             Swapstadium =
-               (int?) regValue == null || (int?) regValue == 1
+               (uint?) regValue == null || (uint?) regValue == 1
                   ? 1
                   : 2;
          }

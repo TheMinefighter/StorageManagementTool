@@ -80,7 +80,7 @@ namespace StorageManagementTool
       private void RefreshCurrentPath()
       {
          string displayedSearchDataPath = "Error";
-         if (Wrapper.GetRegistryValue(OperatingMethods.SearchDatatDirectoryRegPath, out object text, false))
+         if (Wrapper.GetRegistryValue(OperatingMethods.SearchDatatDirectoryRegPath, out object text, true))
          {
 
             try

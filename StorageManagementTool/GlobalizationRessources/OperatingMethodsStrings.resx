@@ -219,4 +219,13 @@
   <data name="SetSearchDataPath_RestartNow_Title" xml:space="preserve">
     <value />
   </data>
+  <data name="SetStadium_ErrorNoneAfterLast" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetStadium_ErrorNoneBeforeFirst" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetStadium_NoNewPathGiven" xml:space="preserve">
+    <value />
+  </data>
 </root>

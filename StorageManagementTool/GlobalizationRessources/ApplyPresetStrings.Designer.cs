@@ -126,6 +126,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string Presets_LocalSSDAndNAS {
+            get {
+                return ResourceManager.GetString("Presets_LocalSSDAndNAS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SelectHDD_lbl_Text {
             get {
                 return ResourceManager.GetString("SelectHDD_lbl_Text", resourceCulture);

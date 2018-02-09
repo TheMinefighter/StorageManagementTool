@@ -365,5 +365,32 @@ namespace StorageManagementTool.GlobalizationRessources {
                 return ResourceManager.GetString("SetSearchDataPath_RestartNow_Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetStadium_ErrorNoneAfterLast {
+            get {
+                return ResourceManager.GetString("SetStadium_ErrorNoneAfterLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetStadium_ErrorNoneBeforeFirst {
+            get {
+                return ResourceManager.GetString("SetStadium_ErrorNoneBeforeFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SetStadium_NoNewPathGiven {
+            get {
+                return ResourceManager.GetString("SetStadium_NoNewPathGiven", resourceCulture);
+            }
+        }
     }
 }

@@ -104,8 +104,8 @@ namespace StorageManagementTool
             switch (kind)
             {
                case RegistryValueKind.DWord:
-                  //actually wrong, bug allready reported: https://github.com/dotnet/corefx/issues/26936
-                  toReturn = int.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                  
+                  toReturn = uint.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.String:
                   toReturn = data;
@@ -128,6 +128,7 @@ namespace StorageManagementTool
          }
 
          try
+         
          {
             toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, null);
          }
@@ -141,6 +142,15 @@ namespace StorageManagementTool
                    GetRegistryValue(path, out toReturn, asUser);
          }
 
+         if (toReturn is int)
+         {
+            toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int) toReturn), 0);
+         }
+
+         if (toReturn is long)
+         {
+            toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long) toReturn), 0);
+         }
          return true;
       }
 
@@ -514,7 +524,7 @@ namespace StorageManagementTool
       /// </summary>
       public static void RestartAsAdministrator()
       {
-         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true, false, false))
+         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, " ", true,false,false))
          {
             Environment.Exit(0);
          }

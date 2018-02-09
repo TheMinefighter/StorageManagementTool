@@ -117,115 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangePagefileSettings_CouldntDisableManagement" xml:space="preserve">
-    <value>Der parameter "AutomaticManagedPagefile" konnte nicht auf False gesetzt werden</value>
+  <data name="AdministartorStatus_tb_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangePagefileSettings_MinGreaterMax" xml:space="preserve">
-    <value>Die minimale Größe der Pagefile kann nicht größer sein als derren die maximale Größe!</value>
+  <data name="AdministratorPriviligesAvailable" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangePagefileSettings_Not1Pagefile" xml:space="preserve">
-    <value>Beim ändern der Pagefile-Konfiguration ist ein Fehler aufgetreten.</value>
+  <data name="AdministratorSettings_gb_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangePagefileSettings_NotEnoughSpace" xml:space="preserve">
-    <value>Auf der ausgewählten Partition ist nicht genug Speicherplatz verfügbar.</value>
+  <data name="ApplyPresetDialog_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangePagefileSettings_SelectedPartitionMissing" xml:space="preserve">
-    <value>Die ausgewählte Partition konnte nichtmehr gefunden werden</value>
+  <data name="CustomFolderOrFileSelection_gb_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_DeleteContent_Text" xml:space="preserve">
-    <value>Soll der Ordner {0} gelöscht werden, da seine Inhalte in {1} gespeichert sind?</value>
+  <data name="EditPagefiles_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_DeleteContent_Title" xml:space="preserve">
-    <value>Alte Dateien löschen?</value>
+  <data name="EditSSDMonitoring_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Abort" xml:space="preserve">
-    <value>Abbrechen</value>
+  <data name="EditUserShellFolders_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Ignore" xml:space="preserve">
-    <value>Fortfahren</value>
+  <data name="FileToMoveSel_btn" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Retry" xml:space="preserve">
-    <value>Erneut versuchen</value>
+  <data name="FolderToMove_btn" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Skip" xml:space="preserve">
-    <value>"{0}" überspringen</value>
+  <data name="FurtherSettings_gb_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Text" xml:space="preserve">
-    <value>Das Programm hat versucht den Pfad von "{0}" zu ändern. Dafür hat es versucht den Registry Wert "{1}" unter "{2}" zu "{3}" zu ändern. Dabei ist ein Fehler aufgetreten.</value>
+  <data name="MoveFilesOrFolder_gb_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_MoveContent_Text" xml:space="preserve">
-    <value>Der UserShellFolder wurde erfolgreich geändert, sollen dessen Inhalte an seinen neuen Speicherort verschoben werden?</value>
+  <data name="MoveFile_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_MoveContent_Title" xml:space="preserve">
-    <value>Dateien an neuen Speicherort verschieben</value>
+  <data name="MoveFolder_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_RestartExplorer_Text" xml:space="preserve">
-    <value>Sollen die Änderungen durch einen Neustart des Explorers angewendet werden? Dies kann dazu führen dass Änderungen an der Anordnung von Objekten auf dem Desktop und im Startmenü zurückgesetzt, wenn der Benutzer nach der Änderung noch nicht abgemeldet wurde. Tipp: Die Ändeungen können auch durch das Ab- und wieder Anmelden des Benutzers angewendet werden.</value>
+  <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_RestartExplorer_Title" xml:space="preserve">
-    <value>Änderungen anwenden und Explorer neustarten?</value>
+  <data name="OpenSelectedFolder_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_SubfolderFound_No" xml:space="preserve">
-    <value>Nein</value>
+  <data name="OpenWindowsSearchsettings_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_SubfolderFound_Text" xml:space="preserve">
-    <value>Der UserShellFolder "{0}" ist in einem Unterordner der UserShellFolders "{2}". Soll dieser auch verschoben werden werden (empfohlen) ?</value>
+  <data name="RestartAsAdministartor_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_SubfolderFound_Title" xml:space="preserve">
-    <value>Unterordner gefunden </value>
+  <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_SubfolderFound_Yes" xml:space="preserve">
-    <value>Ja</value>
+  <data name="SetHDDSavePath_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangeUserShellFolder_SubfolderFound_YesAll" xml:space="preserve">
-    <value>Ja, alle</value>
+  <data name="SetSendToHDD_btn_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="DriveType2String_CDRom" xml:space="preserve">
-    <value>CD-ROM/DVD</value>
+  <data name="Suggestions_gb_Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="DriveType2String_Fixed" xml:space="preserve">
-    <value>Fester Datenträger</value>
-  </data>
-  <data name="DriveType2String_Network" xml:space="preserve">
-    <value>Netzwerk Datenträger</value>
-  </data>
-  <data name="DriveType2String_NoRootDirectory" xml:space="preserve">
-    <value>Fehler: kein Stammverzeichniss</value>
-  </data>
-  <data name="DriveType2String_RAM" xml:space="preserve">
-    <value>RAM-Datenträger</value>
-  </data>
-  <data name="DriveType2String_Removable" xml:space="preserve">
-    <value>Wechseldatenträger</value>
-  </data>
-  <data name="DriveType2String_Unknown" xml:space="preserve">
-    <value>Unbekannter Datenträger</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Fehler</value>
-  </data>
-  <data name="MoveFolderOrFile_PathsEqual" xml:space="preserve">
-    <value>Fehler: Die Pfade dürfen nicht gleich sein.</value>
-  </data>
-  <data name="SetSearchDataPath_InvalidPath" xml:space="preserve">
-    <value>Der angegebene Ordner existiert nicht</value>
-  </data>
-  <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
-    <value>Beim neustart des Service "{0}" ist ein Problem aufgetreten. Daher muss der Computer neugestartet werden um die Änderungen zu übernehmen. Jetzt neustarten?</value>
-  </data>
-  <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
-    <value>Um die Änderungen zu anzuwenden muss der Computer neugestartet werden. Jetzt neustarten?</value>
-  </data>
-  <data name="SetSearchDataPath_RestartNow_Title" xml:space="preserve">
-    <value>Neustarten?</value>
-  </data>
-  <data name="SetStadium_ErrorNoneAfterLast" xml:space="preserve">
-    <value>Es gibt kein Stadium nach dem letzten</value>
-  </data>
-  <data name="SetStadium_ErrorNoneBeforeFirst" xml:space="preserve">
-    <value>Es gibt kein Stadium vor dem ersten</value>
-  </data>
-  <data name="SetStadium_NoNewPathGiven" xml:space="preserve">
-    <value>Es wurde kein Pfad für den NewPath Speicherort eingegeben</value>
+  <data name="WindowTitle" xml:space="preserve">
+    <value />
   </data>
 </root>

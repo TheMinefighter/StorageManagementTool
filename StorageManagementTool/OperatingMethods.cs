@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.ServiceProcess;
 using System.Windows.Forms;
 using ExtendedMessageBoxLibary;
 using ExtendedMessageBoxLibrary;
 using IWshRuntimeLibrary;
 using Microsoft.Win32;
-using System.ServiceProcess;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 using File = System.IO.File;
 
@@ -23,6 +22,9 @@ namespace StorageManagementTool
          No,
          Ask
       }
+
+      public static readonly RegPath SearchDatatDirectoryRegPath = new RegPath(
+         @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
 
       /// <summary>
       ///    Creates a string representation of an DriveInfo
@@ -115,14 +117,14 @@ namespace StorageManagementTool
       {
          if (currentStadium == 1 && !fwd)
          {
-            MessageBox.Show("Fehler", "Es gibt kein Stadium vor dem ersten", MessageBoxButtons.OK,
+            MessageBox.Show(Error, SetStadium_ErrorNoneBeforeFirst, MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             return false;
          }
 
          if (currentStadium == 4 && fwd)
          {
-            MessageBox.Show("Fehler", "Es gibt kein Stadium nach dem letzten", MessageBoxButtons.OK,
+            MessageBox.Show(Error, SetStadium_ErrorNoneAfterLast, MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             return false;
          }
@@ -151,7 +153,7 @@ namespace StorageManagementTool
                   if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
                   {
                      if (MessageBox.Show(
-                            "Fehler", "Es wurde kein Pfad für den NewPath Speicherort eingegeben",
+                            Error, SetStadium_NoNewPathGiven,
                             MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                      {
                         ChangeSwapfileStadium(currentStadium, fwd);
@@ -338,7 +340,7 @@ namespace StorageManagementTool
             wmicPath, "computersystem get AutomaticManagedPagefile /Value"
             , out string[] tmp, out int _, true, true, true, true)) //Tests
          {
-            if (Boolean.Parse(tmp[2].Split('=')[1]))
+            if (bool.Parse(tmp[2].Split('=')[1]))
             {
                Wrapper.ExecuteCommand(
                   wmicPath
@@ -349,7 +351,7 @@ namespace StorageManagementTool
                   wmicPath
                   , "computersystem get AutomaticManagedPagefile /Value"
                   , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
-               if (!Boolean.Parse(tmp[2].Split('=')[1]))
+               if (!bool.Parse(tmp[2].Split('=')[1]))
                {
                   MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
                      Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -419,7 +421,7 @@ namespace StorageManagementTool
             {
                //No;Yes;YesAll
                ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                  String.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
+                  string.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
                   ChangeUserShellFolder_SubfolderFound_Title,
                   childs.Count == 1
                      ? new[] {ChangeUserShellFolder_SubfolderFound_Yes, ChangeUserShellFolder_SubfolderFound_No}
@@ -457,12 +459,12 @@ namespace StorageManagementTool
                         //Skip this UserShellFolder
                         //Abort
                         switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                           String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
+                           string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
                               x.ValueName, x.RegistryKey, newPathOfChild), Error,
                            new[]
                            {
                               ChangeUserShellFolder_ErrorChangeSubfolder_Retry,
-                              String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
+                              string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
                               ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
                               ChangeUserShellFolder_ErrorChangeSubfolder_Abort
                            }, 0)).NumberOfClickedButton)
@@ -501,7 +503,7 @@ namespace StorageManagementTool
                {
                   if (deleteOldContents == QuestionAnswer.Yes || deleteOldContents == QuestionAnswer.Ask &&
                       MessageBox.Show(
-                         String.Format(
+                         string.Format(
                             ChangeUserShellFolder_DeleteContent_Text,
                             oldDir.FullName, newDir.FullName),
                          ChangeUserShellFolder_DeleteContent_Title,
@@ -555,12 +557,8 @@ namespace StorageManagementTool
          }
       }
 
-      public static readonly RegPath SearchDatatDirectoryRegPath = new RegPath(
-         @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
-
       public static bool SetSearchDataPath(DirectoryInfo newPath)
       {
-         
          if (newPath.Exists)
          {
             if (Wrapper.SetRegistryValue(SearchDatatDirectoryRegPath,
@@ -572,20 +570,8 @@ namespace StorageManagementTool
                {
                   if (MessageBox.Show(
                          SetSearchDataPath_RestartNoAdmin,
-                         SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                  {
-                     Wrapper.ExecuteExecuteable(
-                        Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
-                           @"shutdown.exe")), " /R /T 1", false,
-                        true);
-                  }
-               }
-               ServiceController wSearch= new ServiceController("WSearch");
-               if (!RecursiveServiceRestart(wSearch))
-               {
-                  if (MessageBox.Show(String.Format(
-                         SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
-                         SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                         SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+                      DialogResult.Yes)
                   {
                      Wrapper.ExecuteExecuteable(
                         Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
@@ -594,22 +580,34 @@ namespace StorageManagementTool
                   }
                }
 
+               ServiceController wSearch = new ServiceController("WSearch");
+               if (!RecursiveServiceRestart(wSearch))
+               {
+                  if (MessageBox.Show(string.Format(
+                            SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
+                         SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+                      DialogResult.Yes)
+                  {
+                     Wrapper.ExecuteExecuteable(
+                        Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
+                           @"shutdown.exe")), " /R /T 1", false,
+                        true);
+                  }
+               }
 
                return true;
             }
 
             return false;
          }
-         else
-         {
-            MessageBox.Show(SetSearchDataPath_InvalidPath, Error, MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            return false;
-         }
 
+         MessageBox.Show(SetSearchDataPath_InvalidPath, Error, MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
+         return false;
       }
+
       /// <summary>
-      /// Restarts a service and all depending services
+      ///    Restarts a service and all depending services
       /// </summary>
       /// <param name="toRestart">The service to restart</param>
       /// <returns>Whether the operation were successful</returns>
@@ -621,22 +619,24 @@ namespace StorageManagementTool
       private static bool RecursiveServiceKiller(ServiceController toKill)
       {
          IEnumerable<ServiceController> childs = toKill.DependentServices;
-         if (!(childs.All(x=>x.CanStop)&&childs.All(RecursiveServiceKiller)))
+         if (!(childs.All(x => x.CanStop) && childs.All(RecursiveServiceKiller)))
          {
             return false;
          }
+
          try
          {
             toKill.Stop();
          }
-         catch (Exception )
+         catch (Exception)
          {
             return false;
          }
 
          return true;
       }
-      private static bool RecursiveServiceStarter (ServiceController toStart)
+
+      private static bool RecursiveServiceStarter(ServiceController toStart)
       {
          IEnumerable<ServiceController> childs = toStart.DependentServices;
          try
@@ -647,14 +647,15 @@ namespace StorageManagementTool
          {
             return false;
          }
+
          return childs.All(RecursiveServiceStarter);
       }
 
       public static void SetHibernate(bool enable)
       {
-         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "powercfg.exe"), $"/h {(enable?"on":"off")}", true, true,
+         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "powercfg.exe"), $"/h {(enable ? "on" : "off")}",
+            true, true,
             true);
       }
    }
-   
 }

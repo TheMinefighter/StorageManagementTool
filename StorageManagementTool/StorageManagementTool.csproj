@@ -102,7 +102,7 @@
     <Compile Include="EditWindowsSearchSettings.designer.cs">
       <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalizationRessources\ApplyPresetStrings1.Designer.cs">
+    <Compile Include="GlobalizationRessources\ApplyPresetStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplyPresetStrings.resx</DependentUpon>
@@ -116,6 +116,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalizationRessources\MainWindowStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindowStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="GlobalizationRessources\OperatingMethodsStrings1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -174,6 +179,7 @@
     <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.en-US.resx" />
     <EmbeddedResource Include="GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplyPresetStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalizationRessources\EditUserShellFolderStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\EditUserShellFolderStrings.en-US.resx" />
@@ -186,6 +192,12 @@
     <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EnterCredentials.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\MainWindowStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\MainWindowStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\MainWindowStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.en-US.resx" />

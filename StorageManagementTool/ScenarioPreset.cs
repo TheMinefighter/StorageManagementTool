@@ -54,6 +54,7 @@ namespace StorageManagementTool
          } while (!empty);
 
          DirectoryInfo baseDir = hdd.RootDirectory.CreateSubdirectory($"SSD{i}");
+
          Session.Singleton.CurrentConfiguration.DefaultHDDPath = baseDir.FullName;
          Session.Singleton.SaveCfg();
          DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
@@ -64,10 +65,24 @@ namespace StorageManagementTool
                moving,
                OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
          }
-
+         Dictionary<string, string> csfToMove = new Dictionary<string, string>
+         {
+            {"ProgramFilesDir (x86)", "Program Files (x86)"},
+            {"ProgramFilesDir", "Program Files"},
+            {"Common Desktop","Common Desktop" }
+         };
+         DirectoryInfo commonDir = baseDir.CreateSubdirectory("Common Data");
+         foreach (KeyValuePair<string, string> currentPair in csfToMove)
+         {
+            UserShellFolder moving = UserShellFolder.GetUSFById(currentPair.Key);
+            OperatingMethods.ChangeUserShellFolder(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
+               moving,
+               OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
+         }
          int memory = (int)(new ComputerInfo().TotalPhysicalMemory / 1048576L);
          OperatingMethods.ChangePagefileSettings(hdd, memory, memory * 2);
          OperatingMethods.EnableSendToHDD();
+         OperatingMethods.SetHibernate(false);
          OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));
       }
 
@@ -108,6 +123,7 @@ namespace StorageManagementTool
 
          int memory = (int) (new ComputerInfo().TotalPhysicalMemory / 1048576L);
          OperatingMethods.ChangePagefileSettings(hdd, memory, memory * 2);
+         OperatingMethods.SetHibernate(false);
          OperatingMethods.EnableSendToHDD();
          OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));
       }
@@ -125,7 +141,13 @@ namespace StorageManagementTool
                SSDRequired = true,
                Name = Presets_LocalHDDAndSSD,
                ToRun = LocalSSDAndHDD
-            }
+            }, new ScenarioPreset
+            {
+               HDDRequired = true,
+               SSDRequired = true,
+               Name = Presets_LocalSSDAndNAS,
+               ToRun = LocalSSDAndNAS
+            } 
          };
       }
    }
