@@ -88,7 +88,7 @@ namespace StorageManagementTool.MainGUI
          AllFolders_lb.Items.Clear();
          AllFolders_lb.Items.AddRange(
             _editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
-         IsMonitored = OperatingMethods.SSDMonitoringEnabled();
+         IsMonitored = OperatingMethods.SSDMonitoring.SSDMonitoringEnabled();
          EnableNotifications_cb.Checked = IsMonitored;
       }
 
@@ -173,15 +173,21 @@ namespace StorageManagementTool.MainGUI
       {
          if (EnableNotifications_cb.Checked!=IsMonitored)
          {
-            if (!OperatingMethods.SetSSDMonitoring(EnableNotifications_cb.Checked))
+            if (!OperatingMethods.SSDMonitoring.SetSSDMonitoring(EnableNotifications_cb.Checked))
             {
                return;
                //error
             }
             
          }
-         Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
+
+         if (!_editedSettings.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings))
+         {
+                     Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
          Session.Singleton.SaveCfg();
+
+         }
+
          Close();
       }
 
@@ -210,7 +216,7 @@ namespace StorageManagementTool.MainGUI
 
       private void InitalizeSSDMonitoring_btn_Click(object sender, EventArgs e)
       {
-         OperatingMethods.InitalizeSSDMonitoring();
+         OperatingMethods.SSDMonitoring.InitalizeSSDMonitoring();
       }
    }
 }

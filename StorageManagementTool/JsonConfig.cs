@@ -46,7 +46,6 @@ namespace StorageManagementTool
       /// </summary>
       public class MonitoringSetting
       {
-         //Enumerable.Sequenze equqals with equality comparer
          public override bool Equals(object obj)
          {
             if (obj is MonitoringSetting eq)

@@ -139,4 +139,7 @@
   <data name="Ignore_Text" xml:space="preserve">
     <value></value>
   </data>
+  <data name="SaveSettings_TaskSchedulingError" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
