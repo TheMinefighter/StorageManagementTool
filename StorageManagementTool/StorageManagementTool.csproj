@@ -168,7 +168,7 @@
     <Compile Include="MainGUI\PageFileSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainGUI\PageFileOptionDialog.designer.cs">
+    <Compile Include="MainGUI\PageFileSettings.designer.cs">
       <DependentUpon>PageFileSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="JsonConfig.cs" />
@@ -259,7 +259,7 @@
     <EmbeddedResource Include="MainGUI\MonitoringSettings.resx">
       <DependentUpon>MonitoringSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\PageFileOptionDialog.resx">
+    <EmbeddedResource Include="MainGUI\PageFileSettings.resx">
       <DependentUpon>PageFileSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
