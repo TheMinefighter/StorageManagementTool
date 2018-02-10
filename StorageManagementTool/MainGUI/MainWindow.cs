@@ -37,8 +37,8 @@ namespace StorageManagementTool.MainGUI
          }
 
          AdministartorStatus_tb.Text = Session.Singleton.IsAdmin
-            ? AdministratorPriviligesAvailable
-            : NoAdministratorPriviligesAvailable;
+            ? AdministratorPrivilegesAvailable
+            : NoAdministratorPrivilegesAvailable;
          Suggestion_lb.Select();
          EnableComponents();
       }

@@ -124,7 +124,7 @@
     <value>Error</value>
   </data>
   <data name="Load_AdministratorRequired" xml:space="preserve">
-    <value>The selected operation requires the access to administrator priviliges. Do you want to restart the program with administartor priviliges?</value>
+    <value>The selected operation requires the access to administrator privileges. Do you want to restart the program with administartor priviliges?</value>
   </data>
   <data name="NoHDDSelectedButRequired" xml:space="preserve">
     <value>The selected scenario requires a HDD, but no HDD were selected.</value>

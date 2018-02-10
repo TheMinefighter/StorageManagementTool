@@ -142,10 +142,10 @@
     <value>Remove Folder</value>
   </data>
   <data name="ActionForFiles_gb_Text" xml:space="preserve">
-    <value>for new files</value>
+    <value>For new files</value>
   </data>
   <data name="ActionForFolders_gb_Text" xml:space="preserve">
-    <value>for new folders</value>
+    <value>For new folders</value>
   </data>
   <data name="Abort_btn_Text" xml:space="preserve">
     <value>Abort</value>
@@ -154,7 +154,7 @@
     <value>Save</value>
   </data>
   <data name="AskForAction_Text" xml:space="preserve">
-    <value>Ask what to do</value>
+    <value>Ask me what to do</value>
   </data>
   <data name="AutomaticMove_Text" xml:space="preserve">
     <value>Move automatically</value>

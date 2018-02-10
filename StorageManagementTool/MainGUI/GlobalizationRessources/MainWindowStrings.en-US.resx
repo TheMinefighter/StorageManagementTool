@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdministratorPriviligesAvailable" xml:space="preserve">
-    <value>The program has access to administartor privilges</value>
+  <data name="AdministratorPrivilegesAvailable" xml:space="preserve">
+    <value>The program has access to administrator privilges</value>
   </data>
   <data name="AdministratorSettings_gb_Text" xml:space="preserve">
-    <value>Administrator privilges</value>
+    <value>Administrator privileges</value>
   </data>
   <data name="ApplyPresetDialog_btn_Text" xml:space="preserve">
     <value>Apply Preset</value>
@@ -166,7 +166,7 @@
     <value>Move file</value>
   </data>
   <data name="MoveFolder_NoNewPath" xml:space="preserve">
-    <value>You dIDn't select a root path to move the folder to, select now a new root path?</value>
+    <value>You didn't select a root path to move the folder to, select now a new root path?</value>
   </data>
   <data name="MoveFolderError" xml:space="preserve">
     <value>On account of an Error the program were unaible to move the folder</value>
@@ -178,10 +178,10 @@
     <value>Move folder</value>
   </data>
   <data name="MoveFolder_FolderPathEmpty" xml:space="preserve">
-    <value>You dIDn't select a folder to move, select now a folder?</value>
+    <value>You didn't select a folder to move, select now a folder?</value>
   </data>
-  <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
-    <value>The program can´t access administartor privilges</value>
+  <data name="NoAdministratorPrivilegesAvailable" xml:space="preserve">
+    <value>The program can not access administrator privilges</value>
   </data>
   <data name="OpenSelectedFolder_btn_Text" xml:space="preserve">
     <value>Open selected folder</value>
@@ -190,7 +190,7 @@
     <value>Edit Searchindizizing path</value>
   </data>
   <data name="RestartAsAdministartor_btn_Text" xml:space="preserve">
-    <value>Restart with administrator priviliges</value>
+    <value>Restart with administrator privileges</value>
   </data>
   <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
     <value>Save selected path as standard</value>
@@ -211,9 +211,9 @@
     <value>Storagemanagement tool</value>
   </data>
   <data name="MoveFile_FilePathEmpty" xml:space="preserve">
-    <value>You dIDn't select a file to move, select now a file?</value>
+    <value>You didn't select a file to move, select now a file?</value>
   </data>
   <data name="MoveFile_NoNewPath" xml:space="preserve">
-    <value>You dIDn't select a root path to move the file to, select now a new root path?</value>
+    <value>You didn't select a root path to move the file to, select now a new root path?</value>
   </data>
 </root>

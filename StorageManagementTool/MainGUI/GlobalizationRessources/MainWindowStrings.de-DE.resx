@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdministratorPriviligesAvailable" xml:space="preserve">
+  <data name="AdministratorPrivilegesAvailable" xml:space="preserve">
     <value>Das Programm wird als Adminstrator ausgeführt</value>
   </data>
   <data name="AdministratorSettings_gb_Text" xml:space="preserve">
@@ -183,7 +183,7 @@
   <data name="MoveFolder_FolderPathEmpty" xml:space="preserve">
     <value>Der Ordnerpfad ist leer, möchten sie jetzt einen Ordner auswählen?</value>
   </data>
-  <data name="NoAdministratorPriviligesAvailable" xml:space="preserve">
+  <data name="NoAdministratorPrivilegesAvailable" xml:space="preserve">
     <value>Das Programm wird NICHT als Adminstrator ausgeführt</value>
   </data>
   <data name="OpenSelectedFolder_btn_Text" xml:space="preserve">

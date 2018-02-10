@@ -63,9 +63,9 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AdministratorPriviligesAvailable {
+        internal static string AdministratorPrivilegesAvailable {
             get {
-                return ResourceManager.GetString("AdministratorPriviligesAvailable", resourceCulture);
+                return ResourceManager.GetString("AdministratorPrivilegesAvailable", resourceCulture);
             }
         }
         
@@ -279,9 +279,9 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NoAdministratorPriviligesAvailable {
+        internal static string NoAdministratorPrivilegesAvailable {
             get {
-                return ResourceManager.GetString("NoAdministratorPriviligesAvailable", resourceCulture);
+                return ResourceManager.GetString("NoAdministratorPrivilegesAvailable", resourceCulture);
             }
         }
         

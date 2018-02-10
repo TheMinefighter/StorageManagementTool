@@ -184,8 +184,7 @@ namespace StorageManagementTool.MainGUI
                return;
                //error
             }
-            
-         }
+            }
          Close();
       }
 
