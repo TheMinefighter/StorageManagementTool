@@ -5,9 +5,9 @@ using System.Windows.Forms;
 
 namespace StorageManagementTool.MainGUI
 {
-   public partial class PageFileSettings : Form
+   public partial class PagefileSettings : Form
    {
-      public PageFileSettings()
+      public PagefileSettings()
       {
          InitializeComponent();
       }

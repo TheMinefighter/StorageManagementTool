@@ -208,7 +208,7 @@ namespace StorageManagementTool.MainGUI
 
       private void EditPagefiles_btn_Click(object sender, EventArgs e)
       {
-         new PageFileSettings().ShowDialog();
+         new PagefileSettings().ShowDialog();
       }
 
       private void OpenWindowsSearchsettings_btn_Click(object sender, EventArgs e)
