@@ -186,8 +186,8 @@
   <data name="OpenSelectedFolder_btn_Text" xml:space="preserve">
     <value>Open selected folder</value>
   </data>
-  <data name="OpenWindowsSearchsettings_btn_Text" xml:space="preserve">
-    <value>Edit Searchindizizing path</value>
+  <data name="OpenWindowsSearchSettings_btn_Text" xml:space="preserve">
+    <value>Path for windows search indexing</value>
   </data>
   <data name="RestartAsAdministartor_btn_Text" xml:space="preserve">
     <value>Restart with administrator privileges</value>

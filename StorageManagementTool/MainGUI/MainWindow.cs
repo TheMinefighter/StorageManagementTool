@@ -53,6 +53,7 @@ namespace StorageManagementTool.MainGUI
          EditPagefiles_btn.Text = EditPagefiles_btn_Text;
          EditSSDMonitoring_btn.Text = EditSSDMonitoring_btn_Text;
          EditUserShellFolders_btn.Text = EditUserShellFolders_btn_Text;
+         OpenWindowsSearchSettings_btn.Text = OpenWindowsSearchSettings_btn_Text;
          FileToMove_btn.Text = FileToMove_btn_Text;
          FolderToMove_btn.Text = FolderToMove_btn_Text;
          FurtherSettings_gb.Text = FurtherSettings_gb_Text;
@@ -211,7 +212,7 @@ namespace StorageManagementTool.MainGUI
          new PagefileSettings().ShowDialog();
       }
 
-      private void OpenWindowsSearchsettings_btn_Click(object sender, EventArgs e)
+      private void OpenWindowsSearchSettings_btn_Click(object sender, EventArgs e)
       {
          new EditWindowsSearchSettings().ShowDialog();
       }

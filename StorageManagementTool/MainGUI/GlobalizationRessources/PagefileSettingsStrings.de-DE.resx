@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,103 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdministratorPrivilegesAvailable" xml:space="preserve">
-    <value>Das Programm wird als Adminstrator ausgeführt</value>
-  </data>
-  <data name="AdministratorSettings_gb_Text" xml:space="preserve">
-    <value>Administratorenprivilegien</value>
-  </data>
-  <data name="ApplyPresetDialog_btn_Text" xml:space="preserve">
-    <value>Automatische Einrichtung</value>
-  </data>
-  <data name="CustomFolderOrFileSelection_gb_Text" xml:space="preserve">
-    <value>Manuelle  Auswahl</value>
-  </data>
-  <data name="DisableSendToHDD" xml:space="preserve">
-    <value>Senden an HDD deaktivieren</value>
-  </data>
-  <data name="EditPagefiles_btn_Text" xml:space="preserve">
-    <value>Arbeitsspeicherauslagerungs Dateien</value>
-  </data>
-  <data name="EditSSDMonitoring_btn_Text" xml:space="preserve">
-    <value>SSD Überwachung anpassen</value>
-  </data>
-  <data name="EditUserShellFolders_btn_Text" xml:space="preserve">
-    <value>UserShellFolder bearbeiten</value>
-  </data>
-  <data name="EnableSendToHDD" xml:space="preserve">
-    <value>Senden an HDD aktivieren</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Fehler</value>
-  </data>
-  <data name="FileToMove_btn_Text" xml:space="preserve">
-    <value>Datei zum Verschieben wählen</value>
-  </data>
-  <data name="FolderToMove_btn_Text" xml:space="preserve">
-    <value>Ordner zum Verschieben wählen</value>
-  </data>
-  <data name="FurtherSettings_gb_Text" xml:space="preserve">
-    <value>Weitere Einstellungen</value>
-  </data>
-  <data name="MoveFileError" xml:space="preserve">
-    <value>Datei-Speicherort aufgrund eines Fehlers nicht verschoben</value>
-  </data>
-  <data name="MoveFilesOrFolder_gb_Text" xml:space="preserve">
-    <value>Datei oder Ordner Speicherort ändern</value>
-  </data>
-  <data name="MoveFileSuccessful" xml:space="preserve">
-    <value>Datei-Speicherort erfolgreich verschoben</value>
-  </data>
-  <data name="MoveFile_btn_Text" xml:space="preserve">
-    <value>Datei Speicherort verschieben</value>
-  </data>
-  <data name="MoveFolder_NoNewPath" xml:space="preserve">
-    <value>Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?</value>
-  </data>
-  <data name="MoveFolderError" xml:space="preserve">
-    <value>Ordner aufgrund eines Fehlers nicht verschoben</value>
-  </data>
-  <data name="MoveFolderSuccessful" xml:space="preserve">
-    <value>Ordner erfolgreich verschoben</value>
-  </data>
-  <data name="MoveFolder_btn_Text" xml:space="preserve">
-    <value>Ordner Speicherort verschieben</value>
-  </data>
-  <data name="MoveFolder_FolderPathEmpty" xml:space="preserve">
-    <value>Der Ordnerpfad ist leer, möchten sie jetzt einen Ordner auswählen?</value>
-  </data>
-  <data name="NoAdministratorPrivilegesAvailable" xml:space="preserve">
-    <value>Das Programm wird NICHT als Adminstrator ausgeführt</value>
-  </data>
-  <data name="OpenSelectedFolder_btn_Text" xml:space="preserve">
-    <value>Ausgewählten Ordner öffnen</value>
-  </data>
-  <data name="OpenWindowsSearchSettings_btn_Text" xml:space="preserve">
-    <value>Suchindizierungspfad anpassen</value>
-  </data>
-  <data name="RestartAsAdministartor_btn_Text" xml:space="preserve">
-    <value>Neustarten mit Adminstatorrechten</value>
-  </data>
-  <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
-    <value>HDD Speicherort als Standard speichern</value>
-  </data>
-  <data name="SetRootPath_btn_Text" xml:space="preserve">
-    <value>Neuen Basis Pfad wählen</value>
-  </data>
-  <data name="StoreOnHDDLink" xml:space="preserve">
-    <value>Auf HDD Speichern</value>
-  </data>
-  <data name="Suggestions_gb_Text" xml:space="preserve">
-    <value>Vorschläge</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Speichermanagement Tool</value>
+    <value>Arbeitsspeicher-Auslagerungsdateien Verwalten</value>
   </data>
-  <data name="MoveFile_FilePathEmpty" xml:space="preserve">
-    <value>Der Dateipfad ist leer, möchten sie jetzt eine Datei auswählen?</value>
+  <data name="SwapfileSettings_gb_Text" xml:space="preserve">
+    <value>swapfile.sys (nur &gt;= Windows 8)</value>
   </data>
-  <data name="MoveFile_NoNewPath" xml:space="preserve">
-    <value>Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?</value>
+  <data name="PagefileSettings_gb_Text" xml:space="preserve">
+    <value>pagefile.sys</value>
+  </data>
+  <data name="HiberfilSettings_gb_Text" xml:space="preserve">
+    <value>hiberfil.sys</value>
+  </data>
+  <data name="DisableHibernate_btn_Text" xml:space="preserve">
+    <value>Ruhezustand und Hybrides Herunterfahren deaktivieren</value>
+  </data>
+  <data name="Enablehibernate_btn_Text" xml:space="preserve">
+    <value>Ruhezustand  und Hybrides Herunterfahren aktivieren</value>
+  </data>
+  <data name="PagefileDrive_lbl_Text" xml:space="preserve">
+    <value>Speicherort der pagefile.sys</value>
+  </data>
+  <data name="SwapfileStepForward_btn_Text" xml:space="preserve">
+    <value>Nächster Schritt</value>
+  </data>
+  <data name="SwapfileStepBackward_btn_Text" xml:space="preserve">
+    <value>Schritt zurück</value>
+  </data>
+  <data name="RefreshAvailableParitions_btn_Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ApplyPagefileChanges_btn_Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ExtendedPagefileOptions_btn_Text" xml:space="preserve">
+    <value>Weitere Optionen</value>
+  </data>
+  <data name="MinimumPagefileSize_lbl_Text" xml:space="preserve">
+    <value>Minimale Größe (MB)</value>
+  </data>
+  <data name="MaximumPagefileSize_lbl_Text" xml:space="preserve">
+    <value>Maximale Größe (MB)</value>
   </data>
 </root>

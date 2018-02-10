@@ -297,9 +297,9 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string OpenWindowsSearchsettings_btn_Text {
+        internal static string OpenWindowsSearchSettings_btn_Text {
             get {
-                return ResourceManager.GetString("OpenWindowsSearchsettings_btn_Text", resourceCulture);
+                return ResourceManager.GetString("OpenWindowsSearchSettings_btn_Text", resourceCulture);
             }
         }
         

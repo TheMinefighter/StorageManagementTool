@@ -45,7 +45,7 @@
          this.OpenSelectedFolder_btn = new System.Windows.Forms.Button();
          this.MoveFilesOrFolder_gb = new System.Windows.Forms.GroupBox();
          this.MoveFile_btn = new System.Windows.Forms.Button();
-         this.OpenWindowsSearchsettings_btn = new System.Windows.Forms.Button();
+         this.OpenWindowsSearchSettings_btn = new System.Windows.Forms.Button();
          this.EditSSDMonitoring_btn = new System.Windows.Forms.Button();
          this.AdministartorStatus_tb = new System.Windows.Forms.TextBox();
          this.RestartAsAdministartor_btn = new System.Windows.Forms.Button();
@@ -238,17 +238,17 @@
          this.MoveFile_btn.UseVisualStyleBackColor = true;
          this.MoveFile_btn.Click += new System.EventHandler(this.MoveFile_btn_Click);
          // 
-         // OpenWindowsSearchsettings_btn
+         // OpenWindowsSearchSettings_btn
          // 
-         this.OpenWindowsSearchsettings_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+         this.OpenWindowsSearchSettings_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.OpenWindowsSearchsettings_btn.Location = new System.Drawing.Point(6, 76);
-         this.OpenWindowsSearchsettings_btn.Name = "OpenWindowsSearchsettings_btn";
-         this.OpenWindowsSearchsettings_btn.Size = new System.Drawing.Size(213, 23);
-         this.OpenWindowsSearchsettings_btn.TabIndex = 10;
-         this.OpenWindowsSearchsettings_btn.Text = "Suchindizierung anpassen";
-         this.OpenWindowsSearchsettings_btn.UseVisualStyleBackColor = true;
-         this.OpenWindowsSearchsettings_btn.Click += new System.EventHandler(this.OpenWindowsSearchsettings_btn_Click);
+         this.OpenWindowsSearchSettings_btn.Location = new System.Drawing.Point(6, 76);
+         this.OpenWindowsSearchSettings_btn.Name = "OpenWindowsSearchSettings_btn";
+         this.OpenWindowsSearchSettings_btn.Size = new System.Drawing.Size(213, 23);
+         this.OpenWindowsSearchSettings_btn.TabIndex = 10;
+         this.OpenWindowsSearchSettings_btn.Text = "Suchindizierung anpassen";
+         this.OpenWindowsSearchSettings_btn.UseVisualStyleBackColor = true;
+         this.OpenWindowsSearchSettings_btn.Click += new System.EventHandler(this.OpenWindowsSearchSettings_btn_Click);
          // 
          // EditSSDMonitoring_btn
          // 
@@ -351,7 +351,7 @@
          this.FurtherSettings_gb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.FurtherSettings_gb.Controls.Add(this.ApplyPresetDialog_btn);
          this.FurtherSettings_gb.Controls.Add(this.EditSSDMonitoring_btn);
-         this.FurtherSettings_gb.Controls.Add(this.OpenWindowsSearchsettings_btn);
+         this.FurtherSettings_gb.Controls.Add(this.OpenWindowsSearchSettings_btn);
          this.FurtherSettings_gb.Controls.Add(this.EditPagefiles_btn);
          this.FurtherSettings_gb.Controls.Add(this.EditUserShellFolders_btn);
          this.FurtherSettings_gb.Controls.Add(this.SetSendToHDD_btn);
@@ -436,7 +436,7 @@
       private System.Windows.Forms.Button EditSSDMonitoring_btn;
       private System.Windows.Forms.Button SetRootPathAsDefault_btn;
         private System.Windows.Forms.Button EditPagefiles_btn;
-        private System.Windows.Forms.Button OpenWindowsSearchsettings_btn;
+        private System.Windows.Forms.Button OpenWindowsSearchSettings_btn;
         private System.Windows.Forms.Button EditUserShellFolders_btn;
         private System.Windows.Forms.Button SetSendToHDD_btn;
         private System.Windows.Forms.GroupBox FurtherSettings_gb;

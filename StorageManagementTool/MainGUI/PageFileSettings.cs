@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using static  StorageManagementTool.MainGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementTool.MainGUI
 {
@@ -17,13 +18,14 @@ namespace StorageManagementTool.MainGUI
          OperatingMethods.SetHibernate(false);
       }
 
-      private void Enablehibernate_btn_Click(object sender, EventArgs e)
+      private void EnableHibernate_btn_Click(object sender, EventArgs e)
       {
          OperatingMethods.SetHibernate(true);
       }
 
       private void PageFileOptionDialog_Load(object sender, EventArgs e)
       {
+         LoadUIStrings();
          Session.Singleton.RefreshSwapfileStadium();
          //Swapfileinfo_tb.Lines= new string[2];
          const string hint =
@@ -63,7 +65,25 @@ namespace StorageManagementTool.MainGUI
          Session.Singleton.FillWithDriveInfo(Pagefilepartition_lb);
       }
 
-      private void SwapfileStepBack_btn_Click(object sender, EventArgs e)
+      private void LoadUIStrings()
+      {
+         ApplyPagefileChanges_btn.Text = ApplyPagefileChanges_btn_Text;
+         DisableHibernate_btn.Text = DisableHibernate_btn_Text;
+         EnableHibernate_btn.Text = Enablehibernate_btn_Text;
+         ExtendedPagefileOptions_btn.Text = ExtendedPagefileOptions_btn_Text;
+         HiberfilSettings_gb.Text = HiberfilSettings_gb_Text;
+         MaximumPagefileSize_lbl.Text = MaximumPagefileSize_lbl_Text;
+         MinimumPagefileSize_lbl.Text = MinimumPagefileSize_lbl_Text;
+         PagefileDrive_lbl.Text = PagefileDrive_lbl_Text;
+         PagefileSettings_gb.Text = PagefileSettings_gb_Text;
+         RefreshAvailableParitions_btn.Text = RefreshAvailableParitions_btn_Text;
+         SwapfileSettings_gb.Text = SwapfileSettings_gb_Text;
+         SwapfileStepBackward_btn.Text = SwapfileStepBackward_btn_Text;
+         SwapfileStepForward_btn.Text = SwapfileStepForward_btn_Text;
+         this.Text = WindowTitle;
+      }
+
+      private void SwapfileStepBackward_btn_Click(object sender, EventArgs e)
       {
          if (Session.Singleton.IsAdmin)
          {

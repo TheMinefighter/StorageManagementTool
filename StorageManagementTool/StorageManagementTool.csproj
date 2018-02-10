@@ -258,6 +258,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MonitoringSettingsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.en-US.resx" />
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PagefileSettingsStrings.Designer.cs</LastGenOutput>
