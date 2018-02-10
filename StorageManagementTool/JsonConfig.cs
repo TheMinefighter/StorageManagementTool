@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json;
 
 namespace StorageManagementTool
@@ -9,6 +11,17 @@ namespace StorageManagementTool
    /// </summary>
    public class JSONConfig
    {
+      public override bool Equals(object obj)
+      {
+         if (obj is JSONConfig eq)
+         {
+           return eq.DefaultHDDPath == DefaultHDDPath && eq.LanguageOverride == LanguageOverride &&
+               MonitoringSettings.Equals(eq.MonitoringSettings);
+         }
+
+         return false;
+      }
+
       public override string ToString()
       {
          return JsonConvert.SerializeObject(this);
@@ -33,6 +46,28 @@ namespace StorageManagementTool
       /// </summary>
       public class MonitoringSetting
       {
+         //Enumerable.Sequenze equqals with equality comparer
+         public override bool Equals(object obj)
+         {
+            if (obj is MonitoringSetting eq)
+            {
+               return MonitoredFolders.Count == eq.MonitoredFolders.Count && MonitoredFolders.SequenceEqual(eq.MonitoredFolders);
+            }
+
+            return false;
+         }
+         private class MonitoredFolderComparer:IEqualityComparer<MonitoredFolder>
+         {
+            public bool Equals(MonitoredFolder x, MonitoredFolder y)
+            {
+               throw new System.NotImplementedException();
+            }
+
+            public int GetHashCode(MonitoredFolder obj)
+            {
+               throw new System.NotImplementedException();
+            }
+         }
          public override string ToString()
          {
             return JsonConvert.SerializeObject(this);
@@ -64,17 +99,11 @@ namespace StorageManagementTool
          public List<MonitoredFolder> MonitoredFolders;
 
          /// <summary>
-         ///    Whether SSD Monitoring is enabled in this MonitoringSetting
-         /// </summary>
-         public bool SSDMonitoringEnabled;
-
-         /// <summary>
          ///    Creates a new MonitoringSetting
          /// </summary>
          public MonitoringSetting()
          {
             MonitoredFolders = new List<MonitoredFolder>();
-            SSDMonitoringEnabled = false;
          }
 
          /// <summary>
@@ -82,6 +111,15 @@ namespace StorageManagementTool
          /// </summary>
          public class MonitoredFolder
          {
+            public override bool Equals(object obj)
+            {
+               if (obj is MonitoredFolder eq)
+               {
+                  return TargetPath == eq.TargetPath && ForFiles == eq.ForFiles && ForFolders == eq.ForFolders;
+               }
+               return false;
+            }
+
             public override string ToString()
             {
                return JsonConvert.SerializeObject(this);
@@ -102,6 +140,10 @@ namespace StorageManagementTool
             /// </summary>
             public string TargetPath;
 
+            public MonitoredFolder()
+            {
+               
+            }
             /// <summary>
             ///    Creates a new MonitoredFolder object with a given target targetPath
             /// </summary>

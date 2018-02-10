@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 //using StorageManagementTool.GlobalizationRessources;
 
 using StorageManagementTool.MainGUI;
-using StorageManagementTool.MainGUI.GlobalizationRessources;
+using static StorageManagementTool.MainGUI.GlobalizationRessources.MainWindowStrings;
 
 namespace StorageManagementTool.MainGUI
 {
@@ -36,8 +37,8 @@ namespace StorageManagementTool.MainGUI
          }
 
          AdministartorStatus_tb.Text = Session.Singleton.IsAdmin
-            ? MainWindowStrings.AdministratorPriviligesAvailable
-            : MainWindowStrings.NoAdministratorPriviligesAvailable;
+            ? AdministratorPriviligesAvailable
+            : NoAdministratorPriviligesAvailable;
          Suggestion_lb.Select();
          EnableComponents();
       }
@@ -46,24 +47,24 @@ namespace StorageManagementTool.MainGUI
       /// </summary>
       private void LoadUIStrings()
       {
-         AdministratorSettings_gb.Text = MainWindowStrings.AdministratorSettings_gb_Text;
-         ApplyPresetDialog_btn.Text = MainWindowStrings.ApplyPresetDialog_btn_Text;
-         CustomFolderOrFileSelection_gb.Text = MainWindowStrings.CustomFolderOrFileSelection_gb_Text;
-         EditPagefiles_btn.Text = MainWindowStrings.EditPagefiles_btn_Text;
-         EditSSDMonitoring_btn.Text = MainWindowStrings.EditSSDMonitoring_btn_Text;
-         EditUserShellFolders_btn.Text = MainWindowStrings.EditUserShellFolders_btn_Text;
-         FileToMove_btn.Text = MainWindowStrings.FileToMove_btn_Text;
-         FolderToMove_btn.Text = MainWindowStrings.FolderToMove_btn_Text;
-         FurtherSettings_gb.Text = MainWindowStrings.FurtherSettings_gb_Text;
-         MoveFile_btn.Text = MainWindowStrings.MoveFile_btn_Text;
-         MoveFilesOrFolder_gb.Text = MainWindowStrings.MoveFilesOrFolder_gb_Text;
-         MoveFolder_btn.Text = MainWindowStrings.MoveFolder_btn_Text;
-         OpenSelectedFolder_btn.Text = MainWindowStrings.OpenSelectedFolder_btn_Text;
-         RestartAsAdministartor_btn.Text = MainWindowStrings.RestartAsAdministartor_btn_Text;
-         SetRootPathAsDefault_btn.Text = MainWindowStrings.SetHDDPathAsDefault_btn_Text;
-         SetRootPath_btn.Text = MainWindowStrings.SetRootPath_btn_Text;
-         Suggestions_gb.Text = MainWindowStrings.Suggestions_gb_Text;
-         this.Text = MainWindowStrings.WindowTitle;
+         AdministratorSettings_gb.Text = AdministratorSettings_gb_Text;
+         ApplyPresetDialog_btn.Text = ApplyPresetDialog_btn_Text;
+         CustomFolderOrFileSelection_gb.Text = CustomFolderOrFileSelection_gb_Text;
+         EditPagefiles_btn.Text = EditPagefiles_btn_Text;
+         EditSSDMonitoring_btn.Text = EditSSDMonitoring_btn_Text;
+         EditUserShellFolders_btn.Text = EditUserShellFolders_btn_Text;
+         FileToMove_btn.Text = FileToMove_btn_Text;
+         FolderToMove_btn.Text = FolderToMove_btn_Text;
+         FurtherSettings_gb.Text = FurtherSettings_gb_Text;
+         MoveFile_btn.Text = MoveFile_btn_Text;
+         MoveFilesOrFolder_gb.Text = MoveFilesOrFolder_gb_Text;
+         MoveFolder_btn.Text = MoveFolder_btn_Text;
+         OpenSelectedFolder_btn.Text = OpenSelectedFolder_btn_Text;
+         RestartAsAdministartor_btn.Text = RestartAsAdministartor_btn_Text;
+         SetRootPathAsDefault_btn.Text = SetHDDPathAsDefault_btn_Text;
+         SetRootPath_btn.Text = SetRootPath_btn_Text;
+         Suggestions_gb.Text = Suggestions_gb_Text;
+         this.Text = WindowTitle;
       }
 
       /// <summary>
@@ -72,20 +73,20 @@ namespace StorageManagementTool.MainGUI
       private void EnableComponents()
       {
          if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-            MainWindowStrings.StoreOnHDDLink + ".lnk")))
+            StoreOnHDDLink + ".lnk")))
          {
-            SetSendToHDD_btn.Text = MainWindowStrings.DisableSendToHDD;
+            SetSendToHDD_btn.Text = DisableSendToHDD;
          }
          else
          {
-            SetSendToHDD_btn.Text = MainWindowStrings.EnableSendToHDD;
+            SetSendToHDD_btn.Text = EnableSendToHDD;
             SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
          }
       }
 
       private void SetSendToHDD_btn_Click(object sender, EventArgs e)
       {
-         OperatingMethods.EnableSendToHDD(SetSendToHDD_btn.Text == MainWindowStrings.EnableSendToHDD);
+         OperatingMethods.EnableSendToHDD(SetSendToHDD_btn.Text == EnableSendToHDD);
          EnableComponents();
       }
 
@@ -121,8 +122,8 @@ namespace StorageManagementTool.MainGUI
          if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
          {
             if (MessageBox.Show(
-                   MainWindowStrings.MoveFolder_NoNewPath,
-                   MainWindowStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                   MoveFolder_NoNewPath,
+                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                SetRootPath_btn_Click(null, null);
                MoveFolder_btn_Click(null, null);
@@ -133,7 +134,7 @@ namespace StorageManagementTool.MainGUI
 
          if (FolderToMove_tb.Text == "")
          {
-            if (MessageBox.Show(MainWindowStrings.MoveFolder_FolderPathEmpty, MainWindowStrings.Error,
+            if (MessageBox.Show(MoveFolder_FolderPathEmpty, Error,
                    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                FolderToMove_btn_Click(null, null);
@@ -147,8 +148,8 @@ namespace StorageManagementTool.MainGUI
             FolderToMove_tb.Text.Remove(1, 1)));
          string oldPath = FolderToMove_tb.Text;
          ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), newPath)
-            ? MainWindowStrings.MoveFolderSuccessful
-            : MainWindowStrings.MoveFolderError;
+            ? MoveFolderSuccessful
+            : MoveFolderError;
          FolderToMove_tb.Text = "";
          Suggestion_lb.Items.Clear();
          string[] rec = OperatingMethods.GetRecommendedPaths();
@@ -163,8 +164,8 @@ namespace StorageManagementTool.MainGUI
          if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
          {
             if (MessageBox.Show(
-                   MainWindowStrings.MoveFile_NoNewPath,
-                   MainWindowStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                   MoveFile_NoNewPath,
+                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                SetRootPath_btn_Click(null, null);
                MoveFile_btn_Click(null, null);
@@ -175,7 +176,7 @@ namespace StorageManagementTool.MainGUI
 
          if (FileToMovePath_tb.Text == "")
          {
-            if (MessageBox.Show(MainWindowStrings.MoveFile_FilePathEmpty, MainWindowStrings.Error,
+            if (MessageBox.Show(MoveFile_FilePathEmpty, Error,
                    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                FileToMoveSel_btn_Click(null, null);
@@ -189,8 +190,8 @@ namespace StorageManagementTool.MainGUI
             FileToMovePath_tb.Text.Remove(1, 1));
          string oldPath = FileToMovePath_tb.Text;
          ProgramStatusStrip.Text = OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath))
-            ? MainWindowStrings.MoveFileSuccessful
-            : MainWindowStrings.MoveFileError;
+            ? MoveFileSuccessful
+            : MoveFileError;
          FileToMovePath_tb.Text = "";
       }
 
@@ -227,6 +228,34 @@ namespace StorageManagementTool.MainGUI
 
       private void button3_Click(object sender, EventArgs e)
       {
+         JSONConfig.MonitoringSetting toeqMonitoringSetting = new JSONConfig.MonitoringSetting()
+         {
+            MonitoredFolders =
+               new[]
+               {
+                  new JSONConfig.MonitoringSetting.MonitoredFolder()
+                  {
+                     TargetPath = "C:",
+                     ForFiles = JSONConfig.MonitoringSetting.MonitoringAction.Ask,
+                     ForFolders = JSONConfig.MonitoringSetting.MonitoringAction.Ignore
+                  }
+               }.ToList()
+         };
+         JSONConfig.MonitoringSetting myMonitoringSetting = new JSONConfig.MonitoringSetting()
+         {
+            MonitoredFolders =
+               new[]
+               {
+                  new JSONConfig.MonitoringSetting.MonitoredFolder()
+                  {
+                     TargetPath = ".C:".Substring(1),
+                     ForFiles = JSONConfig.MonitoringSetting.MonitoringAction.Ask,
+                     ForFolders = JSONConfig.MonitoringSetting.MonitoringAction.Ignore
+                  }
+               }.ToList()
+         };
+         toeqMonitoringSetting.Equals(myMonitoringSetting);
+         //Wrapper.RunPowershellCommand("(Get-ScheduledTask | Where TaskName -eq SSDMonitoring ).State");
          //     ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration())
       }
    }

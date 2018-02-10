@@ -149,11 +149,7 @@ namespace StorageManagementTool
                                  case "Root.DefaultHDDPath":
                                     ConsoleIO.WriteLine("Value of Root.DefaultHDDPath:");
                                     ConsoleIO.WriteLine(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
-                                    break;
-                                 case "Root.SSDMonitoring.Enabled":
-                                    ConsoleIO.WriteLine("Value of Root.SSDMonitoring.Enabled:");
-                                    ConsoleIO.WriteLine(Session.Singleton.CurrentConfiguration.MonitoringSettings
-                                       .SSDMonitoringEnabled.ToString());
+                                    
                                     break;
                                  default:
                                     ArgumentError(args);
@@ -165,7 +161,6 @@ namespace StorageManagementTool
                               ConsoleIO.WriteLine("Help for -ViewedName Argument in -config -get context");
                               ConsoleIO.WriteLine("-ViewedName can be have the Following Values:");
                               ConsoleIO.WriteLine("Root.DefaultHDDPath");
-                              ConsoleIO.WriteLine("Root.SSDMonitoring.Enabled");
                            }
                            else
                            {
@@ -194,21 +189,21 @@ namespace StorageManagementTool
 
                                        ConsoleIO.WriteLine("Operation completed");
                                        break;
-                                    case "Root.SSDMonitoring.Enabled":
-                                       try
-                                       {
-                                          Session.Singleton.CurrentConfiguration.MonitoringSettings
-                                                .SSDMonitoringEnabled =
-                                             bool.Parse(args[5]);
-                                       }
-                                       catch (Exception)
-                                       {
-                                          ConsoleIO.WriteLine("Operation failed!");
-                                          return;
-                                       }
+                                    //case "Root.SSDMonitoring.Enabled":
+                                    //   try
+                                    //   {
+                                    //      Session.Singleton.CurrentConfiguration.MonitoringSettings
+                                    //            .SSDMonitoringEnabled =
+                                    //         bool.Parse(args[5]);
+                                    //   }
+                                    //   catch (Exception)
+                                    //   {
+                                    //      ConsoleIO.WriteLine("Operation failed!");
+                                    //      return;
+                                    //   }
 
-                                       ConsoleIO.WriteLine("Operation completed");
-                                       break;
+                                    //   ConsoleIO.WriteLine("Operation completed");
+                                    //   break;
                                     default:
                                        ArgumentError(args);
                                        break;

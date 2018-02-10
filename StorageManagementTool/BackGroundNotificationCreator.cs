@@ -35,10 +35,6 @@ namespace StorageManagementTool
       public static void Initalize()
       {
          _jsonConfig = Session.Singleton.CurrentConfiguration;
-         if (!_jsonConfig.MonitoringSettings.SSDMonitoringEnabled)
-         {
-            Environment.Exit(-1);
-         }
 
          foreach (MonitoringSetting.MonitoredFolder monitoredFolder in _jsonConfig.MonitoringSettings.MonitoredFolders)
          {
@@ -65,7 +61,7 @@ namespace StorageManagementTool
 
          while (true)
          {
-            Thread.Sleep(1000000000); //Needed to keep FileSystemWatchers active
+            Thread.Sleep(2000000000); //Needed to keep FileSystemWatchers active
          }
       }
 

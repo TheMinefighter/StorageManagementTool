@@ -11,9 +11,6 @@ namespace StorageManagementTool.MainGUI
 {
    public partial class MonitoringSettings : Form
    {
-      private static readonly XNamespace TaskNamespace =
-         XNamespace.Get("http://schemas.microsoft.com/windows/2004/02/mit/task");
-
       private readonly Dictionary<JSONConfig.MonitoringSetting.MonitoringAction, RadioButton> _forFilesDictionary =
          new Dictionary<JSONConfig.MonitoringSetting.MonitoringAction, RadioButton>();
 
@@ -24,7 +21,7 @@ namespace StorageManagementTool.MainGUI
       private JSONConfig.MonitoringSetting _editedSettings = new JSONConfig.MonitoringSetting();
       private List<Control> _whenEnabled = new List<Control>();
       private List<Control> _whenSelected = new List<Control>();
-
+      private bool IsMonitored;
       public MonitoringSettings()
       {
          InitializeComponent();
@@ -33,7 +30,6 @@ namespace StorageManagementTool.MainGUI
       private void EnableNotifications_cb_CheckedChanged(object sender, EventArgs e)
       {
          EnableControls();
-         _editedSettings.SSDMonitoringEnabled = EnableNotifications_cb.Checked;
       }
       /// <summary>
       /// Loads UI strings from culture sepcific ressource file
@@ -92,7 +88,8 @@ namespace StorageManagementTool.MainGUI
          AllFolders_lb.Items.Clear();
          AllFolders_lb.Items.AddRange(
             _editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
-         EnableNotifications_cb.Checked = _editedSettings.SSDMonitoringEnabled;
+         IsMonitored = OperatingMethods.SSDMonitoringEnabled();
+         EnableNotifications_cb.Checked = IsMonitored;
       }
 
       private void EnableControls()
@@ -174,6 +171,15 @@ namespace StorageManagementTool.MainGUI
 
       private void SaveSettings_btn_Click(object sender, EventArgs e)
       {
+         if (EnableNotifications_cb.Checked!=IsMonitored)
+         {
+            if (!OperatingMethods.SetSSDMonitoring(EnableNotifications_cb.Checked))
+            {
+               return;
+               //error
+            }
+            
+         }
          Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
          Session.Singleton.SaveCfg();
          Close();
@@ -204,46 +210,7 @@ namespace StorageManagementTool.MainGUI
 
       private void InitalizeSSDMonitoring_btn_Click(object sender, EventArgs e)
       {
-         string task = new XDocument(new XDeclaration("1.0", "UTF-16", null),
-            new XElement(TaskNamespace + "Task", new XAttribute("version", "1.4"),
-               new XElement(TaskNamespace + "RegistrationInfo",
-                  new XElement(TaskNamespace + "Date", DateTime.Now.ToWin32Format()),
-                  new XElement(TaskNamespace + "Author", WindowsIdentity.GetCurrent().Name),
-                  new XElement(TaskNamespace + "Description",
-                     "Monitors a list of configured paths"),
-                  new XElement(TaskNamespace + "URI", "\\SSDMonitoring")),
-               new XElement(TaskNamespace + "Triggers",
-                  new XElement(TaskNamespace + "LogonTrigger", new XElement(TaskNamespace + "Enabled", "true"))),
-               new XElement(TaskNamespace + "Principals",
-                  new XElement(TaskNamespace + "Principal", new XAttribute("ID", "Author"),
-                     new XElement(TaskNamespace + "GroupId", "S-1-5-32-545"),
-                     new XElement(TaskNamespace + "RunLevel", "HighestAvailable"))),
-               new XElement(TaskNamespace + "Settings",
-                  new XElement(TaskNamespace + "MultipleInstancesPolicy", "Parallel"),
-                  new XElement(TaskNamespace + "DisallowStartIfOnBatteries", "false"),
-                  new XElement(TaskNamespace + "StopIfGoingOnBatteries", "false"),
-                  new XElement(TaskNamespace + "AllowHardTerminate", "false"),
-                  new XElement(TaskNamespace + "StartWhenAvailable", "false"),
-                  new XElement(TaskNamespace + "RunOnlyIfNetworkAvailable", "false"),
-                  new XElement(TaskNamespace + "IdleSettings", new XElement(TaskNamespace + "StopOnIdleEnd", "true"),
-                     new XElement(TaskNamespace + "RestartOnIdle", "false")),
-                  new XElement(TaskNamespace + "AllowStartOnDemand", "true"),
-                  new XElement(TaskNamespace + "Enabled", "true"), new XElement(TaskNamespace + "Hidden", "false"),
-                  new XElement(TaskNamespace + "RunOnlyIfIdle", "false"),
-                  new XElement(TaskNamespace + "DisallowStartOnRemoteAppSession", "false"),
-                  new XElement(TaskNamespace + "UseUnifiedSchedulingEngine", "true"),
-                  new XElement(TaskNamespace + "WakeToRun", "false"),
-                  new XElement(TaskNamespace + "ExecutionTimeLimit", "PT0S"),
-                  new XElement(TaskNamespace + "Priority", "7")),
-               new XElement(TaskNamespace + "Actions", new XAttribute("Context", "Author"),
-                  new XElement(TaskNamespace + "Exec",
-                     new XElement(TaskNamespace + "Command", Process.GetCurrentProcess().MainModule.FileName),
-                     new XElement(TaskNamespace + "Arguments", "/background"))))).ToString();
-
-         File.WriteAllText(Path.Combine(Path.GetTempPath(), "StorageManagementTool.Task.xml"), task);
-         Wrapper.ExecuteCommand(
-            $"SCHTASKS /Create /XML \"{Path.Combine(Path.GetTempPath(), "StorageManagementTool.Task.xml")}\" /TN SSDMonitoring /RP * /RU {Environment.UserName}",
-            true, false, true, false);
+         OperatingMethods.InitalizeSSDMonitoring();
       }
    }
 }

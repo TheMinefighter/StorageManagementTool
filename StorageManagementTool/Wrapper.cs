@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
+using System.Management.Automation;
+using System.Collections.ObjectModel;
 using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
 
 namespace StorageManagementTool
@@ -66,6 +69,7 @@ namespace StorageManagementTool
             default: throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
          }
       }
+
 
       public static bool GetRegistryValue(RegPath path, out object toReturn, bool asUser = false)
       {
@@ -702,6 +706,30 @@ namespace StorageManagementTool
       {
          PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Machine);
          return oPrincipalContext;
+      }
+
+      #endregion
+
+      #region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
+
+      public static bool RunPowershellCommand(string command, out IEnumerable<string> ret)
+      {
+         ret = new[] {"" };
+         IEnumerable<PSObject> returned;
+         try
+         {
+            using (PowerShell PowerShellInstance=PowerShell.Create())
+            {
+               PowerShellInstance.AddScript(command);
+               returned = PowerShellInstance.Invoke();
+            }
+         }
+         catch (Exception )
+         {
+            return false;
+         }
+         ret=  returned.Select(x => x.ToString());
+         return true;
       }
 
       #endregion
