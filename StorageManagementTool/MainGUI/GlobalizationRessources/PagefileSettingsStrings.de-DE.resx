@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -145,7 +145,7 @@
     <value>Schritt zurück</value>
   </data>
   <data name="RefreshAvailableParitions_btn_Text" xml:space="preserve">
-    <value>OK</value>
+    <value>Verfügbare Partitionen aktualisieren</value>
   </data>
   <data name="ApplyPagefileChanges_btn_Text" xml:space="preserve">
     <value>OK</value>

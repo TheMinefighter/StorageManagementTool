@@ -38,7 +38,7 @@ namespace StorageManagementTool.MainGUI
       {
          this.Text = WindowTitle;
          EnableNotifications_cb.Text = EnableNotifications_cb_Text;
-         InitalizeSSDMonitoring_btn.Text = InitalizeSSDMonitoring_btn_Text;
+         //InitalizeSSDMonitoring_btn.Text = InitalizeSSDMonitoring_btn_Text;
          OpenSelectedfolder_btn.Text = OpenSelectedfolder_btn_Text;
          ChangeFolder_btn.Text = ChangeFolder_btn_Text;
          AddFolder_btn.Text = AddFolder_btn_Text;

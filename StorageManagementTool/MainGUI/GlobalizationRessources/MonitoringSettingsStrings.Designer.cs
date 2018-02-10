@@ -162,15 +162,6 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string InitalizeSSDMonitoring_btn_Text {
-            get {
-                return ResourceManager.GetString("InitalizeSSDMonitoring_btn_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string OpenSelectedfolder_btn_Text {
             get {
                 return ResourceManager.GetString("OpenSelectedfolder_btn_Text", resourceCulture);

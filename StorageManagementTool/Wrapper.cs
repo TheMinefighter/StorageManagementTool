@@ -728,7 +728,7 @@ namespace StorageManagementTool
          {
             return false;
          }
-         ret=  returned.Select(x => x.ToString());
+         ret=  returned.Where(x=>x!=null).Select(x => x.ToString());
          return true;
       }
 

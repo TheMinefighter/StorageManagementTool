@@ -45,7 +45,6 @@
          this.ActionForFiles_gb = new System.Windows.Forms.GroupBox();
          this.IgnoreForFiles_rb = new System.Windows.Forms.RadioButton();
          this.ChangeFolder_btn = new System.Windows.Forms.Button();
-         this.InitalizeSSDMonitoring_btn = new System.Windows.Forms.Button();
          this.ActionForFolders_gb.SuspendLayout();
          this.ActionForFiles_gb.SuspendLayout();
          this.SuspendLayout();
@@ -232,22 +231,11 @@
          this.ChangeFolder_btn.UseVisualStyleBackColor = true;
          this.ChangeFolder_btn.Click += new System.EventHandler(this.ChangeFolder_btn_Click);
          // 
-         // InitalizeSSDMonitoring_btn
-         // 
-         this.InitalizeSSDMonitoring_btn.Location = new System.Drawing.Point(216, 12);
-         this.InitalizeSSDMonitoring_btn.Name = "InitalizeSSDMonitoring_btn";
-         this.InitalizeSSDMonitoring_btn.Size = new System.Drawing.Size(198, 23);
-         this.InitalizeSSDMonitoring_btn.TabIndex = 20;
-         this.InitalizeSSDMonitoring_btn.Text = "SSD Überwachung initialisieren";
-         this.InitalizeSSDMonitoring_btn.UseVisualStyleBackColor = true;
-         this.InitalizeSSDMonitoring_btn.Click += new System.EventHandler(this.InitalizeSSDMonitoring_btn_Click);
-         // 
          // MonitoringSettings
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(426, 329);
-         this.Controls.Add(this.InitalizeSSDMonitoring_btn);
          this.Controls.Add(this.ChangeFolder_btn);
          this.Controls.Add(this.ActionForFiles_gb);
          this.Controls.Add(this.ActionForFolders_gb);
@@ -289,6 +277,5 @@
         private System.Windows.Forms.GroupBox ActionForFiles_gb;
         private System.Windows.Forms.RadioButton IgnoreForFiles_rb;
         private System.Windows.Forms.Button ChangeFolder_btn;
-        private System.Windows.Forms.Button InitalizeSSDMonitoring_btn;
     }
 }
