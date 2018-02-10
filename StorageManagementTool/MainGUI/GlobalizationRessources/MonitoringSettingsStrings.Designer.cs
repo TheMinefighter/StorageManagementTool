@@ -99,6 +99,15 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string AddFolder_fbdDescription {
+            get {
+                return ResourceManager.GetString("AddFolder_fbdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string AskForAction_Text {
             get {
                 return ResourceManager.GetString("AskForAction_Text", resourceCulture);
@@ -120,6 +129,15 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         internal static string ChangeFolder_btn_Text {
             get {
                 return ResourceManager.GetString("ChangeFolder_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeFolder_fbdDescription {
+            get {
+                return ResourceManager.GetString("ChangeFolder_fbdDescription", resourceCulture);
             }
         }
         

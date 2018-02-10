@@ -159,4 +159,10 @@
   <data name="AutomaticMove_Text" xml:space="preserve">
     <value>Move automatically</value>
   </data>
+  <data name="ChangeFolder_fbdDescription" xml:space="preserve">
+    <value>Select the new path of the folder</value>
+  </data>
+  <data name="AddFolder_fbdDescription" xml:space="preserve">
+    <value>Select a path to monitor</value>
+  </data>
 </root>

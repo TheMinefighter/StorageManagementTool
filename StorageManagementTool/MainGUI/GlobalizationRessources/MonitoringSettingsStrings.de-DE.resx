@@ -159,4 +159,10 @@
   <data name="AutomaticMove_Text" xml:space="preserve">
     <value>Sofort verschieben</value>
   </data>
+  <data name="AddFolder_fbdDescription" xml:space="preserve">
+    <value>Wählen sie den zu überwachenden Ordner aus</value>
+  </data>
+  <data name="ChangeFolder_fbdDescription" xml:space="preserve">
+    <value>Wählen sie den neuen Pfad des Ordners aus</value>
+  </data>
 </root>

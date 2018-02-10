@@ -134,7 +134,7 @@ namespace StorageManagementTool.MainGUI
       private void AddFolder_btn_Click(object sender, EventArgs e)
       {
          FolderBrowserDialog browser =
-            new FolderBrowserDialog { Description = "Wählen sie den zu überwachenden Ordner aus" };
+            new FolderBrowserDialog { Description = AddFolder_fbdDescription };
          browser.ShowDialog();
          _editedSettings.MonitoredFolders.Add(new JSONConfig.MonitoringSetting.MonitoredFolder(browser.SelectedPath));
          AllFolders_lb.Items.Add(browser.SelectedPath);
@@ -162,7 +162,7 @@ namespace StorageManagementTool.MainGUI
       private void ChangeFolder_btn_Click(object sender, EventArgs e)
       {
          FolderBrowserDialog browser =
-            new FolderBrowserDialog { Description = "Wählen sie den zu überwachenden Ordner aus" };
+            new FolderBrowserDialog { Description = ChangeFolder_fbdDescription };
          browser.ShowDialog();
          _editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].TargetPath = browser.SelectedPath;
          AllFolders_lb.Items[AllFolders_lb.SelectedIndex] = browser.SelectedPath;
@@ -171,6 +171,12 @@ namespace StorageManagementTool.MainGUI
 
       private void SaveSettings_btn_Click(object sender, EventArgs e)
       {
+         if (!_editedSettings.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings))
+         {
+                     Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
+         Session.Singleton.SaveCfg();
+
+         }
          if (EnableNotifications_cb.Checked!=IsMonitored)
          {
             if (!OperatingMethods.SSDMonitoring.SetSSDMonitoring(EnableNotifications_cb.Checked))
@@ -180,14 +186,6 @@ namespace StorageManagementTool.MainGUI
             }
             
          }
-
-         if (!_editedSettings.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings))
-         {
-                     Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
-         Session.Singleton.SaveCfg();
-
-         }
-
          Close();
       }
 
