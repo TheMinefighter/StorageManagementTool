@@ -1,6 +1,6 @@
 ﻿namespace StorageManagementTool.MainGUI
 {
-    partial class PageFileOptionDialog
+    partial class PageFileSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PageFileOptionDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PageFileSettings));
             this.HiberfilSettings_gb = new System.Windows.Forms.GroupBox();
             this.DisableHibernate_btn = new System.Windows.Forms.Button();
             this.Enablehibernate_btn = new System.Windows.Forms.Button();
@@ -314,7 +314,7 @@
             this.Controls.Add(this.HiberfilSettings_gb);
             this.Controls.Add(this.PagefileSettings_gb);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "PageFileOptionDialog";
+            this.Name = "PageFileSettings";
             this.Text = "Arbeitsspeicher-Auslagerungsdateien Verwalten";
             this.Load += new System.EventHandler(this.PageFileOptionDialog_Load);
             this.HiberfilSettings_gb.ResumeLayout(false);
