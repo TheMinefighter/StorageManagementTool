@@ -29,7 +29,7 @@ namespace StorageManagementTool
       private const string ProgramPathDefinitionRoot =
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion";
 
-      public UserShellFolder(string name, RegPath[] regPaths, bool moveExistingFiles = true,
+      private UserShellFolder(string name, RegPath[] regPaths, bool moveExistingFiles = true,
          bool accessAsUser = false)
       {
          if (regPaths.Length==0)
@@ -136,12 +136,12 @@ namespace StorageManagementTool
 
       public static UserShellFolder[] AllEditableUserUserShellFolders;
 
-      public static UserShellFolder GetUSFById(string id)
+      public static UserShellFolder GetUserShellFolderById(string id)
       {
          return AllEditableUserUserShellFolders.First(x => x.RegPaths.Any(y => y.ValueName == id));
       }
 
-      public static UserShellFolder GetUSFByName(string name)
+      public static UserShellFolder GetUserShellFolderByName(string name)
       {
          return AllEditableUserUserShellFolders.First(x => x.ViewedName == name);
       }

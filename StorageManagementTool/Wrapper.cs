@@ -408,7 +408,7 @@ namespace StorageManagementTool
       public static bool SetRegistryValue(RegPath valueLocation, object content, RegistryValueKind registryValueKind,
          bool asUser = false)
       {
-         if (asUser)
+         if (asUser||!Session.Singleton.IsAdmin)
          {
             string value;
             switch (registryValueKind)
@@ -436,8 +436,8 @@ namespace StorageManagementTool
             string kind = RegistryValueKind.String.ToString();
             if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
                    $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\"",
-                   out string[] ret, out int tmpExitCode, true, true, true, false,
-                   true) || tmpExitCode == 1)
+                   out string[] ret, out int tmpExitCode, true, true, true, !asUser,
+                   asUser) || tmpExitCode == 1)
             {
             }
 
@@ -580,7 +580,7 @@ namespace StorageManagementTool
       /// </summary>
       /// <param name="reader">The StreamReader to read from</param>
       /// <returns>The strings saved in the StreamReader</returns>
-      public static string[] FromStream(this StreamReader reader)
+      private static string[] FromStream(this TextReader reader)
       {
          List<string> ret = new List<string>();
          string line;
@@ -600,8 +600,13 @@ namespace StorageManagementTool
       public static bool IsAdmin(string Username)
       {
          SecurityIdentifier id = new SecurityIdentifier("S-1-5-32-544");
-         return UserPrincipal
-            .FindByIdentity(new PrincipalContext(ContextType.Machine), IdentityType.SamAccountName, Username)
+         UserPrincipal user = UserPrincipal
+            .FindByIdentity(new PrincipalContext(ContextType.Machine), IdentityType.SamAccountName, Username);
+         if (user==null)
+         {
+            return false;
+         }
+         return user
             .GetGroups()
             .Any(x => x.Sid == id);
       }
