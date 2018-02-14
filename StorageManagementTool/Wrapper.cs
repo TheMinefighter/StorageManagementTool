@@ -108,7 +108,7 @@ namespace StorageManagementTool
             switch (kind)
             {
                case RegistryValueKind.DWord:
-                  
+
                   toReturn = uint.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.String:
@@ -132,7 +132,7 @@ namespace StorageManagementTool
          }
 
          try
-         
+
          {
             toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, null);
          }
@@ -155,6 +155,7 @@ namespace StorageManagementTool
          {
             toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long) toReturn), 0);
          }
+
          return true;
       }
 
@@ -408,7 +409,7 @@ namespace StorageManagementTool
       public static bool SetRegistryValue(RegPath valueLocation, object content, RegistryValueKind registryValueKind,
          bool asUser = false)
       {
-         if (asUser||!Session.Singleton.IsAdmin)
+         if (asUser || !Session.Singleton.IsAdmin)
          {
             string value;
             switch (registryValueKind)
@@ -528,7 +529,7 @@ namespace StorageManagementTool
       /// </summary>
       public static void RestartAsAdministrator()
       {
-         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, " ", true,false,false))
+         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, " ", true, false, false))
          {
             Environment.Exit(0);
          }
@@ -575,6 +576,34 @@ namespace StorageManagementTool
          return true;
       }
 
+      public static bool MoveDirectory(DirectoryInfo toMove, DirectoryInfo destination)
+      {
+         try
+         {
+            FileSystem.MoveDirectory(toMove.FullName, destination.FullName, UIOption.AllDialogs);
+         }
+         catch (Exception)
+         {
+            return false;
+         }
+
+         return true;
+      }
+
+      public static bool MoveFile(FileInfo toMove, FileInfo destination)
+      {
+         try
+         {
+            FileSystem.MoveFile(toMove.FullName, destination.FullName, UIOption.AllDialogs);
+         }
+         catch (Exception)
+         {
+            return false;
+         }
+
+         return true;
+      }
+
       /// <summary>
       ///    Reads the whole content of an StreamReader
       /// </summary>
@@ -602,10 +631,11 @@ namespace StorageManagementTool
          SecurityIdentifier id = new SecurityIdentifier("S-1-5-32-544");
          UserPrincipal user = UserPrincipal
             .FindByIdentity(new PrincipalContext(ContextType.Machine), IdentityType.SamAccountName, Username);
-         if (user==null)
+         if (user == null)
          {
             return false;
          }
+
          return user
             .GetGroups()
             .Any(x => x.Sid == id);
@@ -627,6 +657,7 @@ namespace StorageManagementTool
 
          return builder.ToString();
       }
+
 
       public static string ToWin32Format(this DateTime toConvert)
       {
@@ -717,26 +748,36 @@ namespace StorageManagementTool
 
       #region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
 
-      public static bool RunPowershellCommand(string command, out IEnumerable<string> ret)
+      public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command)
       {
-         ret = new[] {"" };
+         ret = new[] {""};
          IEnumerable<PSObject> returned;
-         try
+         using (PowerShell PowerShellInstance = PowerShell.Create())
          {
-            using (PowerShell PowerShellInstance=PowerShell.Create())
+            foreach (string s in command)
             {
-               PowerShellInstance.AddScript(command);
-               returned = PowerShellInstance.Invoke();
+               PowerShellInstance.AddScript(s);
+            }
+            try
+            {
+               {
+                  returned = PowerShellInstance.Invoke();
+               }
+            }
+            catch (Exception)
+            {
+               return false;
             }
          }
-         catch (Exception )
-         {
-            return false;
-         }
-         ret=  returned.Where(x=>x!=null).Select(x => x.ToString());
+         ret = returned.Where(x => x != null).Select(x => x.ToString());
          return true;
       }
 
       #endregion
+
+      public static bool RestartComputer()
+      {
+         return ExecuteExecuteable(Path.Combine(System32Path, "shutdown.exe"), "/R /T 1", false, true);
+      }
    }
 }

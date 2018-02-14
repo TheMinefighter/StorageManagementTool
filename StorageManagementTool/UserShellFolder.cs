@@ -29,6 +29,9 @@ namespace StorageManagementTool
       private const string ProgramPathDefinitionRoot =
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion";
 
+      private const string PublicTempRoot=@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
+      
+      private const string UserTempRoot = @"HKEY_CURRENT_USER\Environment";
       private UserShellFolder(string name, RegPath[] regPaths, bool moveExistingFiles = true,
          bool accessAsUser = false)
       {
@@ -130,7 +133,8 @@ namespace StorageManagementTool
                {
                   new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir"),
                   new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir")
-               }, false, true)
+               }, false, true),
+            //new UserShellFolder{}, 
          };
       }
 
@@ -138,7 +142,7 @@ namespace StorageManagementTool
 
       public static UserShellFolder GetUserShellFolderById(string id)
       {
-         return AllEditableUserUserShellFolders.First(x => x.RegPaths.Any(y => y.ValueName == id));
+         return AllEditableUserUserShellFolders.First(x => x.Identifier==id);
       }
 
       public static UserShellFolder GetUserShellFolderByName(string name)

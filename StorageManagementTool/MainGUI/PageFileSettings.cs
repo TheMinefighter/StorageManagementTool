@@ -96,8 +96,7 @@ namespace StorageManagementTool.MainGUI
                      "Der Computer muss neugestartet werden um die Änderungen zu übernehmen und um weitere Schritte auszuführen. Jetzt neustarten?",
                      "Neustarten?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                {
-                  Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "shutdown.exe"), " /r /t 1",
-                     false, false, false);
+                  Wrapper.RestartComputer();
                }
             }
             else
@@ -127,8 +126,7 @@ namespace StorageManagementTool.MainGUI
                      "Der Computer muss neugestartet werden um die Änderungen zu übernehmen und um weitere Schritte auszuführen. Jetzt neustarten?",
                      "Neustarten?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                {
-                  Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "shutdown.exe"), " /r /t 1",
-                     false, false, false);
+                  Wrapper.RestartComputer();
                }
             }
             else

@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-   <data name="Error" xml:space="preserve">
+  <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
-   <data name="Abort_btn_Text" xml:space="preserve">
+  <data name="Abort_btn_Text" xml:space="preserve">
     <value>Abort</value>
   </data>
   <data name="CurrentUSFPath_lbl_Text" xml:space="preserve">
@@ -158,5 +158,11 @@
   </data>
   <data name="USFOpenNewPath_NoPathSelected" xml:space="preserve">
     <value>Please select a new path for the UserShellFolder to open it.</value>
+  </data>
+  <data name="Closing_WantRestart_Text" xml:space="preserve">
+    <value>A UserShellFolder ha been changed, do you want to restart the pc now?</value>
+  </data>
+  <data name="Closing_WantRestart_Title" xml:space="preserve">
+    <value>Restart?</value>
   </data>
 </root>

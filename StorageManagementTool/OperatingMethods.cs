@@ -50,7 +50,7 @@ namespace StorageManagementTool
             }
          }
 
-         if (!newLocation.Parent.Exists)
+         if (newLocation.Parent==null)
          {
             newLocation.Parent.Create();
          }
@@ -147,9 +147,8 @@ namespace StorageManagementTool
 
                   break;
                case 2:
-                  List<char> HDDList = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys")
-                     .ToArray().ToList();
-                  HDDList.RemoveAt(1);
+                  string HDDPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys").Remove(1, 1);
+                  
                   if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
                   {
                      if (MessageBox.Show(
@@ -182,8 +181,8 @@ namespace StorageManagementTool
                      }
                   }
 
-                  string newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath + "\\" +
-                                   new string(HDDList.ToArray());
+                  string newPath =Path.Combine( Session.Singleton.CurrentConfiguration.DefaultHDDPath ,
+                                   HDDPath);
                   string oldPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
                   MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
                   break;
@@ -340,7 +339,7 @@ namespace StorageManagementTool
             wmicPath, "computersystem get AutomaticManagedPagefile /Value"
             , out string[] tmp, out int _, true, true, true, true)) //Tests
          {
-            if (Boolean.Parse(tmp[2].Split('=')[1]))
+            if (bool.Parse(tmp[2].Split('=')[1]))
             {
                Wrapper.ExecuteCommand(
                   wmicPath
@@ -351,7 +350,7 @@ namespace StorageManagementTool
                   wmicPath
                   , "computersystem get AutomaticManagedPagefile /Value"
                   , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
-               if (!Boolean.Parse(tmp[2].Split('=')[1]))
+               if (!bool.Parse(tmp[2].Split('=')[1]))
                {
                   MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
                      Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -421,7 +420,7 @@ namespace StorageManagementTool
             {
                //No;Yes;YesAll
                ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                  String.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
+                  string.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
                   ChangeUserShellFolder_SubfolderFound_Title,
                   childs.Count == 1
                      ? new[] {ChangeUserShellFolder_SubfolderFound_Yes, ChangeUserShellFolder_SubfolderFound_No}
@@ -454,12 +453,12 @@ namespace StorageManagementTool
                      if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
                      {
                         switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                           String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
+                           string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
                               x.ValueName, x.RegistryKey, newPathOfChild), Error,
                            new[]
                            {
                               ChangeUserShellFolder_ErrorChangeSubfolder_Retry,
-                              String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
+                              string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
                               ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
                               ChangeUserShellFolder_ErrorChangeSubfolder_Abort
                            }, 0)).NumberOfClickedButton)
@@ -498,7 +497,7 @@ namespace StorageManagementTool
                {
                   if (deleteOldContents == QuestionAnswer.Yes || deleteOldContents == QuestionAnswer.Ask &&
                       MessageBox.Show(
-                         String.Format(
+                         string.Format(
                             ChangeUserShellFolder_DeleteContent_Text,
                             oldDir.FullName, newDir.FullName),
                          ChangeUserShellFolder_DeleteContent_Title,
@@ -568,25 +567,19 @@ namespace StorageManagementTool
                          SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
                       DialogResult.Yes)
                   {
-                     Wrapper.ExecuteExecuteable(
-                        Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
-                           @"shutdown.exe")), " /R /T 1", false,
-                        true);
+                     Wrapper.RestartComputer();
                   }
                }
 
                ServiceController wSearch = new ServiceController("WSearch");
                if (!RecursiveServiceRestart(wSearch))
                {
-                  if (MessageBox.Show(String.Format(
+                  if (MessageBox.Show(string.Format(
                             SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
                          SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
                       DialogResult.Yes)
                   {
-                     Wrapper.ExecuteExecuteable(
-                        Environment.ExpandEnvironmentVariables(Path.Combine(Wrapper.System32Path,
-                           @"shutdown.exe")), " /R /T 1", false,
-                        true);
+                     Wrapper.RestartComputer();
                   }
                }
 

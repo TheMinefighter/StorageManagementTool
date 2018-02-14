@@ -72,6 +72,24 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string Closing_WantRestart_Text {
+            get {
+                return ResourceManager.GetString("Closing_WantRestart_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Closing_WantRestart_Title {
+            get {
+                return ResourceManager.GetString("Closing_WantRestart_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string CurrentUSFPath_lbl_Text {
             get {
                 return ResourceManager.GetString("CurrentUSFPath_lbl_Text", resourceCulture);

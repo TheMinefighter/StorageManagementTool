@@ -69,8 +69,7 @@ namespace StorageManagementTool
          {
             enabled = false;
             //From https://superuser.com/a/1035052 last access 10.02.2018
-            if (!Wrapper.RunPowershellCommand($"(Get-ScheduledTask | Where TaskName -eq {SSDMonitoringTaskName} ).State",
-               out IEnumerable<string> ret))
+            if (!Wrapper.RunPowershellCommand(out IEnumerable<string> ret, $"(Get-ScheduledTask | Where TaskName -eq {SSDMonitoringTaskName} ).State"))
             {
 
                return false;
