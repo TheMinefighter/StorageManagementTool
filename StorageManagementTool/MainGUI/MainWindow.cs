@@ -229,35 +229,9 @@ namespace StorageManagementTool.MainGUI
 
       private void button3_Click(object sender, EventArgs e)
       {
-         JSONConfig.MonitoringSetting toeqMonitoringSetting = new JSONConfig.MonitoringSetting()
-         {
-            MonitoredFolders =
-               new[]
-               {
-                  new JSONConfig.MonitoringSetting.MonitoredFolder()
-                  {
-                     TargetPath = "C:",
-                     ForFiles = JSONConfig.MonitoringSetting.MonitoringAction.Ask,
-                     ForFolders = JSONConfig.MonitoringSetting.MonitoringAction.Ignore
-                  }
-               }.ToList()
-         };
-         JSONConfig.MonitoringSetting myMonitoringSetting = new JSONConfig.MonitoringSetting()
-         {
-            MonitoredFolders =
-               new[]
-               {
-                  new JSONConfig.MonitoringSetting.MonitoredFolder()
-                  {
-                     TargetPath = ".C:".Substring(1),
-                     ForFiles = JSONConfig.MonitoringSetting.MonitoringAction.Ask,
-                     ForFolders = JSONConfig.MonitoringSetting.MonitoringAction.Ignore
-                  }
-               }.ToList()
-         };
-         toeqMonitoringSetting.Equals(myMonitoringSetting);
-         //Wrapper.RunPowershellCommand("(Get-ScheduledTask | Where TaskName -eq SSDMonitoring ).State");
-         //     ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration())
+         Wrapper.RegistryMethods.GetRegistryValue(
+            new RegPath("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Cache"),
+            out object tmp,true);
       }
    }
 }

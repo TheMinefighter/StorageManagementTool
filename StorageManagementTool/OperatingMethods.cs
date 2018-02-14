@@ -450,7 +450,7 @@ namespace StorageManagementTool
                   do
                   {
                      retry = false;
-                     if (!Wrapper.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
+                     if (!Wrapper.RegistryMethods.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
                      {
                         switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
                            string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
@@ -484,7 +484,7 @@ namespace StorageManagementTool
          }
 
          if (usf.RegPaths.All(x =>
-            Wrapper.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
+            Wrapper.RegistryMethods.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
          {
             if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles &&
                 (copyContents == QuestionAnswer.Yes || copyContents == QuestionAnswer.Ask && MessageBox.Show(
@@ -555,7 +555,7 @@ namespace StorageManagementTool
       {
          if (newPath.Exists)
          {
-            if (Wrapper.SetRegistryValue(SearchDatatDirectoryRegPath,
+            if (Wrapper.RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegPath,
                newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
                RegistryValueKind.String,
                true))

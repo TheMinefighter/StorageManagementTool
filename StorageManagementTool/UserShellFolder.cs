@@ -134,7 +134,8 @@ namespace StorageManagementTool
                   new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir"),
                   new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir")
                }, false, true),
-            //new UserShellFolder{}, 
+            new UserShellFolder{Identifier = "PrivateTemp",AccessAsUser = false,RegPaths = new []{new RegPath(UserTempRoot,"TEMP"), new RegPath(UserTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
+            new UserShellFolder{Identifier = "PublicTemp",AccessAsUser = false,RegPaths = new []{new RegPath(PublicTempRoot,"TEMP"), new RegPath(PublicTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
          };
       }
 
@@ -157,7 +158,7 @@ namespace StorageManagementTool
 
       public static DirectoryInfo GetPath(UserShellFolder currentUSF)
       {
-         Wrapper.GetRegistryValue(currentUSF.RegPaths[0], out object regValue, currentUSF.AccessAsUser);
+         Wrapper.RegistryMethods.GetRegistryValue(currentUSF.RegPaths[0], out object regValue, currentUSF.AccessAsUser);
          return new DirectoryInfo((string) regValue ?? Error);
       }
    }

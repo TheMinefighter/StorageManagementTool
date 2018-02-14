@@ -191,6 +191,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WrapperStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Wrapper.RegistryMethods.cs" />
     <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
     <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.resx">

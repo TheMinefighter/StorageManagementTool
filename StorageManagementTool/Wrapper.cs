@@ -4,16 +4,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Security.Principal;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
-using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
 using System.Management.Automation;
 using System.Collections.ObjectModel;
@@ -24,7 +21,7 @@ namespace StorageManagementTool
    /// <summary>
    ///    Contains system functionalities, which are not specific made for this project
    /// </summary>
-   public static class Wrapper
+   public static partial class Wrapper
    {
       private static readonly string[] ExecuteableExtensions = {".exe", ".pif", ".com", ".bat", ".cmd"};
       public static readonly string WinPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
@@ -49,115 +46,6 @@ namespace StorageManagementTool
             hidden: hidden, admin: admin);
       }
 
-      /// <summary>
-      ///    Gives the WIN32APi Representation of an given RegistryValueKind
-      /// </summary>
-      /// <param name="kind"> The RegistryValueKind to represent</param>
-      /// <returns>The WIN32API Representation of the given RegistryValueKind</returns>
-      public static string Win32ApiRepresentation(this RegistryValueKind kind)
-      {
-         switch (kind)
-         {
-            case RegistryValueKind.String: return "REG_SZ";
-            case RegistryValueKind.ExpandString: return "REG_EXPAND_SZ";
-            case RegistryValueKind.Binary: return "REG_BINARY";
-            case RegistryValueKind.DWord: return "REG_DWORD";
-            case RegistryValueKind.MultiString: return "REG_MULTI_SZ";
-            case RegistryValueKind.QWord: return "REG_QWORD";
-            case RegistryValueKind.Unknown: return "REG_RESSOURCE_LIST";
-            case RegistryValueKind.None: return "REG_NONE";
-            default: throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
-         }
-      }
-
-
-      public static bool GetRegistryValue(RegPath path, out object toReturn, bool asUser = false)
-      {
-         toReturn = null;
-         if (asUser)
-         {
-            if (!ExecuteExecuteable(Path.Combine(System32Path, @"reg.exe"),
-               $" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _,
-               true, true, true, false, true))
-            {
-               return false;
-            }
-
-            if (ret.Length == 2)
-            {
-               return true;
-            }
-
-            char[] tmp = ret[2].ToCharArray();
-            string toProcess = new string(tmp).Substring(8 + path.ValueName.Length);
-            int i = 0;
-            StringBuilder Builder = new StringBuilder();
-            char c;
-            do
-            {
-               c = toProcess[i];
-               Builder.Append(c);
-               i++;
-            } while (c != ' ');
-
-            string toSwitch = Builder.ToString();
-            RegistryValueKind kind = Enum.GetValues(typeof(RegistryValueKind)).Cast<RegistryValueKind>()
-               .FirstOrDefault(x => toSwitch.Contains(x.Win32ApiRepresentation()));
-            string data = new string(tmp.Skip(12 + path.ValueName.Length + kind.ToString().Length).ToArray());
-            toReturn = data;
-            switch (kind)
-            {
-               case RegistryValueKind.DWord:
-
-                  toReturn = uint.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
-                  break;
-               case RegistryValueKind.String:
-                  toReturn = data;
-                  break;
-               case RegistryValueKind.ExpandString: break;
-               case RegistryValueKind.Binary: break;
-               case RegistryValueKind.MultiString:
-                  toReturn = data.Split('\0');
-                  break;
-               case RegistryValueKind.QWord:
-                  toReturn = ulong.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
-                  break;
-               case RegistryValueKind.Unknown:
-                  toReturn = data;
-                  break;
-               case RegistryValueKind.None: return false;
-            }
-
-            return true;
-         }
-
-         try
-
-         {
-            toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, null);
-         }
-         catch (Exception e)
-         {
-            return MessageBox.Show(
-                      string.Format(GetRegistryValue_Exception,
-                         path.ValueName, path.RegistryKey, e.Message),
-                      Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
-                   DialogResult.Retry &&
-                   GetRegistryValue(path, out toReturn, asUser);
-         }
-
-         if (toReturn is int)
-         {
-            toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int) toReturn), 0);
-         }
-
-         if (toReturn is long)
-         {
-            toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long) toReturn), 0);
-         }
-
-         return true;
-      }
 
       /// <summary>
       ///    Executes an Executeable
@@ -392,103 +280,6 @@ namespace StorageManagementTool
          }
          catch (Exception)
          {
-            return false;
-         }
-
-         return true;
-      }
-
-      /// <summary>
-      ///    Sets an Registry Value
-      /// </summary>
-      /// <param name="valueLocation">The Location of the Value to change</param>
-      /// <param name="content">The content to write into the content</param>
-      /// <param name="registryValueKind">The type of the content</param>
-      /// <param name="asUser"></param>
-      /// <returns></returns>
-      public static bool SetRegistryValue(RegPath valueLocation, object content, RegistryValueKind registryValueKind,
-         bool asUser = false)
-      {
-         if (asUser || !Session.Singleton.IsAdmin)
-         {
-            string value;
-            switch (registryValueKind)
-            {
-               case RegistryValueKind.DWord:
-                  value = ((uint) content).ToString();
-                  break;
-               case RegistryValueKind.QWord:
-                  value = ((ulong) content).ToString();
-                  break;
-               case RegistryValueKind.String:
-                  value = ((string) content).Replace("\"", "\"\"");
-                  break;
-               case RegistryValueKind.MultiString:
-                  value = string.Join("\0", (string[]) content).Replace("\"", "\"\"");
-                  break;
-               case RegistryValueKind.ExpandString:
-                  value = ((string) content).Replace("\"", "\"\"");
-                  break;
-               default:
-                  value = (string) content;
-                  break;
-            }
-
-            string kind = RegistryValueKind.String.ToString();
-            if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
-                   $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\"",
-                   out string[] ret, out int tmpExitCode, true, true, true, !asUser,
-                   asUser) || tmpExitCode == 1)
-            {
-            }
-
-            return true;
-         }
-
-         try
-         {
-            Registry.SetValue(valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind);
-         }
-         catch (SecurityException)
-         {
-            if (MessageBox.Show(
-                   string.Format(
-                      SetRegistryValue_Security,
-                      valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
-                   Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-            {
-               return SetRegistryValue(valueLocation, content, registryValueKind);
-            }
-
-            return false;
-         }
-         catch (UnauthorizedAccessException)
-         {
-            if (MessageBox.Show(
-                   string.Format(
-                      SetRegistryValue_UnauthorizedAccess,
-                      valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
-                   Error,
-                   MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-               RestartAsAdministrator();
-               return true;
-            }
-
-            return false;
-         }
-         catch (Exception e)
-         {
-            if (MessageBox.Show(
-                   string.Format(
-                      SetRegistry_Exception,
-                      valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind, e.Message),
-                   Error, MessageBoxButtons.RetryCancel,
-                   MessageBoxIcon.Error) == DialogResult.Retry)
-            {
-               return SetRegistryValue(valueLocation, content, registryValueKind);
-            }
-
             return false;
          }
 
@@ -758,6 +549,7 @@ namespace StorageManagementTool
             {
                PowerShellInstance.AddScript(s);
             }
+
             try
             {
                {
@@ -769,6 +561,7 @@ namespace StorageManagementTool
                return false;
             }
          }
+
          ret = returned.Where(x => x != null).Select(x => x.ToString());
          return true;
       }
