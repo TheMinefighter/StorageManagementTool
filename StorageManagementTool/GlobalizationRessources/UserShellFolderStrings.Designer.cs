@@ -342,6 +342,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string PrivateTemp {
+            get {
+                return ResourceManager.GetString("PrivateTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ProgramFilesDir_Name {
             get {
                 return ResourceManager.GetString("ProgramFilesDir_Name", resourceCulture);
@@ -363,6 +372,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         internal static string Programs_Name {
             get {
                 return ResourceManager.GetString("Programs_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PublicTemp {
+            get {
+                return ResourceManager.GetString("PublicTemp", resourceCulture);
             }
         }
         

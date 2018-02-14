@@ -134,8 +134,8 @@ namespace StorageManagementTool
                   new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir"),
                   new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir")
                }, false, true),
-            new UserShellFolder{Identifier = "PrivateTemp",AccessAsUser = false,RegPaths = new []{new RegPath(UserTempRoot,"TEMP"), new RegPath(UserTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
-            new UserShellFolder{Identifier = "PublicTemp",AccessAsUser = false,RegPaths = new []{new RegPath(PublicTempRoot,"TEMP"), new RegPath(PublicTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
+            new UserShellFolder{Identifier = PrivateTemp,AccessAsUser = false,RegPaths = new []{new RegPath(UserTempRoot,"TEMP"), new RegPath(UserTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
+            new UserShellFolder{Identifier = PublicTemp,AccessAsUser = false,RegPaths = new []{new RegPath(PublicTempRoot,"TEMP"), new RegPath(PublicTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
          };
       }
 

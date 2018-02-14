@@ -214,4 +214,10 @@
   <data name="Error" xml:space="preserve">
     <value>Fehler</value>
   </data>
+  <data name="PrivateTemp" xml:space="preserve">
+    <value>Temporäre Dateien</value>
+  </data>
+  <data name="PublicTemp" xml:space="preserve">
+    <value>Öffentliche Temporäre Dateien</value>
+  </data>
 </root>

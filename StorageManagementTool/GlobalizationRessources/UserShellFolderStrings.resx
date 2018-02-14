@@ -214,4 +214,10 @@
   <data name="Error" xml:space="preserve">
     <value></value>
   </data>
+  <data name="PublicTemp" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PrivateTemp" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
