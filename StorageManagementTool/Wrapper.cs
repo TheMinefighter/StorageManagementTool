@@ -438,18 +438,6 @@ namespace StorageManagementTool
          return src.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
       }
 
-      public static string AsString(this IEnumerable<char> src)
-      {
-         StringBuilder builder = new StringBuilder();
-         foreach (char c in src)
-         {
-            builder.Append(c);
-         }
-
-         return builder.ToString();
-      }
-
-
       public static string ToWin32Format(this DateTime toConvert)
       {
          return

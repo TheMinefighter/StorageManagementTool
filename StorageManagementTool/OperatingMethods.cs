@@ -442,7 +442,7 @@ namespace StorageManagementTool
             if (MoveAll || move)
             {
                string newPathOfChild = Path.Combine(newDir.FullName,
-                  child.Value.FullName.Skip(currentPath.FullName.Length).AsString());
+                  child.Value.FullName.Substring(currentPath.FullName.Length));
                foreach (RegPath x in child.Key.RegPaths)
                {
                   bool retry;
