@@ -97,7 +97,7 @@ namespace StorageManagementTool
       /// </summary>
       public void RefreshSwapfileStadium()
       {
-         if (Wrapper.IsPathSymbolic(@"C:\swapfile.sys"))
+         if (Wrapper.FileAndFolder.IsPathSymbolic(@"C:\swapfile.sys"))
          {
             Wrapper.RegistryMethods.GetRegistryValue(new RegPath(
                @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",

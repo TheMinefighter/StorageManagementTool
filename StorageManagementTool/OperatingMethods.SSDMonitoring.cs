@@ -23,7 +23,7 @@ namespace StorageManagementTool
          {
             XElement taskContents = new XElement(TaskNamespace + "Task", new XAttribute("version", "1.4"),
                new XElement(TaskNamespace + "RegistrationInfo",
-                  new XElement(TaskNamespace + "Date", DateTime.Now.ToWin32Format()),
+                  new XElement(TaskNamespace + "Date", Wrapper.DateTimeToWin32Format(DateTime.Now)),
                   new XElement(TaskNamespace + "Author", WindowsIdentity.GetCurrent().Name),
                   new XElement(TaskNamespace + "Description",
                      "Monitors a list of configured paths"),

@@ -123,7 +123,7 @@
   <data name="ExecuteExecuteable_AdminError" xml:space="preserve">
     <value>Fehler beim ausführen der Datei "{0}": der Nutzer hat dem Programm den Zugriff auf Administroteren Privilegien verwehrt, die für dessen Ausführung wahrscheinlich nötig gewesen wären. Soll das Programm den Vorgang abbrechen, den Vorgang wiederholen oder das Problem ignorieren und den Befehl ohne Adminstratorrechte ausführen</value>
   </data>
-  <data name="ExecuteExecuteable_FileNotFound" xml:space="preserve">
+  <data name="ExecuteExecuteable_FileNotFound_Text" xml:space="preserve">
     <value>Das Programm "{0}" Konnte nicht ausgeführt werden, da dieses nicht unter dem erwarteten Pfad verfügbar war. Möchten sie den richtigen Pfad des Programms auswählen?</value>
   </data>
   <data name="ExecuteExecuteable_WrongEnding" xml:space="preserve">
@@ -140,5 +140,11 @@
   </data>
   <data name="SetRegistry_Exception" xml:space="preserve">
     <value>Fehler beim setzen des Registry Wertes "{0}", welcher unter "{1}" gespeichert ist, auf den wert "{2}" mit dem Typ "{3}" ist ein Fehler aufgetreten: {4}</value>
+  </data>
+  <data name="ExecuteExecutable_FileNotFound_SelectionFilter" xml:space="preserve">
+    <value>Programme</value>
+  </data>
+  <data name="ExecuteExecuteable_FileNotFound_SelectionTitle" xml:space="preserve">
+    <value>Wählen sie bitte den Pfad von "{0}" aus</value>
   </data>
 </root>

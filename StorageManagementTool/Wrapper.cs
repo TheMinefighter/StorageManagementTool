@@ -6,12 +6,8 @@ using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Principal;
-using System.Text;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.FileIO;
-using Microsoft.Win32.SafeHandles;
 using System.Management.Automation;
 using System.Collections.ObjectModel;
 using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
@@ -19,12 +15,11 @@ using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
 namespace StorageManagementTool
 {
    /// <summary>
-   ///    Contains system functionalities, which are not specific made for this project
+   ///    Contains system functionalities, which are not specific for this project
    /// </summary>
    public static partial class Wrapper
    {
-      private static readonly string[] ExecuteableExtensions = {".exe", ".pif", ".com", ".bat", ".cmd"};
-      public static readonly string WinPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+      private static readonly IEnumerable<string> ExecuteableExtensions =new [] {".exe", ".pif", ".com", ".bat", ".cmd"};
       public static readonly string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
 
       public static readonly string ExplorerPath =
@@ -46,7 +41,6 @@ namespace StorageManagementTool
             hidden: hidden, admin: admin);
       }
 
-
       /// <summary>
       ///    Executes an Executeable
       /// </summary>
@@ -64,17 +58,19 @@ namespace StorageManagementTool
          out int exitCode, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
          bool admin = false, bool asUser = false)
       {
+         FileInfo toRun= new FileInfo(filename);
          exitCode = 0;
          returnData = null;
-         if (!File.Exists(filename))
+         if (!toRun.Exists)
          {
             if (MessageBox.Show(
-                   string.Format(ExecuteExecuteable_FileNotFound, filename),
+                   string.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                {
-                  Filter = $"Programme|*{string.Join(";*", ExecuteableExtensions)}"
+                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
+                  Title = string.Format(ExecuteExecuteable_FileNotFound_SelectionTitle,toRun.Name)
                };
                alternativeExecuteableSel.ShowDialog();
                return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -82,11 +78,11 @@ namespace StorageManagementTool
             }
          }
 
-         if (!ExecuteableExtensions.Contains(new FileInfo(filename).Extension))
+         if (!ExecuteableExtensions.Contains(toRun.Extension))
          {
             if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
                string.Format(ExecuteExecuteable_WrongEnding,
-                  filename, new FileInfo(filename).Extension),
+                  toRun.FullName, toRun.Extension),
                Error,
                MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
             {
@@ -98,7 +94,7 @@ namespace StorageManagementTool
          ProcessStartInfo startInfo = new ProcessStartInfo
          {
             WindowStyle = hidden ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal,
-            FileName = filename,
+            FileName = toRun.FullName,
             Arguments = parameters,
             RedirectStandardOutput = readReturnData
          };
@@ -137,7 +133,7 @@ namespace StorageManagementTool
             DialogResult retry = MessageBox.Show(
                string.Format(
                   ExecuteExecuteable_AdminError,
-                  filename),
+                  toRun.FullName),
                Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
             switch (retry)
             {
@@ -217,7 +213,7 @@ namespace StorageManagementTool
       {
          if (ExecuteExecuteable(Path.Combine(System32Path, @"cmd.exe"),
             (debug ? " /K " : " /C ") + cmd, out returnData, out int tmp, readReturnData, waitforexit, hidden,
-            admin, false))
+            admin))
          {
             return tmp == 0;
          }
@@ -245,154 +241,19 @@ namespace StorageManagementTool
 
       #endregion
 
-      /// <summary>
-      ///    Copies a Directory
-      /// </summary>
-      /// <param name="src">The Directory to copy from</param>
-      /// <param name="target">The Directory, where the contents of src should be copied to</param>
-      /// <returns>Whether the operation were successful</returns>
-      public static bool CopyDirectory(DirectoryInfo src, DirectoryInfo target)
-      {
-         try
-         {
-            FileSystem.CopyDirectory(src.FullName, target.FullName, UIOption.AllDialogs);
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
-      /// <summary>
-      ///    Deletes a Directory
-      /// </summary>
-      /// <param name="toBeDeleted">The Folder to delete</param>
-      /// <param name="deletePermanent">Whether the Folder should be deleted permanently</param>
-      /// <returns>Whether the operation were sucessful</returns>
-      public static bool DeleteDirectory(DirectoryInfo toBeDeleted, bool deletePermanent = true)
-      {
-         try
-         {
-            FileSystem.DeleteDirectory(toBeDeleted.FullName, UIOption.AllDialogs,
-               deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
       #region From https://stackoverflow.com/a/26473940/6730162 access on 30.9.2017
 
-      /// <summary>
-      ///    Tests whether a File is a symlink
-      /// </summary>
-      /// <param name="path">The path of the file to test</param>
-      /// <returns>Whether the file is a symlink</returns>
-      public static bool IsPathSymbolic(string path)
-      {
-         FileInfo pathInfo = new FileInfo(path);
-         return pathInfo.Attributes.HasFlag(FileAttributes.ReparsePoint);
-      }
-
       #endregion
-
-      /// <summary>
-      ///    Runs a given Action for each Element of an IEnumerable
-      /// </summary>
-      /// <param name="Base">The IEnumerable to perform Actions with</param>
-      /// <param name="action">The Action to perform with each Element of the Base</param>
-      /// <typeparam name="T">The Type of the IEnumerable</typeparam>
-      public static void ForEach<T>(this IEnumerable<T> Base, Action<T> action)
-      {
-         foreach (T variable in Base)
-         {
-            action(variable);
-         }
-      }
 
       /// <summary>
       ///    Restarts Program as Administartor
       /// </summary>
       public static void RestartAsAdministrator()
       {
-         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, " ", true, false, false))
+         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, " ", true))
          {
             Environment.Exit(0);
          }
-      }
-
-      /// <summary>
-      ///    Copies a file
-      /// </summary>
-      /// <param name="src">The location to copy from</param>
-      /// <param name="to">The location to copy to</param>
-      /// <returns>Whether the operation were successful</returns>
-      public static bool CopyFile(FileInfo src, FileInfo to)
-      {
-         try
-         {
-            FileSystem.CopyFile(src.FullName, to.FullName, UIOption.AllDialogs);
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
-      /// <summary>
-      ///    Deletes a file
-      /// </summary>
-      /// <param name="toDelete">The file to delete</param>
-      /// <param name="deletePermanent">Whether it should be deleted permanently</param>
-      /// <returns>Whether the operation were successful</returns>
-      public static bool DeleteFile(FileInfo toDelete, bool deletePermanent = true)
-      {
-         try
-         {
-            FileSystem.DeleteFile(toDelete.FullName, UIOption.AllDialogs,
-               deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
-      public static bool MoveDirectory(DirectoryInfo toMove, DirectoryInfo destination)
-      {
-         try
-         {
-            FileSystem.MoveDirectory(toMove.FullName, destination.FullName, UIOption.AllDialogs);
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
-      public static bool MoveFile(FileInfo toMove, FileInfo destination)
-      {
-         try
-         {
-            FileSystem.MoveFile(toMove.FullName, destination.FullName, UIOption.AllDialogs);
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return true;
       }
 
       /// <summary>
@@ -417,11 +278,11 @@ namespace StorageManagementTool
          return UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
       }
 
-      public static bool IsAdmin(string Username)
+      public static bool IsAdmin(string username)
       {
          SecurityIdentifier id = new SecurityIdentifier("S-1-5-32-544");
          UserPrincipal user = UserPrincipal
-            .FindByIdentity(new PrincipalContext(ContextType.Machine), IdentityType.SamAccountName, Username);
+            .FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, username);
          if (user == null)
          {
             return false;
@@ -438,64 +299,11 @@ namespace StorageManagementTool
          return src.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
       }
 
-      public static string ToWin32Format(this DateTime toConvert)
+      public static string DateTimeToWin32Format(DateTime toConvert)
       {
          return
             $"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
       }
-
-      #region From https://stackoverflow.com/a/38308957/6730162 access on 30.9.2017
-
-      [DllImport("kernel32.dll", EntryPoint = "CreateFileW", CharSet = CharSet.Unicode, SetLastError = true)]
-      private static extern SafeFileHandle CreateFile(string lpFileName, int dwDesiredAccess, int dwShareMode,
-         IntPtr SecurityAttributes, int dwCreationDisposition, int dwFlagsAndAttributes, IntPtr hTemplateFile);
-
-      [DllImport("kernel32.dll", EntryPoint = "GetFinalPathNameByHandleW", CharSet = CharSet.Unicode,
-         SetLastError = true)]
-      private static extern int GetFinalPathNameByHandle([In] IntPtr hFile, [Out] StringBuilder lpszFilePath,
-         [In] int cchFilePath, [In] int dwFlags);
-
-      private const int CREATION_DISPOSITION_OPEN_EXISTING = 3;
-      private const int FILE_FLAG_BACKUP_SEMANTICS = 0x02000000;
-
-      /// <summary>
-      ///    Reads the TargetPath stored in the a symlink
-      /// </summary>
-      /// <param name="path">The path of the symlink</param>
-      /// <returns>The path stored in the symlink</returns>
-      public static string GetRealPath(string path)
-      {
-         if (!Directory.Exists(path) && !File.Exists(path))
-         {
-            throw new IOException("TargetPath not found");
-         }
-
-         DirectoryInfo symlink = new DirectoryInfo(path); // No matter if it's a file or folder
-         SafeFileHandle directoryHandle = CreateFile(symlink.FullName, 0, 2, IntPtr.Zero,
-            CREATION_DISPOSITION_OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, IntPtr.Zero); //Handle file / folder
-         if (directoryHandle.IsInvalid)
-         {
-            throw new Win32Exception(Marshal.GetLastWin32Error());
-         }
-
-         StringBuilder result = new StringBuilder(512);
-         int mResult = GetFinalPathNameByHandle(directoryHandle.DangerousGetHandle(), result, result.Capacity, 0);
-         if (mResult < 0)
-         {
-            throw new Win32Exception(Marshal.GetLastWin32Error());
-         }
-
-         if (result.Length >= 4 && result[0] == '\\' && result[1] == '\\' && result[2] == '?' && result[3] == '\\')
-         {
-            return result.ToString().Substring(4); // "\\?\" remove
-         }
-
-         return result.ToString();
-      }
-
-      #endregion
-
-      #region From https://stackoverflow.com/a/3774508/6730162 access on 02.10.2017
 
       /// <summary>
       ///    Checks whether a user is Part of a localgroup
@@ -503,19 +311,19 @@ namespace StorageManagementTool
       /// <param name="username">The ViewedName of the User to search for</param>
       /// <param name="localGroup">The localgroup to search in</param>
       /// <returns>Whether the user is in the logalgroup</returns>
-      public static bool IsUserInLocalGroup(string username, string localGroup)
-      {
-         GroupPrincipal oGroupPrincipal = GetGroup(localGroup);
-         PrincipalSearchResult<Principal> oPrincipalSearchResult = oGroupPrincipal.GetMembers();
-         return oPrincipalSearchResult.Any(principal => principal.Name == username);
-      }
-
-      private static GroupPrincipal GetGroup(string sGroupName)
-      {
-         PrincipalContext oPrincipalContext = GetPrincipalContext();
-         GroupPrincipal oGroupPrincipal = GroupPrincipal.FindByIdentity(oPrincipalContext, sGroupName);
-         return oGroupPrincipal;
-      }
+//      public static bool IsUserInLocalGroup(string username, string localGroup)
+//      {
+//         GroupPrincipal oGroupPrincipal = GetGroup(localGroup);
+//         PrincipalSearchResult<Principal> oPrincipalSearchResult = oGroupPrincipal.GetMembers();
+//         return oPrincipalSearchResult.Any(principal => principal.Name == username);
+//      }
+//
+//      private static GroupPrincipal GetGroup(string sGroupName)
+//      {
+//         PrincipalContext oPrincipalContext = GetPrincipalContext();
+//         GroupPrincipal oGroupPrincipal = GroupPrincipal.FindByIdentity(oPrincipalContext, sGroupName);
+//         return oGroupPrincipal;
+//      }
 
       private static PrincipalContext GetPrincipalContext()
       {
@@ -523,7 +331,6 @@ namespace StorageManagementTool
          return oPrincipalContext;
       }
 
-      #endregion
 
       #region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
 

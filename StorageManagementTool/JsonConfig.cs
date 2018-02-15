@@ -55,18 +55,6 @@ namespace StorageManagementTool
 
             return false;
          }
-         private class MonitoredFolderComparer:IEqualityComparer<MonitoredFolder>
-         {
-            public bool Equals(MonitoredFolder x, MonitoredFolder y)
-            {
-               throw new System.NotImplementedException();
-            }
-
-            public int GetHashCode(MonitoredFolder obj)
-            {
-               throw new System.NotImplementedException();
-            }
-         }
          public override string ToString()
          {
             return JsonConvert.SerializeObject(this);

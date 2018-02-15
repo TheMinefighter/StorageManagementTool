@@ -137,7 +137,10 @@ namespace StorageManagementTool.MainGUI
 
       private void EnableComponents()
       {
-         new[] {SetUSF_btn, USFOpenNewPath_btn}.ForEach(x => x.Enabled = NewUSFPath_tb.Text != "");
+         foreach (Button x in new[] {SetUSF_btn, USFOpenNewPath_btn})
+         {
+            x.Enabled = NewUSFPath_tb.Text != "";
+         }
          USFOpenCurrentPath_btn.Enabled = CurrentUSFPath_tb.Text != "";
          SelectNewUSFPath_btn.Enabled = ExistingUSF_lb.SelectedIndex != -1;
       }

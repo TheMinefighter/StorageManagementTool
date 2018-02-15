@@ -72,6 +72,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ExecuteExecutable_FileNotFound_SelectionFilter {
+            get {
+                return ResourceManager.GetString("ExecuteExecutable_FileNotFound_SelectionFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ExecuteExecuteable_AdminError {
             get {
                 return ResourceManager.GetString("ExecuteExecuteable_AdminError", resourceCulture);
@@ -81,9 +90,18 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExecuteExecuteable_FileNotFound {
+        internal static string ExecuteExecuteable_FileNotFound_SelectionTitle {
             get {
-                return ResourceManager.GetString("ExecuteExecuteable_FileNotFound", resourceCulture);
+                return ResourceManager.GetString("ExecuteExecuteable_FileNotFound_SelectionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ExecuteExecuteable_FileNotFound_Text {
+            get {
+                return ResourceManager.GetString("ExecuteExecuteable_FileNotFound_Text", resourceCulture);
             }
         }
         

@@ -57,9 +57,9 @@ namespace StorageManagementTool
 
          if (dir.Exists)
          {
-            if (Wrapper.CopyDirectory(dir, newLocation))
+            if (Wrapper.FileAndFolder.CopyDirectory(dir, newLocation))
             {
-               if (!Wrapper.DeleteDirectory(dir))
+               if (!Wrapper.FileAndFolder.DeleteDirectory(dir))
                {
                   return false;
                }
@@ -96,9 +96,9 @@ namespace StorageManagementTool
 
          if (file.Exists)
          {
-            if (Wrapper.CopyFile(file, newLocation))
+            if (Wrapper.FileAndFolder.CopyFile(file, newLocation))
             {
-               if (!Wrapper.DeleteFile(file))
+               if (!Wrapper.FileAndFolder.DeleteFile(file))
                {
                   return false;
                }
@@ -113,120 +113,6 @@ namespace StorageManagementTool
          //throw new NotImplementedException();
       }
 
-      public static bool ChangeSwapfileStadium(int currentStadium, bool fwd)
-      {
-         if (currentStadium == 1 && !fwd)
-         {
-            MessageBox.Show(Error, SetStadium_ErrorNoneBeforeFirst, MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            return false;
-         }
-
-         if (currentStadium == 4 && fwd)
-         {
-            MessageBox.Show(Error, SetStadium_ErrorNoneAfterLast, MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            return false;
-         }
-
-         if (fwd)
-         {
-            switch (Session.Singleton.Swapstadium)
-            {
-               case 1:
-                  try
-                  {
-                     Registry.SetValue(
-                        @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                        "SwapFileControl", 1, RegistryValueKind.DWord);
-                  }
-                  catch (Exception)
-                  {
-                     return false;
-                  }
-
-                  break;
-               case 2:
-                  string HDDPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys").Remove(1, 1);
-                  
-                  if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
-                  {
-                     if (MessageBox.Show(
-                            Error, SetStadium_NoNewPathGiven,
-                            MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                     {
-                        ChangeSwapfileStadium(currentStadium, fwd);
-                     }
-                     else
-                     {
-                        return false;
-                     }
-                  }
-
-                  try
-                  {
-                     new DirectoryInfo(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
-                  }
-                  catch (Exception)
-                  {
-                     if (MessageBox.Show(
-                            "Fehler", "Es wurde ein ungültiger Pfad für den NewPath Speicherort eingegeben",
-                            MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                     {
-                        ChangeSwapfileStadium(currentStadium, fwd);
-                     }
-                     else
-                     {
-                        return false;
-                     }
-                  }
-
-                  string newPath =Path.Combine( Session.Singleton.CurrentConfiguration.DefaultHDDPath ,
-                                   HDDPath);
-                  string oldPath = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
-                  MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
-                  break;
-               case 3:
-                  try
-                  {
-                     Registry.SetValue(
-                        @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                        "SwapFileControl", 0, RegistryValueKind.DWord);
-                     break;
-                  }
-                  catch (Exception)
-                  {
-                     return false;
-                  }
-            }
-
-            return true;
-         }
-
-         switch (Session.Singleton.Swapstadium)
-         {
-            case 2:
-               Registry.SetValue(
-                  @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                  "SwapFileControl", 1, RegistryValueKind.DWord);
-               break;
-            case 3:
-               File.Delete(Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath,
-                  Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys").Remove(1, 1)));
-               break;
-            case 4:
-               Registry.SetValue(
-                  @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-                  "SwapFileControl", 0, RegistryValueKind.DWord);
-               break;
-         }
-
-         Registry.SetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-            "SwapFileControl", 1, RegistryValueKind.DWord);
-
-         return false;
-      }
-
       /// <summary>
       ///    Recommends Paths to move to NewPath
       /// </summary>
@@ -235,7 +121,7 @@ namespace StorageManagementTool
       {
          List<string> ret = new List<string>();
          if (
-            !Wrapper.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%")))
+            !Wrapper.FileAndFolder.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%")))
          {
             ret.Add(Environment.ExpandEnvironmentVariables(@"%AppData%"));
          }
@@ -251,7 +137,7 @@ namespace StorageManagementTool
             Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%"));
          for (int i = 0; i < currentsubfolders.GetLength(0); i++)
          {
-            if (!Wrapper.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
+            if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
             {
                ret.Add(currentsubfolders[i]);
             }
@@ -261,7 +147,7 @@ namespace StorageManagementTool
             Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Local"));
          for (int i = 0; i < currentsubfolders.GetLength(0); i++)
          {
-            if (!Wrapper.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
+            if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
             {
                ret.Add(currentsubfolders[i]);
             }
@@ -493,7 +379,7 @@ namespace StorageManagementTool
                     MessageBoxDefaultButton.Button1) ==
                  DialogResult.Yes))
             {
-               if (Wrapper.CopyDirectory(oldDir, newDir))
+               if (Wrapper.FileAndFolder.CopyDirectory(oldDir, newDir))
                {
                   if (deleteOldContents == QuestionAnswer.Yes || deleteOldContents == QuestionAnswer.Ask &&
                       MessageBox.Show(
@@ -504,7 +390,7 @@ namespace StorageManagementTool
                          MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                          MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                   {
-                     if (Wrapper.DeleteDirectory(oldDir) && !oldDir.Exists)
+                     if (Wrapper.FileAndFolder.DeleteDirectory(oldDir) && !oldDir.Exists)
                      {
                         Wrapper.ExecuteCommand($"mklink /D \"{oldDir.FullName}\\\" \"{newDir.FullName}\"", true,
                            true);
