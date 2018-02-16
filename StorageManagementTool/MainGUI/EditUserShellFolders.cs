@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using StorageManagementTool.GlobalizationRessources;
 using static StorageManagementTool.MainGUI.GlobalizationRessources.EditUserShellFolderStrings;
 
 

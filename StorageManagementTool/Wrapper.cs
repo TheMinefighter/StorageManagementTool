@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,7 +8,6 @@ using System.Linq;
 using System.Security.Principal;
 using System.Windows.Forms;
 using System.Management.Automation;
-using System.Collections.ObjectModel;
 using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
 
 namespace StorageManagementTool

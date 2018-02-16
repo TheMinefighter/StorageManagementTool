@@ -1,6 +1,4 @@
-﻿using Microsoft.Win32;
-
-namespace StorageManagementTool
+﻿namespace StorageManagementTool
 {
    /// <summary>
    ///    Class for storing a windows registry path

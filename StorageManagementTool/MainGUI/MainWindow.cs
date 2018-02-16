@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 //using StorageManagementTool.GlobalizationRessources;
 
-using StorageManagementTool.MainGUI;
 using static StorageManagementTool.MainGUI.GlobalizationRessources.MainWindowStrings;
 
 namespace StorageManagementTool.MainGUI

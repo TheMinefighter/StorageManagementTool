@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using Microsoft.VisualBasic.Devices;
 using static StorageManagementTool.GlobalizationRessources.ScenarioPresetStrings;
-using static StorageManagementTool.MainGUI.GlobalizationRessources.ApplyPresetStrings;
 
 namespace StorageManagementTool
 {
