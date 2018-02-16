@@ -398,13 +398,13 @@ namespace StorageManagementTool
                }
             }
 
-            if (MessageBox.Show(
-                   ChangeUserShellFolder_RestartExplorer_Text,
-                   ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-            {
-               Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);
-            }
+            //if (MessageBox.Show(
+            //       ChangeUserShellFolder_RestartExplorer_Text,
+            //       ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
+            //       MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            //{
+            //   Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);
+            //}
 
             return true;
          }

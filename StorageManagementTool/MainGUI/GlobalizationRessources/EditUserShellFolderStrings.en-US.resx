@@ -160,7 +160,7 @@
     <value>Please select a new path for the UserShellFolder to open it.</value>
   </data>
   <data name="Closing_WantRestart_Text" xml:space="preserve">
-    <value>A UserShellFolder ha been changed, do you want to restart the pc now?</value>
+    <value>A UserShellFolder has been changed, do you want to restart the pc now?</value>
   </data>
   <data name="Closing_WantRestart_Title" xml:space="preserve">
     <value>Restart?</value>

@@ -160,7 +160,7 @@
     <value>Move files to new location</value>
   </data>
   <data name="ChangeUserShellFolder_RestartExplorer_Text" xml:space="preserve">
-    <value>Should the explorer be restarted to apply the changes? This can cause that the position of Startmenu and desktop items gets lost, if the user dIDn´t log off since the last changes. Changes can also be applied by logging of and logging in again.</value>
+    <value>Should the explorer be restarted to apply the changes? This can cause that the position of Startmenu and desktop items gets lost, if the user didn´t log off since the last changes. Changes can also be applied by logging of and logging in again.</value>
   </data>
   <data name="ChangeUserShellFolder_RestartExplorer_Title" xml:space="preserve">
     <value>Restart explorer to apply changes?</value>

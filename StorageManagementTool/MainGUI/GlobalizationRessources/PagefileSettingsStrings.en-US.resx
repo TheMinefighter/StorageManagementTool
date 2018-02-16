@@ -159,4 +159,16 @@
   <data name="PagefileDrive_lbl_Text" xml:space="preserve">
     <value>Location of the pagefile.sys</value>
   </data>
+  <data name="SwapfileSuccessful_Restart_Title" xml:space="preserve">
+    <value>Restart?</value>
+  </data>
+  <data name="SwapfileSuccessful_Restart_Text" xml:space="preserve">
+    <value>The pc needs to be restarted to apply changes, and to be able to do the next step. Restart now?</value>
+  </data>
+  <data name="ExtendedPagefileOptions_Text" xml:space="preserve">
+    <value>Please select Advanced&gt;Virtual Memory&gt; Change... for the extended options</value>
+  </data>
+  <data name="ExtendedPagefileOptions_Title" xml:space="preserve">
+    <value>Information</value>
+  </data>
 </root>
