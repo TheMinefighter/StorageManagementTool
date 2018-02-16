@@ -72,8 +72,7 @@ namespace StorageManagementTool.MainGUI
       /// </summary>
       private void EnableComponents()
       {
-         if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-            StoreOnHDDLink + ".lnk")))
+         if (global::StorageManagementTool.OperatingMethods.IsSendToEnabled())
          {
             SetSendToHDD_btn.Text = DisableSendToHDD;
          }

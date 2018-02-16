@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security;
 using System.Security.Principal;
 using System.Xml.Linq;
+using StorageManagementTool.MainGUI.GlobalizationRessources;
 using File = System.IO.File;
 
 namespace StorageManagementTool

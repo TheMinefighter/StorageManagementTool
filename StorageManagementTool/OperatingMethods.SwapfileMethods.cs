@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using StorageManagementTool.MainGUI.GlobalizationRessources;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 
 namespace StorageManagementTool
@@ -17,7 +18,7 @@ namespace StorageManagementTool
             case SwapfileMethods.SwapfileState.Disabled:
                return GetDescription_Base + GetDescription_Disabled;
             case SwapfileMethods.SwapfileState.Moved:
-               return GetDescription_Base + string.Format(GetDescription_Moved, SwapfileMethods.getSwapfilePath());
+               return GetDescription_Base + String.Format(GetDescription_Moved, SwapfileMethods.getSwapfilePath());
             case SwapfileMethods.SwapfileState.None:
                return GetDescription_Base + GetDescription_None;
                default:
@@ -76,10 +77,12 @@ namespace StorageManagementTool
             {
                currentState = GetSwapfileState();
             }
+
+            FileInfo defaultSwapFileInfo = new FileInfo(DefaultSwapfileLocation);
             switch (currentState)
             {
                case SwapfileState.Standard when forward:
-                  return Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 1, RegistryValueKind.DWord);
+                  return Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 0, RegistryValueKind.DWord);
 
                case SwapfileState.Standard when !forward:
                   MessageBox.Show(Error, SetStadium_ErrorNoneBeforeFirst, MessageBoxButtons.OK,
@@ -90,7 +93,7 @@ namespace StorageManagementTool
                   if (newLocation == null)
                   {
                      if (MessageBox.Show(
-                            Error, SetStadium_NoNewPathGiven,
+                             SetStadium_NoNewPathGiven,Error,
                             MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                      {
                         return ChangeSwapfileStadium(forward, currentState, newLocation);
@@ -116,11 +119,15 @@ namespace StorageManagementTool
                   }
 
                   string oldPath = DefaultSwapfileLocation;
+                  if (defaultSwapFileInfo.Exists)
+                  {
+                     Wrapper.FileAndFolder.DeleteFile(defaultSwapFileInfo, false, false);
+                  }
                   MoveFile(new FileInfo(oldPath), saveAs);
-                  return Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 0, RegistryValueKind.DWord);
+                  return Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 1, RegistryValueKind.DWord);
 
                case SwapfileState.Disabled when !forward:
-                  Wrapper.FileAndFolder.DeleteFile(new FileInfo(DefaultSwapfileLocation), false);
+                  Wrapper.FileAndFolder.DeleteFile(defaultSwapFileInfo, false);
                   Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 1, RegistryValueKind.DWord);
                   break;
 
@@ -133,6 +140,8 @@ namespace StorageManagementTool
                   Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 0, RegistryValueKind.DWord);
                   break;
 
+               case SwapfileState.None:
+                  return false;
                default:
                   throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
             }
@@ -146,8 +155,13 @@ namespace StorageManagementTool
             {
                return SwapfileState.None;
             }
-
-            if ((uint?)regValue == null || (uint?)regValue == 1)
+            // 1/Null --> swapfile enabled
+            // 0 --> disabled
+            if ((uint?) regValue ==0)
+            {
+               return SwapfileState.Disabled;
+            }
+            else
             {
                if (Wrapper.FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation))
                {
@@ -158,11 +172,13 @@ namespace StorageManagementTool
                   return SwapfileState.Standard;
                }
             }
-            else
-            {
-               return SwapfileState.Disabled;
-            }
          }
+      }
+
+      public static bool IsSendToEnabled()
+      {
+         return File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+            MainWindowStrings.StoreOnHDDLink + ".lnk"));
       }
    }
 }

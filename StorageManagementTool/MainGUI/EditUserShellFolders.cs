@@ -14,7 +14,7 @@ namespace StorageManagementTool.MainGUI
          InitializeComponent();
       }
 
-      private bool edited=false;
+      private bool _edited=false;
       private void EditUserShellFolders_Load(object sender, EventArgs e)
       {
          CurrentUSFPath_lbl.Text = CurrentUSFPath_lbl_Text;
@@ -120,7 +120,7 @@ namespace StorageManagementTool.MainGUI
          {
             RefreshUSF();
             ExistingUSF_lb_SelectedIndexChanged(null, null);
-            edited = true;
+            _edited = true;
          }
       }
 
@@ -137,9 +137,9 @@ namespace StorageManagementTool.MainGUI
 
       private void EnableComponents()
       {
-         foreach (Button x in new[] {SetUSF_btn, USFOpenNewPath_btn})
+         foreach (Button button in new[] {SetUSF_btn, USFOpenNewPath_btn})
          {
-            x.Enabled = NewUSFPath_tb.Text != "";
+            button.Enabled = NewUSFPath_tb.Text != "";
          }
          USFOpenCurrentPath_btn.Enabled = CurrentUSFPath_tb.Text != "";
          SelectNewUSFPath_btn.Enabled = ExistingUSF_lb.SelectedIndex != -1;
@@ -152,7 +152,7 @@ namespace StorageManagementTool.MainGUI
 
       private void EditUserShellFolders_FormClosing(object sender, FormClosingEventArgs e)
       {
-         if (edited&&MessageBox.Show(Closing_WantRestart_Text,Closing_WantRestart_Title,MessageBoxButtons.YesNo,MessageBoxIcon.Asterisk,MessageBoxDefaultButton.Button1)==DialogResult.Yes)
+         if (_edited&&MessageBox.Show(Closing_WantRestart_Text,Closing_WantRestart_Title,MessageBoxButtons.YesNo,MessageBoxIcon.Asterisk,MessageBoxDefaultButton.Button1)==DialogResult.Yes)
          {
             Wrapper.RestartComputer();
          }

@@ -162,6 +162,18 @@ namespace StorageManagementTool
          public static bool SetRegistryValue(RegistryValue valueLocation, object content, RegistryValueKind registryValueKind,
             bool asUser = false)
          {
+            if (asUser&&!Session.Singleton.IsAdmin)
+            {
+               if (MessageBox.Show(
+                      string.Format(
+                         WrapperStrings.SetRegistryValue_Security,
+                         valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
+                      WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+               {
+                  Wrapper.RestartAsAdministrator();
+                  Environment.Exit(0);
+               }
+            }
             if (asUser || !Session.Singleton.IsAdmin)
             {
                string value;
@@ -189,7 +201,7 @@ namespace StorageManagementTool
 
                string kind = Win32ApiRepresentation(registryValueKind);
                if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
-                      $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\"",
+                      $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
                       out string[] _, out int tmpExitCode, true, true, true, !asUser,
                       asUser) || tmpExitCode == 1)
                {
@@ -209,9 +221,10 @@ namespace StorageManagementTool
                       string.Format(
                          WrapperStrings.SetRegistryValue_Security,
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
-                      WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                      WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                {
-                  return SetRegistryValue(valueLocation, content, registryValueKind);
+                  Wrapper.RestartAsAdministrator();
+                  Environment.Exit(0);
                }
 
                return false;

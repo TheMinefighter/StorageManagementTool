@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Windows.Forms;
 using System.Management.Automation;
+using Microsoft.VisualBasic.FileIO;
 using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
 
 namespace StorageManagementTool
@@ -161,6 +162,11 @@ namespace StorageManagementTool
          return true;
       }
 
+      public static IEnumerable<DriveInfo> getDrives()
+      {
+         return FileSystem.Drives;
+      }
+      
       /// <summary>
       ///    Executes an Command using Windows Commandline
       /// </summary>

@@ -530,5 +530,12 @@ namespace StorageManagementTool
             true, true,
             true);
       }
+
+      public static bool getDriveInfoFromDescription(out DriveInfo driveInfo, string selectedItem)
+      {
+
+         driveInfo = Wrapper.getDrives().FirstOrDefault(x => DriveInfo2String(x) == selectedItem);
+         return driveInfo != null;
+      }
    }
 }
