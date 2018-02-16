@@ -255,6 +255,7 @@
          this.Swapfileinfo_tb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.Swapfileinfo_tb.BackColor = System.Drawing.SystemColors.Control;
+         this.Swapfileinfo_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.Swapfileinfo_tb.Location = new System.Drawing.Point(6, 19);
          this.Swapfileinfo_tb.Multiline = true;
          this.Swapfileinfo_tb.Name = "Swapfileinfo_tb";

@@ -8,6 +8,25 @@ namespace StorageManagementTool
 {
    public static partial class OperatingMethods
    {
+      public static string GetStateDescription(this SwapfileMethods.SwapfileState state)
+      {
+         switch (state)
+         {
+            case SwapfileMethods.SwapfileState.Standard:
+               return GetDescription_Base + GetDescription_Standard;
+               break;
+            case SwapfileMethods.SwapfileState.Disabled:
+               return GetDescription_Base + GetDescription_Disabled;
+               break;
+            case SwapfileMethods.SwapfileState.Moved:
+               return GetDescription_Base+ string.Format(GetDescription_Moved,SwapfileMethods.getSwapfilePath());
+            case SwapfileMethods.SwapfileState.None:
+               return GetDescription_Base + GetDescription_None;
+               break;
+            default:
+               throw new ArgumentOutOfRangeException(nameof(state), state, null);
+         }
+      }
       public static class SwapfileMethods
       {
          /// <summary>
@@ -33,6 +52,11 @@ namespace StorageManagementTool
             /// Never active, only for technical purposes
             /// </summary>
             None
+         }
+
+         internal static FileInfo getSwapfilePath()
+         {
+            return new FileInfo(Wrapper.FileAndFolder.GetRealPath(DefaultSwapfileLocation));
          }
 
          private static readonly string DefaultSwapfileLocation = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");

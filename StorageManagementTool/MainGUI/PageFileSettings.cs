@@ -30,23 +30,24 @@ namespace StorageManagementTool.MainGUI
       {
          LoadUIStrings();
          currentState = OperatingMethods.SwapfileMethods.GetSwapfileState();
+         Swapfileinfo_tb.Text = currentState.GetStateDescription();
         // Session.Singleton.RefreshSwapfileStadium();
-         const string hint =
-            "\r\nUm eine schon verschobene Swapfile auf ein weiteres Laufwerk zu verschieben muss erst zum Stadium 2 zurückgekehrt werden um sie dann auf eine andere Partition auszulagern";
-         switch (currentState)
-         {
-            case OperatingMethods.SwapfileMethods.SwapfileState.Standard:
-               Swapfileinfo_tb.Text = "Die Registry muss zum verschieben zuerst geändert werden (Stadium 1/3)" + hint;
-               break;
-            case OperatingMethods.SwapfileMethods.SwapfileState.Disabled:
-               Swapfileinfo_tb.Text = "Es muss eine Verknüpfung zur Swapfile erstellt werden (Stadium 2/3)" + hint;
-               break;
-            case OperatingMethods.SwapfileMethods.SwapfileState.Moved:
-               Swapfileinfo_tb.Text = "Die Swapfile wurde verschoben (Stadium 3/3)" + hint;
-               break;
-            default:
-               throw new ArgumentOutOfRangeException();
-         }
+         //const string hint =
+         //   "\r\nUm eine schon verschobene Swapfile auf ein weiteres Laufwerk zu verschieben muss erst zum Stadium 2 zurückgekehrt werden um sie dann auf eine andere Partition auszulagern";
+         //switch (currentState)
+         //{
+         //   case OperatingMethods.SwapfileMethods.SwapfileState.Standard:
+         //      Swapfileinfo_tb.Text = "Die Registry muss zum verschieben zuerst geändert werden (Stadium 1/3)" + hint;
+         //      break;
+         //   case OperatingMethods.SwapfileMethods.SwapfileState.Disabled:
+         //      Swapfileinfo_tb.Text = "Es muss eine Verknüpfung zur Swapfile erstellt werden (Stadium 2/3)" + hint;
+         //      break;
+         //   case OperatingMethods.SwapfileMethods.SwapfileState.Moved:
+         //      Swapfileinfo_tb.Text = "Die Swapfile wurde verschoben (Stadium 3/3)" + hint;
+         //      break;
+         //   default:
+         //      throw new ArgumentOutOfRangeException();
+         //}
 
          Pagefilepartition_lb_SelectedIndexChanged(null, null);
          foreach (DriveInfo driveInfo in FileSystem.Drives)

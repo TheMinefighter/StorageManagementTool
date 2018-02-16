@@ -28,13 +28,13 @@ namespace StorageManagementTool
       private const string ProgramPathDefinitionRoot =
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion";
 
-      private const string PublicTempRoot=@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
-      
+      private const string PublicTempRoot = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
+
       private const string UserTempRoot = @"HKEY_CURRENT_USER\Environment";
       private UserShellFolder(string name, RegPath[] regPaths, bool moveExistingFiles = true,
          bool accessAsUser = false)
       {
-         if (regPaths.Length==0)
+         if (regPaths.Length == 0)
          {
             throw new ArgumentException("At least on required");
          }
@@ -53,21 +53,21 @@ namespace StorageManagementTool
          {
             ViewedName = name,
             RegPaths = user
-               ? new[] {new RegPath(ShellFolderRoot, id), new RegPath(UserShellFolderRoot, id)}
-               : new[] {new RegPath(ShellFolderRoot, id)},
+               ? new[] { new RegPath(ShellFolderRoot, id), new RegPath(UserShellFolderRoot, id) }
+               : new[] { new RegPath(ShellFolderRoot, id) },
             MoveExistingFiles = moveExistingFiles,
             Identifier = id
          };
       }
 
-      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true) 
+      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
       {
          return new UserShellFolder
          {
             ViewedName = name,
             RegPaths = user
-               ? new[] {new RegPath(CommonShellFolderRooot, id), new RegPath(CommonUserShellFolderRoot, id)}
-               : new[] {new RegPath(CommonShellFolderRooot, id)},
+               ? new[] { new RegPath(CommonShellFolderRooot, id), new RegPath(CommonUserShellFolderRoot, id) }
+               : new[] { new RegPath(CommonShellFolderRooot, id) },
             MoveExistingFiles = moveExistingFiles,
             Identifier = id
          };
@@ -133,8 +133,12 @@ namespace StorageManagementTool
                   new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir"),
                   new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir")
                }, false, true),
-            new UserShellFolder{Identifier = PrivateTemp,AccessAsUser = false,RegPaths = new []{new RegPath(UserTempRoot,"TEMP"), new RegPath(UserTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
-            new UserShellFolder{Identifier = PublicTemp,AccessAsUser = false,RegPaths = new []{new RegPath(PublicTempRoot,"TEMP"), new RegPath(PublicTempRoot,"TMP"), },MoveExistingFiles = false, ViewedName = ""}, 
+            new UserShellFolder{Identifier = "PrivateTemp",AccessAsUser = false,
+               RegPaths = new []{new RegPath(UserTempRoot,"TEMP"), new RegPath(UserTempRoot,"TMP"), },
+               MoveExistingFiles = false, ViewedName = PrivateTemp},
+            new UserShellFolder{Identifier = "PublicTemp",AccessAsUser = false,
+            RegPaths = new []{new RegPath(PublicTempRoot,"TEMP"), new RegPath(PublicTempRoot,"TMP"), },
+               MoveExistingFiles = false, ViewedName = PublicTemp},
          };
       }
 
@@ -142,7 +146,7 @@ namespace StorageManagementTool
 
       public static UserShellFolder GetUserShellFolderById(string id)
       {
-         return AllEditableUserUserShellFolders.First(x => x.Identifier==id);
+         return AllEditableUserUserShellFolders.First(x => x.Identifier == id);
       }
 
       public static UserShellFolder GetUserShellFolderByName(string name)
@@ -153,7 +157,7 @@ namespace StorageManagementTool
       public DirectoryInfo GetPath()
       {
          Wrapper.RegistryMethods.GetRegistryValue(RegPaths[0], out object regValue, AccessAsUser);
-         return new DirectoryInfo((string) regValue ?? Error);
+         return new DirectoryInfo((string)regValue ?? Error);
       }
 
       public static DirectoryInfo GetPath(UserShellFolder currentUSF)

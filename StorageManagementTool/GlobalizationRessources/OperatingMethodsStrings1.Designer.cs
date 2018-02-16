@@ -324,6 +324,51 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string GetDescription_Base {
+            get {
+                return ResourceManager.GetString("GetDescription_Base", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GetDescription_Disabled {
+            get {
+                return ResourceManager.GetString("GetDescription_Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GetDescription_Moved {
+            get {
+                return ResourceManager.GetString("GetDescription_Moved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GetDescription_None {
+            get {
+                return ResourceManager.GetString("GetDescription_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GetDescription_Standard {
+            get {
+                return ResourceManager.GetString("GetDescription_Standard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MoveFolderOrFile_PathsEqual {
             get {
                 return ResourceManager.GetString("MoveFolderOrFile_PathsEqual", resourceCulture);

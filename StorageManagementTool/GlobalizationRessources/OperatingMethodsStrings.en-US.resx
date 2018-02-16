@@ -231,4 +231,19 @@
   <data name="SetStadium_NewInvalid" xml:space="preserve">
     <value>The new path for the swapfile is invalid</value>
   </data>
+  <data name="GetDescription_Base" xml:space="preserve">
+    <value>Moving the swapfile is done in two steps,for reverting the settings you also need two steps</value>
+  </data>
+  <data name="GetDescription_Standard" xml:space="preserve">
+    <value>Currently the swapfile is in its standard state</value>
+  </data>
+  <data name="GetDescription_Disabled" xml:space="preserve">
+    <value>Currently the swapfile is in the mid state.</value>
+  </data>
+  <data name="GetDescription_Moved" xml:space="preserve">
+    <value>The swapfile were  moved to "{0}".</value>
+  </data>
+  <data name="GetDescription_None" xml:space="preserve">
+    <value>An Error occurred while reading the state of the swapfile</value>
+  </data>
 </root>

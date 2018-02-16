@@ -231,4 +231,19 @@
   <data name="SetStadium_NewInvalid" xml:space="preserve">
     <value>Es wurde ein ungültiger Pfad für den neuen Speicherort eingegeben</value>
   </data>
+  <data name="GetDescription_Base" xml:space="preserve">
+    <value>Das verschieben der swapfile wird in 2 Schritten durchgeführt, das wiederherstellen, des normalen Status benötigt auch zwei Schritte</value>
+  </data>
+  <data name="GetDescription_Standard" xml:space="preserve">
+    <value>Aktuell ist die swapfile im Standard Status</value>
+  </data>
+  <data name="GetDescription_Disabled" xml:space="preserve">
+    <value>Aktuell ist die swapfile im mittleren Status</value>
+  </data>
+  <data name="GetDescription_Moved" xml:space="preserve">
+    <value>Die swapfile wurde nach "{0}" verschoben</value>
+  </data>
+  <data name="GetDescription_None" xml:space="preserve">
+    <value>Beim Lesen des swapfile Status ist ein Fehler aufgetreten</value>
+  </data>
 </root>

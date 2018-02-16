@@ -231,4 +231,19 @@
   <data name="SetStadium_NewInvalid" xml:space="preserve">
     <value></value>
   </data>
+  <data name="GetDescription_Base" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GetDescription_Standard" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GetDescription_Disabled" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GetDescription_Moved" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GetDescription_None" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
