@@ -33,7 +33,7 @@ namespace StorageManagementTool
             }
          }
 
-         public static bool GetRegistryValue(RegPath path, out object toReturn, bool asUser = false)
+         public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false)
          {
             toReturn = null;
             if (asUser)
@@ -159,7 +159,7 @@ namespace StorageManagementTool
          /// <param name="registryValueKind">The type of the content</param>
          /// <param name="asUser"></param>
          /// <returns></returns>
-         public static bool SetRegistryValue(RegPath valueLocation, object content, RegistryValueKind registryValueKind,
+         public static bool SetRegistryValue(RegistryValue valueLocation, object content, RegistryValueKind registryValueKind,
             bool asUser = false)
          {
             if (asUser || !Session.Singleton.IsAdmin)
@@ -168,10 +168,10 @@ namespace StorageManagementTool
                switch (registryValueKind)
                {
                   case RegistryValueKind.DWord:
-                     value = ((uint) content).ToString();
+                     value = content is int ? ((int) content).ToString() : ((uint) content).ToString();
                      break;
                   case RegistryValueKind.QWord:
-                     value = ((ulong) content).ToString();
+                     value = content is long?((long)content).ToString(): ((ulong) content).ToString();
                      break;
                   case RegistryValueKind.String:
                      value = ((string) content).Replace("\"", "\\\"");
@@ -190,9 +190,10 @@ namespace StorageManagementTool
                string kind = Win32ApiRepresentation(registryValueKind);
                if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
                       $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\"",
-                      out string[] ret, out int tmpExitCode, true, true, true, !asUser,
+                      out string[] _, out int tmpExitCode, true, true, true, !asUser,
                       asUser) || tmpExitCode == 1)
                {
+                  return false;
                }
 
                return true;
@@ -200,7 +201,7 @@ namespace StorageManagementTool
 
             try
             {
-               Registry.SetValue(valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind);
+               Registry.SetValue(valueLocation.RegistryKey, valueLocation.ValueName, content, registryValueKind);
             }
             catch (SecurityException)
             {

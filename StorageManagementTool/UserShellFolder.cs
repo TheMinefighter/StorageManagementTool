@@ -9,7 +9,7 @@ namespace StorageManagementTool
    {
 
       public string ViewedName;
-      public RegPath[] RegPaths;
+      public RegistryValue[] RegistryValues;
       public bool MoveExistingFiles;
       public bool AccessAsUser;
       public string Identifier;
@@ -31,18 +31,18 @@ namespace StorageManagementTool
       private const string PublicTempRoot = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
 
       private const string UserTempRoot = @"HKEY_CURRENT_USER\Environment";
-      private UserShellFolder(string name, RegPath[] regPaths, bool moveExistingFiles = true,
+      private UserShellFolder(string name, RegistryValue[] registryValues, bool moveExistingFiles = true,
          bool accessAsUser = false)
       {
-         if (regPaths.Length == 0)
+         if (registryValues.Length == 0)
          {
             throw new ArgumentException("At least on required");
          }
          ViewedName = name;
-         RegPaths = regPaths;
+         RegistryValues = registryValues;
          MoveExistingFiles = moveExistingFiles;
          AccessAsUser = accessAsUser;
-         Identifier = regPaths[0].ValueName;
+         Identifier = registryValues[0].ValueName;
       }
 
       //   public UserShellFolder()  {  }
@@ -52,9 +52,9 @@ namespace StorageManagementTool
          return new UserShellFolder
          {
             ViewedName = name,
-            RegPaths = user
-               ? new[] { new RegPath(ShellFolderRoot, id), new RegPath(UserShellFolderRoot, id) }
-               : new[] { new RegPath(ShellFolderRoot, id) },
+            RegistryValues = user
+               ? new[] { new RegistryValue(ShellFolderRoot, id), new RegistryValue(UserShellFolderRoot, id) }
+               : new[] { new RegistryValue(ShellFolderRoot, id) },
             MoveExistingFiles = moveExistingFiles,
             Identifier = id
          };
@@ -65,9 +65,9 @@ namespace StorageManagementTool
          return new UserShellFolder
          {
             ViewedName = name,
-            RegPaths = user
-               ? new[] { new RegPath(CommonShellFolderRooot, id), new RegPath(CommonUserShellFolderRoot, id) }
-               : new[] { new RegPath(CommonShellFolderRooot, id) },
+            RegistryValues = user
+               ? new[] { new RegistryValue(CommonShellFolderRooot, id), new RegistryValue(CommonUserShellFolderRoot, id) }
+               : new[] { new RegistryValue(CommonShellFolderRooot, id) },
             MoveExistingFiles = moveExistingFiles,
             Identifier = id
          };
@@ -125,19 +125,19 @@ namespace StorageManagementTool
             new UserShellFolder(ProgramFilesDir_x86_Name,
                new[]
                {
-                  new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir (x86)")
+                  new RegistryValue(ProgramPathDefinitionRoot, "ProgramFilesDir (x86)")
                }, false, true),
             new UserShellFolder(ProgramFilesDir_Name,
                new[]
                {
-                  new RegPath(ProgramPathDefinitionRoot, "ProgramFilesDir"),
-                  new RegPath(ProgramPathDefinitionRoot, "ProgramW6432Dir")
+                  new RegistryValue(ProgramPathDefinitionRoot, "ProgramFilesDir"),
+                  new RegistryValue(ProgramPathDefinitionRoot, "ProgramW6432Dir")
                }, false, true),
             new UserShellFolder{Identifier = "PrivateTemp",AccessAsUser = false,
-               RegPaths = new []{new RegPath(UserTempRoot,"TEMP"), new RegPath(UserTempRoot,"TMP"), },
+               RegistryValues = new []{new RegistryValue(UserTempRoot,"TEMP"), new RegistryValue(UserTempRoot,"TMP"), },
                MoveExistingFiles = false, ViewedName = PrivateTemp},
             new UserShellFolder{Identifier = "PublicTemp",AccessAsUser = false,
-            RegPaths = new []{new RegPath(PublicTempRoot,"TEMP"), new RegPath(PublicTempRoot,"TMP"), },
+            RegistryValues = new []{new RegistryValue(PublicTempRoot,"TEMP"), new RegistryValue(PublicTempRoot,"TMP"), },
                MoveExistingFiles = false, ViewedName = PublicTemp},
          };
       }
@@ -156,7 +156,7 @@ namespace StorageManagementTool
 
       public DirectoryInfo GetPath()
       {
-         Wrapper.RegistryMethods.GetRegistryValue(RegPaths[0], out object regValue, AccessAsUser);
+         Wrapper.RegistryMethods.GetRegistryValue(RegistryValues[0], out object regValue, AccessAsUser);
          return new DirectoryInfo((string)regValue ?? Error);
       }
 

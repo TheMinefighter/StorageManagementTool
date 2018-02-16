@@ -86,7 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackGroundNotificationCreator.cs" />
+    <Compile Include="BackgroundNotificationCreator.cs" />
     <Compile Include="ConsoleIO.cs" />
     <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -182,7 +182,7 @@
     <Compile Include="OperatingMethods.SwapfileMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegPath.cs" />
+    <Compile Include="RegistryValue.cs" />
     <Compile Include="ScenarioPreset.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="UserShellFolder.cs" />

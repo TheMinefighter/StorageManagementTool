@@ -24,7 +24,7 @@ namespace StorageManagementTool
          Ask
       }
 
-      public static readonly RegPath SearchDatatDirectoryRegPath = new RegPath(
+      public static readonly RegistryValue SearchDatatDirectoryRegistryValue = new RegistryValue(
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
 
       /// <summary>
@@ -295,7 +295,7 @@ namespace StorageManagementTool
          Dictionary<UserShellFolder, DirectoryInfo> childs = UserShellFolder
             .AllEditableUserUserShellFolders
             .Select(x => new KeyValuePair<UserShellFolder, DirectoryInfo>(x, x.GetPath()))
-            .Where(x => Wrapper.IsSubfolder(currentPath, x.Value)).ToDictionary();
+            .Where(x => Wrapper.IsSubfolder(x.Value,currentPath)).ToDictionary();
          bool MoveAll = false;
 
          foreach (KeyValuePair<UserShellFolder, DirectoryInfo> child in childs)
@@ -310,8 +310,7 @@ namespace StorageManagementTool
                   ChangeUserShellFolder_SubfolderFound_Title,
                   childs.Count == 1
                      ? new[] {ChangeUserShellFolder_SubfolderFound_Yes, ChangeUserShellFolder_SubfolderFound_No}
-                     : new[]
-                     {
+                     : new[] {
                         ChangeUserShellFolder_SubfolderFound_YesAll, ChangeUserShellFolder_SubfolderFound_Yes,
                         ChangeUserShellFolder_SubfolderFound_No
                      }, 0));
@@ -329,7 +328,7 @@ namespace StorageManagementTool
             {
                string newPathOfChild = Path.Combine(newDir.FullName,
                   child.Value.FullName.Substring(currentPath.FullName.Length));
-               foreach (RegPath x in child.Key.RegPaths)
+               foreach (RegistryValue x in child.Key.RegistryValues)
                {
                   bool retry;
                   bool skip = false;
@@ -369,7 +368,7 @@ namespace StorageManagementTool
             }
          }
 
-         if (usf.RegPaths.All(x =>
+         if (usf.RegistryValues.All(x =>
             Wrapper.RegistryMethods.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser)))
          {
             if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles &&
@@ -441,7 +440,7 @@ namespace StorageManagementTool
       {
          if (newPath.Exists)
          {
-            if (Wrapper.RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegPath,
+            if (Wrapper.RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegistryValue,
                newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
                RegistryValueKind.String,
                true))

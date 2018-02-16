@@ -230,7 +230,7 @@ namespace StorageManagementTool.MainGUI
       {
          Wrapper.FileAndFolder.DeleteFile(new FileInfo("F:\\Prg\\Energy\\Eray.exe"));
          //Wrapper.RegistryMethods.GetRegistryValue(
-         //   new RegPath("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Cache"),
+         //   new RegistryValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Cache"),
          //   out object tmp,true);
       }
    }

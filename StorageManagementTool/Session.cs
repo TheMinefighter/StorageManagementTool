@@ -99,7 +99,7 @@ namespace StorageManagementTool
 //      {
 //         if (Wrapper.FileAndFolder.IsPathSymbolic(@"C:\swapfile.sys"))
 //         {
-//            Wrapper.RegistryMethods.GetRegistryValue(new RegPath(
+//            Wrapper.RegistryMethods.GetRegistryValue(new RegistryValue(
 //               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
 //               "SwapFileControl"), out object regValue);
 //            Swapstadium =
@@ -109,7 +109,7 @@ namespace StorageManagementTool
 //         }
 //         else
 //         {
-//            Wrapper.RegistryMethods.GetRegistryValue(new RegPath(
+//            Wrapper.RegistryMethods.GetRegistryValue(new RegistryValue(
 //               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
 //               "SwapFileControl"), out object regValue);
 //            Swapstadium =

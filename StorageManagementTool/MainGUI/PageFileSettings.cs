@@ -118,8 +118,6 @@ namespace StorageManagementTool.MainGUI
 
       private void SwapfileStepForward_btn_Click(object sender, EventArgs e)
       {
-         if (Session.Singleton.IsAdmin)
-         {
             if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(true, currentState))
             {
                ProgramStatusStrip.Text =
@@ -137,13 +135,7 @@ namespace StorageManagementTool.MainGUI
                ProgramStatusStrip.Text =
                   "Bei dem Versuch den nächsten Schritt beim verschieben des Speicherortes der Swapfile durchzuführen ist ein Fehler aufgetaucht";
             }
-         }
-         else
-         {
-            MessageBox.Show("Für diese Operation muss das Programm mit Administratoren-Privilegien gestartet werden.",
-               "Administratoren-Privilegien", MessageBoxButtons.OK, MessageBoxIcon.Error,
-               MessageBoxDefaultButton.Button1);
-         }
+
       }
 
       private void RefreshAvailablePartitions_btn_Click(object sender, EventArgs e)
@@ -159,7 +151,7 @@ namespace StorageManagementTool.MainGUI
             true);
          Thread.Sleep(500);
          MessageBox.Show(
-            "Öffne den Tab \"Erweitert\" und klicke dort auf \"Ändern...\" um die Weiteren Optionen für Arbeitsspeicherauslagerungas Dateien zu öffnen ",
+            "Öffne den Tab \"Erweitert\" und klicke dort auf \"Ändern...\" um die Weiteren Optionen für Arbeitsspeicherauslagerungas Dateien zu öffnen.",
             "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
       }
 

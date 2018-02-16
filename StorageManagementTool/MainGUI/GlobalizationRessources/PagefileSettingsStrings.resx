@@ -139,4 +139,16 @@
   <data name="PagefileDrive_lbl_Text" xml:space="preserve">
     <value></value>
   </data>
+  <data name="SwapfileSuccessful_Restart_Title" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SwapfileSuccessful_Restart_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ExtendedPagefileOptions_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ExtendedPagefileOptions_Title" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

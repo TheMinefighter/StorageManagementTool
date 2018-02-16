@@ -79,7 +79,8 @@ namespace StorageManagementTool.MainGUI
       private void ExistingUSF_lb_SelectedIndexChanged(object sender, EventArgs e)
       {
          EnableComponents();
-         UserShellFolder currentUSF = UserShellFolder.AllEditableUserUserShellFolders[ExistingUSF_lb.SelectedIndex];
+
+         UserShellFolder currentUSF = UserShellFolder.AllEditableUserUserShellFolders[ExistingUSF_lb.SelectedIndex==-1?0:ExistingUSF_lb.SelectedIndex];
          CurrentUSFPath_tb.Text = UserShellFolder.GetPath(currentUSF).FullName;
       }
 

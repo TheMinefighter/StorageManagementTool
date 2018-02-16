@@ -3,7 +3,7 @@
    /// <summary>
    ///    Class for storing a windows registry path
    /// </summary>
-   public struct RegPath
+   public struct RegistryValue
    {
       /// <summary>
       ///    The where the value is stored
@@ -15,7 +15,7 @@
       /// </summary>
       public string ValueName;
 
-      public RegPath(string registryKey, string valueName)
+      public RegistryValue(string registryKey, string valueName)
       {
          RegistryKey = registryKey;
          ValueName = valueName;
@@ -26,7 +26,7 @@
          return RegistryKey + '\\' + ValueName;
       }
 
-//public RegPath()
+//public RegistryValue()
       //{
       //}
    }

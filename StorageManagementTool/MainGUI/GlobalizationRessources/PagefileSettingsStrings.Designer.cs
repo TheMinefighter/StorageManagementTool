@@ -99,6 +99,24 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ExtendedPagefileOptions_Text {
+            get {
+                return ResourceManager.GetString("ExtendedPagefileOptions_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ExtendedPagefileOptions_Title {
+            get {
+                return ResourceManager.GetString("ExtendedPagefileOptions_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string HiberfilSettings_gb_Text {
             get {
                 return ResourceManager.GetString("HiberfilSettings_gb_Text", resourceCulture);
@@ -174,6 +192,24 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         internal static string SwapfileStepForward_btn_Text {
             get {
                 return ResourceManager.GetString("SwapfileStepForward_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SwapfileSuccessful_Restart_Text {
+            get {
+                return ResourceManager.GetString("SwapfileSuccessful_Restart_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SwapfileSuccessful_Restart_Title {
+            get {
+                return ResourceManager.GetString("SwapfileSuccessful_Restart_Title", resourceCulture);
             }
         }
         

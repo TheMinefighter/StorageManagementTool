@@ -159,4 +159,10 @@
   <data name="MaximumPagefileSize_lbl_Text" xml:space="preserve">
     <value>Maximale Größe (MB)</value>
   </data>
+  <data name="SwapfileSuccessful_Restart_Text" xml:space="preserve">
+    <value>Der Computer muss neugestartet werden um die Änderungen zu übernehmen und um weitere Schritte auszuführen. Jetzt neustarten?</value>
+  </data>
+  <data name="SwapfileSuccessful_Restart_Title" xml:space="preserve">
+    <value>Neustarten?</value>
+  </data>
 </root>

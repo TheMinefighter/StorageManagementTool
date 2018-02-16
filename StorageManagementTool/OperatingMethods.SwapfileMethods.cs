@@ -14,19 +14,17 @@ namespace StorageManagementTool
          {
             case SwapfileMethods.SwapfileState.Standard:
                return GetDescription_Base + GetDescription_Standard;
-               break;
             case SwapfileMethods.SwapfileState.Disabled:
                return GetDescription_Base + GetDescription_Disabled;
-               break;
             case SwapfileMethods.SwapfileState.Moved:
-               return GetDescription_Base+ string.Format(GetDescription_Moved,SwapfileMethods.getSwapfilePath());
+               return GetDescription_Base + string.Format(GetDescription_Moved, SwapfileMethods.getSwapfilePath());
             case SwapfileMethods.SwapfileState.None:
                return GetDescription_Base + GetDescription_None;
-               break;
-            default:
+               default:
                throw new ArgumentOutOfRangeException(nameof(state), state, null);
          }
       }
+
       public static class SwapfileMethods
       {
          /// <summary>
@@ -60,8 +58,8 @@ namespace StorageManagementTool
          }
 
          private static readonly string DefaultSwapfileLocation = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
-         private static readonly RegPath SwapfileControl = new RegPath(
-            @"HKEY_LOCAL_MACHINE\SYSTEM\CbnurrentControlSet\Control\Session Manager\Memory Management",
+         private static readonly RegistryValue SwapfileControl = new RegistryValue(
+            @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
             "SwapFileControl");
 
          /// <summary>
@@ -146,7 +144,7 @@ namespace StorageManagementTool
          {
             if (!Wrapper.RegistryMethods.GetRegistryValue(SwapfileControl, out object regValue))
             {
-               return SwapfileState.Standard;
+               return SwapfileState.None;
             }
 
             if ((uint?)regValue == null || (uint?)regValue == 1)
