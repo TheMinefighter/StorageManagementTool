@@ -266,6 +266,7 @@
          // 
          this.AdministartorStatus_tb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+         this.AdministartorStatus_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.AdministartorStatus_tb.Location = new System.Drawing.Point(6, 48);
          this.AdministartorStatus_tb.Multiline = true;
          this.AdministartorStatus_tb.Name = "AdministartorStatus_tb";

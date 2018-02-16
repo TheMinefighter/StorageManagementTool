@@ -333,15 +333,6 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string StoreOnHDDLink {
-            get {
-                return ResourceManager.GetString("StoreOnHDDLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string Suggestions_gb_Text {
             get {
                 return ResourceManager.GetString("Suggestions_gb_Text", resourceCulture);

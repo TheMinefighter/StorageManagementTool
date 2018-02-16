@@ -201,10 +201,7 @@
   <data name="EnableSendToHDD" xml:space="preserve">
     <value>Enable send to HDD</value>
   </data>
-  <data name="StoreOnHDDLink" xml:space="preserve">
-    <value>Store on HDD</value>
-  </data>
-  <data name="Suggestions_gb_Text" xml:space="preserve">
+   <data name="Suggestions_gb_Text" xml:space="preserve">
     <value>Suggestions</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">

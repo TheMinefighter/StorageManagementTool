@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using StorageManagementTool.GlobalizationRessources;
 using StorageManagementTool.MainGUI.GlobalizationRessources;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 
@@ -173,12 +174,6 @@ namespace StorageManagementTool
                }
             }
          }
-      }
-
-      public static bool IsSendToEnabled()
-      {
-         return File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-            MainWindowStrings.StoreOnHDDLink + ".lnk"));
       }
    }
 }

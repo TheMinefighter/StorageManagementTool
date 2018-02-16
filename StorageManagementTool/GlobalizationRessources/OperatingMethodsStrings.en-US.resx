@@ -246,4 +246,7 @@
   <data name="GetDescription_None" xml:space="preserve">
     <value>An Error occurred while reading the state of the swapfile</value>
   </data>
+   <data name="StoreOnHDDLinkName" xml:space="preserve">
+    <value>Store on HDD</value>
+  </data>
 </root>

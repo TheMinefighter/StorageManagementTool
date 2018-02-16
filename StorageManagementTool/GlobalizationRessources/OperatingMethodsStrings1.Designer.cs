@@ -446,5 +446,14 @@ namespace StorageManagementTool.GlobalizationRessources {
                 return ResourceManager.GetString("SetStadium_NoNewPathGiven", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string StoreOnHDDLinkName {
+            get {
+                return ResourceManager.GetString("StoreOnHDDLinkName", resourceCulture);
+            }
+        }
     }
 }

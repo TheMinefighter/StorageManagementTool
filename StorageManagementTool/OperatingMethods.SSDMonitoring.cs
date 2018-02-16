@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security;
 using System.Security.Principal;
 using System.Xml.Linq;
+using StorageManagementTool.GlobalizationRessources;
 using StorageManagementTool.MainGUI.GlobalizationRessources;
 using File = System.IO.File;
 
@@ -169,6 +170,12 @@ namespace StorageManagementTool
          }
 
          return true;
+      }
+
+      public static bool IsSendToEnabled()
+      {
+         return File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+            OperatingMethodsStrings.StoreOnHDDLinkName + ".lnk"));
       }
    }
 }

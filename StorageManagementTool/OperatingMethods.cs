@@ -420,7 +420,7 @@ namespace StorageManagementTool
 
             WshShell shell = new WshShell();
             string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-               "Auf HDD Speichern.lnk");
+              StoreOnHDDLinkName+ ".lnk");
             IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
             shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
             shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
@@ -432,7 +432,7 @@ namespace StorageManagementTool
          else
          {
             File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-               "Auf HDD Speichern.lnk"));
+               StoreOnHDDLinkName + ".lnk"));
          }
       }
 

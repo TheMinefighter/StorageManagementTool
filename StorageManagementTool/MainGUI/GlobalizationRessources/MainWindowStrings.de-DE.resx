@@ -201,10 +201,7 @@
   <data name="SetRootPath_btn_Text" xml:space="preserve">
     <value>Neuen Basis Pfad wählen</value>
   </data>
-  <data name="StoreOnHDDLink" xml:space="preserve">
-    <value>Auf HDD Speichern</value>
-  </data>
-  <data name="Suggestions_gb_Text" xml:space="preserve">
+   <data name="Suggestions_gb_Text" xml:space="preserve">
     <value>Vorschläge</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
