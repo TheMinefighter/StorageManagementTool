@@ -29,6 +29,9 @@ namespace StorageManagementTool
             /// Active when swapfile were moved
             /// </summary>
             Moved,
+            /// <summary>
+            /// Never active, only for technical purposes
+            /// </summary>
             None
          }
 
@@ -122,8 +125,7 @@ namespace StorageManagementTool
                return SwapfileState.Standard;
             }
 
-            if (
-               (uint?)regValue == null || (uint?)regValue == 1)
+            if ((uint?)regValue == null || (uint?)regValue == 1)
             {
                if (Wrapper.FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation))
                {

@@ -18,9 +18,14 @@ namespace StorageManagementTool
 
       private void Ok_btn_Click(object sender, EventArgs e)
       {
-         if (!Wrapper.IsUser(Username_tb.Text)
-            //  Wrapper.IsUserInLocalGroup(Username_tb.Text, "Benutzer")
-         )
+         SecureString password = new SecureString();
+
+         foreach (char c in Password_tb.Text)
+         {
+            password.AppendChar(c);
+         }
+         Password_tb.Text = "";
+         if (!Wrapper.IsUser(Username_tb.Text))
          {
             MessageBox.Show(EnterAUsername, Error, MessageBoxButtons.OK,
                MessageBoxIcon.Error);
@@ -30,10 +35,7 @@ namespace StorageManagementTool
             return;
          }
 
-         if (
-            //     Wrapper.IsUserInLocalGroup(Username_tb.Text, "Administratoren")
-            Wrapper.IsAdmin(Username_tb.Text)
-         )
+         if (Wrapper.IsAdmin(Username_tb.Text))
          {
             ((DialogReturnData) Tag).IsAdmin = true;
          }
@@ -52,38 +54,18 @@ namespace StorageManagementTool
             ((DialogReturnData) Tag).IsAdmin = false;
          }
 
-         Process pProcess = new Process
-         {
-            StartInfo = new ProcessStartInfo(Path.Combine(Wrapper.System32Path, "cmd.exe"), " /C exit")
-            {
-               WindowStyle = ProcessWindowStyle.Hidden,
-               UseShellExecute = false,
-               Password = new SecureString(),
-               UserName = Username_tb.Text
-            }
-         };
+         string username = Username_tb.Text;
 
-         foreach (char c in Password_tb.Text)
-         {
-            pProcess.StartInfo.Password.AppendChar(c);
-         }
-
-         try
-         {
-            pProcess.Start();
-         }
-         catch (Exception)
+         if (!OperatingMethods.TestCredentials(username, password))
          {
             MessageBox.Show(EnteredCredentialsAreInvalid, Error, MessageBoxButtons.OK,
                MessageBoxIcon.Error);
-            Password_tb.Text = "";
             Password_tb.Focus();
             return;
          }
 
          ((DialogReturnData) Tag).GivenCredentials.Username = Username_tb.Text;
-         Password_tb.Text.ToCharArray().ToList()
-            .ForEach(x => ((DialogReturnData) Tag).GivenCredentials.Password.AppendChar(x));
+         ((DialogReturnData) Tag).GivenCredentials.Password = password;
          ((DialogReturnData) Tag).IsAborted = false;
          Close();
       }

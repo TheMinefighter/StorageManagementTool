@@ -226,7 +226,7 @@ namespace StorageManagementTool
             wmicPath, "computersystem get AutomaticManagedPagefile /Value"
             , out string[] tmp, out int _, true, true, true, true)) //Tests
          {
-            if (bool.Parse(tmp[2].Split('=')[1]))
+            if (Boolean.Parse(tmp[2].Split('=')[1]))
             {
                Wrapper.ExecuteCommand(
                   wmicPath
@@ -237,7 +237,7 @@ namespace StorageManagementTool
                   wmicPath
                   , "computersystem get AutomaticManagedPagefile /Value"
                   , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
-               if (!bool.Parse(tmp[2].Split('=')[1]))
+               if (!Boolean.Parse(tmp[2].Split('=')[1]))
                {
                   MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
                      Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -307,7 +307,7 @@ namespace StorageManagementTool
             {
                //No;Yes;YesAll
                ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                  string.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
+                  String.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
                   ChangeUserShellFolder_SubfolderFound_Title,
                   childs.Count == 1
                      ? new[] {ChangeUserShellFolder_SubfolderFound_Yes, ChangeUserShellFolder_SubfolderFound_No}
@@ -340,12 +340,12 @@ namespace StorageManagementTool
                      if (!Wrapper.RegistryMethods.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
                      {
                         switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                           string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
+                           String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
                               x.ValueName, x.RegistryKey, newPathOfChild), Error,
                            new[]
                            {
                               ChangeUserShellFolder_ErrorChangeSubfolder_Retry,
-                              string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
+                              String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
                               ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
                               ChangeUserShellFolder_ErrorChangeSubfolder_Abort
                            }, 0)).NumberOfClickedButton)
@@ -384,7 +384,7 @@ namespace StorageManagementTool
                {
                   if (deleteOldContents == QuestionAnswer.Yes || deleteOldContents == QuestionAnswer.Ask &&
                       MessageBox.Show(
-                         string.Format(
+                         String.Format(
                             ChangeUserShellFolder_DeleteContent_Text,
                             oldDir.FullName, newDir.FullName),
                          ChangeUserShellFolder_DeleteContent_Title,
@@ -461,7 +461,7 @@ namespace StorageManagementTool
                ServiceController wSearch = new ServiceController("WSearch");
                if (!RecursiveServiceRestart(wSearch))
                {
-                  if (MessageBox.Show(string.Format(
+                  if (MessageBox.Show(String.Format(
                             SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
                          SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
                       DialogResult.Yes)
