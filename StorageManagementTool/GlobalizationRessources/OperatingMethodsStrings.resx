@@ -246,7 +246,10 @@
   <data name="GetDescription_None" xml:space="preserve">
     <value></value>
   </data>
-   <data name="StoreOnHDDLinkName" xml:space="preserve">
+  <data name="StoreOnHDDLinkName" xml:space="preserve">
     <value />
+  </data>
+  <data name="GetDescription_MovedNoAdmin" xml:space="preserve">
+    <value></value>
   </data>
 </root>

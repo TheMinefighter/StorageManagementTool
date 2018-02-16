@@ -57,6 +57,8 @@
          // 
          // HiberfilSettings_gb
          // 
+         this.HiberfilSettings_gb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.HiberfilSettings_gb.Controls.Add(this.DisableHibernate_btn);
          this.HiberfilSettings_gb.Controls.Add(this.EnableHibernate_btn);
          this.HiberfilSettings_gb.Location = new System.Drawing.Point(12, 12);
@@ -92,6 +94,8 @@
          // 
          // PagefileSettings_gb
          // 
+         this.PagefileSettings_gb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.PagefileSettings_gb.Controls.Add(this.MinimumPagefileSize_nud);
          this.PagefileSettings_gb.Controls.Add(this.MaximumPagefilesize_nud);
          this.PagefileSettings_gb.Controls.Add(this.ExtendedPagefileOptions_btn);
@@ -109,6 +113,8 @@
          // 
          // MinimumPagefileSize_nud
          // 
+         this.MinimumPagefileSize_nud.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.MinimumPagefileSize_nud.Increment = new decimal(new int[] {
             1024,
             0,
@@ -137,6 +143,8 @@
          // 
          // MaximumPagefilesize_nud
          // 
+         this.MaximumPagefilesize_nud.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.MaximumPagefilesize_nud.Increment = new decimal(new int[] {
             1024,
             0,
@@ -229,7 +237,9 @@
          // 
          // SwapfileSettings_gb
          // 
-         this.SwapfileSettings_gb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.SwapfileSettings_gb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.SwapfileSettings_gb.Controls.Add(this.Swapfilepartition_lb);
          this.SwapfileSettings_gb.Controls.Add(this.Swapfileinfo_tb);
          this.SwapfileSettings_gb.Controls.Add(this.SwapfileStepBackward_btn);
@@ -243,7 +253,9 @@
          // 
          // Swapfilepartition_lb
          // 
-         this.Swapfilepartition_lb.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+         this.Swapfilepartition_lb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.Swapfilepartition_lb.FormattingEnabled = true;
          this.Swapfilepartition_lb.Location = new System.Drawing.Point(6, 88);
          this.Swapfilepartition_lb.Name = "Swapfilepartition_lb";
@@ -266,7 +278,7 @@
          // 
          // SwapfileStepBackward_btn
          // 
-         this.SwapfileStepBackward_btn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+         this.SwapfileStepBackward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.SwapfileStepBackward_btn.Location = new System.Drawing.Point(213, 134);
          this.SwapfileStepBackward_btn.Name = "SwapfileStepBackward_btn";
          this.SwapfileStepBackward_btn.Size = new System.Drawing.Size(137, 23);
@@ -277,7 +289,8 @@
          // 
          // SwapfileStepForward_btn
          // 
-         this.SwapfileStepForward_btn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+         this.SwapfileStepForward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.SwapfileStepForward_btn.Location = new System.Drawing.Point(213, 88);
          this.SwapfileStepForward_btn.Name = "SwapfileStepForward_btn";
          this.SwapfileStepForward_btn.Size = new System.Drawing.Size(137, 40);
@@ -288,6 +301,8 @@
          // 
          // RefreshAvailableParitions_btn
          // 
+         this.RefreshAvailableParitions_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.RefreshAvailableParitions_btn.Location = new System.Drawing.Point(12, 428);
          this.RefreshAvailableParitions_btn.Name = "RefreshAvailableParitions_btn";
          this.RefreshAvailableParitions_btn.Size = new System.Drawing.Size(356, 21);

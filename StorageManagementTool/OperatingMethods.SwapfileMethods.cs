@@ -19,7 +19,7 @@ namespace StorageManagementTool
             case SwapfileMethods.SwapfileState.Disabled:
                return GetDescription_Base + GetDescription_Disabled;
             case SwapfileMethods.SwapfileState.Moved:
-               return GetDescription_Base + String.Format(GetDescription_Moved, SwapfileMethods.getSwapfilePath());
+               return GetDescription_Base +(Session.Singleton.IsAdmin? String.Format(GetDescription_Moved, SwapfileMethods.getSwapfilePath()):GetDescription_MovedNoAdmin);
             case SwapfileMethods.SwapfileState.None:
                return GetDescription_Base + GetDescription_None;
                default:

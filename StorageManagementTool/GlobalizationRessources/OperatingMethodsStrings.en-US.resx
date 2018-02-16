@@ -246,7 +246,10 @@
   <data name="GetDescription_None" xml:space="preserve">
     <value>An Error occurred while reading the state of the swapfile</value>
   </data>
-   <data name="StoreOnHDDLinkName" xml:space="preserve">
+  <data name="StoreOnHDDLinkName" xml:space="preserve">
     <value>Store on HDD</value>
+  </data>
+  <data name="GetDescription_MovedNoAdmin" xml:space="preserve">
+    <value>The swapfile were moved to another partition. To see which restart the program as administrator</value>
   </data>
 </root>

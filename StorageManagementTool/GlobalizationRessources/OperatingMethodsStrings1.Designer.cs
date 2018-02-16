@@ -351,6 +351,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string GetDescription_MovedNoAdmin {
+            get {
+                return ResourceManager.GetString("GetDescription_MovedNoAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string GetDescription_None {
             get {
                 return ResourceManager.GetString("GetDescription_None", resourceCulture);
