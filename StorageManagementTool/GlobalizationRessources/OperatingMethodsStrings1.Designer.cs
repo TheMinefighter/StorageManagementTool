@@ -387,6 +387,15 @@ namespace StorageManagementTool.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string SetStadium_NewInvalid {
+            get {
+                return ResourceManager.GetString("SetStadium_NewInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SetStadium_NoNewPathGiven {
             get {
                 return ResourceManager.GetString("SetStadium_NoNewPathGiven", resourceCulture);

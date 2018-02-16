@@ -34,7 +34,7 @@ namespace StorageManagementTool
       /// <summary>
       ///    The List of drives currently available
       /// </summary>
-      public List<DriveInfo> CurrentDrives;
+   //   public List<DriveInfo> CurrentDrives;
 
       /// <summary>
       ///    Whether the program runs as administrator
@@ -44,7 +44,7 @@ namespace StorageManagementTool
       /// <summary>
       ///    The stadium of the swapfile
       /// </summary>
-      public int Swapstadium;
+//      public int Swapstadium;
 
       /// <summary>
       ///    Creates a new Session
@@ -95,29 +95,29 @@ namespace StorageManagementTool
       /// <summary>
       ///    Refreshes the current Stadium of the Swapfile Movement
       /// </summary>
-      public void RefreshSwapfileStadium()
-      {
-         if (Wrapper.FileAndFolder.IsPathSymbolic(@"C:\swapfile.sys"))
-         {
-            Wrapper.RegistryMethods.GetRegistryValue(new RegPath(
-               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-               "SwapFileControl"), out object regValue);
-            Swapstadium =
-               (uint?) regValue == null || (uint?) regValue == 1
-                  ? 4
-                  : 3;
-         }
-         else
-         {
-            Wrapper.RegistryMethods.GetRegistryValue(new RegPath(
-               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-               "SwapFileControl"), out object regValue);
-            Swapstadium =
-               (uint?) regValue == null || (uint?) regValue == 1
-                  ? 1
-                  : 2;
-         }
-      }
+//      public void RefreshSwapfileStadium()
+//      {
+//         if (Wrapper.FileAndFolder.IsPathSymbolic(@"C:\swapfile.sys"))
+//         {
+//            Wrapper.RegistryMethods.GetRegistryValue(new RegPath(
+//               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+//               "SwapFileControl"), out object regValue);
+//            Swapstadium =
+//               (uint?) regValue == null || (uint?) regValue == 1
+//                  ? 4
+//                  : 3;
+//         }
+//         else
+//         {
+//            Wrapper.RegistryMethods.GetRegistryValue(new RegPath(
+//               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
+//               "SwapFileControl"), out object regValue);
+//            Swapstadium =
+//               (uint?) regValue == null || (uint?) regValue == 1
+//                  ? 1
+//                  : 2;
+//         }
+//      }
 
       /// <summary>
       ///    Fills an given Listbox with information about the available Drives
@@ -126,7 +126,7 @@ namespace StorageManagementTool
       public void FillWithDriveInfo(ListBox toFill)
       {
          toFill.Items.Clear();
-         foreach (DriveInfo item in CurrentDrives)
+         foreach (DriveInfo item in FileSystem.Drives)
          {
             toFill.Items.Add(OperatingMethods.DriveInfo2String(item));
          }
@@ -147,19 +147,19 @@ namespace StorageManagementTool
       /// <returns>All DriveInfos</returns>
       public IEnumerable<string> FillWithDriveInfo()
       {
-         return CurrentDrives.Select(OperatingMethods.DriveInfo2String).ToList();
+         return FileSystem.Drives.Select(OperatingMethods.DriveInfo2String);
       }
 
-      public void RefreshDriveInformation()
-      {
-         CurrentDrives = FileSystem.Drives.ToList();
-      }
+//      public void RefreshDriveInformation()
+//      {
+//         CurrentDrives = FileSystem.Drives.ToList();
+//      }
 
       public void StandardLaunch()
       {
          Application.EnableVisualStyles();
          Application.SetCompatibleTextRenderingDefault(false);
-         RefreshDriveInformation();
+        // RefreshDriveInformation();
          IsAdmin = Wrapper.IsUserAdministrator();
          
          

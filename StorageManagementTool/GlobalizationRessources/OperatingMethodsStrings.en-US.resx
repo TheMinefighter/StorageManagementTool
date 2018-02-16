@@ -151,7 +151,7 @@
     <value>Skip "{0}"</value>
   </data>
   <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Text" xml:space="preserve">
-    <value>The program tried to change the Path of "{0}". Therefore it tried to change the Registry value {1}" located under "{2}" to "{3}". Thereby an error occurred</value>
+    <value>The program tried to change the Path of "{0}". Therefore it tried to change the Registry value "{1}" located under "{2}" to "{3}". Thereby an error occurred</value>
   </data>
   <data name="ChangeUserShellFolder_MoveContent_Text" xml:space="preserve">
     <value>The UserShellFolder were changed successfully. Should the contents of the UserShellFolder be moved to the new location?</value>

@@ -11,7 +11,8 @@ namespace StorageManagementTool
 {
    public static partial class Wrapper
    {
-      public static class RegistryMethods{
+      public static class RegistryMethods
+      {
          /// <summary>
          ///    Gives the WIN32APi Representation of an given RegistryValueKind
          /// </summary>
@@ -52,8 +53,6 @@ namespace StorageManagementTool
 
                string thirdLine = ret[2];
                RegistryValueKind kind = FromWin32Api(thirdLine.Substring(8 + path.ValueName.Length).Split(' ')[0]);
-//                  Enum.GetValues(typeof(RegistryValueKind)).Cast<RegistryValueKind>()
-//                  .FirstOrDefault(x => toSwitch.Contains(Win32ApiRepresentation(x)));
                string data = thirdLine.Substring(12 + path.ValueName.Length + kind.ToString().Length).Trim();
                toReturn = RegistryObjectFromString(data, kind);
 
@@ -122,13 +121,12 @@ namespace StorageManagementTool
 
          private static object RegistryObjectFromString(string data, RegistryValueKind kind)
          {
-            object toReturn;
-            toReturn = data;
+            object toReturn = data;
             switch (kind)
             {
                case RegistryValueKind.DWord:
 
-                  toReturn = uint.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                  toReturn = uint.Parse(data.Substring(2), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.String:
                   toReturn = data;
@@ -139,7 +137,7 @@ namespace StorageManagementTool
                   toReturn = data.Split('\0');
                   break;
                case RegistryValueKind.QWord:
-                  toReturn = ulong.Parse(new string(data.Skip(2).ToArray()), NumberStyles.HexNumber);
+                  toReturn = ulong.Parse(data.Substring(2), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.Unknown:
                   toReturn = data;
@@ -177,20 +175,20 @@ namespace StorageManagementTool
                      value = ((ulong) content).ToString();
                      break;
                   case RegistryValueKind.String:
-                     value = ((string) content).Replace("\"", "\"\"");
+                     value = ((string) content).Replace("\"", "\\\"");
                      break;
                   case RegistryValueKind.MultiString:
-                     value = string.Join("\0", (string[]) content).Replace("\"", "\"\"");
+                     value = string.Join("\0", (string[]) content).Replace("\"", "\\\"");
                      break;
                   case RegistryValueKind.ExpandString:
-                     value = ((string) content).Replace("\"", "\"\"");
+                     value = ((string) content).Replace("\"", "\\\"");
                      break;
                   default:
                      value = (string) content;
                      break;
                }
 
-               string kind = RegistryValueKind.String.ToString();
+               string kind = Win32ApiRepresentation(registryValueKind);
                if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
                       $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\"",
                       out string[] ret, out int tmpExitCode, true, true, true, !asUser,

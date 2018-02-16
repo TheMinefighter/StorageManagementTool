@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using static StorageManagementTool.GlobalizationRessources.UserShellFolderStrings;
-//using static StorageManagementTool.MainGUI.GlobalizationRessources.EditUserShellFolderStrings;
 
 namespace StorageManagementTool
 {
@@ -153,13 +152,13 @@ namespace StorageManagementTool
 
       public DirectoryInfo GetPath()
       {
-         return GetPath(this);
+         Wrapper.RegistryMethods.GetRegistryValue(RegPaths[0], out object regValue, AccessAsUser);
+         return new DirectoryInfo((string) regValue ?? Error);
       }
 
       public static DirectoryInfo GetPath(UserShellFolder currentUSF)
       {
-         Wrapper.RegistryMethods.GetRegistryValue(currentUSF.RegPaths[0], out object regValue, currentUSF.AccessAsUser);
-         return new DirectoryInfo((string) regValue ?? Error);
+         return currentUSF.GetPath();
       }
    }
 }

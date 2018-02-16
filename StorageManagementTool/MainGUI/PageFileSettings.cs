@@ -2,12 +2,14 @@
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.FileIO;
 using static  StorageManagementTool.MainGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementTool.MainGUI
 {
    public partial class PagefileSettings : Form
    {
+      
       public PagefileSettings()
       {
          InitializeComponent();
@@ -23,31 +25,31 @@ namespace StorageManagementTool.MainGUI
          OperatingMethods.SetHibernate(true);
       }
 
+      private OperatingMethods.SwapfileMethods.SwapfileState currentState;
       private void PageFileOptionDialog_Load(object sender, EventArgs e)
       {
          LoadUIStrings();
-         Session.Singleton.RefreshSwapfileStadium();
-         //Swapfileinfo_tb.Lines= new string[2];
+         currentState = OperatingMethods.SwapfileMethods.GetSwapfileState();
+        // Session.Singleton.RefreshSwapfileStadium();
          const string hint =
             "\r\nUm eine schon verschobene Swapfile auf ein weiteres Laufwerk zu verschieben muss erst zum Stadium 2 zurückgekehrt werden um sie dann auf eine andere Partition auszulagern";
-         switch (Session.Singleton.Swapstadium)
+         switch (currentState)
          {
-            case 1:
-               Swapfileinfo_tb.Text = "Die Registry muss zum verschieben zuerst geändert werden (Stadium 1/4)" + hint;
+            case OperatingMethods.SwapfileMethods.SwapfileState.Standard:
+               Swapfileinfo_tb.Text = "Die Registry muss zum verschieben zuerst geändert werden (Stadium 1/3)" + hint;
                break;
-            case 2:
-               Swapfileinfo_tb.Text = "Es muss eine Verknüpfung zur Swapfile erstellt werden (Stadium 2/4)" + hint;
+            case OperatingMethods.SwapfileMethods.SwapfileState.Disabled:
+               Swapfileinfo_tb.Text = "Es muss eine Verknüpfung zur Swapfile erstellt werden (Stadium 2/3)" + hint;
                break;
-            case 3:
-               Swapfileinfo_tb.Text = "Die Swapfile muss wiederhergestellt werden (Stadium 3/4)" + hint;
+            case OperatingMethods.SwapfileMethods.SwapfileState.Moved:
+               Swapfileinfo_tb.Text = "Die Swapfile wurde verschoben (Stadium 3/3)" + hint;
                break;
-            case 4:
-               Swapfileinfo_tb.Text = "Die Swapfile wurde verschoben (Stadium 4/4)" + hint;
-               break;
+            default:
+               throw new ArgumentOutOfRangeException();
          }
 
          Pagefilepartition_lb_SelectedIndexChanged(null, null);
-         foreach (DriveInfo driveInfo in Session.Singleton.CurrentDrives)
+         foreach (DriveInfo driveInfo in FileSystem.Drives)
          {
             try
             {
@@ -87,7 +89,7 @@ namespace StorageManagementTool.MainGUI
       {
          if (Session.Singleton.IsAdmin)
          {
-            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(Session.Singleton.Swapstadium, false))
+            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(currentState, false))
             {
                ProgramStatusStrip.Text =
                   "Der nächste Schritt des Wiederherstellens des Speicherortes der Swapfile war erfolgreich.";
@@ -117,7 +119,7 @@ namespace StorageManagementTool.MainGUI
       {
          if (Session.Singleton.IsAdmin)
          {
-            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(Session.Singleton.Swapstadium, true))
+            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(currentState, true))
             {
                ProgramStatusStrip.Text =
                   "Der Versuch den nächsten Schritt beim verschieben des Speicherortes der Swapfile war erfolgreich";
@@ -145,7 +147,6 @@ namespace StorageManagementTool.MainGUI
 
       private void RefreshAvailablePartitions_btn_Click(object sender, EventArgs e)
       {
-         Session.Singleton.RefreshDriveInformation();
          Session.Singleton.FillWithDriveInfo(Swapfilepartition_lb);
          Session.Singleton.FillWithDriveInfo(Pagefilepartition_lb);
       }

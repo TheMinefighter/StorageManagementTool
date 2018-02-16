@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.FileIO;
 using StorageManagementTool.GlobalizationRessources;
 using StorageManagementTool.MainGUI.GlobalizationRessources;
 
@@ -62,11 +66,14 @@ namespace StorageManagementTool.MainGUI
             return;
          }
 
+         IEnumerable < DriveInfo > driveInfos= FileSystem.Drives;
+         DriveInfo HDDToUse = driveInfos.First(x =>
+            OperatingMethods.DriveInfo2String(x) == SelectHDD_lb.SelectedItem.ToString());
+         DriveInfo SSDToUse = driveInfos.First(x =>
+            OperatingMethods.DriveInfo2String(x) == SelectSSD_lb.SelectedItem.ToString());
          toApply.ToRun(
-            Session.Singleton.CurrentDrives.First(x =>
-               OperatingMethods.DriveInfo2String(x) == SelectSSD_lb.SelectedItem.ToString()),
-            Session.Singleton.CurrentDrives.First(x =>
-               OperatingMethods.DriveInfo2String(x) == SelectHDD_lb.SelectedItem.ToString()));
+            SSDToUse,
+            HDDToUse);
       }
    }
 }

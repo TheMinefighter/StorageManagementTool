@@ -87,13 +87,14 @@ namespace StorageManagementTool
          ///    Deletes a file
          /// </summary>
          /// <param name="toDelete">The file to delete</param>
+         /// <param name="ShowFullDialog"></param>
          /// <param name="deletePermanent">Whether it should be deleted permanently</param>
          /// <returns>Whether the operation were successful</returns>
-         public static bool DeleteFile(FileInfo toDelete, bool deletePermanent = true)
+         public static bool DeleteFile(FileInfo toDelete, bool ShowFullDialog = true, bool deletePermanent = true)
          {
             try
             {
-               FileSystem.DeleteFile(toDelete.FullName, UIOption.AllDialogs,
+               FileSystem.DeleteFile(toDelete.FullName, ShowFullDialog? UIOption.AllDialogs:UIOption.OnlyErrorDialogs,
                   deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
             }
             catch (Exception)

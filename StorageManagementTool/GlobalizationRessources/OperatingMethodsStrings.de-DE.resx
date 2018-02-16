@@ -226,6 +226,9 @@
     <value>Es gibt kein Stadium vor dem ersten</value>
   </data>
   <data name="SetStadium_NoNewPathGiven" xml:space="preserve">
-    <value>Es wurde kein Pfad für den NewPath Speicherort eingegeben</value>
+    <value>Es wurde kein Pfad für den neuen Speicherort eingegeben</value>
+  </data>
+  <data name="SetStadium_NewInvalid" xml:space="preserve">
+    <value>Es wurde ein ungültiger Pfad für den neuen Speicherort eingegeben</value>
   </data>
 </root>

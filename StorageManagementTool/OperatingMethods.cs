@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using ExtendedMessageBoxLibary;
 using ExtendedMessageBoxLibrary;
 using IWshRuntimeLibrary;
+using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 using File = System.IO.File;
@@ -50,7 +51,7 @@ namespace StorageManagementTool
             }
          }
 
-         if (newLocation.Parent==null)
+         if (newLocation.Parent == null)
          {
             newLocation.Parent.Create();
          }
@@ -184,7 +185,6 @@ namespace StorageManagementTool
       /// <returns>Whether the Operation were successfull</returns>
       public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize)
       {
-         Session.Singleton.RefreshDriveInformation();
          List<string> tempDriveInfoList = Session.Singleton.FillWithDriveInfo().ToList();
          int selectedPartitionIndex;
          if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
@@ -199,7 +199,7 @@ namespace StorageManagementTool
             return false;
          }
 
-         DriveInfo toUse = Session.Singleton.CurrentDrives[selectedPartitionIndex];
+         DriveInfo toUse = FileSystem.Drives[selectedPartitionIndex];
          return ChangePagefileSettings(toUse, maxSize, minSize);
       }
 

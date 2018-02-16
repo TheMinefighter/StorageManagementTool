@@ -228,4 +228,7 @@
   <data name="SetStadium_NoNewPathGiven" xml:space="preserve">
     <value />
   </data>
+  <data name="SetStadium_NewInvalid" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
