@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,7 +31,7 @@ namespace StorageManagementTool.MainGUI
          //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
          //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
          HDDSavePathText.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
-         string[] rec = OperatingMethods.GetRecommendedPaths();
+         IEnumerable<string> rec = OperatingMethods.GetRecommendedPaths();
          foreach (string item in rec)
          {
             Suggestion_lb.Items.Add(item);
@@ -153,7 +154,7 @@ namespace StorageManagementTool.MainGUI
             : MoveFolderError;
          FolderToMove_tb.Text = "";
          Suggestion_lb.Items.Clear();
-         string[] rec = OperatingMethods.GetRecommendedPaths();
+         IEnumerable<string> rec = OperatingMethods.GetRecommendedPaths();
          foreach (string item in rec)
          {
             Suggestion_lb.Items.Add(item);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -118,7 +119,7 @@ namespace StorageManagementTool
       ///    Recommends Paths to move to NewPath
       /// </summary>
       /// <returns>The recommended Paths</returns>
-      public static string[] GetRecommendedPaths()
+      public static IEnumerable<string> GetRecommendedPaths()
       {
          List<string> ret = new List<string>();
          if (
@@ -127,7 +128,7 @@ namespace StorageManagementTool
             ret.Add(Environment.ExpandEnvironmentVariables(@"%AppData%"));
          }
 
-         List<string> blacklist = new List<string>
+         IEnumerable<string> blacklist = new string[]
          {
             Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData"),
             Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Local\Microsoft"),
@@ -205,7 +206,7 @@ namespace StorageManagementTool
 
       public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize)
       {
-         string wmicPath = Path.Combine(Wrapper.System32Path, @"wbem\\wmic.exe");
+         string wmicPath = Path.Combine(Wrapper.System32Path, "wbem\\wmic.exe");
          if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
          {
             MessageBox.Show(ChangePagefileSettings_MinGreaterMax,

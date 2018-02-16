@@ -89,7 +89,7 @@ namespace StorageManagementTool.MainGUI
       {
          if (Session.Singleton.IsAdmin)
          {
-            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(currentState, false))
+            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(false, currentState))
             {
                ProgramStatusStrip.Text =
                   "Der nächste Schritt des Wiederherstellens des Speicherortes der Swapfile war erfolgreich.";
@@ -119,7 +119,7 @@ namespace StorageManagementTool.MainGUI
       {
          if (Session.Singleton.IsAdmin)
          {
-            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(currentState, true))
+            if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(true, currentState))
             {
                ProgramStatusStrip.Text =
                   "Der Versuch den nächsten Schritt beim verschieben des Speicherortes der Swapfile war erfolgreich";
