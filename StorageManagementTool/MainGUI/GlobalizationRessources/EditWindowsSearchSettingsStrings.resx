@@ -127,4 +127,10 @@
   <data name="SelectNewPath_btn_Text" xml:space="preserve">
     <value></value>
   </data>
+   <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
+    <value />
+  </data>
+   <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
+    <value />
+  </data>
 </root>

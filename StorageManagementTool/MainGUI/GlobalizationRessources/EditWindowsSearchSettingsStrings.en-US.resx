@@ -120,4 +120,37 @@
   <data name="CurrentLocation_lbl_Text" xml:space="preserve">
     <value>Aktueller Speicherort</value>
   </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Customize search indexing</value>
+  </data>
+  <data name="RefreshCurrentPath_btn_Text" xml:space="preserve">
+    <value>Refresh current path</value>
+  </data>
+  <data name="OpenCurrentPath_btn_Text" xml:space="preserve">
+    <value>Open current path</value>
+  </data>
+  <data name="NewPath_lbl_Text" xml:space="preserve">
+    <value>New path</value>
+  </data>
+  <data name="OpenNewPath_btn_Text" xml:space="preserve">
+    <value>Open new path</value>
+  </data>
+  <data name="ShowFurtherSettings_btn_Text" xml:space="preserve">
+    <value>Further settings</value>
+  </data>
+  <data name="Abort_btn_Text" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="SaveSettings_btn_Text" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="SelectNewPath_btn_Text" xml:space="preserve">
+    <value>Select new path</value>
+  </data>
+   <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
+    <value>On account of an error while restarting the service "{0}" the computer needs to be restarted to apply changes. Restart now?</value>
+  </data>
+   <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
+    <value>The computer needs to be restarted to apply changes. Restart now?</value>
+  </data>
 </root>

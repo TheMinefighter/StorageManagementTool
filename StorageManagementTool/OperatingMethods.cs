@@ -11,6 +11,7 @@ using IWshRuntimeLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using StorageManagementTool.GlobalizationRessources;
+using StorageManagementTool.MainGUI.GlobalizationRessources;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 using File = System.IO.File;
 
@@ -447,7 +448,7 @@ namespace StorageManagementTool
                if (!Session.Singleton.IsAdmin)
                {
                   if (MessageBox.Show(
-                         SetSearchDataPath_RestartNoAdmin,
+                         EditWindowsSearchSettingsStrings.SetSearchDataPath_RestartNoAdmin,
                          SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
                       DialogResult.Yes)
                   {

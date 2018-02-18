@@ -210,13 +210,7 @@
   <data name="SetSearchDataPath_InvalidPath" xml:space="preserve">
     <value>Der angegebene Ordner existiert nicht</value>
   </data>
-  <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
-    <value>Beim neustart des Service "{0}" ist ein Problem aufgetreten. Daher muss der Computer neugestartet werden um die Änderungen zu übernehmen. Jetzt neustarten?</value>
-  </data>
-  <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
-    <value>Um die Änderungen zu anzuwenden muss der Computer neugestartet werden. Jetzt neustarten?</value>
-  </data>
-  <data name="SetSearchDataPath_RestartNow_Title" xml:space="preserve">
+   <data name="SetSearchDataPath_RestartNow_Title" xml:space="preserve">
     <value>Neustarten?</value>
   </data>
   <data name="SetStadium_ErrorNoneAfterLast" xml:space="preserve">

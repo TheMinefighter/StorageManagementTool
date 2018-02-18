@@ -85,9 +85,23 @@ namespace StorageManagementTool.MainGUI
 
       private void EditWindowsSearchSettings_Load(object sender, EventArgs e)
       {
-      //   this.Text=Win
+         LoadUIStrings();
          EnableComponents();
          RefreshCurrentPath();
+      }
+
+      private void LoadUIStrings()
+      {
+         Abort_btn.Text = Abort_btn_Text;
+         CurrentLocation_lbl.Text = CurrentLocation_lbl_Text;
+         NewPath_lbl.Text = NewPath_lbl_Text;
+         OpenCurrentPath_btn.Text = OpenCurrentPath_btn_Text;
+         OpenNewPath_btn.Text = OpenNewPath_btn_Text;
+         RefreshCurrentPath_btn.Text = RefreshCurrentPath_btn_Text;
+         SaveSettings_btn.Text = SaveSettings_btn_Text;
+         SelectNewPath_btn.Text = SelectNewPath_btn_Text;
+         ShowFurtherSettings_btn.Text = ShowFurtherSettings_btn_Text;
+         this.Text = WindowTitle;
       }
 
       private void RefreshCurrentPath()
