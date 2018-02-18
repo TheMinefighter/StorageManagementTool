@@ -10,6 +10,7 @@ using ExtendedMessageBoxLibrary;
 using IWshRuntimeLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
+using StorageManagementTool.GlobalizationRessources;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 using File = System.IO.File;
 
@@ -32,7 +33,7 @@ namespace StorageManagementTool
       /// </summary>
       /// <param name="item">The DriveInfo object to represent</param>
       /// <returns>The string representation</returns>
-      public static string DriveInfo2String(DriveInfo item)
+      public static string GetDriveInfoDescription(DriveInfo item)
       {
          return item.IsReady
             ? item.VolumeLabel + " (" + item.Name + " ; " +
@@ -295,7 +296,7 @@ namespace StorageManagementTool
          Dictionary<UserShellFolder, DirectoryInfo> childs = UserShellFolder
             .AllEditableUserUserShellFolders
             .Select(x => new KeyValuePair<UserShellFolder, DirectoryInfo>(x, x.GetPath()))
-            .Where(x => Wrapper.IsSubfolder(x.Value,currentPath)).ToDictionary();
+            .Where(x => Wrapper.IsSubfolder(x.Value, currentPath)).ToDictionary();
          bool MoveAll = false;
 
          foreach (KeyValuePair<UserShellFolder, DirectoryInfo> child in childs)
@@ -310,7 +311,8 @@ namespace StorageManagementTool
                   ChangeUserShellFolder_SubfolderFound_Title,
                   childs.Count == 1
                      ? new[] {ChangeUserShellFolder_SubfolderFound_Yes, ChangeUserShellFolder_SubfolderFound_No}
-                     : new[] {
+                     : new[]
+                     {
                         ChangeUserShellFolder_SubfolderFound_YesAll, ChangeUserShellFolder_SubfolderFound_Yes,
                         ChangeUserShellFolder_SubfolderFound_No
                      }, 0));
@@ -398,14 +400,6 @@ namespace StorageManagementTool
                }
             }
 
-            //if (MessageBox.Show(
-            //       ChangeUserShellFolder_RestartExplorer_Text,
-            //       ChangeUserShellFolder_RestartExplorer_Title, MessageBoxButtons.YesNo,
-            //       MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-            //{
-            //   Wrapper.ExecuteCommand("taskkill /IM explorer.exe /F & explorer.exe", false, true);
-            //}
-
             return true;
          }
 
@@ -420,7 +414,7 @@ namespace StorageManagementTool
 
             WshShell shell = new WshShell();
             string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-              StoreOnHDDLinkName+ ".lnk");
+               StoreOnHDDLinkName + ".lnk");
             IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
             shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
             shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
@@ -436,6 +430,11 @@ namespace StorageManagementTool
          }
       }
 
+      /// <summary>
+      /// /
+      /// </summary>
+      /// <param name="newPath"></param>
+      /// <returns></returns>
       public static bool SetSearchDataPath(DirectoryInfo newPath)
       {
          if (newPath.Exists)
@@ -455,19 +454,6 @@ namespace StorageManagementTool
                      Wrapper.RestartComputer();
                   }
                }
-
-               ServiceController wSearch = new ServiceController("WSearch");
-               if (!RecursiveServiceRestart(wSearch))
-               {
-                  if (MessageBox.Show(String.Format(
-                            SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
-                         SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
-                      DialogResult.Yes)
-                  {
-                     Wrapper.RestartComputer();
-                  }
-               }
-
                return true;
             }
 
@@ -480,50 +466,9 @@ namespace StorageManagementTool
       }
 
       /// <summary>
-      ///    Restarts a service and all depending services
+      /// Enables/Disables availability of hibernate
       /// </summary>
-      /// <param name="toRestart">The service to restart</param>
-      /// <returns>Whether the operation were successful</returns>
-      private static bool RecursiveServiceRestart(ServiceController toRestart)
-      {
-         return RecursiveServiceKiller(toRestart) && RecursiveServiceStarter(toRestart);
-      }
-
-      private static bool RecursiveServiceKiller(ServiceController toKill)
-      {
-         IEnumerable<ServiceController> childs = toKill.DependentServices;
-         if (!(childs.All(x => x.CanStop) && childs.All(RecursiveServiceKiller)))
-         {
-            return false;
-         }
-
-         try
-         {
-            toKill.Stop();
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
-      private static bool RecursiveServiceStarter(ServiceController toStart)
-      {
-         IEnumerable<ServiceController> childs = toStart.DependentServices;
-         try
-         {
-            toStart.Start();
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-
-         return childs.All(RecursiveServiceStarter);
-      }
-
+      /// <param name="enable">Whether hibernate should be enabled (true) or disabled (false) </param>
       public static void SetHibernate(bool enable)
       {
          Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "powercfg.exe"), $"/h {(enable ? "on" : "off")}",
@@ -531,11 +476,26 @@ namespace StorageManagementTool
             true);
       }
 
-      public static bool getDriveInfoFromDescription(out DriveInfo driveInfo, string selectedItem)
+      /// <summary>
+      /// gets the DriviInfo onject from its description genarated using GetDriveInfoDescription()
+      /// </summary>
+      /// <param name="driveInfo">The DriveInfo described</param>
+      /// <param name="description">The description of the DriveInfo</param>
+      /// <returns>Whether the described DriveInfo were found</returns>
+      public static bool getDriveInfoFromDescription(out DriveInfo driveInfo, string description)
       {
-
-         driveInfo = Wrapper.getDrives().FirstOrDefault(x => DriveInfo2String(x) == selectedItem);
+         driveInfo = Wrapper.getDrives().FirstOrDefault(x => GetDriveInfoDescription(x) == description);
          return driveInfo != null;
+      }
+
+      /// <summary>
+      /// Checks if the send to feature is enabled
+      /// </summary>
+      /// <returns>Whether the send to feature is enabled</returns>
+      public static bool IsSendToHDDEnabled()
+      {
+         return File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+            StoreOnHDDLinkName + ".lnk"));
       }
    }
 }

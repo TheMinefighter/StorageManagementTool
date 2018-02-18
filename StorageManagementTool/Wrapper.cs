@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Windows.Forms;
 using System.Management.Automation;
+using System.ServiceProcess;
 using Microsoft.VisualBasic.FileIO;
 using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
 
@@ -63,13 +64,13 @@ namespace StorageManagementTool
          if (!toRun.Exists)
          {
             if (MessageBox.Show(
-                   string.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
+                   String.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                {
-                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
-                  Title = string.Format(ExecuteExecuteable_FileNotFound_SelectionTitle,toRun.Name)
+                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{String.Join(";*", ExecuteableExtensions)}",
+                  Title = String.Format(ExecuteExecuteable_FileNotFound_SelectionTitle,toRun.Name)
                };
                alternativeExecuteableSel.ShowDialog();
                return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -80,7 +81,7 @@ namespace StorageManagementTool
          if (!ExecuteableExtensions.Contains(toRun.Extension))
          {
             if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-               string.Format(ExecuteExecuteable_WrongEnding,
+               String.Format(ExecuteExecuteable_WrongEnding,
                   toRun.FullName, toRun.Extension),
                Error,
                MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
@@ -130,7 +131,7 @@ namespace StorageManagementTool
          catch (Win32Exception)
          {
             DialogResult retry = MessageBox.Show(
-               string.Format(
+               String.Format(
                   ExecuteExecuteable_AdminError,
                   toRun.FullName),
                Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
@@ -370,6 +371,32 @@ namespace StorageManagementTool
       public static bool RestartComputer()
       {
          return ExecuteExecuteable(Path.Combine(System32Path, "shutdown.exe"), "/R /T 1", false, true);
+      }
+
+      /// <summary>
+      /// Kills first all depnding ServiceControllers and then itselves 
+      /// </summary>
+      /// <param name="toKill">The ServiceController to kill</param>
+      /// <returns>Whether the operation were successful</returns>
+      private static bool RecursiveServiceKiller(ServiceController toKill)
+      {
+         
+         IEnumerable<ServiceController> childs = toKill.DependentServices;
+         if (!(childs.All(x => x.CanStop) && childs.All(RecursiveServiceKiller)))
+         {
+            return false;
+         }
+
+         try
+         {
+            toKill.Stop();
+         }
+         catch (Exception)
+         {
+            return false;
+         }
+
+         return true;
       }
    }
 }

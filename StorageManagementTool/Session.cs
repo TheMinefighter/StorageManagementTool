@@ -128,7 +128,7 @@ namespace StorageManagementTool
          toFill.Items.Clear();
          foreach (DriveInfo item in Wrapper.getDrives())
          {
-            toFill.Items.Add(OperatingMethods.DriveInfo2String(item));
+            toFill.Items.Add(OperatingMethods.GetDriveInfoDescription(item));
          }
       }
 
@@ -147,7 +147,7 @@ namespace StorageManagementTool
       /// <returns>All DriveInfos</returns>
       public IEnumerable<string> FillWithDriveInfo()
       {
-         return Wrapper.getDrives().Select(OperatingMethods.DriveInfo2String);
+         return Wrapper.getDrives().Select(OperatingMethods.GetDriveInfoDescription);
       }
 
 //      public void RefreshDriveInformation()

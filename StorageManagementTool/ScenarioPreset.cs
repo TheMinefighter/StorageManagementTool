@@ -145,7 +145,6 @@ namespace StorageManagementTool
             new ScenarioPreset
             {
                HDDRequired = true,
-               SSDRequired = true,
                ViewedName = Presets_LocalHDDAndSSD,
                ToRun = LocalSSDAndHDD,
                Id = "LocalSSDAndHDD"

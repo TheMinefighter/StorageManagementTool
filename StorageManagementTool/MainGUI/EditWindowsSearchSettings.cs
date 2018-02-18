@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.ServiceProcess;
 using System.Windows.Forms;
 
 namespace StorageManagementTool.MainGUI
@@ -46,6 +47,17 @@ namespace StorageManagementTool.MainGUI
       private void SaveSettings_btn_Click(object sender, EventArgs e)
       {
          OperatingMethods.SetSearchDataPath(new DirectoryInfo(NewPath_tb.Text));
+         ServiceController wSearch = new ServiceController("WSearch");
+         if (!Wrapper.RecursiveServiceRestart(wSearch))
+         {
+            if (MessageBox.Show(String.Format(
+                      SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
+                   SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+                DialogResult.Yes)
+            {
+               Wrapper.RestartComputer();
+            }
+         }
       }
 
       private void Abort_btn_Click(object sender, EventArgs e)

@@ -40,7 +40,7 @@ namespace StorageManagementTool.MainGUI
             {
                if (driveInfo.AvailableFreeSpace >= 16 * 1048576)
                {
-                  Swapfilepartition_lb.Items.Add(OperatingMethods.DriveInfo2String(driveInfo));
+                  Swapfilepartition_lb.Items.Add(OperatingMethods.GetDriveInfoDescription(driveInfo));
                }
             }
             catch (IOException)

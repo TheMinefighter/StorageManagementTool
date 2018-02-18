@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.ServiceProcess;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
@@ -180,6 +181,16 @@ namespace StorageManagementTool
             return result.ToString();
          }
          #endregion
+      }
+
+      /// <summary>
+      ///    Restarts a service and all depending services
+      /// </summary>
+      /// <param name="toRestart">The service to restart</param>
+      /// <returns>Whether the operation were successful</returns>
+      public static bool RecursiveServiceRestart(ServiceController toRestart)
+      {
+         return RecursiveServiceKiller(toRestart) && RecursiveServiceStarter(toRestart);
       }
    }
 }

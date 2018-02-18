@@ -7,7 +7,6 @@ using System.Security;
 using System.Security.Principal;
 using System.Xml.Linq;
 using StorageManagementTool.GlobalizationRessources;
-using StorageManagementTool.MainGUI.GlobalizationRessources;
 using File = System.IO.File;
 
 namespace StorageManagementTool
@@ -58,14 +57,14 @@ namespace StorageManagementTool
                   new XElement(TaskNamespace + "Exec",
                      new XElement(TaskNamespace + "Command", Process.GetCurrentProcess().MainModule.FileName),
                      new XElement(TaskNamespace + "Arguments", "/background"))));
-            string task = new XDocument(new XDeclaration("1.0", "UTF-16", null),
+            string taskString = new XDocument(new XDeclaration("1.0", "UTF-16", null),
                taskContents).ToString();
 
             string tempLocation = Path.Combine(Path.GetTempPath(), "StorageManagementToolTask.xml");
-            File.WriteAllText(tempLocation, task);
+            File.WriteAllText(tempLocation, taskString);
             return Wrapper.ExecuteExecuteable(SchtasksPath,
                $"/Create /XML \"{tempLocation}\" /TN {SSDMonitoringTaskName} /RP * /RU {Environment.UserName}",
-               out string[] tmp,out int tmp2,false,true,false,true);
+               out string[] _,out int _,false,true,false,true);
          }
 
          public static bool SSDMonitoringEnabled(out bool enabled)
@@ -170,12 +169,6 @@ namespace StorageManagementTool
          }
 
          return true;
-      }
-
-      public static bool IsSendToEnabled()
-      {
-         return File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-            OperatingMethodsStrings.StoreOnHDDLinkName + ".lnk"));
       }
    }
 }

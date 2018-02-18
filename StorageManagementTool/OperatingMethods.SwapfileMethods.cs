@@ -19,10 +19,12 @@ namespace StorageManagementTool
             case SwapfileMethods.SwapfileState.Disabled:
                return GetDescription_Base + GetDescription_Disabled;
             case SwapfileMethods.SwapfileState.Moved:
-               return GetDescription_Base +(Session.Singleton.IsAdmin? String.Format(GetDescription_Moved, SwapfileMethods.getSwapfilePath()):GetDescription_MovedNoAdmin);
+               return GetDescription_Base + (
+                         //Session.Singleton.IsAdmin? string.Format(GetDescription_Moved, SwapfileMethods.getSwapfilePath()):
+                         GetDescription_MovedNoAdmin);
             case SwapfileMethods.SwapfileState.None:
                return GetDescription_Base + GetDescription_None;
-               default:
+            default:
                throw new ArgumentOutOfRangeException(nameof(state), state, null);
          }
       }
@@ -48,6 +50,7 @@ namespace StorageManagementTool
             /// Active when swapfile were moved
             /// </summary>
             Moved,
+
             /// <summary>
             /// Never active, only for technical purposes
             /// </summary>
@@ -60,6 +63,7 @@ namespace StorageManagementTool
          }
 
          private static readonly string DefaultSwapfileLocation = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
+
          private static readonly RegistryValue SwapfileControl = new RegistryValue(
             @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
             "SwapFileControl");
@@ -94,7 +98,7 @@ namespace StorageManagementTool
                   if (newLocation == null)
                   {
                      if (MessageBox.Show(
-                             SetStadium_NoNewPathGiven,Error,
+                            SetStadium_NoNewPathGiven, Error,
                             MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                      {
                         return ChangeSwapfileStadium(forward, currentState, newLocation);
@@ -104,6 +108,7 @@ namespace StorageManagementTool
                         return false;
                      }
                   }
+
                   FileInfo saveAs = new FileInfo(Path.Combine(newLocation.RootDirectory.FullName, "Swapfile.sys"));
                   if (!saveAs.Exists)
                   {
@@ -124,6 +129,7 @@ namespace StorageManagementTool
                   {
                      Wrapper.FileAndFolder.DeleteFile(defaultSwapFileInfo, false, false);
                   }
+
                   MoveFile(new FileInfo(oldPath), saveAs);
                   return Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 1, RegistryValueKind.DWord);
 
@@ -156,9 +162,10 @@ namespace StorageManagementTool
             {
                return SwapfileState.None;
             }
+
             // 1/Null --> swapfile enabled
             // 0 --> disabled
-            if ((uint?) regValue ==0)
+            if ((uint?) regValue == 0)
             {
                return SwapfileState.Disabled;
             }
@@ -175,5 +182,7 @@ namespace StorageManagementTool
             }
          }
       }
+
+
    }
 }

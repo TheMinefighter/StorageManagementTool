@@ -60,7 +60,7 @@ namespace StorageManagementTool
          };
       }
 
-      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
+      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true,bool asUser=true)
       {
          return new UserShellFolder
          {
@@ -69,7 +69,8 @@ namespace StorageManagementTool
                ? new[] { new RegistryValue(CommonShellFolderRooot, id), new RegistryValue(CommonUserShellFolderRoot, id) }
                : new[] { new RegistryValue(CommonShellFolderRooot, id) },
             MoveExistingFiles = moveExistingFiles,
-            Identifier = id
+            Identifier = id,
+            AccessAsUser = asUser
          };
       }
 
@@ -119,7 +120,7 @@ namespace StorageManagementTool
             CommonUSF(Common_Programs_Name, "Common Programs"),
             CommonUSF(Common_Templates_Name, "Common Templates"),
             CommonUSF(Common_Start_Menu_Name, "Common Start Menu"),
-            CommonUSF(OEM_Links_Name, "OEM Links", false),
+            CommonUSF(OEM_Links_Name, "OEM Links", false,true,true),
             CommonUSF(Common_Administrative_Tools_Name, "Common Administrative Tools", false),
             //No real USF
             new UserShellFolder(ProgramFilesDir_x86_Name,
@@ -136,9 +137,9 @@ namespace StorageManagementTool
             new UserShellFolder{Identifier = "PrivateTemp",AccessAsUser = false,
                RegistryValues = new []{new RegistryValue(UserTempRoot,"TEMP"), new RegistryValue(UserTempRoot,"TMP"), },
                MoveExistingFiles = false, ViewedName = PrivateTemp},
-            new UserShellFolder{Identifier = "PublicTemp",AccessAsUser = false,
+            new UserShellFolder{Identifier = "PublicTemp",AccessAsUser = true,
             RegistryValues = new []{new RegistryValue(PublicTempRoot,"TEMP"), new RegistryValue(PublicTempRoot,"TMP"), },
-               MoveExistingFiles = false, ViewedName = PublicTemp},
+               MoveExistingFiles = false, ViewedName = PublicTemp,},
          };
       }
 

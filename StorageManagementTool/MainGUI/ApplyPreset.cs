@@ -66,9 +66,9 @@ namespace StorageManagementTool.MainGUI
 
          IEnumerable < DriveInfo > driveInfos= Wrapper.getDrives();
          DriveInfo HDDToUse = driveInfos.First(x =>
-            OperatingMethods.DriveInfo2String(x) == SelectHDD_lb.SelectedItem.ToString());
+            OperatingMethods.GetDriveInfoDescription(x) == SelectHDD_lb.SelectedItem.ToString());
          DriveInfo SSDToUse = driveInfos.First(x =>
-            OperatingMethods.DriveInfo2String(x) == SelectSSD_lb.SelectedItem.ToString());
+            OperatingMethods.GetDriveInfoDescription(x) == SelectSSD_lb.SelectedItem.ToString());
          toApply.ToRun(
             SSDToUse,
             HDDToUse);

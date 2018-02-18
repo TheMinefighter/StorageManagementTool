@@ -72,7 +72,7 @@ namespace StorageManagementTool.MainGUI
       /// </summary>
       private void EnableComponents()
       {
-         if (OperatingMethods.IsSendToEnabled())
+         if (OperatingMethods.IsSendToHDDEnabled())
          {
             SetSendToHDD_btn.Text = DisableSendToHDD;
          }
