@@ -52,8 +52,12 @@ namespace StorageManagementTool
          }
 
          string username = Username_tb.Text;
-
-         if (!OperatingMethods.TestCredentials(username, password))
+         Credentials givenCredentials= new Credentials()
+         {
+            Password = password,
+            Username = username
+         }
+         if (!Wrapper.TestCredentials(givenCredentials))
          {
             MessageBox.Show(EnteredCredentialsAreInvalid, Error, MessageBoxButtons.OK,
                MessageBoxIcon.Error);
@@ -61,8 +65,7 @@ namespace StorageManagementTool
             return;
          }
 
-         ((DialogReturnData) Tag).GivenCredentials.Username = Username_tb.Text;
-         ((DialogReturnData) Tag).GivenCredentials.Password = password;
+         ((DialogReturnData) Tag).GivenCredentials=givenCredentials;
          ((DialogReturnData) Tag).IsAborted = false;
          Close();
       }

@@ -147,10 +147,13 @@
   <data name="SelectNewPath_btn_Text" xml:space="preserve">
     <value>Select new path</value>
   </data>
-   <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
+  <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
     <value>On account of an error while restarting the service "{0}" the computer needs to be restarted to apply changes. Restart now?</value>
   </data>
-   <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
+  <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
     <value>The computer needs to be restarted to apply changes. Restart now?</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
   </data>
 </root>

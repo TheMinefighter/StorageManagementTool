@@ -69,7 +69,7 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                return MessageBox.Show(
-                         string.Format(WrapperStrings.GetRegistryValue_Exception,
+                         String.Format(WrapperStrings.GetRegistryValue_Exception,
                             path.ValueName, path.RegistryKey, e.Message),
                          WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
                       DialogResult.Retry && GetRegistryValue(path, out toReturn, asUser);
@@ -128,7 +128,7 @@ namespace StorageManagementTool
             {
                case RegistryValueKind.DWord:
 
-                  toReturn = uint.Parse(data.Substring(2), NumberStyles.HexNumber);
+                  toReturn = UInt32.Parse(data.Substring(2), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.String:
                   toReturn = data;
@@ -139,7 +139,7 @@ namespace StorageManagementTool
                   toReturn = data.Split('\0');
                   break;
                case RegistryValueKind.QWord:
-                  toReturn = ulong.Parse(data.Substring(2), NumberStyles.HexNumber);
+                  toReturn = UInt64.Parse(data.Substring(2), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.Unknown:
                   toReturn = data;
@@ -168,7 +168,7 @@ namespace StorageManagementTool
             if (asUser&&!Session.Singleton.IsAdmin)
             {
                if (MessageBox.Show(
-                      string.Format(
+                      String.Format(
                          WrapperStrings.SetRegistryValue_Security,
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                       WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -192,7 +192,7 @@ namespace StorageManagementTool
                      value = ((string) content).Replace("\"", "\\\"");
                      break;
                   case RegistryValueKind.MultiString:
-                     value = string.Join("\0", (string[]) content).Replace("\"", "\\\"");
+                     value = String.Join("\0", (string[]) content).Replace("\"", "\\\"");
                      break;
                   case RegistryValueKind.ExpandString:
                      value = ((string) content).Replace("\"", "\\\"");
@@ -221,7 +221,7 @@ namespace StorageManagementTool
             catch (SecurityException)
             {
                if (MessageBox.Show(
-                      string.Format(
+                      String.Format(
                          WrapperStrings.SetRegistryValue_Security,
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                       WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -235,7 +235,7 @@ namespace StorageManagementTool
             catch (UnauthorizedAccessException)
             {
                if (MessageBox.Show(
-                      string.Format(
+                      String.Format(
                          WrapperStrings.SetRegistryValue_UnauthorizedAccess,
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                       WrapperStrings.Error,
@@ -250,7 +250,7 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                if (MessageBox.Show(
-                      string.Format(
+                      String.Format(
                          WrapperStrings.SetRegistry_Exception,
                          valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind, e.Message),
                       WrapperStrings.Error, MessageBoxButtons.RetryCancel,

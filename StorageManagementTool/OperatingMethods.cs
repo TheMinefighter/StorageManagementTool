@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using ExtendedMessageBoxLibary;
@@ -481,12 +482,12 @@ namespace StorageManagementTool
       }
 
       /// <summary>
-      /// gets the DriviInfo onject from its description genarated using GetDriveInfoDescription()
+      /// gets the DrivEInfo onject from its description genarated using GetDriveInfoDescription()
       /// </summary>
       /// <param name="driveInfo">The DriveInfo described</param>
       /// <param name="description">The description of the DriveInfo</param>
       /// <returns>Whether the described DriveInfo were found</returns>
-      public static bool getDriveInfoFromDescription(out DriveInfo driveInfo, string description)
+      public static bool GetDriveInfoFromDescription(out DriveInfo driveInfo, string description)
       {
          driveInfo = Wrapper.getDrives().FirstOrDefault(x => GetDriveInfoDescription(x) == description);
          return driveInfo != null;
@@ -500,6 +501,31 @@ namespace StorageManagementTool
       {
          return File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
             StoreOnHDDLinkName + ".lnk"));
+      }
+
+      /// <summary>
+      /// Reads the path of the windows search data 
+      /// </summary>
+      /// <param name="directory"> The directory containing the Windows search data</param>
+      /// <returns>Whether the operation were successful</returns>
+      public static bool GetSearchDataPath(out DirectoryInfo directory)
+      {
+         directory = null;
+
+         if (!Wrapper.RegistryMethods.GetRegistryValue(OperatingMethods.SearchDatatDirectoryRegistryValue, out object text,
+            true))
+         {
+            return false;
+         }
+         //Registry value also contains the \Search\Data which should probably not be removed due to the fact that the Windows Editor isn´t allowing that too
+         DirectoryInfo dir= new DirectoryInfo((string) text);
+         if (dir.Parent?.Parent == null)
+         {
+            return false;
+         }
+
+         directory = dir.Parent.Parent;
+         return true;
       }
    }
 }

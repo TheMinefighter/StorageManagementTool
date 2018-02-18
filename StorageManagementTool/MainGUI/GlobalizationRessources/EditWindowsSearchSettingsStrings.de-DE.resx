@@ -147,10 +147,13 @@
   <data name="SaveSettings_btn_Text" xml:space="preserve">
     <value>Änderungen Speichern</value>
   </data>
-   <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
+  <data name="SetSearchDataPath_RestartErrorService" xml:space="preserve">
     <value>Beim neustart des Service "{0}" ist ein Problem aufgetreten. Daher muss der Computer neugestartet werden um die Änderungen zu übernehmen. Jetzt neustarten?</value>
   </data>
-   <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
+  <data name="SetSearchDataPath_RestartNoAdmin" xml:space="preserve">
     <value>Um die Änderungen zu anzuwenden muss der Computer neugestartet werden. Jetzt neustarten?</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
   </data>
 </root>

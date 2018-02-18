@@ -106,23 +106,10 @@ namespace StorageManagementTool.MainGUI
 
       private void RefreshCurrentPath()
       {
-         string displayedSearchDataPath = "Error";
-         if (OperatingMethods.GetSearchDataPath(out object text))
+         string displayedSearchDataPath = Error;
+         if (OperatingMethods.GetSearchDataPath(out DirectoryInfo dir))
          {
-
-            try
-            {
-               DirectoryInfo readPath = new DirectoryInfo((string)text);
-               displayedSearchDataPath = readPath.Parent.Parent.FullName;
-            }
-            catch (Exception)
-            {
-               MessageBox.Show("Der Speicherort für Suchindizierungen ist nicht korrekt definiert.", "",
-                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-               return;
-            }
-
-
+            displayedSearchDataPath = dir.FullName;
          }
          CurrentPath_tb.Text = displayedSearchDataPath;
       }

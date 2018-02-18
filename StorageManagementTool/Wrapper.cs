@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Windows.Forms;
 using System.Management.Automation;
+using System.Security;
 using System.ServiceProcess;
 using Microsoft.VisualBasic.FileIO;
 using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
@@ -19,7 +20,7 @@ namespace StorageManagementTool
    /// </summary>
    public static partial class Wrapper
    {
-      private static readonly IEnumerable<string> ExecuteableExtensions =new [] {".exe", ".pif", ".com", ".bat", ".cmd"};
+      private static readonly IEnumerable<string> ExecuteableExtensions = new[] { ".exe", ".pif", ".com", ".bat", ".cmd" };
       public static readonly string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
 
       public static readonly string ExplorerPath =
@@ -58,19 +59,19 @@ namespace StorageManagementTool
          out int exitCode, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
          bool admin = false, bool asUser = false)
       {
-         FileInfo toRun= new FileInfo(filename);
+         FileInfo toRun = new FileInfo(filename);
          exitCode = 0;
          returnData = null;
          if (!toRun.Exists)
          {
             if (MessageBox.Show(
-                   string.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
+                   String.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                {
-                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
-                  Title = string.Format(ExecuteExecuteable_FileNotFound_SelectionTitle,toRun.Name)
+                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{String.Join(";*", ExecuteableExtensions)}",
+                  Title = String.Format(ExecuteExecuteable_FileNotFound_SelectionTitle, toRun.Name)
                };
                alternativeExecuteableSel.ShowDialog();
                return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -80,8 +81,8 @@ namespace StorageManagementTool
 
          if (!ExecuteableExtensions.Contains(toRun.Extension))
          {
-            if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-               string.Format(ExecuteExecuteable_WrongEnding,
+            if (new DialogResult[] { DialogResult.No, DialogResult.None }.Contains(MessageBox.Show(
+               String.Format(ExecuteExecuteable_WrongEnding,
                   toRun.FullName, toRun.Extension),
                Error,
                MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
@@ -131,7 +132,7 @@ namespace StorageManagementTool
          catch (Win32Exception)
          {
             DialogResult retry = MessageBox.Show(
-               string.Format(
+               String.Format(
                   ExecuteExecuteable_AdminError,
                   toRun.FullName),
                Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
@@ -167,7 +168,7 @@ namespace StorageManagementTool
       {
          return FileSystem.Drives;
       }
-      
+
       /// <summary>
       ///    Executes an Command using Windows Commandline
       /// </summary>
@@ -303,45 +304,57 @@ namespace StorageManagementTool
       {
          return src.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
       }
-
+      /// <summary>
+      /// Converts a DateTime to its Win32 representation
+      /// </summary>
+      /// <param name="toConvert">The DateTime to convert</param>
+      /// <returns>The Win32 representation of the DateTime object</returns>
       public static string DateTimeToWin32Format(DateTime toConvert)
       {
          return
             $"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
       }
 
+      ///// <summary>
+      /////    Checks whether a user is Part of a localgroup
+      ///// </summary>
+      ///// <param name="username">The ViewedName of the User to search for</param>
+      ///// <param name="localGroup">The localgroup to search in</param>
+      ///// <returns>Whether the user is in the logalgroup</returns>
+      //      public static bool IsUserInLocalGroup(string username, string localGroup)
+      //      {
+      //         GroupPrincipal oGroupPrincipal = GetGroup(localGroup);
+      //         PrincipalSearchResult<Principal> oPrincipalSearchResult = oGroupPrincipal.GetMembers();
+      //         return oPrincipalSearchResult.Any(principal => principal.Name == username);
+      //      }
+      //
+      //      private static GroupPrincipal GetGroup(string sGroupName)
+      //      {
+      //         PrincipalContext oPrincipalContext = GetPrincipalContext();
+      //         GroupPrincipal oGroupPrincipal = GroupPrincipal.FindByIdentity(oPrincipalContext, sGroupName);
+      //         return oGroupPrincipal;
+      //      }
       /// <summary>
-      ///    Checks whether a user is Part of a localgroup
+      /// Loads the local PrincipalContext
       /// </summary>
-      /// <param name="username">The ViewedName of the User to search for</param>
-      /// <param name="localGroup">The localgroup to search in</param>
-      /// <returns>Whether the user is in the logalgroup</returns>
-//      public static bool IsUserInLocalGroup(string username, string localGroup)
-//      {
-//         GroupPrincipal oGroupPrincipal = GetGroup(localGroup);
-//         PrincipalSearchResult<Principal> oPrincipalSearchResult = oGroupPrincipal.GetMembers();
-//         return oPrincipalSearchResult.Any(principal => principal.Name == username);
-//      }
-//
-//      private static GroupPrincipal GetGroup(string sGroupName)
-//      {
-//         PrincipalContext oPrincipalContext = GetPrincipalContext();
-//         GroupPrincipal oGroupPrincipal = GroupPrincipal.FindByIdentity(oPrincipalContext, sGroupName);
-//         return oGroupPrincipal;
-//      }
-
+      /// <returns>The local PrincipalContext</returns>
+      #region Based upon https://stackoverflow.com/a/3681442/6730162 last access 18.02.2018
       private static PrincipalContext GetPrincipalContext()
       {
-         PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Machine);
-         return oPrincipalContext;
+         return new PrincipalContext(ContextType.Machine);
       }
-
-
+      #endregion
+      /// <summary>
+      /// Runs a stack of powershell commands
+      /// </summary>
+      /// <param name="ret">What the commands returned</param>
+      /// <param name="command">The commands to run</param>
+      /// <returns>Whether the invokation of the commands were successful</returns>
       #region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
 
       public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command)
       {
-         ret = new[] {""};
+         ret = new[] { "" };
          IEnumerable<PSObject> returned;
          using (PowerShell PowerShellInstance = PowerShell.Create())
          {
@@ -380,7 +393,7 @@ namespace StorageManagementTool
       /// <returns>Whether the operation were successful</returns>
       private static bool RecursiveServiceKiller(ServiceController toKill)
       {
-         
+
          IEnumerable<ServiceController> childs = toKill.DependentServices;
          if (!(childs.All(x => x.CanStop) && childs.All(RecursiveServiceKiller)))
          {
@@ -393,6 +406,49 @@ namespace StorageManagementTool
          }
          catch (Exception)
          {
+            return false;
+         }
+
+         return true;
+      }
+
+      /// <summary>
+      ///    Restarts a service and all depending services
+      /// </summary>
+      /// <param name="toRestart">The service to restart</param>
+      /// <returns>Whether the operation were successful</returns>
+      public static bool RecursiveServiceRestart(ServiceController toRestart)
+      {
+         return RecursiveServiceKiller(toRestart) && RecursiveServiceStarter(toRestart);
+      }
+
+      /// <summary>
+      /// Tests a given set of loacal CredetiaLS
+      /// </summary>
+      /// <param name="credentials">The credentials to test</param>
+      /// <returns>Whether the set of credentials is valid for the local machine</returns>
+      public static bool TestCredentials(EnterCredentials.Credentials credentials)
+      {
+         Process pProcess = new Process
+         {
+            StartInfo = new ProcessStartInfo(Path.Combine(Wrapper.System32Path, "cmd.exe"), " /C exit")
+            {
+               WindowStyle = ProcessWindowStyle.Hidden,
+               UseShellExecute = false,
+               Password = new SecureString(),
+               UserName = credentials.Username
+            }
+         };
+
+         pProcess.StartInfo.Password = credentials.Password;
+
+         try
+         {
+            pProcess.Start();
+         }
+         catch (Exception)
+         {
+
             return false;
          }
 

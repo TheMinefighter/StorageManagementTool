@@ -15,7 +15,7 @@ namespace StorageManagementTool
    {
       public static class SSDMonitoring
       {
-         private const string SSDMonitoringTaskName = "SSDMonitoring";
+         private const string SSDMonitoringTaskName = "StorageManagementTool_SSDMonitoring";
          private static readonly string SchtasksPath = Path.Combine(Wrapper.System32Path,"SCHTASKS.exe");
 
          private static readonly XNamespace TaskNamespace =
@@ -141,39 +141,6 @@ namespace StorageManagementTool
             return Wrapper.ExecuteExecuteable(SchtasksPath,
                $"/CHANGE /TN {SSDMonitoringTaskName} {(enable ? "/ENABLE" : "/DISABLE")}",true,true,true);
          }
-      }
-
-      public static bool TestCredentials(string username, SecureString password)
-      {
-         Process pProcess = new Process
-         {
-            StartInfo = new ProcessStartInfo(Path.Combine(Wrapper.System32Path, "cmd.exe"), " /C exit")
-            {
-               WindowStyle = ProcessWindowStyle.Hidden,
-               UseShellExecute = false,
-               Password = new SecureString(),
-               UserName = username
-            }
-         };
-
-         pProcess.StartInfo.Password = password;
-
-         try
-         {
-            pProcess.Start();
-         }
-         catch (Exception)
-         {
-
-            return false;
-         }
-
-         return true;
-      }
-
-      public static bool GetSearchDataPath(out object text)
-      {
-         return Wrapper.RegistryMethods.GetRegistryValue(OperatingMethods.SearchDatatDirectoryRegistryValue, out text, true);
       }
    }
 }
