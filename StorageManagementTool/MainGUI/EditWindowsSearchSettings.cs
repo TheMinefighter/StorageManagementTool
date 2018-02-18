@@ -107,7 +107,7 @@ namespace StorageManagementTool.MainGUI
       private void RefreshCurrentPath()
       {
          string displayedSearchDataPath = "Error";
-         if (Wrapper.RegistryMethods.GetRegistryValue(OperatingMethods.SearchDatatDirectoryRegistryValue, out object text, true))
+         if (OperatingMethods.GetSearchDataPath(out object text))
          {
 
             try
@@ -117,7 +117,7 @@ namespace StorageManagementTool.MainGUI
             }
             catch (Exception)
             {
-               MessageBox.Show("Der Speicherort für Suchindizierungen ist nicht korrekt definiert.", "Fehler",
+               MessageBox.Show("Der Speicherort für Suchindizierungen ist nicht korrekt definiert.", "",
                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                return;
             }

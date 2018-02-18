@@ -5,13 +5,15 @@ using Microsoft.VisualBasic.Devices;
 using static StorageManagementTool.GlobalizationRessources.ScenarioPresetStrings;
 
 namespace StorageManagementTool
-{
+{/// <summary>
+ /// Stores the presets for the scenarios
+ /// </summary>
    public struct ScenarioPreset
    {
       public static ScenarioPreset[] AvailablePresets;
       public override string ToString()
       {
-         return ViewedName;
+         return Id;
       }
 
       /// <summary>

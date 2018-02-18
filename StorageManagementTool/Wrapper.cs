@@ -64,13 +64,13 @@ namespace StorageManagementTool
          if (!toRun.Exists)
          {
             if (MessageBox.Show(
-                   String.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
+                   string.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                {
-                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{String.Join(";*", ExecuteableExtensions)}",
-                  Title = String.Format(ExecuteExecuteable_FileNotFound_SelectionTitle,toRun.Name)
+                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
+                  Title = string.Format(ExecuteExecuteable_FileNotFound_SelectionTitle,toRun.Name)
                };
                alternativeExecuteableSel.ShowDialog();
                return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -81,7 +81,7 @@ namespace StorageManagementTool
          if (!ExecuteableExtensions.Contains(toRun.Extension))
          {
             if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-               String.Format(ExecuteExecuteable_WrongEnding,
+               string.Format(ExecuteExecuteable_WrongEnding,
                   toRun.FullName, toRun.Extension),
                Error,
                MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
@@ -131,7 +131,7 @@ namespace StorageManagementTool
          catch (Win32Exception)
          {
             DialogResult retry = MessageBox.Show(
-               String.Format(
+               string.Format(
                   ExecuteExecuteable_AdminError,
                   toRun.FullName),
                Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);

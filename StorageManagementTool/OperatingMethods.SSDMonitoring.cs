@@ -170,5 +170,10 @@ namespace StorageManagementTool
 
          return true;
       }
+
+      public static bool GetSearchDataPath(out object text)
+      {
+         return Wrapper.RegistryMethods.GetRegistryValue(OperatingMethods.SearchDatatDirectoryRegistryValue, out text, true);
+      }
    }
 }

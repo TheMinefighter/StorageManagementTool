@@ -41,7 +41,12 @@ namespace StorageManagementTool
               DriveType2String(item.DriveType) + ')'
             : item.Name;
       }
-
+      /// <summary>
+      /// Moves a Directory to another Loaction using symlinks
+      /// </summary>
+      /// <param name="dir">The Directory to move</param>
+      /// <param name="newLocation">The Directory to move the file to</param>
+      /// <returns>Whether the operation were successful</returns>
       public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation)
       {
          if (dir == newLocation)
@@ -75,7 +80,12 @@ namespace StorageManagementTool
 
          return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
       }
-
+/// <summary>
+/// Moves a file to another Loaction using symlinks
+/// </summary>
+/// <param name="file">The file to move</param>
+/// <param name="newLocation">The location to move the file to</param>
+/// <returns>Whether the operation were successful</returns>
       public static bool MoveFile(FileInfo file, FileInfo newLocation)
       {
          if (file == newLocation)
@@ -99,14 +109,7 @@ namespace StorageManagementTool
 
          if (file.Exists)
          {
-            if (Wrapper.FileAndFolder.CopyFile(file, newLocation))
-            {
-               if (!Wrapper.FileAndFolder.DeleteFile(file))
-               {
-                  return false;
-               }
-            }
-            else
+            if (!Wrapper.FileAndFolder.MoveFile(file, newLocation))
             {
                return false;
             }
@@ -117,7 +120,7 @@ namespace StorageManagementTool
       }
 
       /// <summary>
-      ///    Recommends Paths to move to NewPath
+      ///    Recommends Paths to move to another drive
       /// </summary>
       /// <returns>The recommended Paths</returns>
       public static IEnumerable<string> GetRecommendedPaths()
