@@ -100,7 +100,31 @@
   <data name="WindowTitle" xml:space="preserve">
     <value></value>
   </data>
-  <data name="CurrentLocation_lbl" xml:space="preserve">
+  <data name="CurrentLocation_lbl_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="RefreshCurrentPath_btn_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="OpenCurrentPath_btn_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="NewPath_lbl_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="OpenNewPath_btn_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ShowFurtherSettings_btn_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Abort_btn_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SaveSettings_btn_Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SelectNewPath_btn_Text" xml:space="preserve">
     <value></value>
   </data>
 </root>

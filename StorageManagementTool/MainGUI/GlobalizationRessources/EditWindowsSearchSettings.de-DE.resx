@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CurrentLocation_lbl_Text" xml:space="preserve">
+    <value>Aktueller Speicherort</value>
+  </data>
+  <data name="RefreshCurrentPath_btn_Text" xml:space="preserve">
+    <value>Aktuellen Speicherort aktualisieren</value>
+  </data>
+  <data name="OpenCurrentPath_btn_Text" xml:space="preserve">
+    <value>Aktuellen Speicherort öffnen</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Suchindizierung anpassen</value>
+  </data>
+  <data name="NewPath_lbl_Text" xml:space="preserve">
+    <value>Neuer Speicherort</value>
+  </data>
+  <data name="OpenNewPath_btn_Text" xml:space="preserve">
+    <value>Neuen Speicherort öffnen</value>
+  </data>
+  <data name="ShowFurtherSettings_btn_Text" xml:space="preserve">
+    <value>Weitere Einstellungen zeigen</value>
+  </data>
+  <data name="SelectNewPath_btn_Text" xml:space="preserve">
+    <value>Neuen Speicherort auswählen</value>
+  </data>
+  <data name="Abort_btn_Text" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="SaveSettings_btn_Text" xml:space="preserve">
+    <value>Änderungen Speichern</value>
+  </data>
 </root>

@@ -63,9 +63,81 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CurrentLocation_lbl {
+        internal static string Abort_btn_Text {
             get {
-                return ResourceManager.GetString("CurrentLocation_lbl", resourceCulture);
+                return ResourceManager.GetString("Abort_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CurrentLocation_lbl_Text {
+            get {
+                return ResourceManager.GetString("CurrentLocation_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string NewPath_lbl_Text {
+            get {
+                return ResourceManager.GetString("NewPath_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string OpenCurrentPath_btn_Text {
+            get {
+                return ResourceManager.GetString("OpenCurrentPath_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string OpenNewPath_btn_Text {
+            get {
+                return ResourceManager.GetString("OpenNewPath_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string RefreshCurrentPath_btn_Text {
+            get {
+                return ResourceManager.GetString("RefreshCurrentPath_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SaveSettings_btn_Text {
+            get {
+                return ResourceManager.GetString("SaveSettings_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SelectNewPath_btn_Text {
+            get {
+                return ResourceManager.GetString("SelectNewPath_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ShowFurtherSettings_btn_Text {
+            get {
+                return ResourceManager.GetString("ShowFurtherSettings_btn_Text", resourceCulture);
             }
         }
         

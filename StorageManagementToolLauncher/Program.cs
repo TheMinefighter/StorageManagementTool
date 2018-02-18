@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
+using System.Windows.Forms;
 using StorageManagementTool;
 
 namespace StorageManagementToolLauncher
@@ -17,7 +18,11 @@ namespace StorageManagementToolLauncher
       [STAThread]
       [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
       private static void Main(string[] args)
+
       {
+
+         Application.EnableVisualStyles();
+         Application.SetCompatibleTextRenderingDefault(false);
          IntPtr handle = GetConsoleWindow();
          StorageManagementTool.Program.ConsoleIOObject = new ConsoleIO
          {

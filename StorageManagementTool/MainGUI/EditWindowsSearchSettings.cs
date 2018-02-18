@@ -2,6 +2,7 @@
 using System.IO;
 using System.ServiceProcess;
 using System.Windows.Forms;
+using static StorageManagementTool.MainGUI.GlobalizationRessources.EditWindowsSearchSettings;
 
 namespace StorageManagementTool.MainGUI
 {
@@ -48,16 +49,16 @@ namespace StorageManagementTool.MainGUI
       {
          OperatingMethods.SetSearchDataPath(new DirectoryInfo(NewPath_tb.Text));
          ServiceController wSearch = new ServiceController("WSearch");
-         if (!Wrapper.RecursiveServiceRestart(wSearch))
-         {
-            if (MessageBox.Show(String.Format(
-                      SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
-                   SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
-                DialogResult.Yes)
-            {
-               Wrapper.RestartComputer();
-            }
-         }
+         //if (!Wrapper.RecursiveServiceRestart(wSearch))
+         //{
+         //   if (MessageBox.Show(String.Format(
+         //             SetSearchDataPath_RestartErrorService, wSearch.DisplayName),
+         //          SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+         //       DialogResult.Yes)
+         //   {
+         //      Wrapper.RestartComputer();
+         //   }
+         //}
       }
 
       private void Abort_btn_Click(object sender, EventArgs e)
@@ -84,6 +85,7 @@ namespace StorageManagementTool.MainGUI
 
       private void EditWindowsSearchSettings_Load(object sender, EventArgs e)
       {
+         this.Text=Win
          EnableComponents();
          RefreshCurrentPath();
       }
