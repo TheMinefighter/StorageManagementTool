@@ -2,7 +2,7 @@
 using System.IO;
 using System.ServiceProcess;
 using System.Windows.Forms;
-using static StorageManagementTool.MainGUI.GlobalizationRessources.EditWindowsSearchSettings;
+using static StorageManagementTool.MainGUI.GlobalizationRessources.EditWindowsSearchSettingsStrings;
 
 namespace StorageManagementTool.MainGUI
 {
@@ -85,7 +85,7 @@ namespace StorageManagementTool.MainGUI
 
       private void EditWindowsSearchSettings_Load(object sender, EventArgs e)
       {
-         this.Text=Win
+      //   this.Text=Win
          EnableComponents();
          RefreshCurrentPath();
       }

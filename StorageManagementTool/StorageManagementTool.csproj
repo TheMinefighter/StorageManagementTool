@@ -143,10 +143,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditUserShellFolderStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettings.Designer.cs">
+    <Compile Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EditWindowsSearchSettings.resx</DependentUpon>
+      <DependentUpon>EditWindowsSearchSettingsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="MainGUI\GlobalizationRessources\MainWindowStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -254,11 +254,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EditUserShellFolderStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettings.de-DE.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettings.en-US.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettings.resx">
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EditWindowsSearchSettings.Designer.cs</LastGenOutput>
+      <LastGenOutput>EditWindowsSearchSettingsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.de-DE.resx" />
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.en-US.resx" />
