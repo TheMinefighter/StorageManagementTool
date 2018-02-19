@@ -203,7 +203,7 @@ if (admin)
       public static string AddBackslahes(string source)
       {
          return source
-           // .Replace("\\", "\\\\")
+            .Replace("\\", "\\\\")
             .Replace("\"", "\\\"");
       }
       /// <summary>

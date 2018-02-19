@@ -228,11 +228,18 @@ namespace StorageManagementTool.MainGUI
 
       private void button3_Click(object sender, EventArgs e)
       {
-         OperatingMethods.CheckForSysinternals();
-         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path,"cmd.exe"), "  /K "+ Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe")+
-            $" -u {Environment.UserName} -h -i \"{Path.Combine(Wrapper.System32Path,"reg.exe")}\" " +
-            $"{Wrapper.AddBackslahes("ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f")} ",
-            out string[] _,out int _, false,true,false,true,true);
+         string path = Path.Combine(Path.GetTempPath(), "StorageManagementTool_RegistryEdit.reg");
+         File.WriteAllLines(path, new[] {"Windows Registry Editor Version 5.00","", "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders]","\"OEM LINKS\"=\"F:\\\\TobiasAcc\"" });
+         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "regedit.exe"), path, true);
+         //OperatingMethods.CheckForSysinternals();
+         //string parameters =
+         //     $"  /K runas /profile /user:TobiasAcc  \"{Wrapper.AddBackslahes($"{Path.Combine(Wrapper.System32Path, "cmd.exe")} /k {Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe")} -u {Environment.UserName} -h -i \"{Path.Combine(Wrapper.System32Path, "reg.exe")}\" {Wrapper.AddBackslahes("ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f")}\"")} ";
+
+         //$" /K {Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe")} -i -s " +
+         //$"\"{Path.Combine(Wrapper.System32Path, "reg.exe")}\" " +
+         //$"\"{Wrapper.AddBackslahes($" ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f")}\"";
+         // Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path,"cmd.exe"), parameters,
+         //out string[] _,out int _, false,true,false,true,false);
 //         Wrapper.RegistryMethods.SetRegistryValue(
 //            new RegistryValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "OEM Links"), 
 //            "F:\\TobiasAcc", RegistryValueKind.ExpandString);

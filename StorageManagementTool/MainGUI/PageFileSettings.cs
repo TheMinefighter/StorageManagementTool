@@ -83,7 +83,7 @@ namespace StorageManagementTool.MainGUI
 
       private void SwapfileStepForward_btn_Click(object sender, EventArgs e)
       {
-         OperatingMethods.getDriveInfoFromDescription(out DriveInfo info, (string) Swapfilepartition_lb.SelectedItem);
+         OperatingMethods.GetDriveInfoFromDescription(out DriveInfo info, (string) Swapfilepartition_lb.SelectedItem);
 
          if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(true, currentState,info) &&
             MessageBox.Show(
