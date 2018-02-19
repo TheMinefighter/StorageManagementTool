@@ -73,7 +73,7 @@ namespace StorageManagementTool
             File.WriteAllText(tempLocation, taskString);
             return Wrapper.ExecuteExecuteable(SchtasksPath,
                $"/Create /XML \"{tempLocation}\" /TN {SSDMonitoringTaskName} /RP * /RU {Environment.UserName}",
-               out string[] _, out int _, false, true, false, true);
+               out string[] _, out int _, out int _,  readReturnData: false, waitforexit: true, hidden: false, admin: true);
          }
          /// <summary>
          /// Checks whether SSD monitoring has been initalized
@@ -84,7 +84,7 @@ namespace StorageManagementTool
          {
             initalized = false;
             if (!Wrapper.ExecuteExecuteable(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,
-               out int returnCode, true, true, true))
+               out int returnCode, out int _, readReturnData: true, waitforexit: true, hidden: true  ))
             {
                return false;
             }

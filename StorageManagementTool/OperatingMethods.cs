@@ -231,9 +231,9 @@ namespace StorageManagementTool
 
          if (Wrapper.ExecuteExecuteable(
             wmicPath, "computersystem get AutomaticManagedPagefile /Value"
-            , out string[] tmp, out int _, true, true, true, true)) //Tests
+            , out string[] tmp, out int _, out int _, readReturnData: true, waitforexit: true, hidden: true, admin: true, asUser: false)) //Tests
          {
-            if (Boolean.Parse(tmp[2].Split('=')[1]))
+            if (bool.Parse(tmp[2].Split('=')[1]))
             {
                Wrapper.ExecuteCommand(
                   wmicPath
@@ -243,8 +243,8 @@ namespace StorageManagementTool
                Wrapper.ExecuteExecuteable(
                   wmicPath
                   , "computersystem get AutomaticManagedPagefile /Value"
-                  , out tmp, out int _, waitforexit: true, hidden: true, admin: true);
-               if (!Boolean.Parse(tmp[2].Split('=')[1]))
+                  , out tmp, out int _, pid: out _, waitforexit: true, hidden: true, admin: true);
+               if (!bool.Parse(tmp[2].Split('=')[1]))
                {
                   MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
                      Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -254,20 +254,19 @@ namespace StorageManagementTool
          }
 
          Wrapper.ExecuteExecuteable(wmicPath,
-            "pagefileset delete /NOINTERACTIVE", out _, out int _, waitforexit: true,
-            hidden: true, admin: true); //Deletes all Pagefiles
+            "pagefileset delete /NOINTERACTIVE", out _, out int _, pid: out _, waitforexit: true, hidden: true, admin: true); //Deletes all Pagefiles
 
          Wrapper.ExecuteExecuteable(wmicPath,
             $"pagefileset create name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\"", out _,
-            out int _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile
+            out int _, pid: out _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile
 
          Wrapper.ExecuteExecuteable(wmicPath,
             $"pagefileset where name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\" set InitialSize={minSize},MaximumSize={maxSize}",
-            out _, out int _, waitforexit: true, hidden: true, admin: true); // Sets Pagefile Size
+            out _, out int _, pid: out _, waitforexit: true, hidden: true, admin: true); // Sets Pagefile Size
 
          Wrapper.ExecuteExecuteable(wmicPath,
-            " get", out tmp, out int _, true, true,
-            true); //Checks wether there is exactly 1 pagefile existing
+            " get", out tmp, out int _, out int _, readReturnData: true, waitforexit: true,
+            hidden: true, admin: true); //Checks wether there is exactly 1 pagefile existing
          if (tmp.Length != 2)
          {
             switch (MessageBox.Show(ChangePagefileSettings_Not1Pagefile,
@@ -314,7 +313,7 @@ namespace StorageManagementTool
             {
                //No;Yes;YesAll
                ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                  String.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
+                  string.Format(ChangeUserShellFolder_SubfolderFound_Text, child.Key.ViewedName),
                   ChangeUserShellFolder_SubfolderFound_Title,
                   childs.Count == 1
                      ? new[] {ChangeUserShellFolder_SubfolderFound_Yes, ChangeUserShellFolder_SubfolderFound_No}
@@ -347,12 +346,12 @@ namespace StorageManagementTool
                      if (!Wrapper.RegistryMethods.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String, usf.AccessAsUser))
                      {
                         switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-                           String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
+                           string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Text, child.Key.ViewedName,
                               x.ValueName, x.RegistryKey, newPathOfChild), Error,
                            new[]
                            {
                               ChangeUserShellFolder_ErrorChangeSubfolder_Retry,
-                              String.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
+                              string.Format(ChangeUserShellFolder_ErrorChangeSubfolder_Skip, child.Key.ViewedName),
                               ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
                               ChangeUserShellFolder_ErrorChangeSubfolder_Abort
                            }, 0)).NumberOfClickedButton)
@@ -391,7 +390,7 @@ namespace StorageManagementTool
                {
                   if (deleteOldContents == QuestionAnswer.Yes || deleteOldContents == QuestionAnswer.Ask &&
                       MessageBox.Show(
-                         String.Format(
+                         string.Format(
                             ChangeUserShellFolder_DeleteContent_Text,
                             oldDir.FullName, newDir.FullName),
                          ChangeUserShellFolder_DeleteContent_Title,

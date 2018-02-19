@@ -46,8 +46,7 @@ namespace StorageManagementTool
       public static bool ExecuteExecuteable(string filename, string parameters, bool admin = false,
          bool hidden = false, bool waitforexit = false)
       {
-         return ExecuteExecuteable(filename, parameters, out string[] _, out int _, waitforexit: waitforexit,
-            hidden: hidden, admin: admin);
+         return ExecuteExecuteable(filename, parameters, out string[] _, out int _, pid: out _, waitforexit: waitforexit, hidden: hidden, admin: admin);
       }
 
       /// <summary>
@@ -57,6 +56,7 @@ namespace StorageManagementTool
       /// <param name="parameters">The parameters to use when satrting the file</param>
       /// <param name="returnData"> The String returned by the file</param>
       /// <param name="exitCode"> The exit code returned by the executable, only available if waitforexit=true</param>
+      /// <param name="pid"></param>
       /// <param name="readReturnData">Whether to Read the output of the executeable started</param>
       /// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
       /// <param name="hidden">Whether the main window of this executeable (if existing) should be hidden</param>
@@ -64,9 +64,10 @@ namespace StorageManagementTool
       /// <param name="asUser"></param>
       /// <returns>Whether the operation were successfull</returns>
       public static bool ExecuteExecuteable(string filename, string parameters, out string[] returnData,
-         out int exitCode, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
+         out int exitCode, out int pid, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
          bool admin = false, bool asUser = false)
       {
+         pid = 0;
          FileInfo toRun = new FileInfo(filename);
          exitCode = 0;
          returnData = null;
@@ -83,7 +84,7 @@ namespace StorageManagementTool
                };
                alternativeExecuteableSel.ShowDialog();
                return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
-                  out exitCode, waitforexit: waitforexit, hidden: hidden, admin: admin, asUser: asUser);
+                  out exitCode, pid: out pid, waitforexit: waitforexit, hidden: hidden, admin: admin, asUser: asUser);
             }
          }
 
@@ -160,7 +161,7 @@ if (admin)
                default: return false;
             }
          }
-
+            pid = process.Id;
          if (waitforexit)
          {
             process.WaitForExit();
@@ -170,6 +171,7 @@ if (admin)
             }
 
             exitCode = process.ExitCode;
+
             process.Dispose();
          }
 
@@ -236,8 +238,8 @@ if (admin)
          bool waitforexit = true, bool debug = false, bool readReturnData = false)
       {
          if (ExecuteExecuteable(Path.Combine(System32Path, @"cmd.exe"),
-            (debug ? " /K " : " /C ") + cmd, out returnData, out int tmp, readReturnData, waitforexit, hidden,
-            admin))
+            (debug ? " /K " : " /C ") + cmd, out returnData, out int tmp, out int _, readReturnData: readReturnData, waitforexit: waitforexit, hidden: hidden,
+            admin: admin, asUser: false))
          {
             return tmp == 0;
          }

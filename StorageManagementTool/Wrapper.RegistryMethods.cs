@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.ServiceProcess;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using StorageManagementTool.GlobalizationRessources;
@@ -42,8 +43,7 @@ namespace StorageManagementTool
             if (asUser)
             {
                if (!ExecuteExecuteable(Path.Combine(System32Path, @"reg.exe"),
-                  $" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _,
-                  true, true, true,true, true))
+                  $" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true, true, true, true, true))
                {
                   return false;
                }
@@ -75,25 +75,44 @@ namespace StorageManagementTool
                       DialogResult.Retry && GetRegistryValue(path, out toReturn, asUser);
             }
 
-            toReturn = RegistryNumberFix(toReturn);
+            toReturn = RegistryNumberFixGet(toReturn);
 
             return true;
          }
          /// <summary>
          /// Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
          /// </summary>
+         /// <param name="source">The registry object to fix</param>
+         /// <returns>The fixed object</returns>
+         private static object RegistryNumberFixGet(object source)
+         {
+            if (source is int)
+            {
+               source = BitConverter.ToUInt32(BitConverter.GetBytes((int)source), 0);
+            }
+
+            if (source is long)
+            {
+               source = BitConverter.ToUInt64(BitConverter.GetBytes((long)source), 0);
+            }
+
+            return source;
+         }
+         /// <summary>
+         /// Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
+         /// </summary>
          /// <param name="toReturn">The registry object to fix</param>
          /// <returns>The fixed object</returns>
-         private static object RegistryNumberFix(object toReturn)
+         private static object RegistryNumberFixSet(object toReturn)
          {
             if (toReturn is int)
             {
-               toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int) toReturn), 0);
+               toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int)toReturn), 0);
             }
 
             if (toReturn is long)
             {
-               toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long) toReturn), 0);
+               toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long)toReturn), 0);
             }
 
             return toReturn;
@@ -169,19 +188,12 @@ namespace StorageManagementTool
          public static bool SetRegistryValue(RegistryValue valueLocation, object content, RegistryValueKind registryValueKind,
             bool asUser = false)
          {
-            if (asUser&&!Session.Singleton.IsAdmin)
+            if (asUser)
             {
-               if (MessageBox.Show(
-                      string.Format(
-                         WrapperStrings.SetRegistryValue_Security,
-                         valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
-                      WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-               {
-                  Wrapper.RestartAsAdministrator();
-                  Environment.Exit(0);
-               }
+               SetProtectedRegistryValue(valueLocation,content,registryValueKind);
+               return true;
             }
-            if (asUser || !Session.Singleton.IsAdmin)
+            if (!Session.Singleton.IsAdmin)
             {
                string value;
                switch (registryValueKind)
@@ -209,8 +221,7 @@ namespace StorageManagementTool
                string kind = Win32ApiRepresentation(registryValueKind);
                if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
                       $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
-                      out string[] _, out int tmpExitCode, true, true, true, true,
-                      asUser) || tmpExitCode == 1)
+                      out string[] _, out int tmpExitCode, out _, true, true, true, true, asUser) || tmpExitCode == 1)
                {
                   return false;
                }
@@ -230,7 +241,7 @@ namespace StorageManagementTool
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                       WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                {
-                  Wrapper.RestartAsAdministrator();
+                  RestartAsAdministrator();
                   Environment.Exit(0);
                }
 
@@ -267,6 +278,86 @@ namespace StorageManagementTool
             }
 
             return true;
+         }
+
+         /// <summary>
+         /// Writes a protected registry value
+         /// </summary>
+         /// <param name="toSet">The value to set</param>
+         /// <param name="content">The content to set the value to</param>
+         /// <param name="kind">The RegistyValueKind of the content</param>
+         public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind)
+         {
+            string toWrite = "";
+            const string folderName = "StorageManagementToolRegistryData";
+            string path = Path.Combine(Path.GetTempPath(), folderName, "StorageManagementTool_RegistryEdit.reg");
+            new FileInfo(path).Directory.Create();
+            toWrite = GetRegFileContent(content, kind);
+            File.WriteAllLines(path,
+               new[]
+               {
+                  "Windows Registry Editor Version 5.00",
+                  "",
+                  $"[{toSet.RegistryKey}]",
+                  $"\"{AddBackslahes(toSet.ValueName)}\"={toWrite}"
+               });
+            // I know that the following is exploiting UAC a bit, but the Warning will not be suppressed, so I don´t see any real reasons not to do that
+            ExecuteExecuteable(ExplorerPath, $" /select,\"{path}\"", out string[] _, out int _, out int _);
+            Thread.Sleep(1000);
+            SendKeys.SendWait("{ENTER}");
+            Thread.Sleep(1000);
+            ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+               $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
+            //For people, who have the "Display full name in titlebar" option enabled
+            ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+               $"/F /FI \"WINDOWTITLE eq {path}\" /IM explorer.exe");
+         }
+         /// <summary>
+         /// Generates a value to write to a .reg file for Windows Registry Editor Version 5.00
+         /// </summary>
+         /// <param name="content">The object to be written in the file</param>
+         /// <param name="kind">The RegistryValueKind of the content</param>
+         /// <returns> A value to use in a .reg file</returns>
+         private static string GetRegFileContent(object content, RegistryValueKind kind)
+         {
+            string toWrite;
+            switch (kind)
+            {
+               case RegistryValueKind.String:
+                  toWrite = $"\"{AddBackslahes((string) content)}\"";
+                  break;
+               case RegistryValueKind.ExpandString:
+                  toWrite = "hex(2):" + string.Join(",",
+                               System.Text.Encoding.Unicode.GetBytes((string) content + "\0")
+                                  .Select(x => x.ToString("X2").ToLower()));
+                  break;
+               case RegistryValueKind.Binary:
+                  toWrite = "hex:" + string.Join(",",
+                               System.Text.Encoding.Unicode.GetBytes((string) content).Select(x => x.ToString("X2").ToLower()));
+                  break;
+               case RegistryValueKind.DWord:
+                  toWrite = "dword:" + ((uint) RegistryNumberFixGet(content)).ToString("D8");
+                  break;
+               case RegistryValueKind.MultiString:
+                  toWrite = "hex(7):" + string.Join(",",
+                               System.Text.Encoding.Unicode.GetBytes(string.Join("\0", (string[]) content) + "\0\0")
+                                  .Select(x => x.ToString("X2").ToLower()));
+                  break;
+               case RegistryValueKind.QWord:
+                  toWrite = "hex(b):" + string.Join(",",
+                               BitConverter.GetBytes(((ulong) RegistryNumberFixGet(content)))
+                                  .Select(x => x.ToString("X2").ToLower()));
+                  break;
+               case RegistryValueKind.None:
+                  toWrite = "hex(0):" + string.Join(",",
+                               System.Text.Encoding.Unicode.GetBytes((string) content).Select(x => x.ToString("X2").ToLower()));
+                  break;
+               case RegistryValueKind.Unknown:
+                  default:
+                  throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
+            }
+
+            return toWrite;
          }
       }
 

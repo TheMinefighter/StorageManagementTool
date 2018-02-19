@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 //using StorageManagementTool.GlobalizationRessources;
@@ -228,9 +229,8 @@ namespace StorageManagementTool.MainGUI
 
       private void button3_Click(object sender, EventArgs e)
       {
-         string path = Path.Combine(Path.GetTempPath(), "StorageManagementTool_RegistryEdit.reg");
-         File.WriteAllLines(path, new[] {"Windows Registry Editor Version 5.00","", "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders]","\"OEM LINKS\"=\"F:\\\\TobiasAcc\"" });
-         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "regedit.exe"), path, true);
+      //   Wrapper.RegistryMethods.SetProtectedRegistryValue();
+
          //OperatingMethods.CheckForSysinternals();
          //string parameters =
          //     $"  /K runas /profile /user:TobiasAcc  \"{Wrapper.AddBackslahes($"{Path.Combine(Wrapper.System32Path, "cmd.exe")} /k {Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe")} -u {Environment.UserName} -h -i \"{Path.Combine(Wrapper.System32Path, "reg.exe")}\" {Wrapper.AddBackslahes("ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f")}\"")} ";
@@ -240,13 +240,13 @@ namespace StorageManagementTool.MainGUI
          //$"\"{Wrapper.AddBackslahes($" ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f")}\"";
          // Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path,"cmd.exe"), parameters,
          //out string[] _,out int _, false,true,false,true,false);
-//         Wrapper.RegistryMethods.SetRegistryValue(
-//            new RegistryValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "OEM Links"), 
-//            "F:\\TobiasAcc", RegistryValueKind.ExpandString);
-//         Wrapper.ExecuteCommand(
-//            "reg ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f",
-//            true, false, debug: true);
-//         Wrapper.FileAndFolder.DeleteFile(new FileInfo("F:\\Prg\\Energy\\Eray.exe"));
+         //         Wrapper.RegistryMethods.SetRegistryValue(
+         //            new RegistryValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "OEM Links"), 
+         //            "F:\\TobiasAcc", RegistryValueKind.ExpandString);
+         //         Wrapper.ExecuteCommand(
+         //            "reg ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f",
+         //            true, false, debug: true);
+         //         Wrapper.FileAndFolder.DeleteFile(new FileInfo("F:\\Prg\\Energy\\Eray.exe"));
          //Wrapper.RegistryMethods.GetRegistryValue(
          //   new RegistryValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Cache"),
          //   out object tmp,true);
