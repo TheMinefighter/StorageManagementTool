@@ -43,7 +43,7 @@ namespace StorageManagementTool
             {
                if (!ExecuteExecuteable(Path.Combine(System32Path, @"reg.exe"),
                   $" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _,
-                  true, true, true, false, true))
+                  true, true, true,true, true))
                {
                   return false;
                }
@@ -69,7 +69,7 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                return MessageBox.Show(
-                         String.Format(WrapperStrings.GetRegistryValue_Exception,
+                         string.Format(WrapperStrings.GetRegistryValue_Exception,
                             path.ValueName, path.RegistryKey, e.Message),
                          WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
                       DialogResult.Retry && GetRegistryValue(path, out toReturn, asUser);
@@ -79,7 +79,11 @@ namespace StorageManagementTool
 
             return true;
          }
-
+         /// <summary>
+         /// Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
+         /// </summary>
+         /// <param name="toReturn">The registry object to fix</param>
+         /// <returns>The fixed object</returns>
          private static object RegistryNumberFix(object toReturn)
          {
             if (toReturn is int)
@@ -128,7 +132,7 @@ namespace StorageManagementTool
             {
                case RegistryValueKind.DWord:
 
-                  toReturn = UInt32.Parse(data.Substring(2), NumberStyles.HexNumber);
+                  toReturn = uint.Parse(data.Substring(2), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.String:
                   toReturn = data;
@@ -139,7 +143,7 @@ namespace StorageManagementTool
                   toReturn = data.Split('\0');
                   break;
                case RegistryValueKind.QWord:
-                  toReturn = UInt64.Parse(data.Substring(2), NumberStyles.HexNumber);
+                  toReturn = ulong.Parse(data.Substring(2), NumberStyles.HexNumber);
                   break;
                case RegistryValueKind.Unknown:
                   toReturn = data;
@@ -168,7 +172,7 @@ namespace StorageManagementTool
             if (asUser&&!Session.Singleton.IsAdmin)
             {
                if (MessageBox.Show(
-                      String.Format(
+                      string.Format(
                          WrapperStrings.SetRegistryValue_Security,
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                       WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -192,7 +196,7 @@ namespace StorageManagementTool
                      value = ((string) content).Replace("\"", "\\\"");
                      break;
                   case RegistryValueKind.MultiString:
-                     value = String.Join("\0", (string[]) content).Replace("\"", "\\\"");
+                     value = string.Join("\0", (string[]) content).Replace("\"", "\\\"");
                      break;
                   case RegistryValueKind.ExpandString:
                      value = ((string) content).Replace("\"", "\\\"");
@@ -205,7 +209,7 @@ namespace StorageManagementTool
                string kind = Win32ApiRepresentation(registryValueKind);
                if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
                       $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
-                      out string[] _, out int tmpExitCode, true, true, true, !asUser,
+                      out string[] _, out int tmpExitCode, true, true, true, true,
                       asUser) || tmpExitCode == 1)
                {
                   return false;
@@ -221,7 +225,7 @@ namespace StorageManagementTool
             catch (SecurityException)
             {
                if (MessageBox.Show(
-                      String.Format(
+                      string.Format(
                          WrapperStrings.SetRegistryValue_Security,
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                       WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -235,7 +239,7 @@ namespace StorageManagementTool
             catch (UnauthorizedAccessException)
             {
                if (MessageBox.Show(
-                      String.Format(
+                      string.Format(
                          WrapperStrings.SetRegistryValue_UnauthorizedAccess,
                          valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
                       WrapperStrings.Error,
@@ -250,7 +254,7 @@ namespace StorageManagementTool
             catch (Exception e)
             {
                if (MessageBox.Show(
-                      String.Format(
+                      string.Format(
                          WrapperStrings.SetRegistry_Exception,
                          valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind, e.Message),
                       WrapperStrings.Error, MessageBoxButtons.RetryCancel,

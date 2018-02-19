@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Security;
 using System.ServiceProcess;
 using System.Windows.Forms;
@@ -526,6 +528,28 @@ namespace StorageManagementTool
 
          directory = dir.Parent.Parent;
          return true;
+      }
+
+      public static void CheckForSysinternals()
+      {
+         if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe")))
+         {
+            string zipName = Path.Combine(Directory.GetCurrentDirectory(), "PsTools.zip");
+            using (WebClient tmpClient = new WebClient())
+            {
+               try
+               {
+                  tmpClient.DownloadFile("https://download.sysinternals.com/files/PSTools.zip", zipName);
+               }
+               catch (Exception)
+               {
+                  Console.WriteLine();
+               }
+            }
+
+            ZipFile.ExtractToDirectory(zipName, Path.Combine(Directory.GetCurrentDirectory(), "PsTools"));
+            Wrapper.FileAndFolder.DeleteFile(new FileInfo(zipName) );
+         }
       }
    }
 }

@@ -52,11 +52,11 @@ namespace StorageManagementTool
          }
 
          string username = Username_tb.Text;
-         Credentials givenCredentials= new Credentials()
+         Credentials givenCredentials = new Credentials()
          {
             Password = password,
             Username = username
-         }
+         };
          if (!Wrapper.TestCredentials(givenCredentials))
          {
             MessageBox.Show(EnteredCredentialsAreInvalid, Error, MessageBoxButtons.OK,

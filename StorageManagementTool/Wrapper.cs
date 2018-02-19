@@ -20,9 +20,17 @@ namespace StorageManagementTool
    /// </summary>
    public static partial class Wrapper
    {
+      /// <summary>
+      /// The file extensions, which are executeable as standalone
+      /// </summary>
       private static readonly IEnumerable<string> ExecuteableExtensions = new[] { ".exe", ".pif", ".com", ".bat", ".cmd" };
+      /// <summary>
+      /// The System32 Path
+      /// </summary>
       public static readonly string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
-
+      /// <summary>
+      /// The path of the Windows Explorer
+      /// </summary>
       public static readonly string ExplorerPath =
          Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
@@ -65,13 +73,13 @@ namespace StorageManagementTool
          if (!toRun.Exists)
          {
             if (MessageBox.Show(
-                   String.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
+                   string.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
                    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
                {
-                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{String.Join(";*", ExecuteableExtensions)}",
-                  Title = String.Format(ExecuteExecuteable_FileNotFound_SelectionTitle, toRun.Name)
+                  Filter = $"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
+                  Title = string.Format(ExecuteExecuteable_FileNotFound_SelectionTitle, toRun.Name)
                };
                alternativeExecuteableSel.ShowDialog();
                return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -82,7 +90,7 @@ namespace StorageManagementTool
          if (!ExecuteableExtensions.Contains(toRun.Extension))
          {
             if (new DialogResult[] { DialogResult.No, DialogResult.None }.Contains(MessageBox.Show(
-               String.Format(ExecuteExecuteable_WrongEnding,
+               string.Format(ExecuteExecuteable_WrongEnding,
                   toRun.FullName, toRun.Extension),
                Error,
                MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
@@ -117,13 +125,17 @@ namespace StorageManagementTool
          }
          else
          {
-            if (admin)
+            
+         }
+if (admin)
             {
                startInfo.Verb = "runas";
-               startInfo.UseShellExecute = true;
-            }
-         }
+               if (!asUser)
+               {
 
+                  startInfo.UseShellExecute = true;
+               }
+            }
          process.StartInfo = startInfo;
          try
          {
@@ -132,7 +144,7 @@ namespace StorageManagementTool
          catch (Win32Exception)
          {
             DialogResult retry = MessageBox.Show(
-               String.Format(
+               string.Format(
                   ExecuteExecuteable_AdminError,
                   toRun.FullName),
                Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
@@ -188,6 +200,12 @@ namespace StorageManagementTool
          return ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug);
       }
 
+      public static string AddBackslahes(string source)
+      {
+         return source
+           // .Replace("\\", "\\\\")
+            .Replace("\"", "\\\"");
+      }
       /// <summary>
       ///    Checks if one Path is the parent of another
       /// </summary>
@@ -233,11 +251,12 @@ namespace StorageManagementTool
       ///    Tests whether the program is being executed with Admin privileges
       /// </summary>
       /// <returns>Whether the Program is being executed with Admin privileges</returns>
-      public static bool IsUserAdministrator()
+      public static bool IsCurrentUserAdministrator()
       {
          try
          {
             return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+            //   new UserPrincipal().IsMemberOf(new )
          }
          catch (Exception)
          {
@@ -278,31 +297,46 @@ namespace StorageManagementTool
 
          return ret.ToArray();
       }
-
+      /// <summary>
+      /// Checks whether a local user with the given name exists
+      /// </summary>
+      /// <param name="name">The name of the user</param>
+      /// <returns>Whether the username exists</returns>
       public static bool IsUser(string name)
       {
          return UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
       }
-
+      /// <summary>
+      /// Checks whether a given user is a local administrator
+      /// </summary>
+      /// <param name="username">The userame</param>
+      /// <returns></returns>
       public static bool IsAdmin(string username)
       {
-         SecurityIdentifier id = new SecurityIdentifier("S-1-5-32-544");
+
          UserPrincipal user = UserPrincipal
             .FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, username);
+
          if (user == null)
          {
             return false;
+
          }
+         return user.IsMemberOf(GetPrincipalContext(), IdentityType.Sid, "S-1-5-32-544");
 
-         return user
-            .GetGroups()
-            .Any(x => x.Sid == id);
       }
-
+      /// <summary>
+      /// Converts a IEnumerable of KeyValuePairs to the appropriate dictionary
+      /// </summary>
+      /// <typeparam name="TKey">The Key Type of the dictionary</typeparam>
+      /// <typeparam name="TValue">The Value type of the dictionary</typeparam>
+      /// <param name="source">The IEnumerable of KeyValuePairs to use</param>
+      /// <returns>A dictionary containing all KeyValuePairs of the source</returns>
       public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(
-         this IEnumerable<KeyValuePair<TKey, TValue>> src)
+         this IEnumerable<KeyValuePair<TKey, TValue>> source)
       {
-         return src.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
+
+         return source.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
       }
       /// <summary>
       /// Converts a DateTime to its Win32 representation

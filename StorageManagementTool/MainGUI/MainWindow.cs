@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.Win32;
 //using StorageManagementTool.GlobalizationRessources;
 
 using static StorageManagementTool.MainGUI.GlobalizationRessources.MainWindowStrings;
@@ -227,7 +228,18 @@ namespace StorageManagementTool.MainGUI
 
       private void button3_Click(object sender, EventArgs e)
       {
-         Wrapper.FileAndFolder.DeleteFile(new FileInfo("F:\\Prg\\Energy\\Eray.exe"));
+         OperatingMethods.CheckForSysinternals();
+         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path,"cmd.exe"), "  /K "+ Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe")+
+            $" -u {Environment.UserName} -h -i \"{Path.Combine(Wrapper.System32Path,"reg.exe")}\" " +
+            $"{Wrapper.AddBackslahes("ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f")} ",
+            out string[] _,out int _, false,true,false,true,true);
+//         Wrapper.RegistryMethods.SetRegistryValue(
+//            new RegistryValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "OEM Links"), 
+//            "F:\\TobiasAcc", RegistryValueKind.ExpandString);
+//         Wrapper.ExecuteCommand(
+//            "reg ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f",
+//            true, false, debug: true);
+//         Wrapper.FileAndFolder.DeleteFile(new FileInfo("F:\\Prg\\Energy\\Eray.exe"));
          //Wrapper.RegistryMethods.GetRegistryValue(
          //   new RegistryValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Cache"),
          //   out object tmp,true);

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Security;
 using System.Security.Principal;
 using System.Xml.Linq;
@@ -15,14 +17,21 @@ namespace StorageManagementTool
    {
       public static class SSDMonitoring
       {
+         /// <summary>
+         /// Name of the monitoring task
+         /// </summary>
          private const string SSDMonitoringTaskName = "StorageManagementTool_SSDMonitoring";
-         private static readonly string SchtasksPath = Path.Combine(Wrapper.System32Path,"SCHTASKS.exe");
-
-         private static readonly XNamespace TaskNamespace =
-            XNamespace.Get("http://schemas.microsoft.com/windows/2004/02/mit/task");
-
+         /// <summary>
+         /// Path to the SCHTASKS.exe
+         /// </summary>
+         private static readonly string SchtasksPath = Path.Combine(Wrapper.System32Path, "SCHTASKS.exe");
+         /// <summary>
+         /// Initalizes SSD monitoring
+         /// </summary>
+         /// <returns>Whether the initalization process were successful</returns>
          public static bool InitalizeSSDMonitoring()
-         {
+         {          XNamespace TaskNamespace =
+            XNamespace.Get("http://schemas.microsoft.com/windows/2004/02/mit/task");
             XElement taskContents = new XElement(TaskNamespace + "Task", new XAttribute("version", "1.4"),
                new XElement(TaskNamespace + "RegistrationInfo",
                   new XElement(TaskNamespace + "Date", Wrapper.DateTimeToWin32Format(DateTime.Now)),
@@ -64,9 +73,39 @@ namespace StorageManagementTool
             File.WriteAllText(tempLocation, taskString);
             return Wrapper.ExecuteExecuteable(SchtasksPath,
                $"/Create /XML \"{tempLocation}\" /TN {SSDMonitoringTaskName} /RP * /RU {Environment.UserName}",
-               out string[] _,out int _,false,true,false,true);
+               out string[] _, out int _, false, true, false, true);
+         }
+         /// <summary>
+         /// Checks whether SSD monitoring has been initalized
+         /// </summary>
+         /// <param name="initalized">Whether SSD monitoring has been initalized</param>
+         /// <returns>Whether the check were successful</returns>
+         public static bool SSDMonitoringInitalized(out bool initalized)
+         {
+            initalized = false;
+            if (!Wrapper.ExecuteExecuteable(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,
+               out int returnCode, true, true, true))
+            {
+               return false;
+            }
+            initalized = returnCode == 0;
+            return true;
          }
 
+         /// <summary>
+         /// Checks whether SSD monitoring has been initalized
+         /// </summary>
+         /// <returns>Whether SSD monitoring has been initalized</returns>
+         public static bool SSDMonitoringInitalized()
+         {
+            bool success = SSDMonitoringInitalized(out bool enabled);
+            return success && enabled;
+         }
+         /// <summary>
+         /// Checks if SSD monitoring is enabled
+         /// </summary>
+         /// <param name="enabled">Whether SSD monitoring</param>
+         /// <returns>Whether the check were successful</returns>
          public static bool SSDMonitoringEnabled(out bool enabled)
          {
             enabled = false;
@@ -81,65 +120,46 @@ namespace StorageManagementTool
             {
                return false;
             }
-            enabled = ret.ElementAt(0) == "Enabled"||ret.ElementAt(0)=="Ready";
+            enabled = ret.ElementAt(0) == "Enabled" || ret.ElementAt(0) == "Ready";
             return true;
 
          }
-
+         /// <summary>
+         /// Checks if SSD monitoring is enabled
+         /// </summary>
+         /// <returns>Whether SSD monitoring</returns>
          public static bool SSDMonitoringEnabled()
          {
             bool success = SSDMonitoringEnabled(out bool enabled);
             return success && enabled;
          }
 
-         public static bool SSDMonitoringInitalized(out bool initalized)
-         {
-            int returnCode;
-            initalized = false;
-            try
-            {
-               if (!Wrapper.ExecuteExecuteable(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,
-                  out returnCode, true, true, true))
-               {
-                  return false;
-               }
-            }
-            catch (Exception )
-            {
-               return false;
-            }
-
-            initalized = returnCode == 0;
-            return true;
-         }
-
-         public static bool SSDMonitoringInitalized()
-         {
-            bool success = SSDMonitoringInitalized(out bool enabled);
-            return success && enabled;
-         }
-
-         public static bool SetSSDMonitoring(bool enable, bool checkForInitalize=true)
+         /// <summary>
+         /// Sets whether SSD monitoring is enabled
+         /// </summary>
+         /// <param name="enable">Whether the monitoring should be enabled or disabled</param>
+         /// <param name="checkForInitalize">Whether to check if SSD monitoring were allready initalized if it were not initalized it will be</param>
+         /// <returns>Whether the operation were successful</returns>
+         public static bool SetSSDMonitoring(bool enable, bool checkForInitalize = true)
          {
             if (checkForInitalize)
             {
-               if (!Wrapper.ExecuteExecuteable(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,out int returnCode,true,true, true,false,false))
+               if (!SSDMonitoringInitalized(out bool initalized))
                {
                   return false;
                }
 
-               if (returnCode!=0)
+               if (!initalized)
                {
                   if (!InitalizeSSDMonitoring())
                   {
                      return false;
                   }
-               
                }
             }
 
             return Wrapper.ExecuteExecuteable(SchtasksPath,
-               $"/CHANGE /TN {SSDMonitoringTaskName} {(enable ? "/ENABLE" : "/DISABLE")}",true,true,true);
+               $"/CHANGE /TN {SSDMonitoringTaskName} {(enable ? "/ENABLE" : "/DISABLE")}", true, true, true);
          }
       }
    }
