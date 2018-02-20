@@ -83,7 +83,7 @@ namespace StorageManagementTool
          if (((DialogReturnData) Tag).AdminRequired)
          {
             Headline0_lbl.Text = string.Format(AdministratorInstructions, Environment.NewLine);
-            if (Wrapper.IsAdmin(Environment.UserName))
+            if (Wrapper.IsCurrentUserAdministrator())
             {
                Username_tb.Text = Environment.UserName;
             }

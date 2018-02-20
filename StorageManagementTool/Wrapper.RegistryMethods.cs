@@ -289,7 +289,7 @@ namespace StorageManagementTool
          public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind)
          {
             const string folderName = "StorageManagementToolRegistryData";
-            string path = Path.Combine(Path.GetTempPath(), folderName, "StorageManagementTool_RegistryEdit.reg");
+            string path = Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg");
             new FileInfo(path).Directory.Create();
             string toWrite = GetRegFileContent(content, kind);
             File.WriteAllLines(path,
@@ -301,16 +301,25 @@ namespace StorageManagementTool
                   $"\"{AddBackslahes(toSet.ValueName)}\"={toWrite}"
                });
             // I know that the following is exploiting UAC a bit, but the Warning will not be suppressed, so I don´t see any real reasons not to do that
-            ExecuteExecuteable(ExplorerPath, $" /select,\"{path}\"");
-            Thread.Sleep(1000);
-            SendKeys.SendWait("{ENTER}");
-            Thread.Sleep(1000);
-            ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
-               $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
-            //For people, who have the "Display full name in titlebar" option enabled
-            ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
-               $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(),folderName)}\" /IM explorer.exe");
+            ApplyRegfile();
          }
+         /// <summary>
+         /// Applies a Regfile generated using SetProtectedRegistryValue
+         /// </summary>
+         public static void ApplyRegfile()
+         {
+            const string folderName = "StorageManagementToolRegistryData";
+            ExecuteExecuteable(ExplorerPath, $" /select,\"{Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg")}\"");
+            //Thread.Sleep(1000);
+            //SendKeys.SendWait("{ENTER}");
+            //Thread.Sleep(1000);
+            //ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+            //   $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
+            ////For people, who have the "Display full name in titlebar" option enabled
+            //ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+            //   $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(), folderName)}\" /IM explorer.exe");
+         }
+
          /// <summary>
          /// Generates a value to write to a .reg file for Windows Registry Editor Version 5.00
          /// </summary>

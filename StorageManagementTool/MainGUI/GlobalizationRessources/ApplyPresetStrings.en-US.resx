@@ -135,8 +135,8 @@
   <data name="NoSSDSelectedButRequired" xml:space="preserve">
     <value>The selected scenario requires a SSD, but no SSD were selected.</value>
   </data>
-   <data name="SelectHDD_lbl_Text" xml:space="preserve">
-    <value>HDD</value>
+  <data name="SelectHDD_lbl_Text" xml:space="preserve">
+    <value>HDD/NAS</value>
   </data>
   <data name="SelectScenario_lbl_Text" xml:space="preserve">
     <value>Scenario</value>

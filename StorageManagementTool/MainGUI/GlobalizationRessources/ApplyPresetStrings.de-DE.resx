@@ -135,8 +135,8 @@
   <data name="NoSSDSelectedButRequired" xml:space="preserve">
     <value>Das ausgewählte Anwendungsszenario setzt eine SSD vorraus , jedoch wurde keine SSD ausgewählt.</value>
   </data>
-   <data name="SelectHDD_lbl_Text" xml:space="preserve">
-    <value>HDD</value>
+  <data name="SelectHDD_lbl_Text" xml:space="preserve">
+    <value>HDD/NAS</value>
   </data>
   <data name="SelectScenario_lbl_Text" xml:space="preserve">
     <value>Anwendungsszenario</value>
