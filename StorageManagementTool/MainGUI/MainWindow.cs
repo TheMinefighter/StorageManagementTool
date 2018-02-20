@@ -229,7 +229,9 @@ namespace StorageManagementTool.MainGUI
 
       private void button3_Click(object sender, EventArgs e)
       {
-      //   Wrapper.RegistryMethods.SetProtectedRegistryValue();
+
+//         Wrapper.RegistryMethods.SetProtectedRegistryValue(new RegistryValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders","OEM LINKS"),"F:\\TobiasAcc\\Desktop\\JufoTesting\\OEM2",RegistryValueKind.String );
+         //   Wrapper.RegistryMethods.SetProtectedRegistryValue();
 
          //OperatingMethods.CheckForSysinternals();
          //string parameters =

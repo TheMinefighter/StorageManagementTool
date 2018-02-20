@@ -288,11 +288,10 @@ namespace StorageManagementTool
          /// <param name="kind">The RegistyValueKind of the content</param>
          public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind)
          {
-            string toWrite = "";
             const string folderName = "StorageManagementToolRegistryData";
             string path = Path.Combine(Path.GetTempPath(), folderName, "StorageManagementTool_RegistryEdit.reg");
             new FileInfo(path).Directory.Create();
-            toWrite = GetRegFileContent(content, kind);
+            string toWrite = GetRegFileContent(content, kind);
             File.WriteAllLines(path,
                new[]
                {
@@ -302,7 +301,7 @@ namespace StorageManagementTool
                   $"\"{AddBackslahes(toSet.ValueName)}\"={toWrite}"
                });
             // I know that the following is exploiting UAC a bit, but the Warning will not be suppressed, so I don´t see any real reasons not to do that
-            ExecuteExecuteable(ExplorerPath, $" /select,\"{path}\"", out string[] _, out int _, out int _);
+            ExecuteExecuteable(ExplorerPath, $" /select,\"{path}\"");
             Thread.Sleep(1000);
             SendKeys.SendWait("{ENTER}");
             Thread.Sleep(1000);
@@ -310,7 +309,7 @@ namespace StorageManagementTool
                $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
             //For people, who have the "Display full name in titlebar" option enabled
             ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
-               $"/F /FI \"WINDOWTITLE eq {path}\" /IM explorer.exe");
+               $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(),folderName)}\" /IM explorer.exe");
          }
          /// <summary>
          /// Generates a value to write to a .reg file for Windows Registry Editor Version 5.00
