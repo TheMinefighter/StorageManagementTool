@@ -212,9 +212,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="EnterCredentialsDialog.ko-KP.resx">
-      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EnterCredentialsDialog.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
