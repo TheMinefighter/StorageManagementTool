@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageManagementToolLaunch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedMessageBoxLibrary", "ExtendedMessageBoxLibrary\ExtendedMessageBoxLibrary.csproj", "{A421800C-1BCB-41C3-8172-8D7C3583649C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalCommandlineInterface", "UniversalCommandlineInterface\UniversalCommandlineInterface.csproj", "{2D5F2F0A-D936-4B3D-837C-1B0FBA24C85E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{A421800C-1BCB-41C3-8172-8D7C3583649C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A421800C-1BCB-41C3-8172-8D7C3583649C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A421800C-1BCB-41C3-8172-8D7C3583649C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2D5F2F0A-D936-4B3D-837C-1B0FBA24C85E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5F2F0A-D936-4B3D-837C-1B0FBA24C85E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5F2F0A-D936-4B3D-837C-1B0FBA24C85E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5F2F0A-D936-4B3D-837C-1B0FBA24C85E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

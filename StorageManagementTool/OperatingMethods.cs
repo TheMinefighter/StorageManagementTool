@@ -68,12 +68,9 @@ namespace StorageManagementTool
 
          if (dir.Exists)
          {
-            if (Wrapper.FileAndFolder.CopyDirectory(dir, newLocation))
+            if (!Wrapper.FileAndFolder.MoveDirectory(dir, newLocation))
             {
-               if (!Wrapper.FileAndFolder.DeleteDirectory(dir))
-               {
-                  return false;
-               }
+               return false;
             }
             else
             {
