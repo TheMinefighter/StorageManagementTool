@@ -1,7 +1,18 @@
-﻿namespace UniversalCommandlineInterface
+﻿using System;
+
+namespace UniversalCommandlineInterface
 {
-   public class ContextInterpreter
+   public class ContextInterpreter : BaseInterpreter
    {
-      private CommandlineOptionInterpreter parent;
+      public Type Type { get; set; }
+      public object O { get; set; }
+
+      protected ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset)
+      {
+      }
+
+      protected ContextInterpreter(BaseInterpreter parent, int offset = 0) : base(parent, offset)
+      {
+      }
    }
 }

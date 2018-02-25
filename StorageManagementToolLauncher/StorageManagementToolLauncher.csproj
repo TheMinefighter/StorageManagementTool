@@ -98,6 +98,10 @@
       <Project>{725f33aa-8834-4ba8-acf6-99d133b3fc05}</Project>
       <Name>StorageManagementTool</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalCommandlineInterface\UniversalCommandlineInterface.csproj">
+      <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>
+      <Name>UniversalCommandlineInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">

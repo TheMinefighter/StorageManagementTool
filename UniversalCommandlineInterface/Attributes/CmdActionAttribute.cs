@@ -3,7 +3,7 @@
 namespace UniversalCommandlineInterface
 {
  [AttributeUsage(AttributeTargets.Method)]  
-   public class CmdActionAttribute
+   public class CmdActionAttribute : Attribute
    {
       
    }

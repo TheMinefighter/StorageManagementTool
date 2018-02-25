@@ -88,7 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundNotificationCreator.cs" />
-    <Compile Include="ConsoleIO.cs" />
     <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -319,6 +318,10 @@
     <ProjectReference Include="..\ExtendedMessageBoxLibrary\ExtendedMessageBoxLibrary.csproj">
       <Project>{a421800c-1bcb-41c3-8172-8d7c3583649c}</Project>
       <Name>ExtendedMessageBoxLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalCommandlineInterface\UniversalCommandlineInterface.csproj">
+      <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>
+      <Name>UniversalCommandlineInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

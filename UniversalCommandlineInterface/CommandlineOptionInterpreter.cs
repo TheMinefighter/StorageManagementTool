@@ -1,7 +1,9 @@
-﻿namespace UniversalCommandlineInterface
+﻿using System.Collections.Generic;
+
+namespace UniversalCommandlineInterface
 {
-   public class CommandlineOptionInterpreter
+   public class CommandlineOptionInterpreter 
    {
-      
+      public IEnumerable<string> args; 
    }
 }

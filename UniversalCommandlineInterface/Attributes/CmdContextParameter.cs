@@ -3,7 +3,7 @@
 namespace UniversalCommandlineInterface
 {
    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Field)]
-   public class CmdContextParameter
+   public class CmdContextParameter :Attribute
    {
       
    }

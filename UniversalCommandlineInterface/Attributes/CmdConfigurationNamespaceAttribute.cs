@@ -3,7 +3,7 @@
 namespace UniversalCommandlineInterface
 {
    [AttributeUsage(AttributeTargets.Class)]
-   public class CmdConfigurationNamespaceAttribute
+   public class CmdConfigurationNamespaceAttribute : Attribute
    {
       
    }

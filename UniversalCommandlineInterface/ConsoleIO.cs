@@ -7,6 +7,11 @@ namespace StorageManagementTool
    /// </summary>
    public class ConsoleIO
    {
+      private static ConsoleIO Singleton;
+      public ConsoleIO()
+      {
+         Singleton = this;
+      }
       /// <summary>
       ///    Writes a message to Console
       /// </summary>
@@ -33,7 +38,7 @@ namespace StorageManagementTool
       /// <param name="message">The message to write to console</param>
       public static void WriteLine(string message)
       {
-         Program.ConsoleIOObject.WriteLineToConsole(message);
+         Singleton.WriteLineToConsole(message);
       }
 
       /// <summary>
@@ -42,7 +47,7 @@ namespace StorageManagementTool
       /// <returns>The line the user entered</returns>
       public static string ReadLine()
       {
-         return Program.ConsoleIOObject.ReadFromConsole();
+         return Singleton.ReadFromConsole();
       }
 
       /// <summary>
@@ -51,7 +56,7 @@ namespace StorageManagementTool
       /// <param name="message">The message to write to Console</param>
       public static void Write(string message)
       {
-         Program.ConsoleIOObject.WriteToConsole(message);
+         Singleton.WriteToConsole(message);
       }
 
       /// <summary>
@@ -60,7 +65,7 @@ namespace StorageManagementTool
       /// <param name="visible">Whether the console window should be visible</param>
       public static void SetVisibility(bool visible)
       {
-         Program.ConsoleIOObject.SetVisibiltyToConsole(visible);
+         Singleton.SetVisibiltyToConsole(visible);
       }
    }
 }

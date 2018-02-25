@@ -2,7 +2,7 @@
 
 namespace UniversalCommandlineInterface
 {[AttributeUsage(AttributeTargets.Parameter)]
-   public class CmdConfigurationValueAttribute
+   public class CmdConfigurationValueAttribute : Attribute
    {
       
    }

@@ -1,11 +1,12 @@
 ﻿namespace UniversalCommandlineInterface
 {
-   public class ActionInterpreter
+   public class ActionInterpreter : BaseInterpreter
    {
-      private CommandlineOptionInterpreter parent;
-      public ActionInterpreter()
+      public ActionInterpreter(CommandlineOptionInterpreter top,int i) : base(top)
       {
-         
+         i++;
       }
+internal void PrintHelp() {}
+      
    }
 }
