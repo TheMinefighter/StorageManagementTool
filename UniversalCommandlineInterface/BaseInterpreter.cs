@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace UniversalCommandlineInterface
 {
-   public class BaseInterpreter
+   public abstract class BaseInterpreter
    {
       private BaseInterpreter()
       {
@@ -28,8 +28,8 @@ namespace UniversalCommandlineInterface
             ParentInterpreters = parentInterpreters;
          Offset = offset;
       }
-internal void PrintHelp() {}
-      
+internal abstract void PrintHelp();
+
       public int Offset { get; }
      public CommandlineOptionInterpreter TopInterpreter { get; }
       public BaseInterpreter DirectParent { get; }

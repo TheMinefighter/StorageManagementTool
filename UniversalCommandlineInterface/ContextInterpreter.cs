@@ -14,5 +14,8 @@ namespace UniversalCommandlineInterface
       protected ContextInterpreter(BaseInterpreter parent, int offset = 0) : base(parent, offset)
       {
       }
+
+      internal override void PrintHelp()
+      {}
    }
 }

@@ -12,5 +12,10 @@
       protected ManagedConfigurationInterpreter(BaseInterpreter parent, int offset = 0) : base(parent, offset)
       {
       }
+
+      internal override void PrintHelp()
+      {
+         throw new System.NotImplementedException();
+      }
    }
 }

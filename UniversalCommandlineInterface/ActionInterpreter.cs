@@ -6,7 +6,7 @@
       {
          i++;
       }
-internal void PrintHelp() {}
+internal override void PrintHelp() {}
       
    }
 }
