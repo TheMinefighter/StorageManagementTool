@@ -3,7 +3,7 @@
 namespace UniversalCommandlineInterface
 {
    [AttributeUsage(AttributeTargets.GenericParameter)]
-   public class ParameterAttribute
+   public class CmdParameterAttribute
    {
       
    }
