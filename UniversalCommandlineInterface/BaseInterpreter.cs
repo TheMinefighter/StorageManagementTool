@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 
 namespace UniversalCommandlineInterface
 {
@@ -19,7 +20,7 @@ namespace UniversalCommandlineInterface
       }
 
 
-      protected BaseInterpreter(BaseInterpreter parent, int offset=0)
+      protected BaseInterpreter(BaseInterpreter parent, string name, int offset = 0)
       {
          TopInterpreter = parent.TopInterpreter;
          DirectParent = parent;
@@ -27,9 +28,26 @@ namespace UniversalCommandlineInterface
          parentInterpreters.Add(parent);
             ParentInterpreters = parentInterpreters;
          Offset = offset;
+         Name = name;
       }
-internal abstract void PrintHelp();
+      internal abstract void PrintHelp();
+      internal abstract void Interpret();
 
+      public List<string> Path
+      {
+         get {
+            if (Name==null)
+            {
+               return new List<string>();
+            }
+
+            List<string> tmpList = DirectParent.Path;
+               tmpList.Add(Name);
+            return tmpList;
+         }
+      }
+
+      public string Name { get; }
       public int Offset { get; }
      public CommandlineOptionInterpreter TopInterpreter { get; }
       public BaseInterpreter DirectParent { get; }

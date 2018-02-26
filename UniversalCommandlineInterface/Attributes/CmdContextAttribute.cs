@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace UniversalCommandlineInterface
-{
-   [AttributeUsage(AttributeTargets.Class)]
-   public class CmdContextAttribute : Attribute
-   {
-      
-   }
-}
+namespace UniversalCommandlineInterface.Attributes
+ {
+    [AttributeUsage(AttributeTargets.Class)]
+    public class CmdContextAttribute : Attribute
+    {
+       
+    }
+ }

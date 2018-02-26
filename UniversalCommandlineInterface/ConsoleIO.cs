@@ -1,16 +1,19 @@
 ﻿using System;
 
-namespace StorageManagementTool
+namespace UniversalCommandlineInterface
 {
    /// <summary>
    ///    Class storing the Actions for Console Operations
    /// </summary>
    public class ConsoleIO
    {
-      private static ConsoleIO Singleton;
-      public ConsoleIO()
+      private static ConsoleIO Primary;
+      public ConsoleIO(bool IsPrimary=true)
       {
-         Singleton = this;
+         if (IsPrimary)
+         {
+            Primary = this;
+         }
       }
       /// <summary>
       ///    Writes a message to Console
@@ -38,7 +41,7 @@ namespace StorageManagementTool
       /// <param name="message">The message to write to console</param>
       public static void WriteLine(string message)
       {
-         Singleton.WriteLineToConsole(message);
+         Primary.WriteLineToConsole(message);
       }
 
       /// <summary>
@@ -47,7 +50,7 @@ namespace StorageManagementTool
       /// <returns>The line the user entered</returns>
       public static string ReadLine()
       {
-         return Singleton.ReadFromConsole();
+         return Primary.ReadFromConsole();
       }
 
       /// <summary>
@@ -56,7 +59,7 @@ namespace StorageManagementTool
       /// <param name="message">The message to write to Console</param>
       public static void Write(string message)
       {
-         Singleton.WriteToConsole(message);
+         Primary.WriteToConsole(message);
       }
 
       /// <summary>
@@ -65,7 +68,7 @@ namespace StorageManagementTool
       /// <param name="visible">Whether the console window should be visible</param>
       public static void SetVisibility(bool visible)
       {
-         Singleton.SetVisibiltyToConsole(visible);
+         Primary.SetVisibiltyToConsole(visible);
       }
    }
 }

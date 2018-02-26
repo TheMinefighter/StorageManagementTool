@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using StorageManagementTool;
+using UniversalCommandlineInterface;
 
 namespace StorageManagementToolLauncher
 {

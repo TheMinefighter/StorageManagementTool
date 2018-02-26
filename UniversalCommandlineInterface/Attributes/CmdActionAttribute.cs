@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniversalCommandlineInterface
+namespace UniversalCommandlineInterface.Attributes
 {
  [AttributeUsage(AttributeTargets.Method)]  
    public class CmdActionAttribute : Attribute

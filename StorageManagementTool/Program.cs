@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using UniversalCommandlineInterface;
 
 namespace StorageManagementTool
 {

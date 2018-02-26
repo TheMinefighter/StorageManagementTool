@@ -11,11 +11,16 @@ namespace UniversalCommandlineInterface
       {
       }
 
-      protected ContextInterpreter(BaseInterpreter parent, int offset = 0) : base(parent, offset)
+      protected ContextInterpreter(BaseInterpreter parent,string name, int offset = 0) : base(parent, name, offset)
       {
       }
 
       internal override void PrintHelp()
       {}
+
+      internal override void Interpret()
+      {
+         throw new NotImplementedException();
+      }
    }
 }
