@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json;
 using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface
@@ -26,33 +28,52 @@ namespace UniversalCommandlineInterface
       {
          int currentOffset = Offset;
          string search = TopInterpreter.args.ElementAt(currentOffset);
+         object value = null;
+         Dictionary<CmdParameterAttribute, object> invokationArguments = new Dictionary<CmdParameterAttribute, object>();
          foreach (CmdParameterAttribute cmdParameterAttribute in parameters.Keys)
          {
             if (cmdParameterAttribute.AvailableWithoutAlias && IsParameterEqual(cmdParameterAttribute.Name, search))
             {
-               foreach (var VARIABLE in COLLECTION)
+               if (!GetAliasValue(out value, cmdParameterAttribute, TopInterpreter.args.ElementAt(Offset + 1)))
                {
+                  if (!GetValueFromString(TopInterpreter.args.ElementAt(Offset + 1), cmdParameterAttribute.GetType(), out value))
+                  {
+                     PrintHelp();
+                     return;
+                  }
+
+                  ;
                }
+               else
+               {
+                  PrintHelp();
+                  return;
+               }
+               
             }
 
             if (!cmdParameterAttribute.DeclerationNeeded)
             {
-               bool success = GetAliasValue(out object value, cmdParameterAttribute, search);
+               bool success = GetAliasValue(out value, cmdParameterAttribute, search);
 
                if (!success)
                {
                   PrintHelp();
                   return;
                }
-
-               method.Invoke(null, new[] {value});
+               else
+               {
+                  invokationArguments.Add(cmdParameterAttribute, value);
+                  break;
+               }
             }
          }
 
+         method.Invoke(null, new[] {value});
          throw new System.NotImplementedException();
       }
 
-      private static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search)
+      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search)
       {
          value = null;
          bool success = false;
@@ -63,11 +84,105 @@ namespace UniversalCommandlineInterface
                success = true;
                value = commandlineParameterAlias.value;
                break;
-               // use Value
-            }
+               }
          }
 
          return success;
+      }
+
+      internal static bool GetValueFromString(string source, Type expectedType, out object value)
+      {
+         value = null;
+         if (expectedType == typeof(sbyte))
+         {
+            bool parsed = sbyte.TryParse(source, out sbyte tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(byte))
+         {
+            bool parsed = byte.TryParse(source, out byte tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(short))
+         {
+            bool parsed = short.TryParse(source, out short tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(ushort))
+         {
+            bool parsed = ushort.TryParse(source, out ushort tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(int))
+         {
+            bool parsed = int.TryParse(source, out int tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(uint))
+         {
+            bool parsed = uint.TryParse(source, out uint tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(long))
+         {
+            bool parsed = long.TryParse(source, out long tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(ulong))
+         {
+            bool parsed = ulong.TryParse(source, out ulong tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(bool))
+         {
+            bool parsed = bool.TryParse(source, out bool tmp);
+            value = tmp;
+            return parsed;
+         }
+         else if (expectedType == typeof(string))
+         {
+            value = source;
+            return true;
+         }
+         else if (expectedType == typeof(object))
+         {
+            return false;
+         }
+         else if (expectedType.IsEnum)
+         {
+            bool parseable = Enum.IsDefined(expectedType, source);
+            if (parseable)
+            {
+               value = Enum.Parse(expectedType, source);
+            }
+
+            return parseable;
+         }
+         else if (source.StartsWith("{") && source.EndsWith("}"))
+         {
+            try
+            {
+               JsonConvert.DeserializeObject(source, expectedType);
+            }
+            catch (Exception)
+            {
+               return false;
+            }
+
+            return true;
+         }
+         else
+         {
+            return false;
+         }
       }
 
       internal static bool IsParameterEqual(string expected, string given)

@@ -4,6 +4,9 @@ using System.Runtime.Serialization.Formatters;
 
 namespace UniversalCommandlineInterface
 {
+   public interface test
+   {
+   }
    public abstract class BaseInterpreter
    {
       private BaseInterpreter()
@@ -32,6 +35,12 @@ namespace UniversalCommandlineInterface
       }
       internal abstract void PrintHelp();
       internal abstract void Interpret();
+
+      public void PrintEror(string argName=null   )
+      {
+         TopInterpreter.ConsoleIO.WriteToConsole(
+            $"An error occurred while parsing argument {argName??Name} use {TopInterpreter.Options.preferredArgumentPrefix}? for help");
+      }
 
       public List<string> Path
       {
