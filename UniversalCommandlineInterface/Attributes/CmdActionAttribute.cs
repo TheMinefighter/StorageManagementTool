@@ -8,11 +8,11 @@ namespace UniversalCommandlineInterface.Attributes
    [AttributeUsage(AttributeTargets.Method)]
    public class CmdActionAttribute : Attribute
    {
-      public MethodInfo myInfo;
+      public MethodInfo MyInfo;
 
       public void LoadParametersAndAlias()
       {
-         foreach (ParameterInfo parameterInfo in myInfo.GetParameters())
+         foreach (ParameterInfo parameterInfo in MyInfo.GetParameters())
          {
             IEnumerable<CmdParameterAttribute> parmeterAttribs = parameterInfo.GetCustomAttributes(typeof(CmdParameterAttribute), false).Cast<CmdParameterAttribute>();
             if (parmeterAttribs.Any())

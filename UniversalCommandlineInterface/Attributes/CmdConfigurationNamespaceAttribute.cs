@@ -12,7 +12,7 @@ namespace UniversalCommandlineInterface.Attributes
       public string Help;
       public string ExtendedHelp;
 
-      public CmdConfigurationNamespaceAttribute([CmdParameter("gg",  false,parameterAliasDic: new []{"fgf","fgfg"}, declerationNeeded: false)] bool isReadonly, string name, string help, string extendedHelp)
+      public CmdConfigurationNamespaceAttribute(bool isReadonly, string name, string help, string extendedHelp)
       {
             IsReadonly = isReadonly;
          Name = name;

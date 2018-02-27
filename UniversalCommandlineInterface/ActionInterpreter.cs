@@ -21,7 +21,6 @@ namespace UniversalCommandlineInterface
 
       internal override void PrintHelp()
       {
-         
       }
 
       internal override void Interpret()
@@ -49,7 +48,6 @@ namespace UniversalCommandlineInterface
                   PrintHelp();
                   return;
                }
-               
             }
 
             if (!cmdParameterAttribute.DeclerationNeeded)
@@ -67,7 +65,8 @@ namespace UniversalCommandlineInterface
                   break;
                }
             }
-         //   invokationArguments.Add();
+
+            //   invokationArguments.Add();
          }
 
          method.Invoke(null, new[] {value});
@@ -78,14 +77,14 @@ namespace UniversalCommandlineInterface
       {
          value = null;
          bool success = false;
-         foreach (CommandlineParameterAlias commandlineParameterAlias in cmdParameterAttribute.ParameterAlias)
+         foreach (CmdParameterAliasAttribute commandlineParameterAlias in cmdParameterAttribute.ParameterAlias)
          {
             if (IsParameterEqual(commandlineParameterAlias.Name, search))
             {
                success = true;
-               value = commandlineParameterAlias.value;
+               value = commandlineParameterAlias.Value;
                break;
-               }
+            }
          }
 
          return success;
@@ -94,95 +93,100 @@ namespace UniversalCommandlineInterface
       internal static bool GetValueFromString(string source, Type expectedType, out object value)
       {
          value = null;
-         if (expectedType == typeof(sbyte))
+         switch (Type.GetTypeCode(expectedType))
          {
-            bool parsed = sbyte.TryParse(source, out sbyte tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(byte))
-         {
-            bool parsed = byte.TryParse(source, out byte tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(short))
-         {
-            bool parsed = short.TryParse(source, out short tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(ushort))
-         {
-            bool parsed = ushort.TryParse(source, out ushort tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(int))
-         {
-            bool parsed = int.TryParse(source, out int tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(uint))
-         {
-            bool parsed = uint.TryParse(source, out uint tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(long))
-         {
-            bool parsed = long.TryParse(source, out long tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(ulong))
-         {
-            bool parsed = ulong.TryParse(source, out ulong tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(bool))
-         {
-            bool parsed = bool.TryParse(source, out bool tmp);
-            value = tmp;
-            return parsed;
-         }
-         else if (expectedType == typeof(string))
-         {
-            value = source;
-            return true;
-         }
-         else if (expectedType == typeof(object))
-         {
-            return false;
-         }
-         else if (expectedType.IsEnum)
-         {
-            bool parseable = Enum.IsDefined(expectedType, source);
-            if (parseable)
+         
+            case TypeCode.SByte:
             {
-               value = Enum.Parse(expectedType, source);
+               bool parsed = sbyte.TryParse(source, out sbyte tmp);
+               value = tmp;
+               return parsed;
             }
+            case (TypeCode.Byte):
+            {
+               bool parsed = byte.TryParse(source, out byte tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.Int16):
+            {
+               bool parsed = short.TryParse(source, out short tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.UInt16):
+            {
+               bool parsed = ushort.TryParse(source, out ushort tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.Int32):
+            {
+               bool parsed = int.TryParse(source, out int tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.UInt32):
+            {
+               bool parsed = uint.TryParse(source, out uint tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.Int64):
+            {
+               bool parsed = long.TryParse(source, out long tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.UInt64):
+            {
+               bool parsed = ulong.TryParse(source, out ulong tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.Boolean):
+            {
+               bool parsed = bool.TryParse(source, out bool tmp);
+               value = tmp;
+               return parsed;
+            }
+            case (TypeCode.String):
+            {
+               value = source;
+               return true;
+            }
+            case TypeCode.Char:
+               value = source[0];
+               return true;
+            case (TypeCode.Object):
+            {
+               if (expectedType.IsEnum)
+               {
+                  bool parseable = Enum.IsDefined(expectedType, source);
+                  if (parseable)
+                  {
+                     value = Enum.Parse(expectedType, source);
+                  }
 
-            return parseable;
-         }
-         else if (source.StartsWith("{") && source.EndsWith("}"))
-         {
-            try
-            {
-               JsonConvert.DeserializeObject(source, expectedType);
-            }
-            catch (Exception)
-            {
+                  return parseable;
+               }
+               else if (source.StartsWith("{") && source.EndsWith("}"))
+               {
+                  try
+                  {
+                     JsonConvert.DeserializeObject(source, expectedType);
+                  }
+                  catch (Exception)
+                  {
+                     return false;
+                  }
+
+                  return true;
+               }
+
                return false;
             }
-
-            return true;
-         }
-         else
-         {
-            return false;
+            default: return false;
          }
       }
 
