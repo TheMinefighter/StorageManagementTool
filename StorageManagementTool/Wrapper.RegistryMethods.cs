@@ -353,7 +353,7 @@ namespace StorageManagementTool
                   break;
                case RegistryValueKind.QWord:
                   toWrite = "hex(b):" + string.Join(",",
-                               BitConverter.GetBytes(((ulong) RegistryNumberFixGet(content)))
+                               BitConverter.GetBytes((ulong) RegistryNumberFixGet(content))
                                   .Select(x => x.ToString("X2").ToLower()));
                   break;
                case RegistryValueKind.None:

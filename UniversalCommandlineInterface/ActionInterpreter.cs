@@ -70,7 +70,7 @@ namespace UniversalCommandlineInterface
          }
 
          method.Invoke(null, new[] {value});
-         throw new System.NotImplementedException();
+         throw new NotImplementedException();
       }
 
       public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search)
@@ -95,62 +95,85 @@ namespace UniversalCommandlineInterface
          value = null;
          switch (Type.GetTypeCode(expectedType))
          {
-         
             case TypeCode.SByte:
-            {
+              { 
                bool parsed = sbyte.TryParse(source, out sbyte tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.Byte):
+            case TypeCode.Byte:
             {
                bool parsed = byte.TryParse(source, out byte tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.Int16):
+            case TypeCode.Int16:
             {
                bool parsed = short.TryParse(source, out short tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.UInt16):
+            case TypeCode.UInt16:
             {
                bool parsed = ushort.TryParse(source, out ushort tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.Int32):
+            case TypeCode.Int32:
             {
                bool parsed = int.TryParse(source, out int tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.UInt32):
+            case TypeCode.UInt32:
             {
                bool parsed = uint.TryParse(source, out uint tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.Int64):
+            case TypeCode.Int64:
             {
                bool parsed = long.TryParse(source, out long tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.UInt64):
+            case TypeCode.UInt64:
             {
                bool parsed = ulong.TryParse(source, out ulong tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.Boolean):
+            case TypeCode.Boolean:
             {
                bool parsed = bool.TryParse(source, out bool tmp);
                value = tmp;
                return parsed;
             }
-            case (TypeCode.String):
+            case TypeCode.Single:
+            {
+               bool parsed = float.TryParse(source, out float tmp);
+               value = tmp;
+               return parsed;
+            }
+            case TypeCode.Double:
+            {
+               bool parsed = double.TryParse(source, out double tmp);
+               value = tmp;
+               return parsed;
+            }
+            case TypeCode.Decimal:
+            {
+               bool parsed = decimal.TryParse(source, out decimal tmp);
+               value = tmp;
+               return parsed;
+            }
+            case TypeCode.DateTime:
+            {
+               bool parsed = DateTime.TryParse(source, out DateTime tmp);
+               value = tmp;
+               return parsed;
+            }
+            case TypeCode.String:
             {
                value = source;
                return true;
@@ -158,7 +181,8 @@ namespace UniversalCommandlineInterface
             case TypeCode.Char:
                value = source[0];
                return true;
-            case (TypeCode.Object):
+
+            case TypeCode.Object:
             {
                if (expectedType.IsEnum)
                {
@@ -186,8 +210,12 @@ namespace UniversalCommandlineInterface
 
                return false;
             }
+            case TypeCode.Empty:
+            case TypeCode.DBNull:
             default: return false;
          }
+
+         value = null;
       }
 
       internal static bool IsParameterEqual(string expected, string given)

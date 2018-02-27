@@ -20,8 +20,8 @@ namespace UniversalCommandlineInterface
 
       internal override void Interpret()
       {
+         
          throw new NotImplementedException();
       }
-
    }
 }
