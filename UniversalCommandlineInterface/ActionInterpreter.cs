@@ -21,7 +21,7 @@ namespace UniversalCommandlineInterface
 
       internal override void PrintHelp()
       {
-         action.
+         
       }
 
       internal override void Interpret()
@@ -67,6 +67,7 @@ namespace UniversalCommandlineInterface
                   break;
                }
             }
+         //   invokationArguments.Add();
          }
 
          method.Invoke(null, new[] {value});
