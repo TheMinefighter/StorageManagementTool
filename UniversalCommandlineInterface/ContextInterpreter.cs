@@ -1,10 +1,11 @@
 ﻿using System;
+using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface
 {
    public class ContextInterpreter : BaseInterpreter
    {
-      public Type Type { get; set; }
+      public CmdContextAttribute context; 
       public object O { get; set; }
 
       protected ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset)
@@ -16,11 +17,16 @@ namespace UniversalCommandlineInterface
       }
 
       internal override void PrintHelp()
-      {}
+      {
+         
+      }
 
       internal override void Interpret()
       {
-         
+         foreach (CmdContextAttribute cmdContextAttribute in context.subCtx)
+         {
+               
+         }
          throw new NotImplementedException();
       }
    }

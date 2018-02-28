@@ -50,6 +50,7 @@
     <Compile Include="Attributes\CmdActionAttribute.cs" />
     <Compile Include="Attributes\CmdConfigurationNamespaceAttribute.cs" />
     <Compile Include="BaseInterpreter.cs" />
+    <Compile Include="CommandlineMethods.cs" />
     <Compile Include="CommandlineOptionInterpreter.cs" />
     <Compile Include="CommandlineParameterAlias.cs" />
     <Compile Include="ConsoleIO.cs" />
