@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Reflection;
 using Newtonsoft.Json;
 using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface
 {
-   public class CommandlineMethods
+   public static class CommandlineMethods
    {
       public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search)
       {
@@ -30,73 +31,73 @@ namespace UniversalCommandlineInterface
          {
             case TypeCode.SByte:
             { 
-               bool parsed = sbyte.TryParse(source, out sbyte tmp);
+               bool parsed = SByte.TryParse(source, out sbyte tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Byte:
             {
-               bool parsed = byte.TryParse(source, out byte tmp);
+               bool parsed = Byte.TryParse(source, out byte tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Int16:
             {
-               bool parsed = short.TryParse(source, out short tmp);
+               bool parsed = Int16.TryParse(source, out short tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.UInt16:
             {
-               bool parsed = ushort.TryParse(source, out ushort tmp);
+               bool parsed = UInt16.TryParse(source, out ushort tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Int32:
             {
-               bool parsed = int.TryParse(source, out int tmp);
+               bool parsed = Int32.TryParse(source, out int tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.UInt32:
             {
-               bool parsed = uint.TryParse(source, out uint tmp);
+               bool parsed = UInt32.TryParse(source, out uint tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Int64:
             {
-               bool parsed = long.TryParse(source, out long tmp);
+               bool parsed = Int64.TryParse(source, out long tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.UInt64:
             {
-               bool parsed = ulong.TryParse(source, out ulong tmp);
+               bool parsed = UInt64.TryParse(source, out ulong tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Boolean:
             {
-               bool parsed = bool.TryParse(source, out bool tmp);
+               bool parsed = Boolean.TryParse(source, out bool tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Single:
             {
-               bool parsed = float.TryParse(source, out float tmp);
+               bool parsed = Single.TryParse(source, out float tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Double:
             {
-               bool parsed = double.TryParse(source, out double tmp);
+               bool parsed = Double.TryParse(source, out double tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Decimal:
             {
-               bool parsed = decimal.TryParse(source, out decimal tmp);
+               bool parsed = Decimal.TryParse(source, out decimal tmp);
                value = tmp;
                return parsed;
             }
@@ -154,6 +155,21 @@ namespace UniversalCommandlineInterface
       internal static bool IsParameterEqual(string expected, string given)
       {
          return '/' + expected == given || '-' + expected == given;
+      }
+
+      public static TypeInfo getTypeInfo(MemberInfo member)
+      {
+         switch (member)
+         {
+            case PropertyInfo propertyInfo:
+               propertyInfo.PropertyType.GetTypeInfo();
+               break;
+            case FieldInfo fieldInfo:
+               fieldInfo.FieldType.GetTypeInfo();
+               break;
+         }
+
+         throw new ArgumentOutOfRangeException(nameof(member),member,"Must be  or FieldInfo");
       }
    }
 }

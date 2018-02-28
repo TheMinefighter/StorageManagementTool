@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
 
-namespace UniversalCommandlineInterface
+namespace UniversalCommandlineInterface.Interpreters
 {
    public interface test
    {

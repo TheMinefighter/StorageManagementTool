@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionInterpreter.cs" />
     <Compile Include="Attributes\CmdConfigurationValueAttribute.cs" />
     <Compile Include="Attributes\CmdContextAttribute.cs" />
     <Compile Include="Attributes\CmdContextParameterAttribute.cs" />
@@ -49,12 +48,13 @@
     <Compile Include="Attributes\CmdParameterAttribute.cs" />
     <Compile Include="Attributes\CmdActionAttribute.cs" />
     <Compile Include="Attributes\CmdConfigurationNamespaceAttribute.cs" />
-    <Compile Include="BaseInterpreter.cs" />
     <Compile Include="CommandlineMethods.cs" />
-    <Compile Include="CommandlineOptionInterpreter.cs" />
     <Compile Include="CommandlineParameterAlias.cs" />
     <Compile Include="ConsoleIO.cs" />
-    <Compile Include="ContextInterpreter.cs" />
+    <Compile Include="Interpreters\ActionInterpreter.cs" />
+    <Compile Include="Interpreters\BaseInterpreter.cs" />
+    <Compile Include="Interpreters\CommandlineOptionInterpreter.cs" />
+    <Compile Include="Interpreters\ContextInterpreter.cs" />
     <Compile Include="InterpretingOptions.cs" />
     <Compile Include="ManagedConfigurationInterpreter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

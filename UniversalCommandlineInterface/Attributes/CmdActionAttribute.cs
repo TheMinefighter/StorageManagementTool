@@ -9,7 +9,8 @@ namespace UniversalCommandlineInterface.Attributes
    public class CmdActionAttribute : Attribute
    {
       public MethodInfo MyInfo;
-
+      public string Name;
+      private bool loaded;
       public void LoadParametersAndAlias()
       {
          foreach (ParameterInfo parameterInfo in MyInfo.GetParameters())

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Attributes;
+using UniversalCommandlineInterface.Interpreters;
 
 namespace UniversalCommandlineInterface
 {
