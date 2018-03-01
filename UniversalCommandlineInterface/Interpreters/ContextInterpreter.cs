@@ -7,7 +7,7 @@ namespace UniversalCommandlineInterface
 {
    public class ContextInterpreter : BaseInterpreter
    {
-      public CmdContextAttribute context; 
+      public CmdContextAttribute MyContextAttribute; 
       public object O { get; set; }
 
       protected ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset)
@@ -26,7 +26,7 @@ namespace UniversalCommandlineInterface
       internal override void Interpret()
       {
          string search = TopInterpreter.args.ElementAt(Offset);
-         foreach (CmdContextAttribute cmdContextAttribute in context.subCtx)
+         foreach (CmdContextAttribute cmdContextAttribute in MyContextAttribute.subCtx)
          {
             if (CommandlineMethods.IsParameterEqual(cmdContextAttribute.Name,search))
             {
@@ -38,7 +38,7 @@ namespace UniversalCommandlineInterface
             
          }
 
-         foreach (CmdActionAttribute cmdActionAttribute in context.ctxActions)
+         foreach (CmdActionAttribute cmdActionAttribute in MyContextAttribute.ctxActions)
          {
             if (CommandlineMethods.IsParameterEqual(cmdActionAttribute.Name,search))
             {
@@ -49,7 +49,7 @@ namespace UniversalCommandlineInterface
             
          }
 
-         foreach (CmdContextParameterAttribute cmdContextParameterAttribute in context.ctxParameters)
+         foreach (CmdContextParameterAttribute cmdContextParameterAttribute in MyContextAttribute.ctxParameters)
          {
             
          }

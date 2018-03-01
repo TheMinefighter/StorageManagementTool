@@ -7,7 +7,7 @@ namespace UniversalCommandlineInterface.Interpreters
 {
    public class ActionInterpreter : BaseInterpreter
    {
-      public CmdActionAttribute action;
+      public CmdActionAttribute MyActionAttribute;
       private IEnumerable<CmdParameterAttribute> parameters;
 
 
@@ -16,10 +16,10 @@ namespace UniversalCommandlineInterface.Interpreters
          i++;
       }
 
-      public ActionInterpreter(CmdActionAttribute action, BaseInterpreter parent, int offset = 0) : base(parent, action.Name, offset)
+      public ActionInterpreter(CmdActionAttribute myActionAttribute, BaseInterpreter parent, int offset = 0) : base(parent,
+         myActionAttribute.Name, offset)
       {
-         this.action = action;
-         
+         this.MyActionAttribute = myActionAttribute;
       }
 
       internal override void PrintHelp()
@@ -28,39 +28,49 @@ namespace UniversalCommandlineInterface.Interpreters
 
       internal override void Interpret()
       {
+         Dictionary<CmdParameterAttribute, object> invokationArguments = new Dictionary<CmdParameterAttribute, object>();
          int currentOffset = Offset;
          string search = TopInterpreter.args.ElementAt(currentOffset);
-         object value = null;
-         Dictionary<CmdParameterAttribute, object> invokationArguments = new Dictionary<CmdParameterAttribute, object>();
+         if (GetValue(search, invokationArguments, out object value))
+         {
+            return;
+         }
+
+         MyActionAttribute.MyInfo.Invoke(null, new[] {value});
+         throw new NotImplementedException();
+      }
+
+      private bool GetValue(string search, Dictionary<CmdParameterAttribute, object> invokationArguments, out object value)
+      {
+         value = null;
          foreach (CmdParameterAttribute cmdParameterAttribute in parameters)
          {
             if (cmdParameterAttribute.AvailableWithoutAlias && CommandlineMethods.IsParameterEqual(cmdParameterAttribute.Name, search))
             {
                if (!CommandlineMethods.GetAliasValue(out value, cmdParameterAttribute, TopInterpreter.args.ElementAt(Offset + 1)))
                {
-                  if (!CommandlineMethods.GetValueFromString(TopInterpreter.args.ElementAt(Offset + 1), cmdParameterAttribute.GetType(), out value))
+                  if (!CommandlineMethods.GetValueFromString(TopInterpreter.args.ElementAt(Offset + 1), cmdParameterAttribute.GetType(),
+                     out value))
                   {
                      PrintHelp();
-                     return;
+                     return true;
                   }
-
-                  ;
+                  invokationArguments.Add(cmdParameterAttribute, value);
+                  break;
                }
                else
                {
-                  PrintHelp();
-                  return;
+                  invokationArguments.Add(cmdParameterAttribute, value);
+                  break;
                }
             }
 
             if (!cmdParameterAttribute.DeclerationNeeded)
             {
-               bool success = CommandlineMethods.GetAliasValue(out value, cmdParameterAttribute, search);
-
-               if (!success)
+               if (!CommandlineMethods.GetAliasValue(out value, cmdParameterAttribute, search))
                {
                   PrintHelp();
-                  return;
+                  return true;
                }
                else
                {
@@ -72,8 +82,7 @@ namespace UniversalCommandlineInterface.Interpreters
             //   invokationArguments.Add();
          }
 
-        action.MyInfo.Invoke(null, new[] {value});
-         throw new NotImplementedException();
+         return false;
       }
    }
 }

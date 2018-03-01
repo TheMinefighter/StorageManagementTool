@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Reflection;
 using Newtonsoft.Json;
 using UniversalCommandlineInterface.Attributes;
@@ -23,7 +24,6 @@ namespace UniversalCommandlineInterface
 
          return success;
       }
-
       public static bool GetValueFromString(string source, Type expectedType, out object value)
       {
          value = null;
@@ -31,73 +31,73 @@ namespace UniversalCommandlineInterface
          {
             case TypeCode.SByte:
             { 
-               bool parsed = SByte.TryParse(source, out sbyte tmp);
+               bool parsed = sbyte.TryParse(source, out sbyte tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Byte:
             {
-               bool parsed = Byte.TryParse(source, out byte tmp);
+               bool parsed = byte.TryParse(source, out byte tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Int16:
             {
-               bool parsed = Int16.TryParse(source, out short tmp);
+               bool parsed = short.TryParse(source, out short tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.UInt16:
             {
-               bool parsed = UInt16.TryParse(source, out ushort tmp);
+               bool parsed = ushort.TryParse(source, out ushort tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Int32:
             {
-               bool parsed = Int32.TryParse(source, out int tmp);
+               bool parsed = int.TryParse(source, out int tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.UInt32:
             {
-               bool parsed = UInt32.TryParse(source, out uint tmp);
+               bool parsed = uint.TryParse(source, out uint tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Int64:
             {
-               bool parsed = Int64.TryParse(source, out long tmp);
+               bool parsed = long.TryParse(source, out long tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.UInt64:
             {
-               bool parsed = UInt64.TryParse(source, out ulong tmp);
+               bool parsed = ulong.TryParse(source, out ulong tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Boolean:
             {
-               bool parsed = Boolean.TryParse(source, out bool tmp);
+               bool parsed = bool.TryParse(source, out bool tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Single:
             {
-               bool parsed = Single.TryParse(source, out float tmp);
+               bool parsed = float.TryParse(source, out float tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Double:
             {
-               bool parsed = Double.TryParse(source, out double tmp);
+               bool parsed = double.TryParse(source, out double tmp);
                value = tmp;
                return parsed;
             }
             case TypeCode.Decimal:
             {
-               bool parsed = Decimal.TryParse(source, out decimal tmp);
+               bool parsed = decimal.TryParse(source, out decimal tmp);
                value = tmp;
                return parsed;
             }
@@ -148,16 +148,14 @@ namespace UniversalCommandlineInterface
             case TypeCode.DBNull:
             default: return false;
          }
-
-         value = null;
       }
-
       internal static bool IsParameterEqual(string expected, string given)
       {
+
          return '/' + expected == given || '-' + expected == given;
       }
 
-      public static TypeInfo getTypeInfo(MemberInfo member)
+      public static TypeInfo GetTypeInfo(MemberInfo member)
       {
          switch (member)
          {

@@ -55,6 +55,7 @@
     <Compile Include="Interpreters\BaseInterpreter.cs" />
     <Compile Include="Interpreters\CommandlineOptionInterpreter.cs" />
     <Compile Include="Interpreters\ContextInterpreter.cs" />
+    <Compile Include="Interpreters\ContextParameterInterpreter.cs" />
     <Compile Include="InterpretingOptions.cs" />
     <Compile Include="ManagedConfigurationInterpreter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

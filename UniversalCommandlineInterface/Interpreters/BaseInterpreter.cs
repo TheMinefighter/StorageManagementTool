@@ -3,11 +3,14 @@ using System.Linq;
 
 namespace UniversalCommandlineInterface.Interpreters
 {
-   public interface test
-   {
-   }
    public abstract class BaseInterpreter
    {
+      public string Name { get; }
+      public int Offset { get; }
+      public CommandlineOptionInterpreter TopInterpreter { get; }
+      public BaseInterpreter DirectParent { get; }
+      public List<BaseInterpreter> ParentInterpreters { get; }
+
       private BaseInterpreter()
       {
          
@@ -32,8 +35,10 @@ namespace UniversalCommandlineInterface.Interpreters
          Offset = offset;
          Name = name;
       }
+
       internal abstract void PrintHelp();
       internal abstract void Interpret();
+
 
       public void PrintEror(string argName=null   )
       {
@@ -54,11 +59,5 @@ namespace UniversalCommandlineInterface.Interpreters
             return tmpList;
          }
       }
-
-      public string Name { get; }
-      public int Offset { get; }
-     public CommandlineOptionInterpreter TopInterpreter { get; }
-      public BaseInterpreter DirectParent { get; }
-      public List<BaseInterpreter> ParentInterpreters { get; }
    }
 }

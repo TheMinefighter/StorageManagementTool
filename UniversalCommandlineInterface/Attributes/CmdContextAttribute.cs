@@ -27,7 +27,7 @@ namespace UniversalCommandlineInterface.Attributes
                CmdContextAttribute contextAttribute = memberInfo.GetCustomAttribute<CmdContextAttribute>();
                if (contextAttribute != null)
                {
-                  contextAttribute.MyInfo = CommandlineMethods.getTypeInfo(memberInfo) ;
+                  contextAttribute.MyInfo = CommandlineMethods.GetTypeInfo(memberInfo) ;
                   subCtx.Add(contextAttribute);
                }
 
