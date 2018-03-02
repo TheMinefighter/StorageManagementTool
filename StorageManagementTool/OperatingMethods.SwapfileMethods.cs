@@ -2,18 +2,12 @@
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using StorageManagementTool.GlobalizationRessources;
-using StorageManagementTool.MainGUI.GlobalizationRessources;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 
-namespace StorageManagementTool
-{
-   public static partial class OperatingMethods
-   {
-      public static string GetStateDescription(this SwapfileMethods.SwapfileState state)
-      {
-         switch (state)
-         {
+namespace StorageManagementTool {
+   public static partial class OperatingMethods {
+      public static string GetStateDescription(this SwapfileMethods.SwapfileState state) {
+         switch (state) {
             case SwapfileMethods.SwapfileState.Standard:
                return GetDescription_Base + GetDescription_Standard;
             case SwapfileMethods.SwapfileState.Disabled:
@@ -27,37 +21,30 @@ namespace StorageManagementTool
          }
       }
 
-      public static class SwapfileMethods
-      {
+      public static class SwapfileMethods {
          /// <summary>
-         /// Represents different states the swapfile can be in
+         ///    Represents different states the swapfile can be in
          /// </summary>
-         public enum SwapfileState
-         {
+         public enum SwapfileState {
             /// <summary>
-            /// Active when swapfile is in its default state
+            ///    Active when swapfile is in its default state
             /// </summary>
             Standard,
 
             /// <summary>
-            /// Active when swapfile is disabled
+            ///    Active when swapfile is disabled
             /// </summary>
             Disabled,
 
             /// <summary>
-            /// Active when swapfile were moved
+            ///    Active when swapfile were moved
             /// </summary>
             Moved,
 
             /// <summary>
-            /// Never active, only for technical purposes
+            ///    Never active, only for technical purposes
             /// </summary>
             None
-         }
-
-         internal static FileInfo getSwapfilePath()
-         {
-            return new FileInfo(Wrapper.FileAndFolder.GetRealPath(DefaultSwapfileLocation));
          }
 
          private static readonly string DefaultSwapfileLocation = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
@@ -66,24 +53,25 @@ namespace StorageManagementTool
             @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
             "SwapFileControl");
 
+         internal static FileInfo getSwapfilePath() {
+            return new FileInfo(Wrapper.FileAndFolder.GetRealPath(DefaultSwapfileLocation));
+         }
+
          /// <summary>
-         /// Changes the Swapfile Stadium
+         ///    Changes the Swapfile Stadium
          /// </summary>
          /// <param name="forward"></param>
          /// <param name="currentState">The current state of the swapfile</param>
          /// <param name="newLocation"></param>
          /// <returns></returns>
          public static bool ChangeSwapfileStadium(bool forward, SwapfileState currentState = SwapfileState.None,
-            DriveInfo newLocation = null)
-         {
-            if (currentState == SwapfileState.None)
-            {
+            DriveInfo newLocation = null) {
+            if (currentState == SwapfileState.None) {
                currentState = GetSwapfileState();
             }
 
             FileInfo defaultSwapFileInfo = new FileInfo(DefaultSwapfileLocation);
-            switch (currentState)
-            {
+            switch (currentState) {
                case SwapfileState.Standard when forward:
                   return Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 0, RegistryValueKind.DWord);
 
@@ -93,38 +81,31 @@ namespace StorageManagementTool
                   return false;
 
                case SwapfileState.Disabled when forward:
-                  if (newLocation == null)
-                  {
+                  if (newLocation == null) {
                      if (MessageBox.Show(
                             SetStadium_NoNewPathGiven, Error,
-                            MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                     {
+                            MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
                         return ChangeSwapfileStadium(forward, currentState, newLocation);
                      }
-                     else
-                     {
+                     else {
                         return false;
                      }
                   }
 
                   FileInfo saveAs = new FileInfo(Path.Combine(newLocation.RootDirectory.FullName, "Swapfile.sys"));
-                  if (!saveAs.Exists)
-                  {
+                  if (!saveAs.Exists) {
                      if (MessageBox.Show(
                             Error, SetStadium_NewInvalid,
-                            MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                     {
+                            MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
                         return ChangeSwapfileStadium(forward, currentState, newLocation);
                      }
-                     else
-                     {
+                     else {
                         return false;
                      }
                   }
 
                   string oldPath = DefaultSwapfileLocation;
-                  if (defaultSwapFileInfo.Exists)
-                  {
+                  if (defaultSwapFileInfo.Exists) {
                      Wrapper.FileAndFolder.DeleteFile(defaultSwapFileInfo, false, false);
                   }
 
@@ -154,33 +135,25 @@ namespace StorageManagementTool
             return true;
          }
 
-         public static SwapfileState GetSwapfileState()
-         {
-            if (!Wrapper.RegistryMethods.GetRegistryValue(SwapfileControl, out object regValue))
-            {
+         public static SwapfileState GetSwapfileState() {
+            if (!Wrapper.RegistryMethods.GetRegistryValue(SwapfileControl, out object regValue)) {
                return SwapfileState.None;
             }
 
             // 1/Null --> swapfile enabled
             // 0 --> disabled
-            if ((uint?) regValue == 0)
-            {
+            if ((uint?) regValue == 0) {
                return SwapfileState.Disabled;
             }
-            else
-            {
-               if (Wrapper.FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation))
-               {
+            else {
+               if (Wrapper.FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation)) {
                   return SwapfileState.Moved;
                }
-               else
-               {
+               else {
                   return SwapfileState.Standard;
                }
             }
          }
       }
-
-
    }
 }

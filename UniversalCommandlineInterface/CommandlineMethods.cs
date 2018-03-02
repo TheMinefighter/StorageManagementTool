@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using Newtonsoft.Json;
 using UniversalCommandlineInterface.Attributes;
 
-namespace UniversalCommandlineInterface
-{
-   public static class CommandlineMethods
-   {
-      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search)
-      {
+namespace UniversalCommandlineInterface {
+   public static class CommandlineMethods {
+      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search) {
          value = null;
          bool success = false;
-         foreach (CmdParameterAliasAttribute commandlineParameterAlias in cmdParameterAttribute.ParameterAlias)
-         {
-            if (IsParameterEqual(commandlineParameterAlias.Name, search))
-            {
+         foreach (CmdParameterAliasAttribute commandlineParameterAlias in cmdParameterAttribute.ParameterAliases) {
+            if (IsParameterEqual(commandlineParameterAlias.Name, search)) {
                success = true;
                value = commandlineParameterAlias.Value;
                break;
@@ -24,91 +18,76 @@ namespace UniversalCommandlineInterface
 
          return success;
       }
-      public static bool GetValueFromString(string source, Type expectedType, out object value)
-      {
+
+      public static bool GetValueFromString(string source, Type expectedType, out object value) {
          value = null;
-         switch (Type.GetTypeCode(expectedType))
-         {
-            case TypeCode.SByte:
-            { 
+         switch (Type.GetTypeCode(expectedType)) {
+            case TypeCode.SByte: {
                bool parsed = sbyte.TryParse(source, out sbyte tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Byte:
-            {
+            case TypeCode.Byte: {
                bool parsed = byte.TryParse(source, out byte tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Int16:
-            {
+            case TypeCode.Int16: {
                bool parsed = short.TryParse(source, out short tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.UInt16:
-            {
+            case TypeCode.UInt16: {
                bool parsed = ushort.TryParse(source, out ushort tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Int32:
-            {
+            case TypeCode.Int32: {
                bool parsed = int.TryParse(source, out int tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.UInt32:
-            {
+            case TypeCode.UInt32: {
                bool parsed = uint.TryParse(source, out uint tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Int64:
-            {
+            case TypeCode.Int64: {
                bool parsed = long.TryParse(source, out long tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.UInt64:
-            {
+            case TypeCode.UInt64: {
                bool parsed = ulong.TryParse(source, out ulong tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Boolean:
-            {
+            case TypeCode.Boolean: {
                bool parsed = bool.TryParse(source, out bool tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Single:
-            {
+            case TypeCode.Single: {
                bool parsed = float.TryParse(source, out float tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Double:
-            {
+            case TypeCode.Double: {
                bool parsed = double.TryParse(source, out double tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.Decimal:
-            {
+            case TypeCode.Decimal: {
                bool parsed = decimal.TryParse(source, out decimal tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.DateTime:
-            {
+            case TypeCode.DateTime: {
                bool parsed = DateTime.TryParse(source, out DateTime tmp);
                value = tmp;
                return parsed;
             }
-            case TypeCode.String:
-            {
+            case TypeCode.String: {
                value = source;
                return true;
             }
@@ -116,26 +95,20 @@ namespace UniversalCommandlineInterface
                value = source[0];
                return true;
 
-            case TypeCode.Object:
-            {
-               if (expectedType.IsEnum)
-               {
+            case TypeCode.Object: {
+               if (expectedType.IsEnum) {
                   bool parseable = Enum.IsDefined(expectedType, source);
-                  if (parseable)
-                  {
+                  if (parseable) {
                      value = Enum.Parse(expectedType, source);
                   }
 
                   return parseable;
                }
-               else if (source.StartsWith("{") && source.EndsWith("}"))
-               {
-                  try
-                  {
+               else if (source.StartsWith("{") && source.EndsWith("}")) {
+                  try {
                      JsonConvert.DeserializeObject(source, expectedType);
                   }
-                  catch (Exception)
-                  {
+                  catch (Exception) {
                      return false;
                   }
 
@@ -149,16 +122,13 @@ namespace UniversalCommandlineInterface
             default: return false;
          }
       }
-      internal static bool IsParameterEqual(string expected, string given)
-      {
 
+      internal static bool IsParameterEqual(string expected, string given) {
          return '/' + expected == given || '-' + expected == given;
       }
 
-      public static TypeInfo GetTypeInfo(MemberInfo member)
-      {
-         switch (member)
-         {
+      public static TypeInfo GetTypeInfo(MemberInfo member) {
+         switch (member) {
             case PropertyInfo propertyInfo:
                propertyInfo.PropertyType.GetTypeInfo();
                break;
@@ -167,7 +137,7 @@ namespace UniversalCommandlineInterface
                break;
          }
 
-         throw new ArgumentOutOfRangeException(nameof(member),member,"Must be  or FieldInfo");
+         throw new ArgumentOutOfRangeException(nameof(member), member, "Must be  or FieldInfo");
       }
    }
 }

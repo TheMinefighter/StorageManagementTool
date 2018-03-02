@@ -5,17 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
 using StorageManagementTool.MainGUI;
 
-namespace StorageManagementTool
-{
+namespace StorageManagementTool {
    /// <summary>
    ///    Stores session data
    /// </summary>
-   public class Session
-   {
+   public class Session {
       /// <summary>
       ///    Reference to the Session Object
       /// </summary>
@@ -34,8 +31,6 @@ namespace StorageManagementTool
       /// <summary>
       ///    The List of drives currently available
       /// </summary>
-   //   public List<DriveInfo> CurrentDrives;
-
       /// <summary>
       ///    Whether the program runs as administrator
       /// </summary>
@@ -44,16 +39,14 @@ namespace StorageManagementTool
       /// <summary>
       ///    The stadium of the swapfile
       /// </summary>
-//      public int Swapstadium;
-
       /// <summary>
       ///    Creates a new Session
       /// </summary>
-      public Session()
-      {
-         IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new []{new []{CultureInfo.CreateSpecificCulture("en-US") }, new []{CultureInfo.CreateSpecificCulture("de-DE") }};
-         
-            Singleton = this;
+      public Session() {
+         IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new[]
+            {new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
+
+         Singleton = this;
          ConfigurationPath = Path.Combine(Environment.GetFolderPath(
                Environment.SpecialFolder.MyDocuments),
             "StorageManagementToolConfiguration.json");
@@ -63,26 +56,23 @@ namespace StorageManagementTool
          CultureInfo requestedCulture =
             CultureInfo.GetCultureInfo(CurrentConfiguration.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
          CultureInfo toUseCultureInfo = BestPossibleCulture(requestedCulture, availableSpecificCultures);
-         Thread.CurrentThread.CurrentUICulture=toUseCultureInfo ;
+         Thread.CurrentThread.CurrentUICulture = toUseCultureInfo;
          ScenarioPreset.LoadPresets();
          UserShellFolder.LoadEditable();
       }
 
-      private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture, IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures)
-      {
+      private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,
+         IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures) {
          CultureInfo requestedParent = requestedCulture.Parent;
          CultureInfo toUseCultureInfo = null;
-         for (int i = 0; i < availableSpecificCultures.Count(); i++)
-         {
-            if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent))
-            {
-               foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i))
-               {
-                  if (cultureInfo.Equals(requestedCulture))
-                  {
+         for (int i = 0; i < availableSpecificCultures.Count(); i++) {
+            if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent)) {
+               foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i)) {
+                  if (cultureInfo.Equals(requestedCulture)) {
                      toUseCultureInfo = cultureInfo;
                   }
                }
+
                toUseCultureInfo = toUseCultureInfo ?? availableSpecificCultures.ElementAt(i).ElementAt(0);
                break;
             }
@@ -95,39 +85,13 @@ namespace StorageManagementTool
       /// <summary>
       ///    Refreshes the current Stadium of the Swapfile Movement
       /// </summary>
-//      public void RefreshSwapfileStadium()
-//      {
-//         if (Wrapper.FileAndFolder.IsPathSymbolic(@"C:\swapfile.sys"))
-//         {
-//            Wrapper.RegistryMethods.GetRegistryValue(new RegistryValue(
-//               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-//               "SwapFileControl"), out object regValue);
-//            Swapstadium =
-//               (uint?) regValue == null || (uint?) regValue == 1
-//                  ? 4
-//                  : 3;
-//         }
-//         else
-//         {
-//            Wrapper.RegistryMethods.GetRegistryValue(new RegistryValue(
-//               @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
-//               "SwapFileControl"), out object regValue);
-//            Swapstadium =
-//               (uint?) regValue == null || (uint?) regValue == 1
-//                  ? 1
-//                  : 2;
-//         }
-//      }
-
       /// <summary>
       ///    Fills an given Listbox with information about the available Drives
       /// </summary>
       /// <param name="toFill"></param>
-      public void FillWithDriveInfo(ListBox toFill)
-      {
+      public void FillWithDriveInfo(ListBox toFill) {
          toFill.Items.Clear();
-         foreach (DriveInfo item in Wrapper.getDrives())
-         {
+         foreach (DriveInfo item in Wrapper.getDrives()) {
             toFill.Items.Add(OperatingMethods.GetDriveInfoDescription(item));
          }
       }
@@ -135,8 +99,7 @@ namespace StorageManagementTool
       /// <summary>
       ///    Stores the configuration in a JSON file
       /// </summary>
-      public void SaveCfg()
-      {
+      public void SaveCfg() {
          File.WriteAllText(
             ConfigurationPath, JsonConvert.SerializeObject(CurrentConfiguration));
       }
@@ -145,8 +108,7 @@ namespace StorageManagementTool
       ///    Creates an IEnumerable with all current DriveInfos
       /// </summary>
       /// <returns>All DriveInfos</returns>
-      public IEnumerable<string> FillWithDriveInfo()
-      {
+      public IEnumerable<string> FillWithDriveInfo() {
          return Wrapper.getDrives().Select(OperatingMethods.GetDriveInfoDescription);
       }
 
@@ -155,14 +117,12 @@ namespace StorageManagementTool
 //         CurrentDrives = Wrapper.getDrives().ToList();
 //      }
 
-      public void StandardLaunch()
-      {
+      public void StandardLaunch() {
          Application.EnableVisualStyles();
          Application.SetCompatibleTextRenderingDefault(false);
-        // RefreshDriveInformation();
+         // RefreshDriveInformation();
          IsAdmin = Wrapper.IsCurrentUserAdministrator();
-         
-         
+
          Application.Run(new MainWindow());
       }
    }

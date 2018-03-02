@@ -3,29 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.FileIO;
 using StorageManagementTool.MainGUI.GlobalizationRessources;
 
-namespace StorageManagementTool.MainGUI
-{
-   public partial class ApplyPreset : Form
-   {
-      public ApplyPreset()
-      {
+namespace StorageManagementTool.MainGUI {
+   public partial class ApplyPreset : Form {
+      public ApplyPreset() {
          InitializeComponent();
       }
 
-      private void ApplyPreset_Load(object sender, EventArgs e)
-      {
-         if (!Session.Singleton.IsAdmin)
-         {
-            if (MessageBox.Show(ApplyPresetStrings.Load_AdministratorRequired, ApplyPresetStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error,
-                   MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-            {
+      private void ApplyPreset_Load(object sender, EventArgs e) {
+         if (!Session.Singleton.IsAdmin) {
+            if (MessageBox.Show(ApplyPresetStrings.Load_AdministratorRequired, ApplyPresetStrings.Error, MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Error,
+                   MessageBoxDefaultButton.Button1) == DialogResult.Yes) {
                Wrapper.RestartAsAdministrator();
             }
-            else
-            {
+            else {
                Close();
             }
          }
@@ -40,31 +33,29 @@ namespace StorageManagementTool.MainGUI
          SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.ViewedName).ToArray());
       }
 
-      private void ApplyPreset_btn_Click(object sender, EventArgs e)
-      {
-         if (SelectScenario_lb.SelectedIndex == -1)
-         {
+      private void ApplyPreset_btn_Click(object sender, EventArgs e) {
+         if (SelectScenario_lb.SelectedIndex == -1) {
             MessageBox.Show(ApplyPresetStrings.NoScenarioSelected, ApplyPresetStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }
 
          ScenarioPreset toApply = ScenarioPreset.AvailablePresets[SelectScenario_lb.SelectedIndex];
-         if (toApply.HDDRequired && SelectHDD_lb.SelectedIndex == -1)
-         {
-            MessageBox.Show(ApplyPresetStrings.NoHDDSelectedButRequired, ApplyPresetStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+         if (toApply.HDDRequired && SelectHDD_lb.SelectedIndex == -1) {
+            MessageBox.Show(ApplyPresetStrings.NoHDDSelectedButRequired, ApplyPresetStrings.Error, MessageBoxButtons.OK,
+               MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }
 
-         if (toApply.SSDRequired && SelectSSD_lb.SelectedIndex == -1)
-         {
-            MessageBox.Show(ApplyPresetStrings.NoSSDSelectedButRequired, ApplyPresetStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error,
+         if (toApply.SSDRequired && SelectSSD_lb.SelectedIndex == -1) {
+            MessageBox.Show(ApplyPresetStrings.NoSSDSelectedButRequired, ApplyPresetStrings.Error, MessageBoxButtons.OK,
+               MessageBoxIcon.Error,
                MessageBoxDefaultButton.Button1);
             return;
          }
 
-         IEnumerable < DriveInfo > driveInfos= Wrapper.getDrives();
+         IEnumerable<DriveInfo> driveInfos = Wrapper.getDrives();
          DriveInfo HDDToUse = driveInfos.First(x =>
             OperatingMethods.GetDriveInfoDescription(x) == SelectHDD_lb.SelectedItem.ToString());
          DriveInfo SSDToUse = driveInfos.First(x =>

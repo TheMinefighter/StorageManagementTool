@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace UniversalCommandlineInterface
-{
-   public class CommandlineParameterAlias
-   {
-      public CommandlineParameterAlias(string name, object value, string help="", IEnumerable<string> extendedHelp=null)
-      {
-         Name = name;
-         this.value = value;
-         this.help = help;
-         this.extendedHelp = extendedHelp??new List<string>();
-      }
+namespace UniversalCommandlineInterface {
+   public class CommandlineParameterAlias {
+      public IEnumerable<string> extendedHelp;
+      public string help;
 
       public string Name;
 
       public object value;
-      public string help;
-      public IEnumerable<string> extendedHelp;
+
+      public CommandlineParameterAlias(string name, object value, string help = "", IEnumerable<string> extendedHelp = null) {
+         Name = name;
+         this.value = value;
+         this.help = help;
+         this.extendedHelp = extendedHelp ?? new List<string>();
+      }
    }
 }

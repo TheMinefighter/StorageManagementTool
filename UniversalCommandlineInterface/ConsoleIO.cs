@@ -1,20 +1,12 @@
 ﻿using System;
 
-namespace UniversalCommandlineInterface
-{
+namespace UniversalCommandlineInterface {
    /// <summary>
    ///    Class storing the Actions for Console Operations
    /// </summary>
-   public class ConsoleIO
-   {
+   public class ConsoleIO {
       private static ConsoleIO Primary;
-      public ConsoleIO(bool IsPrimary=true)
-      {
-         if (IsPrimary)
-         {
-            Primary = this;
-         }
-      }
+
       /// <summary>
       ///    Writes a message to Console
       /// </summary>
@@ -35,12 +27,17 @@ namespace UniversalCommandlineInterface
       /// </summary>
       public Action<bool> SetVisibiltyToConsole { get; set; }
 
+      public ConsoleIO(bool IsPrimary = true) {
+         if (IsPrimary) {
+            Primary = this;
+         }
+      }
+
       /// <summary>
       ///    Writes a message to Console and a linebreak afterwards
       /// </summary>
       /// <param name="message">The message to write to console</param>
-      public static void WriteLine(string message)
-      {
+      public static void WriteLine(string message) {
          Primary.WriteLineToConsole(message);
       }
 
@@ -48,8 +45,7 @@ namespace UniversalCommandlineInterface
       ///    Reads a line from Console
       /// </summary>
       /// <returns>The line the user entered</returns>
-      public static string ReadLine()
-      {
+      public static string ReadLine() {
          return Primary.ReadFromConsole();
       }
 
@@ -57,8 +53,7 @@ namespace UniversalCommandlineInterface
       ///    Writes a message to Console
       /// </summary>
       /// <param name="message">The message to write to Console</param>
-      public static void Write(string message)
-      {
+      public static void Write(string message) {
          Primary.WriteToConsole(message);
       }
 
@@ -66,8 +61,7 @@ namespace UniversalCommandlineInterface
       ///    Sets the visibility of the Console Window
       /// </summary>
       /// <param name="visible">Whether the console window should be visible</param>
-      public static void SetVisibility(bool visible)
-      {
+      public static void SetVisibility(bool visible) {
          Primary.SetVisibiltyToConsole(visible);
       }
    }

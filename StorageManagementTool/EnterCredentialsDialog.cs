@@ -4,26 +4,21 @@ using System.Windows.Forms;
 using static StorageManagementTool.EnterCredentials;
 using static StorageManagementTool.GlobalizationRessources.EnterCredentialsStrings;
 
-namespace StorageManagementTool
-{
-   public sealed partial class EnterCredentialsDialog : Form
-   {
-      public EnterCredentialsDialog()
-      {
+namespace StorageManagementTool {
+   public sealed partial class EnterCredentialsDialog : Form {
+      public EnterCredentialsDialog() {
          InitializeComponent();
       }
 
-      private void Ok_btn_Click(object sender, EventArgs e)
-      {
+      private void Ok_btn_Click(object sender, EventArgs e) {
          SecureString password = new SecureString();
 
-         foreach (char c in Password_tb.Text)
-         {
+         foreach (char c in Password_tb.Text) {
             password.AppendChar(c);
          }
+
          Password_tb.Text = "";
-         if (!Wrapper.IsUser(Username_tb.Text))
-         {
+         if (!Wrapper.IsUser(Username_tb.Text)) {
             MessageBox.Show(EnterAUsername, Error, MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             Password_tb.Text = "";
@@ -32,14 +27,11 @@ namespace StorageManagementTool
             return;
          }
 
-         if (Wrapper.IsAdmin(Username_tb.Text))
-         {
+         if (Wrapper.IsAdmin(Username_tb.Text)) {
             ((DialogReturnData) Tag).IsAdmin = true;
          }
-         else
-         {
-            if (((DialogReturnData) Tag).AdminRequired)
-            {
+         else {
+            if (((DialogReturnData) Tag).AdminRequired) {
                MessageBox.Show(NotAdministratorButRequired, Error,
                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                Password_tb.Text = "";
@@ -52,44 +44,37 @@ namespace StorageManagementTool
          }
 
          string username = Username_tb.Text;
-         Credentials givenCredentials = new Credentials()
-         {
+         Credentials givenCredentials = new Credentials {
             Password = password,
             Username = username
          };
-         if (!Wrapper.TestCredentials(givenCredentials))
-         {
+         if (!Wrapper.TestCredentials(givenCredentials)) {
             MessageBox.Show(EnteredCredentialsAreInvalid, Error, MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             Password_tb.Focus();
             return;
          }
 
-         ((DialogReturnData) Tag).GivenCredentials=givenCredentials;
+         ((DialogReturnData) Tag).GivenCredentials = givenCredentials;
          ((DialogReturnData) Tag).IsAborted = false;
          Close();
       }
 
 
-      private void Abort_btn_Click(object sender, EventArgs e)
-      {
+      private void Abort_btn_Click(object sender, EventArgs e) {
          ((DialogReturnData) Tag).IsAborted = true;
          Close();
       }
 
-      private void InsertCredentialsDialog_Load(object sender, EventArgs e)
-      {
+      private void InsertCredentialsDialog_Load(object sender, EventArgs e) {
          Text = Window_Title;
-         if (((DialogReturnData) Tag).AdminRequired)
-         {
+         if (((DialogReturnData) Tag).AdminRequired) {
             Headline0_lbl.Text = string.Format(AdministratorInstructions, Environment.NewLine);
-            if (Wrapper.IsCurrentUserAdministrator())
-            {
+            if (Wrapper.IsCurrentUserAdministrator()) {
                Username_tb.Text = Environment.UserName;
             }
          }
-         else
-         {
+         else {
             Headline0_lbl.Text = string.Format(NormalInstructions, Environment.NewLine);
             Username_tb.Text = Environment.UserName;
          }
@@ -100,10 +85,8 @@ namespace StorageManagementTool
          Username_lbl.Text = Username_lbl_Text;
       }
 
-      private void Password_tb_KeyDown(object sender, KeyEventArgs e)
-      {
-         if (e.KeyCode == Keys.Enter)
-         {
+      private void Password_tb_KeyDown(object sender, KeyEventArgs e) {
+         if (e.KeyCode == Keys.Enter) {
             Ok_btn_Click(null, null);
          }
       }

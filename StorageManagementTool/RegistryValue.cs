@@ -1,10 +1,8 @@
-﻿namespace StorageManagementTool
-{
+﻿namespace StorageManagementTool {
    /// <summary>
    ///    Class for storing a windows registry path
    /// </summary>
-   public struct RegistryValue
-   {
+   public struct RegistryValue {
       /// <summary>
       ///    The where the value is stored
       /// </summary>
@@ -15,14 +13,12 @@
       /// </summary>
       public string ValueName;
 
-      public RegistryValue(string registryKey, string valueName)
-      {
+      public RegistryValue(string registryKey, string valueName) {
          RegistryKey = registryKey;
          ValueName = valueName;
       }
 
-      public override string ToString()
-      {
+      public override string ToString() {
          return RegistryKey + '\\' + ValueName;
       }
 

@@ -2,29 +2,11 @@
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace StorageManagementTool
-{
-
+namespace StorageManagementTool {
    /// <summary>
    ///    Represents the JSON serializable configuration data of program
    /// </summary>
-   public class JSONConfig
-   {
-      public override bool Equals(object obj)
-      {
-         if (obj is JSONConfig eq)
-         {
-           return eq.DefaultHDDPath == DefaultHDDPath && eq.LanguageOverride == LanguageOverride &&
-               MonitoringSettings.Equals(eq.MonitoringSettings);
-         }
-
-         return false;
-      }
-
-      public override string ToString()
-      {
-         return JsonConvert.SerializeObject(this);
-      }
+   public class JSONConfig {
       /// <summary>
       ///    The default path to move data to
       /// </summary>
@@ -40,29 +22,27 @@ namespace StorageManagementTool
       /// </summary>
       public MonitoringSetting MonitoringSettings;
 
+      public override bool Equals(object obj) {
+         if (obj is JSONConfig eq) {
+            return eq.DefaultHDDPath == DefaultHDDPath && eq.LanguageOverride == LanguageOverride &&
+                   MonitoringSettings.Equals(eq.MonitoringSettings);
+         }
+
+         return false;
+      }
+
+      public override string ToString() {
+         return JsonConvert.SerializeObject(this);
+      }
+
       /// <summary>
       ///    Container for all settings for SSD Monitoring
       /// </summary>
-      public class MonitoringSetting
-      {
-         public override bool Equals(object obj)
-         {
-            if (obj is MonitoringSetting eq)
-            {
-               return MonitoredFolders.Count == eq.MonitoredFolders.Count && MonitoredFolders.SequenceEqual(eq.MonitoredFolders);
-            }
-
-            return false;
-         }
-         public override string ToString()
-         {
-            return JsonConvert.SerializeObject(this);
-         }
+      public class MonitoringSetting {
          /// <summary>
          ///    Represents all available actions for the event, when a new file or folder has been created
          /// </summary>
-         public enum MonitoringAction
-         {
+         public enum MonitoringAction {
             /// <summary>
             ///    Just does nothing
             /// </summary>
@@ -87,30 +67,26 @@ namespace StorageManagementTool
          /// <summary>
          ///    Creates a new MonitoringSetting
          /// </summary>
-         public MonitoringSetting()
-         {
+         public MonitoringSetting() {
             MonitoredFolders = new List<MonitoredFolder>();
+         }
+
+         public override bool Equals(object obj) {
+            if (obj is MonitoringSetting eq) {
+               return MonitoredFolders.Count == eq.MonitoredFolders.Count && MonitoredFolders.SequenceEqual(eq.MonitoredFolders);
+            }
+
+            return false;
+         }
+
+         public override string ToString() {
+            return JsonConvert.SerializeObject(this);
          }
 
          /// <summary>
          ///    Contains information about a folder, which should be monitored
          /// </summary>
-         public class MonitoredFolder
-         {
-            public override bool Equals(object obj)
-            {
-               if (obj is MonitoredFolder eq)
-               {
-                  return TargetPath == eq.TargetPath && ForFiles == eq.ForFiles && ForFolders == eq.ForFolders;
-               }
-               return false;
-            }
-
-            public override string ToString()
-            {
-               return JsonConvert.SerializeObject(this);
-            }
-
+         public class MonitoredFolder {
             /// <summary>
             ///    The MonitoringAction to execute for new files
             /// </summary>
@@ -126,19 +102,29 @@ namespace StorageManagementTool
             /// </summary>
             public string TargetPath;
 
-            public MonitoredFolder()
-            {
-               
+            public MonitoredFolder() {
             }
+
             /// <summary>
             ///    Creates a new MonitoredFolder object with a given target targetPath
             /// </summary>
             /// <param name="targetPath">The target targetPath</param>
-            public MonitoredFolder(string targetPath)
-            {
+            public MonitoredFolder(string targetPath) {
                TargetPath = targetPath;
                ForFiles = MonitoringAction.Ask;
                ForFolders = MonitoringAction.Ask;
+            }
+
+            public override bool Equals(object obj) {
+               if (obj is MonitoredFolder eq) {
+                  return TargetPath == eq.TargetPath && ForFiles == eq.ForFiles && ForFolders == eq.ForFolders;
+               }
+
+               return false;
+            }
+
+            public override string ToString() {
+               return JsonConvert.SerializeObject(this);
             }
          }
       }

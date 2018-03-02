@@ -3,16 +3,14 @@ using System.IO;
 using System.Linq;
 using static StorageManagementTool.GlobalizationRessources.UserShellFolderStrings;
 
-namespace StorageManagementTool
-{
-   public struct UserShellFolder
-   {
-
+namespace StorageManagementTool {
+   public struct UserShellFolder {
       public string ViewedName;
       public RegistryValue[] RegistryValues;
       public bool MoveExistingFiles;
       public bool AccessAsUser;
       public string Identifier;
+
       private const string UserShellFolderRoot =
          @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders";
 
@@ -31,13 +29,13 @@ namespace StorageManagementTool
       private const string PublicTempRoot = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
 
       private const string UserTempRoot = @"HKEY_CURRENT_USER\Environment";
+
       private UserShellFolder(string name, RegistryValue[] registryValues, bool moveExistingFiles = true,
-         bool accessAsUser = false)
-      {
-         if (registryValues.Length == 0)
-         {
+         bool accessAsUser = false) {
+         if (registryValues.Length == 0) {
             throw new ArgumentException("At least on required");
          }
+
          ViewedName = name;
          RegistryValues = registryValues;
          MoveExistingFiles = moveExistingFiles;
@@ -47,27 +45,24 @@ namespace StorageManagementTool
 
       //   public UserShellFolder()  {  }
 
-      private static UserShellFolder NormalUSF(string name, string id, bool user = true, bool moveExistingFiles = true)
-      {
-         return new UserShellFolder
-         {
+      private static UserShellFolder NormalUSF(string name, string id, bool user = true, bool moveExistingFiles = true) {
+         return new UserShellFolder {
             ViewedName = name,
             RegistryValues = user
-               ? new[] { new RegistryValue(ShellFolderRoot, id), new RegistryValue(UserShellFolderRoot, id) }
-               : new[] { new RegistryValue(ShellFolderRoot, id) },
+               ? new[] {new RegistryValue(ShellFolderRoot, id), new RegistryValue(UserShellFolderRoot, id)}
+               : new[] {new RegistryValue(ShellFolderRoot, id)},
             MoveExistingFiles = moveExistingFiles,
             Identifier = id
          };
       }
 
-      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true,bool asUser=true)
-      {
-         return new UserShellFolder
-         {
+      private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true,
+         bool asUser = true) {
+         return new UserShellFolder {
             ViewedName = name,
             RegistryValues = user
-               ? new[] { new RegistryValue(CommonShellFolderRooot, id), new RegistryValue(CommonUserShellFolderRoot, id) }
-               : new[] { new RegistryValue(CommonShellFolderRooot, id) },
+               ? new[] {new RegistryValue(CommonShellFolderRooot, id), new RegistryValue(CommonUserShellFolderRoot, id)}
+               : new[] {new RegistryValue(CommonShellFolderRooot, id)},
             MoveExistingFiles = moveExistingFiles,
             Identifier = id,
             AccessAsUser = asUser
@@ -75,10 +70,8 @@ namespace StorageManagementTool
       }
 
 
-      public static void LoadEditable()
-      {
-         AllEditableUserUserShellFolders = new[]
-         {
+      public static void LoadEditable() {
+         AllEditableUserUserShellFolders = new[] {
             #region Based upon https://support.microsoft.com/en-us/help/931087/how-to-redirect-user-shell-folders-to-a-specified-path-by-using-profil access on 22.01.2017
 
             NormalUSF(Desktop_Name, "Desktop"),
@@ -120,49 +113,51 @@ namespace StorageManagementTool
             CommonUSF(Common_Programs_Name, "Common Programs"),
             CommonUSF(Common_Templates_Name, "Common Templates"),
             CommonUSF(Common_Start_Menu_Name, "Common Start Menu"),
-            CommonUSF(OEM_Links_Name, "OEM Links", false,true,true),
+            CommonUSF(OEM_Links_Name, "OEM Links", false, true, true),
             CommonUSF(Common_Administrative_Tools_Name, "Common Administrative Tools", false),
             //No real USF
             new UserShellFolder(ProgramFilesDir_x86_Name,
-               new[]
-               {
+               new[] {
                   new RegistryValue(ProgramPathDefinitionRoot, "ProgramFilesDir (x86)")
                }, false, true),
             new UserShellFolder(ProgramFilesDir_Name,
-               new[]
-               {
+               new[] {
                   new RegistryValue(ProgramPathDefinitionRoot, "ProgramFilesDir"),
                   new RegistryValue(ProgramPathDefinitionRoot, "ProgramW6432Dir")
                }, false, true),
-            new UserShellFolder{Identifier = "PrivateTemp",AccessAsUser = false,
-               RegistryValues = new []{new RegistryValue(UserTempRoot,"TEMP"), new RegistryValue(UserTempRoot,"TMP"), },
-               MoveExistingFiles = false, ViewedName = PrivateTemp},
-            new UserShellFolder{Identifier = "PublicTemp",AccessAsUser = true,
-            RegistryValues = new []{new RegistryValue(PublicTempRoot,"TEMP"), new RegistryValue(PublicTempRoot,"TMP"), },
-               MoveExistingFiles = false, ViewedName = PublicTemp,},
+            new UserShellFolder {
+               Identifier = "PrivateTemp",
+               AccessAsUser = false,
+               RegistryValues = new[] {new RegistryValue(UserTempRoot, "TEMP"), new RegistryValue(UserTempRoot, "TMP")},
+               MoveExistingFiles = false,
+               ViewedName = PrivateTemp
+            },
+            new UserShellFolder {
+               Identifier = "PublicTemp",
+               AccessAsUser = true,
+               RegistryValues = new[] {new RegistryValue(PublicTempRoot, "TEMP"), new RegistryValue(PublicTempRoot, "TMP")},
+               MoveExistingFiles = false,
+               ViewedName = PublicTemp
+            }
          };
       }
 
       public static UserShellFolder[] AllEditableUserUserShellFolders;
 
-      public static UserShellFolder GetUserShellFolderById(string id)
-      {
+      public static UserShellFolder GetUserShellFolderById(string id) {
          return AllEditableUserUserShellFolders.First(x => x.Identifier == id);
       }
 
-      public static UserShellFolder GetUserShellFolderByName(string name)
-      {
+      public static UserShellFolder GetUserShellFolderByName(string name) {
          return AllEditableUserUserShellFolders.First(x => x.ViewedName == name);
       }
 
-      public DirectoryInfo GetPath()
-      {
+      public DirectoryInfo GetPath() {
          Wrapper.RegistryMethods.GetRegistryValue(RegistryValues[0], out object regValue, AccessAsUser);
-         return new DirectoryInfo((string)regValue ?? Error);
+         return new DirectoryInfo((string) regValue ?? Error);
       }
 
-      public static DirectoryInfo GetPath(UserShellFolder currentUSF)
-      {
+      public static DirectoryInfo GetPath(UserShellFolder currentUSF) {
          return currentUSF.GetPath();
       }
    }

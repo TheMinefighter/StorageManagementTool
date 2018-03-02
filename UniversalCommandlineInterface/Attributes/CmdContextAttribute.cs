@@ -1,61 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Reflection;
 
-namespace UniversalCommandlineInterface.Attributes
-{
+namespace UniversalCommandlineInterface.Attributes {
    [AttributeUsage(AttributeTargets.Class)]
-   public class CmdContextAttribute : Attribute
-   {
-      public string Name;
+   public class CmdContextAttribute : Attribute {
+      private bool _loaded;
+      public IList<CmdActionAttribute> ctxActions = new List<CmdActionAttribute>();
+      public IList<CmdParameterAttribute> ctxParameters = new List<CmdParameterAttribute>();
 
       public TypeInfo MyInfo;
-      public IList<CmdContextAttribute> subCtx=new List<CmdContextAttribute>();
-      public IList<CmdContextParameterAttribute> ctxParameters= new List<CmdContextParameterAttribute>();
-      public IList<CmdActionAttribute> ctxActions=new List<CmdActionAttribute>();
-      private bool loaded;
-      public void LoadChilds()
-      {
+      public string Name;
+      public IList<CmdContextAttribute> subCtx = new List<CmdContextAttribute>();
 
-         if (!loaded)
-         {
+      public void LoadChilds() {
+         if (!_loaded) {
             IEnumerable<MemberInfo> members = MyInfo.DeclaredFields.Cast<MemberInfo>().Concat(MyInfo.DeclaredProperties);
-            foreach (MemberInfo memberInfo in members)
-            {
+            foreach (MemberInfo memberInfo in members) {
                CmdContextAttribute contextAttribute = memberInfo.GetCustomAttribute<CmdContextAttribute>();
-               if (contextAttribute != null)
-               {
-                  contextAttribute.MyInfo = CommandlineMethods.GetTypeInfo(memberInfo) ;
+               if (contextAttribute != null) {
+                  contextAttribute.MyInfo = CommandlineMethods.GetTypeInfo(memberInfo);
                   subCtx.Add(contextAttribute);
                }
 
-               CmdContextParameterAttribute parameterAttribute = memberInfo.GetCustomAttribute<CmdContextParameterAttribute>();
-               if (parameterAttribute!=null)
-               {
+               CmdParameterAttribute parameterAttribute = memberInfo.GetCustomAttribute<CmdParameterAttribute>();
+               if (parameterAttribute != null) {
                   parameterAttribute.MyInfo = memberInfo;
                   ctxParameters.Add(parameterAttribute);
                }
-            
             }
 
-            foreach (MethodInfo methodInfo in MyInfo.DeclaredMethods)
-            {
+            foreach (MethodInfo methodInfo in MyInfo.DeclaredMethods) {
                CmdActionAttribute actionAttribute = methodInfo.GetCustomAttribute<CmdActionAttribute>();
-               if (actionAttribute!=null)
-               {
+               if (actionAttribute != null) {
                   actionAttribute.MyInfo = methodInfo;
                }
             }
 
-            loaded = true;
+            _loaded = true;
          }
-      }
-
-      public CmdContextAttribute()
-      {
-         
       }
    }
 }

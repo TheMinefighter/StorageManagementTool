@@ -1,16 +1,13 @@
 ﻿using ExtendedMessageBoxLibrary;
 
-namespace ExtendedMessageBoxLibary
-{
-   public class ExtendedMessageBoxResult
-   {
+namespace ExtendedMessageBoxLibary {
+   public class ExtendedMessageBoxResult {
       public ExtendedMessageBoxConfiguration MessageBoxButtonsUsed { get; set; }
       public string ClickedText { get; set; }
       public int NumberOfClickedButton { get; set; }
 
       public ExtendedMessageBoxResult(ExtendedMessageBoxConfiguration extendedMessageBoxButtons,
-         int numberOfClickedButton)
-      {
+         int numberOfClickedButton) {
          ClickedText = extendedMessageBoxButtons.Buttons[numberOfClickedButton];
          MessageBoxButtonsUsed = extendedMessageBoxButtons;
          NumberOfClickedButton = numberOfClickedButton;
