@@ -6,12 +6,11 @@ using UniversalCommandlineInterface.Interpreters;
 namespace UniversalCommandlineInterface {
    public class ContextInterpreter : BaseInterpreter {
       public CmdContextAttribute MyContextAttribute;
-      public object O { get; set; }
 
-      protected ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) {
+      internal ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) {
       }
 
-      protected ContextInterpreter(BaseInterpreter parent, string name, int offset = 0) : base(parent, name, offset) {
+      internal ContextInterpreter(BaseInterpreter parent, string name, int offset = 0) : base(parent, name, offset) {
       }
 
       internal override void PrintHelp() {
@@ -39,7 +38,8 @@ namespace UniversalCommandlineInterface {
          foreach (CmdParameterAttribute cmdParameterAttribute in MyContextAttribute.ctxParameters) {
          }
 
-         throw new NotImplementedException();
+      //   throw new NotImplementedException();
       }
+      
    }
 }

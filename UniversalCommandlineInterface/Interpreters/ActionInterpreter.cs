@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Serialization;
@@ -35,13 +36,13 @@ namespace UniversalCommandlineInterface.Interpreters {
 
          ParameterInfo[] allParameterInfos = MyActionAttribute.MyInfo.GetParameters();
          object[] invokers = new object[allParameterInfos.Length];
-         bool[] invokersDeclared= new bool[allParameterInfos.Length];
-         foreach (KeyValuePair<CmdParameterAttribute,object> invokationArgument in invokationArguments) {
+         bool[] invokersDeclared = new bool[allParameterInfos.Length];
+         foreach (KeyValuePair<CmdParameterAttribute, object> invokationArgument in invokationArguments) {
             int position = (invokationArgument.Key.MyInfo as ParameterInfo).Position;
             invokers[position] = invokationArgument.Value;
             invokersDeclared[position] = true;
          }
-         
+
          for (int i = 0; i < allParameterInfos.Length; i++) {
             if (!invokersDeclared[i]) {
                if (allParameterInfos[i].HasDefaultValue) {
@@ -53,63 +54,91 @@ namespace UniversalCommandlineInterface.Interpreters {
                }
             }
          }
-         MyActionAttribute.MyInfo.Invoke(null,invokers);
-         throw new NotImplementedException();
-      }
 
+         MyActionAttribute.MyInfo.Invoke(null, invokers);
+         //throw new NotImplementedException();
+      }
+/// <summary>
+/// reads all arguments
+/// </summary>
+/// <param name="invokationArguments"></param>
+/// <returns></returns>
       private bool GetValues(out Dictionary<CmdParameterAttribute, object> invokationArguments) {
-         invokationArguments= new Dictionary<CmdParameterAttribute, object>();
-        // value = null;
-         while (Offset!=TopInterpreter.ArgsLengthMinus1) {
+         invokationArguments = new Dictionary<CmdParameterAttribute, object>();
+         // value = null;
+         while (true) {
             if (IsParameterDeclaration(out CmdParameterAttribute found)) {
-               Offset++;
+               if (IncreaseOffset()) {
+                  //throw
+                  return false;
+               }
 
                Type parameterType = (found.MyInfo as ParameterInfo).ParameterType;
                if (IsAlias(found, out object aliasValue)) {
                   invokationArguments.Add(found, aliasValue);
                }
-               else if (found.AvailableWithoutAlias && typeof(IEnumerable<>).IsAssignableFrom(parameterType)) {
-                  #region From https://stackoverflow.com/a/2493258/6730162 last access 04.03.2018
-
-                  Type realType = parameterType.GetGenericArguments()[0];
-                  Type listGenericType = typeof(List<>);
-                  Type specificList = listGenericType.MakeGenericType(realType);
-                  ConstructorInfo ci = specificList.GetConstructor(new Type[] { });
-                  object listOfRealType = ci.Invoke(new object[] { });
-
-                  #endregion
-
-                  MethodInfo addMethodInfo = typeof(List<>).GetMethod("Add");
-                  Offset++;
-                  while (!((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
-                            !tmpParameterAttribute.DeclerationNeeded) ||
-                           IsParameterDeclaration(out CmdParameterAttribute _) ||
-                           Offset == TopInterpreter.ArgsLengthMinus1)) {
-                     if (!CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], realType, out object toAppend)) {
-                        //throw
-                     }
-                     else {
-                        addMethodInfo.Invoke(listOfRealType, new object[] {toAppend});
-                     }
-                  }
-
-                  if (new Type[] {
-                     specificList, typeof(IList<>).MakeGenericType(realType), typeof(ICollection<>).MakeGenericType(realType),
-                     typeof(IEnumerable<>).MakeGenericType(realType), typeof(IReadOnlyList<>).MakeGenericType(realType),
-                     typeof(IReadOnlyCollection<>).MakeGenericType(realType), typeof(ReadOnlyCollection<>).MakeGenericType(realType)
-                  }.Contains(parameterType)) {
-                  }
-                  else if (parameterType == realType.MakeArrayType()) {
-                     object ArrayOfRealType = typeof(Enumerable).GetMethod("ToArray").Invoke(listOfRealType, new object[] { });
-                     invokationArguments.Add(found,ArrayOfRealType);
-                  }
-               }
                else if (found.AvailableWithoutAlias &&
                         CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], parameterType, out object given)) {
                   invokationArguments.Add(found, given);
                }
+               else if (found.AvailableWithoutAlias && typeof(IEnumerable<>).IsAssignableFrom(parameterType)) {
+                  #region Based upon https://stackoverflow.com/a/2493258/6730162 last access 04.03.2018
+
+                  Type realType = parameterType.GetGenericArguments()[0];
+                  Type specificList = typeof(List<>).MakeGenericType(realType);
+                  ConstructorInfo ci = specificList.GetConstructor(new Type[] { });
+                  object listOfRealType = ci.Invoke(new object[] {});
+
+                  #endregion
+
+                  MethodInfo addMethodInfo = typeof(List<>).GetMethod("Add");
+                  if (!IncreaseOffset()) {
+                     while (!((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
+                               !tmpParameterAttribute.DeclerationNeeded) ||
+                              IsParameterDeclaration(out CmdParameterAttribute _) ||
+                              Offset == TopInterpreter.ArgsLengthMinus1)) {
+                        if (!CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], realType, out object toAppend)) {
+                           //throw
+                           return false;
+                        }
+                        else {
+                           addMethodInfo.Invoke(listOfRealType, new object[] {toAppend});
+                        }
+
+                        if (IncreaseOffset()) {
+                           break;
+                        }
+                     }
+                  }
+
+                  if (new Type[] {
+                     typeof(List<>).MakeGenericType(realType), typeof(IList<>).MakeGenericType(realType), typeof(ICollection<>).MakeGenericType(realType),
+                     typeof(IEnumerable<>).MakeGenericType(realType), typeof(IReadOnlyList<>).MakeGenericType(realType),
+                     typeof(IReadOnlyCollection<>).MakeGenericType(realType), typeof(ReadOnlyCollection<>).MakeGenericType(realType)
+                  }.Contains(parameterType)) {
+                     invokationArguments.Add(found, listOfRealType);
+                  }
+                  else if (parameterType == realType.MakeArrayType()) {
+                     object arrayOfRealType = typeof(Enumerable).GetMethod("ToArray").Invoke(listOfRealType, new object[] { });
+                     invokationArguments.Add(found, arrayOfRealType);
+                  }
+                  else {
+                     ConstructorInfo constructorInfo;
+                     try {
+                        constructorInfo = parameterType.GetConstructor(new Type[] {typeof(IEnumerable<>).MakeGenericType(realType)});
+                     }
+                     catch (Exception e) {
+                        Console.WriteLine(e);
+                        throw;
+                     }
+                     constructorInfo.Invoke(new object[] {listOfRealType});
+                  }
+                  
+               }
+
                else {
                   //throw
+                  return false;
                }
             }
             else if (IsAlias(out CmdParameterAttribute aliasType, out object aliasValue) && !aliasType.DeclerationNeeded) {
@@ -117,6 +146,11 @@ namespace UniversalCommandlineInterface.Interpreters {
             }
             else {
                //throw
+               return false;
+            }
+
+            if (IncreaseOffset()) {
+               return true;
             }
          }
 

@@ -1,11 +1,19 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace UniversalCommandlineInterface {
    /// <summary>
    ///    Class storing the Actions for Console Operations
    /// </summary>
    public class ConsoleIO {
-      private static ConsoleIO Primary;
+      private static ConsoleIO _primary=DefaultIO;
+
+      public static ConsoleIO DefaultIO => new ConsoleIO(false) {
+         ReadFromConsole = Console.ReadLine,
+         SetVisibiltyToConsole = x => ShowWindow(GetConsoleWindow(), x ? SW_SHOW : SW_HIDE),
+         WriteLineToConsole = Console.WriteLine,
+         WriteToConsole = Console.Write
+      };
 
       /// <summary>
       ///    Writes a message to Console
@@ -26,9 +34,10 @@ namespace UniversalCommandlineInterface {
       ///    Sets the visibility of the Console Window
       /// </summary>
       public Action<bool> SetVisibiltyToConsole;
-      public ConsoleIO(bool IsPrimary = true) {
-         if (IsPrimary) {
-            Primary = this;
+
+      public ConsoleIO(bool isPrimary = true) {
+         if (isPrimary) {
+            _primary = this;
          }
       }
 
@@ -37,7 +46,7 @@ namespace UniversalCommandlineInterface {
       /// </summary>
       /// <param name="message">The message to write to console</param>
       public static void WriteLine(string message) {
-         Primary.WriteLineToConsole(message);
+         _primary.WriteLineToConsole(message);
       }
 
       /// <summary>
@@ -45,7 +54,7 @@ namespace UniversalCommandlineInterface {
       /// </summary>
       /// <returns>The line the user entered</returns>
       public static string ReadLine() {
-         return Primary.ReadFromConsole();
+         return _primary.ReadFromConsole();
       }
 
       /// <summary>
@@ -53,7 +62,7 @@ namespace UniversalCommandlineInterface {
       /// </summary>
       /// <param name="message">The message to write to Console</param>
       public static void Write(string message) {
-         Primary.WriteToConsole(message);
+         _primary.WriteToConsole(message);
       }
 
       /// <summary>
@@ -61,7 +70,20 @@ namespace UniversalCommandlineInterface {
       /// </summary>
       /// <param name="visible">Whether the console window should be visible</param>
       public static void SetVisibility(bool visible) {
-         Primary.SetVisibiltyToConsole(visible);
+         _primary.SetVisibiltyToConsole(visible);
       }
+
+      #region From https://stackoverflow.com/a/3571628/6730162 access on 08.01.2018
+
+      [DllImport("kernel32.dll")]
+      public static extern IntPtr GetConsoleWindow();
+
+      [DllImport("user32.dll")]
+      public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+      public const int SW_HIDE = 0;
+      public const int SW_SHOW = 5;
+
+      #endregion
    }
 }

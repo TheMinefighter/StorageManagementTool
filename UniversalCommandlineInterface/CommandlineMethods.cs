@@ -124,7 +124,7 @@ namespace UniversalCommandlineInterface {
       }
 
       internal static bool IsParameterEqual(string expected, string given) {
-         return '/' + expected == given || '-' + expected == given;
+         return expected != null && ('/' + expected == given || '-' + expected == given);
       }
 
       public static TypeInfo GetTypeInfo(MemberInfo member) {

@@ -5,7 +5,7 @@ using UniversalCommandlineInterface.Attributes;
 namespace UniversalCommandlineInterface.Interpreters {
    public abstract class BaseInterpreter {
       public string Name { get; }
-      public int Offset { get; set; }
+      public int Offset { get; private set; }
       public CommandlineOptionInterpreter TopInterpreter { get; }
       public BaseInterpreter DirectParent { get; }
       public List<BaseInterpreter> ParentInterpreters { get; }
@@ -24,7 +24,14 @@ namespace UniversalCommandlineInterface.Interpreters {
 
       private BaseInterpreter() {
       }
-
+/// <summary>
+/// 
+/// </summary>
+/// <returns>Whether the end of the args has been reached</returns>
+      public bool IncreaseOffset() {
+         Offset++;
+         return Offset == TopInterpreter.ArgsLengthMinus1;
+      }
       protected BaseInterpreter(CommandlineOptionInterpreter top, int offset = 0) {
          Offset = offset;
          ParentInterpreters = new List<BaseInterpreter> {this};
