@@ -10,23 +10,22 @@ namespace UniversalCommandlineInterface {
       /// <summary>
       ///    Writes a message to Console
       /// </summary>
-      public Action<string> WriteToConsole { get; set; }
+      public Action<string> WriteToConsole;
 
       /// <summary>
       ///    Reads a line from Console
       /// </summary>
-      public Func<string> ReadFromConsole { get; set; }
+      public Func<string> ReadFromConsole;
 
       /// <summary>
       ///    Writes a message to Console and a linebreak afterwards
       /// </summary>
-      public Action<string> WriteLineToConsole { get; set; }
+      public Action<string> WriteLineToConsole;
 
       /// <summary>
       ///    Sets the visibility of the Console Window
       /// </summary>
-      public Action<bool> SetVisibiltyToConsole { get; set; }
-
+      public Action<bool> SetVisibiltyToConsole;
       public ConsoleIO(bool IsPrimary = true) {
          if (IsPrimary) {
             Primary = this;
