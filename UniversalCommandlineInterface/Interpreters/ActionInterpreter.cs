@@ -37,7 +37,21 @@ namespace UniversalCommandlineInterface.Interpreters {
          object[] invokers = new object[allParameterInfos.Length];
          bool[] invokersDeclared= new bool[allParameterInfos.Length];
          foreach (KeyValuePair<CmdParameterAttribute,object> invokationArgument in invokationArguments) {
-            
+            int position = (invokationArgument.Key.MyInfo as ParameterInfo).Position;
+            invokers[position] = invokationArgument.Value;
+            invokersDeclared[position] = true;
+         }
+         
+         for (int i = 0; i < allParameterInfos.Length; i++) {
+            if (!invokersDeclared[i]) {
+               if (allParameterInfos[i].HasDefaultValue) {
+                  invokers[i] = allParameterInfos[i].DefaultValue;
+                  invokersDeclared[i] = true;
+               }
+               else {
+                  //throw
+               }
+            }
          }
          MyActionAttribute.MyInfo.Invoke(null,invokers);
          throw new NotImplementedException();
