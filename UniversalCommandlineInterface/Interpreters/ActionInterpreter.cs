@@ -56,6 +56,7 @@ namespace UniversalCommandlineInterface.Interpreters {
          }
 
          MyActionAttribute.MyInfo.Invoke(null, invokers);
+         return true;
          //throw new NotImplementedException();
       }
 /// <summary>

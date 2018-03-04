@@ -38,7 +38,8 @@ namespace UniversalCommandlineInterface {
          foreach (CmdParameterAttribute cmdParameterAttribute in MyContextAttribute.ctxParameters) {
          }
 
-      //   throw new NotImplementedException();
+         return false;
+         //   throw new NotImplementedException();
       }
       
    }
