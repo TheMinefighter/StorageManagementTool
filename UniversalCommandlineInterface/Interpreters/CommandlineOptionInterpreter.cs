@@ -5,23 +5,17 @@ using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface {
    public class CommandlineOptionInterpreter {
-      public string[] Args {
-         get => _args;
-         set {
-            _args = value;
-            ArgsLengthMinus1 = value.Length - 1;
-         }
-      }
+      public string[] Args;
 
       public ConsoleIO ConsoleIO ;
-      internal int ArgsLengthMinus1; 
+  //    internal int ArgsLengthMinus1; 
       public InterpretingOptions Options;
-      private  string[] _args;
 
-      public CommandlineOptionInterpreter(string[] args, InterpretingOptions options, ConsoleIO consoleIO = null) {
+      public CommandlineOptionInterpreter(string[] args, InterpretingOptions options=null, ConsoleIO consoleIO = null) {
          Args = args;
          ConsoleIO = consoleIO??ConsoleIO.DefaultIO;
-         Options = options;
+         Options = options??InterpretingOptions.DefaultOptions ;
+         
       }
 
       public void Interpret<T>() {
@@ -31,8 +25,10 @@ namespace UniversalCommandlineInterface {
       public void Interpret(Type baseContext) {
             ContextInterpreter contextInterpreter = new ContextInterpreter(this) {
                MyContextAttribute =
-                  baseContext.GetCustomAttribute(typeof(CmdContextAttribute)) as CmdContextAttribute
+                  baseContext.GetCustomAttribute(typeof(CmdContextAttribute)) as CmdContextAttribute,
+               Offset = 0
             };
+         contextInterpreter.MyContextAttribute.MyInfo = baseContext.GetTypeInfo();
             contextInterpreter.MyContextAttribute.LoadChilds();
             contextInterpreter.Interpret();
          }

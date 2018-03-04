@@ -10,6 +10,10 @@ namespace UniversalCommandlineInterface.Attributes {
       public MethodInfo MyInfo;
       public string Name;
 
+      public CmdActionAttribute(string name) {
+         Name = name;
+      }
+
       public void LoadParametersAndAlias() {
          foreach (ParameterInfo parameterInfo in MyInfo.GetParameters()) {
             IEnumerable<CmdParameterAttribute> parmeterAttribs =

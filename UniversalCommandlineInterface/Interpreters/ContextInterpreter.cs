@@ -29,7 +29,8 @@ namespace UniversalCommandlineInterface {
 
          foreach (CmdActionAttribute cmdActionAttribute in MyContextAttribute.ctxActions) {
             if (CommandlineMethods.IsParameterEqual(cmdActionAttribute.Name, search)) {
-               ActionInterpreter actionInterpreter = new ActionInterpreter(cmdActionAttribute, this, Offset + 1);
+               IncreaseOffset();
+               ActionInterpreter actionInterpreter = new ActionInterpreter(cmdActionAttribute, this, Offset);
                actionInterpreter.Interpret();
                return true;
             }

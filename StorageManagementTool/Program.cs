@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using UniversalCommandlineInterface;
+using UniversalCommandlineInterface.Attributes;
 
 namespace StorageManagementTool {
    /// <summary>
@@ -31,12 +32,21 @@ namespace StorageManagementTool {
          string parentName = Process.GetCurrentProcess().ProcessName;
          CommandLineMode = parentName.Contains("cmd") || parentName.Contains("powershell");
          ConsoleIO.SetVisibility(CommandLineMode);
-         for (int i = 0; i < args.Length; i++) {
-            args[i] = args[i].Replace("/", "-").ToLower();
-         }
+//         for (int i = 0; i < args.Length; i++) {
+//            args[i] = args[i].Replace("/", "-").ToLower();
+//         }
 
          SessionInitalizer();
          ProcessCommandlineArguments(args.ToList());
+      }
+
+      [CmdContext]
+      class BaseContext {
+         [CmdAction("back")]
+         public static void Back([CmdParameter("Baum",true,true)] string g="Test") {
+            MessageBox.Show(g);
+            BackgroundNotificationCreator.Initalize();
+         }
       }
 
       /// <summary>
@@ -44,13 +54,15 @@ namespace StorageManagementTool {
       /// </summary>
       /// <param name="args">The arguments to process</param>
       private static void ProcessCommandlineArguments(List<string> args) {
-         if (false) {//For debugging purposes only
+         if (false) {
+            //For debugging purposes only
 #pragma warning disable 162 {
             MessageBox.Show(string.Join(",", args));
 #pragma warning restore 162
          }
-
-
+new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
+         return;
+         
          if (args.Count == 0) {
             Session.Singleton.StandardLaunch();
             Environment.Exit(0);

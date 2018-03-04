@@ -35,7 +35,9 @@ namespace UniversalCommandlineInterface.Attributes {
                CmdActionAttribute actionAttribute = methodInfo.GetCustomAttribute<CmdActionAttribute>();
                if (actionAttribute != null) {
                   actionAttribute.MyInfo = methodInfo;
+                  ctxActions.Add(actionAttribute);
                }
+               
             }
 
             _loaded = true;

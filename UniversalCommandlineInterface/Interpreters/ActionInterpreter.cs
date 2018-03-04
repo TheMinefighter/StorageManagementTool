@@ -12,7 +12,7 @@ namespace UniversalCommandlineInterface.Interpreters {
    public class ActionInterpreter : BaseInterpreter {
       public CmdActionAttribute MyActionAttribute;
       private IEnumerable<CmdParameterAttribute> parameters;
-
+      private bool _loaded;
 
       public ActionInterpreter(CommandlineOptionInterpreter top, int i) : base(top) {
          i++;
@@ -26,12 +26,36 @@ namespace UniversalCommandlineInterface.Interpreters {
       internal override void PrintHelp() {
       }
 
+      internal void LoadParameters() {
+         if (!_loaded) {
+            LoadParametersWithoutCache();
+            _loaded = true;
+         }
+      }
+
+      private void LoadParametersWithoutCache() {
+         parameters = MyActionAttribute.MyInfo.GetParameters().Select(x =>
+               new KeyValuePair<ParameterInfo, Attribute>(x, x.GetCustomAttribute(typeof(CmdParameterAttribute))))
+            .Where(x => x.Value != null).Select(x => {
+               CmdParameterAttribute cmdParameterAttribute = x.Value as CmdParameterAttribute;
+               cmdParameterAttribute.MyInfo = x.Key;
+               cmdParameterAttribute.ParameterAliases =
+                  x.Key.GetCustomAttributes(typeof(CmdParameterAliasAttribute)).Cast<CmdParameterAliasAttribute>();
+               return cmdParameterAttribute;
+            });
+      }
+
       internal override bool Interpret(bool printErrors = true) {
+         LoadParameters();
          //Dictionary<CmdParameterAttribute, object> invokationArguments = new Dictionary<CmdParameterAttribute, object>();
-         int currentOffset = Offset;
-         string search = TopInterpreter.Args.ElementAt(currentOffset);
-         if (!GetValues(out Dictionary<CmdParameterAttribute, object> invokationArguments)) {
-            return true;
+         Dictionary<CmdParameterAttribute, object> invokationArguments;
+         if (Offset != TopInterpreter.Args.Length) {
+            if (!GetValues(out invokationArguments)) {
+               return true;
+            }
+         }
+         else {
+            invokationArguments = new Dictionary<CmdParameterAttribute, object>();
          }
 
          ParameterInfo[] allParameterInfos = MyActionAttribute.MyInfo.GetParameters();
@@ -51,6 +75,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                }
                else {
                   //throw
+                  return false;
                }
             }
          }
@@ -59,11 +84,12 @@ namespace UniversalCommandlineInterface.Interpreters {
          return true;
          //throw new NotImplementedException();
       }
-/// <summary>
-/// reads all arguments
-/// </summary>
-/// <param name="invokationArguments"></param>
-/// <returns></returns>
+
+      /// <summary>
+      /// reads all arguments
+      /// </summary>
+      /// <param name="invokationArguments"></param>
+      /// <returns></returns>
       private bool GetValues(out Dictionary<CmdParameterAttribute, object> invokationArguments) {
          invokationArguments = new Dictionary<CmdParameterAttribute, object>();
          // value = null;
@@ -88,7 +114,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                   Type realType = parameterType.GetGenericArguments()[0];
                   Type specificList = typeof(List<>).MakeGenericType(realType);
                   ConstructorInfo ci = specificList.GetConstructor(new Type[] { });
-                  object listOfRealType = ci.Invoke(new object[] {});
+                  object listOfRealType = ci.Invoke(new object[] { });
 
                   #endregion
 
@@ -96,8 +122,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                   if (!IncreaseOffset()) {
                      while (!((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
                                !tmpParameterAttribute.DeclerationNeeded) ||
-                              IsParameterDeclaration(out CmdParameterAttribute _) ||
-                              Offset == TopInterpreter.ArgsLengthMinus1)) {
+                              IsParameterDeclaration(out CmdParameterAttribute _))) {
                         if (!CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], realType, out object toAppend)) {
                            //throw
                            return false;
@@ -113,7 +138,8 @@ namespace UniversalCommandlineInterface.Interpreters {
                   }
 
                   if (new Type[] {
-                     typeof(List<>).MakeGenericType(realType), typeof(IList<>).MakeGenericType(realType), typeof(ICollection<>).MakeGenericType(realType),
+                     typeof(List<>).MakeGenericType(realType), typeof(IList<>).MakeGenericType(realType),
+                     typeof(ICollection<>).MakeGenericType(realType),
                      typeof(IEnumerable<>).MakeGenericType(realType), typeof(IReadOnlyList<>).MakeGenericType(realType),
                      typeof(IReadOnlyCollection<>).MakeGenericType(realType), typeof(ReadOnlyCollection<>).MakeGenericType(realType)
                   }.Contains(parameterType)) {
@@ -132,9 +158,9 @@ namespace UniversalCommandlineInterface.Interpreters {
                         Console.WriteLine(e);
                         throw;
                      }
+
                      constructorInfo.Invoke(new object[] {listOfRealType});
                   }
-                  
                }
 
                else {

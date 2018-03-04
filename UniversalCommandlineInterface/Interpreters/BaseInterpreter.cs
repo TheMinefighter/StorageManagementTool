@@ -5,7 +5,7 @@ using UniversalCommandlineInterface.Attributes;
 namespace UniversalCommandlineInterface.Interpreters {
    public abstract class BaseInterpreter {
       public string Name { get; }
-      public int Offset { get; private set; }
+      public int Offset { get; internal set; }
       public CommandlineOptionInterpreter TopInterpreter { get; }
       public BaseInterpreter DirectParent { get; }
       public List<BaseInterpreter> ParentInterpreters { get; }
@@ -30,7 +30,7 @@ namespace UniversalCommandlineInterface.Interpreters {
 /// <returns>Whether the end of the args has been reached</returns>
       public bool IncreaseOffset() {
          Offset++;
-         return Offset == TopInterpreter.ArgsLengthMinus1;
+         return Offset == TopInterpreter.Args.Length;
       }
       protected BaseInterpreter(CommandlineOptionInterpreter top, int offset = 0) {
          Offset = offset;
@@ -56,7 +56,7 @@ namespace UniversalCommandlineInterface.Interpreters {
 
       public void PrintEror(string argName = null) {
          TopInterpreter.ConsoleIO.WriteToConsole(
-            $"An error occurred while parsing argument {argName ?? Name} use {TopInterpreter.Options.preferredArgumentPrefix}? for help");
+            $"An error occurred while parsing argument {argName ?? Name} use {TopInterpreter.Options.PreferredArgumentPrefix}? for help");
       }
 
       internal static bool IsParameterDeclaration(out CmdParameterAttribute found,
