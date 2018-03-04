@@ -42,6 +42,14 @@ namespace StorageManagementTool {
 
       [CmdContext]
       class BaseContext {
+         [CmdContext("GG")]
+         public class GGClass {
+            [CmdAction("back")]
+            public static void Back([CmdParameter("Baum",true,true)] string g="Test") {
+               MessageBox.Show("GG "+g);
+               BackgroundNotificationCreator.Initalize();
+            }
+         }
          [CmdAction("back")]
          public static void Back([CmdParameter("Baum",true,true)] string g="Test") {
             MessageBox.Show(g);

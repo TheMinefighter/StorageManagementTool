@@ -9,21 +9,30 @@ namespace UniversalCommandlineInterface.Attributes {
       private bool _loaded;
       public IList<CmdActionAttribute> ctxActions = new List<CmdActionAttribute>();
       public IList<CmdParameterAttribute> ctxParameters = new List<CmdParameterAttribute>();
-
-      public TypeInfo MyInfo;
-      public string Name;
       public IList<CmdContextAttribute> subCtx = new List<CmdContextAttribute>();
+      public TypeInfo MyInfo;
+
+      public string Name;
+
+      public CmdContextAttribute(string name) {
+         Name = name;
+      }
+
+      public CmdContextAttribute() {
+      }
 
       public void LoadChilds() {
          if (!_loaded) {
-            IEnumerable<MemberInfo> members = MyInfo.DeclaredFields.Cast<MemberInfo>().Concat(MyInfo.DeclaredProperties);
-            foreach (MemberInfo memberInfo in members) {
-               CmdContextAttribute contextAttribute = memberInfo.GetCustomAttribute<CmdContextAttribute>();
+            foreach (TypeInfo myInfoDeclaredNestedType in MyInfo.DeclaredNestedTypes) {
+               CmdContextAttribute contextAttribute = myInfoDeclaredNestedType.GetCustomAttribute<CmdContextAttribute>();
                if (contextAttribute != null) {
-                  contextAttribute.MyInfo = CommandlineMethods.GetTypeInfo(memberInfo);
+                  contextAttribute.MyInfo = myInfoDeclaredNestedType;
                   subCtx.Add(contextAttribute);
                }
+            }
 
+            IEnumerable<MemberInfo> members = MyInfo.DeclaredFields.Cast<MemberInfo>().Concat(MyInfo.DeclaredProperties);
+            foreach (MemberInfo memberInfo in members) {
                CmdParameterAttribute parameterAttribute = memberInfo.GetCustomAttribute<CmdParameterAttribute>();
                if (parameterAttribute != null) {
                   parameterAttribute.MyInfo = memberInfo;
@@ -37,7 +46,6 @@ namespace UniversalCommandlineInterface.Attributes {
                   actionAttribute.MyInfo = methodInfo;
                   ctxActions.Add(actionAttribute);
                }
-               
             }
 
             _loaded = true;

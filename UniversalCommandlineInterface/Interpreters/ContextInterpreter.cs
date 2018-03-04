@@ -10,17 +10,19 @@ namespace UniversalCommandlineInterface {
       internal ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) {
       }
 
-      internal ContextInterpreter(BaseInterpreter parent, string name, int offset = 0) : base(parent, name, offset) {
+      internal ContextInterpreter(BaseInterpreter parent, CmdContextAttribute attribute, int offset = 0) : base(parent, attribute.Name,
+         offset) {
+         MyContextAttribute = attribute;
       }
 
       internal override void PrintHelp() {
       }
 
-      internal override bool Interpret(bool printErrors=true) {
+      internal override bool Interpret(bool printErrors = true) {
          string search = TopInterpreter.Args.ElementAt(Offset);
          foreach (CmdContextAttribute cmdContextAttribute in MyContextAttribute.subCtx) {
             if (CommandlineMethods.IsParameterEqual(cmdContextAttribute.Name, search)) {
-               ContextInterpreter subInterpreter = new ContextInterpreter(this, cmdContextAttribute.Name, Offset + 1);
+               ContextInterpreter subInterpreter = new ContextInterpreter(this, cmdContextAttribute, Offset + 1);
                cmdContextAttribute.LoadChilds();
                subInterpreter.Interpret();
                return true;
@@ -42,6 +44,5 @@ namespace UniversalCommandlineInterface {
          return false;
          //   throw new NotImplementedException();
       }
-      
    }
 }
