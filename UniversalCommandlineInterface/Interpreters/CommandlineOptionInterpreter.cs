@@ -2,9 +2,9 @@
 
 namespace UniversalCommandlineInterface {
    public class CommandlineOptionInterpreter {
-      public IEnumerable<string> args;
+      public string[] Args;
       public ConsoleIO ConsoleIO;
-
+      internal int ArgsLengthMinus1; 
       public InterpretingOptions Options;
    }
 }

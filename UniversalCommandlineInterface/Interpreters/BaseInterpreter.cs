@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface.Interpreters {
    public abstract class BaseInterpreter {
       public string Name { get; }
-      public int Offset { get; }
+      public int Offset { get; set; }
       public CommandlineOptionInterpreter TopInterpreter { get; }
       public BaseInterpreter DirectParent { get; }
       public List<BaseInterpreter> ParentInterpreters { get; }
@@ -49,6 +50,30 @@ namespace UniversalCommandlineInterface.Interpreters {
       public void PrintEror(string argName = null) {
          TopInterpreter.ConsoleIO.WriteToConsole(
             $"An error occurred while parsing argument {argName ?? Name} use {TopInterpreter.Options.preferredArgumentPrefix}? for help");
+      }
+
+      internal static bool IsParameterDeclaration(out CmdParameterAttribute found,
+         IEnumerable<CmdParameterAttribute> possibleParameters, string search) {
+         foreach (CmdParameterAttribute cmdParameterAttribute in possibleParameters) {
+            if (CommandlineMethods.IsParameterEqual(cmdParameterAttribute.Name, search)) {
+               found = cmdParameterAttribute;
+               return true;
+            }
+         }
+
+         found = null;
+         return false;
+      }
+
+      internal static bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source) {
+         foreach (CmdParameterAliasAttribute cmdParameterAliasAttribute in expectedAliasType.ParameterAliases) {
+            if (CommandlineMethods.IsParameterEqual(cmdParameterAliasAttribute.Name, source)) {
+               value = cmdParameterAliasAttribute.Value;
+               return true;
+            }
+         }
+         value = null;
+         return false;
       }
    }
 }
