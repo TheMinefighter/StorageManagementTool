@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Serialization;
 using UniversalCommandlineInterface.Attributes;
+using UniversalCommandlineInterface;
 
 namespace UniversalCommandlineInterface.Interpreters {
    public class ActionInterpreter : BaseInterpreter {
@@ -104,11 +105,11 @@ namespace UniversalCommandlineInterface.Interpreters {
                if (IsAlias(found, out object aliasValue)) {
                   invokationArguments.Add(found, aliasValue);
                }
-               else if (found.AvailableWithoutAlias &&
+               else if (found.Usage.RawAllowed() &&
                         CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], parameterType, out object given)) {
                   invokationArguments.Add(found, given);
                }
-               else if (found.AvailableWithoutAlias && typeof(IEnumerable<>).IsAssignableFrom(parameterType)) {
+               else if (found.Usage.RawAllowed() && typeof(IEnumerable<>).IsAssignableFrom(parameterType)) {
                   #region Based upon https://stackoverflow.com/a/2493258/6730162 last access 04.03.2018
 
                   Type realType = parameterType.GetGenericArguments()[0];
@@ -121,8 +122,8 @@ namespace UniversalCommandlineInterface.Interpreters {
                   MethodInfo addMethodInfo = typeof(List<>).GetMethod("Add");
                   if (!IncreaseOffset()) {
                      while (!((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
-                               !tmpParameterAttribute.DeclerationNeeded) ||
-                              IsParameterDeclaration(out CmdParameterAttribute _))) {
+                               tmpParameterAttribute.Usage.WithoutDeclerationAllowed()) ||
+                               IsParameterDeclaration(out CmdParameterAttribute _))) {
                         if (!CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], realType, out object toAppend)) {
                            //throw
                            return false;
@@ -168,7 +169,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                   return false;
                }
             }
-            else if (IsAlias(out CmdParameterAttribute aliasType, out object aliasValue) && !aliasType.DeclerationNeeded) {
+            else if (IsAlias(out CmdParameterAttribute aliasType, out object aliasValue) && aliasType.Usage.WithoutDeclerationAllowed()) {
                invokationArguments.Add(found, aliasValue);
             }
             else {
@@ -240,16 +241,16 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       internal bool IsParameterDeclaration(out CmdParameterAttribute found, string search = null) {
-         return BaseInterpreter.IsParameterDeclaration(out found, parameters, search ?? TopInterpreter.Args[Offset]);
+         return IsParameterDeclaration(out found, parameters, search ?? TopInterpreter.Args[Offset]);
       }
 
-      internal bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source = null) {
-         return BaseInterpreter.IsAlias(expectedAliasType, out value, source ?? TopInterpreter.Args[Offset]);
-      }
+//      internal bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source = null) {
+//         return base.IsAlias(expectedAliasType, out value, source ?? TopInterpreter.Args[Offset]);
+//      }
 
       internal bool IsAlias(out CmdParameterAttribute AliasType, out object value, string source = null) {
          foreach (CmdParameterAttribute cmdParameterAttribute in parameters) {
-            if (BaseInterpreter.IsAlias(cmdParameterAttribute, out value, source ?? TopInterpreter.Args[Offset])) {
+            if (IsAlias(cmdParameterAttribute, out value, source ?? TopInterpreter.Args[Offset])) {
                AliasType = cmdParameterAttribute;
                return true;
             }

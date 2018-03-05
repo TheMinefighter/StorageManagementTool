@@ -5,18 +5,18 @@ namespace UniversalCommandlineInterface.Attributes {
    [AttributeUsage(AttributeTargets.GenericParameter | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field,
       AllowMultiple = true)]
    public class CmdParameterAliasAttribute : Attribute {
-      public IEnumerable<string> ExtendedHelp;
+      public string[] ExtendedHelp;
       public string Help;
 
-      public string Name;
+      public readonly string Name;
 
-      public object Value;
+      public readonly object Value;
 
-      public CmdParameterAliasAttribute(string name, object value, string help = "", string[] extendedHelp = null) {
+      public CmdParameterAliasAttribute(string name=null, object value=null, string help = "", string[] extendedHelp = null) {
          Name = name;
          Value = value;
          Help = help;
-         ExtendedHelp = extendedHelp as IEnumerable<string> ?? new List<string>();
+         ExtendedHelp = extendedHelp ?? new string[]{};
       }
    }
 }

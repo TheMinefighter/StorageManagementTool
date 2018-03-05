@@ -21,7 +21,7 @@ namespace UniversalCommandlineInterface {
       internal override bool Interpret(bool printErrors = true) {
          string search = TopInterpreter.Args.ElementAt(Offset);
          foreach (CmdContextAttribute cmdContextAttribute in MyContextAttribute.subCtx) {
-            if (CommandlineMethods.IsParameterEqual(cmdContextAttribute.Name, search)) {
+            if (IsParameterEqual(cmdContextAttribute.Name, search)) {
                ContextInterpreter subInterpreter = new ContextInterpreter(this, cmdContextAttribute, Offset + 1);
                cmdContextAttribute.LoadChilds();
                subInterpreter.Interpret();
@@ -30,7 +30,7 @@ namespace UniversalCommandlineInterface {
          }
 
          foreach (CmdActionAttribute cmdActionAttribute in MyContextAttribute.ctxActions) {
-            if (CommandlineMethods.IsParameterEqual(cmdActionAttribute.Name, search)) {
+            if (IsParameterEqual(cmdActionAttribute.Name, search)) {
                IncreaseOffset();
                ActionInterpreter actionInterpreter = new ActionInterpreter(cmdActionAttribute, this, Offset);
                actionInterpreter.Interpret();

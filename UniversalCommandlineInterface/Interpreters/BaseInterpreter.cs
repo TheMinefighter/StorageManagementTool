@@ -24,14 +24,16 @@ namespace UniversalCommandlineInterface.Interpreters {
 
       private BaseInterpreter() {
       }
-/// <summary>
-/// 
-/// </summary>
-/// <returns>Whether the end of the args has been reached</returns>
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <returns>Whether the end of the args has been reached</returns>
       public bool IncreaseOffset() {
          Offset++;
          return Offset == TopInterpreter.Args.Length;
       }
+
       protected BaseInterpreter(CommandlineOptionInterpreter top, int offset = 0) {
          Offset = offset;
          ParentInterpreters = new List<BaseInterpreter> {this};
@@ -51,7 +53,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       internal abstract void PrintHelp();
-      internal abstract bool Interpret(bool printErrors =true);
+      internal abstract bool Interpret(bool printErrors = true);
 
 
       public void PrintEror(string argName = null) {
@@ -59,10 +61,10 @@ namespace UniversalCommandlineInterface.Interpreters {
             $"An error occurred while parsing argument {argName ?? Name} use {TopInterpreter.Options.PreferredArgumentPrefix}? for help");
       }
 
-      internal static bool IsParameterDeclaration(out CmdParameterAttribute found,
+      internal bool IsParameterDeclaration(out CmdParameterAttribute found,
          IEnumerable<CmdParameterAttribute> possibleParameters, string search) {
          foreach (CmdParameterAttribute cmdParameterAttribute in possibleParameters) {
-            if (CommandlineMethods.IsParameterEqual(cmdParameterAttribute.Name, search)) {
+            if (IsParameterEqual(cmdParameterAttribute.Name, search)) {
                found = cmdParameterAttribute;
                return true;
             }
@@ -72,15 +74,32 @@ namespace UniversalCommandlineInterface.Interpreters {
          return false;
       }
 
-      internal static bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source) {
+      internal bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source=null) {
          foreach (CmdParameterAliasAttribute cmdParameterAliasAttribute in expectedAliasType.ParameterAliases) {
-            if (CommandlineMethods.IsParameterEqual(cmdParameterAliasAttribute.Name, source)) {
+            if (IsParameterEqual(cmdParameterAliasAttribute.Name, source?? TopInterpreter.Args[Offset])) {
                value = cmdParameterAliasAttribute.Value;
                return true;
             }
          }
+
          value = null;
          return false;
+      }
+
+      internal bool IsParameterEqual(string expected, string given) {
+         return IsParameterEqual(expected, given, TopInterpreter.Options.CaseSensitiveArgumentChecking);
+      }
+
+      internal static bool IsParameterEqual(string expected, string given, bool caseSensitive) {
+         if (expected == null) {
+            return false;
+         }
+
+         if (caseSensitive) {
+            given = given.ToLower();
+            expected = expected.ToLower();
+         }
+         return '/' + expected == given || '-' + expected == given;
       }
    }
 }

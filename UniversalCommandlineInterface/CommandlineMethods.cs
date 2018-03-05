@@ -2,22 +2,23 @@
 using System.Reflection;
 using Newtonsoft.Json;
 using UniversalCommandlineInterface.Attributes;
+using UniversalCommandlineInterface.Interpreters;
 
 namespace UniversalCommandlineInterface {
    public static class CommandlineMethods {
-      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search) {
-         value = null;
-         bool success = false;
-         foreach (CmdParameterAliasAttribute commandlineParameterAlias in cmdParameterAttribute.ParameterAliases) {
-            if (IsParameterEqual(commandlineParameterAlias.Name, search)) {
-               success = true;
-               value = commandlineParameterAlias.Value;
-               break;
-            }
-         }
-
-         return success;
-      }
+//      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search) {
+//         value = null;
+//         bool success = false;
+//         foreach (CmdParameterAliasAttribute commandlineParameterAlias in cmdParameterAttribute.ParameterAliases) {
+//            if (BaseInterpreter.IsParameterEqual(commandlineParameterAlias.Name, search)) {
+//               success = true;
+//               value = commandlineParameterAlias.Value;
+//               break;
+//            }
+//         }
+//
+//         return success;
+//      }
 
       public static bool GetValueFromString(string source, Type expectedType, out object value) {
          value = null;
@@ -123,10 +124,6 @@ namespace UniversalCommandlineInterface {
          }
       }
 
-      internal static bool IsParameterEqual(string expected, string given) {
-         return expected != null && ('/' + expected == given || '-' + expected == given);
-      }
-
       public static TypeInfo GetTypeInfo(MemberInfo member) {
          switch (member) {
             case PropertyInfo propertyInfo:
@@ -138,6 +135,55 @@ namespace UniversalCommandlineInterface {
          }
 
          throw new ArgumentOutOfRangeException(nameof(member), member, "Must be  or FieldInfo");
+      }
+
+      public static bool WithDeclerationAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
+         switch (src) {
+            case CmdParameterAttribute.CmdParameterUsage.RawValueWithDecleration:
+               return true;
+            case CmdParameterAttribute.CmdParameterUsage.NoRawsButDecleration:
+               return true;
+            case CmdParameterAttribute.CmdParameterUsage.DirectAliasOrDeclared:
+               return true;
+            case CmdParameterAttribute.CmdParameterUsage.OnlyDirectAlias:
+               return false;
+            case CmdParameterAttribute.CmdParameterUsage.Default:
+               return false;
+            default:
+               throw new ArgumentOutOfRangeException(nameof(src), src, null);
+         }
+      }
+      public static bool WithoutDeclerationAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
+         switch (src) {
+            case CmdParameterAttribute.CmdParameterUsage.RawValueWithDecleration:
+               return false;
+            case CmdParameterAttribute.CmdParameterUsage.NoRawsButDecleration:
+               return false;
+            case CmdParameterAttribute.CmdParameterUsage.DirectAliasOrDeclared:
+               return true;
+            case CmdParameterAttribute.CmdParameterUsage.OnlyDirectAlias:
+               return true;
+            case CmdParameterAttribute.CmdParameterUsage.Default:
+               return false;
+            default:
+               throw new ArgumentOutOfRangeException(nameof(src), src, null);
+         }
+      }
+      public static bool RawAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
+         switch (src) {
+            case CmdParameterAttribute.CmdParameterUsage.RawValueWithDecleration:
+               return true;
+            case CmdParameterAttribute.CmdParameterUsage.NoRawsButDecleration:
+               return false;
+            case CmdParameterAttribute.CmdParameterUsage.DirectAliasOrDeclared:
+               return false;
+            case CmdParameterAttribute.CmdParameterUsage.OnlyDirectAlias:
+               return false;
+            case CmdParameterAttribute.CmdParameterUsage.Default:
+               return false;
+            default:
+               throw new ArgumentOutOfRangeException(nameof(src), src, null);
+         }
       }
    }
 }
