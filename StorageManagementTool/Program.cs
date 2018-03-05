@@ -41,20 +41,64 @@ namespace StorageManagementTool {
       }
 
       [CmdContext]
-      class BaseContext {
+      public class BaseContext {
          [CmdContext("GG")]
          public class GGClass {
-            [CmdAction("back")]
-            public static void Back([CmdParameterAlias("Test","KEINTEST")] [CmdParameterAlias("Lol","GG")] [CmdParameter("Baum")] string g="Test") {
-               MessageBox.Show("GG "+g);
-               BackgroundNotificationCreator.Initalize();
-            }
-            
          }
-         [CmdAction("back")]
-         public static void Back([CmdParameter("Baum")] string g="Test") {
-            MessageBox.Show(g);
+
+         [CmdAction("Move")]
+         public static void Move([CmdParameter("srcpath")] string[] oldPaths,
+            [CmdParameterAlias("File", FileOrFolder.File)]
+            [CmdParameterAlias("Folder", FileOrFolder.Folder)]
+            [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
+            [CmdParameter(null)]
+            FileOrFolder MoveFileOrFolder = FileOrFolder.Automatic,
+            [CmdParameter("newpath")] string newPath = null) {
+            {
+               foreach (string oldPath in oldPaths) {
+                  bool fileOrFolder;
+                  switch (MoveFileOrFolder) {
+                     case FileOrFolder.File:
+                        fileOrFolder = true;
+                        break;
+                     case FileOrFolder.Folder:
+                        fileOrFolder = false;
+                        break;
+                     case FileOrFolder.Automatic:
+                        if (File.Exists(oldPath)) {
+                           fileOrFolder = true;
+                        }
+                        else if (Directory.Exists(oldPath)) {
+                           fileOrFolder = false;
+                        }
+                        else {
+                           //    ArgumentError(args);
+                           continue;
+                        }
+
+                        break;
+                     default: continue;
+                  }
+
+                  if (fileOrFolder) {
+                     OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
+                  }
+                  else {
+                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath));
+                  }
+               }
+            }
+         }
+
+         [CmdAction("background")]
+         private static void Back() {
             BackgroundNotificationCreator.Initalize();
+         }
+
+         public enum FileOrFolder {
+            File,
+            Folder,
+            Automatic
          }
       }
 
@@ -69,7 +113,8 @@ namespace StorageManagementTool {
             MessageBox.Show(string.Join(",", args));
 #pragma warning restore 162
          }
-new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
+
+         new CommandlineOptionInterpreter(args.ToArray()).Interpret<BaseContext>();
          return;
          /*
          if (args.Count == 0) {
@@ -87,7 +132,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                      ConsoleIO.WriteLine("-move                     Moves a file or a folder");
                      ConsoleIO.WriteLine("-config                   Edits or Views Config");
                   }
-
+      
                   Environment.Exit(-10);
                   //Help
                   break;
@@ -95,7 +140,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                   if (args.Count == 1) {
                      BackgroundNotificationCreator.Initalize();
                   }
-
+      
                   else if (args[1] == "-?") {
                      ConsoleIO.WriteLine("Help for -background");
                      ConsoleIO.WriteLine("-?       Shows this help");
@@ -104,7 +149,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                   else {
                      ArgumentError(args);
                   }
-
+      
                   break;
                case "-move":
                   if (args.Count >= 2) {
@@ -127,7 +172,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                         ArgumentError(args);
                      }
                   }
-
+      
                   break;
                case "-config":
                   if (args.Count >= 2) {
@@ -149,7 +194,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                                  case "Root.DefaultHDDPath":
                                     ConsoleIO.WriteLine("Value of Root.DefaultHDDPath:");
                                     ConsoleIO.WriteLine(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
-
+      
                                     break;
                                  default:
                                     ArgumentError(args);
@@ -164,7 +209,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                            else {
                               ArgumentError(args);
                            }
-
+      
                            break;
                         case "-set":
                            if (args.Count >= 3) {
@@ -179,7 +224,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                                           ConsoleIO.WriteLine("Operation failed!");
                                           return;
                                        }
-
+      
                                        ConsoleIO.WriteLine("Operation completed");
                                        break;
                                     //case "Root.SSDMonitoring.Enabled":
@@ -194,14 +239,14 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                                     //      ConsoleIO.WriteLine("Operation failed!");
                                     //      return;
                                     //   }
-
+      
                                     //   ConsoleIO.WriteLine("Operation completed");
                                     //   break;
                                     default:
                                        ArgumentError(args);
                                        break;
                                  }
-
+      
                                  ArgumentError(args);
                               }
                               else {
@@ -231,10 +276,10 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                                        break;
                                  }
                               }
-
+      
                               break;
                            }
-
+      
                            ArgumentError(args);
                            break;
                         default:
@@ -242,7 +287,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                            break;
                      }
                   }
-
+      
                   break;
                default:
                   ArgumentError(args);
@@ -250,7 +295,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
             }
          }
       }
-
+      
       /// <summary>
       ///    Processes arguments for -move
       /// </summary>
@@ -265,7 +310,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                ArgumentError(args);
                return;
             }
-
+      
             bool fileOrFolder;
             switch (args[1]) {
                case "-file":
@@ -285,11 +330,11 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                      ArgumentError(args);
                      return;
                   }
-
+      
                   break;
                default: return;
             }
-
+      
             string newPath;
             if (args.Count == 6) {
                if (args[3].StartsWith("-newpath")) {
@@ -304,14 +349,14 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
                newPath = Path.Combine(
                   Session.Singleton.CurrentConfiguration.DefaultHDDPath, oldPath.Remove(1, 1));
             }
-
+      
             if (fileOrFolder) {
                OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
             }
             else {
                OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath));
             }
-
+      
             //   OperatingMethods.MoveFolderOrFile(newPath, oldPath, fileOrFolder);
          }
          else {
@@ -333,7 +378,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
       /// <param name="args">The arguments to quit with</param>
       private static void ArgumentError(IEnumerable<string> args) {
          if (CommandLineMode) {
-            ConsoleIO.WriteLine("The given arguments (" + string.Join(";", args) +
+            ConsoleIO.WriteLine("The given arguments (" + string.Join(" ; ", args) +
                                 ") are not valid use -? for an overview of possible arguments.");
          }
 

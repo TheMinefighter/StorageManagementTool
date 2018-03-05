@@ -94,6 +94,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       /// <returns></returns>
       private bool GetValues(out Dictionary<CmdParameterAttribute, object> invokationArguments) {
          invokationArguments = new Dictionary<CmdParameterAttribute, object>();
+         Type IEnumerableCache = null;
          // value = null;
          while (true) {
             if (IsParameterDeclaration(out CmdParameterAttribute found)) {
@@ -110,17 +111,22 @@ namespace UniversalCommandlineInterface.Interpreters {
                         CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], parameterType, out object given)) {
                   invokationArguments.Add(found, given);
                }
-               else if (found.Usage.RawAllowed() && typeof(IEnumerable<>).IsAssignableFrom(parameterType)) {
+               else if (found.Usage.RawAllowed() && parameterType.GetInterfaces().Any(x=> {
+                  bool isIEnumerable = x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+                  IEnumerableCache = x;
+                  return isIEnumerable;
+               })) {
                   #region Based upon https://stackoverflow.com/a/2493258/6730162 last access 04.03.2018
 
-                  Type realType = parameterType.GetGenericArguments()[0];
+                  
+                  Type realType = IEnumerableCache.GetGenericArguments()[0];
                   Type specificList = typeof(List<>).MakeGenericType(realType);
                   ConstructorInfo ci = specificList.GetConstructor(new Type[] { });
                   object listOfRealType = ci.Invoke(new object[] { });
 
                   #endregion
 
-                  MethodInfo addMethodInfo = typeof(List<>).GetMethod("Add");
+                  MethodInfo addMethodInfo = specificList.GetMethod("Add");
                   if (!IncreaseOffset()) {
                      while (!((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
                                tmpParameterAttribute.Usage.WithoutDeclerationAllowed()) ||
@@ -148,7 +154,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                      invokationArguments.Add(found, listOfRealType);
                   }
                   else if (parameterType == realType.MakeArrayType()) {
-                     object arrayOfRealType = typeof(Enumerable).GetMethod("ToArray").Invoke(listOfRealType, new object[] { });
+                     object arrayOfRealType = typeof(Enumerable).GetMethod("ToArray").MakeGenericMethod(realType).Invoke(listOfRealType, new object[] { });
                      invokationArguments.Add(found, arrayOfRealType);
                   }
                   else {
