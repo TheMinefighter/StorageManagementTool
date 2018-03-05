@@ -87,15 +87,15 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       internal bool IsParameterEqual(string expected, string given) {
-         return IsParameterEqual(expected, given, TopInterpreter.Options.CaseSensitiveArgumentChecking);
+         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase);
       }
 
-      internal static bool IsParameterEqual(string expected, string given, bool caseSensitive) {
+      internal static bool IsParameterEqual(string expected, string given, bool IgnoreCase) {
          if (expected == null) {
             return false;
          }
 
-         if (caseSensitive) {
+         if (IgnoreCase) {
             given = given.ToLower();
             expected = expected.ToLower();
          }

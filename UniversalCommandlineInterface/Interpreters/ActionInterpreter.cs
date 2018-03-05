@@ -42,6 +42,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                cmdParameterAttribute.MyInfo = x.Key;
                cmdParameterAttribute.ParameterAliases =
                   x.Key.GetCustomAttributes(typeof(CmdParameterAliasAttribute)).Cast<CmdParameterAliasAttribute>();
+               cmdParameterAttribute.LoadAlias();
                return cmdParameterAttribute;
             });
       }
@@ -169,7 +170,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                   return false;
                }
             }
-            else if (IsAlias(out CmdParameterAttribute aliasType, out object aliasValue) && aliasType.Usage.WithoutDeclerationAllowed()) {
+            else if (IsAlias(out  found, out object aliasValue) && found.Usage.WithoutDeclerationAllowed()) {
                invokationArguments.Add(found, aliasValue);
             }
             else {

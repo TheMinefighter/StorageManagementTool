@@ -19,7 +19,7 @@ namespace UniversalCommandlineInterface {
       }
 
       internal override bool Interpret(bool printErrors = true) {
-         string search = TopInterpreter.Args.ElementAt(Offset);
+         string search = TopInterpreter.Args[Offset];
          foreach (CmdContextAttribute cmdContextAttribute in MyContextAttribute.subCtx) {
             if (IsParameterEqual(cmdContextAttribute.Name, search)) {
                ContextInterpreter subInterpreter = new ContextInterpreter(this, cmdContextAttribute, Offset + 1);

@@ -45,7 +45,7 @@ namespace StorageManagementTool {
          [CmdContext("GG")]
          public class GGClass {
             [CmdAction("back")]
-            public static void Back([CmdParameter("Baum")] string g="Test") {
+            public static void Back([CmdParameterAlias("Test","KEINTEST")] [CmdParameterAlias("Lol","GG")] [CmdParameter("Baum")] string g="Test") {
                MessageBox.Show("GG "+g);
                BackgroundNotificationCreator.Initalize();
             }
@@ -71,7 +71,7 @@ namespace StorageManagementTool {
          }
 new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
          return;
-         
+         /*
          if (args.Count == 0) {
             Session.Singleton.StandardLaunch();
             Environment.Exit(0);
@@ -317,6 +317,7 @@ new CommandlineOptionInterpreter(args.ToArray() ).Interpret<BaseContext>();
          else {
             ArgumentError(args);
          }
+         */
       }
 
       /// <summary>

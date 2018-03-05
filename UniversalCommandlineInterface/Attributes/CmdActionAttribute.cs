@@ -16,12 +16,11 @@ namespace UniversalCommandlineInterface.Attributes {
 
       public void LoadParametersAndAlias() {
          foreach (ParameterInfo parameterInfo in MyInfo.GetParameters()) {
-            IEnumerable<CmdParameterAttribute> parmeterAttribs =
-               parameterInfo.GetCustomAttributes(typeof(CmdParameterAttribute), false).Cast<CmdParameterAttribute>();
-            if (parmeterAttribs.Any()) {
-               CmdParameterAttribute cmdParameterAttribute = parmeterAttribs.ElementAt(0);
-               cmdParameterAttribute.MyInfo = parameterInfo;
-               cmdParameterAttribute.LoadAlias();
+            CmdParameterAttribute[] parmeterAttribs =
+               parameterInfo.GetCustomAttributes(typeof(CmdParameterAttribute), false).Cast<CmdParameterAttribute>().ToArray();
+            foreach (CmdParameterAttribute parameterAttribute in parmeterAttribs) {
+               parameterAttribute.MyInfo = parameterInfo;
+               parameterAttribute.LoadAlias();
             }
          }
       }

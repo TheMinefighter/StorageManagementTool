@@ -12,7 +12,7 @@ namespace UniversalCommandlineInterface.Attributes {
 
       public readonly object Value;
 
-      public CmdParameterAliasAttribute(string name=null, object value=null, string help = "", string[] extendedHelp = null) {
+      public CmdParameterAliasAttribute(string name, object value, string help = "", string[] extendedHelp = null) {
          Name = name;
          Value = value;
          Help = help;
