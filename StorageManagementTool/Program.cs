@@ -42,8 +42,23 @@ namespace StorageManagementTool {
 
       [CmdContext]
       public class BaseContext {
-         [CmdContext("GG")]
-         public class GGClass {
+         [CmdContext("SendTo")]
+         public class SendTo {
+            [CmdAction("Set")]
+            public static void SetSendTo([CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", true)]
+               bool enable = true) {
+               OperatingMethods.EnableSendToHDD(enable);
+            }
+            [CmdAction("Get")]
+            public static void GetSendTo() {
+               bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
+               ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
+               ConsoleIO.WriteLine($"SendTo is {(isSendToHddEnabled?"":"not")} enabled");
+            }
+         }
+[CmdAction("Admin")]
+         public static void RestartAsAdministrator(string[] args= new string[] {} ) {
+            
          }
 
          [CmdAction("Move")]
@@ -52,15 +67,16 @@ namespace StorageManagementTool {
             [CmdParameterAlias("Folder", FileOrFolder.Folder)]
             [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
             [CmdParameter("Type")]
-            FileOrFolder MoveFileOrFolder = FileOrFolder.Automatic,[CmdParameter("newpath")] string newPath = null
-            ) {
+            FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")] string newPath = null
+         ) {
             {
-               if (newPath==null) {
+               if (newPath == null) {
                   newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
                }
+
                foreach (string oldPath in oldPaths) {
                   bool fileOrFolder;
-                  switch (MoveFileOrFolder) {
+                  switch (moveFileOrFolder) {
                      case FileOrFolder.File:
                         fileOrFolder = true;
                         break;
@@ -84,10 +100,10 @@ namespace StorageManagementTool {
                   }
 
                   if (fileOrFolder) {
-                     OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath),true);
+                     OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath), true);
                   }
                   else {
-                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath),true);
+                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath), true);
                   }
                }
             }
@@ -117,7 +133,7 @@ namespace StorageManagementTool {
 #pragma warning restore 162
          }
 
-         new CommandlineOptionInterpreter(args.ToArray()).Interpret<BaseContext>();
+         new CommandlineOptionInterpreter(args.ToArray()).Interpret<BaseContext>(Session.Singleton.StandardLaunch);
          return;
          /*
          if (args.Count == 0) {
