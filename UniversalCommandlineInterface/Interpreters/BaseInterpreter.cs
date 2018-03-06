@@ -31,7 +31,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       /// <returns>Whether the end of the args has been reached</returns>
       public bool IncreaseOffset() {
          Offset++;
-         return Offset == TopInterpreter.Args.Length;
+         return Offset >= TopInterpreter.Args.Length;
       }
 
       protected BaseInterpreter(CommandlineOptionInterpreter top, int offset = 0) {

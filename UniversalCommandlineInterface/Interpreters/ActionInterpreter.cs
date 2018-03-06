@@ -111,14 +111,13 @@ namespace UniversalCommandlineInterface.Interpreters {
                         CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], parameterType, out object given)) {
                   invokationArguments.Add(found, given);
                }
-               else if (found.Usage.RawAllowed() && parameterType.GetInterfaces().Any(x=> {
+               else if (found.Usage.RawAllowed() && parameterType.GetInterfaces().Any(x => {
                   bool isIEnumerable = x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>);
                   IEnumerableCache = x;
                   return isIEnumerable;
                })) {
                   #region Based upon https://stackoverflow.com/a/2493258/6730162 last access 04.03.2018
 
-                  
                   Type realType = IEnumerableCache.GetGenericArguments()[0];
                   Type specificList = typeof(List<>).MakeGenericType(realType);
                   ConstructorInfo ci = specificList.GetConstructor(new Type[] { });
@@ -127,21 +126,24 @@ namespace UniversalCommandlineInterface.Interpreters {
                   #endregion
 
                   MethodInfo addMethodInfo = specificList.GetMethod("Add");
-                  if (!IncreaseOffset()) {
-                     while (!((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
-                               tmpParameterAttribute.Usage.WithoutDeclerationAllowed()) ||
-                               IsParameterDeclaration(out CmdParameterAttribute _))) {
-                        if (!CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], realType, out object toAppend)) {
-                           //throw
-                           return false;
-                        }
-                        else {
-                           addMethodInfo.Invoke(listOfRealType, new object[] {toAppend});
-                        }
+                  Offset--;
+                  while (true) {
+                     if (IncreaseOffset()) {
+                        break;
+                     }
 
-                        if (IncreaseOffset()) {
-                           break;
-                        }
+                     if (((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
+                           tmpParameterAttribute.Usage.WithoutDeclerationAllowed()) ||
+                          IsParameterDeclaration(out CmdParameterAttribute _))) {
+                        break;
+                     }
+
+                     if (!CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], realType, out object toAppend)) {
+                        //throw
+                        return false;
+                     }
+                     else {
+                        addMethodInfo.Invoke(listOfRealType, new object[] {toAppend});
                      }
                   }
 
@@ -154,7 +156,8 @@ namespace UniversalCommandlineInterface.Interpreters {
                      invokationArguments.Add(found, listOfRealType);
                   }
                   else if (parameterType == realType.MakeArrayType()) {
-                     object arrayOfRealType = typeof(Enumerable).GetMethod("ToArray").MakeGenericMethod(realType).Invoke(listOfRealType, new object[] { });
+                     object arrayOfRealType = typeof(Enumerable).GetMethod("ToArray").MakeGenericMethod(realType)
+                        .Invoke(listOfRealType, new object[] {listOfRealType});
                      invokationArguments.Add(found, arrayOfRealType);
                   }
                   else {
@@ -176,7 +179,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                   return false;
                }
             }
-            else if (IsAlias(out  found, out object aliasValue) && found.Usage.WithoutDeclerationAllowed()) {
+            else if (IsAlias(out found, out object aliasValue) && found.Usage.WithoutDeclerationAllowed()) {
                invokationArguments.Add(found, aliasValue);
             }
             else {

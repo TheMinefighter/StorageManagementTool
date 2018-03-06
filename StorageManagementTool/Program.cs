@@ -51,10 +51,13 @@ namespace StorageManagementTool {
             [CmdParameterAlias("File", FileOrFolder.File)]
             [CmdParameterAlias("Folder", FileOrFolder.Folder)]
             [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
-            [CmdParameter(null)]
-            FileOrFolder MoveFileOrFolder = FileOrFolder.Automatic,
-            [CmdParameter("newpath")] string newPath = null) {
+            [CmdParameter("Type")]
+            FileOrFolder MoveFileOrFolder = FileOrFolder.Automatic,[CmdParameter("newpath")] string newPath = null
+            ) {
             {
+               if (newPath==null) {
+                  newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
+               }
                foreach (string oldPath in oldPaths) {
                   bool fileOrFolder;
                   switch (MoveFileOrFolder) {
@@ -81,10 +84,10 @@ namespace StorageManagementTool {
                   }
 
                   if (fileOrFolder) {
-                     OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
+                     OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath),true);
                   }
                   else {
-                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath));
+                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath),true);
                   }
                }
             }

@@ -44,14 +44,16 @@ namespace StorageManagementTool {
       /// <param name="dir">The Directory to move</param>
       /// <param name="newLocation">The Directory to move the file to</param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation) {
+      public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath=false) {
          if (dir == newLocation) {
             if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
                MoveFolder(dir, newLocation);
             }
          }
-
+         if (adjustNewPath) {
+            newLocation = new DirectoryInfo(Path.Combine(newLocation.FullName,dir.FullName.Remove(1, 1)));
+         }
          if (newLocation.Parent == null) {
             newLocation.Parent.Create();
          }
@@ -73,8 +75,9 @@ namespace StorageManagementTool {
       /// </summary>
       /// <param name="file">The file to move</param>
       /// <param name="newLocation">The location to move the file to</param>
+      /// <param name="adjustNewPath"></param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool MoveFile(FileInfo file, FileInfo newLocation) {
+      public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath=false) {
          if (file == newLocation) {
             if (
                MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
@@ -86,6 +89,9 @@ namespace StorageManagementTool {
             }
          }
 
+         if (adjustNewPath) {
+            newLocation = new FileInfo(Path.Combine(newLocation.FullName,file.FullName.Remove(1, 1)));
+         }
          if (!newLocation.Directory.Exists) {
             newLocation.Directory.Create();
          }
