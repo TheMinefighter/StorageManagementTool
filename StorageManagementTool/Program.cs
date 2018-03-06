@@ -49,16 +49,18 @@ namespace StorageManagementTool {
                bool enable = true) {
                OperatingMethods.EnableSendToHDD(enable);
             }
+
             [CmdAction("Get")]
             public static void GetSendTo() {
                bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
                ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
-               ConsoleIO.WriteLine($"SendTo is {(isSendToHddEnabled?"":"not")} enabled");
+               ConsoleIO.WriteLine($"SendTo is {(isSendToHddEnabled ? "" : "not")} enabled");
             }
          }
-[CmdAction("Admin")]
-         public static void RestartAsAdministrator(string[] args= new string[] {} ) {
-            
+
+         [CmdAction("Admin")]
+         public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
+            Wrapper.RestartAsAdministrator(args ?? new string[] { });
          }
 
          [CmdAction("Move")]

@@ -246,8 +246,8 @@ namespace StorageManagementTool {
       /// <summary>
       ///    Restarts Program as Administartor
       /// </summary>
-      public static void RestartAsAdministrator() {
-         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, " ", true)) {
+      public static void RestartAsAdministrator(params string[] parameters) {
+         if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ",parameters), true)) {
             Environment.Exit(0);
          }
       }

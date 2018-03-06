@@ -99,7 +99,9 @@ namespace UniversalCommandlineInterface.Interpreters {
          while (true) {
             if (IsParameterDeclaration(out CmdParameterAttribute found)) {
                if (IncreaseOffset()) {
+                  //TODO What if Empty Array
                   //throw
+                  
                   return false;
                }
 
