@@ -94,14 +94,14 @@ namespace UniversalCommandlineInterface.Interpreters {
       /// <returns></returns>
       private bool GetValues(out Dictionary<CmdParameterAttribute, object> invokationArguments) {
          invokationArguments = new Dictionary<CmdParameterAttribute, object>();
-         Type IEnumerableCache = null;
+         Type iEnumerableCache = null;
          // value = null;
          while (true) {
             if (IsParameterDeclaration(out CmdParameterAttribute found)) {
                if (IncreaseOffset()) {
                   //TODO What if Empty Array
                   //throw
-                  
+
                   return false;
                }
 
@@ -115,12 +115,12 @@ namespace UniversalCommandlineInterface.Interpreters {
                }
                else if (found.Usage.RawAllowed() && parameterType.GetInterfaces().Any(x => {
                   bool isIEnumerable = x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>);
-                  IEnumerableCache = x;
+                  iEnumerableCache = x;
                   return isIEnumerable;
                })) {
                   #region Based upon https://stackoverflow.com/a/2493258/6730162 last access 04.03.2018
 
-                  Type realType = IEnumerableCache.GetGenericArguments()[0];
+                  Type realType = iEnumerableCache.GetGenericArguments()[0];
                   Type specificList = typeof(List<>).MakeGenericType(realType);
                   ConstructorInfo ci = specificList.GetConstructor(new Type[] { });
                   object listOfRealType = ci.Invoke(new object[] { });
@@ -150,16 +150,14 @@ namespace UniversalCommandlineInterface.Interpreters {
                   }
 
                   if (new Type[] {
-                     typeof(List<>).MakeGenericType(realType), typeof(IList<>).MakeGenericType(realType),
-                     typeof(ICollection<>).MakeGenericType(realType),
-                     typeof(IEnumerable<>).MakeGenericType(realType), typeof(IReadOnlyList<>).MakeGenericType(realType),
-                     typeof(IReadOnlyCollection<>).MakeGenericType(realType), typeof(ReadOnlyCollection<>).MakeGenericType(realType)
-                  }.Contains(parameterType)) {
+                     typeof(List<>), typeof(IList<>), typeof(ICollection<>), typeof(IEnumerable<>), typeof(IReadOnlyList<>),
+                     typeof(IReadOnlyCollection<>), typeof(ReadOnlyCollection<>)
+                  }.Select(x => x.MakeGenericType(realType)).Contains(parameterType)) {
                      invokationArguments.Add(found, listOfRealType);
                   }
                   else if (parameterType == realType.MakeArrayType()) {
                      object arrayOfRealType = typeof(Enumerable).GetMethod("ToArray").MakeGenericMethod(realType)
-                        .Invoke(listOfRealType, new object[] {listOfRealType});
+                        .Invoke(null, new object[] {listOfRealType});
                      invokationArguments.Add(found, arrayOfRealType);
                   }
                   else {

@@ -7,5 +7,6 @@ namespace UniversalCommandlineInterface {
       };
       public char PreferredArgumentPrefix='/';
       public bool IgnoreParameterCase;
+      public string InteractiveOption = "Interactive";
    }
 }

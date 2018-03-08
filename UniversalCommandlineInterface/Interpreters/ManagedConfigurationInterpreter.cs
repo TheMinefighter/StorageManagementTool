@@ -4,9 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UniversalCommandlineInterface.Attributes;
-using UniversalCommandlineInterface.Interpreters;
 
-namespace UniversalCommandlineInterface {
+namespace UniversalCommandlineInterface.Interpreters {
    public class ManagedConfigurationInterpreter : BaseInterpreter {
       private Dictionary<CmdConfigurationNamespaceAttribute, MemberInfo> _namespaces;
       private Dictionary<CmdConfigurationValueAttribute, MemberInfo> _values;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniversalCommandlineInterface.Attributes;
 
@@ -13,7 +14,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       public List<string> Path {
          get {
             if (Name == null) {
-               return new List<string>();
+               return new List<string>(){"."};
             }
 
             List<string> tmpList = DirectParent.Path;
@@ -23,6 +24,10 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       private BaseInterpreter() {
+      }
+
+      public override string ToString() {
+         return string.Join(" ",Path);
       }
 
       /// <summary>
@@ -41,6 +46,9 @@ namespace UniversalCommandlineInterface.Interpreters {
          DirectParent = null;
       }
 
+      internal void Reset() {
+         Offset = 0;
+      }
 
       protected BaseInterpreter(BaseInterpreter parent, string name, int offset = 0) {
          TopInterpreter = parent.TopInterpreter;
@@ -86,11 +94,11 @@ namespace UniversalCommandlineInterface.Interpreters {
          return false;
       }
 
-      internal bool IsParameterEqual(string expected, string given) {
-         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase);
+      internal bool IsParameterEqual(string expected, string given, bool Interactive= false) { 
+         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase,Interactive);
       }
 
-      internal static bool IsParameterEqual(string expected, string given, bool IgnoreCase) {
+      internal static bool IsParameterEqual(string expected, string given, bool IgnoreCase, bool Interactive= false) {
          if (expected == null) {
             return false;
          }
@@ -99,7 +107,7 @@ namespace UniversalCommandlineInterface.Interpreters {
             given = given.ToLower();
             expected = expected.ToLower();
          }
-         return '/' + expected == given || '-' + expected == given;
+         return '/' + expected == given || '-' + expected == given|| Interactive&& expected==given;
       }
    }
 }
