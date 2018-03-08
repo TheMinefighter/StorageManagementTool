@@ -114,10 +114,12 @@ namespace UniversalCommandlineInterface.Interpreters {
                   invokationArguments.Add(found, given);
                }
                else if (found.Usage.RawAllowed() && parameterType.GetInterfaces().Any(x => {
-                  bool isIEnumerable = x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>);
-                  iEnumerableCache = x;
-                  return isIEnumerable;
-               })) {
+                              bool isIEnumerable = x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+                              iEnumerableCache = x;
+                              return isIEnumerable;
+                           }
+                        )
+               ) {
                   #region Based upon https://stackoverflow.com/a/2493258/6730162 last access 04.03.2018
 
                   Type realType = iEnumerableCache.GetGenericArguments()[0];
@@ -134,9 +136,9 @@ namespace UniversalCommandlineInterface.Interpreters {
                         break;
                      }
 
-                     if (((IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
-                           tmpParameterAttribute.Usage.WithoutDeclerationAllowed()) ||
-                          IsParameterDeclaration(out CmdParameterAttribute _))) {
+                     if (IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
+                         tmpParameterAttribute.Usage.WithoutDeclerationAllowed() ||
+                         IsParameterDeclaration(out CmdParameterAttribute _)) {
                         break;
                      }
 
@@ -191,7 +193,6 @@ namespace UniversalCommandlineInterface.Interpreters {
                return true;
             }
          }
-
 /*
          foreach (CmdParameterAttribute cmdParameterAttribute in parameters) {
             if (cmdParameterAttribute.AvailableWithoutAlias && CommandlineMethods.IsParameterEqual(cmdParameterAttribute.Name, search)) {
@@ -247,7 +248,6 @@ namespace UniversalCommandlineInterface.Interpreters {
             //   invokationArguments.Add();
          }
 */
-         return false;
       }
 
       internal bool IsParameterDeclaration(out CmdParameterAttribute found, string search = null) {
@@ -258,15 +258,15 @@ namespace UniversalCommandlineInterface.Interpreters {
 //         return base.IsAlias(expectedAliasType, out value, source ?? TopInterpreter.Args[Offset]);
 //      }
 
-      internal bool IsAlias(out CmdParameterAttribute AliasType, out object value, string source = null) {
+      internal bool IsAlias(out CmdParameterAttribute aliasType, out object value, string source = null) {
          foreach (CmdParameterAttribute cmdParameterAttribute in parameters) {
             if (IsAlias(cmdParameterAttribute, out value, source ?? TopInterpreter.Args[Offset])) {
-               AliasType = cmdParameterAttribute;
+               aliasType = cmdParameterAttribute;
                return true;
             }
          }
 
-         AliasType = null;
+         aliasType = null;
          value = null;
          return false;
       }
