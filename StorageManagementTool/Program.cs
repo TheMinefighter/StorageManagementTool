@@ -47,10 +47,7 @@ namespace StorageManagementTool {
             MessageBox.Show(string.Join(" , ", args));
          }
 
-         new CommandlineOptionInterpreter(args) {RootName = "StorageManagementTool"}.Interpret<BaseContext>(() => {
-            // RefreshDriveInformation();
-            Application.Run(new MainWindow());
-         });
+         new CommandlineOptionInterpreter(args) {RootName = "StorageManagementTool"}.Interpret<BaseContext>(() => Application.Run(new MainWindow()));
          /*
          if (args.Count == 0) {
             Session.Singleton.StandardLaunch();
@@ -314,7 +311,8 @@ namespace StorageManagementTool {
          }
 
          [CmdAction("Move")]
-         public static void Move([CmdParameter("srcpath")] string[] oldPaths,
+         public static void Move(
+            [CmdParameter("srcpath")] string[] oldPaths,
             [CmdParameterAlias("File", FileOrFolder.File)]
             [CmdParameterAlias("Folder", FileOrFolder.Folder)]
             [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]

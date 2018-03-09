@@ -13,7 +13,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       public List<string> Path {
          get {
             if (Name == null) {
-               return new List<string> {TopInterpreter.RootName};
+               return new List<string> {TopInterpreter.Options.RootName};
             }
 
             List<string> tmpList = DirectParent.Path;
@@ -92,21 +92,21 @@ namespace UniversalCommandlineInterface.Interpreters {
          return false;
       }
 
-      internal bool IsParameterEqual(string expected, string given, bool Interactive = false) {
-         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase, Interactive);
+      internal bool IsParameterEqual(string expected, string given, bool allowPrefixFree = false) {
+         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase, allowPrefixFree);
       }
 
-      internal static bool IsParameterEqual(string expected, string given, bool IgnoreCase, bool Interactive = false) {
+      internal static bool IsParameterEqual(string expected, string given, bool ignoreCase, bool allowPrefixFree = false) {
          if (expected == null) {
             return false;
          }
 
-         if (IgnoreCase) {
+         if (ignoreCase) {
             given = given.ToLower();
             expected = expected.ToLower();
          }
 
-         return '/' + expected == given || '-' + expected == given || Interactive && expected == given;
+         return '/' + expected == given || '-' + expected == given || allowPrefixFree && expected == given;
       }
    }
 }

@@ -9,7 +9,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 
       //    internal int ArgsLengthMinus1; 
       public InterpretingOptions Options;
-      public string RootName = ".";
 
       public CommandlineOptionInterpreter(string[] args, InterpretingOptions options = null, ConsoleIO consoleIO = null) {
          Args = args;
