@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UniversalCommandlineInterface.Attributes;
 
@@ -14,7 +13,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       public List<string> Path {
          get {
             if (Name == null) {
-               return new List<string>(){TopInterpreter.RootName};
+               return new List<string> {TopInterpreter.RootName};
             }
 
             List<string> tmpList = DirectParent.Path;
@@ -26,28 +25,11 @@ namespace UniversalCommandlineInterface.Interpreters {
       private BaseInterpreter() {
       }
 
-      public override string ToString() {
-         return string.Join(" ",Path);
-      }
-
-      /// <summary>
-      /// 
-      /// </summary>
-      /// <returns>Whether the end of the args has been reached</returns>
-      public bool IncreaseOffset() {
-         Offset++;
-         return Offset >= TopInterpreter.Args.Length;
-      }
-
       protected BaseInterpreter(CommandlineOptionInterpreter top, int offset = 0) {
          Offset = offset;
          ParentInterpreters = new List<BaseInterpreter> {this};
          TopInterpreter = top;
          DirectParent = null;
-      }
-
-      internal void Reset() {
-         Offset = 0;
       }
 
       protected BaseInterpreter(BaseInterpreter parent, string name, int offset = 0) {
@@ -58,6 +40,22 @@ namespace UniversalCommandlineInterface.Interpreters {
          ParentInterpreters = parentInterpreters;
          Offset = offset;
          Name = name;
+      }
+
+      public override string ToString() {
+         return string.Join(" ", Path);
+      }
+
+      /// <summary>
+      /// </summary>
+      /// <returns>Whether the end of the args has been reached</returns>
+      public bool IncreaseOffset() {
+         Offset++;
+         return Offset >= TopInterpreter.Args.Length;
+      }
+
+      internal void Reset() {
+         Offset = 0;
       }
 
       internal abstract void PrintHelp();
@@ -82,9 +80,9 @@ namespace UniversalCommandlineInterface.Interpreters {
          return false;
       }
 
-      internal bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source=null) {
+      internal bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source = null) {
          foreach (CmdParameterAliasAttribute cmdParameterAliasAttribute in expectedAliasType.ParameterAliases) {
-            if (IsParameterEqual(cmdParameterAliasAttribute.Name, source?? TopInterpreter.Args[Offset])) {
+            if (IsParameterEqual(cmdParameterAliasAttribute.Name, source ?? TopInterpreter.Args[Offset])) {
                value = cmdParameterAliasAttribute.Value;
                return true;
             }
@@ -94,11 +92,11 @@ namespace UniversalCommandlineInterface.Interpreters {
          return false;
       }
 
-      internal bool IsParameterEqual(string expected, string given, bool Interactive= false) { 
-         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase,Interactive);
+      internal bool IsParameterEqual(string expected, string given, bool Interactive = false) {
+         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase, Interactive);
       }
 
-      internal static bool IsParameterEqual(string expected, string given, bool IgnoreCase, bool Interactive= false) {
+      internal static bool IsParameterEqual(string expected, string given, bool IgnoreCase, bool Interactive = false) {
          if (expected == null) {
             return false;
          }
@@ -107,7 +105,8 @@ namespace UniversalCommandlineInterface.Interpreters {
             given = given.ToLower();
             expected = expected.ToLower();
          }
-         return '/' + expected == given || '-' + expected == given|| Interactive&& expected==given;
+
+         return '/' + expected == given || '-' + expected == given || Interactive && expected == given;
       }
    }
 }

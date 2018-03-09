@@ -2,7 +2,6 @@
 using System.Reflection;
 using Newtonsoft.Json;
 using UniversalCommandlineInterface.Attributes;
-using UniversalCommandlineInterface.Interpreters;
 
 namespace UniversalCommandlineInterface {
    public static class CommandlineMethods {
@@ -153,6 +152,7 @@ namespace UniversalCommandlineInterface {
                throw new ArgumentOutOfRangeException(nameof(src), src, null);
          }
       }
+
       public static bool WithoutDeclerationAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
          switch (src) {
             case CmdParameterAttribute.CmdParameterUsage.RawValueWithDecleration:
@@ -169,6 +169,7 @@ namespace UniversalCommandlineInterface {
                throw new ArgumentOutOfRangeException(nameof(src), src, null);
          }
       }
+
       public static bool RawAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
          switch (src) {
             case CmdParameterAttribute.CmdParameterUsage.RawValueWithDecleration:

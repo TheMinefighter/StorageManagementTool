@@ -19,13 +19,13 @@ namespace UniversalCommandlineInterface.Interpreters {
       internal override void PrintHelp() {
       }
 
-      internal void InteractiveInterpreter(bool interpretOn=false) {
+      internal void InteractiveInterpreter(bool interpretOn = false) {
          ContextInterpreter currentContextInterpreter = this;
          while (true) {
             if (interpretOn) {
                interpretOn = false;
                List<string> args = TopInterpreter.Args.ToList();
-               args.RemoveRange(0,Offset);
+               args.RemoveRange(0, Offset);
                TopInterpreter.Args = args.ToArray();
             }
             else {
@@ -39,7 +39,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                   }
                   else if (c == ' ' && !quoting) {
                      string tmpString = lastStringBuilder.ToString();
-                     if (tmpString != String.Empty) {
+                     if (tmpString != string.Empty) {
                         arguments.Add(tmpString);
                         lastStringBuilder = new StringBuilder();
                      }
@@ -52,17 +52,18 @@ namespace UniversalCommandlineInterface.Interpreters {
                }
 
                string lastString = lastStringBuilder.ToString();
-               if (lastString != String.Empty) {
+               if (lastString != string.Empty) {
                   arguments.Add(lastString);
                   lastStringBuilder = new StringBuilder();
                }
 
                TopInterpreter.Args = arguments.ToArray();
             }
-              currentContextInterpreter. Reset();
+
+            currentContextInterpreter.Reset();
             currentContextInterpreter.MyContextAttribute.LoadChilds();
-            if ( currentContextInterpreter.Interpret(out ContextInterpreter tmpContextInterpreter, true, true)) {
-               currentContextInterpreter=tmpContextInterpreter;
+            if (currentContextInterpreter.Interpret(out ContextInterpreter tmpContextInterpreter, true, true)) {
+               currentContextInterpreter = tmpContextInterpreter;
             }
          }
       }
@@ -85,11 +86,11 @@ namespace UniversalCommandlineInterface.Interpreters {
          newCtx = null;
          string search = TopInterpreter.Args[Offset];
          foreach (CmdContextAttribute cmdContextAttribute in MyContextAttribute.subCtx) {
-            if (IsParameterEqual(cmdContextAttribute.Name, search,interactive)) {
+            if (IsParameterEqual(cmdContextAttribute.Name, search, interactive)) {
                if (IncreaseOffset()) {
                   if (interactive) {
                      Reset();
-                     newCtx = new ContextInterpreter(this,cmdContextAttribute);
+                     newCtx = new ContextInterpreter(this, cmdContextAttribute);
                      return true;
                   }
                   else {
@@ -113,7 +114,7 @@ namespace UniversalCommandlineInterface.Interpreters {
          }
 
          foreach (CmdActionAttribute cmdActionAttribute in MyContextAttribute.ctxActions) {
-            if (IsParameterEqual(cmdActionAttribute.Name, search,true)) {
+            if (IsParameterEqual(cmdActionAttribute.Name, search, true)) {
                IncreaseOffset();
                ActionInterpreter actionInterpreter = new ActionInterpreter(cmdActionAttribute, this, Offset);
                actionInterpreter.Interpret();

@@ -6,19 +6,7 @@ namespace UniversalCommandlineInterface {
    ///    Class storing the Actions for Console Operations
    /// </summary>
    public class ConsoleIO {
-      private static ConsoleIO _primary=DefaultIO;
-
-      public static ConsoleIO DefaultIO => new ConsoleIO(false) {
-         ReadFromConsole = Console.ReadLine,
-         SetVisibiltyToConsole = x => ShowWindow(GetConsoleWindow(), x ? SW_SHOW : SW_HIDE),
-         WriteLineToConsole = Console.WriteLine,
-         WriteToConsole = Console.Write
-      };
-
-      /// <summary>
-      ///    Writes a message to Console
-      /// </summary>
-      public Action<string> WriteToConsole;
+      private static ConsoleIO _primary = DefaultIO;
 
       /// <summary>
       ///    Reads a line from Console
@@ -26,14 +14,26 @@ namespace UniversalCommandlineInterface {
       public Func<string> ReadFromConsole;
 
       /// <summary>
+      ///    Sets the visibility of the Console Window
+      /// </summary>
+      public Action<bool> SetVisibiltyToConsole;
+
+      /// <summary>
       ///    Writes a message to Console and a linebreak afterwards
       /// </summary>
       public Action<string> WriteLineToConsole;
 
       /// <summary>
-      ///    Sets the visibility of the Console Window
+      ///    Writes a message to Console
       /// </summary>
-      public Action<bool> SetVisibiltyToConsole;
+      public Action<string> WriteToConsole;
+
+      public static ConsoleIO DefaultIO => new ConsoleIO(false) {
+         ReadFromConsole = Console.ReadLine,
+         SetVisibiltyToConsole = x => ShowWindow(GetConsoleWindow(), x ? SW_SHOW : SW_HIDE),
+         WriteLineToConsole = Console.WriteLine,
+         WriteToConsole = Console.Write
+      };
 
       public ConsoleIO(bool isPrimary = true) {
          if (isPrimary) {

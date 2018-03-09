@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json.Serialization;
 using UniversalCommandlineInterface.Attributes;
-using UniversalCommandlineInterface;
 
 namespace UniversalCommandlineInterface.Interpreters {
    public class ActionInterpreter : BaseInterpreter {
+      private bool _loaded;
       public CmdActionAttribute MyActionAttribute;
       private IEnumerable<CmdParameterAttribute> parameters;
-      private bool _loaded;
 
       public ActionInterpreter(CommandlineOptionInterpreter top, int i) : base(top) {
          i++;
@@ -88,7 +84,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       /// <summary>
-      /// reads all arguments
+      ///    reads all arguments
       /// </summary>
       /// <param name="invokationArguments"></param>
       /// <returns></returns>
@@ -193,6 +189,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                return true;
             }
          }
+
 /*
          foreach (CmdParameterAttribute cmdParameterAttribute in parameters) {
             if (cmdParameterAttribute.AvailableWithoutAlias && CommandlineMethods.IsParameterEqual(cmdParameterAttribute.Name, search)) {

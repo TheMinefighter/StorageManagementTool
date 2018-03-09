@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using UniversalCommandlineInterface;
@@ -27,10 +24,8 @@ namespace StorageManagementToolLauncher {
             ReadFromConsole = Console.ReadLine,
             SetVisibiltyToConsole = x => ConsoleIO.ShowWindow(handle, x ? ConsoleIO.SW_SHOW : ConsoleIO.SW_HIDE)
          };
-         
+
          StorageManagementTool.Program.Main(args);
       }
-
-
    }
 }

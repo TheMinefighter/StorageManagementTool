@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
 using ExtendedMessageBoxLibary;
 using ExtendedMessageBoxLibrary;
@@ -18,7 +16,6 @@ using File = System.IO.File;
 namespace StorageManagementTool {
    public static partial class OperatingMethods {
       /// <summary>
-      /// 
       /// </summary>
       public enum QuestionAnswer {
          Yes,
@@ -27,7 +24,7 @@ namespace StorageManagementTool {
       }
 
       /// <summary>
-      /// Key, where The Windows search data is stored
+      ///    Key, where The Windows search data is stored
       /// </summary>
       public static readonly RegistryValue SearchDatatDirectoryRegistryValue = new RegistryValue(
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
@@ -194,7 +191,7 @@ namespace StorageManagementTool {
       }
 
       /// <summary>
-      /// Changes the Pagefile Settings
+      ///    Changes the Pagefile Settings
       /// </summary>
       /// <param name="toUse">The drive to move to</param>
       /// <param name="maxSize">The max size of pagefile in MB</param>
@@ -378,10 +375,11 @@ namespace StorageManagementTool {
 
          return false;
       }
-/// <summary>
-/// Enables Send to HDD
-/// </summary>
-/// <param name="enable">Whether to enable or disable Send to HDD</param>
+
+      /// <summary>
+      ///    Enables Send to HDD
+      /// </summary>
+      /// <param name="enable">Whether to enable or disable Send to HDD</param>
       public static void EnableSendToHDD(bool enable = true) {
          if (enable) {
             #region Based upon https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
@@ -486,6 +484,7 @@ namespace StorageManagementTool {
          directory = dir.Parent.Parent;
          return true;
       }
+
 //
 //      public static void CheckForSysinternals() {
 //         if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe"))) {

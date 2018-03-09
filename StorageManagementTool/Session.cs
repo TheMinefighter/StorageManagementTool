@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using StorageManagementTool.MainGUI;
 
 namespace StorageManagementTool {
    /// <summary>
@@ -32,6 +31,7 @@ namespace StorageManagementTool {
       ///    Whether the program runs as administrator
       /// </summary>
       public bool IsAdmin;
+
       /// <summary>
       ///    Creates a new Session
       /// </summary>

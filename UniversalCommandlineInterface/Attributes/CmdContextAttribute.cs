@@ -9,10 +9,10 @@ namespace UniversalCommandlineInterface.Attributes {
       private bool _loaded;
       public IList<CmdActionAttribute> ctxActions = new List<CmdActionAttribute>();
       public IList<CmdParameterAttribute> ctxParameters = new List<CmdParameterAttribute>();
-      public IList<CmdContextAttribute> subCtx = new List<CmdContextAttribute>();
       public TypeInfo MyInfo;
 
       public string Name;
+      public IList<CmdContextAttribute> subCtx = new List<CmdContextAttribute>();
 
       public CmdContextAttribute(string name) {
          Name = name;

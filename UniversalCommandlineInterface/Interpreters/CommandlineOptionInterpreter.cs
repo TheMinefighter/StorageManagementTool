@@ -5,11 +5,11 @@ using UniversalCommandlineInterface.Attributes;
 namespace UniversalCommandlineInterface.Interpreters {
    public class CommandlineOptionInterpreter {
       public string[] Args;
-      public string RootName = ".";
       public ConsoleIO ConsoleIO;
 
       //    internal int ArgsLengthMinus1; 
       public InterpretingOptions Options;
+      public string RootName = ".";
 
       public CommandlineOptionInterpreter(string[] args, InterpretingOptions options = null, ConsoleIO consoleIO = null) {
          Args = args;
@@ -37,8 +37,9 @@ namespace UniversalCommandlineInterface.Interpreters {
             contextInterpreter.MyContextAttribute.LoadChilds();
             if (Args.Length > 0 && contextInterpreter.IsParameterEqual(Options.InteractiveOption, Args[0])) {
                contextInterpreter.IncreaseOffset();
-               contextInterpreter.InteractiveInterpreter(contextInterpreter.Offset<Args.Length);
+               contextInterpreter.InteractiveInterpreter(contextInterpreter.Offset < Args.Length);
             }
+
             contextInterpreter.Interpret();
          }
       }

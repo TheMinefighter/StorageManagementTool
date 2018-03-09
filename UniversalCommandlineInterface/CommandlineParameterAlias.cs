@@ -11,8 +11,8 @@ namespace UniversalCommandlineInterface {
 
       public CommandlineParameterAlias(string name, object value, string help = "", IEnumerable<string> extendedHelp = null) {
          Name = name;
-         this.Value = value;
-         this.Help = help;
+         Value = value;
+         Help = help;
          this.extendedHelp = extendedHelp ?? new List<string>();
       }
    }

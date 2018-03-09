@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using StorageManagementTool.MainGUI;
@@ -31,111 +29,25 @@ namespace StorageManagementTool {
       [STAThread]
       [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
       public static void Main(string[] args) {
-         string parentName = Process.GetCurrentProcess().ProcessName;
-         CommandLineMode = parentName.Contains("cmd") || parentName.Contains("powershell");
+         FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
+         CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
          ConsoleIO.SetVisibility(CommandLineMode);
-//         for (int i = 0; i < args.Length; i++) {
-//            args[i] = args[i].Replace("/", "-").ToLower();
-//         }
 
          new Session();
-         ProcessCommandlineArguments(args.ToList());
-      }
-
-      [CmdContext]
-      public class BaseContext {
-         [CmdContext("SendTo")]
-         public class SendTo {
-            [CmdAction("Set")]
-            public static void SetSendTo([CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", true)]
-               bool enable = true) {
-               OperatingMethods.EnableSendToHDD(enable);
-            }
-
-            [CmdAction("Get")]
-            public static void GetSendTo() {
-               bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
-               ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
-               ConsoleIO.WriteLine($"SendTo is {(isSendToHddEnabled ? "" : "not")} enabled");
-            }
-         }
-
-         [CmdAction("Admin")]
-         public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
-            Wrapper.RestartAsAdministrator(args ?? new string[] { });
-         }
-
-         [CmdAction("Move")]
-         public static void Move([CmdParameter("srcpath")] string[] oldPaths,
-            [CmdParameterAlias("File", FileOrFolder.File)]
-            [CmdParameterAlias("Folder", FileOrFolder.Folder)]
-            [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
-            [CmdParameter("Type")]
-            FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")] string newPath = null
-         ) {
-            {
-               if (newPath == null) {
-                  newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
-               }
-
-               foreach (string oldPath in oldPaths) {
-                  bool fileOrFolder;
-                  switch (moveFileOrFolder) {
-                     case FileOrFolder.File:
-                        fileOrFolder = true;
-                        break;
-                     case FileOrFolder.Folder:
-                        fileOrFolder = false;
-                        break;
-                     case FileOrFolder.Automatic:
-                        if (File.Exists(oldPath)) {
-                           fileOrFolder = true;
-                        }
-                        else if (Directory.Exists(oldPath)) {
-                           fileOrFolder = false;
-                        }
-                        else {
-                           //    ArgumentError(args);
-                           continue;
-                        }
-
-                        break;
-                     default: continue;
-                  }
-
-                  if (fileOrFolder) {
-                     OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath), true);
-                  }
-                  else {
-                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath), true);
-                  }
-               }
-            }
-         }
-
-         [CmdAction("background")]
-         private static void Back() {
-            BackgroundNotificationCreator.Initalize();
-         }
-
-         public enum FileOrFolder {
-            File,
-            Folder,
-            Automatic
-         }
+         ProcessCommandlineArguments(args);
       }
 
       /// <summary>
       ///    Processes aguments
       /// </summary>
       /// <param name="args">The arguments to process</param>
-      private static void ProcessCommandlineArguments(List<string> args) {
+      private static void ProcessCommandlineArguments(string[] args) {
          if (false) {
             //For debugging purposes only
-            MessageBox.Show(string.Join(",", args));
+            MessageBox.Show(string.Join(" , ", args));
          }
 
-         new CommandlineOptionInterpreter(args.ToArray()){RootName = "StrgMngTool"}.Interpret<BaseContext>(() => {
+         new CommandlineOptionInterpreter(args) {RootName = "StorageManagementTool"}.Interpret<BaseContext>(() => {
             // RefreshDriveInformation();
             Application.Run(new MainWindow());
          });
@@ -386,6 +298,89 @@ namespace StorageManagementTool {
             ArgumentError(args);
          }
          */
+      }
+
+      [CmdContext]
+      public class BaseContext {
+         public enum FileOrFolder {
+            File,
+            Folder,
+            Automatic
+         }
+
+         [CmdAction("Admin")]
+         public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
+            Wrapper.RestartAsAdministrator(args ?? new string[] { });
+         }
+
+         [CmdAction("Move")]
+         public static void Move([CmdParameter("srcpath")] string[] oldPaths,
+            [CmdParameterAlias("File", FileOrFolder.File)]
+            [CmdParameterAlias("Folder", FileOrFolder.Folder)]
+            [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
+            [CmdParameter("Type")]
+            FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")] string newPath = null
+         ) {
+            {
+               if (newPath == null) {
+                  newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
+               }
+
+               foreach (string oldPath in oldPaths) {
+                  bool fileOrFolder;
+                  switch (moveFileOrFolder) {
+                     case FileOrFolder.File:
+                        fileOrFolder = true;
+                        break;
+                     case FileOrFolder.Folder:
+                        fileOrFolder = false;
+                        break;
+                     case FileOrFolder.Automatic:
+                        if (File.Exists(oldPath)) {
+                           fileOrFolder = true;
+                        }
+                        else if (Directory.Exists(oldPath)) {
+                           fileOrFolder = false;
+                        }
+                        else {
+                           //    ArgumentError(args);
+                           continue;
+                        }
+
+                        break;
+                     default: continue;
+                  }
+
+                  if (fileOrFolder) {
+                     OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath), true);
+                  }
+                  else {
+                     OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath), true);
+                  }
+               }
+            }
+         }
+
+         [CmdAction("background")]
+         private static void Back() {
+            BackgroundNotificationCreator.Initalize();
+         }
+
+         [CmdContext("SendTo")]
+         public class SendTo {
+            [CmdAction("Set")]
+            public static void SetSendTo([CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", true)]
+               bool enable = true) {
+               OperatingMethods.EnableSendToHDD(enable);
+            }
+
+            [CmdAction("Get")]
+            public static void GetSendTo() {
+               bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
+               ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
+               ConsoleIO.WriteLine($"SendTo is {(isSendToHddEnabled ? "" : "not")} enabled");
+            }
+         }
       }
    }
 }

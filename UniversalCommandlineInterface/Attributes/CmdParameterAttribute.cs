@@ -7,8 +7,16 @@ namespace UniversalCommandlineInterface.Attributes {
    [AttributeUsage(AttributeTargets.GenericParameter | AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
    //TODO Add Defaults
    public class CmdParameterAttribute : Attribute {
+      public enum CmdParameterUsage {
+         RawValueWithDecleration,
+         NoRawsButDecleration,
+         DirectAliasOrDeclared,
+         OnlyDirectAlias,
+         Default
+      }
+
       private bool _loaded;
-      internal CmdParameterUsage Usage;
+
 //      public bool AvailableWithoutAlias;
 //      private bool _AvailableWithoutAliasExplictitlyDeclared;
 //      public bool DeclerationNeeded;
@@ -17,9 +25,10 @@ namespace UniversalCommandlineInterface.Attributes {
       public ICustomAttributeProvider MyInfo;
       public string Name;
       public IEnumerable<CmdParameterAliasAttribute> ParameterAliases;
+      internal CmdParameterUsage Usage;
 
 
-      public CmdParameterAttribute(string name,CmdParameterUsage usage=CmdParameterUsage.Default) {
+      public CmdParameterAttribute(string name, CmdParameterUsage usage = CmdParameterUsage.Default) {
          Name = name;
          Usage = usage;
 //         AvailableWithoutAlias = availableWithoutAlias??true;
@@ -31,16 +40,12 @@ namespace UniversalCommandlineInterface.Attributes {
       public void LoadAlias() {
          if (!_loaded) {
             ParameterAliases = MyInfo.GetCustomAttributes(typeof(CmdParameterAliasAttribute), false).Cast<CmdParameterAliasAttribute>();
-            if (Usage==CmdParameterUsage.Default) {
-               Usage = ParameterAliases.Any()?CmdParameterUsage.OnlyDirectAlias: CmdParameterUsage.RawValueWithDecleration;
+            if (Usage == CmdParameterUsage.Default) {
+               Usage = ParameterAliases.Any() ? CmdParameterUsage.OnlyDirectAlias : CmdParameterUsage.RawValueWithDecleration;
             }
 
             _loaded = true;
          }
-      }
-
-      public enum CmdParameterUsage {
-         RawValueWithDecleration,NoRawsButDecleration,DirectAliasOrDeclared,OnlyDirectAlias,Default
       }
    }
 }
