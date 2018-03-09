@@ -38,7 +38,7 @@ namespace StorageManagementTool {
 //            args[i] = args[i].Replace("/", "-").ToLower();
 //         }
 
-         SessionInitalizer();
+         new Session();
          ProcessCommandlineArguments(args.ToList());
       }
 
@@ -132,16 +132,13 @@ namespace StorageManagementTool {
       private static void ProcessCommandlineArguments(List<string> args) {
          if (false) {
             //For debugging purposes only
-#pragma warning disable 162 {
             MessageBox.Show(string.Join(",", args));
-#pragma warning restore 162
          }
 
-         new CommandlineOptionInterpreter(args.ToArray()).Interpret<BaseContext>(() => {
+         new CommandlineOptionInterpreter(args.ToArray()){RootName = "StrgMngTool"}.Interpret<BaseContext>(() => {
             // RefreshDriveInformation();
             Application.Run(new MainWindow());
          });
-         return;
          /*
          if (args.Count == 0) {
             Session.Singleton.StandardLaunch();
@@ -389,26 +386,6 @@ namespace StorageManagementTool {
             ArgumentError(args);
          }
          */
-      }
-
-      /// <summary>
-      ///    Initalizes a new session
-      /// </summary>
-      private static void SessionInitalizer() {
-         new Session();
-      }
-
-      /// <summary>
-      ///    Displays an error message for wrong arguments and quits
-      /// </summary>
-      /// <param name="args">The arguments to quit with</param>
-      private static void ArgumentError(IEnumerable<string> args) {
-         if (CommandLineMode) {
-            ConsoleIO.WriteLine("The given arguments (" + string.Join(" ; ", args) +
-                                ") are not valid use -? for an overview of possible arguments.");
-         }
-
-         Environment.Exit(-10);
       }
    }
 }
