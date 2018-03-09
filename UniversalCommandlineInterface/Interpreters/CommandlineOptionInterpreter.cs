@@ -5,7 +5,7 @@ using UniversalCommandlineInterface.Attributes;
 namespace UniversalCommandlineInterface.Interpreters {
    public class CommandlineOptionInterpreter {
       public string[] Args;
-      public string BaseName = ".";
+      public string RootName = ".";
       public ConsoleIO ConsoleIO;
 
       //    internal int ArgsLengthMinus1; 

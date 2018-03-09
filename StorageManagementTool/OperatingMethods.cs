@@ -17,12 +17,18 @@ using File = System.IO.File;
 
 namespace StorageManagementTool {
    public static partial class OperatingMethods {
+      /// <summary>
+      /// 
+      /// </summary>
       public enum QuestionAnswer {
          Yes,
          No,
          Ask
       }
 
+      /// <summary>
+      /// Key, where The Windows search data is stored
+      /// </summary>
       public static readonly RegistryValue SearchDatatDirectoryRegistryValue = new RegistryValue(
          @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
 
@@ -44,17 +50,19 @@ namespace StorageManagementTool {
       /// <param name="dir">The Directory to move</param>
       /// <param name="newLocation">The Directory to move the file to</param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath=false) {
+      public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath = false) {
          if (dir == newLocation) {
             if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
                MoveFolder(dir, newLocation);
             }
          }
+
          if (adjustNewPath) {
-            newLocation = new DirectoryInfo(Path.Combine(newLocation.FullName,dir.FullName.Remove(1, 1)));
+            newLocation = new DirectoryInfo(Path.Combine(newLocation.FullName, dir.FullName.Remove(1, 1)));
          }
-         if (newLocation.Parent == null) {
+
+         if (!newLocation.Parent.Exists) {
             newLocation.Parent.Create();
          }
 
@@ -77,7 +85,7 @@ namespace StorageManagementTool {
       /// <param name="newLocation">The location to move the file to</param>
       /// <param name="adjustNewPath"></param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath=false) {
+      public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath = false) {
          if (file == newLocation) {
             if (
                MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
@@ -90,8 +98,9 @@ namespace StorageManagementTool {
          }
 
          if (adjustNewPath) {
-            newLocation = new FileInfo(Path.Combine(newLocation.FullName,file.FullName.Remove(1, 1)));
+            newLocation = new FileInfo(Path.Combine(newLocation.FullName, file.FullName.Remove(1, 1)));
          }
+
          if (!newLocation.Directory.Exists) {
             newLocation.Directory.Create();
          }
@@ -167,7 +176,7 @@ namespace StorageManagementTool {
       /// <param name="minSize">The minimum Size of the Pagefile in MB</param>
       /// <returns>Whether the Operation were successfull</returns>
       public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize) {
-         List<string> tempDriveInfoList = Session.Singleton.FillWithDriveInfo().ToList();
+         List<string> tempDriveInfoList = FileSystem.Drives.Select(GetDriveInfoDescription).ToList();
          int selectedPartitionIndex;
          if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
          {
@@ -184,6 +193,13 @@ namespace StorageManagementTool {
          return ChangePagefileSettings(toUse, maxSize, minSize);
       }
 
+      /// <summary>
+      /// Changes the Pagefile Settings
+      /// </summary>
+      /// <param name="toUse">The drive to move to</param>
+      /// <param name="maxSize">The max size of pagefile in MB</param>
+      /// <param name="minSize">The min size of the pagefile in MB</param>
+      /// <returns></returns>
       public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize) {
          string wmicPath = Path.Combine(Wrapper.System32Path, "wbem\\wmic.exe");
          if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
@@ -233,7 +249,8 @@ namespace StorageManagementTool {
 
          Wrapper.ExecuteExecuteable(wmicPath,
             $"pagefileset where name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\" set InitialSize={minSize},MaximumSize={maxSize}",
-            out _, out int _, out _, waitforexit: true, hidden: true, admin: true); // Sets Pagefile Size
+            out _, out int _, out _, waitforexit: true, hidden: true, admin: true);
+         // Sets Pagefile Size
 
          Wrapper.ExecuteExecuteable(wmicPath,
             " get", out tmp, out int _, out int _, true, true,
@@ -361,10 +378,13 @@ namespace StorageManagementTool {
 
          return false;
       }
-
+/// <summary>
+/// Enables Send to HDD
+/// </summary>
+/// <param name="enable">Whether to enable or disable Send to HDD</param>
       public static void EnableSendToHDD(bool enable = true) {
          if (enable) {
-            #region From https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
+            #region Based upon https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
 
             WshShell shell = new WshShell();
             string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
@@ -384,10 +404,10 @@ namespace StorageManagementTool {
       }
 
       /// <summary>
-      ///    /
+      ///    Sets the Search data path
       /// </summary>
-      /// <param name="newPath"></param>
-      /// <returns></returns>
+      /// <param name="newPath">The new path for the search data</param>
+      /// <returns>Whether the operation were successful</returns>
       public static bool SetSearchDataPath(DirectoryInfo newPath) {
          if (newPath.Exists) {
             if (Wrapper.RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegistryValue,
@@ -466,22 +486,22 @@ namespace StorageManagementTool {
          directory = dir.Parent.Parent;
          return true;
       }
-
-      public static void CheckForSysinternals() {
-         if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe"))) {
-            string zipName = Path.Combine(Directory.GetCurrentDirectory(), "PsTools.zip");
-            using (WebClient tmpClient = new WebClient()) {
-               try {
-                  tmpClient.DownloadFile("https://download.sysinternals.com/files/PSTools.zip", zipName);
-               }
-               catch (Exception) {
-                  Console.WriteLine();
-               }
-            }
-
-            ZipFile.ExtractToDirectory(zipName, Path.Combine(Directory.GetCurrentDirectory(), "PsTools"));
-            Wrapper.FileAndFolder.DeleteFile(new FileInfo(zipName));
-         }
-      }
+//
+//      public static void CheckForSysinternals() {
+//         if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe"))) {
+//            string zipName = Path.Combine(Directory.GetCurrentDirectory(), "PsTools.zip");
+//            using (WebClient tmpClient = new WebClient()) {
+//               try {
+//                  tmpClient.DownloadFile("https://download.sysinternals.com/files/PSTools.zip", zipName);
+//               }
+//               catch (Exception) {
+//                  Console.WriteLine();
+//               }
+//            }
+//
+//            ZipFile.ExtractToDirectory(zipName, Path.Combine(Directory.GetCurrentDirectory(), "PsTools"));
+//            Wrapper.FileAndFolder.DeleteFile(new FileInfo(zipName));
+//         }
+//      }
    }
 }

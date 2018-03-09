@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using StorageManagementTool.MainGUI;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Attributes;
 using UniversalCommandlineInterface.Interpreters;
@@ -136,7 +137,10 @@ namespace StorageManagementTool {
 #pragma warning restore 162
          }
 
-         new CommandlineOptionInterpreter(args.ToArray()).Interpret<BaseContext>(Session.Singleton.StandardLaunch);
+         new CommandlineOptionInterpreter(args.ToArray()).Interpret<BaseContext>(() => {
+            // RefreshDriveInformation();
+            Application.Run(new MainWindow());
+         });
          return;
          /*
          if (args.Count == 0) {

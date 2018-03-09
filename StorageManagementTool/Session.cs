@@ -29,23 +29,15 @@ namespace StorageManagementTool {
       public JSONConfig CurrentConfiguration;
 
       /// <summary>
-      ///    The List of drives currently available
-      /// </summary>
-      /// <summary>
       ///    Whether the program runs as administrator
       /// </summary>
       public bool IsAdmin;
-
-      /// <summary>
-      ///    The stadium of the swapfile
-      /// </summary>
       /// <summary>
       ///    Creates a new Session
       /// </summary>
       public Session() {
          IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new[]
             {new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
-
          Singleton = this;
          ConfigurationPath = Path.Combine(Environment.GetFolderPath(
                Environment.SpecialFolder.MyDocuments),
@@ -59,6 +51,7 @@ namespace StorageManagementTool {
          Thread.CurrentThread.CurrentUICulture = toUseCultureInfo;
          ScenarioPreset.LoadPresets();
          UserShellFolder.LoadEditable();
+         IsAdmin = Wrapper.IsCurrentUserAdministrator();
       }
 
       private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,
@@ -102,28 +95,6 @@ namespace StorageManagementTool {
       public void SaveCfg() {
          File.WriteAllText(
             ConfigurationPath, JsonConvert.SerializeObject(CurrentConfiguration));
-      }
-
-      /// <summary>
-      ///    Creates an IEnumerable with all current DriveInfos
-      /// </summary>
-      /// <returns>All DriveInfos</returns>
-      public IEnumerable<string> FillWithDriveInfo() {
-         return Wrapper.getDrives().Select(OperatingMethods.GetDriveInfoDescription);
-      }
-
-//      public void RefreshDriveInformation()
-//      {
-//         CurrentDrives = Wrapper.getDrives().ToList();
-//      }
-
-      public void StandardLaunch() {
-         Application.EnableVisualStyles();
-         Application.SetCompatibleTextRenderingDefault(false);
-         // RefreshDriveInformation();
-         IsAdmin = Wrapper.IsCurrentUserAdministrator();
-
-         Application.Run(new MainWindow());
       }
    }
 }

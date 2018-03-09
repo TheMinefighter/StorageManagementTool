@@ -14,7 +14,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       public List<string> Path {
          get {
             if (Name == null) {
-               return new List<string>(){"."};
+               return new List<string>(){TopInterpreter.RootName};
             }
 
             List<string> tmpList = DirectParent.Path;

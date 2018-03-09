@@ -59,7 +59,7 @@ namespace UniversalCommandlineInterface.Interpreters {
 
                TopInterpreter.Args = arguments.ToArray();
             }
-               Reset();
+              currentContextInterpreter. Reset();
             currentContextInterpreter.MyContextAttribute.LoadChilds();
             if ( currentContextInterpreter.Interpret(out ContextInterpreter tmpContextInterpreter, true, true)) {
                currentContextInterpreter=tmpContextInterpreter;
