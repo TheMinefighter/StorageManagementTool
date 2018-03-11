@@ -53,6 +53,7 @@
     <Compile Include="Interpreters\ActionInterpreter.cs" />
     <Compile Include="Interpreters\BaseInterpreter.cs" />
     <Compile Include="Interpreters\CommandlineOptionInterpreter.cs" />
+    <Compile Include="Interpreters\ConfigurationContextInterpreter.cs" />
     <Compile Include="Interpreters\ContextInterpreter.cs" />
     <Compile Include="Interpreters\ManagedConfigurationInterpreter.cs" />
     <Compile Include="InterpretingOptions.cs" />

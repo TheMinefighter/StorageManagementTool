@@ -31,8 +31,12 @@ namespace UniversalCommandlineInterface.Interpreters {
          TopInterpreter.ConsoleIO.WriteToConsole(ConsoleStack.ToString());
          throw new NotImplementedException();
       }
+      
 
       internal override bool Interpret(bool printErrors = true) {
+         if (IsParameterEqual("?",TopInterpreter.Args[Offset])) {
+            PrintHelp();
+         }
          throw new NotImplementedException();
       }
    }

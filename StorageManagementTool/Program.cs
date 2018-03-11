@@ -47,7 +47,8 @@ namespace StorageManagementTool {
             MessageBox.Show(string.Join(" , ", args));
          }
 
-         new CommandlineOptionInterpreter(args) {RootName = "StorageManagementTool"}.Interpret<BaseContext>(() => Application.Run(new MainWindow()));
+         new CommandlineOptionInterpreter(args) {Options = new InterpretingOptions {RootName = "StorageManagementTool"}}
+            .Interpret<BaseContext>(() => Application.Run(new MainWindow()));
          /*
          if (args.Count == 0) {
             Session.Singleton.StandardLaunch();

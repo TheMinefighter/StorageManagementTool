@@ -9,5 +9,6 @@
       public string InteractiveOption = "Interactive";
       public char PreferredArgumentPrefix = '/';
       public string RootName = ".";
+
    }
 }
