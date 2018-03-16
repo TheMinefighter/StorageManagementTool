@@ -13,9 +13,8 @@ namespace StorageManagementTool {
          }
 
          [CmdAction("Admin")]
-         public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
+         public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) =>
             Wrapper.RestartAsAdministrator(args ?? new string[] { });
-         }
 
          [CmdAction("Move")]
          public static void Move(
@@ -63,23 +62,19 @@ namespace StorageManagementTool {
          }
 
          [CmdAction("Background")]
-         private static void Back() {
-            BackgroundNotificationCreator.Initalize();
-         }
+         private static void Back() => BackgroundNotificationCreator.Initalize();
 
          [CmdContext("SendTo")]
          public class SendTo {
             [CmdAction("Set")]
-            public static void SetSendTo([CmdParameterAlias("Enable", true), CmdParameterAlias("Disable", true)] 
-               bool enable = true) {
-               OperatingMethods.EnableSendToHDD(enable);
-            }
+            public static void SetSendTo([CmdParameterAlias("Enable", true), CmdParameterAlias("Disable", true), CmdParameter("Enabled")]
+               bool enable = true) => OperatingMethods.EnableSendToHDD(enable);
 
             [CmdAction("Get")]
             public static void GetSendTo() {
                bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
                ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
-               ConsoleIO.WriteLine($"SendTo is {(isSendToHddEnabled ? "" : "not")} enabled");
+               ConsoleIO.WriteLine($"SendTo feature is {(isSendToHddEnabled ? "" : "not")} enabled");
             }
          }
       }
