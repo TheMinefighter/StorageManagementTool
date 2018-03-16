@@ -340,7 +340,7 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When you see this something was an invalid language was loaded.
+        ///   Looks up a localized string similar to Invalid Language.
         /// </summary>
         internal static string WindowTitle {
             get {

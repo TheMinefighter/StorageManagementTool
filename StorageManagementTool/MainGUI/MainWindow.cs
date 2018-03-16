@@ -15,14 +15,14 @@ namespace StorageManagementTool.MainGUI {
 
       private void SetRootPath_btn_Click(object sender, EventArgs e) {
          HDDPath_fbd.ShowDialog();
-         HDDSavePathText.Text = HDDPath_fbd.SelectedPath;
+         HDDSavePath_tb.Text = HDDPath_fbd.SelectedPath;
       }
 
       private void MainWindow_Load(object sender, EventArgs e) {
          LoadUIStrings();
          //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
          //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
-         HDDSavePathText.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
+         HDDSavePath_tb.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
          IEnumerable<string> rec = OperatingMethods.GetRecommendedPaths();
          foreach (string item in rec) {
             Suggestion_lb.Items.Add(item);
@@ -121,11 +121,7 @@ namespace StorageManagementTool.MainGUI {
 
             return;
          }
-
-         DirectoryInfo newPath = new DirectoryInfo(Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath,
-            FolderToMove_tb.Text.Remove(1, 1)));
-         string oldPath = FolderToMove_tb.Text;
-         ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), newPath)
+         ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(FolderToMove_tb.Text),new DirectoryInfo(HDDSavePath_tb.Text),true )
             ? MoveFolderSuccessful
             : MoveFolderError;
          FolderToMove_tb.Text = "";
@@ -193,7 +189,9 @@ namespace StorageManagementTool.MainGUI {
       }
 
       private void button3_Click(object sender, EventArgs e) {
-         Wrapper.RegistryMethods.ApplyRegfile();
+         OperatingMethods.MoveFolder(new DirectoryInfo(@"c:\Program Files\Microsoft Office"),
+            new DirectoryInfo("F:\\SSDAllo\\C\\Program Files\\Microsoft Office"));
+//         Wrapper.RegistryMethods.ApplyRegfile();
 //         Wrapper.RegistryMethods.SetProtectedRegistryValue(new RegistryValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders","OEM LINKS"),"F:\\TobiasAcc\\Desktop\\JufoTesting\\OEM2",RegistryValueKind.String );
          //   Wrapper.RegistryMethods.SetProtectedRegistryValue();
 

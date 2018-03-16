@@ -35,7 +35,7 @@
          this.HDDPath_fbd = new System.Windows.Forms.FolderBrowserDialog();
          this.SetRootPath_btn = new System.Windows.Forms.Button();
          this.FolderToMove_tb = new System.Windows.Forms.TextBox();
-         this.HDDSavePathText = new System.Windows.Forms.TextBox();
+         this.HDDSavePath_tb = new System.Windows.Forms.TextBox();
          this.Suggestion_lb = new System.Windows.Forms.ListBox();
          this.CustomFolderOrFileSelection_gb = new System.Windows.Forms.GroupBox();
          this.SetRootPathAsDefault_btn = new System.Windows.Forms.Button();
@@ -114,13 +114,13 @@
          // 
          // HDDSavePathText
          // 
-         this.HDDSavePathText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+         this.HDDSavePath_tb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.HDDSavePathText.Location = new System.Drawing.Point(6, 102);
-         this.HDDSavePathText.Name = "HDDSavePathText";
-         this.HDDSavePathText.ReadOnly = true;
-         this.HDDSavePathText.Size = new System.Drawing.Size(391, 20);
-         this.HDDSavePathText.TabIndex = 4;
+         this.HDDSavePath_tb.Location = new System.Drawing.Point(6, 102);
+         this.HDDSavePath_tb.Name = "HDDSavePath_tb";
+         this.HDDSavePath_tb.ReadOnly = true;
+         this.HDDSavePath_tb.Size = new System.Drawing.Size(391, 20);
+         this.HDDSavePath_tb.TabIndex = 4;
          // 
          // Suggestion_lb
          // 
@@ -144,7 +144,7 @@
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FolderToMove_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.SetRootPath_btn);
          this.CustomFolderOrFileSelection_gb.Controls.Add(this.FolderToMove_tb);
-         this.CustomFolderOrFileSelection_gb.Controls.Add(this.HDDSavePathText);
+         this.CustomFolderOrFileSelection_gb.Controls.Add(this.HDDSavePath_tb);
          this.CustomFolderOrFileSelection_gb.Location = new System.Drawing.Point(6, 18);
          this.CustomFolderOrFileSelection_gb.Name = "CustomFolderOrFileSelection_gb";
          this.CustomFolderOrFileSelection_gb.Size = new System.Drawing.Size(401, 157);
@@ -420,7 +420,7 @@
       private System.Windows.Forms.FolderBrowserDialog HDDPath_fbd;
       private System.Windows.Forms.Button SetRootPath_btn;
       private System.Windows.Forms.TextBox FolderToMove_tb;
-      public System.Windows.Forms.TextBox HDDSavePathText;
+      public System.Windows.Forms.TextBox HDDSavePath_tb;
       private System.Windows.Forms.GroupBox CustomFolderOrFileSelection_gb;
       private System.Windows.Forms.GroupBox Suggestions_gb;
       private System.Windows.Forms.GroupBox MoveFilesOrFolder_gb;

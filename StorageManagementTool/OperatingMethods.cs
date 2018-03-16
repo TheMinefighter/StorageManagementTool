@@ -36,8 +36,7 @@ namespace StorageManagementTool {
       /// <returns>The string representation</returns>
       public static string GetDriveInfoDescription(DriveInfo item) {
          return item.IsReady
-            ? item.VolumeLabel + " (" + item.Name + " ; " +
-              DriveType2String(item.DriveType) + ')'
+            ? $"{item.VolumeLabel} ({item.Name} ; {DriveType2String(item.DriveType)})"
             : item.Name;
       }
 
@@ -46,12 +45,13 @@ namespace StorageManagementTool {
       /// </summary>
       /// <param name="dir">The Directory to move</param>
       /// <param name="newLocation">The Directory to move the file to</param>
+      /// <param name="adjustNewPath"></param>
       /// <returns>Whether the operation were successful</returns>
       public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath = false) {
          if (dir == newLocation) {
             if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
-               MoveFolder(dir, newLocation);
+               MoveFolder(dir, newLocation,adjustNewPath);
             }
          }
 
@@ -59,15 +59,12 @@ namespace StorageManagementTool {
             newLocation = new DirectoryInfo(Path.Combine(newLocation.FullName, dir.FullName.Remove(1, 1)));
          }
 
-         if (!newLocation.Parent.Exists) {
+         if (newLocation.Parent != null && !newLocation.Parent.Exists) {
             newLocation.Parent.Create();
          }
 
          if (dir.Exists) {
             if (!Wrapper.FileAndFolder.MoveDirectory(dir, newLocation)) {
-               return false;
-            }
-            else {
                return false;
             }
          }
@@ -76,7 +73,7 @@ namespace StorageManagementTool {
       }
 
       /// <summary>
-      ///    Moves a file to another Loaction using symlinks
+      ///    Moves a file to anothrrer Loaction using symlinks
       /// </summary>
       /// <param name="file">The file to move</param>
       /// <param name="newLocation">The location to move the file to</param>

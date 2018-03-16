@@ -57,7 +57,7 @@ namespace StorageManagementTool {
             Thread.Sleep(2000000000); //Needed to keep FileSystemWatchers active
          }
       }
-
+//Multi Lang
       private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e) {
          MonitoringSetting.MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
          switch (tmp.ForFolders) {
@@ -75,15 +75,13 @@ namespace StorageManagementTool {
                       }
                    )).NumberOfClickedButton == 1) {
                   OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-                     new DirectoryInfo(Path.Combine(_jsonConfig.DefaultHDDPath,
-                        e.FullPath.Remove(1, 1))));
+                     new DirectoryInfo(_jsonConfig.DefaultHDDPath),true);
                }
 
                break;
             case MonitoringSetting.MonitoringAction.Move:
                OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-                  new DirectoryInfo(Path.Combine(_jsonConfig.DefaultHDDPath,
-                     e.FullPath.Remove(1, 1))));
+                  new DirectoryInfo(_jsonConfig.DefaultHDDPath),true);
 
                break;
             default:
@@ -99,7 +97,7 @@ namespace StorageManagementTool {
             case MonitoringSetting.MonitoringAction.Ask:
                if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
                       new[] {
-                         "Es wurde die neue Datei " + new FileInfo(e.FullPath).Name + "  in ",
+                         $"Es wurde die neue Datei {new FileInfo(e.FullPath).Name}  in ",
                          tmp.TargetPath,
                          " erzeugt. Soll diese verschoben oder ignoriert werden"
                       }, "Neue Datei gefunden", new[] {
@@ -107,9 +105,8 @@ namespace StorageManagementTool {
                          "Verschieben"
                       }
                    )).NumberOfClickedButton == 1) {
-                  OperatingMethods.MoveFile(new FileInfo(e.FullPath),
-                     new FileInfo(Path.Combine(_jsonConfig.DefaultHDDPath, e.FullPath.Remove(1, 1)))
-                  );
+                  OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
+                     new DirectoryInfo(_jsonConfig.DefaultHDDPath),true);
                }
 
                break;
