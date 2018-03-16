@@ -11,7 +11,7 @@ namespace StorageManagementTool {
    /// <summary>
    ///    Main class of this Program
    /// </summary>
-   public static partial class Program {
+   public static class Program {
       /// <summary>
       ///    A reference to an object containig methods for the console IO operations
       /// </summary>

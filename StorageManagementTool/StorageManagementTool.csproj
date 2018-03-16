@@ -184,7 +184,7 @@
     <Compile Include="JsonConfig.cs" />
     <Compile Include="OperatingMethods.SSDMonitoring.cs" />
     <Compile Include="OperatingMethods.SwapfileMethods.cs" />
-    <Compile Include="Program.CmdRootContext.cs" />
+    <Compile Include="CmdRootContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistryValue.cs" />
