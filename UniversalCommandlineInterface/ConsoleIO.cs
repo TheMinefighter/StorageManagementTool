@@ -53,9 +53,7 @@ namespace UniversalCommandlineInterface {
       ///    Reads a line from Console
       /// </summary>
       /// <returns>The line the user entered</returns>
-      public static string ReadLine() {
-         return _primary.ReadFromConsole();
-      }
+      public static string ReadLine() => _primary.ReadFromConsole();
 
       /// <summary>
       ///    Writes a message to Console

@@ -44,10 +44,9 @@ namespace StorageManagementTool {
       /// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
       /// <returns>Whether the operation were successfull</returns>
       public static bool ExecuteExecuteable(string filename, string parameters, bool admin = false,
-         bool hidden = false, bool waitforexit = false) {
-         return ExecuteExecuteable(filename, parameters, out string[] _, out int _, out _, waitforexit: waitforexit, hidden: hidden,
-            admin: admin);
-      }
+         bool hidden = false, bool waitforexit = false) => ExecuteExecuteable(filename, parameters, out string[] _, out int _, out _,
+         waitforexit: waitforexit, hidden: hidden,
+         admin: admin);
 
       /// <summary>
       ///    Executes an Executeable
@@ -161,9 +160,7 @@ namespace StorageManagementTool {
          return true;
       }
 
-      public static IEnumerable<DriveInfo> getDrives() {
-         return FileSystem.Drives;
-      }
+      public static IEnumerable<DriveInfo> getDrives() => FileSystem.Drives;
 
       /// <summary>
       ///    Executes an Command using Windows Commandline
@@ -179,15 +176,11 @@ namespace StorageManagementTool {
       /// </param>
       /// <returns>Whether the operation were successful</returns>
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
-         bool debug = false) {
-         return ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug);
-      }
+         bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug);
 
-      public static string AddBackslahes(string source) {
-         return source
-            .Replace("\\", "\\\\")
-            .Replace("\"", "\\\"");
-      }
+      public static string AddBackslahes(string source) => source
+         .Replace("\\", "\\\\")
+         .Replace("\"", "\\\"");
 
       /// <summary>
       ///    Checks if one Path is the parent of another
@@ -195,9 +188,8 @@ namespace StorageManagementTool {
       /// <param name="parentPath">The parent path</param>
       /// <param name="childPath">The child path</param>
       /// <returns>Whether parentPath is a paren of childPath</returns>
-      public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath) {
-         return parentPath.FullName.StartsWith(childPath.FullName + Path.DirectorySeparatorChar);
-      }
+      public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath) =>
+         parentPath.FullName.StartsWith(childPath.FullName + Path.DirectorySeparatorChar);
 
       /// <summary>
       ///    Executes an Command using Windows Commandline
@@ -272,9 +264,8 @@ namespace StorageManagementTool {
       /// </summary>
       /// <param name="name">The name of the user</param>
       /// <returns>Whether the username exists</returns>
-      public static bool IsUser(string name) {
-         return UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
-      }
+      public static bool IsUser(string name) =>
+         UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
 
       /// <summary>
       ///    Checks whether a given user is a local administrator
@@ -309,10 +300,8 @@ namespace StorageManagementTool {
       /// </summary>
       /// <param name="toConvert">The DateTime to convert</param>
       /// <returns>The Win32 representation of the DateTime object</returns>
-      public static string DateTimeToWin32Format(DateTime toConvert) {
-         return
-            $"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
-      }
+      public static string DateTimeToWin32Format(DateTime toConvert) =>
+         $"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
 
       ///// <summary>
       /////    Checks whether a user is Part of a localgroup
@@ -377,9 +366,7 @@ namespace StorageManagementTool {
 
       #endregion
 
-      public static bool RestartComputer() {
-         return ExecuteExecuteable(Path.Combine(System32Path, "shutdown.exe"), "/R /T 1", false, true);
-      }
+      public static bool RestartComputer() => ExecuteExecuteable(Path.Combine(System32Path, "shutdown.exe"), "/R /T 1", false, true);
 
       /// <summary>
       ///    Kills first all depnding ServiceControllers and then itselves
@@ -407,9 +394,8 @@ namespace StorageManagementTool {
       /// </summary>
       /// <param name="toRestart">The service to restart</param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool RecursiveServiceRestart(ServiceController toRestart) {
-         return RecursiveServiceKiller(toRestart) && RecursiveServiceStarter(toRestart);
-      }
+      public static bool RecursiveServiceRestart(ServiceController toRestart) =>
+         RecursiveServiceKiller(toRestart) && RecursiveServiceStarter(toRestart);
 
       /// <summary>
       ///    Tests a given set of loacal CredetiaLS

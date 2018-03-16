@@ -12,9 +12,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       internal ContextInterpreter(BaseInterpreter parent, CmdContextAttribute attribute, int offset = 0) : base(parent, attribute.Name,
-         offset) {
-         MyContextAttribute = attribute;
-      }
+         offset) => MyContextAttribute = attribute;
 
       internal override void PrintHelp() {
       }
@@ -130,10 +128,6 @@ namespace UniversalCommandlineInterface.Interpreters {
          return false;
       }
 
-      internal override bool Interpret(bool printErrors = true) {
-         return Interpret(out ContextInterpreter _, printErrors, false);
-
-         //   throw new NotImplementedException();
-      }
+      internal override bool Interpret(bool printErrors = true) => Interpret(out ContextInterpreter _, printErrors, false);
    }
 }

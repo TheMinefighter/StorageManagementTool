@@ -42,9 +42,7 @@ namespace UniversalCommandlineInterface.Interpreters {
          Name = name;
       }
 
-      public override string ToString() {
-         return string.Join(" ", Path);
-      }
+      public override string ToString() => string.Join(" ", Path);
 
       /// <summary>
       /// </summary>
@@ -92,9 +90,8 @@ namespace UniversalCommandlineInterface.Interpreters {
          return false;
       }
 
-      internal bool IsParameterEqual(string expected, string given, bool allowPrefixFree = false) {
-         return IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase, allowPrefixFree);
-      }
+      internal bool IsParameterEqual(string expected, string given, bool allowPrefixFree = false) =>
+         IsParameterEqual(expected, given, TopInterpreter.Options.IgnoreParameterCase, allowPrefixFree);
 
       internal static bool IsParameterEqual(string expected, string given, bool ignoreCase, bool allowPrefixFree = false) {
          if (expected == null) {

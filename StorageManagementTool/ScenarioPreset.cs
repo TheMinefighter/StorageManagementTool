@@ -11,9 +11,7 @@ namespace StorageManagementTool {
    public struct ScenarioPreset {
       public static ScenarioPreset[] AvailablePresets;
 
-      public override string ToString() {
-         return Id;
-      }
+      public override string ToString() => Id;
 
       /// <summary>
       ///    Whether a HDD is required for this preset

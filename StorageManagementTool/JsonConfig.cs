@@ -31,9 +31,7 @@ namespace StorageManagementTool {
          return false;
       }
 
-      public override string ToString() {
-         return JsonConvert.SerializeObject(this);
-      }
+      public override string ToString() => JsonConvert.SerializeObject(this);
 
       /// <summary>
       ///    Container for all settings for SSD Monitoring
@@ -67,9 +65,7 @@ namespace StorageManagementTool {
          /// <summary>
          ///    Creates a new MonitoringSetting
          /// </summary>
-         public MonitoringSetting() {
-            MonitoredFolders = new List<MonitoredFolder>();
-         }
+         public MonitoringSetting() => MonitoredFolders = new List<MonitoredFolder>();
 
          public override bool Equals(object obj) {
             if (obj is MonitoringSetting eq) {
@@ -79,9 +75,7 @@ namespace StorageManagementTool {
             return false;
          }
 
-         public override string ToString() {
-            return JsonConvert.SerializeObject(this);
-         }
+         public override string ToString() => JsonConvert.SerializeObject(this);
 
          /// <summary>
          ///    Contains information about a folder, which should be monitored
@@ -123,9 +117,7 @@ namespace StorageManagementTool {
                return false;
             }
 
-            public override string ToString() {
-               return JsonConvert.SerializeObject(this);
-            }
+            public override string ToString() => JsonConvert.SerializeObject(this);
          }
       }
    }

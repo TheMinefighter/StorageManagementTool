@@ -53,9 +53,7 @@ namespace StorageManagementTool {
             @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
             "SwapFileControl");
 
-         internal static FileInfo getSwapfilePath() {
-            return new FileInfo(Wrapper.FileAndFolder.GetRealPath(DefaultSwapfileLocation));
-         }
+         internal static FileInfo getSwapfilePath() => new FileInfo(Wrapper.FileAndFolder.GetRealPath(DefaultSwapfileLocation));
 
          /// <summary>
          ///    Changes the Swapfile Stadium

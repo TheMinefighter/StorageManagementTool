@@ -16,9 +16,7 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       public ActionInterpreter(CmdActionAttribute myActionAttribute, BaseInterpreter parent, int offset = 0) : base(parent,
-         myActionAttribute.Name, offset) {
-         MyActionAttribute = myActionAttribute;
-      }
+         myActionAttribute.Name, offset) => MyActionAttribute = myActionAttribute;
 
       internal override void PrintHelp() {
       }
@@ -247,9 +245,8 @@ namespace UniversalCommandlineInterface.Interpreters {
 */
       }
 
-      internal bool IsParameterDeclaration(out CmdParameterAttribute found, string search = null) {
-         return IsParameterDeclaration(out found, parameters, search ?? TopInterpreter.Args[Offset]);
-      }
+      internal bool IsParameterDeclaration(out CmdParameterAttribute found, string search = null) =>
+         IsParameterDeclaration(out found, parameters, search ?? TopInterpreter.Args[Offset]);
 
 //      internal bool IsAlias(CmdParameterAttribute expectedAliasType, out object value, string source = null) {
 //         return base.IsAlias(expectedAliasType, out value, source ?? TopInterpreter.Args[Offset]);

@@ -34,11 +34,9 @@ namespace StorageManagementTool {
       /// </summary>
       /// <param name="item">The DriveInfo object to represent</param>
       /// <returns>The string representation</returns>
-      public static string GetDriveInfoDescription(DriveInfo item) {
-         return item.IsReady
-            ? $"{item.VolumeLabel} ({item.Name} ; {DriveType2String(item.DriveType)})"
-            : item.Name;
-      }
+      public static string GetDriveInfoDescription(DriveInfo item) => item.IsReady
+         ? $"{item.VolumeLabel} ({item.Name} ; {DriveType2String(item.DriveType)})"
+         : item.Name;
 
       /// <summary>
       ///    Moves a Directory to another Loaction using symlinks
@@ -454,10 +452,8 @@ namespace StorageManagementTool {
       ///    Checks if the send to feature is enabled
       /// </summary>
       /// <returns>Whether the send to feature is enabled</returns>
-      public static bool IsSendToHDDEnabled() {
-         return File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-            StoreOnHDDLinkName + ".lnk"));
-      }
+      public static bool IsSendToHDDEnabled() => File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+         StoreOnHDDLinkName + ".lnk"));
 
       /// <summary>
       ///    Reads the path of the windows search data

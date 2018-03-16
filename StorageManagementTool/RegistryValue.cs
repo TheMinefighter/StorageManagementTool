@@ -18,9 +18,7 @@
          ValueName = valueName;
       }
 
-      public override string ToString() {
-         return RegistryKey + '\\' + ValueName;
-      }
+      public override string ToString() => RegistryKey + '\\' + ValueName;
 
 //public RegistryValue()
       //{

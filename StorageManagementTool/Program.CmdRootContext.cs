@@ -20,10 +20,8 @@ namespace StorageManagementTool {
          [CmdAction("Move")]
          public static void Move(
             [CmdParameter("Srcpath")] string[] oldPaths,
-            [CmdParameterAlias("File", FileOrFolder.File)]
-            [CmdParameterAlias("Folder", FileOrFolder.Folder)]
-            [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
-            [CmdParameter("Type")]
+            [CmdParameterAlias("File", FileOrFolder.File), CmdParameterAlias("Folder", FileOrFolder.Folder),
+             CmdParameterAlias("Auto-detect", FileOrFolder.Automatic), CmdParameter("Type")]
             FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")] string newPath = null
          ) {
             if (newPath == null) {
@@ -72,7 +70,7 @@ namespace StorageManagementTool {
          [CmdContext("SendTo")]
          public class SendTo {
             [CmdAction("Set")]
-            public static void SetSendTo([CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", true)]
+            public static void SetSendTo([CmdParameterAlias("Enable", true), CmdParameterAlias("Disable", true)] 
                bool enable = true) {
                OperatingMethods.EnableSendToHDD(enable);
             }

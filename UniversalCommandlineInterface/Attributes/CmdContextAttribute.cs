@@ -14,9 +14,7 @@ namespace UniversalCommandlineInterface.Attributes {
       public string Name;
       public IList<CmdContextAttribute> subCtx = new List<CmdContextAttribute>();
 
-      public CmdContextAttribute(string name) {
-         Name = name;
-      }
+      public CmdContextAttribute(string name) => Name = name;
 
       public CmdContextAttribute() {
       }

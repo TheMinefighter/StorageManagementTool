@@ -25,8 +25,7 @@ namespace StorageManagementTool {
       /// <summary>
       ///    The main entry point for the application.
       /// </summary>
-      [STAThread]
-      [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+      [STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
       public static void Main(string[] args) {
          FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
          CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";

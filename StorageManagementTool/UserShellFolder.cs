@@ -45,8 +45,8 @@ namespace StorageManagementTool {
 
       //   public UserShellFolder()  {  }
 
-      private static UserShellFolder NormalUSF(string name, string id, bool user = true, bool moveExistingFiles = true) {
-         return new UserShellFolder {
+      private static UserShellFolder NormalUSF(string name, string id, bool user = true, bool moveExistingFiles = true) =>
+         new UserShellFolder {
             ViewedName = name,
             RegistryValues = user
                ? new[] {new RegistryValue(ShellFolderRoot, id), new RegistryValue(UserShellFolderRoot, id)}
@@ -54,20 +54,17 @@ namespace StorageManagementTool {
             MoveExistingFiles = moveExistingFiles,
             Identifier = id
          };
-      }
 
       private static UserShellFolder CommonUSF(string name, string id, bool user = true, bool moveExistingFiles = true,
-         bool asUser = true) {
-         return new UserShellFolder {
-            ViewedName = name,
-            RegistryValues = user
-               ? new[] {new RegistryValue(CommonShellFolderRooot, id), new RegistryValue(CommonUserShellFolderRoot, id)}
-               : new[] {new RegistryValue(CommonShellFolderRooot, id)},
-            MoveExistingFiles = moveExistingFiles,
-            Identifier = id,
-            AccessAsUser = asUser
-         };
-      }
+         bool asUser = true) => new UserShellFolder {
+         ViewedName = name,
+         RegistryValues = user
+            ? new[] {new RegistryValue(CommonShellFolderRooot, id), new RegistryValue(CommonUserShellFolderRoot, id)}
+            : new[] {new RegistryValue(CommonShellFolderRooot, id)},
+         MoveExistingFiles = moveExistingFiles,
+         Identifier = id,
+         AccessAsUser = asUser
+      };
 
 
       public static void LoadEditable() {
@@ -157,8 +154,6 @@ namespace StorageManagementTool {
          return new DirectoryInfo((string) regValue ?? Error);
       }
 
-      public static DirectoryInfo GetPath(UserShellFolder currentUSF) {
-         return currentUSF.GetPath();
-      }
+      public static DirectoryInfo GetPath(UserShellFolder currentUSF) => currentUSF.GetPath();
    }
 }

@@ -57,9 +57,7 @@ namespace StorageManagementTool {
 
          public string Username;
 
-         public Credentials() {
-            Password = new SecureString();
-         }
+         public Credentials() => Password = new SecureString();
       }
 
       /// <summary>

@@ -9,16 +9,12 @@ namespace ExtendedMessageBoxLibrary {
       public ExtendedMessageBoxResult ToBeReturned { get; set; }
       public ExtendedMessageBoxConfiguration ExMsgBoxcfg { get; set; }
 
-      public ExtendedMessageBox(ExtendedMessageBoxConfiguration ExMsgBoxBtns) {
-         ExMsgBoxcfg = ExMsgBoxBtns;
-      }
+      public ExtendedMessageBox(ExtendedMessageBoxConfiguration ExMsgBoxBtns) => ExMsgBoxcfg = ExMsgBoxBtns;
 
       public ExtendedMessageBox(
          string[] text, string title, string[] buttons, int defaultButton = -1,
          string defaultIdentifier = "NoDefault"
-      ) {
-         ExMsgBoxcfg = new ExtendedMessageBoxConfiguration(text, title, buttons, defaultButton, defaultIdentifier);
-      }
+      ) => ExMsgBoxcfg = new ExtendedMessageBoxConfiguration(text, title, buttons, defaultButton, defaultIdentifier);
 
       /// <summary>
       ///    Connect an given String Array with a given Connector String
@@ -53,9 +49,7 @@ namespace ExtendedMessageBoxLibrary {
          return Defaults.Any(item => item.DefaultIdentifier == defaultIdentifierToSearch);
       }
 
-      public static ExtendedMessageBoxResult Show(ExtendedMessageBoxConfiguration buttons) {
-         return new ExtendedMessageBox(buttons).Show();
-      }
+      public static ExtendedMessageBoxResult Show(ExtendedMessageBoxConfiguration buttons) => new ExtendedMessageBox(buttons).Show();
 
       public ExtendedMessageBoxResult Show() {
          if (ExMsgBoxcfg.DefaultIdentifier != "NoDefault") {
