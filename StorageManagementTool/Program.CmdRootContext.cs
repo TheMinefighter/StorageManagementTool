@@ -5,7 +5,7 @@ using UniversalCommandlineInterface.Attributes;
 namespace StorageManagementTool {
    public static partial class Program {
       [CmdContext]
-      public  class CmdRootContext {
+      public class CmdRootContext {
          public enum FileOrFolder {
             File,
             Folder,
@@ -13,12 +13,13 @@ namespace StorageManagementTool {
          }
 
          [CmdAction("Admin")]
-         public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) =>
+         public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
             Wrapper.RestartAsAdministrator(args ?? new string[] { });
+         }
 
          [CmdAction("Move")]
          public static void Move(
-            [CmdParameter("srcpath")] string[] oldPaths,
+            [CmdParameter("Srcpath")] string[] oldPaths,
             [CmdParameterAlias("File", FileOrFolder.File)]
             [CmdParameterAlias("Folder", FileOrFolder.Folder)]
             [CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
@@ -62,13 +63,20 @@ namespace StorageManagementTool {
                }
             }
          }
+
          [CmdAction("Background")]
-         private static void Back() => BackgroundNotificationCreator.Initalize();
+         private static void Back() {
+            BackgroundNotificationCreator.Initalize();
+         }
+
          [CmdContext("SendTo")]
          public class SendTo {
             [CmdAction("Set")]
             public static void SetSendTo([CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", true)]
-               bool enable = true) => OperatingMethods.EnableSendToHDD(enable);
+               bool enable = true) {
+               OperatingMethods.EnableSendToHDD(enable);
+            }
+
             [CmdAction("Get")]
             public static void GetSendTo() {
                bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();

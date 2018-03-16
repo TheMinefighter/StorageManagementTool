@@ -51,7 +51,7 @@ namespace StorageManagementTool {
          if (dir == newLocation) {
             if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
-               MoveFolder(dir, newLocation,adjustNewPath);
+               MoveFolder(dir, newLocation, adjustNewPath);
             }
          }
 

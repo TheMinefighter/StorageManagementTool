@@ -121,9 +121,11 @@ namespace StorageManagementTool.MainGUI {
 
             return;
          }
-         ProgramStatusStrip.Text = OperatingMethods.MoveFolder(new DirectoryInfo(FolderToMove_tb.Text),new DirectoryInfo(HDDSavePath_tb.Text),true )
-            ? MoveFolderSuccessful
-            : MoveFolderError;
+
+         ProgramStatusStrip.Text =
+            OperatingMethods.MoveFolder(new DirectoryInfo(FolderToMove_tb.Text), new DirectoryInfo(HDDSavePath_tb.Text), true)
+               ? MoveFolderSuccessful
+               : MoveFolderError;
          FolderToMove_tb.Text = "";
          Suggestion_lb.Items.Clear();
          IEnumerable<string> rec = OperatingMethods.GetRecommendedPaths();

@@ -57,6 +57,7 @@ namespace StorageManagementTool {
             Thread.Sleep(2000000000); //Needed to keep FileSystemWatchers active
          }
       }
+
 //Multi Lang
       private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e) {
          MonitoringSetting.MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
@@ -75,13 +76,13 @@ namespace StorageManagementTool {
                       }
                    )).NumberOfClickedButton == 1) {
                   OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-                     new DirectoryInfo(_jsonConfig.DefaultHDDPath),true);
+                     new DirectoryInfo(_jsonConfig.DefaultHDDPath), true);
                }
 
                break;
             case MonitoringSetting.MonitoringAction.Move:
                OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-                  new DirectoryInfo(_jsonConfig.DefaultHDDPath),true);
+                  new DirectoryInfo(_jsonConfig.DefaultHDDPath), true);
 
                break;
             default:
@@ -106,7 +107,7 @@ namespace StorageManagementTool {
                       }
                    )).NumberOfClickedButton == 1) {
                   OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-                     new DirectoryInfo(_jsonConfig.DefaultHDDPath),true);
+                     new DirectoryInfo(_jsonConfig.DefaultHDDPath), true);
                }
 
                break;
