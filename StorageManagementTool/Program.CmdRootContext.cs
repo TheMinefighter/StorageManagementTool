@@ -62,16 +62,13 @@ namespace StorageManagementTool {
                }
             }
          }
-
-         [CmdAction("background")]
+         [CmdAction("Background")]
          private static void Back() => BackgroundNotificationCreator.Initalize();
-
          [CmdContext("SendTo")]
          public class SendTo {
             [CmdAction("Set")]
             public static void SetSendTo([CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", true)]
                bool enable = true) => OperatingMethods.EnableSendToHDD(enable);
-
             [CmdAction("Get")]
             public static void GetSendTo() {
                bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
