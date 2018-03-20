@@ -5,7 +5,7 @@ using UniversalCommandlineInterface.Attributes;
 namespace StorageManagementTool {
 
    [CmdContext]
-   public class CmdRootContext {
+   public abstract class CmdRootContext {
       public enum FileOrFolder {
          File,
          Folder,

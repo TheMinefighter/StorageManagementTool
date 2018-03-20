@@ -107,13 +107,13 @@ namespace StorageManagementTool {
                $"(Get-ScheduledTask | Where TaskName -eq {SSDMonitoringTaskName} ).State")) {
                return false;
             }
-
-            if (!ret.Any()) {
-               return false;
+            using (IEnumerator<string> enumerator = ret.GetEnumerator()) {
+               if (!enumerator.MoveNext()) {
+                  return false;
+               }
+               enabled = enumerator.Current == "Enabled" || enumerator.Current == "Ready";
+               return true;
             }
-
-            enabled = ret.ElementAt(0) == "Enabled" || ret.ElementAt(0) == "Ready";
-            return true;
          }
 
          /// <summary>

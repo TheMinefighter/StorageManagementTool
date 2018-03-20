@@ -18,6 +18,7 @@ namespace StorageManagementTool {
    ///    Contains system functionalities, which are not specific for this project
    /// </summary>
    public static partial class Wrapper {
+      
       /// <summary>
       ///    The file extensions, which are executeable as standalone
       /// </summary>
@@ -64,7 +65,7 @@ namespace StorageManagementTool {
       /// <returns>Whether the operation were successfull</returns>
       public static bool ExecuteExecuteable(string filename, string parameters, out string[] returnData,
          out int exitCode, out int pid, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
-         bool admin = false, bool asUser = false) {
+         bool admin = false, bool asUser = false, bool getPID =false) {
          pid = 0;
          FileInfo toRun = new FileInfo(filename);
          exitCode = 0;
@@ -145,7 +146,10 @@ namespace StorageManagementTool {
             }
          }
 
-         pid = process.Id;
+         process.Exited += ProcessDisposer;
+         if (getPID) {
+            pid = process.Id;
+         }
          if (waitforexit) {
             process.WaitForExit();
             if (readReturnData) {
@@ -159,6 +163,8 @@ namespace StorageManagementTool {
 
          return true;
       }
+
+      private static void ProcessDisposer(object emitter,EventArgs args) => ((Process) emitter).Dispose();
 
       public static IEnumerable<DriveInfo> getDrives() => FileSystem.Drives;
 
@@ -208,13 +214,9 @@ namespace StorageManagementTool {
       /// <returns>Whether the operation were successful</returns>
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
          bool waitforexit = true, bool debug = false, bool readReturnData = false) {
-         if (ExecuteExecuteable(Path.Combine(System32Path, @"cmd.exe"),
-            (debug ? " /K " : " /C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden,
-            admin, false)) {
-            return tmp == 0;
-         }
-
-         return false;
+         return ExecuteExecuteable(Path.Combine(System32Path, @"cmd.exe"),
+                   (debug ? " /K " : " /C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden,
+                   admin, false) && tmp == 0;
       }
 
       #region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
@@ -239,8 +241,13 @@ namespace StorageManagementTool {
       ///    Restarts Program as Administartor
       /// </summary>
       public static void RestartAsAdministrator(params string[] parameters) {
+//         if (ExecuteCommand($"start \"{Pro cess.GetCurrentProcess().MainModule.FileName}\"{string.Join(" ", parameters.Select(x => $"\"{x}\""))}",true,false)) {
+//              Environment.Exit(0);
+//         }
+         
          if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ", parameters), true)) {
-            Environment.Exit(0);
+            
+           Environment.Exit(0);
          }
       }
 
@@ -303,25 +310,6 @@ namespace StorageManagementTool {
       public static string DateTimeToWin32Format(DateTime toConvert) =>
          $"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
 
-      ///// <summary>
-      /////    Checks whether a user is Part of a localgroup
-      ///// </summary>
-      ///// <param name="username">The ViewedName of the User to search for</param>
-      ///// <param name="localGroup">The localgroup to search in</param>
-      ///// <returns>Whether the user is in the logalgroup</returns>
-      //      public static bool IsUserInLocalGroup(string username, string localGroup)
-      //      {
-      //         GroupPrincipal oGroupPrincipal = GetGroup(localGroup);
-      //         PrincipalSearchResult<Principal> oPrincipalSearchResult = oGroupPrincipal.GetMembers();
-      //         return oPrincipalSearchResult.Any(principal => principal.Name == username);
-      //      }
-      //
-      //      private static GroupPrincipal GetGroup(string sGroupName)
-      //      {
-      //         PrincipalContext oPrincipalContext = GetPrincipalContext();
-      //         GroupPrincipal oGroupPrincipal = GroupPrincipal.FindByIdentity(oPrincipalContext, sGroupName);
-      //         return oGroupPrincipal;
-      //      }
       /// <summary>
       ///    Loads the local PrincipalContext
       /// </summary>
@@ -423,7 +411,7 @@ namespace StorageManagementTool {
 
          return true;
       }
-
+//TODO to real emitter
       #region From https://stackoverflow.com/a/26473940/6730162 access on 30.9.2017
 
       #endregion
