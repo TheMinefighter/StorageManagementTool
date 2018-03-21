@@ -17,7 +17,7 @@ namespace StorageManagementTool {
          /// <summary>
          ///    Path to the SCHTASKS.exe
          /// </summary>
-         private static readonly string SchtasksPath = Path.Combine(Wrapper.System32Path, "SCHTASKS.exe");
+         private static readonly string SchtasksPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "SCHTASKS.exe");
 
          /// <summary>
          ///    Initalizes SSD monitoring
@@ -90,10 +90,7 @@ namespace StorageManagementTool {
          ///    Checks whether SSD monitoring has been initalized
          /// </summary>
          /// <returns>Whether SSD monitoring has been initalized</returns>
-         public static bool SSDMonitoringInitalized() {
-            bool success = SSDMonitoringInitalized(out bool enabled);
-            return success && enabled;
-         }
+         public static bool SSDMonitoringInitalized() => SSDMonitoringInitalized(out bool enabled) && enabled;
 
          /// <summary>
          ///    Checks if SSD monitoring is enabled

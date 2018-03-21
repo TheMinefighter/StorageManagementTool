@@ -121,7 +121,7 @@ namespace StorageManagementTool
             }
          }
 
-         return Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true);
+         return Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true,out _);
          //throw new NotImplementedException();
       }
 
@@ -222,7 +222,7 @@ namespace StorageManagementTool
       /// <returns></returns>
       public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize)
       {
-         string wmicPath = Path.Combine(Wrapper.System32Path, "wbem\\wmic.exe");
+         string wmicPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
          if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
          {
             MessageBox.Show(ChangePagefileSettings_MinGreaterMax,
@@ -478,7 +478,7 @@ true);
       /// <param name="enable">Whether hibernate should be enabled (true) or disabled (false) </param>
       public static void SetHibernate(bool enable)
       {
-         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "powercfg.exe"), $"/h {(enable ? "on" : "off")}",
+         Wrapper.ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "powercfg.exe"), $"/h {(enable ? "on" : "off")}",
             true, true,
             true);
       }

@@ -56,7 +56,7 @@ namespace StorageManagementTool {
          public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
             toReturn = null;
             if (asUser) {
-               if (!ExecuteExecuteable(Path.Combine(System32Path, @"reg.exe"),
+               if (!ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"reg.exe"),
                   $" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true, true, true, true,
                   true)) {
                   return false;
@@ -218,7 +218,7 @@ namespace StorageManagementTool {
                }
 
                string kind = Win32ApiRepresentation(registryValueKind);
-               if (!ExecuteExecuteable(Path.Combine(System32Path, "reg.exe"),
+               if (!ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "reg.exe"),
                       $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
                       out string[] _, out int tmpExitCode, out _, true, true, true, true, asUser) || tmpExitCode == 1) {
                   return false;

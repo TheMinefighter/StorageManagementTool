@@ -31,7 +31,7 @@ namespace StorageManagementTool.MainGUI {
 
       private void ShowFurtherSettings_btn_Click(object sender, EventArgs e) {
          {
-            Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, @"rundll32.exe"),
+            Wrapper.ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"rundll32.exe"),
                " shell32.dll,Control_RunDLL srchadmin.dll");
          }
       }

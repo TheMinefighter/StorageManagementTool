@@ -84,7 +84,7 @@ namespace StorageManagementTool.MainGUI {
 
 
       private void ExtendedPagefileOptions_btn_Click(object sender, EventArgs e) {
-         Wrapper.ExecuteExecuteable(Path.Combine(Wrapper.System32Path, "SystemPropertiesPerformance.exe"), "",
+         Wrapper.ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "SystemPropertiesPerformance.exe"), "",
             true);
          Thread.Sleep(500);
          MessageBox.Show(

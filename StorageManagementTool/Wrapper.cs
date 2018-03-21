@@ -18,16 +18,10 @@ namespace StorageManagementTool {
    ///    Contains system functionalities, which are not specific for this project
    /// </summary>
    public static partial class Wrapper {
-      
       /// <summary>
       ///    The file extensions, which are executeable as standalone
       /// </summary>
       private static readonly IEnumerable<string> ExecuteableExtensions = new[] {".exe", ".pif", ".com", ".bat", ".cmd"};
-
-      /// <summary>
-      ///    The System32 Path
-      /// </summary>
-      public static readonly string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
 
       /// <summary>
       ///    The path of the Windows Explorer
@@ -62,10 +56,11 @@ namespace StorageManagementTool {
       /// <param name="hidden">Whether the main window of this executeable (if existing) should be hidden</param>
       /// <param name="admin">Whether the file should be executed with</param>
       /// <param name="asUser"></param>
+      /// <param name="getPID"></param>
       /// <returns>Whether the operation were successfull</returns>
       public static bool ExecuteExecuteable(string filename, string parameters, out string[] returnData,
          out int exitCode, out int pid, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
-         bool admin = false, bool asUser = false, bool getPID =false) {
+         bool admin = false, bool asUser = false, bool getPID = false) {
          pid = 0;
          FileInfo toRun = new FileInfo(filename);
          exitCode = 0;
@@ -80,7 +75,7 @@ namespace StorageManagementTool {
                };
                alternativeExecuteableSel.ShowDialog();
                return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
-                  out exitCode, out pid, waitforexit: waitforexit, hidden: hidden, admin: admin, asUser: asUser);
+                  out exitCode, out pid, waitforexit: waitforexit, hidden: hidden, admin: admin, asUser: asUser, getPID: getPID);
             }
          }
 
@@ -114,14 +109,17 @@ namespace StorageManagementTool {
             startInfo.Password = tmp.Password;
             startInfo.UserName = tmp.Username;
          }
-         else {
-         }
+         else { }
 
          if (admin) {
             startInfo.Verb = "runas";
             if (!asUser) {
                startInfo.UseShellExecute = true;
             }
+         }
+
+         if (!waitforexit) {
+            process.Exited += ProcessDisposer;
          }
 
          process.StartInfo = startInfo;
@@ -146,10 +144,11 @@ namespace StorageManagementTool {
             }
          }
 
-         process.Exited += ProcessDisposer;
+
          if (getPID) {
             pid = process.Id;
          }
+
          if (waitforexit) {
             process.WaitForExit();
             if (readReturnData) {
@@ -164,7 +163,7 @@ namespace StorageManagementTool {
          return true;
       }
 
-      private static void ProcessDisposer(object emitter,EventArgs args) => ((Process) emitter).Dispose();
+      private static void ProcessDisposer(object emitter, EventArgs args) => ((Process) emitter).Dispose();
 
       public static IEnumerable<DriveInfo> getDrives() => FileSystem.Drives;
 
@@ -184,9 +183,12 @@ namespace StorageManagementTool {
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
          bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug);
 
-      public static string AddBackslahes(string source) => source
-         .Replace("\\", "\\\\")
-         .Replace("\"", "\\\"");
+      /// <summary>
+      /// Adds a Backslash for each quotation mark and backslash
+      /// </summary>
+      /// <param name="source">The string to add backslashes to</param>
+      /// <returns>The  source with backslashes</returns>
+      private static string AddBackslahes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
       /// <summary>
       ///    Checks if one Path is the parent of another
@@ -214,9 +216,9 @@ namespace StorageManagementTool {
       /// <returns>Whether the operation were successful</returns>
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
          bool waitforexit = true, bool debug = false, bool readReturnData = false) {
-         return ExecuteExecuteable(Path.Combine(System32Path, @"cmd.exe"),
-                   (debug ? " /K " : " /C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden,
-                   admin, false) && tmp == 0;
+         return ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
+                   (debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden,
+                   admin) && tmp == 0;
       }
 
       #region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
@@ -244,10 +246,9 @@ namespace StorageManagementTool {
 //         if (ExecuteCommand($"start \"{Pro cess.GetCurrentProcess().MainModule.FileName}\"{string.Join(" ", parameters.Select(x => $"\"{x}\""))}",true,false)) {
 //              Environment.Exit(0);
 //         }
-         
+
          if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ", parameters), true)) {
-            
-           Environment.Exit(0);
+            Environment.Exit(0);
          }
       }
 
@@ -354,7 +355,9 @@ namespace StorageManagementTool {
 
       #endregion
 
-      public static bool RestartComputer() => ExecuteExecuteable(Path.Combine(System32Path, "shutdown.exe"), "/R /T 1", false, true);
+      public static bool RestartComputer() =>
+         ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/R /T 1", false,
+            true);
 
       /// <summary>
       ///    Kills first all depnding ServiceControllers and then itselves
@@ -392,7 +395,8 @@ namespace StorageManagementTool {
       /// <returns>Whether the set of credentials is valid for the local machine</returns>
       public static bool TestCredentials(EnterCredentials.Credentials credentials) {
          Process pProcess = new Process {
-            StartInfo = new ProcessStartInfo(Path.Combine(System32Path, "cmd.exe"), " /C exit") {
+            StartInfo = new ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe"),
+               " /C exit") {
                WindowStyle = ProcessWindowStyle.Hidden,
                UseShellExecute = false,
                Password = new SecureString(),
@@ -411,7 +415,9 @@ namespace StorageManagementTool {
 
          return true;
       }
+
 //TODO to real emitter
+
       #region From https://stackoverflow.com/a/26473940/6730162 access on 30.9.2017
 
       #endregion
