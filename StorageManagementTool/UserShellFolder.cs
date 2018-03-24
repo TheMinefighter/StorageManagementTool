@@ -278,7 +278,7 @@ namespace StorageManagementTool {
          }
 
          if (usf.RegistryValues.All(x =>
-            Wrapper.RegistryMethods.SetRegistryValue(x, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser))) {
+            Wrapper.RegistryMethods.SetRegistryValue(x.Item2, newDir.FullName, RegistryValueKind.String, usf.AccessAsUser))) {
             if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles &&
                 (copyContents == OperatingMethods.QuestionAnswer.Yes || copyContents == OperatingMethods.QuestionAnswer.Ask &&
                  MessageBox.Show(
