@@ -18,7 +18,7 @@ namespace StorageManagementTool {
       public bool AccessAsUser;
       public string Identifier;
       private const string HKCU = "HKEY_CURRENT_USER";
-      
+
       private const string UserShellFolderRoot =
          @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders";
 
@@ -39,13 +39,13 @@ namespace StorageManagementTool {
       private const string UserTempRoot = @"HKEY_CURRENT_USER\Environment";
 
       private const string UserTempDefault = @"%USERPROFILE%\AppData\Temp";
-      
-      private const string PublicTempDefault= @"%SYSTEMROOT%\TEMP";
 
-    //  public bool isMultiuser() => 
-   //   public RegistryValue[] GetRegistryValues(bool DefaultUser = false) => RegistryValues.Select(x => x.RegistryKey = x.RegistryKey)
+      private const string PublicTempDefault = @"%SYSTEMROOT%\TEMP";
 
-      private UserShellFolder(string name, (string,RegistryValue)[] registryValues, bool moveExistingFiles = true,
+      //  public bool isMultiuser() => 
+      //   public RegistryValue[] GetRegistryValues(bool DefaultUser = false) => RegistryValues.Select(x => x.RegistryKey = x.RegistryKey)
+
+      private UserShellFolder(string name, (string, RegistryValue)[] registryValues, bool moveExistingFiles = true,
          bool accessAsUser = false, string identifier = null, string defaultValue = null) {
          if (registryValues.Length == 0) {
             throw new ArgumentException("At least one required");
@@ -56,15 +56,16 @@ namespace StorageManagementTool {
          MoveExistingFiles = moveExistingFiles;
          AccessAsUser = accessAsUser;
          Identifier = identifier ?? registryValues[0].Item2.ValueName;
-         isUserSpecific = registryValues[0].Item1==null;
+         isUserSpecific = registryValues[0].Item1 == null;
       }
 
       private static UserShellFolder NormalUSF(string name, string id, string DeltaPath, bool user = true, bool moveExistingFiles = true) {
          RegistryValue shellFolderRegistryValue = new RegistryValue(ShellFolderRoot, id);
-         if (!Wrapper.RegistryMethods.GetRegistryValue(shellFolderRegistryValue,out object shellFolderDefault)) {
+         if (!Wrapper.RegistryMethods.GetRegistryValue(shellFolderRegistryValue, out object shellFolderDefault)) {
             shellFolderDefault = null;
          }
-         (string,RegistryValue) shellFolder =((string) shellFolderDefault, shellFolderRegistryValue);
+
+         (string, RegistryValue) shellFolder = ((string) shellFolderDefault, shellFolderRegistryValue);
          UserShellFolder usf = new UserShellFolder {
             ViewedName = name,
             MoveExistingFiles = moveExistingFiles,
@@ -74,10 +75,11 @@ namespace StorageManagementTool {
          };
          if (user) {
             RegistryValue userShellFoldeRegistryValue = new RegistryValue(UserShellFolderRoot, id);
-            if (!Wrapper.RegistryMethods.GetRegistryValue(userShellFoldeRegistryValue,out object userShellFolderDefault)) {
+            if (!Wrapper.RegistryMethods.GetRegistryValue(userShellFoldeRegistryValue, out object userShellFolderDefault)) {
                userShellFolderDefault = null;
             }
-            usf.RegistryValues = new[] {shellFolder,((string) userShellFolderDefault,userShellFoldeRegistryValue) };
+
+            usf.RegistryValues = new[] {shellFolder, ((string) userShellFolderDefault, userShellFoldeRegistryValue)};
          }
          else {
             usf.RegistryValues = new[] {shellFolder};
@@ -88,12 +90,13 @@ namespace StorageManagementTool {
 
       private static UserShellFolder CommonUSF(string name, string id, string path, bool user = true, bool moveExistingFiles = true,
          bool asUser = true) {
-         (string, RegistryValue) commonShellFolder = (Environment.ExpandEnvironmentVariables(path), new RegistryValue(CommonShellFolderRooot, id));
+         (string, RegistryValue) commonShellFolder =
+            (Environment.ExpandEnvironmentVariables(path), new RegistryValue(CommonShellFolderRooot, id));
          (string, RegistryValue) commonUserShellFolder = (path, new RegistryValue(CommonUserShellFolderRoot, id));
          return new UserShellFolder {
             ViewedName = name,
             RegistryValues = user
-               ? new [] {
+               ? new[] {
                   commonShellFolder,
                   commonUserShellFolder
                }
@@ -102,7 +105,7 @@ namespace StorageManagementTool {
             Identifier = id,
             AccessAsUser = asUser,
             isUserSpecific = false,
-           };
+         };
       }
 
 
@@ -110,31 +113,33 @@ namespace StorageManagementTool {
          AllEditableUserUserShellFolders = new[] {
             #region Based upon https://support.microsoft.com/en-us/help/931087/how-to-redirect-user-shell-folders-to-a-specified-path-by-using-profil access on 22.01.2017
 
-            NormalUSF(Desktop_Name, "Desktop","Desktop"),
-            NormalUSF(Personal_Name, "Personal","Documents"),
-            NormalUSF(My_Video_Name, "My Video","Video"),
-            NormalUSF(My_Music_Name, "My Music","Music"),
-            NormalUSF(My_Pictures_Name, "My Pictures","Pictures"),
-            NormalUSF(SendTo_Name, "SendTo","Appdata\\Roaming\\Microsoft\\Windows\\SendTo"),
-            NormalUSF(Local_AppData_Name, "Local AppData","Appdata\\Local"),
-            NormalUSF(Appdata_Name, "AppData","Appdata\\Roaming"),
-            NormalUSF(Programs_Name, "Programs","Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"),
-            NormalUSF(Start_Menu_Name, "Start Menu","Appdata\\Roaming\\Microsoft\\Windows\\Start Menu"),
-            NormalUSF(Startup_Name, "Startup","Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"),
-            NormalUSF(History_Name, "History","Appdata\\Roaming\\Microsoft\\Windows\\History"),
-            NormalUSF(Favorites_Names, "Favorites","Favorites"),
-            new UserShellFolder(Fonts_Name, new []{(Environment.ExpandEnvironmentVariables("%WINDIR%\\Fonts"),new RegistryValue(ShellFolderRoot,"Fonts"))}), 
+            NormalUSF(Desktop_Name, "Desktop", "Desktop"),
+            NormalUSF(Personal_Name, "Personal", "Documents"),
+            NormalUSF(My_Video_Name, "My Video", "Video"),
+            NormalUSF(My_Music_Name, "My Music", "Music"),
+            NormalUSF(My_Pictures_Name, "My Pictures", "Pictures"),
+            NormalUSF(SendTo_Name, "SendTo", "Appdata\\Roaming\\Microsoft\\Windows\\SendTo"),
+            NormalUSF(Local_AppData_Name, "Local AppData", "Appdata\\Local"),
+            NormalUSF(Appdata_Name, "AppData", "Appdata\\Roaming"),
+            NormalUSF(Programs_Name, "Programs", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"),
+            NormalUSF(Start_Menu_Name, "Start Menu", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu"),
+            NormalUSF(Startup_Name, "Startup", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"),
+            NormalUSF(History_Name, "History", "Appdata\\Roaming\\Microsoft\\Windows\\History"),
+            NormalUSF(Favorites_Names, "Favorites", "Favorites"),
+            new UserShellFolder(Fonts_Name,
+               new[] {(Environment.ExpandEnvironmentVariables("%WINDIR%\\Fonts"), new RegistryValue(ShellFolderRoot, "Fonts"))}),
             //NormalUSF(Fonts_Name, "Fonts","", false),
-            NormalUSF(Recent_Name, "Recent","Appdata\\Roaming\\Microsoft\\Windows\\Recent"),
-            NormalUSF(Templates_Name, "Templates","Appdata\\Roaming\\Microsoft\\Windows\\Templates"),
-            NormalUSF(Administrative_Tools_Name, "Administrative Tools","Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Administrative Tools", false),
-            NormalUSF(Cookies_Name, "Cookies","Appdata\\Roaming\\Microsoft\\Windows\\INetCookies", false),
-            NormalUSF(NetHood_Name, "NetHood","Appdata\\Roaming\\Microsoft\\Windows\\Network Shortcuts", false),
-            NormalUSF(PrintHood_Name, "PrintHood","Appdata\\Roaming\\Microsoft\\Windows\\Printer Shortcuts", false),
-            NormalUSF(Cache_Name, "Cache","Appdata\\Roaming\\Microsoft\\Windows\\INetCache", false),
-            NormalUSF(CD_Burning_Name, "CD Burning","Appdata\\Roaming\\Microsoft\\Windows\\Burn\\Burn", false),
-            NormalUSF(Downloads_Name, "{374DE290-123F-4565-9164-39C4925E467B}","Downloads"),
-            NormalUSF(Libraries_Name, "{1B3EA5DC-B587-4786-B4EF-BD1DC332AEAE}","Appdata\\Roaming\\Microsoft\\Windows\\Libraries", false),
+            NormalUSF(Recent_Name, "Recent", "Appdata\\Roaming\\Microsoft\\Windows\\Recent"),
+            NormalUSF(Templates_Name, "Templates", "Appdata\\Roaming\\Microsoft\\Windows\\Templates"),
+            NormalUSF(Administrative_Tools_Name, "Administrative Tools",
+               "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Administrative Tools", false),
+            NormalUSF(Cookies_Name, "Cookies", "Appdata\\Roaming\\Microsoft\\Windows\\INetCookies", false),
+            NormalUSF(NetHood_Name, "NetHood", "Appdata\\Roaming\\Microsoft\\Windows\\Network Shortcuts", false),
+            NormalUSF(PrintHood_Name, "PrintHood", "Appdata\\Roaming\\Microsoft\\Windows\\Printer Shortcuts", false),
+            NormalUSF(Cache_Name, "Cache", "Appdata\\Roaming\\Microsoft\\Windows\\INetCache", false),
+            NormalUSF(CD_Burning_Name, "CD Burning", "Appdata\\Roaming\\Microsoft\\Windows\\Burn\\Burn", false),
+            NormalUSF(Downloads_Name, "{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"),
+            NormalUSF(Libraries_Name, "{1B3EA5DC-B587-4786-B4EF-BD1DC332AEAE}", "Appdata\\Roaming\\Microsoft\\Windows\\Libraries", false),
 
             #endregion
 
@@ -150,7 +155,9 @@ namespace StorageManagementTool {
             CommonUSF(Common_Templates_Name, "Common Templates", "%PROGRAMDATA%\\Microsoft\\Windows\\Templates"),
             CommonUSF(Common_Start_Menu_Name, "Common Start Menu", "%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu"),
             CommonUSF(OEM_Links_Name, "OEM Links", "%PROGRAMDATA%\\OEM\\Links", false, true, true),
-            CommonUSF(Common_Administrative_Tools_Name, "Common Administrative Tools", "%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Administartive Tools",  false),
+            CommonUSF(Common_Administrative_Tools_Name, "Common Administrative Tools",
+               "%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Administartive Tools", false),
+            //TODO Add all CLSID Paths
             //No real USF
             //TODO Readd with commons
 //            new UserShellFolder(ProgramFilesDir_x86_Name,
@@ -165,12 +172,17 @@ namespace StorageManagementTool {
             new UserShellFolder {
                Identifier = "PrivateTemp",
                AccessAsUser = false,
-               RegistryValues = new (string, RegistryValue)[] {(UserTempDefault, new RegistryValue(UserTempRoot, "TEMP")),(UserTempRoot, new RegistryValue(UserTempRoot, "TMP"))},
+               RegistryValues = new (string, RegistryValue)[]
+                  {(UserTempDefault, new RegistryValue(UserTempRoot, "TEMP")), (UserTempRoot, new RegistryValue(UserTempRoot, "TMP"))},
                MoveExistingFiles = false,
                ViewedName = PrivateTemp,
                isUserSpecific = true
             },
-            new UserShellFolder(PublicTemp, new [] { (PublicTempDefault, new RegistryValue(PublicTempRoot, "TEMP")), (PublicTempDefault, new RegistryValue(PublicTempRoot, "TMP"))},
+            new UserShellFolder(PublicTemp,
+               new[] {
+                  (PublicTempDefault, new RegistryValue(PublicTempRoot, "TEMP")),
+                  (PublicTempDefault, new RegistryValue(PublicTempRoot, "TMP"))
+               },
                false, true, "PublicTemp")
          };
       }
@@ -243,7 +255,7 @@ namespace StorageManagementTool {
             if (moveAll || move) {
                string newPathOfChild = Path.Combine(newDir.FullName,
                   child.Value.FullName.Substring(currentPath.FullName.Length));
-               foreach (RegistryValue x in child.Key.RegistryValues.Select(x=>x.Item2)) {
+               foreach (RegistryValue x in child.Key.RegistryValues.Select(x => x.Item2)) {
                   bool retry;
                   bool skip = false;
                   do {
@@ -287,7 +299,25 @@ namespace StorageManagementTool {
                     MessageBoxDefaultButton.Button1) ==
                  DialogResult.Yes)) {
                if (Wrapper.FileAndFolder.MoveDirectory(oldDir, newDir)) {
-                  Wrapper.FileAndFolder.DeleteDirectory(oldDir, true, false);
+                  string defaultDirectory = usf.RegistryValues[0].Item1;
+                  if (defaultDirectory == null) {
+                     MessageBox.Show(Error);
+                     return false;
+                  }
+
+                  DirectoryInfo defaultDirectoryInfo = new DirectoryInfo(Environment.ExpandEnvironmentVariables(defaultDirectory));
+                  if (defaultDirectoryInfo.FullName != oldDir.FullName) {
+                     if (defaultDirectoryInfo.Exists) {
+                        Wrapper.FileAndFolder.DeleteDirectory(defaultDirectoryInfo);
+                     }
+
+                     Wrapper.ExecuteCommand($"mklink /D \"{defaultDirectoryInfo.FullName}\\\" \"{newDir.FullName}\"", true, true);
+                  }
+
+                  if (oldDir.Exists) {
+                     Wrapper.FileAndFolder.DeleteDirectory(oldDir, true, false);
+                  }
+
                   Wrapper.ExecuteCommand($"mklink /D \"{oldDir.FullName}\\\" \"{newDir.FullName}\"", true, true);
                }
             }
