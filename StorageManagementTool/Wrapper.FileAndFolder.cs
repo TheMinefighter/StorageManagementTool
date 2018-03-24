@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
@@ -94,6 +95,10 @@ namespace StorageManagementTool {
             try {
                FileSystem.MoveDirectory(toMove.FullName, destination.FullName, UIOption.AllDialogs);
             }
+            catch (OperationCanceledException) {
+               return true;
+            }
+            
             catch (Exception) {
                return false;
             }

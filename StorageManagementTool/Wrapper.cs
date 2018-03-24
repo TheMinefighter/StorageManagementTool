@@ -179,12 +179,14 @@ namespace StorageManagementTool {
       /// <param name="waitforexit">
       ///    Whether to wait until the command execution completed
       /// </param>
+      /// <param name="asUser"></param>
       /// <param name="debug">
       ///    Whether to run the command in debug mode
       /// </param>
       /// <returns>Whether the operation were successful</returns>
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
-         bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug);
+         bool asUser = false,
+         bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug,asUser);
 
       /// <summary>
       /// Adds a Backslash for each quotation mark and backslash
@@ -218,10 +220,10 @@ namespace StorageManagementTool {
       /// <param name="readReturnData">Whether to read the output of the Application</param>
       /// <returns>Whether the operation were successful</returns>
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
-         bool waitforexit = true, bool debug = false, bool readReturnData = false) {
+         bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser=false) {
          return ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
                    (debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden,
-                   admin) && tmp == 0;
+                   admin,asUser) && tmp == 0;
       }
 
       #region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017

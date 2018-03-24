@@ -44,6 +44,7 @@ namespace StorageManagementTool {
 
       //  public bool isMultiuser() => 
       //   public RegistryValue[] GetRegistryValues(bool DefaultUser = false) => RegistryValues.Select(x => x.RegistryKey = x.RegistryKey)
+      public override string ToString() => Identifier;
 
       private UserShellFolder(string name, (string, RegistryValue)[] registryValues, bool moveExistingFiles = true,
          bool accessAsUser = false, string identifier = null, string defaultValue = null) {
@@ -61,11 +62,8 @@ namespace StorageManagementTool {
 
       private static UserShellFolder NormalUSF(string name, string id, string DeltaPath, bool user = true, bool moveExistingFiles = true) {
          RegistryValue shellFolderRegistryValue = new RegistryValue(ShellFolderRoot, id);
-         if (!Wrapper.RegistryMethods.GetRegistryValue(shellFolderRegistryValue, out object shellFolderDefault)) {
-            shellFolderDefault = null;
-         }
 
-         (string, RegistryValue) shellFolder = ((string) shellFolderDefault, shellFolderRegistryValue);
+         (string, RegistryValue) shellFolder = (Environment.ExpandEnvironmentVariables("%USERPROFILE%\\") + DeltaPath, shellFolderRegistryValue);
          UserShellFolder usf = new UserShellFolder {
             ViewedName = name,
             MoveExistingFiles = moveExistingFiles,
@@ -73,17 +71,7 @@ namespace StorageManagementTool {
 
             isUserSpecific = true
          };
-         if (user) {
-            RegistryValue userShellFoldeRegistryValue = new RegistryValue(UserShellFolderRoot, id);
-            if (!Wrapper.RegistryMethods.GetRegistryValue(userShellFoldeRegistryValue, out object userShellFolderDefault)) {
-               userShellFolderDefault = null;
-            }
-
-            usf.RegistryValues = new[] {shellFolder, ((string) userShellFolderDefault, userShellFoldeRegistryValue)};
-         }
-         else {
-            usf.RegistryValues = new[] {shellFolder};
-         }
+         usf.RegistryValues = user ? new[] {shellFolder, ("%USERPROFILE%\\" + DeltaPath, new RegistryValue(UserShellFolderRoot, id))} : new[] {shellFolder};
 
          return usf;
       }
@@ -298,7 +286,7 @@ namespace StorageManagementTool {
                     OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
                     MessageBoxDefaultButton.Button1) ==
                  DialogResult.Yes)) {
-               if (Wrapper.FileAndFolder.MoveDirectory(oldDir, newDir)) {
+               if (!oldDir.Exists||oldDir.GetFileSystemInfos().Length==0|| Wrapper.FileAndFolder.MoveDirectory(oldDir, newDir)) {
                   string defaultDirectory = usf.RegistryValues[0].Item1;
                   if (defaultDirectory == null) {
                      MessageBox.Show(Error);
@@ -308,7 +296,7 @@ namespace StorageManagementTool {
                   DirectoryInfo defaultDirectoryInfo = new DirectoryInfo(Environment.ExpandEnvironmentVariables(defaultDirectory));
                   if (defaultDirectoryInfo.FullName != oldDir.FullName) {
                      if (defaultDirectoryInfo.Exists) {
-                        Wrapper.FileAndFolder.DeleteDirectory(defaultDirectoryInfo);
+                        Wrapper.FileAndFolder.DeleteDirectory(defaultDirectoryInfo,true,false);
                      }
 
                      Wrapper.ExecuteCommand($"mklink /D \"{defaultDirectoryInfo.FullName}\\\" \"{newDir.FullName}\"", true, true);
