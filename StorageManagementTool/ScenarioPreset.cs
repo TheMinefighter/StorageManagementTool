@@ -61,7 +61,7 @@ namespace StorageManagementTool {
          DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
          foreach (KeyValuePair<string, string> currentPair in usfToMove) {
             UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
-            OperatingMethods.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+            UserShellFolder.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
                moving,
                OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
          }
@@ -74,7 +74,7 @@ namespace StorageManagementTool {
          DirectoryInfo commonDir = baseDir.CreateSubdirectory("Common Data");
          foreach (KeyValuePair<string, string> currentPair in csfToMove) {
             UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
-            OperatingMethods.ChangeUserShellFolder(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
+            UserShellFolder.ChangeUserShellFolder(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
                moving,
                OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
          }
@@ -111,7 +111,7 @@ namespace StorageManagementTool {
          DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
          foreach (KeyValuePair<string, string> currentPair in usfToMove) {
             UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
-            OperatingMethods.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+            UserShellFolder.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
                moving,
                OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
          }

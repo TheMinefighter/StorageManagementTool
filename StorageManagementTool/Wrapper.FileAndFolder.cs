@@ -32,9 +32,9 @@ namespace StorageManagementTool {
          /// <param name="toBeDeleted">The Folder to delete</param>
          /// <param name="deletePermanent">Whether the Folder should be deleted permanently</param>
          /// <returns>Whether the operation were sucessful</returns>
-         public static bool DeleteDirectory(DirectoryInfo toBeDeleted, bool deletePermanent = true) {
+         public static bool DeleteDirectory(DirectoryInfo toBeDeleted, bool deletePermanent = true, bool ask = true) {
             try {
-               FileSystem.DeleteDirectory(toBeDeleted.FullName, UIOption.AllDialogs,
+               FileSystem.DeleteDirectory(toBeDeleted.FullName,ask? UIOption.AllDialogs: UIOption.OnlyErrorDialogs,
                   deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
             }
             catch (Exception) {

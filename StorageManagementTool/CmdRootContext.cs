@@ -74,7 +74,7 @@ namespace StorageManagementTool {
          public static void GetSendTo() {
             bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
             ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
-            ConsoleIO.WriteLine($"SendTo feature is {(isSendToHddEnabled ? "" : "not")} enabled");
+            ConsoleIO.WriteLine($"SendTo feature is{(isSendToHddEnabled ? "" : " not")} enabled");
          }
       }
    }

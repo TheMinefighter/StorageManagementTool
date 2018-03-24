@@ -29,6 +29,9 @@ namespace StorageManagementTool {
       public static readonly string ExplorerPath =
          Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
+
+  //    public static (T1, T2) ToDirectTouple<T1, T2>(this Tuple<T1, T2> myTuple) => (myTuple.Item1, myTuple.Item2);
+
       /// <summary>
       ///    Executes an executeable
       /// </summary>

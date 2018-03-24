@@ -98,7 +98,7 @@ namespace StorageManagementTool.MainGUI {
             return;
          }
 
-         if (OperatingMethods.ChangeUserShellFolder(new DirectoryInfo(CurrentUSFPath_tb.Text),
+         if (UserShellFolder.ChangeUserShellFolder(new DirectoryInfo(CurrentUSFPath_tb.Text),
             new DirectoryInfo(NewUSFPath_tb.Text),
             UserShellFolder.AllEditableUserUserShellFolders[ExistingUSF_lb.SelectedIndex])) {
             RefreshUSF();
