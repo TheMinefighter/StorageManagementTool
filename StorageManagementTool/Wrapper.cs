@@ -122,7 +122,7 @@ namespace StorageManagementTool {
          }
 
          if (!waitforexit) {
-            process.Exited += ProcessDisposer;
+            process.Exited += (emitter, args) => ((Process) emitter).Dispose();
          }
 
          process.StartInfo = startInfo;
@@ -165,8 +165,6 @@ namespace StorageManagementTool {
 
          return true;
       }
-
-      private static void ProcessDisposer(object emitter, EventArgs args) => ((Process) emitter).Dispose();
 
       public static IEnumerable<DriveInfo> getDrives() => FileSystem.Drives;
 
