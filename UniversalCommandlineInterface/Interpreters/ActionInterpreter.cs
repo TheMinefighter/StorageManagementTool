@@ -6,8 +6,8 @@ using System.Reflection;
 using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface.Interpreters {
-   public class ActionInterpreter : BaseInterpreter {
-      private bool _loaded;
+   public class ActionInterpreter : BaseInterpreter ,IDisposable {
+      private bool _cached;
       public CmdActionAttribute MyActionAttribute;
       private IEnumerable<CmdParameterAttribute> parameters;
 
@@ -22,9 +22,9 @@ namespace UniversalCommandlineInterface.Interpreters {
       }
 
       internal void LoadParameters() {
-         if (!_loaded) {
+         if (!_cached) {
             LoadParametersWithoutCache();
-            _loaded = true;
+            _cached = true;
          }
       }
 
@@ -263,6 +263,11 @@ namespace UniversalCommandlineInterface.Interpreters {
          aliasType = null;
          value = null;
          return false;
+      }
+
+      public void Dispose() {
+         _cached = false;
+         MyActionAttribute = null;
       }
    }
 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Attributes\CmdConfigurationValueAttribute.cs" />
     <Compile Include="Attributes\CmdContextAttribute.cs" />
+    <Compile Include="Attributes\CmdDefaultActionAttribute.cs" />
     <Compile Include="Attributes\CmdParameterAliasAttribute.cs" />
     <Compile Include="Attributes\CmdParameterAttribute.cs" />
     <Compile Include="Attributes\CmdActionAttribute.cs" />
@@ -50,10 +51,12 @@
     <Compile Include="CommandlineMethods.cs" />
     <Compile Include="CommandlineParameterAlias.cs" />
     <Compile Include="ConsoleIO.cs" />
+    <Compile Include="ContextAction.cs" />
+    <Compile Include="ContextDefaultAction.cs" />
     <Compile Include="Interpreters\ActionInterpreter.cs" />
     <Compile Include="Interpreters\BaseInterpreter.cs" />
     <Compile Include="Interpreters\CommandlineOptionInterpreter.cs" />
-    <Compile Include="Interpreters\ConfigurationContextInterpreter.cs" />
+    <Compile Include="Interpreters\ConfigurationNamespaceInterpreter.cs" />
     <Compile Include="Interpreters\ContextInterpreter.cs" />
     <Compile Include="Interpreters\ManagedConfigurationInterpreter.cs" />
     <Compile Include="InterpretingOptions.cs" />

@@ -162,6 +162,9 @@ namespace StorageManagementTool {
          }
 
          #endregion
+
+         public static bool CreateFolderSymlink(DirectoryInfo dir, DirectoryInfo newLocation) => Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+         public static bool CreateFileSymlink(FileInfo file, FileInfo newLocation) => Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true,out _);
       }
    }
 }

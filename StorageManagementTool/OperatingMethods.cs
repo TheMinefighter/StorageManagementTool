@@ -77,7 +77,7 @@ namespace StorageManagementTool
             }
          }
 
-         return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+         return Wrapper.FileAndFolder.CreateFolderSymlink(dir, newLocation);
       }
 
       /// <summary>
@@ -121,7 +121,7 @@ namespace StorageManagementTool
             }
          }
 
-         return Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true,out _);
+         return Wrapper.FileAndFolder.CreateFileSymlink(file, newLocation);
          //throw new NotImplementedException();
       }
 

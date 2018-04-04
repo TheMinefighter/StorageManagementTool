@@ -10,7 +10,7 @@ namespace UniversalCommandlineInterface.Attributes {
       public IList<CmdActionAttribute> ctxActions = new List<CmdActionAttribute>();
       public IList<CmdParameterAttribute> ctxParameters = new List<CmdParameterAttribute>();
       public TypeInfo MyInfo;
-
+      public ContextDefaultAction defaultAction;
       public string Name;
       public IList<CmdContextAttribute> subCtx = new List<CmdContextAttribute>();
 
