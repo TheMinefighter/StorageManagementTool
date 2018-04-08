@@ -7,6 +7,7 @@ namespace StorageManagementTool {
       public bool shouldBeEdited;
       public Guid WindowsIdentifier;
       public string Name;
+      public bool Undefined;
       public string LocalizedName;
       public string DefaultValue;
       public bool IsUserSpecific;
@@ -14,41 +15,44 @@ namespace StorageManagementTool {
       public static AdvancedUserShellFolder GetUSF(string name) => AllUSF.First(x => x.Name == name);
       public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier) => AllUSF.First(x => x.WindowsIdentifier == windowsIdentifier);
       
-      public static void LoadUSF() {AllUSF=new AdvancedUserShellFolder[] {
-        new AdvancedUserShellFolder{Name="AddNewPrograms",WindowsIdentifier= new Guid("de61d971-5ebc-4f02-a3a9-6c82895e5c04")},
-         new AdvancedUserShellFolder{Name="AdminTools",WindowsIdentifier= new Guid("724EF170-A42D-4FEF-9F26-B60E846FBA4F")},
-         new AdvancedUserShellFolder{Name="AppUpdates",WindowsIdentifier= new Guid("a305ce99-f527-492b-8b1a-7e76fa98d6e4")},
-         new AdvancedUserShellFolder{Name="CDBurning",WindowsIdentifier= new Guid("9E52AB10-F80D-49DF-ACB8-4330F5687855")},
-         new AdvancedUserShellFolder{Name="ChangeRemovePrograms",WindowsIdentifier= new Guid("df7266ac-9274-4867-8d55-3bd661de872d")},
+      public static void LoadUSF() {
+         string systemDrive = Environment.GetEnvironmentVariable("systemdrive");
+         string userDir = Environment.GetEnvironmentVariable("userprofile");
+         AllUSF=new AdvancedUserShellFolder[] {
+        new AdvancedUserShellFolder{Name="AddNewPrograms",WindowsIdentifier= new Guid("de61d971-5ebc-4f02-a3a9-6c82895e5c04"),Undefined = true},
+         new AdvancedUserShellFolder{Name="AdminTools",WindowsIdentifier= new Guid("724EF170-A42D-4FEF-9F26-B60E846FBA4F"),IsUserSpecific = true},
+         new AdvancedUserShellFolder{Name="AppUpdates",WindowsIdentifier= new Guid("a305ce99-f527-492b-8b1a-7e76fa98d6e4"),Undefined = true},
+         new AdvancedUserShellFolder{Name="CDBurning",WindowsIdentifier= new Guid("9E52AB10-F80D-49DF-ACB8-4330F5687855"),IsUserSpecific = true},
+         new AdvancedUserShellFolder{Name="ChangeRemovePrograms",WindowsIdentifier= new Guid("df7266ac-9274-4867-8d55-3bd661de872d"),Undefined = true},
          new AdvancedUserShellFolder{Name="CommonAdminTools",WindowsIdentifier= new Guid("D0384E7D-BAC3-4797-8F14-CBA229B392B5")},
          new AdvancedUserShellFolder{Name="CommonOEMLinks",WindowsIdentifier= new Guid("C1BAE2D0-10DF-4334-BEDD-7AA20B227A9D")},
          new AdvancedUserShellFolder{Name="CommonPrograms",WindowsIdentifier= new Guid("0139D44E-6AFE-49F2-8690-3DAFCAE6FFB8")},
          new AdvancedUserShellFolder{Name="CommonStartMenu",WindowsIdentifier= new Guid("A4115719-D62E-491D-AA7C-E74B8BE3B067")},
          new AdvancedUserShellFolder{Name="CommonStartup",WindowsIdentifier= new Guid("82A5EA35-D9CD-47C5-9629-E15D2F714E6E")},
          new AdvancedUserShellFolder{Name="CommonTemplates",WindowsIdentifier= new Guid("B94237E7-57AC-4347-9151-B08C6C32D1F7")},
-         new AdvancedUserShellFolder{Name="ComputerFolder",WindowsIdentifier= new Guid("0AC0837C-BBF8-452A-850D-79D08E667CA7")},
-         new AdvancedUserShellFolder{Name="ConflictFolder",WindowsIdentifier= new Guid("4bfefb45-347d-4006-a5be-ac0cb0567192")},
-         new AdvancedUserShellFolder{Name="ConnectionsFolder",WindowsIdentifier= new Guid("6F0CD92B-2E97-45D1-88FF-B0D186B8DEDD")},
+         new AdvancedUserShellFolder{Name="ComputerFolder",WindowsIdentifier= new Guid("0AC0837C-BBF8-452A-850D-79D08E667CA7"),Undefined = true},
+         new AdvancedUserShellFolder{Name="ConflictFolder",WindowsIdentifier= new Guid("4bfefb45-347d-4006-a5be-ac0cb0567192"),Undefined = true},
+         new AdvancedUserShellFolder{Name="ConnectionsFolder",WindowsIdentifier= new Guid("6F0CD92B-2E97-45D1-88FF-B0D186B8DEDD"),Undefined = true},
          new AdvancedUserShellFolder{Name="Contacts",WindowsIdentifier= new Guid("56784854-C6CB-462b-8169-88E350ACB882")},
-         new AdvancedUserShellFolder{Name="ControlPanelFolder",WindowsIdentifier= new Guid("82A74AEB-AEB4-465C-A014-D097EE346D63")},
+         new AdvancedUserShellFolder{Name="ControlPanelFolder",WindowsIdentifier= new Guid("82A74AEB-AEB4-465C-A014-D097EE346D63"),Undefined = true},
          new AdvancedUserShellFolder{Name="Cookies",WindowsIdentifier= new Guid("2B0F765D-C0E9-4171-908E-08A611B84FF6")},
          new AdvancedUserShellFolder{Name="Desktop",WindowsIdentifier= new Guid("B4BFCC3A-DB2C-424C-B029-7FE99A87C641")},
          new AdvancedUserShellFolder{Name="Documents",WindowsIdentifier= new Guid("FDD39AD0-238F-46AF-ADB4-6C85480369C7")},
          new AdvancedUserShellFolder{Name="Downloads",WindowsIdentifier= new Guid("374DE290-123F-4565-9164-39C4925E467B")},
          new AdvancedUserShellFolder{Name="Favorites",WindowsIdentifier= new Guid("1777F761-68AD-4D8A-87BD-30B759FA33DD")},
          new AdvancedUserShellFolder{Name="Fonts",WindowsIdentifier= new Guid("FD228CB7-AE11-4AE3-864C-16F3910AB8FE")},
-         new AdvancedUserShellFolder{Name="Games",WindowsIdentifier= new Guid("CAC52C1A-B53D-4edc-92D7-6B2E8AC19434")},
+         new AdvancedUserShellFolder{Name="Games",WindowsIdentifier= new Guid("CAC52C1A-B53D-4edc-92D7-6B2E8AC19434"),Undefined = true},
          new AdvancedUserShellFolder{Name="GameTasks",WindowsIdentifier= new Guid("054FAE61-4DD8-4787-80B6-090220C4B700")},
          new AdvancedUserShellFolder{Name="History",WindowsIdentifier= new Guid("D9DC8A3B-B784-432E-A781-5A1130A75963")},
          new AdvancedUserShellFolder{Name="InternetCache",WindowsIdentifier= new Guid("352481E8-33BE-4251-BA85-6007CAEDCF9D")},
-         new AdvancedUserShellFolder{Name="InternetFolder",WindowsIdentifier= new Guid("4D9F7874-4E0C-4904-967B-40B0D20C3E4B")},
+         new AdvancedUserShellFolder{Name="InternetFolder",WindowsIdentifier= new Guid("4D9F7874-4E0C-4904-967B-40B0D20C3E4B"),Undefined = true},
          new AdvancedUserShellFolder{Name="Links",WindowsIdentifier= new Guid("bfb9d5e0-c6a9-404c-b2b2-ae6db6af4968")},
          new AdvancedUserShellFolder{Name="LocalAppData",WindowsIdentifier= new Guid("F1B32785-6FBA-4FCF-9D55-7B8E7F157091")},
          new AdvancedUserShellFolder{Name="LocalAppDataLow",WindowsIdentifier= new Guid("A520A1A4-1780-4FF6-BD18-167343C5AF16")},
-         new AdvancedUserShellFolder{Name="LocalizedResourcesDir",WindowsIdentifier= new Guid("2A00375E-224C-49DE-B8D1-440DF7EF3DDC")},
+         new AdvancedUserShellFolder{Name="LocalizedResourcesDir",WindowsIdentifier= new Guid("2A00375E-224C-49DE-B8D1-440DF7EF3DDC"),Undefined = true},
          new AdvancedUserShellFolder{Name="Music",WindowsIdentifier= new Guid("4BD8D571-6D19-48D3-BE97-422220080E43")},
          new AdvancedUserShellFolder{Name="NetHood",WindowsIdentifier= new Guid("C5ABBF53-E17F-4121-8900-86626FC2C973")},
-         new AdvancedUserShellFolder{Name="NetworkFolder",WindowsIdentifier= new Guid("D20BEEC4-5CA8-4905-AE3B-BF251EA09B53")},
+         new AdvancedUserShellFolder{Name="NetworkFolder",WindowsIdentifier= new Guid("D20BEEC4-5CA8-4905-AE3B-BF251EA09B53"),Undefined = true},
          new AdvancedUserShellFolder{Name="OriginalImages",WindowsIdentifier= new Guid("2C36C0AA-5812-4b87-BFD0-4CD0DFB19B39")},
          new AdvancedUserShellFolder{Name="PhotoAlbums",WindowsIdentifier= new Guid("69D2CF90-FC33-4FB7-9A0C-EBB0F0FCB43C")},
          new AdvancedUserShellFolder{Name="Pictures",WindowsIdentifier= new Guid("33E28130-4E1E-4676-835A-98395C3BC3BB")},

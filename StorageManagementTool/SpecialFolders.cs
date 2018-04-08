@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -199,6 +201,7 @@ namespace StorageManagementTool {
       //      Console .WriteLine("SpecialFolder: " + sf + "\n  Path: " + GetSpecialFolderPath(sf.WindowsIdentifier) + "\n");
          }
 
+     File.WriteAllText(Environment.CurrentDirectory+"\\Data.txt",sb.ToString());
          string s = sb.ToString();
       }
 
