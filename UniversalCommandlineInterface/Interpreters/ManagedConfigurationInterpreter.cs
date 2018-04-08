@@ -7,14 +7,15 @@ using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface.Interpreters {
    public class ManagedConfigurationInterpreter : BaseInterpreter {
+      private string _configurationRootName;
+      private string[] _contextTrace;
       private Dictionary<CmdConfigurationNamespaceAttribute, MemberInfo> _namespaces;
+      private bool _rootRequired;
       private Dictionary<CmdConfigurationValueAttribute, MemberInfo> _values;
 
-      protected ManagedConfigurationInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) {
-      }
+      protected ManagedConfigurationInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) { }
 
-      protected ManagedConfigurationInterpreter(BaseInterpreter parent, string name, int offset = 0) : base(parent, name, offset) {
-      }
+      protected ManagedConfigurationInterpreter(BaseInterpreter parent, string name, int offset = 0) : base(parent, name, offset) { }
 
       internal override void PrintHelp() {
          int maxlength =
@@ -34,11 +35,21 @@ namespace UniversalCommandlineInterface.Interpreters {
 
 
       internal override bool Interpret(bool printErrors = true) {
-         if (IsParameterEqual("?", TopInterpreter.Args[Offset])) {
-            PrintHelp();
+         if (Offset == TopInterpreter.Args.Length || IsParameterEqual("?", TopInterpreter.Args[Offset])) {
+            if (printErrors) {
+               PrintHelp();
+            }
+            else {
+               return false;
+            }
          }
 
-         throw new NotImplementedException();
+         _contextTrace = TopInterpreter.Args[Offset].Split('.').Select(x => x.ToLower()).ToArray();
+         if (_rootRequired) {
+            if (_contextTrace[0].Equals(_configurationRootName, StringComparison.OrdinalIgnoreCase)) { }
+         }
+
+         return true;
       }
    }
 }

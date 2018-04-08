@@ -22,8 +22,7 @@ namespace UniversalCommandlineInterface.Interpreters {
          }
       }
 
-      private BaseInterpreter() {
-      }
+      private BaseInterpreter() { }
 
       protected BaseInterpreter(CommandlineOptionInterpreter top, int offset = 0) {
          Offset = offset;

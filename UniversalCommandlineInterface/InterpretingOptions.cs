@@ -5,10 +5,11 @@
          PreferredArgumentPrefix = '/'
       };
 
-      public ContextDefaultAction StandardDefaultAction;
       public bool IgnoreParameterCase = true;
       public string InteractiveOption = "Interactive";
       public char PreferredArgumentPrefix = '/';
       public string RootName = ".";
+
+      public ContextDefaultAction StandardDefaultAction;
    }
 }

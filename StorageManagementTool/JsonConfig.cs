@@ -96,8 +96,7 @@ namespace StorageManagementTool {
             /// </summary>
             public string TargetPath;
 
-            public MonitoredFolder() {
-            }
+            public MonitoredFolder() { }
 
             /// <summary>
             ///    Creates a new MonitoredFolder object with a given target targetPath

@@ -7,31 +7,25 @@ using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static StorageManagementTool.MainGUI.GlobalizationRessources.MainWindowStrings;
 
-namespace StorageManagementTool.MainGUI
-{
-   public partial class MainWindow : Form
-   {
-      public MainWindow()
-      {
+namespace StorageManagementTool.MainGUI {
+   public partial class MainWindow : Form {
+      public MainWindow() {
          InitializeComponent();
       }
 
 
-      private void SetRootPath_btn_Click(object sender, EventArgs e)
-      {
+      private void SetRootPath_btn_Click(object sender, EventArgs e) {
          HDDPath_fbd.ShowDialog();
          HDDSavePath_tb.Text = HDDPath_fbd.SelectedPath;
       }
 
-      private void MainWindow_Load(object sender, EventArgs e)
-      {
+      private void MainWindow_Load(object sender, EventArgs e) {
          LoadUIStrings();
          //string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
          //WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
          HDDSavePath_tb.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
          IEnumerable<string> rec = OperatingMethods.GetRecommendedPaths();
-         foreach (string item in rec)
-         {
+         foreach (string item in rec) {
             Suggestion_lb.Items.Add(item);
          }
 
@@ -45,8 +39,7 @@ namespace StorageManagementTool.MainGUI
       /// <summary>
       ///    Loads UI strings from culture sepcific ressource file
       /// </summary>
-      private void LoadUIStrings()
-      {
+      private void LoadUIStrings() {
          AdministratorSettings_gb.Text = AdministratorSettings_gb_Text;
          ApplyPresetDialog_btn.Text = ApplyPresetDialog_btn_Text;
          CustomFolderOrFileSelection_gb.Text = CustomFolderOrFileSelection_gb_Text;
@@ -71,64 +64,52 @@ namespace StorageManagementTool.MainGUI
       /// <summary>
       ///    Enables/Disables/Changes components when needed to prevent illegal actions
       /// </summary>
-      private void EnableComponents()
-      {
-         if (OperatingMethods.IsSendToHDDEnabled())
-         {
+      private void EnableComponents() {
+         if (OperatingMethods.IsSendToHDDEnabled()) {
             SetSendToHDD_btn.Text = DisableSendToHDD;
          }
-         else
-         {
+         else {
             SetSendToHDD_btn.Text = EnableSendToHDD;
             SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
          }
       }
 
-      private void SetSendToHDD_btn_Click(object sender, EventArgs e)
-      {
+      private void SetSendToHDD_btn_Click(object sender, EventArgs e) {
          OperatingMethods.EnableSendToHDD(SetSendToHDD_btn.Text == EnableSendToHDD);
          EnableComponents();
       }
 
-      private void Suggestion_lb_SelectedIndexChanged(object sender, EventArgs e)
-      {
+      private void Suggestion_lb_SelectedIndexChanged(object sender, EventArgs e) {
          FolderToMove_tb.Text = Suggestion_lb.SelectedItem.ToString();
       }
 
-      private void OpenSelectedFolder_btn_Click(object sender, EventArgs e)
-      {
+      private void OpenSelectedFolder_btn_Click(object sender, EventArgs e) {
          Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, FolderToMove_tb.Text, false, false, false);
       }
 
-      private void RestartAsAdministartor_btn_Click(object sender, EventArgs e)
-      {
+      private void RestartAsAdministartor_btn_Click(object sender, EventArgs e) {
          Wrapper.RestartAsAdministrator();
       }
 
-      private void FileToMoveSel_btn_Click(object sender, EventArgs e)
-      {
+      private void FileToMoveSel_btn_Click(object sender, EventArgs e) {
          FileToMove_ofd.ShowDialog();
          FileToMovePath_tb.Text = FileToMove_ofd.FileName;
       }
 
-      private void FolderToMove_btn_Click(object sender, EventArgs e)
-      {
-         var dlg = new CommonOpenFileDialog("Test");
+      private void FolderToMove_btn_Click(object sender, EventArgs e) {
+         CommonOpenFileDialog dlg = new CommonOpenFileDialog("Test");
          dlg.IsFolderPicker = true;
          dlg.ShowDialog();
-         FolderToMove_tb.Text= dlg.FileName;
+         FolderToMove_tb.Text = dlg.FileName;
          //FolderToMove_fbd.ShowDialog();
          //FolderToMove_tb.Text = FolderToMove_fbd.SelectedPath;
       }
 
-      private void MoveFolder_btn_Click(object sender, EventArgs e)
-      {
-         if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
-         {
+      private void MoveFolder_btn_Click(object sender, EventArgs e) {
+         if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "") {
             if (MessageBox.Show(
                    MoveFolder_NoNewPath,
-                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
+                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
                SetRootPath_btn_Click(null, null);
                MoveFolder_btn_Click(null, null);
             }
@@ -136,11 +117,9 @@ namespace StorageManagementTool.MainGUI
             return;
          }
 
-         if (FolderToMove_tb.Text == "")
-         {
+         if (FolderToMove_tb.Text == "") {
             if (MessageBox.Show(MoveFolder_FolderPathEmpty, Error,
-                   MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
                FolderToMove_btn_Click(null, null);
                MoveFolder_btn_Click(null, null);
             }
@@ -155,20 +134,16 @@ namespace StorageManagementTool.MainGUI
          FolderToMove_tb.Text = "";
          Suggestion_lb.Items.Clear();
          IEnumerable<string> rec = OperatingMethods.GetRecommendedPaths();
-         foreach (string item in rec)
-         {
+         foreach (string item in rec) {
             Suggestion_lb.Items.Add(item);
          }
       }
 
-      private void MoveFile_btn_Click(object sender, EventArgs e)
-      {
-         if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "")
-         {
+      private void MoveFile_btn_Click(object sender, EventArgs e) {
+         if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "") {
             if (MessageBox.Show(
                    MoveFile_NoNewPath,
-                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
+                   Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
                SetRootPath_btn_Click(null, null);
                MoveFile_btn_Click(null, null);
             }
@@ -176,11 +151,9 @@ namespace StorageManagementTool.MainGUI
             return;
          }
 
-         if (FileToMovePath_tb.Text == "")
-         {
+         if (FileToMovePath_tb.Text == "") {
             if (MessageBox.Show(MoveFile_FilePathEmpty, Error,
-                   MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
                FileToMoveSel_btn_Click(null, null);
                MoveFile_btn_Click(null, null);
             }
@@ -197,41 +170,36 @@ namespace StorageManagementTool.MainGUI
          FileToMovePath_tb.Text = "";
       }
 
-      private void EditSSDMonitoring_btn_Click(object sender, EventArgs e)
-      {
+      private void EditSSDMonitoring_btn_Click(object sender, EventArgs e) {
          new MonitoringSettings().ShowDialog();
       }
 
-      private void SetRootPathAsDefault_btn_Click(object sender, EventArgs e)
-      {
+      private void SetRootPathAsDefault_btn_Click(object sender, EventArgs e) {
          Session.Singleton.CurrentConfiguration.DefaultHDDPath = HDDPath_fbd.SelectedPath;
          Session.Singleton.SaveCfg();
       }
 
-      private void EditPagefiles_btn_Click(object sender, EventArgs e)
-      {
+      private void EditPagefiles_btn_Click(object sender, EventArgs e) {
          new PagefileSettings().ShowDialog();
       }
 
-      private void OpenWindowsSearchSettings_btn_Click(object sender, EventArgs e)
-      {
+      private void OpenWindowsSearchSettings_btn_Click(object sender, EventArgs e) {
          new EditWindowsSearchSettings().ShowDialog();
       }
 
-      private void EditUserShellFolders_btn_Click(object sender, EventArgs e)
-      {
+      private void EditUserShellFolders_btn_Click(object sender, EventArgs e) {
          new EditUserShellFolders().ShowDialog();
       }
 
-      private void ApplyPresetDialog_btn_Click(object sender, EventArgs e)
-      {
+      private void ApplyPresetDialog_btn_Click(object sender, EventArgs e) {
          new ApplyPreset().ShowDialog();
       }
 
-      private void button3_Click(object sender, EventArgs e)
-      {
-         OperatingMethods.MoveFolder(new DirectoryInfo(@"c:\Program Files\Microsoft Office"),
-            new DirectoryInfo("F:\\SSDAllo\\C\\Program Files\\Microsoft Office"));
+      private void button3_Click(object sender, EventArgs e) {
+         AdvancedUserShellFolder.LoadUSF();
+         SpecialFolders.DebugShowAllFolders();
+//         OperatingMethods.MoveFolder(new DirectoryInfo(@"c:\Program Files\Microsoft Office"),
+//            new DirectoryInfo("F:\\SSDAllo\\C\\Program Files\\Microsoft Office"));
          //         Wrapper.RegistryMethods.ApplyRegfile();
          //         Wrapper.RegistryMethods.SetProtectedRegistryValue(new RegistryValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders","OEM LINKS"),"F:\\TobiasAcc\\Desktop\\JufoTesting\\OEM2",RegistryValueKind.String );
          //   Wrapper.RegistryMethods.SetProtectedRegistryValue();

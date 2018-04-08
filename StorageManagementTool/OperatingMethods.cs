@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using ExtendedMessageBoxLibary;
-using ExtendedMessageBoxLibrary;
 using IWshRuntimeLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
@@ -13,14 +11,11 @@ using StorageManagementTool.MainGUI.GlobalizationRessources;
 using static StorageManagementTool.GlobalizationRessources.OperatingMethodsStrings;
 using File = System.IO.File;
 
-namespace StorageManagementTool
-{
-   public static partial class OperatingMethods
-   {
+namespace StorageManagementTool {
+   public static partial class OperatingMethods {
       /// <summary>
       /// </summary>
-      public enum QuestionAnswer
-      {
+      public enum QuestionAnswer {
          Yes,
          No,
          Ask
@@ -48,31 +43,24 @@ namespace StorageManagementTool
       /// <param name="newLocation">The Directory to move the file to</param>
       /// <param name="adjustNewPath"></param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath = false)
-      {
-         if (dir == newLocation)
-         {
+      public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath = false) {
+         if (dir == newLocation) {
             if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
-                   MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-            {
+                   MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
                MoveFolder(dir, newLocation, adjustNewPath);
             }
          }
 
-         if (adjustNewPath)
-         {
+         if (adjustNewPath) {
             newLocation = new DirectoryInfo(Path.Combine(newLocation.FullName, dir.FullName.Remove(1, 1)));
          }
 
-         if (newLocation.Parent != null && !newLocation.Parent.Exists)
-         {
+         if (newLocation.Parent != null && !newLocation.Parent.Exists) {
             newLocation.Parent.Create();
          }
 
-         if (dir.Exists)
-         {
-            if (!Wrapper.FileAndFolder.MoveDirectory(dir, newLocation))
-            {
+         if (dir.Exists) {
+            if (!Wrapper.FileAndFolder.MoveDirectory(dir, newLocation)) {
                return false;
             }
          }
@@ -87,36 +75,28 @@ namespace StorageManagementTool
       /// <param name="newLocation">The location to move the file to</param>
       /// <param name="adjustNewPath"></param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath = false)
-      {
-         if (file == newLocation)
-         {
+      public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath = false) {
+         if (file == newLocation) {
             if (
                MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
-                  MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-            {
+                  MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
                MoveFile(file, newLocation);
             }
-            else
-            {
+            else {
                return false;
             }
          }
 
-         if (adjustNewPath)
-         {
+         if (adjustNewPath) {
             newLocation = new FileInfo(Path.Combine(newLocation.FullName, file.FullName.Remove(1, 1)));
          }
 
-         if (!newLocation.Directory.Exists)
-         {
+         if (!newLocation.Directory.Exists) {
             newLocation.Directory.Create();
          }
 
-         if (file.Exists)
-         {
-            if (!Wrapper.FileAndFolder.MoveFile(file, newLocation))
-            {
+         if (file.Exists) {
+            if (!Wrapper.FileAndFolder.MoveFile(file, newLocation)) {
                return false;
             }
          }
@@ -129,12 +109,10 @@ namespace StorageManagementTool
       ///    Recommends Paths to move to another drive
       /// </summary>
       /// <returns>The recommended Paths</returns>
-      public static IEnumerable<string> GetRecommendedPaths()
-      {
+      public static IEnumerable<string> GetRecommendedPaths() {
          List<string> ret = new List<string>();
          if (
-            !Wrapper.FileAndFolder.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%")))
-         {
+            !Wrapper.FileAndFolder.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%"))) {
             ret.Add(Environment.ExpandEnvironmentVariables(@"%AppData%"));
          }
 
@@ -146,20 +124,16 @@ namespace StorageManagementTool
          };
          string[] currentsubfolders =
             Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%"));
-         for (int i = 0; i < currentsubfolders.GetLength(0); i++)
-         {
-            if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
-            {
+         for (int i = 0; i < currentsubfolders.GetLength(0); i++) {
+            if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i])) {
                ret.Add(currentsubfolders[i]);
             }
          }
 
          currentsubfolders =
             Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Local"));
-         for (int i = 0; i < currentsubfolders.GetLength(0); i++)
-         {
-            if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i]))
-            {
+         for (int i = 0; i < currentsubfolders.GetLength(0); i++) {
+            if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) && !blacklist.Contains(currentsubfolders[i])) {
                ret.Add(currentsubfolders[i]);
             }
          }
@@ -172,10 +146,8 @@ namespace StorageManagementTool
       /// </summary>
       /// <param name="toName">The DriveType Object, which name should be returned</param>
       /// <returns>The  name of the DriveType Object</returns>
-      public static string DriveType2String(DriveType toName)
-      {
-         switch (toName)
-         {
+      public static string DriveType2String(DriveType toName) {
+         switch (toName) {
             case DriveType.CDRom: return DriveType2String_CDRom;
             case DriveType.Fixed: return DriveType2String_Fixed;
             case DriveType.Network: return DriveType2String_Network;
@@ -193,16 +165,14 @@ namespace StorageManagementTool
       /// <param name="maxSize">The maximum Size of the Pagefile in MB</param>
       /// <param name="minSize">The minimum Size of the Pagefile in MB</param>
       /// <returns>Whether the Operation were successfull</returns>
-      public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize)
-      {
+      public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize) {
          List<string> tempDriveInfoList = FileSystem.Drives.Select(GetDriveInfoDescription).ToList();
          int selectedPartitionIndex;
          if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
          {
             selectedPartitionIndex = tempDriveInfoList.IndexOf(currentSelection);
          }
-         else
-         {
+         else {
             MessageBox.Show(ChangePagefileSettings_SelectedPartitionMissing,
                Error,
                MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -220,8 +190,7 @@ namespace StorageManagementTool
       /// <param name="maxSize">The max size of pagefile in MB</param>
       /// <param name="minSize">The min size of the pagefile in MB</param>
       /// <returns></returns>
-      public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize)
-      {
+      public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize) {
          string wmicPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
          if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
          {
@@ -242,8 +211,7 @@ namespace StorageManagementTool
             wmicPath, "computersystem get AutomaticManagedPagefile /Value"
             , out string[] tmp, out int _, out int _, true, true, true, true, false)) //Tests
          {
-            if (bool.Parse(tmp[2].Split('=')[1]))
-            {
+            if (bool.Parse(tmp[2].Split('=')[1])) {
                Wrapper.ExecuteCommand(
                   wmicPath
                   + Environment.ExpandEnvironmentVariables(
@@ -253,8 +221,7 @@ namespace StorageManagementTool
                   wmicPath
                   , "computersystem get AutomaticManagedPagefile /Value"
                   , out tmp, out int _, out _, waitforexit: true, hidden: true, admin: true);
-               if (!bool.Parse(tmp[2].Split('=')[1]))
-               {
+               if (!bool.Parse(tmp[2].Split('=')[1])) {
                   MessageBox.Show(ChangePagefileSettings_CouldntDisableManagement,
                      Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                   return false;
@@ -278,12 +245,10 @@ namespace StorageManagementTool
          Wrapper.ExecuteExecuteable(wmicPath,
             " get", out tmp, out int _, out int _, true, true,
             true, true); //Checks wether there is exactly 1 pagefile existing
-         if (tmp.Length != 2)
-         {
+         if (tmp.Length != 2) {
             switch (MessageBox.Show(ChangePagefileSettings_Not1Pagefile,
                Error,
-               MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
-            {
+               MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)) {
                case DialogResult.Cancel: return false;
                case DialogResult.Retry: return ChangePagefileSettings(toUse, maxSize, minSize);
             }
@@ -296,16 +261,14 @@ namespace StorageManagementTool
       ///    Enables Send to HDD
       /// </summary>
       /// <param name="enable">Whether to enable or disable Send to HDD</param>
-      public static void EnableSendToHDD(bool enable = true)
-      {
-         if (enable)
-         {
+      public static void EnableSendToHDD(bool enable = true) {
+         if (enable) {
             #region Based upon https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
 
             WshShell shell = new WshShell();
             string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
                StoreOnHDDLinkName + ".lnk");
-            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
+            IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
             shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
             shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
             shortcut.Arguments = " -move -auto-detect -SrcPath";
@@ -313,8 +276,7 @@ namespace StorageManagementTool
 
             #endregion
          }
-         else
-         {
+         else {
             File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
                StoreOnHDDLinkName + ".lnk"));
          }
@@ -325,22 +287,17 @@ namespace StorageManagementTool
       /// </summary>
       /// <param name="newPath">The new path for the search data</param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool SetSearchDataPath(DirectoryInfo newPath)
-      {
-         if (newPath.Exists)
-         {
+      public static bool SetSearchDataPath(DirectoryInfo newPath) {
+         if (newPath.Exists) {
             if (Wrapper.RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegistryValue,
                newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
                RegistryValueKind.String,
-               true))
-            {
-               if (!Session.Singleton.IsAdmin)
-               {
+               true)) {
+               if (!Session.Singleton.IsAdmin) {
                   if (MessageBox.Show(
                          EditWindowsSearchSettingsStrings.SetSearchDataPath_RestartNoAdmin,
                          SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
-                      DialogResult.Yes)
-                  {
+                      DialogResult.Yes) {
                      Wrapper.RestartComputer();
                   }
                }
@@ -360,9 +317,9 @@ namespace StorageManagementTool
       ///    Enables/Disables availability of hibernate
       /// </summary>
       /// <param name="enable">Whether hibernate should be enabled (true) or disabled (false) </param>
-      public static void SetHibernate(bool enable)
-      {
-         Wrapper.ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "powercfg.exe"), $"/h {(enable ? "on" : "off")}",
+      public static void SetHibernate(bool enable) {
+         Wrapper.ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "powercfg.exe"),
+            $"/h {(enable ? "on" : "off")}",
             true, true,
             true);
       }
@@ -373,8 +330,7 @@ namespace StorageManagementTool
       /// <param name="driveInfo">The DriveInfo described</param>
       /// <param name="description">The description of the DriveInfo</param>
       /// <returns>Whether the described DriveInfo were found</returns>
-      public static bool GetDriveInfoFromDescription(out DriveInfo driveInfo, string description)
-      {
+      public static bool GetDriveInfoFromDescription(out DriveInfo driveInfo, string description) {
          driveInfo = Wrapper.getDrives().FirstOrDefault(x => GetDriveInfoDescription(x) == description);
          return driveInfo != null;
       }
@@ -391,20 +347,17 @@ namespace StorageManagementTool
       /// </summary>
       /// <param name="directory"> The directory containing the Windows search data</param>
       /// <returns>Whether the operation were successful</returns>
-      public static bool GetSearchDataPath(out DirectoryInfo directory)
-      {
+      public static bool GetSearchDataPath(out DirectoryInfo directory) {
          directory = null;
 
          if (!Wrapper.RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text,
-            true))
-         {
+            true)) {
             return false;
          }
 
          //Registry value also contains the \Search\Data which should probably not be removed due to the fact that the Windows Editor isn´t allowing that too
-         DirectoryInfo dir = new DirectoryInfo((string)text);
-         if (dir.Parent?.Parent == null)
-         {
+         DirectoryInfo dir = new DirectoryInfo((string) text);
+         if (dir.Parent?.Parent == null) {
             return false;
          }
 

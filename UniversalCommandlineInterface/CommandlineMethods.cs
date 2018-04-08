@@ -170,6 +170,7 @@ namespace UniversalCommandlineInterface {
          }
       }
 
+
       public static bool RawAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
          switch (src) {
             case CmdParameterAttribute.CmdParameterUsage.RawValueWithDecleration:

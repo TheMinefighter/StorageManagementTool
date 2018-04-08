@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedUserShellFolder.cs" />
     <Compile Include="BackgroundNotificationCreator.cs" />
     <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -197,7 +198,9 @@
     <Compile Include="OperatingMethods.cs" />
     <Compile Include="ScenarioPreset.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="SpecialFolders.cs" />
     <Compile Include="UserShellFolder.cs" />
+    <Compile Include="Win32ShellFolders.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="GlobalizationRessources\WrapperStrings.Designer.cs">
       <AutoGen>True</AutoGen>

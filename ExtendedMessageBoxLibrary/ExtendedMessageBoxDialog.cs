@@ -12,8 +12,7 @@ namespace ExtendedMessageBoxLibary {
          InitializeComponent();
       }
 
-      public void ExtendedMessageBoxDialog_ResizeEnd(object sender, EventArgs e) {
-      }
+      public void ExtendedMessageBoxDialog_ResizeEnd(object sender, EventArgs e) { }
 
       private void ExtendedMessageBoxDialog_SizeChanged(object sender, EventArgs e) {
          checkableBox.Location =
@@ -79,7 +78,6 @@ namespace ExtendedMessageBoxLibary {
          Close();
       }
 
-      private void ExtendedMessageBoxDialog_FormClosed(object sender, FormClosedEventArgs e) {
-      }
+      private void ExtendedMessageBoxDialog_FormClosed(object sender, FormClosedEventArgs e) { }
    }
 }

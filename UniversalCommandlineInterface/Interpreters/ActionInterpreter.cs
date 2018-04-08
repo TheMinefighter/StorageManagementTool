@@ -6,7 +6,7 @@ using System.Reflection;
 using UniversalCommandlineInterface.Attributes;
 
 namespace UniversalCommandlineInterface.Interpreters {
-   public class ActionInterpreter : BaseInterpreter ,IDisposable {
+   public class ActionInterpreter : BaseInterpreter, IDisposable {
       private bool _cached;
       public CmdActionAttribute MyActionAttribute;
       private IEnumerable<CmdParameterAttribute> parameters;
@@ -18,8 +18,12 @@ namespace UniversalCommandlineInterface.Interpreters {
       public ActionInterpreter(CmdActionAttribute myActionAttribute, BaseInterpreter parent, int offset = 0) : base(parent,
          myActionAttribute.Name, offset) => MyActionAttribute = myActionAttribute;
 
-      internal override void PrintHelp() {
+      public void Dispose() {
+         _cached = false;
+         MyActionAttribute = null;
       }
+
+      internal override void PrintHelp() { }
 
       internal void LoadParameters() {
          if (!_cached) {
@@ -263,11 +267,6 @@ namespace UniversalCommandlineInterface.Interpreters {
          aliasType = null;
          value = null;
          return false;
-      }
-
-      public void Dispose() {
-         _cached = false;
-         MyActionAttribute = null;
       }
    }
 }

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Microsoft.Win32;
 
 namespace StorageManagementTool {
    /// <summary>
@@ -21,9 +20,8 @@ namespace StorageManagementTool {
          ValueName = valueName;
       }
 
-      public static implicit operator RegistryValue((string, string) s) => new RegistryValue(s.Item1,s.Item2);
+      public static implicit operator RegistryValue((string, string) s) => new RegistryValue(s.Item1, s.Item2);
       public static implicit operator (string, string)(RegistryValue s) => (s.RegistryKey, s.ValueName);
       public override string ToString() => RegistryKey + Path.DirectorySeparatorChar + ValueName;
-      
    }
 }

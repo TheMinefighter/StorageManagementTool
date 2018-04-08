@@ -69,8 +69,7 @@ namespace StorageManagementTool {
          public bool IsAdmin { get; set; }
          public bool AdminRequired { get; set; }
 
-         public DialogReturnData() {
-         }
+         public DialogReturnData() { }
 
          public DialogReturnData(bool adminAccountRequired) {
             GivenCredentials = new Credentials();

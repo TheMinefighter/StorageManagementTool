@@ -130,8 +130,9 @@ namespace StorageManagementTool.MainGUI {
       }
 
       private void EditUserShellFolders_FormClosing(object sender, FormClosingEventArgs e) {
-         
-         if (new [] {CloseReason.UserClosing,CloseReason.MdiFormClosing,CloseReason.FormOwnerClosing,CloseReason.None}.Contains(e.CloseReason)&& _edited && MessageBox.Show(Closing_WantRestart_Text, Closing_WantRestart_Title, MessageBoxButtons.YesNo,
+         if (new[] {CloseReason.UserClosing, CloseReason.MdiFormClosing, CloseReason.FormOwnerClosing, CloseReason.None}
+                .Contains(e.CloseReason) && _edited && MessageBox.Show(Closing_WantRestart_Text, Closing_WantRestart_Title,
+                MessageBoxButtons.YesNo,
                 MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1) == DialogResult.Yes) {
             Wrapper.RestartComputer();
          }

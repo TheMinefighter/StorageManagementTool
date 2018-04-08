@@ -30,7 +30,7 @@ namespace StorageManagementTool {
          Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
 
-  //    public static (T1, T2) ToDirectTouple<T1, T2>(this Tuple<T1, T2> myTuple) => (myTuple.Item1, myTuple.Item2);
+      //    public static (T1, T2) ToDirectTouple<T1, T2>(this Tuple<T1, T2> myTuple) => (myTuple.Item1, myTuple.Item2);
 
       /// <summary>
       ///    Executes an executeable
@@ -147,7 +147,6 @@ namespace StorageManagementTool {
             }
          }
 
-
          if (getPID) {
             pid = process.Id;
          }
@@ -184,10 +183,10 @@ namespace StorageManagementTool {
       /// <returns>Whether the operation were successful</returns>
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
          bool asUser = false,
-         bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug,asUser);
+         bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug, asUser);
 
       /// <summary>
-      /// Adds a Backslash for each quotation mark and backslash
+      ///    Adds a Backslash for each quotation mark and backslash
       /// </summary>
       /// <param name="source">The string to add backslashes to</param>
       /// <returns>The  source with backslashes</returns>
@@ -218,11 +217,18 @@ namespace StorageManagementTool {
       /// <param name="readReturnData">Whether to read the output of the Application</param>
       /// <returns>Whether the operation were successful</returns>
       public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
-         bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser=false) {
-         return ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
-                   (debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden,
-                   admin,asUser) && tmp == 0;
-      }
+         bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser = false) => ExecuteExecuteable(
+                                                                                                              Path.Combine(
+                                                                                                                 Environment.GetFolderPath(
+                                                                                                                    Environment
+                                                                                                                       .SpecialFolder
+                                                                                                                       .System),
+                                                                                                                 @"cmd.exe"),
+                                                                                                              (debug ? "/K " : "/C ") + cmd,
+                                                                                                              out returnData, out int tmp,
+                                                                                                              out int _, readReturnData,
+                                                                                                              waitforexit, hidden,
+                                                                                                              admin, asUser) && tmp == 0;
 
       #region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
 

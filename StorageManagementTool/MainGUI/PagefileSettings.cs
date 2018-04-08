@@ -32,8 +32,7 @@ namespace StorageManagementTool.MainGUI {
                   Swapfilepartition_lb.Items.Add(OperatingMethods.GetDriveInfoDescription(driveInfo));
                }
             }
-            catch (IOException) {
-            }
+            catch (IOException) { }
          }
 
          Session.Singleton.FillWithDriveInfo(Swapfilepartition_lb);
@@ -84,7 +83,8 @@ namespace StorageManagementTool.MainGUI {
 
 
       private void ExtendedPagefileOptions_btn_Click(object sender, EventArgs e) {
-         Wrapper.ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "SystemPropertiesPerformance.exe"), "",
+         Wrapper.ExecuteExecuteable(
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "SystemPropertiesPerformance.exe"), "",
             true);
          Thread.Sleep(500);
          MessageBox.Show(

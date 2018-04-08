@@ -33,7 +33,7 @@ namespace UniversalCommandlineInterface.Interpreters {
             };
 
             contextInterpreter.MyContextAttribute.MyInfo = baseContext.GetTypeInfo();
-            contextInterpreter.MyContextAttribute.LoadChilds();
+            contextInterpreter.MyContextAttribute.LoadIfNot();
             if (Args.Length > 0 && contextInterpreter.IsParameterEqual(Options.InteractiveOption, Args[0])) {
                contextInterpreter.IncreaseOffset();
                contextInterpreter.InteractiveInterpreter(contextInterpreter.Offset < Args.Length);

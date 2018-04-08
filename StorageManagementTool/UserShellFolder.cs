@@ -63,7 +63,8 @@ namespace StorageManagementTool {
       private static UserShellFolder NormalUSF(string name, string id, string DeltaPath, bool user = true, bool moveExistingFiles = true) {
          RegistryValue shellFolderRegistryValue = new RegistryValue(ShellFolderRoot, id);
 
-         (string, RegistryValue) shellFolder = (Environment.ExpandEnvironmentVariables("%USERPROFILE%\\") + DeltaPath, shellFolderRegistryValue);
+         (string, RegistryValue) shellFolder = (Environment.ExpandEnvironmentVariables("%USERPROFILE%\\") + DeltaPath,
+            shellFolderRegistryValue);
          UserShellFolder usf = new UserShellFolder {
             ViewedName = name,
             MoveExistingFiles = moveExistingFiles,
@@ -71,7 +72,8 @@ namespace StorageManagementTool {
 
             isUserSpecific = true
          };
-         usf.RegistryValues = user ? new[] {shellFolder, ("%USERPROFILE%\\" + DeltaPath, new RegistryValue(UserShellFolderRoot, id))} : new[] {shellFolder};
+         usf.RegistryValues =
+            user ? new[] {shellFolder, ("%USERPROFILE%\\" + DeltaPath, new RegistryValue(UserShellFolderRoot, id))} : new[] {shellFolder};
 
          return usf;
       }
@@ -92,7 +94,7 @@ namespace StorageManagementTool {
             MoveExistingFiles = moveExistingFiles,
             Identifier = id,
             AccessAsUser = asUser,
-            isUserSpecific = false,
+            isUserSpecific = false
          };
       }
 
@@ -286,7 +288,7 @@ namespace StorageManagementTool {
                     OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk,
                     MessageBoxDefaultButton.Button1) ==
                  DialogResult.Yes)) {
-               if (!oldDir.Exists||oldDir.GetFileSystemInfos().Length==0|| Wrapper.FileAndFolder.MoveDirectory(oldDir, newDir)) {
+               if (!oldDir.Exists || oldDir.GetFileSystemInfos().Length == 0 || Wrapper.FileAndFolder.MoveDirectory(oldDir, newDir)) {
                   string defaultDirectory = usf.RegistryValues[0].Item1;
                   if (defaultDirectory == null) {
                      MessageBox.Show(Error);
@@ -296,7 +298,7 @@ namespace StorageManagementTool {
                   DirectoryInfo defaultDirectoryInfo = new DirectoryInfo(Environment.ExpandEnvironmentVariables(defaultDirectory));
                   if (defaultDirectoryInfo.FullName != oldDir.FullName) {
                      if (defaultDirectoryInfo.Exists) {
-                        Wrapper.FileAndFolder.DeleteDirectory(defaultDirectoryInfo,true,false);
+                        Wrapper.FileAndFolder.DeleteDirectory(defaultDirectoryInfo, true, false);
                      }
 
                      Wrapper.ExecuteCommand($"mklink /D \"{defaultDirectoryInfo.FullName}\\\" \"{newDir.FullName}\"", true, true);

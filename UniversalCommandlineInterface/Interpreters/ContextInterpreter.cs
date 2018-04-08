@@ -8,14 +8,12 @@ namespace UniversalCommandlineInterface.Interpreters {
    public class ContextInterpreter : BaseInterpreter {
       public CmdContextAttribute MyContextAttribute;
 
-      internal ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) {
-      }
+      internal ContextInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) { }
 
       internal ContextInterpreter(BaseInterpreter parent, CmdContextAttribute attribute, int offset = 0) : base(parent, attribute.Name,
          offset) => MyContextAttribute = attribute;
 
-      internal override void PrintHelp() {
-      }
+      internal override void PrintHelp() { }
 
       internal void InteractiveInterpreter(bool interpretOn = false) {
          ContextInterpreter currentContextInterpreter = this;
@@ -59,7 +57,7 @@ namespace UniversalCommandlineInterface.Interpreters {
             }
 
             currentContextInterpreter.Reset();
-            currentContextInterpreter.MyContextAttribute.LoadChilds();
+            currentContextInterpreter.MyContextAttribute.LoadIfNot();
             if (currentContextInterpreter.Interpret(out ContextInterpreter tmpContextInterpreter, true, true)) {
                currentContextInterpreter = tmpContextInterpreter;
             }
@@ -98,7 +96,7 @@ namespace UniversalCommandlineInterface.Interpreters {
                }
 
                ContextInterpreter subInterpreter = new ContextInterpreter(this, cmdContextAttribute, Offset);
-               cmdContextAttribute.LoadChilds();
+               cmdContextAttribute.LoadIfNot();
                if (interactive) {
                   subInterpreter.Interpret(out newCtx, printErrors, interactive);
                   return newCtx != null;

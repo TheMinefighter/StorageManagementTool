@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Security.Principal;
 using System.Xml.Linq;
 
@@ -17,7 +16,8 @@ namespace StorageManagementTool {
          /// <summary>
          ///    Path to the SCHTASKS.exe
          /// </summary>
-         private static readonly string SchtasksPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "SCHTASKS.exe");
+         private static readonly string SchtasksPath =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "SCHTASKS.exe");
 
          /// <summary>
          ///    Initalizes SSD monitoring
@@ -104,10 +104,12 @@ namespace StorageManagementTool {
                $"(Get-ScheduledTask | Where TaskName -eq {SSDMonitoringTaskName} ).State")) {
                return false;
             }
+
             using (IEnumerator<string> enumerator = ret.GetEnumerator()) {
                if (!enumerator.MoveNext()) {
                   return false;
                }
+
                enabled = enumerator.Current == "Enabled" || enumerator.Current == "Ready";
                return true;
             }

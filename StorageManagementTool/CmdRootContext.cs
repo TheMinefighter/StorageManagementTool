@@ -3,7 +3,6 @@ using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Attributes;
 
 namespace StorageManagementTool {
-
    [CmdContext]
    public abstract class CmdRootContext {
       public enum FileOrFolder {
@@ -60,11 +59,11 @@ namespace StorageManagementTool {
             }
          }
       }
-      
+
       [CmdAction("Background")]
       private static void Back() => BackgroundNotificationCreator.Initalize();
 
-      [CmdContext("SendTo")]
+      [CmdContext(name:"SendTo")]
       public abstract class SendTo {
          [CmdAction("Set")]
          public static void SetSendTo([CmdParameterAlias("Enable", true), CmdParameterAlias("Disable", true), CmdParameter("Enabled")]
@@ -74,7 +73,7 @@ namespace StorageManagementTool {
          public static void GetSendTo() {
             bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
             ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
-            ConsoleIO.WriteLine($"SendTo feature is{(isSendToHddEnabled ? "" : " not")} enabled");
+            ConsoleIO.WriteLine($"SendTo feature is{(isSendToHddEnabled ? string.Empty : " not")} enabled");
          }
       }
    }

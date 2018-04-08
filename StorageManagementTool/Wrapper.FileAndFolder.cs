@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
@@ -35,7 +34,7 @@ namespace StorageManagementTool {
          /// <returns>Whether the operation were sucessful</returns>
          public static bool DeleteDirectory(DirectoryInfo toBeDeleted, bool deletePermanent = true, bool ask = true) {
             try {
-               FileSystem.DeleteDirectory(toBeDeleted.FullName,ask? UIOption.AllDialogs: UIOption.OnlyErrorDialogs,
+               FileSystem.DeleteDirectory(toBeDeleted.FullName, ask ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs,
                   deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
             }
             catch (Exception) {
@@ -98,7 +97,7 @@ namespace StorageManagementTool {
             catch (OperationCanceledException) {
                return true;
             }
-            
+
             catch (Exception) {
                return false;
             }
@@ -116,6 +115,12 @@ namespace StorageManagementTool {
 
             return true;
          }
+
+         public static bool CreateFolderSymlink(DirectoryInfo dir, DirectoryInfo newLocation) =>
+            ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+
+         public static bool CreateFileSymlink(FileInfo file, FileInfo newLocation) =>
+            ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true, out _);
 
          #region From https://stackoverflow.com/a/38308957/6730162 access on 30.9.2017
 
@@ -162,9 +167,6 @@ namespace StorageManagementTool {
          }
 
          #endregion
-
-         public static bool CreateFolderSymlink(DirectoryInfo dir, DirectoryInfo newLocation) => Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
-         public static bool CreateFileSymlink(FileInfo file, FileInfo newLocation) => Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true,out _);
       }
    }
 }
