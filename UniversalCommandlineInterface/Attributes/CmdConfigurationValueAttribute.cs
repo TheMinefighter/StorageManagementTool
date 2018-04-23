@@ -6,8 +6,9 @@ namespace UniversalCommandlineInterface.Attributes {
       public string ExtendedHelp;
       public string Help;
       public bool IsReadonly;
+      
 
-      public CmdConfigurationValueAttribute(string help = null, string extendedHelp = null, bool isReadonly = false) {
+      public CmdConfigurationValueAttribute(Predicate<string> test, string help = null,string extendedHelp = null, bool isReadonly = false) {
          IsReadonly = isReadonly;
          Help = help;
          ExtendedHelp = extendedHelp;

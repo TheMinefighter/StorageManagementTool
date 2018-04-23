@@ -63,7 +63,7 @@ namespace StorageManagementTool {
       [CmdAction("Background")]
       private static void Back() => BackgroundNotificationCreator.Initalize();
 
-      [CmdContext(name:"SendTo")]
+      [CmdContext("SendTo")]
       public abstract class SendTo {
          [CmdAction("Set")]
          public static void SetSendTo([CmdParameterAlias("Enable", true), CmdParameterAlias("Disable", true), CmdParameter("Enabled")]
