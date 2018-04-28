@@ -7,35 +7,36 @@ using System.Windows.Forms;
 using Csv;
 
 namespace StorageManagementTool {
-   public partial struct AdvancedUserShellFolder {
-      public static AdvancedUserShellFolder[] AllUSF;
-      public bool shouldBeEdited;
-      public Guid WindowsIdentifier;
-      public string Name;
-      public bool Undefined;
-      public string LocalizedName;
-      public string DefaultValue;
-      public bool IsUserSpecific;
+	public struct AdvancedUserShellFolder {
+		public static AdvancedUserShellFolder[] AllUSF;
+		public bool shouldBeEdited;
+		public Guid WindowsIdentifier;
+		public string Name;
+		public bool Undefined;
+		public string LocalizedName;
+		public string DefaultValue;
+		public bool IsUserSpecific;
 
-      public static AdvancedUserShellFolder GetUSF(string name) => AllUSF.First(x => x.Name == name);
-      public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier) => AllUSF.First(x => x.WindowsIdentifier == windowsIdentifier);
+		public static AdvancedUserShellFolder GetUSF(string name) => AllUSF.First(x => x.Name == name);
+		public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier) => AllUSF.First(x => x.WindowsIdentifier == windowsIdentifier);
 
-      public static void LoadUSF() {
-         Assembly current = Assembly.GetExecutingAssembly();
-         const string res = "StorageManagementTool.AdvancedUserShellFolderData.csv";
-         MessageBox.Show(string.Join(";", current.GetManifestResourceNames()));
-         string[] manifestResourceNames = current.GetManifestResourceNames();
-         manifestResourceNames.ToString();
-         using (Stream stream = current.GetManifestResourceStream(res)) {
-            IEnumerable<ICsvLine> data = CsvReader.ReadFromStream(stream);
-            AllUSF = data.Select(x => new AdvancedUserShellFolder {
-               Name = x[0],
-               WindowsIdentifier = new Guid(x[1]),
-               Undefined = x[2][0] == '1',
-               IsUserSpecific = x[3][0] == '1'
-            }).ToArray();
-         }
-      }
+		public static void LoadUSF() {
+			Assembly current = Assembly.GetExecutingAssembly();
+			const string res = "StorageManagementTool.AdvancedUserShellFolderData.csv";
+			MessageBox.Show(string.Join(";", current.GetManifestResourceNames()));
+			string[] manifestResourceNames = current.GetManifestResourceNames();
+			manifestResourceNames.ToString();
+			using (Stream stream = current.GetManifestResourceStream(res)) {
+				IEnumerable<ICsvLine> data = CsvReader.ReadFromStream(stream);
+				AllUSF = data.Select(x => new AdvancedUserShellFolder {
+					Name = x[0],
+					WindowsIdentifier = new Guid(x[1]),
+					Undefined = x[2][0] == '1',
+					IsUserSpecific = x[3][0] == '1'
+				}).ToArray();
+			}
+		}
+
 //         AllUSF= new AdvancedUserShellFolder[result.Count(x=>x=='\n')];
 //         for (int i = 0; i < AllUSF.Length; i++) {
 //            var line= CsvReader.ReadFromText(result)
@@ -43,7 +44,7 @@ namespace StorageManagementTool {
 //         }
 //         string systemDrive = Environment.GetEnvironmentVariable("systemdrive");
 //         string userDir = Environment.GetEnvironmentVariable("userprofile");
-         //Def without admin will probably retest in future; new user
+		//Def without admin will probably retest in future; new user
 //         AllUSF=new AdvancedUserShellFolder[] {
 //         new AdvancedUserShellFolder{Name="AddNewPrograms",WindowsIdentifier= new Guid("de61d971-5ebc-4f02-a3a9-6c82895e5c04"),Undefined = true},
 //         new AdvancedUserShellFolder{Name="AdminTools",WindowsIdentifier= new Guid("724EF170-A42D-4FEF-9F26-B60E846FBA4F"),IsUserSpecific = true},
@@ -133,6 +134,5 @@ namespace StorageManagementTool {
 //         new AdvancedUserShellFolder{Name="Videos",WindowsIdentifier= new Guid("18989B1D-99B5-455B-841C-AB7C74E4DDFC"),IsUserSpecific = true},
 //         new AdvancedUserShellFolder{Name="Windows",WindowsIdentifier= new Guid("F38BF404-1D43-42F2-9305-67DE0B28FC23")}
 //      };}
-      
-   }
+	}
 }
