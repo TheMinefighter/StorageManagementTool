@@ -6,5 +6,40 @@
         xmlns:local="clr-namespace:StorageManagementCore"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-   <Grid />
+   <Grid >
+      <TabControl x:Name="BaseTc" Height="419" Width="792" RenderTransformOrigin="0.5,0.5">
+         <TabItem x:Name="MoveFileOrFolderTi" Header="TabItem">
+            <Grid Background="#FFE5E5E5">
+               <Grid HorizontalAlignment="Left" Height="391" VerticalAlignment="Top" Width="786">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition/>
+                  </Grid.ColumnDefinitions>
+                  <Button x:Name="SelectPathToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="154"/>
+                  <TextBox x:Name="PathToMoveTb" HorizontalAlignment="Left" Height="20" Margin="169,32,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="448"/>
+                  <Button x:Name="SelectBasePathBtn" Content="Button" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="154"/>
+                  <TextBlock x:Name="BasPathLbl" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+                  <TextBlock x:Name="PathLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+                  <TextBox x:Name="BasePathTb" HorizontalAlignment="Left" Height="20" Margin="169,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="448"/>
+                  <TextBlock x:Name="SuggestionsLbl" HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+                  <ListBox x:Name="SuggestionsLb" HorizontalAlignment="Left" Height="238" Margin="10,118,0,0" VerticalAlignment="Top" Width="766"/>
+                  <Button x:Name="MoveObjectBtn" Content="Button" HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Width="455"/>
+                  <Button x:Name="ResetMoveForemBtn" Content="Button" HorizontalAlignment="Left" Margin="470,361,0,0" VerticalAlignment="Top" Width="306"/>
+                  <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Left" Margin="622,76,0,0" VerticalAlignment="Top" Width="154"/>
+                  <Button x:Name="OpenPathToMove" Content="Button" HorizontalAlignment="Left" Margin="622,31,0,0" VerticalAlignment="Top" Width="154"/>
+               </Grid>
+            </Grid>
+         </TabItem>
+         <TabItem Header="TabItem">
+            <Grid Background="#FFE5E5E5"/>
+         </TabItem>
+         <TabControl Height="100" Width="100">
+            <TabItem Header="TabItem">
+               <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem">
+               <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+         </TabControl>
+      </TabControl>
+   </Grid>
 </Window>
