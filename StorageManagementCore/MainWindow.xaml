@@ -29,8 +29,20 @@
                </Grid>
             </Grid>
          </TabItem>
-         <TabItem Header="TabItem">
-            <Grid Background="#FFE5E5E5"/>
+         <TabItem x:Name="UserShellFolderTi" Header="TabItem">
+            <Grid Background="#FFE5E5E5">
+               <ListBox x:Name="ShellFolders" HorizontalAlignment="Left" Height="351" Margin="10,10,0,0" VerticalAlignment="Top" Width="202"/>
+               <CheckBox x:Name="ViewUnavailableFOlders" Content="CheckBox" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top"/>
+               <TextBox HorizontalAlignment="Left" Height="20" Margin="217,31,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="376" IsEnabled="False"/>
+               <TextBlock HorizontalAlignment="Left" Margin="217,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="598,31,0,0" VerticalAlignment="Top" Width="178"/>
+               <TextBlock HorizontalAlignment="Left" Margin="217,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <TextBox HorizontalAlignment="Left" Height="19" Margin="217,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="376"/>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="598,76,0,0" VerticalAlignment="Top" Width="178"/>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="598,361,0,0" VerticalAlignment="Top" Width="178"/>
+               <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="217,101,0,0" VerticalAlignment="Top"/>
+               <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="342,116,0,0" VerticalAlignment="Top"/>
+            </Grid>
          </TabItem>
          <TabControl Height="100" Width="100">
             <TabItem Header="TabItem">
