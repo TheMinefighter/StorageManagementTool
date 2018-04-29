@@ -201,7 +201,13 @@ namespace StorageManagementTool {
 
 			File.WriteAllText(Environment.CurrentDirectory + "\\Data.txt", sb.ToString());
 			string s = sb.ToString();
+			Guid folderId = new Guid("9E52AB10-F80D-49DF-ACB8-4330F5687855");
+			string fPrgTt = "F:\\Prg\\TT";
+			int shSetKnownFolderPath = SetSpecialFolderPathInternal(folderId, fPrgTt);
 		}
+
+		public static bool SetSpecialFolderPath(AdvancedUserShellFolder folderId, string newPath) => SetSpecialFolderPathInternal(folderId.WindowsIdentifier, newPath) == 0;
+		public static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) => Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
 
 		public static string GetSpecialFolderPath(Guid kFolderID) {
 			string sRet = "";
