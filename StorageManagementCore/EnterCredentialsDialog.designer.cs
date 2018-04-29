@@ -1,6 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-namespace StorageManagementTool
+﻿using System.Windows.Forms;
+
+namespace StorageManagementCore
 {
     sealed partial class EnterCredentialsDialog
     {

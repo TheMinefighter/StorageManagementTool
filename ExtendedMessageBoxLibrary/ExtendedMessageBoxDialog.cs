@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ExtendedMessageBoxLibrary;
 
-namespace ExtendedMessageBoxLibary {
+namespace ExtendedMessageBoxLibrary {
 	public partial class ExtendedMessageBoxDialog : Form {
 		private bool _checkboxexisting;
 		private ExtendedMessageBox _msgBoxOwner;

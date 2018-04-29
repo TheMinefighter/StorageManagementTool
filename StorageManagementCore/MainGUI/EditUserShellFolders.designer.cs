@@ -1,4 +1,4 @@
-﻿namespace StorageManagementTool.MainGUI
+﻿namespace StorageManagementCore.MainGUI
 {
     partial class EditUserShellFolders
     {

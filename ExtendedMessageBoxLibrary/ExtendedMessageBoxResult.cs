@@ -1,6 +1,4 @@
-﻿using ExtendedMessageBoxLibrary;
-
-namespace ExtendedMessageBoxLibary {
+﻿namespace ExtendedMessageBoxLibrary {
 	public class ExtendedMessageBoxResult {
 		public ExtendedMessageBoxConfiguration MessageBoxButtonsUsed { get; set; }
 		public string ClickedText { get; set; }

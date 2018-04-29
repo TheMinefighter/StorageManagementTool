@@ -49,10 +49,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -331,6 +334,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExtendedMessageBoxLibrary\ExtendedMessageBoxLibrary.csproj">
+      <Project>{a421800c-1bcb-41c3-8172-8d7c3583649c}</Project>
+      <Name>ExtendedMessageBoxLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversalCommandlineInterface\UniversalCommandlineInterface.csproj">
       <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>
       <Name>UniversalCommandlineInterface</Name>
