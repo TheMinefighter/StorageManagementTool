@@ -6,52 +6,125 @@
         xmlns:local="clr-namespace:StorageManagementCore"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-   <Grid >
+   <Grid RenderTransformOrigin="0.5,0.5" >
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Grid.RenderTransform>
+         <TransformGroup>
+            <ScaleTransform ScaleY="1" ScaleX="1"/>
+            <SkewTransform AngleY="0" AngleX="0"/>
+            <RotateTransform Angle="0"/>
+            <TranslateTransform/>
+         </TransformGroup>
+      </Grid.RenderTransform>
       <TabControl x:Name="BaseTc" Height="419" Width="792" RenderTransformOrigin="0.5,0.5">
          <TabItem x:Name="MoveFileOrFolderTi" Header="TabItem">
-            <Grid Background="#FFE5E5E5">
-               <Grid HorizontalAlignment="Left" Height="391" VerticalAlignment="Top" Width="786">
-                  <Grid.ColumnDefinitions>
-                     <ColumnDefinition/>
-                  </Grid.ColumnDefinitions>
-                  <Button x:Name="SelectPathToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="154"/>
-                  <TextBox x:Name="PathToMoveTb" HorizontalAlignment="Left" Height="20" Margin="169,32,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="448"/>
-                  <Button x:Name="SelectBasePathBtn" Content="Button" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="154"/>
-                  <TextBlock x:Name="BasPathLbl" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-                  <TextBlock x:Name="PathLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-                  <TextBox x:Name="BasePathTb" HorizontalAlignment="Left" Height="20" Margin="169,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="448"/>
-                  <TextBlock x:Name="SuggestionsLbl" HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-                  <ListBox x:Name="SuggestionsLb" HorizontalAlignment="Left" Height="238" Margin="10,118,0,0" VerticalAlignment="Top" Width="766"/>
-                  <Button x:Name="MoveObjectBtn" Content="Button" HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Width="455"/>
-                  <Button x:Name="ResetMoveForemBtn" Content="Button" HorizontalAlignment="Left" Margin="470,361,0,0" VerticalAlignment="Top" Width="306"/>
-                  <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Left" Margin="622,76,0,0" VerticalAlignment="Top" Width="154"/>
-                  <Button x:Name="OpenPathToMove" Content="Button" HorizontalAlignment="Left" Margin="622,31,0,0" VerticalAlignment="Top" Width="154"/>
-               </Grid>
+            <Grid Background="White">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition/>
+               </Grid.ColumnDefinitions>
+               <Button x:Name="SelectPathToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="154"/>
+               <TextBox x:Name="PathToMoveTb" HorizontalAlignment="Left" Height="20" Margin="169,32,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="448"/>
+               <Button x:Name="SelectBasePathBtn" Content="Button" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="154"/>
+               <TextBlock x:Name="BasPathLbl" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <TextBlock x:Name="PathLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <TextBox x:Name="BasePathTb" HorizontalAlignment="Left" Height="20" Margin="169,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="448"/>
+               <TextBlock x:Name="SuggestionsLbl" HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <ListBox x:Name="SuggestionsLb" HorizontalAlignment="Left" Height="238" Margin="10,118,0,0" VerticalAlignment="Top" Width="766"/>
+               <Button x:Name="ResetMoveForemBtn" Content="Button" HorizontalAlignment="Left" Margin="402,361,0,0" VerticalAlignment="Top" Width="374"/>
+               <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Left" Margin="622,76,0,0" VerticalAlignment="Top" Width="154"/>
+               <Button x:Name="OpenPathToMove" Content="Button" HorizontalAlignment="Left" Margin="622,31,0,0" VerticalAlignment="Top" Width="154"/>
             </Grid>
          </TabItem>
          <TabItem x:Name="UserShellFolderTi" Header="TabItem">
-            <Grid Background="#FFE5E5E5">
+            <Grid Background="White">
                <ListBox x:Name="ShellFolders" HorizontalAlignment="Left" Height="351" Margin="10,10,0,0" VerticalAlignment="Top" Width="202"/>
                <CheckBox x:Name="ViewUnavailableFOlders" Content="CheckBox" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top"/>
                <TextBox HorizontalAlignment="Left" Height="20" Margin="217,31,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="376" IsEnabled="False"/>
                <TextBlock HorizontalAlignment="Left" Margin="217,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
                <Button Content="Button" HorizontalAlignment="Left" Margin="598,31,0,0" VerticalAlignment="Top" Width="178"/>
                <TextBlock HorizontalAlignment="Left" Margin="217,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-               <TextBox HorizontalAlignment="Left" Height="19" Margin="217,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="376"/>
+               <TextBox HorizontalAlignment="Left" Height="20" Margin="217,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="376"/>
                <Button Content="Button" HorizontalAlignment="Left" Margin="598,76,0,0" VerticalAlignment="Top" Width="178"/>
                <Button Content="Button" HorizontalAlignment="Left" Margin="598,361,0,0" VerticalAlignment="Top" Width="178"/>
                <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="217,101,0,0" VerticalAlignment="Top"/>
-               <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="342,116,0,0" VerticalAlignment="Top"/>
+               <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="217,121,0,0" VerticalAlignment="Top"/>
             </Grid>
          </TabItem>
-         <TabControl Height="100" Width="100">
-            <TabItem Header="TabItem">
-               <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="TabItem">
-               <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-         </TabControl>
+         <TabItem Header="Search">
+            <Grid Background="White">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition/>
+               </Grid.ColumnDefinitions>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="647,77,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.533,2.95"/>
+               <TextBox HorizontalAlignment="Left" Height="20" Margin="10,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="632" RenderTransformOrigin="0.5,0.5" IsEnabled="False">
+                  <TextBox.RenderTransform>
+                     <TransformGroup>
+                        <ScaleTransform ScaleY="1" ScaleX="1"/>
+                        <SkewTransform AngleY="0" AngleX="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                     </TransformGroup>
+                  </TextBox.RenderTransform>
+               </TextBox>
+               <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <TextBlock HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,0.65"/>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="647,123,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.133,0.65"/>
+               <TextBox HorizontalAlignment="Left" Height="20" Margin="10,123,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="632" RenderTransformOrigin="0.5,0.5">
+                  <TextBox.RenderTransform>
+                     <TransformGroup>
+                        <ScaleTransform ScaleY="1" ScaleX="1"/>
+                        <SkewTransform AngleY="0" AngleX="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                     </TransformGroup>
+                  </TextBox.RenderTransform>
+               </TextBox>
+               <TextBlock HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="490,361,0,0" VerticalAlignment="Top" Width="286" RenderTransformOrigin="0.133,0.65"/>
+            </Grid>
+         </TabItem>
+         <TabItem Header="Settings">
+            <Grid Background="White">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition/>
+               </Grid.ColumnDefinitions>
+               <TextBlock HorizontalAlignment="Left" Margin="10,160,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+               <Button x:Name="EnOrDisableSendToHDD" Content="Button" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,0.65"/>
+               <Button x:Name="AutomaticSetupBtn" Content="Button" HorizontalAlignment="Left" Margin="490,181,0,0" VerticalAlignment="Top" Width="286"/>
+               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="145" Margin="10,10,0,0" VerticalAlignment="Top" Width="766">
+                  <Grid Margin="0,0,-2,-1">
+                     <Button Content="Button" HorizontalAlignment="Right" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="286" RenderTransformOrigin="0.133,0.65"/>
+                     <Button Content="Button" HorizontalAlignment="Left" Margin="617,69,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.133,0.65"/>
+                     <Button Content="Button" HorizontalAlignment="Left" Margin="617,23,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.533,2.95"/>
+                     <TextBox HorizontalAlignment="Left" Height="20" Margin="0,69,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="612" RenderTransformOrigin="0.5,0.5">
+                        <TextBox.RenderTransform>
+                           <TransformGroup>
+                              <ScaleTransform ScaleY="1" ScaleX="1"/>
+                              <SkewTransform AngleY="0" AngleX="0"/>
+                              <RotateTransform Angle="0"/>
+                              <TranslateTransform/>
+                           </TransformGroup>
+                        </TextBox.RenderTransform>
+                     </TextBox>
+                     <TextBlock HorizontalAlignment="Left" Margin="0,48,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+                     <TextBox HorizontalAlignment="Left" Height="20" Margin="0,23,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="612" RenderTransformOrigin="0.5,0.5" IsEnabled="False">
+                        <TextBox.RenderTransform>
+                           <TransformGroup>
+                              <ScaleTransform ScaleY="1" ScaleX="1"/>
+                              <SkewTransform AngleY="0" AngleX="0"/>
+                              <RotateTransform Angle="0"/>
+                              <TranslateTransform/>
+                           </TransformGroup>
+                        </TextBox.RenderTransform>
+                     </TextBox>
+                     <TextBlock HorizontalAlignment="Left" Margin="0,2,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+                  </Grid>
+               </GroupBox>
+            </Grid>
+         </TabItem>
       </TabControl>
    </Grid>
 </Window>
