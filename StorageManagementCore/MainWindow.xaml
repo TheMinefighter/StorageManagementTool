@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StorageManagementCore"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Loaded="Window_Loaded">
+        Title="MainWindow" Height="455" Width="800" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Loaded="Window_Loaded">
    <Grid RenderTransformOrigin="0.5,0.5" >
       <Grid.ColumnDefinitions>
          <ColumnDefinition/>
@@ -40,7 +40,7 @@
          <TabItem x:Name="ShellFolderTi" Header="ShellFolder">
             <Grid Background="White">
                <ListBox x:Name="ShellFolders" HorizontalAlignment="Left" Margin="10,10,0,30" Width="202"/>
-               <CheckBox x:Name="ViewUnavailableFOlders" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom"/>
+               <CheckBox x:Name="ViewUnavailableFOlders" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="#FFFF4040"/>
                <TextBox Height="20" Margin="217,31,193,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" IsEnabled="False"/>
                <TextBlock HorizontalAlignment="Left" Margin="217,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
                <Button Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Width="178"/>
@@ -48,8 +48,8 @@
                <TextBox Height="20" Margin="217,77,193,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
                <Button Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0" VerticalAlignment="Top" Width="178"/>
                <Button Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="178"/>
-               <CheckBox x:Name="MoveExistingItemsCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,101,0,0" VerticalAlignment="Top" IsChecked="True"/>
-               <CheckBox x:Name="MoveDependentShellFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,121,0,0" VerticalAlignment="Top" IsChecked="True"/>
+               <CheckBox x:Name="MoveExistingItemsCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,101,0,0" VerticalAlignment="Top" IsChecked="True" Background="#FFFF4040"/>
+               <CheckBox x:Name="MoveDependentShellFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,121,0,0" VerticalAlignment="Top" IsChecked="True" Background="#FFFF4040"/>
             </Grid>
          </TabItem>
          <TabItem Header="Search">
@@ -86,8 +86,8 @@
          </TabItem>
          <TabItem Header="Monitoring">
             <Grid Background="White">
-               <ListBox x:Name="MonitoredFoldersLb" Margin="10,56,224,152"/>
-               <CheckBox x:Name="ShowHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="567,0,0,199" VerticalAlignment="Bottom"/>
+               <ListBox x:Name="MonitoredFoldersLb" Margin="10,56,224,80"/>
+               <CheckBox x:Name="ShowHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,58" VerticalAlignment="Bottom" Background="#FFFF4040"/>
                <Button x:Name="AddMonitoredFolderBtn" Content="Button" Margin="0,56,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="209"/>
                <TextBlock x:Name="EnOrDisableMonitoringLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
                <Button x:Name="EnOrDisableMonitoringBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="178"/>
@@ -96,8 +96,19 @@
                <Button x:Name="RemoveMonitoredFolderBtn" Content="Button" Margin="0,152,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="209"/>
                <TextBlock x:Name="EnOrDisableMonitoredFolderLbl" HorizontalAlignment="Right" Margin="0,106,170,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
                <Button Content="Button" HorizontalAlignment="Left" Margin="567,366,0,0" VerticalAlignment="Top" Width="209"/>
-               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="100" Margin="10,281,0,0" VerticalAlignment="Top" Width="186">
-                  <RadioButton Content="RadioButton" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top"/>
+               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="167,319,0,0" VerticalAlignment="Top" Width="195">
+                  <Grid Margin="0,0,-2,-12">
+                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0"/>
+                  </Grid>
+               </GroupBox>
+               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="367,316,0,0" VerticalAlignment="Top" Width="195">
+                  <Grid Margin="0,0,-2,-12">
+                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0"/>
+                  </Grid>
                </GroupBox>
             </Grid>
          </TabItem>
@@ -109,9 +120,9 @@
                <TextBlock x:Name="EnOrDisableSendToHDDLbl" HorizontalAlignment="Left" Margin="10,192,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
                <Button x:Name="EnOrDisableSendToHDD" Content="Button" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,0.65"/>
                <Button x:Name="AutomaticSetupBtn" Content="Button" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="333" Height="22"/>
-               <GroupBox x:Name="DefaultBasePathGb" Header="GroupBox" Height="150" Margin="10,10,10,0" VerticalAlignment="Top">
-                  <Grid Margin="0,0,-2,-1">
-                     <Button Content="Button" HorizontalAlignment="Right" Margin="0,0,10,4" VerticalAlignment="Bottom" Width="286" RenderTransformOrigin="0.133,0.65" Height="22"/>
+               <GroupBox x:Name="DefaultBasePathGb" Header="GroupBox" Height="140" Margin="10,10,10,0" VerticalAlignment="Top">
+                  <Grid Margin="0,0,-2,-12">
+                     <Button Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="286" RenderTransformOrigin="0.133,0.65" Height="22"/>
                      <Button x:Name="OpenCurrenBasePathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,23,10,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.533,2.95" Height="22"/>
                      <TextBox Height="22" Margin="0,71,144,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
                         <TextBox.RenderTransform>
@@ -135,13 +146,14 @@
                         </TextBox.RenderTransform>
                      </TextBox>
                      <TextBlock HorizontalAlignment="Left" Margin="0,2,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
+                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="0,0,0,17" VerticalAlignment="Bottom"/>
                      <Button Content="Button" HorizontalAlignment="Right" Margin="0,70,10,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.133,0.65" Height="22"/>
                   </Grid>
                </GroupBox>
                <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="183,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="1,0.533"/>
                <Button x:Name="SetLanguageAndRestartBtn_Copy" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="178" Height="22"/>
-               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="55" Margin="399,165,0,0" VerticalAlignment="Top" Width="377">
+               <Button x:Name="DeleteLogs" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="178" Height="22" Margin="0,27,0,0"/>
+               <GroupBox x:Name="LanguageGb" Header="GroupBox" HorizontalAlignment="Left" Height="55" Margin="399,165,0,0" VerticalAlignment="Top" Width="377">
                   <Grid Margin="0,5,-2,-12">
                      <ComboBox x:Name="SelectLanguageLbl" HorizontalAlignment="Left" VerticalAlignment="Top" Width="178" Height="22" SelectedIndex="0">
                         <ComboBoxItem Content="System Language"/>
@@ -151,15 +163,20 @@
                      <Button x:Name="SetLanguageAndRestartBtn" Content="Button" HorizontalAlignment="Left" Margin="183,0,0,0" VerticalAlignment="Top" Width="184" Height="22"/>
                   </Grid>
                </GroupBox>
-               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="55" Margin="399,225,0,0" VerticalAlignment="Top" Width="377">
+               <GroupBox x:Name="LoggingGb" Header="GroupBox" HorizontalAlignment="Left" Height="74" Margin="399,225,0,0" VerticalAlignment="Top" Width="377">
                   <Grid Margin="0,5,-2,-12"/>
                </GroupBox>
-               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="55" Margin="399,285,0,0" VerticalAlignment="Top" Width="377">
+               <GroupBox x:Name="AuthorizationGb" Header="GroupBox" HorizontalAlignment="Left" Height="55" Margin="399,304,0,0" VerticalAlignment="Top" Width="377">
                   <Grid Margin="0,10,-2,-12">
                      <Button Content="Button" HorizontalAlignment="Left" Margin="183,0,0,0" VerticalAlignment="Top" Width="184" Height="22"/>
                      <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="178" Height="22"/>
                   </Grid>
                </GroupBox>
+               <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.23,1.711" IsChecked="True" Background="#FFFF4040"/>
+               <Button x:Name="DeleteConfigurationBtn" Content="Button" HorizontalAlignment="Left" Margin="198,339,0,0" VerticalAlignment="Top" Width="196" Background="#FFFF4040"/>
+               <Button x:Name="DeleteConfigurationBtn_Copy" Content="Button" HorizontalAlignment="Left" Margin="10,339,0,0" VerticalAlignment="Top" Width="183" Background="#FFFF4040"/>
+               <Button Content="Button" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
+               <TextBlock x:Name="EnOrDisableSendToHDDLbl_Copy" HorizontalAlignment="Left" Margin="10,238,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
             </Grid>
          </TabItem>
       </TabControl>
