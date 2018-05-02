@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using ExtendedMessageBoxLibrary;
+using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore
 {
@@ -24,9 +25,9 @@ namespace StorageManagementCore
 		/// <summary>
 		///  Dictionary from FileSystemWatchers to MonitoredFolders
 		/// </summary>
-		private static readonly Dictionary<FileSystemWatcher, JSONConfig.MonitoringSetting.MonitoredFolder>
+		private static readonly Dictionary<FileSystemWatcher, MonitoredFolder>
 			FileSystemWatcher2MonitoredFolders
-				= new Dictionary<FileSystemWatcher, JSONConfig.MonitoringSetting.MonitoredFolder>();
+				= new Dictionary<FileSystemWatcher, MonitoredFolder>();
 
 		/// <summary>
 		///  Initalizes the Background Process
@@ -35,10 +36,10 @@ namespace StorageManagementCore
 		{
 			_jsonConfig = Session.Singleton.CurrentConfiguration;
 
-			foreach (JSONConfig.MonitoringSetting.MonitoredFolder monitoredFolder in _jsonConfig.MonitoringSettings
+			foreach (MonitoredFolder monitoredFolder in _jsonConfig.MonitoringSettings
 				.MonitoredFolders)
 			{
-				if (monitoredFolder.ForFiles != JSONConfig.MonitoringSetting.MonitoringAction.Ignore)
+				if (monitoredFolder.ForFiles != MonitoringAction.Ignore)
 				{
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
 					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FileCreated;
@@ -48,7 +49,7 @@ namespace StorageManagementCore
 					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
 
-				if (monitoredFolder.ForFolders != JSONConfig.MonitoringSetting.MonitoringAction.Ignore)
+				if (monitoredFolder.ForFolders != MonitoringAction.Ignore)
 				{
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
 					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FolderCreated;
@@ -61,19 +62,19 @@ namespace StorageManagementCore
 
 			while (true)
 			{
-				Thread.Sleep(2000000000); //Needed to keep FileSystemWatchers active
+				Thread.Sleep(2000000000); //Needed to keep FileSystemWatchers active; I know thats dirty
 			}
 		}
 
 //Multi Lang
 		private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e)
 		{
-			JSONConfig.MonitoringSetting.MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
+			MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
 			switch (tmp.ForFolders)
 			{
-				case JSONConfig.MonitoringSetting.MonitoringAction.Ignore:
+				case MonitoringAction.Ignore:
 					break;
-				case JSONConfig.MonitoringSetting.MonitoringAction.Ask:
+				case MonitoringAction.Ask:
 					if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
 						    new[]
 						    {
@@ -92,7 +93,7 @@ namespace StorageManagementCore
 					}
 
 					break;
-				case JSONConfig.MonitoringSetting.MonitoringAction.Move:
+				case MonitoringAction.Move:
 					OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
 						new DirectoryInfo(_jsonConfig.DefaultHDDPath), true);
 
@@ -104,12 +105,12 @@ namespace StorageManagementCore
 
 		private static void MonitoredFolderWatcher_FileCreated(object sender, FileSystemEventArgs e)
 		{
-			JSONConfig.MonitoringSetting.MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
+			MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
 			switch (tmp.ForFiles)
 			{
-				case JSONConfig.MonitoringSetting.MonitoringAction.Ignore:
+				case MonitoringAction.Ignore:
 					break;
-				case JSONConfig.MonitoringSetting.MonitoringAction.Ask:
+				case MonitoringAction.Ask:
 					if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
 						    new[]
 						    {
@@ -128,7 +129,7 @@ namespace StorageManagementCore
 					}
 
 					break;
-				case JSONConfig.MonitoringSetting.MonitoringAction.Move:
+				case MonitoringAction.Move:
 					OperatingMethods.MoveFile(new FileInfo(e.FullPath),
 						new FileInfo(Path.Combine(_jsonConfig.DefaultHDDPath, e.FullPath.Remove(1, 1)))
 					);

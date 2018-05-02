@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore
 {

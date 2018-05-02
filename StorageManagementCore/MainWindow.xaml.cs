@@ -16,5 +16,20 @@ namespace StorageManagementCore
       {
 		//	BaseTc.
       }
+
+      private void Button_Click()
+      {
+
+      }
+
+      private void EnOrDisableMonitoringBtn_Click(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+      private void BaseTc_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+      {
+			
+      }
    }
 }

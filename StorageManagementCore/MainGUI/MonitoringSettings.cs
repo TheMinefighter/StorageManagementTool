@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using StorageManagementCore.Configuration;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.MonitoringSettingsStrings;
 
 namespace StorageManagementCore.MainGUI
 {
 	public partial class MonitoringSettings : Form
 	{
-		private readonly Dictionary<JSONConfig.MonitoringSetting.MonitoringAction, RadioButton> _forFilesDictionary =
-			new Dictionary<JSONConfig.MonitoringSetting.MonitoringAction, RadioButton>();
+		private readonly Dictionary<MonitoringAction, RadioButton> _forFilesDictionary =
+			new Dictionary<MonitoringAction, RadioButton>();
 
 
-		private readonly Dictionary<JSONConfig.MonitoringSetting.MonitoringAction, RadioButton> _forFoldersDictionary =
-			new Dictionary<JSONConfig.MonitoringSetting.MonitoringAction, RadioButton>();
+		private readonly Dictionary<MonitoringAction, RadioButton> _forFoldersDictionary =
+			new Dictionary<MonitoringAction, RadioButton>();
 
 		private JSONConfig.MonitoringSetting _editedSettings = new JSONConfig.MonitoringSetting();
 		private List<Control> _whenEnabled = new List<Control>();
@@ -57,12 +58,12 @@ namespace StorageManagementCore.MainGUI
 		private void NotificationSettings_Load(object sender, EventArgs e)
 		{
 			LoadUIStrings();
-			_forFoldersDictionary.Add(JSONConfig.MonitoringSetting.MonitoringAction.Ask, AskActionForFolders_rb);
-			_forFoldersDictionary.Add(JSONConfig.MonitoringSetting.MonitoringAction.Ignore, IgnoreForFolders_rb);
-			_forFoldersDictionary.Add(JSONConfig.MonitoringSetting.MonitoringAction.Move, AutomaticMoveForFolders_rb);
-			_forFilesDictionary.Add(JSONConfig.MonitoringSetting.MonitoringAction.Ask, AskActionForFiles_rb);
-			_forFilesDictionary.Add(JSONConfig.MonitoringSetting.MonitoringAction.Ignore, IgnoreForFiles_rb);
-			_forFilesDictionary.Add(JSONConfig.MonitoringSetting.MonitoringAction.Move, AutomaticMoveForFiles_rb);
+			_forFoldersDictionary.Add(MonitoringAction.Ask, AskActionForFolders_rb);
+			_forFoldersDictionary.Add(MonitoringAction.Ignore, IgnoreForFolders_rb);
+			_forFoldersDictionary.Add(MonitoringAction.Move, AutomaticMoveForFolders_rb);
+			_forFilesDictionary.Add(MonitoringAction.Ask, AskActionForFiles_rb);
+			_forFilesDictionary.Add(MonitoringAction.Ignore, IgnoreForFiles_rb);
+			_forFilesDictionary.Add(MonitoringAction.Move, AutomaticMoveForFiles_rb);
 			_editedSettings = Session.Singleton.CurrentConfiguration.MonitoringSettings ??
 			                  new JSONConfig.MonitoringSetting();
 			_whenEnabled = new List<Control>
@@ -135,7 +136,7 @@ namespace StorageManagementCore.MainGUI
 			FolderBrowserDialog browser =
 				new FolderBrowserDialog {Description = AddFolder_fbdDescription};
 			browser.ShowDialog();
-			_editedSettings.MonitoredFolders.Add(new JSONConfig.MonitoringSetting.MonitoredFolder(browser.SelectedPath));
+			_editedSettings.MonitoredFolders.Add(new MonitoredFolder(browser.SelectedPath));
 			AllFolders_lb.Items.Add(browser.SelectedPath);
 			AllFolders_lb.SelectedIndex = AllFolders_lb.Items.Count - 1;
 			browser.Dispose();
