@@ -6,13 +6,11 @@ using System.Windows.Forms;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Interpreters;
 
-namespace StorageManagementCore
-{
+namespace StorageManagementCore {
 	/// <summary>
 	///  Main class of this Program
 	/// </summary>
-	public static class Program
-	{
+	public static class Program {
 		/// <summary>
 		///  A reference to an object containig methods for the console IO operations
 		/// </summary>
@@ -26,10 +24,8 @@ namespace StorageManagementCore
 		/// <summary>
 		///  The main entry point for the application.
 		/// </summary>
-		[STAThread]
-		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-		public static void Main2(string[] args)
-		{
+		[STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+		public static void Main2(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
 			ConsoleIO.SetVisibility(CommandLineMode);
@@ -42,10 +38,8 @@ namespace StorageManagementCore
 		///  Processes aguments
 		/// </summary>
 		/// <param name="args">The arguments to process</param>
-		private static void ProcessCommandlineArguments(string[] args)
-		{
-			if (false)
-			{
+		private static void ProcessCommandlineArguments(string[] args) {
+			if (false) {
 				//For debugging purposes only
 				MessageBox.Show(string.Join(" , ", args));
 			}

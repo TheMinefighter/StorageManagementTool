@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace StorageManagementCore.Configuration
-{
+namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Represents the JSON serializable configuration data of program
 	/// </summary>
-	public class MainConfiguration :IEquatable<MainConfiguration>
-	{
-		/// <summary>
-      /// The Version of the Configuration
-      /// </summary>
-		public string Version; 
+	public class MainConfiguration : IEquatable<MainConfiguration> {
 		/// <summary>
 		///  The default path to move data to
 		/// </summary>
@@ -27,10 +20,11 @@ namespace StorageManagementCore.Configuration
 		///  The configured SSD MonitoringSetting
 		/// </summary>
 		public MonitoringSetting MonitoringSettings;
-		public 
 
-		public override string ToString() => JsonConvert.SerializeObject(this);
-
+		/// <summary>
+		///  The Version of the Configuration
+		/// </summary>
+		public string Version;
 
 		public bool Equals(MainConfiguration other) {
 			if (ReferenceEquals(null, other)) {
@@ -41,7 +35,10 @@ namespace StorageManagementCore.Configuration
 				return true;
 			}
 
-			return string.Equals(Version, other.Version) && string.Equals(DefaultHDDPath, other.DefaultHDDPath) && string.Equals(LanguageOverride, other.LanguageOverride) && Equals(MonitoringSettings, other.MonitoringSettings);
+			return string.Equals(Version, other.Version) && string.Equals(DefaultHDDPath, other.DefaultHDDPath) &&
+			       string.Equals(LanguageOverride, other.LanguageOverride) && Equals(MonitoringSettings, other.MonitoringSettings);
 		}
+
+		public override string ToString() => JsonConvert.SerializeObject(this);
 	}
 }

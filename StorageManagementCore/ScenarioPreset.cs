@@ -4,19 +4,14 @@ using System.IO;
 using Microsoft.VisualBasic.Devices;
 using static StorageManagementCore.GlobalizationRessources.ScenarioPresetStrings;
 
-namespace StorageManagementCore
-{
+namespace StorageManagementCore {
 	/// <summary>
 	///  Stores the presets for the scenarios
 	/// </summary>
-	public struct ScenarioPreset
-	{
+	public struct ScenarioPreset {
 		public static ScenarioPreset[] AvailablePresets;
 
-		public override string ToString()
-		{
-			return Id;
-		}
+		public override string ToString() => Id;
 
 		/// <summary>
 		///  Whether a HDD is required for this preset
@@ -40,10 +35,8 @@ namespace StorageManagementCore
 		/// </summary>
 		public Action<DriveInfo, DriveInfo> ToRun;
 
-		private static void LocalSSDAndNAS(DriveInfo ssd, DriveInfo hdd)
-		{
-			Dictionary<string, string> usfToMove = new Dictionary<string, string>
-			{
+		private static void LocalSSDAndNAS(DriveInfo ssd, DriveInfo hdd) {
+			Dictionary<string, string> usfToMove = new Dictionary<string, string> {
 				{"Personal", "Documents"},
 				{"My Music", "Music"},
 				{"My Pictures", "Pictures"},
@@ -53,10 +46,8 @@ namespace StorageManagementCore
 			};
 			bool empty = false;
 			int i = 0;
-			do
-			{
-				if (Directory.Exists(Path.Combine(hdd.RootDirectory.FullName, $"SSD{i}")))
-				{
+			do {
+				if (Directory.Exists(Path.Combine(hdd.RootDirectory.FullName, $"SSD{i}"))) {
 					empty = true;
 				}
 
@@ -68,23 +59,20 @@ namespace StorageManagementCore
 			Session.Singleton.CurrentConfiguration.DefaultHDDPath = baseDir.FullName;
 			Session.Singleton.SaveCfg();
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
-			foreach (KeyValuePair<string, string> currentPair in usfToMove)
-			{
+			foreach (KeyValuePair<string, string> currentPair in usfToMove) {
 				UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
 				UserShellFolder.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}
 
-			Dictionary<string, string> csfToMove = new Dictionary<string, string>
-			{
+			Dictionary<string, string> csfToMove = new Dictionary<string, string> {
 				{"ProgramFilesDir (x86)", "Program Files (x86)"},
 				{"ProgramFilesDir", "Program Files"},
 				{"Common Desktop", "Common Desktop"}
 			};
 			DirectoryInfo commonDir = baseDir.CreateSubdirectory("Common Data");
-			foreach (KeyValuePair<string, string> currentPair in csfToMove)
-			{
+			foreach (KeyValuePair<string, string> currentPair in csfToMove) {
 				UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
 				UserShellFolder.ChangeUserShellFolder(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
 					moving,
@@ -98,10 +86,8 @@ namespace StorageManagementCore
 			OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));
 		}
 
-		private static void LocalSSDAndHDD(DriveInfo ssd, DriveInfo hdd)
-		{
-			Dictionary<string, string> usfToMove = new Dictionary<string, string>
-			{
+		private static void LocalSSDAndHDD(DriveInfo ssd, DriveInfo hdd) {
+			Dictionary<string, string> usfToMove = new Dictionary<string, string> {
 				{"Personal", "Documents"},
 				{"My Music", "Music"},
 				{"My Pictures", "Pictures"},
@@ -111,10 +97,8 @@ namespace StorageManagementCore
 			};
 			bool empty = false;
 			int i = 0;
-			do
-			{
-				if (Directory.Exists(Path.Combine(hdd.RootDirectory.FullName, $"SSD{i}")))
-				{
+			do {
+				if (Directory.Exists(Path.Combine(hdd.RootDirectory.FullName, $"SSD{i}"))) {
 					empty = true;
 				}
 
@@ -125,8 +109,7 @@ namespace StorageManagementCore
 			Session.Singleton.CurrentConfiguration.DefaultHDDPath = baseDir.FullName;
 			Session.Singleton.SaveCfg();
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
-			foreach (KeyValuePair<string, string> currentPair in usfToMove)
-			{
+			foreach (KeyValuePair<string, string> currentPair in usfToMove) {
 				UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
 				UserShellFolder.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
 					moving,
@@ -143,19 +126,15 @@ namespace StorageManagementCore
 		/// <summary>
 		///  Loads all configured presets
 		/// </summary>
-		public static void LoadPresets()
-		{
-			AvailablePresets = new[]
-			{
-				new ScenarioPreset
-				{
+		public static void LoadPresets() {
+			AvailablePresets = new[] {
+				new ScenarioPreset {
 					HDDRequired = true,
 					ViewedName = Presets_LocalHDDAndSSD,
 					ToRun = LocalSSDAndHDD,
 					Id = "LocalSSDAndHDD"
 				},
-				new ScenarioPreset
-				{
+				new ScenarioPreset {
 					HDDRequired = true,
 					SSDRequired = true,
 					ViewedName = Presets_LocalSSDAndNAS,

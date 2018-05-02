@@ -5,10 +5,8 @@ using System.Windows.Forms;
 using StorageManagementCore.Configuration;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.MonitoringSettingsStrings;
 
-namespace StorageManagementCore.MainGUI
-{
-	public partial class MonitoringSettings : Form
-	{
+namespace StorageManagementCore.MainGUI {
+	public partial class MonitoringSettings : Form {
 		private readonly Dictionary<MonitoringAction, RadioButton> _forFilesDictionary =
 			new Dictionary<MonitoringAction, RadioButton>();
 
@@ -21,21 +19,18 @@ namespace StorageManagementCore.MainGUI
 		private List<Control> _whenSelected = new List<Control>();
 		private bool IsMonitored;
 
-		public MonitoringSettings()
-		{
+		public MonitoringSettings() {
 			InitializeComponent();
 		}
 
-		private void EnableNotifications_cb_CheckedChanged(object sender, EventArgs e)
-		{
+		private void EnableNotifications_cb_CheckedChanged(object sender, EventArgs e) {
 			EnableControls();
 		}
 
 		/// <summary>
 		///  Loads UI strings from culture sepcific ressource file
 		/// </summary>
-		private void LoadUIStrings()
-		{
+		private void LoadUIStrings() {
 			Text = WindowTitle;
 			EnableNotifications_cb.Text = EnableNotifications_cb_Text;
 			//InitalizeSSDMonitoring_btn.Text = InitalizeSSDMonitoring_btn_Text;
@@ -55,8 +50,7 @@ namespace StorageManagementCore.MainGUI
 			AutomaticMoveForFiles_rb.Text = AutomaticMove_Text;
 		}
 
-		private void NotificationSettings_Load(object sender, EventArgs e)
-		{
+		private void NotificationSettings_Load(object sender, EventArgs e) {
 			LoadUIStrings();
 			_forFoldersDictionary.Add(MonitoringAction.Ask, AskActionForFolders_rb);
 			_forFoldersDictionary.Add(MonitoringAction.Ignore, IgnoreForFolders_rb);
@@ -66,8 +60,7 @@ namespace StorageManagementCore.MainGUI
 			_forFilesDictionary.Add(MonitoringAction.Move, AutomaticMoveForFiles_rb);
 			_editedSettings = Session.Singleton.CurrentConfiguration.MonitoringSettings ??
 			                  new MonitoringSetting();
-			_whenEnabled = new List<Control>
-			{
+			_whenEnabled = new List<Control> {
 				AllFolders_lb,
 				AddFolder_btn,
 				OpenSelectedfolder_btn,
@@ -76,8 +69,7 @@ namespace StorageManagementCore.MainGUI
 				ActionForFolders_gb,
 				ChangeFolder_btn
 			};
-			_whenSelected = new List<Control>
-			{
+			_whenSelected = new List<Control> {
 				OpenSelectedfolder_btn,
 				RemoveSelectedFolder_btn,
 				ActionForFiles_gb,
@@ -87,52 +79,43 @@ namespace StorageManagementCore.MainGUI
 			EnableControls();
 			AllFolders_lb.Items.Clear();
 			AllFolders_lb.Items.AddRange(
-				(object[]) _editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
+				_editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
 			IsMonitored = OperatingMethods.SSDMonitoring.SSDMonitoringEnabled();
 			EnableNotifications_cb.Checked = IsMonitored;
 		}
 
-		private void EnableControls()
-		{
+		private void EnableControls() {
 			bool itemSelected = AllFolders_lb.SelectedIndex != -1;
 
 			//To SCHTASK /TN /DiSABLE
 			bool monitoringEnabled = EnableNotifications_cb.Checked;
-			foreach (Control control in _whenEnabled)
-			{
-				if (monitoringEnabled)
-				{
-					if (itemSelected)
-					{
+			foreach (Control control in _whenEnabled) {
+				if (monitoringEnabled) {
+					if (itemSelected) {
 						control.Enabled = true;
 					}
-					else
-					{
+					else {
 						control.Enabled = !_whenSelected.Contains(control);
 					}
 				}
-				else
-				{
+				else {
 					control.Enabled = false;
 				}
 			}
 		}
 
-		private void OpenSelectedfolder_btn_Click(object sender, EventArgs e)
-		{
+		private void OpenSelectedfolder_btn_Click(object sender, EventArgs e) {
 			Wrapper.ExecuteExecuteable(
 				Wrapper.ExplorerPath,
 				(string) AllFolders_lb.SelectedItem, false, false, false);
 		}
 
-		private void RemoveSelectedFolder_btn_Click(object sender, EventArgs e)
-		{
+		private void RemoveSelectedFolder_btn_Click(object sender, EventArgs e) {
 			_editedSettings.MonitoredFolders.RemoveAt(AllFolders_lb.SelectedIndex);
 			AllFolders_lb.Items.RemoveAt(AllFolders_lb.SelectedIndex);
 		}
 
-		private void AddFolder_btn_Click(object sender, EventArgs e)
-		{
+		private void AddFolder_btn_Click(object sender, EventArgs e) {
 			FolderBrowserDialog browser =
 				new FolderBrowserDialog {Description = AddFolder_fbdDescription};
 			browser.ShowDialog();
@@ -142,25 +125,21 @@ namespace StorageManagementCore.MainGUI
 			browser.Dispose();
 		}
 
-		private void AllFolders_lb_SelectedIndexChanged(object sender, EventArgs e)
-		{
+		private void AllFolders_lb_SelectedIndexChanged(object sender, EventArgs e) {
 			EnableControls();
-			if (AllFolders_lb.SelectedIndex != -1)
-			{
+			if (AllFolders_lb.SelectedIndex != -1) {
 				_forFoldersDictionary[_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders].Checked =
 					true;
 				_forFilesDictionary[_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles].Checked =
 					true;
 			}
-			else
-			{
+			else {
 				ActionForFolders_gb.Controls.OfType<RadioButton>().ToList().ForEach(x => x.Checked = false);
 				ActionForFiles_gb.Controls.OfType<RadioButton>().ToList().ForEach(x => x.Checked = false);
 			}
 		}
 
-		private void ChangeFolder_btn_Click(object sender, EventArgs e)
-		{
+		private void ChangeFolder_btn_Click(object sender, EventArgs e) {
 			FolderBrowserDialog browser =
 				new FolderBrowserDialog {Description = ChangeFolder_fbdDescription};
 			browser.ShowDialog();
@@ -169,18 +148,14 @@ namespace StorageManagementCore.MainGUI
 			browser.Dispose();
 		}
 
-		private void SaveSettings_btn_Click(object sender, EventArgs e)
-		{
-			if (!_editedSettings.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings))
-			{
+		private void SaveSettings_btn_Click(object sender, EventArgs e) {
+			if (!_editedSettings.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings)) {
 				Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
 				Session.Singleton.SaveCfg();
 			}
 
-			if (EnableNotifications_cb.Checked != IsMonitored)
-			{
-				if (!OperatingMethods.SSDMonitoring.SetSSDMonitoring(EnableNotifications_cb.Checked))
-				{
+			if (EnableNotifications_cb.Checked != IsMonitored) {
+				if (!OperatingMethods.SSDMonitoring.SetSSDMonitoring(EnableNotifications_cb.Checked)) {
 					return;
 					//error
 				}
@@ -189,31 +164,25 @@ namespace StorageManagementCore.MainGUI
 			Close();
 		}
 
-		private void Abort_btn_Click(object sender, EventArgs e)
-		{
+		private void Abort_btn_Click(object sender, EventArgs e) {
 			Close();
 		}
 
-		private void ForFoldersChanged(object sender, EventArgs e)
-		{
-			if (((RadioButton) sender).Checked)
-			{
+		private void ForFoldersChanged(object sender, EventArgs e) {
+			if (((RadioButton) sender).Checked) {
 				_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders =
 					_forFoldersDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
 			}
 		}
 
-		private void ForFilesChanged(object sender, EventArgs e)
-		{
-			if (((RadioButton) sender).Checked)
-			{
+		private void ForFilesChanged(object sender, EventArgs e) {
+			if (((RadioButton) sender).Checked) {
 				_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles =
 					_forFilesDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
 			}
 		}
 
-		private void InitalizeSSDMonitoring_btn_Click(object sender, EventArgs e)
-		{
+		private void InitalizeSSDMonitoring_btn_Click(object sender, EventArgs e) {
 			OperatingMethods.SSDMonitoring.InitalizeSSDMonitoring();
 		}
 	}

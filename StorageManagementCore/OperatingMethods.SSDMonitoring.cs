@@ -5,12 +5,9 @@ using System.IO;
 using System.Security.Principal;
 using System.Xml.Linq;
 
-namespace StorageManagementCore
-{
-	public static partial class OperatingMethods
-	{
-		public static class SSDMonitoring
-		{
+namespace StorageManagementCore {
+	public static partial class OperatingMethods {
+		public static class SSDMonitoring {
 			/// <summary>
 			///  Name of the monitoring task
 			/// </summary>
@@ -26,8 +23,7 @@ namespace StorageManagementCore
 			///  Initalizes SSD monitoring
 			/// </summary>
 			/// <returns>Whether the initalization process were successful</returns>
-			public static bool InitalizeSSDMonitoring()
-			{
+			public static bool InitalizeSSDMonitoring() {
 				XNamespace taskNamespace =
 					XNamespace.Get("http://schemas.microsoft.com/windows/2004/02/mit/task");
 				XElement taskContents = new XElement(taskNamespace + "Task", new XAttribute("version", "1.4"),
@@ -79,12 +75,10 @@ namespace StorageManagementCore
 			/// </summary>
 			/// <param name="initalized">Whether SSD monitoring has been initalized</param>
 			/// <returns>Whether the check were successful</returns>
-			public static bool SSDMonitoringInitalized(out bool initalized)
-			{
+			public static bool SSDMonitoringInitalized(out bool initalized) {
 				initalized = false;
 				if (!Wrapper.ExecuteExecuteable(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,
-					out int returnCode, out int _, true, true, true))
-				{
+					out int returnCode, out int _, true, true, true)) {
 					return false;
 				}
 
@@ -96,30 +90,23 @@ namespace StorageManagementCore
 			///  Checks whether SSD monitoring has been initalized
 			/// </summary>
 			/// <returns>Whether SSD monitoring has been initalized</returns>
-			public static bool SSDMonitoringInitalized()
-			{
-				return SSDMonitoringInitalized(out bool enabled) && enabled;
-			}
+			public static bool SSDMonitoringInitalized() => SSDMonitoringInitalized(out bool enabled) && enabled;
 
 			/// <summary>
 			///  Checks if SSD monitoring is enabled
 			/// </summary>
 			/// <param name="enabled">Whether SSD monitoring</param>
 			/// <returns>Whether the check were successful</returns>
-			public static bool SSDMonitoringEnabled(out bool enabled)
-			{
+			public static bool SSDMonitoringEnabled(out bool enabled) {
 				enabled = false;
 				//From https://superuser.com/a/1035052 last access 10.02.2018
 				if (!Wrapper.RunPowershellCommand(out IEnumerable<string> ret,
-					$"(Get-ScheduledTask | Where TaskName -eq {SSDMonitoringTaskName} ).State"))
-				{
+					$"(Get-ScheduledTask | Where TaskName -eq {SSDMonitoringTaskName} ).State")) {
 					return false;
 				}
 
-				using (IEnumerator<string> enumerator = ret.GetEnumerator())
-				{
-					if (!enumerator.MoveNext())
-					{
+				using (IEnumerator<string> enumerator = ret.GetEnumerator()) {
+					if (!enumerator.MoveNext()) {
 						return false;
 					}
 
@@ -132,8 +119,7 @@ namespace StorageManagementCore
 			///  Checks if SSD monitoring is enabled
 			/// </summary>
 			/// <returns>Whether SSD monitoring</returns>
-			public static bool SSDMonitoringEnabled()
-			{
+			public static bool SSDMonitoringEnabled() {
 				bool success = SSDMonitoringEnabled(out bool enabled);
 				return success && enabled;
 			}
@@ -147,19 +133,14 @@ namespace StorageManagementCore
 			///  it will be
 			/// </param>
 			/// <returns>Whether the operation were successful</returns>
-			public static bool SetSSDMonitoring(bool enable, bool checkForInitalize = true)
-			{
-				if (checkForInitalize)
-				{
-					if (!SSDMonitoringInitalized(out bool initalized))
-					{
+			public static bool SetSSDMonitoring(bool enable, bool checkForInitalize = true) {
+				if (checkForInitalize) {
+					if (!SSDMonitoringInitalized(out bool initalized)) {
 						return false;
 					}
 
-					if (!initalized)
-					{
-						if (!InitalizeSSDMonitoring())
-						{
+					if (!initalized) {
+						if (!InitalizeSSDMonitoring()) {
 							return false;
 						}
 					}

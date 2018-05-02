@@ -8,13 +8,11 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using StorageManagementCore.Configuration;
 
-namespace StorageManagementCore
-{
+namespace StorageManagementCore {
 	/// <summary>
 	///  Stores session data
 	/// </summary>
-	public class Session
-	{
+	public class Session {
 		/// <summary>
 		///  Reference to the Session Object
 		/// </summary>
@@ -38,8 +36,7 @@ namespace StorageManagementCore
 		/// <summary>
 		///  Creates a new Session
 		/// </summary>
-		public Session()
-		{
+		public Session() {
 			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new[]
 				{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 			Singleton = this;
@@ -59,18 +56,13 @@ namespace StorageManagementCore
 		}
 
 		private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,
-			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures)
-		{
+			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures) {
 			CultureInfo requestedParent = requestedCulture.Parent;
 			CultureInfo toUseCultureInfo = null;
-			for (int i = 0; i < availableSpecificCultures.Count(); i++)
-			{
-				if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent))
-				{
-					foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i))
-					{
-						if (cultureInfo.Equals(requestedCulture))
-						{
+			for (int i = 0; i < availableSpecificCultures.Count(); i++) {
+				if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent)) {
+					foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i)) {
+						if (cultureInfo.Equals(requestedCulture)) {
 							toUseCultureInfo = cultureInfo;
 						}
 					}
@@ -91,11 +83,9 @@ namespace StorageManagementCore
 		///  Fills an given Listbox with information about the available Drives
 		/// </summary>
 		/// <param name="toFill"></param>
-		public void FillWithDriveInfo(ListBox toFill)
-		{
+		public void FillWithDriveInfo(ListBox toFill) {
 			toFill.Items.Clear();
-			foreach (DriveInfo item in Wrapper.getDrives())
-			{
+			foreach (DriveInfo item in Wrapper.getDrives()) {
 				toFill.Items.Add(OperatingMethods.GetDriveInfoDescription(item));
 			}
 		}
@@ -103,8 +93,7 @@ namespace StorageManagementCore
 		/// <summary>
 		///  Stores the configuration in a JSON file
 		/// </summary>
-		public void SaveCfg()
-		{
+		public void SaveCfg() {
 			File.WriteAllText(
 				ConfigurationPath, JsonConvert.SerializeObject(CurrentConfiguration));
 		}

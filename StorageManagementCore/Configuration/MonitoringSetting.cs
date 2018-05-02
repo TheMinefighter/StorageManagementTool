@@ -18,9 +18,6 @@ namespace StorageManagementCore.Configuration {
 		public MonitoringSetting() => MonitoredFolders = new List<MonitoredFolder>();
 
 
-		public override string ToString() => JsonConvert.SerializeObject(this);
-
-
 		public bool Equals(MonitoringSetting other) {
 			if (ReferenceEquals(null, other)) {
 				return false;
@@ -32,5 +29,8 @@ namespace StorageManagementCore.Configuration {
 
 			return Equals(MonitoredFolders, other.MonitoredFolders);
 		}
+
+
+		public override string ToString() => JsonConvert.SerializeObject(this);
 	}
 }

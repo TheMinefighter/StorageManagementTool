@@ -1,7 +1,6 @@
 ﻿namespace StorageManagementCore.Configuration {
 	public class PagefilesSetting {
-		public bool EnableHibernate;
-
-		
+		public bool EnableHibfil;
+		public SwapfileConfiguration SwapfileSettings;
 	}
 }

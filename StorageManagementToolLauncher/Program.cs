@@ -4,15 +4,15 @@ using System.Windows.Forms;
 using UniversalCommandlineInterface;
 
 namespace StorageManagementToolLauncher {
-   /// <summary>
-   ///  Launcher class
-   /// </summary>
-   internal class Program {
-      /// <summary>
-      ///  Entry point of the launcher
-      /// </summary>
-      /// <param name="args"></param>
-      [STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+	/// <summary>
+	///  Launcher class
+	/// </summary>
+	internal class Program {
+		/// <summary>
+		///  Entry point of the launcher
+		/// </summary>
+		/// <param name="args"></param>
+		[STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		private static void Main(string[] args) {
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);

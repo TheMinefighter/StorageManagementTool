@@ -5,28 +5,21 @@ using System.Linq;
 using System.Windows.Forms;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.ApplyPresetStrings;
 
-namespace StorageManagementCore.MainGUI
-{
-	public partial class ApplyPreset : Form
-	{
-		public ApplyPreset()
-		{
+namespace StorageManagementCore.MainGUI {
+	public partial class ApplyPreset : Form {
+		public ApplyPreset() {
 			InitializeComponent();
 		}
 
-		private void ApplyPreset_Load(object sender, EventArgs e)
-		{
-			if (!Session.Singleton.IsAdmin)
-			{
+		private void ApplyPreset_Load(object sender, EventArgs e) {
+			if (!Session.Singleton.IsAdmin) {
 				if (MessageBox.Show(Load_AdministratorRequired, Error,
 					    MessageBoxButtons.YesNo,
 					    MessageBoxIcon.Error,
-					    MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-				{
+					    MessageBoxDefaultButton.Button1) == DialogResult.Yes) {
 					Wrapper.RestartAsAdministrator();
 				}
-				else
-				{
+				else {
 					Close();
 				}
 			}
@@ -41,10 +34,8 @@ namespace StorageManagementCore.MainGUI
 			SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.ViewedName).ToArray());
 		}
 
-		private void ApplyPreset_btn_Click(object sender, EventArgs e)
-		{
-			if (SelectScenario_lb.SelectedIndex == -1)
-			{
+		private void ApplyPreset_btn_Click(object sender, EventArgs e) {
+			if (SelectScenario_lb.SelectedIndex == -1) {
 				MessageBox.Show(NoScenarioSelected, Error, MessageBoxButtons.OK,
 					MessageBoxIcon.Error,
 					MessageBoxDefaultButton.Button1);
@@ -52,16 +43,14 @@ namespace StorageManagementCore.MainGUI
 			}
 
 			ScenarioPreset toApply = ScenarioPreset.AvailablePresets[SelectScenario_lb.SelectedIndex];
-			if (toApply.HDDRequired && SelectHDD_lb.SelectedIndex == -1)
-			{
+			if (toApply.HDDRequired && SelectHDD_lb.SelectedIndex == -1) {
 				MessageBox.Show(NoHDDSelectedButRequired, Error, MessageBoxButtons.OK,
 					MessageBoxIcon.Error,
 					MessageBoxDefaultButton.Button1);
 				return;
 			}
 
-			if (toApply.SSDRequired && SelectSSD_lb.SelectedIndex == -1)
-			{
+			if (toApply.SSDRequired && SelectSSD_lb.SelectedIndex == -1) {
 				MessageBox.Show(NoSSDSelectedButRequired, Error, MessageBoxButtons.OK,
 					MessageBoxIcon.Error,
 					MessageBoxDefaultButton.Button1);

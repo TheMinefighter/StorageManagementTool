@@ -87,8 +87,9 @@
     <Compile Include="Configuration\MonitoredFolder.cs" />
     <Compile Include="Configuration\MonitoringAction.cs" />
     <Compile Include="Configuration\MonitoringSetting.cs" />
+    <Compile Include="Configuration\PagefileSysConfiguration.cs" />
     <Compile Include="Configuration\PagefilesSetting.cs" />
-    <Compile Include="Configuration\SwapfileSetting.cs" />
+    <Compile Include="Configuration\SwapfileSysConfiguration.cs" />
     <Compile Include="EnterCredentials.cs" />
     <Compile Include="EnterCredentialsDialog.cs">
       <SubType>Form</SubType>

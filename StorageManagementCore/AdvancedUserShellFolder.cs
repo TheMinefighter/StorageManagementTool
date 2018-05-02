@@ -6,10 +6,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using Csv;
 
-namespace StorageManagementCore
-{
-	public struct AdvancedUserShellFolder
-	{
+namespace StorageManagementCore {
+	public struct AdvancedUserShellFolder {
 		public static AdvancedUserShellFolder[] AllUSF;
 		public bool shouldBeEdited;
 		public Guid WindowsIdentifier;
@@ -19,28 +17,23 @@ namespace StorageManagementCore
 		public string DefaultValue;
 		public bool IsUserSpecific;
 
-		public static AdvancedUserShellFolder GetUSF(string name)
-		{
+		public static AdvancedUserShellFolder GetUSF(string name) {
 			return AllUSF.First(x => x.Name == name);
 		}
 
-		public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier)
-		{
+		public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier) {
 			return AllUSF.First(x => x.WindowsIdentifier == windowsIdentifier);
 		}
 
-		public static void LoadUSF()
-		{
+		public static void LoadUSF() {
 			Assembly current = Assembly.GetExecutingAssembly();
 			const string res = "StorageManagementToolCore.AdvancedUserShellFolderData.csv";
 			MessageBox.Show(string.Join(";", current.GetManifestResourceNames()));
 			string[] manifestResourceNames = current.GetManifestResourceNames();
 			manifestResourceNames.ToString();
-			using (Stream stream = current.GetManifestResourceStream(res))
-			{
+			using (Stream stream = current.GetManifestResourceStream(res)) {
 				IEnumerable<ICsvLine> data = CsvReader.ReadFromStream(stream);
-				AllUSF = data.Select(x => new AdvancedUserShellFolder
-				{
+				AllUSF = data.Select(x => new AdvancedUserShellFolder {
 					Name = x[0],
 					WindowsIdentifier = new Guid(x[1]),
 					Undefined = x[2][0] == '1',

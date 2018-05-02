@@ -43,10 +43,10 @@ namespace UniversalCommandlineInterface.Interpreters {
 
 		public override string ToString() => string.Join(" ", Path);
 
-	   /// <summary>
-	   /// </summary>
-	   /// <returns>Whether the end of the args has been reached</returns>
-	   public bool IncreaseOffset() {
+		/// <summary>
+		/// </summary>
+		/// <returns>Whether the end of the args has been reached</returns>
+		public bool IncreaseOffset() {
 			Offset++;
 			return Offset >= TopInterpreter.Args.Length;
 		}

@@ -5,13 +5,11 @@ using System.Threading;
 using ExtendedMessageBoxLibrary;
 using StorageManagementCore.Configuration;
 
-namespace StorageManagementCore
-{
+namespace StorageManagementCore {
 	/// <summary>
 	///  Class containing functionalities for Background Process
 	/// </summary>
-	public static class BackgroundNotificationCreator
-	{
+	public static class BackgroundNotificationCreator {
 		/// <summary>
 		///  The JSON configuration
 		/// </summary>
@@ -32,15 +30,12 @@ namespace StorageManagementCore
 		/// <summary>
 		///  Initalizes the Background Process
 		/// </summary>
-		public static void Initalize()
-		{
+		public static void Initalize() {
 			_mainConfiguration = Session.Singleton.CurrentConfiguration;
 
 			foreach (MonitoredFolder monitoredFolder in _mainConfiguration.MonitoringSettings
-				.MonitoredFolders)
-			{
-				if (monitoredFolder.ForFiles != MonitoringAction.Ignore)
-				{
+				.MonitoredFolders) {
+				if (monitoredFolder.ForFiles != MonitoringAction.Ignore) {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
 					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FileCreated;
 					tempFileSystemWatcher.NotifyFilter = NotifyFilters.FileName;
@@ -49,8 +44,7 @@ namespace StorageManagementCore
 					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
 
-				if (monitoredFolder.ForFolders != MonitoringAction.Ignore)
-				{
+				if (monitoredFolder.ForFolders != MonitoringAction.Ignore) {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
 					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FolderCreated;
 					tempFileSystemWatcher.NotifyFilter = NotifyFilters.DirectoryName;
@@ -60,34 +54,28 @@ namespace StorageManagementCore
 				}
 			}
 
-			while (true)
-			{
+			while (true) {
 				Thread.Sleep(2000000000); //Needed to keep FileSystemWatchers active; I know thats dirty
 			}
 		}
 
 //Multi Lang
-		private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e)
-		{
+		private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e) {
 			MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
-			switch (tmp.ForFolders)
-			{
+			switch (tmp.ForFolders) {
 				case MonitoringAction.Ignore:
 					break;
 				case MonitoringAction.Ask:
 					if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-						    new[]
-						    {
+						    new[] {
 							    "Es wurde der neue Ordner " + new DirectoryInfo(e.FullPath).Name + "  in ",
 							    tmp.TargetPath,
 							    " gefunden. Soll diese verschoben oder ignoriert werden"
-						    }, "Neue Datei gefunden", new[]
-						    {
+						    }, "Neue Datei gefunden", new[] {
 							    "Ignorieren",
 							    "Verschieben"
 						    }
-					    )).NumberOfClickedButton == 1)
-					{
+					    )).NumberOfClickedButton == 1) {
 						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
 							new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
 					}
@@ -103,27 +91,22 @@ namespace StorageManagementCore
 			}
 		}
 
-		private static void MonitoredFolderWatcher_FileCreated(object sender, FileSystemEventArgs e)
-		{
+		private static void MonitoredFolderWatcher_FileCreated(object sender, FileSystemEventArgs e) {
 			MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
-			switch (tmp.ForFiles)
-			{
+			switch (tmp.ForFiles) {
 				case MonitoringAction.Ignore:
 					break;
 				case MonitoringAction.Ask:
 					if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-						    new[]
-						    {
+						    new[] {
 							    $"Es wurde die neue Datei {new FileInfo(e.FullPath).Name}  in ",
 							    tmp.TargetPath,
 							    " erzeugt. Soll diese verschoben oder ignoriert werden"
-						    }, "Neue Datei gefunden", new[]
-						    {
+						    }, "Neue Datei gefunden", new[] {
 							    "Ignorieren",
 							    "Verschieben"
 						    }
-					    )).NumberOfClickedButton == 1)
-					{
+					    )).NumberOfClickedButton == 1) {
 						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
 							new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
 					}

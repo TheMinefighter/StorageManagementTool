@@ -15,13 +15,13 @@ namespace ExtendedMessageBoxLibrary {
 			string defaultIdentifier = "NoDefault"
 		) => ExMsgBoxcfg = new ExtendedMessageBoxConfiguration(text, title, buttons, defaultButton, defaultIdentifier);
 
-	   /// <summary>
-	   ///  Connect an given String Array with a given Connector String
-	   /// </summary>
-	   /// <param name="strings">The Strings to connect</param>
-	   /// <param name="connector">The connector to use</param>
-	   /// <returns>The strings connected with the given connector</returns>
-	   public static string ConnectStringArrayWithConnector(string[] strings, string connector) {
+		/// <summary>
+		///  Connect an given String Array with a given Connector String
+		/// </summary>
+		/// <param name="strings">The Strings to connect</param>
+		/// <param name="connector">The connector to use</param>
+		/// <returns>The strings connected with the given connector</returns>
+		public static string ConnectStringArrayWithConnector(string[] strings, string connector) {
 			if (strings.Length == 0) {
 				return "";
 			}

@@ -4,12 +4,10 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace StorageManagementCore
-{
+namespace StorageManagementCore {
 	#region Classes used as return values
 
-	public class FolderProperties
-	{
+	public class FolderProperties {
 		#region Private class variables
 
 		#endregion
@@ -25,12 +23,10 @@ namespace StorageManagementCore
 
 	#endregion
 
-	public static class SpecialFolders
-	{
+	public static class SpecialFolders {
 		#region Enums
 
-		public enum FolderList
-		{
+		public enum FolderList {
 			None,
 			AdminTools,
 			ApplicationData,
@@ -82,8 +78,7 @@ namespace StorageManagementCore
 			Links
 		}
 
-		public enum FolderType
-		{
+		public enum FolderType {
 			None,
 			System,
 			Custom
@@ -93,13 +88,11 @@ namespace StorageManagementCore
 
 		#region Public static class methods
 
-		public static FolderProperties GetPath(string sFolderKey)
-		{
+		public static FolderProperties GetPath(string sFolderKey) {
 			//Overloaded
 			FolderList FolderKey = FolderList.None;
 			//Determine the folder type
-			switch (sFolderKey)
-			{
+			switch (sFolderKey) {
 				#region System's Environment.SpecialFolder elements
 
 				//There was more code here but had to
@@ -135,15 +128,13 @@ namespace StorageManagementCore
 			return GetPath(FolderKey);
 		}
 
-		public static FolderProperties GetPath(FolderList FolderKey)
-		{
+		public static FolderProperties GetPath(FolderList FolderKey) {
 			FolderProperties fp = new FolderProperties();
 			FolderType sfType = FolderType.None;
 			Environment.SpecialFolder sf = Environment.SpecialFolder.AdminTools;
 
 			//Determine the folder type
-			switch (FolderKey)
-			{
+			switch (FolderKey) {
 				#region System's Environment.SpecialFolder elements
 
 				//There was more code here but had to
@@ -182,8 +173,7 @@ namespace StorageManagementCore
 			}
 
 			//Build the folder object's path
-			switch (sfType)
-			{
+			switch (sfType) {
 				case FolderType.System:
 					fp.Path = Environment.GetFolderPath(sf);
 					break;
@@ -199,11 +189,9 @@ namespace StorageManagementCore
 			return fp;
 		}
 
-		public static void DebugShowAllFolders()
-		{
+		public static void DebugShowAllFolders() {
 			StringBuilder sb = new StringBuilder();
-			foreach (AdvancedUserShellFolder sf in AdvancedUserShellFolder.AllUSF)
-			{
+			foreach (AdvancedUserShellFolder sf in AdvancedUserShellFolder.AllUSF) {
 				sb.Append(sf.Name);
 				sb.Append(Environment.NewLine);
 				sb.Append(GetSpecialFolderPath(sf.WindowsIdentifier));
@@ -218,22 +206,16 @@ namespace StorageManagementCore
 			int shSetKnownFolderPath = SetSpecialFolderPathInternal(folderId, fPrgTt);
 		}
 
-		public static bool SetSpecialFolderPath(AdvancedUserShellFolder folderId, string newPath)
-		{
-			return SetSpecialFolderPathInternal(folderId.WindowsIdentifier, newPath) == 0;
-		}
+		public static bool SetSpecialFolderPath(AdvancedUserShellFolder folderId, string newPath) =>
+			SetSpecialFolderPathInternal(folderId.WindowsIdentifier, newPath) == 0;
 
-		public static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt)
-		{
-			return Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
-		}
+		public static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) =>
+			Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
 
-		public static string GetSpecialFolderPath(Guid kFolderID)
-		{
+		public static string GetSpecialFolderPath(Guid kFolderID) {
 			string sRet = "";
 
-			if (Win32ShellFolders.SHGetKnownFolderPath(kFolderID, 0, IntPtr.Zero, out IntPtr pPath) == 0)
-			{
+			if (Win32ShellFolders.SHGetKnownFolderPath(kFolderID, 0, IntPtr.Zero, out IntPtr pPath) == 0) {
 				sRet = Marshal.PtrToStringUni(pPath);
 				Marshal.FreeCoTaskMem(pPath);
 			}
