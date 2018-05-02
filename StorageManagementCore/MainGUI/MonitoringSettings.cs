@@ -16,7 +16,7 @@ namespace StorageManagementCore.MainGUI
 		private readonly Dictionary<MonitoringAction, RadioButton> _forFoldersDictionary =
 			new Dictionary<MonitoringAction, RadioButton>();
 
-		private JSONConfig.MonitoringSetting _editedSettings = new JSONConfig.MonitoringSetting();
+		private MonitoringSetting _editedSettings = new MonitoringSetting();
 		private List<Control> _whenEnabled = new List<Control>();
 		private List<Control> _whenSelected = new List<Control>();
 		private bool IsMonitored;
@@ -65,7 +65,7 @@ namespace StorageManagementCore.MainGUI
 			_forFilesDictionary.Add(MonitoringAction.Ignore, IgnoreForFiles_rb);
 			_forFilesDictionary.Add(MonitoringAction.Move, AutomaticMoveForFiles_rb);
 			_editedSettings = Session.Singleton.CurrentConfiguration.MonitoringSettings ??
-			                  new JSONConfig.MonitoringSetting();
+			                  new MonitoringSetting();
 			_whenEnabled = new List<Control>
 			{
 				AllFolders_lb,
@@ -87,7 +87,7 @@ namespace StorageManagementCore.MainGUI
 			EnableControls();
 			AllFolders_lb.Items.Clear();
 			AllFolders_lb.Items.AddRange(
-				_editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
+				(object[]) _editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
 			IsMonitored = OperatingMethods.SSDMonitoring.SSDMonitoringEnabled();
 			EnableNotifications_cb.Checked = IsMonitored;
 		}

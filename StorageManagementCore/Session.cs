@@ -28,7 +28,7 @@ namespace StorageManagementCore
 		/// <summary>
 		///  The current JSON configuration
 		/// </summary>
-		public JSONConfig CurrentConfiguration;
+		public MainConfiguration CurrentConfiguration;
 
 		/// <summary>
 		///  Whether the program runs as administrator
@@ -47,8 +47,8 @@ namespace StorageManagementCore
 					Environment.SpecialFolder.MyDocuments),
 				"StorageManagementToolConfiguration.json");
 			CurrentConfiguration = File.Exists(ConfigurationPath)
-				? JsonConvert.DeserializeObject<JSONConfig>(File.ReadAllText(ConfigurationPath))
-				: new JSONConfig();
+				? JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath))
+				: new MainConfiguration();
 			CultureInfo requestedCulture =
 				CultureInfo.GetCultureInfo(CurrentConfiguration.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
 			CultureInfo toUseCultureInfo = BestPossibleCulture(requestedCulture, availableSpecificCultures);

@@ -15,7 +15,7 @@ namespace StorageManagementCore
 		/// <summary>
 		///  The JSON configuration
 		/// </summary>
-		private static JSONConfig _jsonConfig;
+		private static MainConfiguration _mainConfiguration;
 
 		/// <summary>
 		///  The FileSystemWatchers currently active
@@ -34,9 +34,9 @@ namespace StorageManagementCore
 		/// </summary>
 		public static void Initalize()
 		{
-			_jsonConfig = Session.Singleton.CurrentConfiguration;
+			_mainConfiguration = Session.Singleton.CurrentConfiguration;
 
-			foreach (MonitoredFolder monitoredFolder in _jsonConfig.MonitoringSettings
+			foreach (MonitoredFolder monitoredFolder in _mainConfiguration.MonitoringSettings
 				.MonitoredFolders)
 			{
 				if (monitoredFolder.ForFiles != MonitoringAction.Ignore)
@@ -89,13 +89,13 @@ namespace StorageManagementCore
 					    )).NumberOfClickedButton == 1)
 					{
 						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-							new DirectoryInfo(_jsonConfig.DefaultHDDPath), true);
+							new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
 					}
 
 					break;
 				case MonitoringAction.Move:
 					OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-						new DirectoryInfo(_jsonConfig.DefaultHDDPath), true);
+						new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
 
 					break;
 				default:
@@ -125,13 +125,13 @@ namespace StorageManagementCore
 					    )).NumberOfClickedButton == 1)
 					{
 						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-							new DirectoryInfo(_jsonConfig.DefaultHDDPath), true);
+							new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
 					}
 
 					break;
 				case MonitoringAction.Move:
 					OperatingMethods.MoveFile(new FileInfo(e.FullPath),
-						new FileInfo(Path.Combine(_jsonConfig.DefaultHDDPath, e.FullPath.Remove(1, 1)))
+						new FileInfo(Path.Combine(_mainConfiguration.DefaultHDDPath, e.FullPath.Remove(1, 1)))
 					);
 					break;
 				default:
