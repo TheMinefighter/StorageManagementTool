@@ -78,8 +78,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdvancedUserShellFolder.cs" />
-    <Compile Include="BackgroundNotificationCreator.cs" />
+    <Compile Include="Backend\AdvancedUserShellFolder.cs" />
+    <Compile Include="Backend\RegistryValue.cs" />
+    <Compile Include="Backend\SpecialFolders.cs" />
+    <Compile Include="Backend\UserShellFolder.cs" />
+    <Compile Include="Backend\Win32ShellFolders.cs" />
+    <Compile Include="Backend\Wrapper.cs" />
+    <Compile Include="Backend\Wrapper.FileAndFolder.cs" />
+    <Compile Include="Backend\Wrapper.RegistryMethods.cs" />
     <Compile Include="CmdRootContext.cs" />
     <Compile Include="Configuration\ConfiguredDrive.cs" />
     <Compile Include="Configuration\MainConfiguration.cs" />
@@ -87,16 +93,10 @@
     <Compile Include="Configuration\MonitoredFolder.cs" />
     <Compile Include="Configuration\MonitoringAction.cs" />
     <Compile Include="Configuration\MonitoringSetting.cs" />
+    <Compile Include="Configuration\Pagefile.cs" />
     <Compile Include="Configuration\PagefileSysConfiguration.cs" />
     <Compile Include="Configuration\PagefilesSetting.cs" />
     <Compile Include="Configuration\SwapfileSysConfiguration.cs" />
-    <Compile Include="EnterCredentials.cs" />
-    <Compile Include="EnterCredentialsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EnterCredentialsDialog.designer.cs">
-      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
       <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -188,29 +188,26 @@
     <Compile Include="MainGUI\PageFileSettings.designer.cs">
       <DependentUpon>PageFileSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="OperatingMethods.cs" />
-    <Compile Include="OperatingMethods.SSDMonitoring.cs" />
-    <Compile Include="OperatingMethods.SwapfileMethods.cs" />
+    <Compile Include="Operation\BackgroundNotificationCreator.cs" />
+    <Compile Include="Operation\EnterCredentials.cs" />
+    <Compile Include="Operation\EnterCredentialsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operation\EnterCredentialsDialog.designer.cs">
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operation\OperatingMethods.cs" />
+    <Compile Include="Operation\OperatingMethods.SSDMonitoring.cs" />
+    <Compile Include="Operation\OperatingMethods.SwapfileMethods.cs" />
+    <Compile Include="Operation\ScenarioPreset.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="RegistryValue.cs" />
-    <Compile Include="ScenarioPreset.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="SpecialFolders.cs" />
-    <Compile Include="UserShellFolder.cs" />
-    <Compile Include="Win32ShellFolders.cs" />
-    <Compile Include="Wrapper.cs" />
-    <Compile Include="Wrapper.FileAndFolder.cs" />
-    <Compile Include="Wrapper.RegistryMethods.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
+    <Compile Include="WPFGUI\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -228,9 +225,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="EnterCredentialsDialog.resx">
-      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Backend\AdvancedUserShellFolderData.csv" />
     <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
     <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.resx">
@@ -319,11 +314,13 @@
     <EmbeddedResource Include="MainGUI\PageFileSettings.resx">
       <DependentUpon>PageFileSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Operation\EnterCredentialsDialog.resx">
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdvancedUserShellFolderData.csv" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -353,6 +350,12 @@
       <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>
       <Name>UniversalCommandlineInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WPFGUI\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

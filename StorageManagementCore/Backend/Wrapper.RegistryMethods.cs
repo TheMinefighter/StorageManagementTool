@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using StorageManagementCore.GlobalizationRessources;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Backend {
 	public static partial class Wrapper {
 		/// <summary>
 		///  Starts all ServiceControllers depending on the given one

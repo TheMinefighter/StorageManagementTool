@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
+using StorageManagementCore.Operation;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.MonitoringSettingsStrings;
 
 namespace StorageManagementCore.MainGUI {

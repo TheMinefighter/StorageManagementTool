@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using StorageManagementCore.Backend;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.EditUserShellFolderStrings;
 
 namespace StorageManagementCore.MainGUI {

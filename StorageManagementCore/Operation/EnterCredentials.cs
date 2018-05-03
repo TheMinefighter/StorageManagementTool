@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Security;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Operation {
 	public sealed class EnterCredentials {
 		/// <summary>
 		///  Stores Credentials for later use when an Administartor Account is required

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Security;
 using System.Windows.Forms;
-using static StorageManagementCore.GlobalizationRessources.EnterCredentialsStrings;
+using StorageManagementCore.Backend;
+using StorageManagementCore.GlobalizationRessources;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Operation {
 	public sealed partial class EnterCredentialsDialog : Form {
 		public EnterCredentialsDialog() {
 			InitializeComponent();
@@ -18,7 +19,7 @@ namespace StorageManagementCore {
 
 			Password_tb.Text = "";
 			if (!Wrapper.IsUser(Username_tb.Text)) {
-				MessageBox.Show(EnterAUsername, Error, MessageBoxButtons.OK,
+				MessageBox.Show(EnterCredentialsStrings.EnterAUsername, EnterCredentialsStrings.Error, MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
 				Password_tb.Text = "";
 				Username_tb.Text = "";
@@ -31,7 +32,7 @@ namespace StorageManagementCore {
 			}
 			else {
 				if (((EnterCredentials.DialogReturnData) Tag).AdminRequired) {
-					MessageBox.Show(NotAdministratorButRequired, Error,
+					MessageBox.Show(EnterCredentialsStrings.NotAdministratorButRequired, EnterCredentialsStrings.Error,
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 					Password_tb.Text = "";
 					Username_tb.Text = "";
@@ -48,7 +49,7 @@ namespace StorageManagementCore {
 				Username = username
 			};
 			if (!Wrapper.TestCredentials(givenCredentials)) {
-				MessageBox.Show(EnteredCredentialsAreInvalid, Error, MessageBoxButtons.OK,
+				MessageBox.Show(EnterCredentialsStrings.EnteredCredentialsAreInvalid, EnterCredentialsStrings.Error, MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
 				Password_tb.Focus();
 				return;
@@ -66,22 +67,22 @@ namespace StorageManagementCore {
 		}
 
 		private void InsertCredentialsDialog_Load(object sender, EventArgs e) {
-			Text = Window_Title;
+			Text = EnterCredentialsStrings.Window_Title;
 			if (((EnterCredentials.DialogReturnData) Tag).AdminRequired) {
-				Headline0_lbl.Text = string.Format(AdministratorInstructions, Environment.NewLine);
+				Headline0_lbl.Text = string.Format(EnterCredentialsStrings.AdministratorInstructions, Environment.NewLine);
 				if (Wrapper.IsAdmin(Environment.UserName)) {
 					Username_tb.Text = Environment.UserName;
 				}
 			}
 			else {
-				Headline0_lbl.Text = string.Format(NormalInstructions, Environment.NewLine);
+				Headline0_lbl.Text = string.Format(EnterCredentialsStrings.NormalInstructions, Environment.NewLine);
 				Username_tb.Text = Environment.UserName;
 			}
 
-			Ok_btn.Text = Ok_btn_Text;
-			Abort_btn.Text = Abort_btn_Text;
-			Password_lbl.Text = Password_lbl_Text;
-			Username_lbl.Text = Username_lbl_Text;
+			Ok_btn.Text = EnterCredentialsStrings.Ok_btn_Text;
+			Abort_btn.Text = EnterCredentialsStrings.Abort_btn_Text;
+			Password_lbl.Text = EnterCredentialsStrings.Password_lbl_Text;
+			Username_lbl.Text = EnterCredentialsStrings.Username_lbl_Text;
 		}
 
 		private void Password_tb_KeyDown(object sender, KeyEventArgs e) {

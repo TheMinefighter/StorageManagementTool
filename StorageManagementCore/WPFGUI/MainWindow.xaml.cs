@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.WPFGUI {
 	/// <summary>
 	///  Interaction logic for MainWindow.xaml
 	/// </summary>

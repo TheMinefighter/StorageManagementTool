@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Backend {
 	/// <summary>
 	///  Class for storing a windows registry path
 	/// </summary>

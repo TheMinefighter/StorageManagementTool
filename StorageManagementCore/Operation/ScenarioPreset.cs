@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualBasic.Devices;
-using static StorageManagementCore.GlobalizationRessources.ScenarioPresetStrings;
+using StorageManagementCore.Backend;
+using StorageManagementCore.GlobalizationRessources;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Operation {
 	/// <summary>
 	///  Stores the presets for the scenarios
 	/// </summary>
@@ -130,14 +131,14 @@ namespace StorageManagementCore {
 			AvailablePresets = new[] {
 				new ScenarioPreset {
 					HDDRequired = true,
-					ViewedName = Presets_LocalHDDAndSSD,
+					ViewedName = ScenarioPresetStrings.Presets_LocalHDDAndSSD,
 					ToRun = LocalSSDAndHDD,
 					Id = "LocalSSDAndHDD"
 				},
 				new ScenarioPreset {
 					HDDRequired = true,
 					SSDRequired = true,
-					ViewedName = Presets_LocalSSDAndNAS,
+					ViewedName = ScenarioPresetStrings.Presets_LocalSSDAndNAS,
 					ToRun = LocalSSDAndNAS,
 					Id = "LocalSSDAndNAS"
 				}

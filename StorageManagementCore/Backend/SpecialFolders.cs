@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Backend {
 	#region Classes used as return values
 
 	public class FolderProperties {

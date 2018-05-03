@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using StorageManagementCore.Backend;
+using StorageManagementCore.Operation;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.ApplyPresetStrings;
 
 namespace StorageManagementCore.MainGUI {

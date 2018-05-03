@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using StorageManagementCore.Backend;
+using StorageManagementCore.Operation;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementCore.MainGUI {

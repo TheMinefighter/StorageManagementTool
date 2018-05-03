@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Backend {
 	public static partial class Wrapper {
 		public static class FileAndFolder {
 			/// <summary>

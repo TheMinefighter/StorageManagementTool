@@ -2,9 +2,10 @@
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using StorageManagementCore.Backend;
 using StorageManagementCore.GlobalizationRessources;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Operation {
 	public static partial class OperatingMethods {
 		public static string GetStateDescription(this SwapfileMethods.SwapfileState state) {
 			switch (state) {

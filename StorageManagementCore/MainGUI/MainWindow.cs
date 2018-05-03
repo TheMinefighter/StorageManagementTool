@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using StorageManagementCore.Backend;
+using StorageManagementCore.Operation;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.MainWindowStrings;
 
 namespace StorageManagementCore.MainGUI {

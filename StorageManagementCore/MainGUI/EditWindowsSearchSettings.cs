@@ -2,6 +2,8 @@
 using System.IO;
 using System.ServiceProcess;
 using System.Windows.Forms;
+using StorageManagementCore.Backend;
+using StorageManagementCore.Operation;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.EditWindowsSearchSettingsStrings;
 
 namespace StorageManagementCore.MainGUI {

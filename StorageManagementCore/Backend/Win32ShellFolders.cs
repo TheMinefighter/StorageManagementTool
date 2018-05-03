@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace StorageManagementCore { //All from 
+namespace StorageManagementCore.Backend { //All from 
 	public class Win32ShellFolders {
 		#region User32
 

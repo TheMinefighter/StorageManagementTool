@@ -11,9 +11,10 @@ using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
-using static StorageManagementCore.GlobalizationRessources.WrapperStrings;
+using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.Operation;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Backend {
 	/// <summary>
 	///  Contains system functionalities, which are not specific for this project
 	/// </summary>
@@ -71,12 +72,12 @@ namespace StorageManagementCore {
 			returnData = null;
 			if (!toRun.Exists) {
 				if (MessageBox.Show(
-					    string.Format(ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
-					    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
+					    string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
+					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
 					OpenFileDialog alternativeExecuteableSel = new OpenFileDialog {
 						Filter =
-							$"{ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
-						Title = string.Format(ExecuteExecuteable_FileNotFound_SelectionTitle, toRun.Name)
+							$"{WrapperStrings.ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
+						Title = string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound_SelectionTitle, toRun.Name)
 					};
 					alternativeExecuteableSel.ShowDialog();
 					return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
@@ -87,9 +88,9 @@ namespace StorageManagementCore {
 
 			if (!ExecuteableExtensions.Contains(toRun.Extension)) {
 				if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-					string.Format(ExecuteExecuteable_WrongEnding,
+					string.Format(WrapperStrings.ExecuteExecuteable_WrongEnding,
 						toRun.FullName, toRun.Extension),
-					Error,
+					WrapperStrings.Error,
 					MessageBoxButtons.YesNo, MessageBoxIcon.Error))) {
 					return false;
 				}
@@ -134,9 +135,9 @@ namespace StorageManagementCore {
 			catch (Win32Exception) {
 				DialogResult retry = MessageBox.Show(
 					string.Format(
-						ExecuteExecuteable_AdminError,
+						WrapperStrings.ExecuteExecuteable_AdminError,
 						toRun.FullName),
-					Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+					WrapperStrings.Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
 				switch (retry) {
 					case DialogResult.Retry:
 						ExecuteExecuteable(filename, parameters, admin, hidden, waitforexit);

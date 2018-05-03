@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using StorageManagementCore.Backend;
+using StorageManagementCore.Operation;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Attributes;
 

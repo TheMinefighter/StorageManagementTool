@@ -6,9 +6,9 @@ using System.Windows.Forms;
 using ExtendedMessageBoxLibrary;
 using Microsoft.Win32;
 using StorageManagementCore.GlobalizationRessources;
-using static StorageManagementCore.GlobalizationRessources.UserShellFolderStrings;
+using StorageManagementCore.Operation;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Backend {
 	public struct UserShellFolder {
 		public string ViewedName;
 		public (string, RegistryValue)[] RegistryValues;
@@ -107,54 +107,54 @@ namespace StorageManagementCore {
 			AllEditableUserUserShellFolders = new[] {
 				#region Based upon https://support.microsoft.com/en-us/help/931087/how-to-redirect-user-shell-folders-to-a-specified-path-by-using-profil access on 22.01.2017
 
-				NormalUSF(Desktop_Name, "Desktop", "Desktop"),
-				NormalUSF(Personal_Name, "Personal", "Documents"),
-				NormalUSF(My_Video_Name, "My Video", "Video"),
-				NormalUSF(My_Music_Name, "My Music", "Music"),
-				NormalUSF(My_Pictures_Name, "My Pictures", "Pictures"),
-				NormalUSF(SendTo_Name, "SendTo", "Appdata\\Roaming\\Microsoft\\Windows\\SendTo"),
-				NormalUSF(Local_AppData_Name, "Local AppData", "Appdata\\Local"),
-				NormalUSF(Appdata_Name, "AppData", "Appdata\\Roaming"),
-				NormalUSF(Programs_Name, "Programs", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"),
-				NormalUSF(Start_Menu_Name, "Start Menu", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu"),
-				NormalUSF(Startup_Name, "Startup", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"),
-				NormalUSF(History_Name, "History", "Appdata\\Roaming\\Microsoft\\Windows\\History"),
-				NormalUSF(Favorites_Names, "Favorites", "Favorites"),
-				new UserShellFolder(Fonts_Name,
+				NormalUSF(UserShellFolderStrings.Desktop_Name, "Desktop", "Desktop"),
+				NormalUSF(UserShellFolderStrings.Personal_Name, "Personal", "Documents"),
+				NormalUSF(UserShellFolderStrings.My_Video_Name, "My Video", "Video"),
+				NormalUSF(UserShellFolderStrings.My_Music_Name, "My Music", "Music"),
+				NormalUSF(UserShellFolderStrings.My_Pictures_Name, "My Pictures", "Pictures"),
+				NormalUSF(UserShellFolderStrings.SendTo_Name, "SendTo", "Appdata\\Roaming\\Microsoft\\Windows\\SendTo"),
+				NormalUSF(UserShellFolderStrings.Local_AppData_Name, "Local AppData", "Appdata\\Local"),
+				NormalUSF(UserShellFolderStrings.Appdata_Name, "AppData", "Appdata\\Roaming"),
+				NormalUSF(UserShellFolderStrings.Programs_Name, "Programs", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"),
+				NormalUSF(UserShellFolderStrings.Start_Menu_Name, "Start Menu", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu"),
+				NormalUSF(UserShellFolderStrings.Startup_Name, "Startup", "Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"),
+				NormalUSF(UserShellFolderStrings.History_Name, "History", "Appdata\\Roaming\\Microsoft\\Windows\\History"),
+				NormalUSF(UserShellFolderStrings.Favorites_Names, "Favorites", "Favorites"),
+				new UserShellFolder(UserShellFolderStrings.Fonts_Name,
 					new[] {
 						(Environment.ExpandEnvironmentVariables("%WINDIR%\\Fonts"),
 							new RegistryValue(ShellFolderRoot, "Fonts"))
 					}),
 				//NormalUSF(Fonts_Name, "Fonts","", false),
-				NormalUSF(Recent_Name, "Recent", "Appdata\\Roaming\\Microsoft\\Windows\\Recent"),
-				NormalUSF(Templates_Name, "Templates", "Appdata\\Roaming\\Microsoft\\Windows\\Templates"),
-				NormalUSF(Administrative_Tools_Name, "Administrative Tools",
+				NormalUSF(UserShellFolderStrings.Recent_Name, "Recent", "Appdata\\Roaming\\Microsoft\\Windows\\Recent"),
+				NormalUSF(UserShellFolderStrings.Templates_Name, "Templates", "Appdata\\Roaming\\Microsoft\\Windows\\Templates"),
+				NormalUSF(UserShellFolderStrings.Administrative_Tools_Name, "Administrative Tools",
 					"Appdata\\Roaming\\Microsoft\\Windows\\Start Menu\\Administrative Tools", false),
-				NormalUSF(Cookies_Name, "Cookies", "Appdata\\Roaming\\Microsoft\\Windows\\INetCookies", false),
-				NormalUSF(NetHood_Name, "NetHood", "Appdata\\Roaming\\Microsoft\\Windows\\Network Shortcuts", false),
-				NormalUSF(PrintHood_Name, "PrintHood", "Appdata\\Roaming\\Microsoft\\Windows\\Printer Shortcuts", false),
-				NormalUSF(Cache_Name, "Cache", "Appdata\\Roaming\\Microsoft\\Windows\\INetCache", false),
-				NormalUSF(CD_Burning_Name, "CD Burning", "Appdata\\Roaming\\Microsoft\\Windows\\Burn\\Burn", false),
-				NormalUSF(Downloads_Name, "{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"),
-				NormalUSF(Libraries_Name, "{1B3EA5DC-B587-4786-B4EF-BD1DC332AEAE}",
+				NormalUSF(UserShellFolderStrings.Cookies_Name, "Cookies", "Appdata\\Roaming\\Microsoft\\Windows\\INetCookies", false),
+				NormalUSF(UserShellFolderStrings.NetHood_Name, "NetHood", "Appdata\\Roaming\\Microsoft\\Windows\\Network Shortcuts", false),
+				NormalUSF(UserShellFolderStrings.PrintHood_Name, "PrintHood", "Appdata\\Roaming\\Microsoft\\Windows\\Printer Shortcuts", false),
+				NormalUSF(UserShellFolderStrings.Cache_Name, "Cache", "Appdata\\Roaming\\Microsoft\\Windows\\INetCache", false),
+				NormalUSF(UserShellFolderStrings.CD_Burning_Name, "CD Burning", "Appdata\\Roaming\\Microsoft\\Windows\\Burn\\Burn", false),
+				NormalUSF(UserShellFolderStrings.Downloads_Name, "{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"),
+				NormalUSF(UserShellFolderStrings.Libraries_Name, "{1B3EA5DC-B587-4786-B4EF-BD1DC332AEAE}",
 					"Appdata\\Roaming\\Microsoft\\Windows\\Libraries", false),
 
 				#endregion
 
 				//Common 
-				CommonUSF(Common_Documents_Name, "Common Documents", "%PUPLIC%\\Documennts"),
-				CommonUSF(CommonVideo_Name, "CommonVideo", "%PUPLIC%\\Video"),
-				CommonUSF(CommonPictures_Name, "CommonPictures", "%PUPLIC%\\Pictures"),
-				CommonUSF(CommonMusic_Name, "CommonMusic", "%PUPLIC%\\Music"),
-				CommonUSF(Common_Desktop_Name, "Common Desktop", "%PUPLIC%\\Desktop"),
-				CommonUSF(Common_AppData_Name, "Common AppData", "%PUPLIC%\\Roaming"),
-				CommonUSF(Common_Startup_Name, "Common Startup", "%PROGRAMDATA%"),
-				CommonUSF(Common_Programs_Name, "Common Programs",
+				CommonUSF(UserShellFolderStrings.Common_Documents_Name, "Common Documents", "%PUPLIC%\\Documennts"),
+				CommonUSF(UserShellFolderStrings.CommonVideo_Name, "CommonVideo", "%PUPLIC%\\Video"),
+				CommonUSF(UserShellFolderStrings.CommonPictures_Name, "CommonPictures", "%PUPLIC%\\Pictures"),
+				CommonUSF(UserShellFolderStrings.CommonMusic_Name, "CommonMusic", "%PUPLIC%\\Music"),
+				CommonUSF(UserShellFolderStrings.Common_Desktop_Name, "Common Desktop", "%PUPLIC%\\Desktop"),
+				CommonUSF(UserShellFolderStrings.Common_AppData_Name, "Common AppData", "%PUPLIC%\\Roaming"),
+				CommonUSF(UserShellFolderStrings.Common_Startup_Name, "Common Startup", "%PROGRAMDATA%"),
+				CommonUSF(UserShellFolderStrings.Common_Programs_Name, "Common Programs",
 					"%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs"),
-				CommonUSF(Common_Templates_Name, "Common Templates", "%PROGRAMDATA%\\Microsoft\\Windows\\Templates"),
-				CommonUSF(Common_Start_Menu_Name, "Common Start Menu", "%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu"),
-				CommonUSF(OEM_Links_Name, "OEM Links", "%PROGRAMDATA%\\OEM\\Links", false, true, true),
-				CommonUSF(Common_Administrative_Tools_Name, "Common Administrative Tools",
+				CommonUSF(UserShellFolderStrings.Common_Templates_Name, "Common Templates", "%PROGRAMDATA%\\Microsoft\\Windows\\Templates"),
+				CommonUSF(UserShellFolderStrings.Common_Start_Menu_Name, "Common Start Menu", "%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu"),
+				CommonUSF(UserShellFolderStrings.OEM_Links_Name, "OEM Links", "%PROGRAMDATA%\\OEM\\Links", false, true, true),
+				CommonUSF(UserShellFolderStrings.Common_Administrative_Tools_Name, "Common Administrative Tools",
 					"%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Administartive Tools", false),
 				//TODO Add all CLSID Paths
 				//No real USF
@@ -176,10 +176,10 @@ namespace StorageManagementCore {
 						(UserTempRoot, new RegistryValue(UserTempRoot, "TMP"))
 					},
 					MoveExistingFiles = false,
-					ViewedName = PrivateTemp,
+					ViewedName = UserShellFolderStrings.PrivateTemp,
 					isUserSpecific = true
 				},
-				new UserShellFolder(PublicTemp,
+				new UserShellFolder(UserShellFolderStrings.PublicTemp,
 					new[] {
 						(PublicTempDefault, new RegistryValue(PublicTempRoot, "TEMP")),
 						(PublicTempDefault, new RegistryValue(PublicTempRoot, "TMP"))
@@ -200,7 +200,7 @@ namespace StorageManagementCore {
 
 		public DirectoryInfo GetPath() {
 			Wrapper.RegistryMethods.GetRegistryValue(RegistryValues[0].Item2, out object regValue, AccessAsUser);
-			return new DirectoryInfo((string) regValue ?? Error);
+			return new DirectoryInfo((string) regValue ?? UserShellFolderStrings.Error);
 		}
 
 		public static DirectoryInfo GetPath(UserShellFolder currentUSF) => currentUSF.GetPath();
@@ -310,7 +310,7 @@ namespace StorageManagementCore {
 					    Wrapper.FileAndFolder.MoveDirectory(oldDir, newDir)) {
 						string defaultDirectory = usf.RegistryValues[0].Item1;
 						if (defaultDirectory == null) {
-							MessageBox.Show(Error);
+							MessageBox.Show(UserShellFolderStrings.Error);
 							return false;
 						}
 

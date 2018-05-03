@@ -5,7 +5,7 @@ using System.Threading;
 using ExtendedMessageBoxLibrary;
 using StorageManagementCore.Configuration;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Operation {
 	/// <summary>
 	///  Class containing functionalities for Background Process
 	/// </summary>

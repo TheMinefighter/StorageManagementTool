@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 using System.Xml.Linq;
+using StorageManagementCore.Backend;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Operation {
 	public static partial class OperatingMethods {
 		public static class SSDMonitoring {
 			/// <summary>

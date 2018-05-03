@@ -7,11 +7,12 @@ using System.Windows.Forms;
 using IWshRuntimeLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
+using StorageManagementCore.Backend;
 using StorageManagementCore.GlobalizationRessources;
 using StorageManagementCore.MainGUI.GlobalizationRessources;
 using File = System.IO.File;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore.Operation {
 	public static partial class OperatingMethods {
 		/// <summary>
 		/// </summary>
