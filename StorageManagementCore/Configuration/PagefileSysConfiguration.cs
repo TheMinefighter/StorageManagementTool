@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace StorageManagementCore.Configuration {
 	public class PagefileSysConfiguration {
-		public bool SystemManaged;
 		public List<Pagefile> Pagefiles;
-			/// <summary>
-			/// 
-			/// </summary>
+		public bool SystemManaged;
+
+		/// <summary>
+		/// </summary>
 		public class Pagefile {
 			/// <summary>
-			/// The drive to store on
+			///  The drive to store on
 			/// </summary>
 			public ConfiguredDrive Drive;
+
 			/// <summary>
-			/// Maximum size in MB
+			///  Maximum size in MB
 			/// </summary>
 			public int MaxSize;
+
 			/// <summary>
-			/// Minimum sie in MB
+			///  Minimum sie in MB
 			/// </summary>
 			public int MinSize;
 

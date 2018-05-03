@@ -1,16 +1,10 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Represents the JSON serializable configuration data of program
 	/// </summary>
 	public class MainConfiguration {
-		/// <summary>
-		///  The Version of the Configuration
-		/// </summary>
-		public string Version;
-
 		/// <summary>
 		///  The default path to move data to
 		/// </summary>
@@ -28,6 +22,10 @@ namespace StorageManagementCore.Configuration {
 
 		public PagefilesSetting PagefilesSettings;
 
+		/// <summary>
+		///  The Version of the Configuration
+		/// </summary>
+		public string Version;
 
 
 		public override string ToString() => JsonConvert.SerializeObject(this);

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Container for all settings for SSD Monitoring
 	/// </summary>
-	public class MonitoringSetting  {
+	public class MonitoringSetting {
 		/// <summary>
 		///  The MonitoredFolders configured in this MonitoringSetting
 		/// </summary>
@@ -16,8 +15,6 @@ namespace StorageManagementCore.Configuration {
 		///  Creates a new MonitoringSetting
 		/// </summary>
 		public MonitoringSetting() => MonitoredFolders = new List<MonitoredFolder>();
-
-
 
 
 		public override string ToString() => JsonConvert.SerializeObject(this);

@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
 	/// <summary>
@@ -32,8 +31,6 @@ namespace StorageManagementCore.Configuration {
 			ForFiles = MonitoringAction.Ask;
 			ForFolders = MonitoringAction.Ask;
 		}
-
-
 
 
 		public override string ToString() => JsonConvert.SerializeObject(this);
