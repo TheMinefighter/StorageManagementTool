@@ -6,6 +6,29 @@
 			Moved
 		}
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		public SwapfileState SwapfileConfigured;
 		public ConfiguredDrive SwapfileDrive;
 	}
