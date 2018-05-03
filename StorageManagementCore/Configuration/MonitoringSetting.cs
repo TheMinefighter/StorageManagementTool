@@ -6,7 +6,7 @@ namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Container for all settings for SSD Monitoring
 	/// </summary>
-	public class MonitoringSetting : IEquatable<MonitoringSetting> {
+	public class MonitoringSetting  {
 		/// <summary>
 		///  The MonitoredFolders configured in this MonitoringSetting
 		/// </summary>
@@ -18,17 +18,6 @@ namespace StorageManagementCore.Configuration {
 		public MonitoringSetting() => MonitoredFolders = new List<MonitoredFolder>();
 
 
-		public bool Equals(MonitoringSetting other) {
-			if (ReferenceEquals(null, other)) {
-				return false;
-			}
-
-			if (ReferenceEquals(this, other)) {
-				return true;
-			}
-
-			return Equals(MonitoredFolders, other.MonitoredFolders);
-		}
 
 
 		public override string ToString() => JsonConvert.SerializeObject(this);

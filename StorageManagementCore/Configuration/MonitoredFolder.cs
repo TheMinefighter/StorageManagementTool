@@ -5,7 +5,7 @@ namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Contains information about a folder, which should be monitored
 	/// </summary>
-	public class MonitoredFolder : IEquatable<MonitoredFolder> {
+	public class MonitoredFolder {
 		/// <summary>
 		///  The MonitoringAction to execute for new files
 		/// </summary>
@@ -33,17 +33,7 @@ namespace StorageManagementCore.Configuration {
 			ForFolders = MonitoringAction.Ask;
 		}
 
-		public bool Equals(MonitoredFolder other) {
-			if (ReferenceEquals(null, other)) {
-				return false;
-			}
 
-			if (ReferenceEquals(this, other)) {
-				return true;
-			}
-
-			return ForFiles == other.ForFiles && ForFolders == other.ForFolders && string.Equals(TargetPath, other.TargetPath);
-		}
 
 
 		public override string ToString() => JsonConvert.SerializeObject(this);

@@ -5,7 +5,12 @@ namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Represents the JSON serializable configuration data of program
 	/// </summary>
-	public class MainConfiguration : IEquatable<MainConfiguration> {
+	public class MainConfiguration {
+		/// <summary>
+		///  The Version of the Configuration
+		/// </summary>
+		public string Version;
+
 		/// <summary>
 		///  The default path to move data to
 		/// </summary>
@@ -21,23 +26,9 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public MonitoringSetting MonitoringSettings;
 
-		/// <summary>
-		///  The Version of the Configuration
-		/// </summary>
-		public string Version;
+		public PagefilesSetting PagefilesSettings;
 
-		public bool Equals(MainConfiguration other) {
-			if (ReferenceEquals(null, other)) {
-				return false;
-			}
 
-			if (ReferenceEquals(this, other)) {
-				return true;
-			}
-
-			return string.Equals(Version, other.Version) && string.Equals(DefaultHDDPath, other.DefaultHDDPath) &&
-			       string.Equals(LanguageOverride, other.LanguageOverride) && Equals(MonitoringSettings, other.MonitoringSettings);
-		}
 
 		public override string ToString() => JsonConvert.SerializeObject(this);
 	}
