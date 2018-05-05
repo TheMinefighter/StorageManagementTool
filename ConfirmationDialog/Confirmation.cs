@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Windows;
 
 namespace ConfirmationDialog {
 	public static class Confirmation {
-		public static bool Skip;
+		internal static bool Skip;
 
-		public static ModifierRequirement Alt {
-			set => Requirements[ModifierKeys.Alt] = value;
-		}
 
-		public static ModifierRequirement Shift {
-			set => Requirements[ModifierKeys.Shift] = value;
-		}
-		public static ModifierRequirement Control {
-			set => Requirements[ModifierKeys.Control] = value;
-		}
-		public static ModifierRequirement Windows {
-			set => Requirements[ModifierKeys.Windows] = value;
-		}
-
-		private static readonly Dictionary<ModifierKeys, ModifierRequirement> Requirements = new Dictionary<ModifierKeys, ModifierRequirement> {
+		internal static readonly Dictionary<ModifierKeys, ModifierRequirement> Requirements = new Dictionary<ModifierKeys, ModifierRequirement> {
 			{ModifierKeys.Alt, ModifierRequirement.Ignored},
 			{ModifierKeys.Control, ModifierRequirement.Required},
 			{ModifierKeys.Shift, ModifierRequirement.Ignored},
@@ -48,8 +36,11 @@ namespace ConfirmationDialog {
 			return true;
 		}
 
-		private static bool InternalConfirm(string text = null) {
-			return true;
+		private static bool InternalConfirm(string text = null)
+		{
+			ConfirmationWindow window = new ConfirmationWindow(text ?? "The following action might be bad. Continue only if you know what you are doing!");
+			window.ShowDialog();
+			return window.Tag is bool b && b;
 		}
 	}
 }
