@@ -1,14 +1,34 @@
-﻿using System;
+﻿#undef MITMode
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
+#if !MITMode
+using Microsoft.WindowsAPICodePack.Dialogs;
+#else
+using System.Windows.Forms;
+#endif
+
 
 namespace StorageManagementCore.Backend {
 	public static partial class Wrapper {
 		public static class FileAndFolder {
+			public static DirectoryInfo SelectDirectory(string description) {
+#if !MITMode
+				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description);
+				dlg.IsFolderPicker = true;
+				dlg.ShowDialog();
+				return new DirectoryInfo(dlg.FileName);
+#else
+				FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description};
+				fbd.ShowDialog();
+				return new DirectoryInfo(fbd.SelectedPath);
+#endif
+			}
+
 			/// <summary>
 			///  Copies a Directory
 			/// </summary>

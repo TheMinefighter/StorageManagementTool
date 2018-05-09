@@ -13,22 +13,29 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConfirmationDialog
-{
-   /// <summary>
-   /// Interaction logic for ConfirmationWindow.xaml
-   /// </summary>
-   public partial class ConfirmationWindow : Window
-   {
-      public ConfirmationWindow(string text)
-      {
-	      InitializeComponent();
-	      DescriptionTb.Text = text;
-      }
+
+namespace ConfirmationDialog {
+	/// <summary>
+	/// Interaction logic for ConfirmationWindow.xaml
+	/// </summary>
+	public partial class ConfirmationWindow : Window {
+		internal ConfirmationWindow(ConfirmationTag tag) {
+			Tag = tag;
+			DescriptionTb.Text = tag.Text;
+		}
 
 
-	   private void ConfirmBtn_OnClick(object sender, RoutedEventArgs e) {
-		   Tag=true,
-	   }
-   }
+		private void ConfirmBtn_OnClick(object sender, RoutedEventArgs e) {
+			if (ConfirmationBoxTb.Text == ((ConfirmationTag) Tag).Text) {
+				((ConfirmationTag) Tag).Confirmed = true;
+				Close();
+			}
+		}
+
+		private void ConfirmationBoxTb_OnTextChanged(object sender, TextChangedEventArgs e) {
+			if (ConfirmationBoxTb.Text == ((ConfirmationTag) Tag).Text) {
+				ConfirmBtn.IsEnabled = true;
+			}
+		}
+	}
 }

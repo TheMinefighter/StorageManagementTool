@@ -14,10 +14,29 @@ namespace StorageManagementCore.WPFGUI {
 			//	BaseTc.
 		}
 
-		private void Button_Click() { }
-
 		private void EnOrDisableMonitoringBtn_Click(object sender, RoutedEventArgs e) { }
 
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-	}
+
+
+      private void MoveDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+      private void MoveExistingItemsCb_Unchecked(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+      private void ViewHiddenFoldersCb_Checked(object sender, RoutedEventArgs e)
+      {
+
+      }
+
+      private void ApplyShellFolderLocationBtn_Click(object sender, RoutedEventArgs e)
+      {
+
+      }
+   }
 }

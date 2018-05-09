@@ -1,17 +1,23 @@
 ﻿<Window x:Class="ConfirmationDialog.ConfirmationWindow"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ConfirmationDialog"
-             mc:Ignorable="d" 
-             d:DesignHeight="156.276" d:DesignWidth="329.288">
-   <Grid>
-      <TextBlock HorizontalAlignment="Left" Margin="10,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301"><Run Text="TextBlock"/></TextBlock>
-      <TextBox x:Name="DescriptionTb" HorizontalAlignment="Left" Height="37" Margin="7,10,0,0" TextWrapping="Wrap" Text="TextBox fgdfghfhg rtgdfdgfdtztzr zrt" VerticalAlignment="Top" Width="307" BorderBrush="White" IsReadOnly="True"/>
-      <TextBox HorizontalAlignment="Left" Height="23" Margin="10,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="301"/>
-      <Button Content="Button" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="148" RenderTransformOrigin="0.629,1.443"/>
-      <Button x:Name="ConfirmBtn" ^Click="ConfirmBtn_OnClick" Content="Button" HorizontalAlignment="Left" Margin="163,95,0,0" VerticalAlignment="Top" Width="148"/>
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ConfirmationDialog"
+        mc:Ignorable="d"
+        d:DesignHeight="156.276" d:DesignWidth="329.288">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301">
+            <Run Text="TextBlock" />
+        </TextBlock>
+        <TextBox x:Name="DescriptionTb" HorizontalAlignment="Left" Height="37" Margin="7,10,0,0" TextWrapping="Wrap"
+                 Text="TextBox fgdfghfhg rtgdfdgfdtztzr zrt" VerticalAlignment="Top" Width="307" BorderBrush="White" IsReadOnly="True" />
+        <TextBox x:Name="ConfirmationBoxTb" TextChanged="ConfirmationBoxTb_OnTextChanged" HorizontalAlignment="Left" Height="23"
+                 Margin="10,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="301" />
+        <Button Content="Button" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="148"
+                RenderTransformOrigin="0.629,1.443" />
+        <Button x:Name="ConfirmBtn" Click="ConfirmBtn_OnClick" IsEnabled="False" Content="Button" HorizontalAlignment="Left"
+                Margin="163,95,0,0" VerticalAlignment="Top" Width="148" />
 
-   </Grid>
+    </Grid>
 </Window>

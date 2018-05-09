@@ -44,12 +44,12 @@
   <ItemGroup>
     <Compile Include="Confirmation.cs" />
     <Compile Include="ConfirmationSettings.cs" />
-    <Compile Include="ConfirmationStrings.Designer.cs" />
     <Compile Include="ConfirmationStrings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ConfirmationStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="ConfirmationTag.cs" />
     <Compile Include="ConfirmationWindow.xaml.cs">
       <DependentUpon>ConfirmationWindow.xaml</DependentUpon>
     </Compile>
