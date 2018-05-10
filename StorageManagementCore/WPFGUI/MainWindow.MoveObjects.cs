@@ -55,6 +55,7 @@ namespace StorageManagementCore.WPFGUI {
 			if (!Directory.Exists(BasePathTb.Text)) {
 				//TODO Throw
 			}
+
 			if (IsBasePathAbsoluteCb.IsChecked == true) {
 				if (PathsToMoveTb.Text.Contains(';')) {
 					//TODO Not available
@@ -85,13 +86,14 @@ namespace StorageManagementCore.WPFGUI {
 							break;
 						case Wrapper.FileAndFolder.FileOrFolder.File:
 							FileInfo fileToMove = new FileInfo(s);
-							OperatingMethods.MoveFile(fileToMove, new FileInfo(s),true);
+							OperatingMethods.MoveFile(fileToMove, new FileInfo(s), true);
 							break;
 						case Wrapper.FileAndFolder.FileOrFolder.Folder:
-							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(BasePathTb.Text),true);
+							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(BasePathTb.Text), true);
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
+					}
 				}
 			}
 		}
