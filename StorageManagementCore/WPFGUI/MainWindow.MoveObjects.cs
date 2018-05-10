@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -6,15 +7,18 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
 			PathsToMoveTb.Text = string.Join(";", Wrapper.FileAndFolder.SelectDirectories("").Select(x => x.FullName));
+			SuggestionsLb.UnselectAll();
 		}
 
 		private void SelectFilesToMoveBtn_OnClick(object sender, RoutedEventArgs e) {
 			PathsToMoveTb.Text = string.Join(";", Wrapper.FileAndFolder.SelectFiles("").Select(x => x.FullName));
+			SuggestionsLb.UnselectAll();
 		}
 
 		private void PathsToMoveTb_TextChanged(object sender, TextChangedEventArgs e) {
@@ -81,6 +85,7 @@ namespace StorageManagementCore.WPFGUI {
 						case Wrapper.FileAndFolder.FileOrFolder.Neither:
 							//TODO Throw error
 							return;
+
 							break;
 						case Wrapper.FileAndFolder.FileOrFolder.File:
 							FileInfo fileToMove = new FileInfo(s);
@@ -93,6 +98,23 @@ namespace StorageManagementCore.WPFGUI {
 							throw new ArgumentOutOfRangeException();
 					}
 				}
+			}
+		}
+
+		private void MoveFileOrFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
+			SuggestionsLb.Items.Clear();
+			SuggestionsLb.ItemsSource = OperatingMethods.GetRecommendedPaths();
+		}
+
+//		private IEnumerator iEnumerator;
+		private void SuggestionsLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+			if (SuggestionsLb.SelectedItems.Count != 0) {
+//			iEnumerator = SuggestionsLb.SelectedItems.GetEnumerator();
+//				iEnumerator.MoveNext();
+//			MessageBox.Show(iEnumerator.ToString());
+//				object test = iEnumerator.Current;
+//			MessageBox.Show(test.ToString());
+			PathsToMoveTb.Text = string.Join(";", SuggestionsLb.SelectedItems.Cast<string>());
 			}
 		}
 	}

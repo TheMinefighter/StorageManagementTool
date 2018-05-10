@@ -17,7 +17,7 @@
         </Grid.RenderTransform>
         <TabControl x:Name="BaseTc" Height="auto" Width="auto" RenderTransformOrigin="0.5,0.5" VerticalContentAlignment="Top"
                     HorizontalContentAlignment="Left" SelectionChanged="BaseTc_SelectionChanged">
-            <TabItem x:Name="MoveFileOrFolderTi" Header="MoveFileOrFolder">
+            <TabItem x:Name="MoveFileOrFolderTi" Header="MoveFileOrFolder" Loaded="MoveFileOrFolderTi_OnLoaded">
                 <Grid Background="White">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -37,7 +37,7 @@
                              VerticalAlignment="Top" TextChanged="BasePathTb_TextChanged" />
                     <TextBlock x:Name="SuggestionsLbl" HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="TextBlock"
                                VerticalAlignment="Top" />
-                    <ListBox x:Name="SuggestionsLb" Margin="10,118,10,35" />
+                    <ListBox x:Name="SuggestionsLb" SelectionMode="Extended" SelectionChanged="SuggestionsLb_OnSelectionChanged" Margin="10,118,10,35" />
                     <Button x:Name="MoveObjectsBtn" Content="Button" Margin="0,0,10,10" VerticalAlignment="Bottom"
                             HorizontalAlignment="Right" Width="374" Click="MoveObjectsBtn_Click" />
                     <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0"
