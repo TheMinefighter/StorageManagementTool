@@ -63,6 +63,7 @@ namespace StorageManagementCore.WPFGUI {
 				switch (Wrapper.FileAndFolder.IsFileOrFolder(PathsToMoveTb.Text)) {
 					case Wrapper.FileAndFolder.FileOrFolder.Neither:
 						//TODO Throw error
+						return;
 						break;
 					case Wrapper.FileAndFolder.FileOrFolder.File:
 						FileInfo fileToMove = new FileInfo(PathsToMoveTb.Text);
@@ -73,6 +74,24 @@ namespace StorageManagementCore.WPFGUI {
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
+				}
+			}
+			else {
+				foreach (string s in PathsToMoveTb.Text.Split(';')) {
+					switch (Wrapper.FileAndFolder.IsFileOrFolder(s)) {
+						case Wrapper.FileAndFolder.FileOrFolder.Neither:
+							//TODO Throw error
+							return;
+							break;
+						case Wrapper.FileAndFolder.FileOrFolder.File:
+							FileInfo fileToMove = new FileInfo(s);
+							OperatingMethods.MoveFile(fileToMove, new FileInfo(s),true);
+							break;
+						case Wrapper.FileAndFolder.FileOrFolder.Folder:
+							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(BasePathTb.Text),true);
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
 				}
 			}
 		}
