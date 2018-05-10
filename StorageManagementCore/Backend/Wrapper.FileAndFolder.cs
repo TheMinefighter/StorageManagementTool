@@ -1,7 +1,9 @@
-﻿#undef MITMode
+﻿#define MITMode
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
@@ -10,23 +12,58 @@ using Microsoft.Win32.SafeHandles;
 using Microsoft.WindowsAPICodePack.Dialogs;
 #else
 using System.Windows.Forms;
+
 #endif
 
 
 namespace StorageManagementCore.Backend {
 	public static partial class Wrapper {
+		public const bool gg = true;
+
 		public static class FileAndFolder {
 			public static DirectoryInfo SelectDirectory(string description) {
-#if !MITMode
-				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description);
-				dlg.IsFolderPicker = true;
+#if MITMode
+				using (FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description}) {
+					fbd.ShowDialog();
+					return new DirectoryInfo(fbd.SelectedPath);
+				}
+#else
+				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description) {IsFolderPicker = true};
 				dlg.ShowDialog();
 				return new DirectoryInfo(dlg.FileName);
-#else
-				FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description};
-				fbd.ShowDialog();
-				return new DirectoryInfo(fbd.SelectedPath);
+
 #endif
+			}
+
+			public static IEnumerable<DirectoryInfo> SelectDirectories(string description) {
+#if MITMode
+				using (FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description}) {
+					fbd.ShowDialog();
+					return new[] {new DirectoryInfo(fbd.SelectedPath)};
+				}
+#else
+				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description) {IsFolderPicker = true,Multiselect = true};
+				dlg.ShowDialog();
+				return dlg.FileNames.Select(x=>new DirectoryInfo(x)) ;
+			
+#endif
+			}
+
+			public static FileInfo SelectFile(string description) {
+#if MITMode
+				using (OpenFileDialog fd = new OpenFileDialog() {Title = description}) {
+					fd.ShowDialog();
+					return new FileInfo(fd.FileName);
+				}
+#else
+#endif
+			}
+
+			public static IEnumerable<FileInfo> SelectFiles(string description) {
+				using (OpenFileDialog fd = new OpenFileDialog {Title = description, Multiselect = true}) {
+					fd.ShowDialog();
+					return fd.FileNames.Select(x => new FileInfo(x));
+				}
 			}
 
 			/// <summary>

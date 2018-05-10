@@ -5,11 +5,11 @@ namespace StorageManagementCore.WPFGUI
 {
 	public partial class MainWindow
 	{
-		private void SelectPathToMoveBtn_Click(object sender, RoutedEventArgs e)
+		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e)
 		{
 		}
 
-		private void PathToMoveTb_TextChanged(object sender, TextChangedEventArgs e)
+		private void PathsToMoveTb_TextChanged(object sender, TextChangedEventArgs e)
 		{
 		}
 

@@ -27,10 +27,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="SelectPathToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0"
-                            VerticalAlignment="Top" Width="154" Click="SelectPathToMoveBtn_Click" />
-                    <TextBox x:Name="PathToMoveTb" Height="20" Margin="169,32,10,0" TextWrapping="Wrap" Text="TextBox"
-                             VerticalAlignment="Top" TextChanged="PathToMoveTb_TextChanged" />
+                    <Button x:Name="SelectFoldersToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0"
+                            VerticalAlignment="Top" Width="154" Click="SelectFoldersToMoveBtn_Click" />
+                    <TextBox x:Name="PathsToMoveTb" Height="20" Margin="328,32,10,0" TextWrapping="Wrap" Text="TextBox"
+                             VerticalAlignment="Top" TextChanged="PathsToMoveTb_TextChanged" />
                     <Button x:Name="SelectBasePathBtn" Content="Button" HorizontalAlignment="Left" Margin="10,77,0,0"
                             VerticalAlignment="Top" Width="154" Click="SelectBasePathBtn_Click" />
                     <TextBlock x:Name="BasPathLbl" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock"
@@ -47,7 +47,9 @@
                     <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0"
                             VerticalAlignment="Top" Width="154" Click="SetBasePathConfigBtn_Click" />
                <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="491,82,0,0" VerticalAlignment="Top" />
-                </Grid>
+               <Button x:Name="SelectFilesToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="169,31,0,0"
+                  VerticalAlignment="Top" Width="154" Click="SelectFoldersToMoveBtn_Click" />
+            </Grid>
             </TabItem>
             <TabItem x:Name="ShellFolderTi" Header="ShellFolder">
                 <Grid Background="White">
@@ -256,7 +258,7 @@
                               RenderTransformOrigin="1,0.533" />
                 </Grid>
             </TabItem>
-            <TabItem Header="About" />
-        </TabControl>
+         <TabItem Header="About"><WebBrowser x:Name="AboutTextWb" Loaded="AboutTextWb_OnLoaded"></WebBrowser></TabItem> 
+      </TabControl>
     </Grid>
 </Window>
