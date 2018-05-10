@@ -19,9 +19,26 @@ using System.Windows.Forms;
 
 namespace StorageManagementCore.Backend {
 	public static partial class Wrapper {
-		public const bool gg = true;
-
 		public static class FileAndFolder {
+			public enum FileOrFolder :byte {
+				Neither,
+				File,
+				Folder
+			}
+
+			public static FileOrFolder IsFileOrFolder(string path) {
+				if (Directory.Exists(path)) {
+					return FileOrFolder.Folder;
+				}
+
+				if (File.Exists(path)) {
+					return FileOrFolder.File;
+				}
+				else {
+					return FileOrFolder.Neither;
+				}
+			}
+			
 			public static DirectoryInfo SelectDirectory(string description) {
 #if MITMode
 				using (FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description}) {
