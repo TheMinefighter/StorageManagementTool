@@ -19,24 +19,12 @@ namespace StorageManagementCore.WPFGUI {
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
 
 
-      private void MoveDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e)
-      {
+		private void MoveDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e) { }
 
-      }
+		private void MoveExistingItemsCb_Unchecked(object sender, RoutedEventArgs e) { }
 
-      private void MoveExistingItemsCb_Unchecked(object sender, RoutedEventArgs e)
-      {
+		private void ViewHiddenFoldersCb_Checked(object sender, RoutedEventArgs e) { }
 
-      }
-
-      private void ViewHiddenFoldersCb_Checked(object sender, RoutedEventArgs e)
-      {
-
-      }
-
-      private void ApplyShellFolderLocationBtn_Click(object sender, RoutedEventArgs e)
-      {
-
-      }
+		private void ApplyShellFolderLocationBtn_Click(object sender, RoutedEventArgs e) { }
 	}
 }

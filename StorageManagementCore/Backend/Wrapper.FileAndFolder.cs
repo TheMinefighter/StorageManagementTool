@@ -1,4 +1,4 @@
-﻿#define MITMode
+﻿#undef MITMode
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +10,7 @@ using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
 #if !MITMode
 using Microsoft.WindowsAPICodePack.Dialogs;
+
 #else
 using System.Windows.Forms;
 
@@ -42,10 +43,10 @@ namespace StorageManagementCore.Backend {
 					return new[] {new DirectoryInfo(fbd.SelectedPath)};
 				}
 #else
-				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description) {IsFolderPicker = true,Multiselect = true};
+				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description) {IsFolderPicker = true, Multiselect = true};
 				dlg.ShowDialog();
-				return dlg.FileNames.Select(x=>new DirectoryInfo(x)) ;
-			
+				return dlg.FileNames.Select(x => new DirectoryInfo(x));
+
 #endif
 			}
 
@@ -56,14 +57,24 @@ namespace StorageManagementCore.Backend {
 					return new FileInfo(fd.FileName);
 				}
 #else
+				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description);
+				dlg.ShowDialog();
+				return new FileInfo(dlg.FileName);
 #endif
 			}
 
 			public static IEnumerable<FileInfo> SelectFiles(string description) {
+#if MITMode
 				using (OpenFileDialog fd = new OpenFileDialog {Title = description, Multiselect = true}) {
 					fd.ShowDialog();
 					return fd.FileNames.Select(x => new FileInfo(x));
 				}
+#else
+				CommonOpenFileDialog dlg = new CommonOpenFileDialog(description) {Multiselect = true};
+				dlg.ShowDialog();
+				return dlg.FileNames.Select(x => new FileInfo(x));
+
+#endif
 			}
 
 			/// <summary>

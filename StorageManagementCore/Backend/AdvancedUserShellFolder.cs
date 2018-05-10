@@ -38,7 +38,7 @@ namespace StorageManagementCore.Backend {
 					WindowsIdentifier = new Guid(x[1]),
 					Undefined = x[2][0] == '1',
 					IsUserSpecific = x[3][0] == '1',
-					ShouldBeEdited = x[4][0]=='1'
+					ShouldBeEdited = x[4][0] == '1'
 				}).ToArray();
 			}
 		}

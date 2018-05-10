@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using StorageManagementCore.MainGUI;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Interpreters;
 
@@ -45,7 +46,7 @@ namespace StorageManagementCore {
 			}
 
 			new CommandlineOptionInterpreter(args) {Options = new InterpretingOptions {RootName = "StorageManagementTool"}}
-				.Interpret<CmdRootContext>(() => Application.Run(new MainGUI.MainWindow()));
+				.Interpret<CmdRootContext>(() => Application.Run(new MainWindow()));
 			/*
 			if (args.Count == 0) {
 			   Session.Singleton.StandardLaunch();
