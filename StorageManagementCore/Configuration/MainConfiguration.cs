@@ -1,10 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Represents the JSON serializable configuration data of program
 	/// </summary>
 	public class MainConfiguration {
+		/// <summary>
+		/// </summary>
+		public AllPagefilesConfiguration AllPagefilesSettings;
+
 		/// <summary>
 		///  The default path to move data to
 		/// </summary>
@@ -18,9 +23,11 @@ namespace StorageManagementCore.Configuration {
 		/// <summary>
 		///  The configured SSD MonitoringSetting
 		/// </summary>
-		public MonitoringSetting MonitoringSettings;
+		public MonitoringConfiguration MonitoringSettings;
 
-		public PagefilesSetting PagefilesSettings;
+		/// <summary>
+		/// </summary>
+		public List<ShellFolderConfiguration> ShellFolderSettings;
 
 		/// <summary>
 		///  The Version of the Configuration

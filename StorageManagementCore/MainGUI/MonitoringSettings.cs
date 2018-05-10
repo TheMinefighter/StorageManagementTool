@@ -16,7 +16,7 @@ namespace StorageManagementCore.MainGUI {
 		private readonly Dictionary<MonitoringAction, RadioButton> _forFoldersDictionary =
 			new Dictionary<MonitoringAction, RadioButton>();
 
-		private MonitoringSetting _editedSettings = new MonitoringSetting();
+		private MonitoringConfiguration _editedConfigurations = new MonitoringConfiguration();
 		private List<Control> _whenEnabled = new List<Control>();
 		private List<Control> _whenSelected = new List<Control>();
 		private bool IsMonitored;
@@ -60,8 +60,8 @@ namespace StorageManagementCore.MainGUI {
 			_forFilesDictionary.Add(MonitoringAction.Ask, AskActionForFiles_rb);
 			_forFilesDictionary.Add(MonitoringAction.Ignore, IgnoreForFiles_rb);
 			_forFilesDictionary.Add(MonitoringAction.Move, AutomaticMoveForFiles_rb);
-			_editedSettings = Session.Singleton.CurrentConfiguration.MonitoringSettings ??
-			                  new MonitoringSetting();
+			_editedConfigurations = Session.Singleton.CurrentConfiguration.MonitoringSettings ??
+			                        new MonitoringConfiguration();
 			_whenEnabled = new List<Control> {
 				AllFolders_lb,
 				AddFolder_btn,
@@ -81,7 +81,7 @@ namespace StorageManagementCore.MainGUI {
 			EnableControls();
 			AllFolders_lb.Items.Clear();
 			AllFolders_lb.Items.AddRange(
-				_editedSettings.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
+				_editedConfigurations.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
 			IsMonitored = OperatingMethods.SSDMonitoring.SSDMonitoringEnabled();
 			EnableNotifications_cb.Checked = IsMonitored;
 		}
@@ -113,7 +113,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void RemoveSelectedFolder_btn_Click(object sender, EventArgs e) {
-			_editedSettings.MonitoredFolders.RemoveAt(AllFolders_lb.SelectedIndex);
+			_editedConfigurations.MonitoredFolders.RemoveAt(AllFolders_lb.SelectedIndex);
 			AllFolders_lb.Items.RemoveAt(AllFolders_lb.SelectedIndex);
 		}
 
@@ -121,7 +121,7 @@ namespace StorageManagementCore.MainGUI {
 			FolderBrowserDialog browser =
 				new FolderBrowserDialog {Description = AddFolder_fbdDescription};
 			browser.ShowDialog();
-			_editedSettings.MonitoredFolders.Add(new MonitoredFolder(browser.SelectedPath));
+			_editedConfigurations.MonitoredFolders.Add(new MonitoredFolder(browser.SelectedPath));
 			AllFolders_lb.Items.Add(browser.SelectedPath);
 			AllFolders_lb.SelectedIndex = AllFolders_lb.Items.Count - 1;
 			browser.Dispose();
@@ -130,9 +130,9 @@ namespace StorageManagementCore.MainGUI {
 		private void AllFolders_lb_SelectedIndexChanged(object sender, EventArgs e) {
 			EnableControls();
 			if (AllFolders_lb.SelectedIndex != -1) {
-				_forFoldersDictionary[_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders].Checked =
+				_forFoldersDictionary[_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders].Checked =
 					true;
-				_forFilesDictionary[_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles].Checked =
+				_forFilesDictionary[_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles].Checked =
 					true;
 			}
 			else {
@@ -145,14 +145,14 @@ namespace StorageManagementCore.MainGUI {
 			FolderBrowserDialog browser =
 				new FolderBrowserDialog {Description = ChangeFolder_fbdDescription};
 			browser.ShowDialog();
-			_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].TargetPath = browser.SelectedPath;
+			_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].TargetPath = browser.SelectedPath;
 			AllFolders_lb.Items[AllFolders_lb.SelectedIndex] = browser.SelectedPath;
 			browser.Dispose();
 		}
 
 		private void SaveSettings_btn_Click(object sender, EventArgs e) {
-			if (!_editedSettings.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings)) {
-				Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedSettings;
+			if (!_editedConfigurations.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings)) {
+				Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedConfigurations;
 				Session.Singleton.SaveCfg();
 			}
 
@@ -172,14 +172,14 @@ namespace StorageManagementCore.MainGUI {
 
 		private void ForFoldersChanged(object sender, EventArgs e) {
 			if (((RadioButton) sender).Checked) {
-				_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders =
+				_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders =
 					_forFoldersDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
 			}
 		}
 
 		private void ForFilesChanged(object sender, EventArgs e) {
 			if (((RadioButton) sender).Checked) {
-				_editedSettings.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles =
+				_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles =
 					_forFilesDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
 			}
 		}

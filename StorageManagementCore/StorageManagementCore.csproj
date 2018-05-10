@@ -92,10 +92,11 @@
     <Compile Include="Configuration\KnownDrive.cs" />
     <Compile Include="Configuration\MonitoredFolder.cs" />
     <Compile Include="Configuration\MonitoringAction.cs" />
-    <Compile Include="Configuration\MonitoringSetting.cs" />
+    <Compile Include="Configuration\MonitoringConfiguration.cs" />
     <Compile Include="Configuration\Pagefile.cs" />
     <Compile Include="Configuration\PagefileSysConfiguration.cs" />
-    <Compile Include="Configuration\PagefilesSetting.cs" />
+    <Compile Include="Configuration\AllPagefilesConfiguration.cs" />
+    <Compile Include="Configuration\ShellFolderConfiguration.cs" />
     <Compile Include="Configuration\SwapfileSysConfiguration.cs" />
     <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
       <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>

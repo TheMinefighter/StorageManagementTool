@@ -5,7 +5,7 @@ namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Container for all settings for SSD Monitoring
 	/// </summary>
-	public class MonitoringSetting {
+	public class MonitoringConfiguration {
 		/// <summary>
 		///  The MonitoredFolders configured in this MonitoringSetting
 		/// </summary>
@@ -14,7 +14,7 @@ namespace StorageManagementCore.Configuration {
 		/// <summary>
 		///  Creates a new MonitoringSetting
 		/// </summary>
-		public MonitoringSetting() => MonitoredFolders = new List<MonitoredFolder>();
+		public MonitoringConfiguration() => MonitoredFolders = new List<MonitoredFolder>();
 
 
 		public override string ToString() => JsonConvert.SerializeObject(this);
