@@ -20,7 +20,7 @@ using System.Windows.Forms;
 namespace StorageManagementCore.Backend {
 	public static partial class Wrapper {
 		public static class FileAndFolder {
-			public enum FileOrFolder :byte {
+			public enum FileOrFolder : byte {
 				Neither,
 				File,
 				Folder
@@ -38,7 +38,7 @@ namespace StorageManagementCore.Backend {
 					return FileOrFolder.Neither;
 				}
 			}
-			
+
 			public static DirectoryInfo SelectDirectory(string description) {
 #if MITMode
 				using (FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description}) {

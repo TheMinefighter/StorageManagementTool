@@ -24,7 +24,8 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="SelectFoldersToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0"
                             VerticalAlignment="Top" Width="154" Click="SelectFoldersToMoveBtn_Click" />
-                    <TextBox x:Name="PathsToMoveTb" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" Height="20" Margin="328,32,10,0" Text="TextBox"
+                    <TextBox x:Name="PathsToMoveTb" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" Height="20"
+                             Margin="328,32,10,0" Text="TextBox"
                              VerticalAlignment="Top" TextChanged="PathsToMoveTb_TextChanged" Background="White" />
                     <Button x:Name="SelectBasePathBtn" Content="Button" HorizontalAlignment="Left" Margin="10,77,0,0"
                             VerticalAlignment="Top" Width="154" Click="SelectBasePathBtn_Click" />
@@ -41,7 +42,8 @@
                             HorizontalAlignment="Right" Width="374" Click="MoveObjectsBtn_Click" />
                     <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0"
                             VerticalAlignment="Top" Width="154" Click="SetBasePathConfigBtn_Click" />
-                    <CheckBox x:Name="IsBasePathAbsoluteCb" Content="CheckBox" HorizontalAlignment="Left" Margin="491,82,0,0" VerticalAlignment="Top" />
+                    <CheckBox x:Name="IsBasePathAbsoluteCb" Content="CheckBox" HorizontalAlignment="Left" Margin="491,82,0,0"
+                              VerticalAlignment="Top" />
                     <Button x:Name="SelectFilesToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="169,31,0,0"
                             VerticalAlignment="Top" Width="154" Click="SelectFilesToMoveBtn_OnClick" />
                 </Grid>
