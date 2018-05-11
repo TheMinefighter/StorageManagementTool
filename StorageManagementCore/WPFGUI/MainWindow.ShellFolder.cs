@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using StorageManagementCore.Backend;
+using ConfirmationDialogs;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
@@ -16,11 +18,11 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void MoveDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e) {
-			//TODO Warning
+			e.Handled = !Confirmation.Confirm();
 		}
 
 		private void MoveExistingItemsCb_Unchecked(object sender, RoutedEventArgs e) {
-			//TODO Warning
+			e.Handled = !Confirmation.Confirm();
 		}
 
 		private void ViewHiddenFoldersCb_Checked(object sender, RoutedEventArgs e) {
@@ -29,7 +31,7 @@ namespace StorageManagementCore.WPFGUI {
 
 
 		private void ApplyShellFolderLocationBtn_Click(object sender, RoutedEventArgs e) {
-			//TODO Do
+			e.Handled = !Confirmation.Confirm();
 		}
 
 		private void OpenCurrentShellFolderPathBtn_OnClick(object sender, RoutedEventArgs e) {
@@ -38,6 +40,10 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void ViewHiddenFoldersCb_Unchecked(object sender, RoutedEventArgs e) {
 			RefreshShellFolders();
+		}
+
+		private void ShellFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+			throw new NotImplementedException();
 		}
 	}
 }

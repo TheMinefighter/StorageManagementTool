@@ -51,7 +51,7 @@
             </TabItem>
             <TabItem x:Name="ShellFolderTi" Header="ShellFolder" Loaded="ShellFolderTi_OnLoaded">
                 <Grid Background="White">
-                    <ListBox x:Name="ShellFoldersLb" HorizontalAlignment="Left" Margin="10,10,0,30" Width="202" />
+                    <ListBox x:Name="ShellFoldersLb" HorizontalAlignment="Left" Margin="10,10,0,30" Width="202" SelectionChanged="ShellFoldersLb_OnSelectionChanged" />
                     <CheckBox x:Name="ViewHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10"
                               VerticalAlignment="Bottom" Background="#FFFF4040" Checked="ViewHiddenFoldersCb_Checked"
                               Unchecked="ViewHiddenFoldersCb_Unchecked" />

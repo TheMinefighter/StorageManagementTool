@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConfirmationDialogs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\TheMinefighter.ConfirmationDialogs.1.0.3-beta\lib\net40\ConfirmationDialogs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Csv, Version=1.0.31.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Csv.1.0.31\lib\net40\Csv.dll</HintPath>
     </Reference>
@@ -81,6 +85,7 @@
     <Compile Include="Backend\AdvancedUserShellFolder.cs" />
     <Compile Include="Backend\FileAndFolder.cs" />
     <Compile Include="Backend\RegistryValue.cs" />
+    <Compile Include="Backend\ShellFolders.cs" />
     <Compile Include="Backend\SpecialFolders.cs" />
     <Compile Include="Backend\UserShellFolder.cs" />
     <Compile Include="Backend\Win32ShellFolders.cs" />
