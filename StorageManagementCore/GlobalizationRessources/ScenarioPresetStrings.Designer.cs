@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementTool.MainGUI.GlobalizationRessources {
+namespace StorageManagementCore.GlobalizationRessources {
     using System;
     
     
@@ -19,28 +19,27 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class EditWindowsSearchSettingsStrings_en_US {
+    internal class ScenarioPresetStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EditWindowsSearchSettingsStrings_en_US() {
+        internal ScenarioPresetStrings() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.MainGUI.GlobalizationRessources.EditWindowsSearchSettingsSt" +
-                            "rings.en-US", typeof(EditWindowsSearchSettingsStrings_en_US).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.GlobalizationRessources.ScenarioPresetStrings", typeof(ScenarioPresetStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -52,7 +51,7 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,11 +61,20 @@ namespace StorageManagementTool.MainGUI.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktueller Speicherort.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CurrentLocation_lbl_Text {
+        internal static string Presets_LocalHDDAndSSD {
             get {
-                return ResourceManager.GetString("CurrentLocation_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("Presets_LocalHDDAndSSD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Presets_LocalSSDAndNAS {
+            get {
+                return ResourceManager.GetString("Presets_LocalSSDAndNAS", resourceCulture);
             }
         }
     }

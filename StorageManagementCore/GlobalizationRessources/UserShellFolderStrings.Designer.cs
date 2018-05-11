@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementTool.GlobalizationRessources {
+namespace StorageManagementCore.GlobalizationRessources {
     using System;
     
     
@@ -19,27 +19,27 @@ namespace StorageManagementTool.GlobalizationRessources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class UserShellFolderStrings_de_DE {
+    internal class UserShellFolderStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UserShellFolderStrings_de_DE() {
+        internal UserShellFolderStrings() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementTool.GlobalizationRessources.UserShellFolderStrings.de-DE", typeof(UserShellFolderStrings_de_DE).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.GlobalizationRessources.UserShellFolderStrings", typeof(UserShellFolderStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace StorageManagementTool.GlobalizationRessources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,369 +61,369 @@ namespace StorageManagementTool.GlobalizationRessources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Administratorenwerkzeuge.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Administrative_Tools_Name {
+        internal static string Administrative_Tools_Name {
             get {
                 return ResourceManager.GetString("Administrative_Tools_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anwendungsdaten.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Appdata_Name {
+        internal static string Appdata_Name {
             get {
                 return ResourceManager.GetString("Appdata_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Internetcache.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Cache_Name {
+        internal static string Cache_Name {
             get {
                 return ResourceManager.GetString("Cache_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Temporäre Dateien zum CD brennen.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CD_Burning_Name {
+        internal static string CD_Burning_Name {
             get {
                 return ResourceManager.GetString("CD_Burning_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Anwendungsdaten.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_Administrative_Tools_Name {
+        internal static string Common_Administrative_Tools_Name {
             get {
                 return ResourceManager.GetString("Common_Administrative_Tools_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Anwendungsdaten.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_AppData_Name {
+        internal static string Common_AppData_Name {
             get {
                 return ResourceManager.GetString("Common_AppData_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentlicher Desktop.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_Desktop_Name {
+        internal static string Common_Desktop_Name {
             get {
                 return ResourceManager.GetString("Common_Desktop_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Dokumente.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_Documents_Name {
+        internal static string Common_Documents_Name {
             get {
                 return ResourceManager.GetString("Common_Documents_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Starmenü Programme.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_Programs_Name {
+        internal static string Common_Programs_Name {
             get {
                 return ResourceManager.GetString("Common_Programs_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliches Startmenü.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_Start_Menu_Name {
+        internal static string Common_Start_Menu_Name {
             get {
                 return ResourceManager.GetString("Common_Start_Menu_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentlicher Autostart.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_Startup_Name {
+        internal static string Common_Startup_Name {
             get {
                 return ResourceManager.GetString("Common_Startup_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Vorlagen.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Common_Templates_Name {
+        internal static string Common_Templates_Name {
             get {
                 return ResourceManager.GetString("Common_Templates_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Musik.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CommonMusic_Name {
+        internal static string CommonMusic_Name {
             get {
                 return ResourceManager.GetString("CommonMusic_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Bilder.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CommonPictures_Name {
+        internal static string CommonPictures_Name {
             get {
                 return ResourceManager.GetString("CommonPictures_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Videos.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CommonVideo_Name {
+        internal static string CommonVideo_Name {
             get {
                 return ResourceManager.GetString("CommonVideo_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cookies.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Cookies_Name {
+        internal static string Cookies_Name {
             get {
                 return ResourceManager.GetString("Cookies_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Desktop.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Desktop_Name {
+        internal static string Desktop_Name {
             get {
                 return ResourceManager.GetString("Desktop_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloads.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Downloads_Name {
+        internal static string Downloads_Name {
             get {
                 return ResourceManager.GetString("Downloads_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fehler.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Error {
+        internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Favoriten.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Favorites_Names {
+        internal static string Favorites_Names {
             get {
                 return ResourceManager.GetString("Favorites_Names", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schriftarten.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Fonts_Name {
+        internal static string Fonts_Name {
             get {
                 return ResourceManager.GetString("Fonts_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verlauf.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string History_Name {
+        internal static string History_Name {
             get {
                 return ResourceManager.GetString("History_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bibliotheken.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Libraries_Name {
+        internal static string Libraries_Name {
             get {
                 return ResourceManager.GetString("Libraries_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lokale Anwendungsdaten.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Local_AppData_Name {
+        internal static string Local_AppData_Name {
             get {
                 return ResourceManager.GetString("Local_AppData_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigene Musik.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string My_Music_Name {
+        internal static string My_Music_Name {
             get {
                 return ResourceManager.GetString("My_Music_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigene Bilder.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string My_Pictures_Name {
+        internal static string My_Pictures_Name {
             get {
                 return ResourceManager.GetString("My_Pictures_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigene Videos.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string My_Video_Name {
+        internal static string My_Video_Name {
             get {
                 return ResourceManager.GetString("My_Video_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Netzwerkverknüpfungen.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string NetHood_Name {
+        internal static string NetHood_Name {
             get {
                 return ResourceManager.GetString("NetHood_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hersteller Links.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OEM_Links_Name {
+        internal static string OEM_Links_Name {
             get {
                 return ResourceManager.GetString("OEM_Links_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigene Dokumente.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Personal_Name {
+        internal static string Personal_Name {
             get {
                 return ResourceManager.GetString("Personal_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Druckerverknüpfung.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PrintHood_Name {
+        internal static string PrintHood_Name {
             get {
                 return ResourceManager.GetString("PrintHood_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Temporäre Dateien.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PrivateTemp {
+        internal static string PrivateTemp {
             get {
                 return ResourceManager.GetString("PrivateTemp", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installationspfad für x64 basierte Programme.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ProgramFilesDir_Name {
+        internal static string ProgramFilesDir_Name {
             get {
                 return ResourceManager.GetString("ProgramFilesDir_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installationspfad für x86 basierte Programme.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ProgramFilesDir_x86_Name {
+        internal static string ProgramFilesDir_x86_Name {
             get {
                 return ResourceManager.GetString("ProgramFilesDir_x86_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Startmenü Programme.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Programs_Name {
+        internal static string Programs_Name {
             get {
                 return ResourceManager.GetString("Programs_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öffentliche Temporäre Dateien.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PublicTemp {
+        internal static string PublicTemp {
             get {
                 return ResourceManager.GetString("PublicTemp", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zuletzt verwendet.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Recent_Name {
+        internal static string Recent_Name {
             get {
                 return ResourceManager.GetString("Recent_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Senden an.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SendTo_Name {
+        internal static string SendTo_Name {
             get {
                 return ResourceManager.GetString("SendTo_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Startmenü.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Start_Menu_Name {
+        internal static string Start_Menu_Name {
             get {
                 return ResourceManager.GetString("Start_Menu_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autostart.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Startup_Name {
+        internal static string Startup_Name {
             get {
                 return ResourceManager.GetString("Startup_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vorlagen.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Templates_Name {
+        internal static string Templates_Name {
             get {
                 return ResourceManager.GetString("Templates_Name", resourceCulture);
             }

@@ -30,9 +30,6 @@ namespace StorageManagementCore.Backend {
 		public static void LoadUSF() {
 			Assembly current = Assembly.GetExecutingAssembly();
 			const string res = "StorageManagementCore.Backend.AdvancedUserShellFolderData.csv";
-			MessageBox.Show(string.Join(";", current.GetManifestResourceNames()));
-			string[] manifestResourceNames = current.GetManifestResourceNames();
-			manifestResourceNames.ToString();
 			using (Stream stream = current.GetManifestResourceStream(res)) {
 				IEnumerable<ICsvLine> data = CsvReader.ReadFromStream(stream);
 				AllUSF = data.Select(x => new AdvancedUserShellFolder {

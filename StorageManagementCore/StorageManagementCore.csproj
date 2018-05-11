@@ -210,20 +210,13 @@
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.de-DE.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.en-US.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.de-DE.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.en-US.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\MainWindowStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\OperatingMethodsStrings1.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.de-DE.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\WrapperStrings.Designer.cs" />
     <Compile Include="WPFGUI\MainWindow.About.cs" />
     <Compile Include="WPFGUI\MainWindow.MoveObjects.cs" />
     <Compile Include="WPFGUI\MainWindow.Settings.cs" />
@@ -397,7 +390,6 @@
     <Content Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.Designer.cs2" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\MainWindowStrings.de-DE.resx" />
@@ -406,9 +398,6 @@
     <Content Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\OperatingMethodsStrings.de-DE.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\OperatingMethodsStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\OperatingMethodsStrings.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.resx" />
@@ -418,9 +407,6 @@
     <Content Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\WrapperStrings.de-DE.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\WrapperStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\WrapperStrings.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
