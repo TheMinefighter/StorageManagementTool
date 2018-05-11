@@ -19,9 +19,9 @@ namespace StorageManagementCore.Backend {
 
 		private AdvancedUserShellFolder() { }
 
-		public static AdvancedUserShellFolder GetUSF(string name) {
-			return AllUSF.First(x => x.Name == name);
-		}
+		public static AdvancedUserShellFolder GetUSF(ShellFolders s) => AllUSF[(int) s];
+		
+		public static  AdvancedUserShellFolder GetUSF(string name) => AllUSF[(int) Enum.Parse(typeof(ShellFolders), name)];
 
 		public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier) {
 			return AllUSF.First(x => x.WindowsIdentifier == windowsIdentifier);

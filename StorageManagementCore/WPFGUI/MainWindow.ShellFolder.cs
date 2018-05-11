@@ -43,7 +43,9 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void ShellFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
-			throw new NotImplementedException();
+			CurrentShellFolderPathTb.Text =
+				Backend.SpecialFolders.GetSpecialFolderPath(Backend.AdvancedUserShellFolder.GetUSF((string) ShellFoldersLb.SelectedValue)
+					.WindowsIdentifier);
 		}
 	}
 }
