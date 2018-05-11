@@ -5,35 +5,35 @@ using Microsoft.VisualBasic.Devices;
 using static StorageManagementTool.GlobalizationRessources.ScenarioPresetStrings;
 
 namespace StorageManagementTool {
-   /// <summary>
-   ///  Stores the presets for the scenarios
-   /// </summary>
-   public struct ScenarioPreset {
+	/// <summary>
+	///  Stores the presets for the scenarios
+	/// </summary>
+	public struct ScenarioPreset {
 		public static ScenarioPreset[] AvailablePresets;
 
 		public override string ToString() => Id;
 
-      /// <summary>
-      ///  Whether a HDD is required for this preset
-      /// </summary>
-      public bool HDDRequired;
+		/// <summary>
+		///  Whether a HDD is required for this preset
+		/// </summary>
+		public bool HDDRequired;
 
 		public string Id;
 
-      /// <summary>
-      ///  The name of the preset
-      /// </summary>
-      public string ViewedName;
+		/// <summary>
+		///  The name of the preset
+		/// </summary>
+		public string ViewedName;
 
-      /// <summary>
-      ///  Whether a SSD is required for this preset
-      /// </summary>
-      public bool SSDRequired;
+		/// <summary>
+		///  Whether a SSD is required for this preset
+		/// </summary>
+		public bool SSDRequired;
 
-      /// <summary>
-      ///  the action to run
-      /// </summary>
-      public Action<DriveInfo, DriveInfo> ToRun;
+		/// <summary>
+		///  the action to run
+		/// </summary>
+		public Action<DriveInfo, DriveInfo> ToRun;
 
 		private static void LocalSSDAndNAS(DriveInfo ssd, DriveInfo hdd) {
 			Dictionary<string, string> usfToMove = new Dictionary<string, string> {
@@ -123,10 +123,10 @@ namespace StorageManagementTool {
 			OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));
 		}
 
-      /// <summary>
-      ///  Loads all configured presets
-      /// </summary>
-      public static void LoadPresets() {
+		/// <summary>
+		///  Loads all configured presets
+		/// </summary>
+		public static void LoadPresets() {
 			AvailablePresets = new[] {
 				new ScenarioPreset {
 					HDDRequired = true,

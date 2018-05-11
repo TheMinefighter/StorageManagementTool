@@ -26,10 +26,10 @@ namespace StorageManagementTool.MainGUI {
 			EnableControls();
 		}
 
-	   /// <summary>
-	   ///  Loads UI strings from culture sepcific ressource file
-	   /// </summary>
-	   private void LoadUIStrings() {
+		/// <summary>
+		///  Loads UI strings from culture sepcific ressource file
+		/// </summary>
+		private void LoadUIStrings() {
 			Text = WindowTitle;
 			EnableNotifications_cb.Text = EnableNotifications_cb_Text;
 			//InitalizeSSDMonitoring_btn.Text = InitalizeSSDMonitoring_btn_Text;

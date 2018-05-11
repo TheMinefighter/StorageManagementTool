@@ -193,16 +193,16 @@ namespace StorageManagementTool {
 
 		public static DirectoryInfo GetPath(UserShellFolder currentUSF) => currentUSF.GetPath();
 
-	   /// <summary>
-	   ///  Moves an User ShellFolder to a new Location
-	   /// </summary>
-	   /// <param name="oldDir">The old Directory of</param>
-	   /// <param name="newDir">The new Directory of the new </param>
-	   /// <param name="usf">The UserShellFolder to edit</param>
-	   /// <param name="copyContents"></param>
-	   /// <param name="deleteOldContents"></param>
-	   /// <returns>Whether the Operation were successful</returns>
-	   public static bool ChangeUserShellFolder(DirectoryInfo oldDir, DirectoryInfo newDir, UserShellFolder usf,
+		/// <summary>
+		///  Moves an User ShellFolder to a new Location
+		/// </summary>
+		/// <param name="oldDir">The old Directory of</param>
+		/// <param name="newDir">The new Directory of the new </param>
+		/// <param name="usf">The UserShellFolder to edit</param>
+		/// <param name="copyContents"></param>
+		/// <param name="deleteOldContents"></param>
+		/// <returns>Whether the Operation were successful</returns>
+		public static bool ChangeUserShellFolder(DirectoryInfo oldDir, DirectoryInfo newDir, UserShellFolder usf,
 			OperatingMethods.QuestionAnswer copyContents = OperatingMethods.QuestionAnswer.Ask,
 			OperatingMethods.QuestionAnswer deleteOldContents = OperatingMethods.QuestionAnswer.Ask) {
 			if (!newDir.Exists) {

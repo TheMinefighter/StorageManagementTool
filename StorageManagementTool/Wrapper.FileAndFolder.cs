@@ -9,13 +9,13 @@ using Microsoft.Win32.SafeHandles;
 namespace StorageManagementTool {
 	public static partial class Wrapper {
 		public static class FileAndFolder {
-		   /// <summary>
-		   ///  Copies a Directory
-		   /// </summary>
-		   /// <param name="src">The Directory to copy from</param>
-		   /// <param name="target">The Directory, where the contents of src should be copied to</param>
-		   /// <returns>Whether the operation were successful</returns>
-		   public static bool CopyDirectory(DirectoryInfo src, DirectoryInfo target) {
+			/// <summary>
+			///  Copies a Directory
+			/// </summary>
+			/// <param name="src">The Directory to copy from</param>
+			/// <param name="target">The Directory, where the contents of src should be copied to</param>
+			/// <returns>Whether the operation were successful</returns>
+			public static bool CopyDirectory(DirectoryInfo src, DirectoryInfo target) {
 				try {
 					FileSystem.CopyDirectory(src.FullName, target.FullName, UIOption.AllDialogs);
 				}
@@ -26,13 +26,13 @@ namespace StorageManagementTool {
 				return true;
 			}
 
-		   /// <summary>
-		   ///  Deletes a Directory
-		   /// </summary>
-		   /// <param name="toBeDeleted">The Folder to delete</param>
-		   /// <param name="deletePermanent">Whether the Folder should be deleted permanently</param>
-		   /// <returns>Whether the operation were sucessful</returns>
-		   public static bool DeleteDirectory(DirectoryInfo toBeDeleted, bool deletePermanent = true, bool ask = true) {
+			/// <summary>
+			///  Deletes a Directory
+			/// </summary>
+			/// <param name="toBeDeleted">The Folder to delete</param>
+			/// <param name="deletePermanent">Whether the Folder should be deleted permanently</param>
+			/// <returns>Whether the operation were sucessful</returns>
+			public static bool DeleteDirectory(DirectoryInfo toBeDeleted, bool deletePermanent = true, bool ask = true) {
 				try {
 					FileSystem.DeleteDirectory(toBeDeleted.FullName, ask ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs,
 						deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
@@ -44,23 +44,23 @@ namespace StorageManagementTool {
 				return true;
 			}
 
-		   /// <summary>
-		   ///  Tests whether a File is a symlink
-		   /// </summary>
-		   /// <param name="path">The path of the file to test</param>
-		   /// <returns>Whether the file is a symlink</returns>
-		   public static bool IsPathSymbolic(string path) {
+			/// <summary>
+			///  Tests whether a File is a symlink
+			/// </summary>
+			/// <param name="path">The path of the file to test</param>
+			/// <returns>Whether the file is a symlink</returns>
+			public static bool IsPathSymbolic(string path) {
 				FileInfo pathInfo = new FileInfo(path);
 				return pathInfo.Attributes.HasFlag(FileAttributes.ReparsePoint);
 			}
 
-		   /// <summary>
-		   ///  Copies a file
-		   /// </summary>
-		   /// <param name="src">The location to copy from</param>
-		   /// <param name="to">The location to copy to</param>
-		   /// <returns>Whether the operation were successful</returns>
-		   public static bool CopyFile(FileInfo src, FileInfo to) {
+			/// <summary>
+			///  Copies a file
+			/// </summary>
+			/// <param name="src">The location to copy from</param>
+			/// <param name="to">The location to copy to</param>
+			/// <returns>Whether the operation were successful</returns>
+			public static bool CopyFile(FileInfo src, FileInfo to) {
 				try {
 					FileSystem.CopyFile(src.FullName, to.FullName, UIOption.AllDialogs);
 				}
@@ -71,14 +71,14 @@ namespace StorageManagementTool {
 				return true;
 			}
 
-		   /// <summary>
-		   ///  Deletes a file
-		   /// </summary>
-		   /// <param name="toDelete">The file to delete</param>
-		   /// <param name="ShowFullDialog"></param>
-		   /// <param name="deletePermanent">Whether it should be deleted permanently</param>
-		   /// <returns>Whether the operation were successful</returns>
-		   public static bool DeleteFile(FileInfo toDelete, bool ShowFullDialog = true, bool deletePermanent = true) {
+			/// <summary>
+			///  Deletes a file
+			/// </summary>
+			/// <param name="toDelete">The file to delete</param>
+			/// <param name="ShowFullDialog"></param>
+			/// <param name="deletePermanent">Whether it should be deleted permanently</param>
+			/// <returns>Whether the operation were successful</returns>
+			public static bool DeleteFile(FileInfo toDelete, bool ShowFullDialog = true, bool deletePermanent = true) {
 				try {
 					FileSystem.DeleteFile(toDelete.FullName, ShowFullDialog ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs,
 						deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
@@ -136,12 +136,12 @@ namespace StorageManagementTool {
 			private const int CREATION_DISPOSITION_OPEN_EXISTING = 3;
 			private const int FILE_FLAG_BACKUP_SEMANTICS = 0x02000000;
 
-		   /// <summary>
-		   ///  Reads the TargetPath stored in the a symlink
-		   /// </summary>
-		   /// <param name="path">The path of the symlink</param>
-		   /// <returns>The path stored in the symlink</returns>
-		   public static string GetRealPath(string path) {
+			/// <summary>
+			///  Reads the TargetPath stored in the a symlink
+			/// </summary>
+			/// <param name="path">The path of the symlink</param>
+			/// <returns>The path stored in the symlink</returns>
+			public static string GetRealPath(string path) {
 				if (!Directory.Exists(path) && !File.Exists(path)) {
 					throw new IOException("TargetPath not found");
 				}

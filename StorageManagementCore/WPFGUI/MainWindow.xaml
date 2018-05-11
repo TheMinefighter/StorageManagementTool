@@ -37,7 +37,8 @@
                              VerticalAlignment="Top" TextChanged="BasePathTb_TextChanged" />
                     <TextBlock x:Name="SuggestionsLbl" HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="TextBlock"
                                VerticalAlignment="Top" />
-                    <ListBox x:Name="SuggestionsLb" SelectionMode="Extended" SelectionChanged="SuggestionsLb_OnSelectionChanged" Margin="10,118,10,35" />
+                    <ListBox x:Name="SuggestionsLb" SelectionMode="Extended" SelectionChanged="SuggestionsLb_OnSelectionChanged"
+                             Margin="10,118,10,35" />
                     <Button x:Name="MoveObjectsBtn" Content="Button" Margin="0,0,10,10" VerticalAlignment="Bottom"
                             HorizontalAlignment="Right" Width="374" Click="MoveObjectsBtn_Click" />
                     <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0"
@@ -50,18 +51,21 @@
             </TabItem>
             <TabItem x:Name="ShellFolderTi" Header="ShellFolder" Loaded="ShellFolderTi_OnLoaded">
                 <Grid Background="White">
-                    <ListBox x:Name="ShellFolders" HorizontalAlignment="Left" Margin="10,10,0,30" Width="202" />
+                    <ListBox x:Name="ShellFoldersLb" HorizontalAlignment="Left" Margin="10,10,0,30" Width="202" />
                     <CheckBox x:Name="ViewHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10"
-                              VerticalAlignment="Bottom" Background="#FFFF4040" Checked="ViewHiddenFoldersCb_Checked" />
+                              VerticalAlignment="Bottom" Background="#FFFF4040" Checked="ViewHiddenFoldersCb_Checked"
+                              Unchecked="ViewHiddenFoldersCb_Unchecked" />
                     <TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,193,0" TextWrapping="Wrap" Text="TextBox"
                              VerticalAlignment="Top" IsReadOnly="True" />
                     <TextBlock x:Name="CurrentShellFolderPathLbl" HorizontalAlignment="Left" Margin="217,10,0,0" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Top" />
                     <Button x:Name="OpenCurrentShellFolderPathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0"
-                            VerticalAlignment="Top" Width="178" />
+                            VerticalAlignment="Top" Width="178" Click="OpenCurrentShellFolderPathBtn_OnClick" />
                     <TextBlock HorizontalAlignment="Left" Margin="217,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
-                    <TextBox x:Name="NewShellFolderPathTb" Height="20" Margin="217,77,193,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" IsEnabled="False" />
-                    <Button Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0" VerticalAlignment="Top" Width="178" IsEnabled="False" />
+                    <TextBox x:Name="NewShellFolderPathTb" Height="20" Margin="217,77,193,0" TextWrapping="Wrap" Text="TextBox"
+                             VerticalAlignment="Top" IsEnabled="False" />
+                    <Button Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0" VerticalAlignment="Top" Width="178"
+                            IsEnabled="False" />
                     <Button x:Name="ApplyShellFolderLocationBtn" Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10"
                             VerticalAlignment="Bottom" Width="178" Click="ApplyShellFolderLocationBtn_Click" />
                     <CheckBox x:Name="MoveExistingItemsCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,101,0,0"
@@ -69,8 +73,9 @@
                     <CheckBox x:Name="ChangeDependentShellFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,121,0,0"
                               VerticalAlignment="Top" IsChecked="True" Background="#FFFF4040"
                               Unchecked="MoveDependentShellFoldersCb_Unchecked" />
-               <CheckBox x:Name="AutomaticShellFolderPathCb" Content="CheckBox" HorizontalAlignment="Left" Margin="473,102,0,0" VerticalAlignment="Top" IsChecked="True"/>
-            </Grid>
+                    <CheckBox x:Name="AutomaticShellFolderPathCb" Content="CheckBox" HorizontalAlignment="Left" Margin="473,102,0,0"
+                              VerticalAlignment="Top" IsChecked="True" />
+                </Grid>
             </TabItem>
             <TabItem Header="Search">
                 <Grid Background="White">

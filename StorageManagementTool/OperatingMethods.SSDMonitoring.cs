@@ -8,22 +8,22 @@ using System.Xml.Linq;
 namespace StorageManagementTool {
 	public static partial class OperatingMethods {
 		public static class SSDMonitoring {
-		   /// <summary>
-		   ///  Name of the monitoring task
-		   /// </summary>
-		   private const string SSDMonitoringTaskName = "StorageManagementTool_SSDMonitoring";
+			/// <summary>
+			///  Name of the monitoring task
+			/// </summary>
+			private const string SSDMonitoringTaskName = "StorageManagementTool_SSDMonitoring";
 
-		   /// <summary>
-		   ///  Path to the SCHTASKS.exe
-		   /// </summary>
-		   private static readonly string SchtasksPath =
+			/// <summary>
+			///  Path to the SCHTASKS.exe
+			/// </summary>
+			private static readonly string SchtasksPath =
 				Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "SCHTASKS.exe");
 
-		   /// <summary>
-		   ///  Initalizes SSD monitoring
-		   /// </summary>
-		   /// <returns>Whether the initalization process were successful</returns>
-		   public static bool InitalizeSSDMonitoring() {
+			/// <summary>
+			///  Initalizes SSD monitoring
+			/// </summary>
+			/// <returns>Whether the initalization process were successful</returns>
+			public static bool InitalizeSSDMonitoring() {
 				XNamespace taskNamespace =
 					XNamespace.Get("http://schemas.microsoft.com/windows/2004/02/mit/task");
 				XElement taskContents = new XElement(taskNamespace + "Task", new XAttribute("version", "1.4"),
@@ -70,12 +70,12 @@ namespace StorageManagementTool {
 					out string[] _, out int _, out int _, false, true, false, true);
 			}
 
-		   /// <summary>
-		   ///  Checks whether SSD monitoring has been initalized
-		   /// </summary>
-		   /// <param name="initalized">Whether SSD monitoring has been initalized</param>
-		   /// <returns>Whether the check were successful</returns>
-		   public static bool SSDMonitoringInitalized(out bool initalized) {
+			/// <summary>
+			///  Checks whether SSD monitoring has been initalized
+			/// </summary>
+			/// <param name="initalized">Whether SSD monitoring has been initalized</param>
+			/// <returns>Whether the check were successful</returns>
+			public static bool SSDMonitoringInitalized(out bool initalized) {
 				initalized = false;
 				if (!Wrapper.ExecuteExecuteable(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,
 					out int returnCode, out int _, true, true, true)) {
@@ -86,18 +86,18 @@ namespace StorageManagementTool {
 				return true;
 			}
 
-		   /// <summary>
-		   ///  Checks whether SSD monitoring has been initalized
-		   /// </summary>
-		   /// <returns>Whether SSD monitoring has been initalized</returns>
-		   public static bool SSDMonitoringInitalized() => SSDMonitoringInitalized(out bool enabled) && enabled;
+			/// <summary>
+			///  Checks whether SSD monitoring has been initalized
+			/// </summary>
+			/// <returns>Whether SSD monitoring has been initalized</returns>
+			public static bool SSDMonitoringInitalized() => SSDMonitoringInitalized(out bool enabled) && enabled;
 
-		   /// <summary>
-		   ///  Checks if SSD monitoring is enabled
-		   /// </summary>
-		   /// <param name="enabled">Whether SSD monitoring</param>
-		   /// <returns>Whether the check were successful</returns>
-		   public static bool SSDMonitoringEnabled(out bool enabled) {
+			/// <summary>
+			///  Checks if SSD monitoring is enabled
+			/// </summary>
+			/// <param name="enabled">Whether SSD monitoring</param>
+			/// <returns>Whether the check were successful</returns>
+			public static bool SSDMonitoringEnabled(out bool enabled) {
 				enabled = false;
 				//From https://superuser.com/a/1035052 last access 10.02.2018
 				if (!Wrapper.RunPowershellCommand(out IEnumerable<string> ret,
@@ -115,22 +115,22 @@ namespace StorageManagementTool {
 				}
 			}
 
-		   /// <summary>
-		   ///  Checks if SSD monitoring is enabled
-		   /// </summary>
-		   /// <returns>Whether SSD monitoring</returns>
-		   public static bool SSDMonitoringEnabled() {
+			/// <summary>
+			///  Checks if SSD monitoring is enabled
+			/// </summary>
+			/// <returns>Whether SSD monitoring</returns>
+			public static bool SSDMonitoringEnabled() {
 				bool success = SSDMonitoringEnabled(out bool enabled);
 				return success && enabled;
 			}
 
-		   /// <summary>
-		   ///  Sets whether SSD monitoring is enabled
-		   /// </summary>
-		   /// <param name="enable">Whether the monitoring should be enabled or disabled</param>
-		   /// <param name="checkForInitalize">Whether to check if SSD monitoring were allready initalized if it were not initalized it will be</param>
-		   /// <returns>Whether the operation were successful</returns>
-		   public static bool SetSSDMonitoring(bool enable, bool checkForInitalize = true) {
+			/// <summary>
+			///  Sets whether SSD monitoring is enabled
+			/// </summary>
+			/// <param name="enable">Whether the monitoring should be enabled or disabled</param>
+			/// <param name="checkForInitalize">Whether to check if SSD monitoring were allready initalized if it were not initalized it will be</param>
+			/// <returns>Whether the operation were successful</returns>
+			public static bool SetSSDMonitoring(bool enable, bool checkForInitalize = true) {
 				if (checkForInitalize) {
 					if (!SSDMonitoringInitalized(out bool initalized)) {
 						return false;

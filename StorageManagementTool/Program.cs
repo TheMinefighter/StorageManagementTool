@@ -8,24 +8,24 @@ using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Interpreters;
 
 namespace StorageManagementTool {
-   /// <summary>
-   ///  Main class of this Program
-   /// </summary>
-   public static class Program {
-      /// <summary>
-      ///  A reference to an object containig methods for the console IO operations
-      /// </summary>
-      public static ConsoleIO ConsoleIOObject { get; set; }
+	/// <summary>
+	///  Main class of this Program
+	/// </summary>
+	public static class Program {
+		/// <summary>
+		///  A reference to an object containig methods for the console IO operations
+		/// </summary>
+		public static ConsoleIO ConsoleIOObject { get; set; }
 
-      /// <summary>
-      ///  Whether the Programm runs from any shell / commandline
-      /// </summary>
-      public static bool CommandLineMode { get; private set; }
+		/// <summary>
+		///  Whether the Programm runs from any shell / commandline
+		/// </summary>
+		public static bool CommandLineMode { get; private set; }
 
-      /// <summary>
-      ///  The main entry point for the application.
-      /// </summary>
-      [STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+		/// <summary>
+		///  The main entry point for the application.
+		/// </summary>
+		[STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		public static void Main(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
@@ -35,11 +35,11 @@ namespace StorageManagementTool {
 			ProcessCommandlineArguments(args);
 		}
 
-      /// <summary>
-      ///  Processes aguments
-      /// </summary>
-      /// <param name="args">The arguments to process</param>
-      private static void ProcessCommandlineArguments(string[] args) {
+		/// <summary>
+		///  Processes aguments
+		/// </summary>
+		/// <param name="args">The arguments to process</param>
+		private static void ProcessCommandlineArguments(string[] args) {
 			if (false) {
 				//For debugging purposes only
 				MessageBox.Show(string.Join(" , ", args));

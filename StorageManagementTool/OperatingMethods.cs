@@ -13,37 +13,37 @@ using File = System.IO.File;
 
 namespace StorageManagementTool {
 	public static partial class OperatingMethods {
-	   /// <summary>
-	   /// </summary>
-	   public enum QuestionAnswer {
+		/// <summary>
+		/// </summary>
+		public enum QuestionAnswer {
 			Yes,
 			No,
 			Ask
 		}
 
-	   /// <summary>
-	   ///  Key, where The Windows search data is stored
-	   /// </summary>
-	   public static readonly RegistryValue SearchDatatDirectoryRegistryValue = new RegistryValue(
+		/// <summary>
+		///  Key, where The Windows search data is stored
+		/// </summary>
+		public static readonly RegistryValue SearchDatatDirectoryRegistryValue = new RegistryValue(
 			@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Search", "DataDirectory");
 
-	   /// <summary>
-	   ///  Creates a string representation of an DriveInfo
-	   /// </summary>
-	   /// <param name="item">The DriveInfo object to represent</param>
-	   /// <returns>The string representation</returns>
-	   public static string GetDriveInfoDescription(DriveInfo item) => item.IsReady
+		/// <summary>
+		///  Creates a string representation of an DriveInfo
+		/// </summary>
+		/// <param name="item">The DriveInfo object to represent</param>
+		/// <returns>The string representation</returns>
+		public static string GetDriveInfoDescription(DriveInfo item) => item.IsReady
 			? $"{item.VolumeLabel} ({item.Name} ; {DriveType2String(item.DriveType)})"
 			: item.Name;
 
-	   /// <summary>
-	   ///  Moves a Directory to another Loaction using symlinks
-	   /// </summary>
-	   /// <param name="dir">The Directory to move</param>
-	   /// <param name="newLocation">The Directory to move the file to</param>
-	   /// <param name="adjustNewPath"></param>
-	   /// <returns>Whether the operation were successful</returns>
-	   public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath = false) {
+		/// <summary>
+		///  Moves a Directory to another Loaction using symlinks
+		/// </summary>
+		/// <param name="dir">The Directory to move</param>
+		/// <param name="newLocation">The Directory to move the file to</param>
+		/// <param name="adjustNewPath"></param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool MoveFolder(DirectoryInfo dir, DirectoryInfo newLocation, bool adjustNewPath = false) {
 			if (dir == newLocation) {
 				if (MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
 					    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
@@ -68,14 +68,14 @@ namespace StorageManagementTool {
 			return Wrapper.FileAndFolder.CreateFolderSymlink(dir, newLocation);
 		}
 
-	   /// <summary>
-	   ///  Moves a file to anothrrer Loaction using symlinks
-	   /// </summary>
-	   /// <param name="file">The file to move</param>
-	   /// <param name="newLocation">The location to move the file to</param>
-	   /// <param name="adjustNewPath"></param>
-	   /// <returns>Whether the operation were successful</returns>
-	   public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath = false) {
+		/// <summary>
+		///  Moves a file to anothrrer Loaction using symlinks
+		/// </summary>
+		/// <param name="file">The file to move</param>
+		/// <param name="newLocation">The location to move the file to</param>
+		/// <param name="adjustNewPath"></param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath = false) {
 			if (file == newLocation) {
 				if (
 					MessageBox.Show(Error, MoveFolderOrFile_PathsEqual,
@@ -105,11 +105,11 @@ namespace StorageManagementTool {
 			//throw new NotImplementedException();
 		}
 
-	   /// <summary>
-	   ///  Recommends Paths to move to another drive
-	   /// </summary>
-	   /// <returns>The recommended Paths</returns>
-	   public static IEnumerable<string> GetRecommendedPaths() {
+		/// <summary>
+		///  Recommends Paths to move to another drive
+		/// </summary>
+		/// <returns>The recommended Paths</returns>
+		public static IEnumerable<string> GetRecommendedPaths() {
 			List<string> ret = new List<string>();
 			if (
 				!Wrapper.FileAndFolder.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%"))) {
@@ -141,12 +141,12 @@ namespace StorageManagementTool {
 			return ret.ToArray();
 		}
 
-	   /// <summary>
-	   ///  Gets names of DriveTypes
-	   /// </summary>
-	   /// <param name="toName">The DriveType Object, which name should be returned</param>
-	   /// <returns>The  name of the DriveType Object</returns>
-	   public static string DriveType2String(DriveType toName) {
+		/// <summary>
+		///  Gets names of DriveTypes
+		/// </summary>
+		/// <param name="toName">The DriveType Object, which name should be returned</param>
+		/// <returns>The  name of the DriveType Object</returns>
+		public static string DriveType2String(DriveType toName) {
 			switch (toName) {
 				case DriveType.CDRom: return DriveType2String_CDRom;
 				case DriveType.Fixed: return DriveType2String_Fixed;
@@ -158,14 +158,14 @@ namespace StorageManagementTool {
 			}
 		}
 
-	   /// <summary>
-	   ///  Changes the systems pagefile settings
-	   /// </summary>
-	   /// <param name="currentSelection">The selected partition entry</param>
-	   /// <param name="maxSize">The maximum Size of the Pagefile in MB</param>
-	   /// <param name="minSize">The minimum Size of the Pagefile in MB</param>
-	   /// <returns>Whether the Operation were successfull</returns>
-	   public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize) {
+		/// <summary>
+		///  Changes the systems pagefile settings
+		/// </summary>
+		/// <param name="currentSelection">The selected partition entry</param>
+		/// <param name="maxSize">The maximum Size of the Pagefile in MB</param>
+		/// <param name="minSize">The minimum Size of the Pagefile in MB</param>
+		/// <returns>Whether the Operation were successfull</returns>
+		public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize) {
 			List<string> tempDriveInfoList = FileSystem.Drives.Select(GetDriveInfoDescription).ToList();
 			int selectedPartitionIndex;
 			if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
@@ -183,14 +183,14 @@ namespace StorageManagementTool {
 			return ChangePagefileSettings(toUse, maxSize, minSize);
 		}
 
-	   /// <summary>
-	   ///  Changes the Pagefile Settings
-	   /// </summary>
-	   /// <param name="toUse">The drive to move to</param>
-	   /// <param name="maxSize">The max size of pagefile in MB</param>
-	   /// <param name="minSize">The min size of the pagefile in MB</param>
-	   /// <returns></returns>
-	   public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize) {
+		/// <summary>
+		///  Changes the Pagefile Settings
+		/// </summary>
+		/// <param name="toUse">The drive to move to</param>
+		/// <param name="maxSize">The max size of pagefile in MB</param>
+		/// <param name="minSize">The min size of the pagefile in MB</param>
+		/// <returns></returns>
+		public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize) {
 			string wmicPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
 			if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
 			{
@@ -257,11 +257,11 @@ namespace StorageManagementTool {
 			return true;
 		}
 
-	   /// <summary>
-	   ///  Enables Send to HDD
-	   /// </summary>
-	   /// <param name="enable">Whether to enable or disable Send to HDD</param>
-	   public static void EnableSendToHDD(bool enable = true) {
+		/// <summary>
+		///  Enables Send to HDD
+		/// </summary>
+		/// <param name="enable">Whether to enable or disable Send to HDD</param>
+		public static void EnableSendToHDD(bool enable = true) {
 			if (enable) {
 				#region Based upon https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
 
@@ -282,12 +282,12 @@ namespace StorageManagementTool {
 			}
 		}
 
-	   /// <summary>
-	   ///  Sets the Search data path
-	   /// </summary>
-	   /// <param name="newPath">The new path for the search data</param>
-	   /// <returns>Whether the operation were successful</returns>
-	   public static bool SetSearchDataPath(DirectoryInfo newPath) {
+		/// <summary>
+		///  Sets the Search data path
+		/// </summary>
+		/// <param name="newPath">The new path for the search data</param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool SetSearchDataPath(DirectoryInfo newPath) {
 			if (newPath.Exists) {
 				if (Wrapper.RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegistryValue,
 					newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
@@ -313,41 +313,41 @@ namespace StorageManagementTool {
 			return false;
 		}
 
-	   /// <summary>
-	   ///  Enables/Disables availability of hibernate
-	   /// </summary>
-	   /// <param name="enable">Whether hibernate should be enabled (true) or disabled (false) </param>
-	   public static void SetHibernate(bool enable) {
+		/// <summary>
+		///  Enables/Disables availability of hibernate
+		/// </summary>
+		/// <param name="enable">Whether hibernate should be enabled (true) or disabled (false) </param>
+		public static void SetHibernate(bool enable) {
 			Wrapper.ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "powercfg.exe"),
 				$"/h {(enable ? "on" : "off")}",
 				true, true,
 				true);
 		}
 
-	   /// <summary>
-	   ///  gets the DrivEInfo onject from its description genarated using GetDriveInfoDescription()
-	   /// </summary>
-	   /// <param name="driveInfo">The DriveInfo described</param>
-	   /// <param name="description">The description of the DriveInfo</param>
-	   /// <returns>Whether the described DriveInfo were found</returns>
-	   public static bool GetDriveInfoFromDescription(out DriveInfo driveInfo, string description) {
+		/// <summary>
+		///  gets the DrivEInfo onject from its description genarated using GetDriveInfoDescription()
+		/// </summary>
+		/// <param name="driveInfo">The DriveInfo described</param>
+		/// <param name="description">The description of the DriveInfo</param>
+		/// <returns>Whether the described DriveInfo were found</returns>
+		public static bool GetDriveInfoFromDescription(out DriveInfo driveInfo, string description) {
 			driveInfo = Wrapper.getDrives().FirstOrDefault(x => GetDriveInfoDescription(x) == description);
 			return driveInfo != null;
 		}
 
-	   /// <summary>
-	   ///  Checks if the send to feature is enabled
-	   /// </summary>
-	   /// <returns>Whether the send to feature is enabled</returns>
-	   public static bool IsSendToHDDEnabled() => File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+		/// <summary>
+		///  Checks if the send to feature is enabled
+		/// </summary>
+		/// <returns>Whether the send to feature is enabled</returns>
+		public static bool IsSendToHDDEnabled() => File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
 			StoreOnHDDLinkName + ".lnk"));
 
-	   /// <summary>
-	   ///  Reads the path of the windows search data
-	   /// </summary>
-	   /// <param name="directory"> The directory containing the Windows search data</param>
-	   /// <returns>Whether the operation were successful</returns>
-	   public static bool GetSearchDataPath(out DirectoryInfo directory) {
+		/// <summary>
+		///  Reads the path of the windows search data
+		/// </summary>
+		/// <param name="directory"> The directory containing the Windows search data</param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool GetSearchDataPath(out DirectoryInfo directory) {
 			directory = null;
 
 			if (!Wrapper.RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text,

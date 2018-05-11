@@ -9,17 +9,16 @@ using Csv;
 namespace StorageManagementCore.Backend {
 	public class AdvancedUserShellFolder {
 		public static AdvancedUserShellFolder[] AllUSF;
-		public bool ShouldBeEdited;
-		public Guid WindowsIdentifier;
-		public string Name;
-		public bool Undefined;
-		public string LocalizedName;
 		public string DefaultValue;
 		public bool IsUserSpecific;
+		public string LocalizedName;
+		public string Name;
+		public bool ShouldBeEdited;
+		public bool Undefined;
+		public Guid WindowsIdentifier;
 
-		private AdvancedUserShellFolder() {
-			
-		}
+		private AdvancedUserShellFolder() { }
+
 		public static AdvancedUserShellFolder GetUSF(string name) {
 			return AllUSF.First(x => x.Name == name);
 		}
@@ -30,7 +29,7 @@ namespace StorageManagementCore.Backend {
 
 		public static void LoadUSF() {
 			Assembly current = Assembly.GetExecutingAssembly();
-			const string res = "StorageManagementToolCore.Backend.AdvancedUserShellFolderData.csv";
+			const string res = "StorageManagementCore.Backend.AdvancedUserShellFolderData.csv";
 			MessageBox.Show(string.Join(";", current.GetManifestResourceNames()));
 			string[] manifestResourceNames = current.GetManifestResourceNames();
 			manifestResourceNames.ToString();
@@ -41,7 +40,8 @@ namespace StorageManagementCore.Backend {
 					WindowsIdentifier = new Guid(x[1]),
 					Undefined = x[2][0] == '1',
 					IsUserSpecific = x[3][0] == '1',
-					ShouldBeEdited = x[4][0] == '1'
+					ShouldBeEdited = x[4][0] == '1',
+					LocalizedName = x[0]
 				}).ToArray();
 			}
 		}

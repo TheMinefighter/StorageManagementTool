@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
@@ -10,6 +9,8 @@ namespace StorageManagementCore.Configuration {
 		/// <summary>
 		/// </summary>
 		public AllPagefilesConfiguration AllPagefilesSettings;
+
+		public bool CredentialsOnStartup;
 
 		/// <summary>
 		///  The default path to move data to
@@ -27,7 +28,6 @@ namespace StorageManagementCore.Configuration {
 		public MonitoringConfiguration MonitoringSettings;
 
 		/// <summary>
-		/// 
 		/// </summary>
 		public List<ShellFolderConfiguration> ShellFolderSettings;
 
@@ -36,7 +36,6 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public string Version;
 
-		public bool CredentialsOnStartup;
 		public override string ToString() => JsonConvert.SerializeObject(this);
 	}
 }

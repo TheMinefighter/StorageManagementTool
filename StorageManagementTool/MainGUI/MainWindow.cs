@@ -36,10 +36,10 @@ namespace StorageManagementTool.MainGUI {
 			EnableComponents();
 		}
 
-	   /// <summary>
-	   ///  Loads UI strings from culture sepcific ressource file
-	   /// </summary>
-	   private void LoadUIStrings() {
+		/// <summary>
+		///  Loads UI strings from culture sepcific ressource file
+		/// </summary>
+		private void LoadUIStrings() {
 			AdministratorSettings_gb.Text = AdministratorSettings_gb_Text;
 			ApplyPresetDialog_btn.Text = ApplyPresetDialog_btn_Text;
 			CustomFolderOrFileSelection_gb.Text = CustomFolderOrFileSelection_gb_Text;
@@ -61,10 +61,10 @@ namespace StorageManagementTool.MainGUI {
 			Text = WindowTitle;
 		}
 
-	   /// <summary>
-	   ///  Enables/Disables/Changes components when needed to prevent illegal actions
-	   /// </summary>
-	   private void EnableComponents() {
+		/// <summary>
+		///  Enables/Disables/Changes components when needed to prevent illegal actions
+		/// </summary>
+		private void EnableComponents() {
 			if (OperatingMethods.IsSendToHDDEnabled()) {
 				SetSendToHDD_btn.Text = DisableSendToHDD;
 			}

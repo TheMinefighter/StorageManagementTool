@@ -206,8 +206,11 @@ namespace StorageManagementTool {
 			int shSetKnownFolderPath = SetSpecialFolderPathInternal(folderId, fPrgTt);
 		}
 
-		public static bool SetSpecialFolderPath(AdvancedUserShellFolder folderId, string newPath) => SetSpecialFolderPathInternal(folderId.WindowsIdentifier, newPath) == 0;
-		public static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) => Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
+		public static bool SetSpecialFolderPath(AdvancedUserShellFolder folderId, string newPath) =>
+			SetSpecialFolderPathInternal(folderId.WindowsIdentifier, newPath) == 0;
+
+		public static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) =>
+			Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
 
 		public static string GetSpecialFolderPath(Guid kFolderID) {
 			string sRet = "";

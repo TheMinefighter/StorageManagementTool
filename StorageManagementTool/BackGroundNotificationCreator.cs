@@ -6,31 +6,31 @@ using ExtendedMessageBoxLibrary;
 using static StorageManagementTool.JSONConfig;
 
 namespace StorageManagementTool {
-   /// <summary>
-   ///  Class containing functionalities for Background Process
-   /// </summary>
-   public static class BackgroundNotificationCreator {
-      /// <summary>
-      ///  The JSON configuration
-      /// </summary>
-      private static JSONConfig _jsonConfig;
+	/// <summary>
+	///  Class containing functionalities for Background Process
+	/// </summary>
+	public static class BackgroundNotificationCreator {
+		/// <summary>
+		///  The JSON configuration
+		/// </summary>
+		private static JSONConfig _jsonConfig;
 
-      /// <summary>
-      ///  The FileSystemWatchers currently active
-      /// </summary>
-      private static readonly List<FileSystemWatcher> FileSystemWatchers = new List<FileSystemWatcher>();
+		/// <summary>
+		///  The FileSystemWatchers currently active
+		/// </summary>
+		private static readonly List<FileSystemWatcher> FileSystemWatchers = new List<FileSystemWatcher>();
 
-      /// <summary>
-      ///  Dictionary from FileSystemWatchers to MonitoredFolders
-      /// </summary>
-      private static readonly Dictionary<FileSystemWatcher, MonitoringSetting.MonitoredFolder>
+		/// <summary>
+		///  Dictionary from FileSystemWatchers to MonitoredFolders
+		/// </summary>
+		private static readonly Dictionary<FileSystemWatcher, MonitoringSetting.MonitoredFolder>
 			FileSystemWatcher2MonitoredFolders
 				= new Dictionary<FileSystemWatcher, MonitoringSetting.MonitoredFolder>();
 
-      /// <summary>
-      ///  Initalizes the Background Process
-      /// </summary>
-      public static void Initalize() {
+		/// <summary>
+		///  Initalizes the Background Process
+		/// </summary>
+		public static void Initalize() {
 			_jsonConfig = Session.Singleton.CurrentConfiguration;
 
 			foreach (MonitoringSetting.MonitoredFolder monitoredFolder in _jsonConfig.MonitoringSettings.MonitoredFolders) {

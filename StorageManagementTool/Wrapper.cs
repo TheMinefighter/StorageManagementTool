@@ -14,54 +14,54 @@ using Microsoft.VisualBasic.FileIO;
 using static StorageManagementTool.GlobalizationRessources.WrapperStrings;
 
 namespace StorageManagementTool {
-   /// <summary>
-   ///  Contains system functionalities, which are not specific for this project
-   /// </summary>
-   public static partial class Wrapper {
-      /// <summary>
-      ///  The file extensions, which are executeable as standalone
-      /// </summary>
-      private static readonly IEnumerable<string> ExecuteableExtensions = new[] {".exe", ".pif", ".com", ".bat", ".cmd"};
+	/// <summary>
+	///  Contains system functionalities, which are not specific for this project
+	/// </summary>
+	public static partial class Wrapper {
+		/// <summary>
+		///  The file extensions, which are executeable as standalone
+		/// </summary>
+		private static readonly IEnumerable<string> ExecuteableExtensions = new[] {".exe", ".pif", ".com", ".bat", ".cmd"};
 
-      /// <summary>
-      ///  The path of the Windows Explorer
-      /// </summary>
-      public static readonly string ExplorerPath =
+		/// <summary>
+		///  The path of the Windows Explorer
+		/// </summary>
+		public static readonly string ExplorerPath =
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
 
 		//    public static (T1, T2) ToDirectTouple<T1, T2>(this Tuple<T1, T2> myTuple) => (myTuple.Item1, myTuple.Item2);
 
-      /// <summary>
-      ///  Executes an executeable
-      /// </summary>
-      /// <param name="filename">The name of the File to execute</param>
-      /// <param name="parameters">The parameters to use when satrting the file</param>
-      /// <param name="admin">Whether the file should be executed with</param>
-      /// <param name="hidden">Whether the Main Window of this executeable (if exists) should be shown</param>
-      /// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
-      /// <returns>Whether the operation were successfull</returns>
-      public static bool ExecuteExecuteable(string filename, string parameters, bool admin = false,
+		/// <summary>
+		///  Executes an executeable
+		/// </summary>
+		/// <param name="filename">The name of the File to execute</param>
+		/// <param name="parameters">The parameters to use when satrting the file</param>
+		/// <param name="admin">Whether the file should be executed with</param>
+		/// <param name="hidden">Whether the Main Window of this executeable (if exists) should be shown</param>
+		/// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
+		/// <returns>Whether the operation were successfull</returns>
+		public static bool ExecuteExecuteable(string filename, string parameters, bool admin = false,
 			bool hidden = false, bool waitforexit = false) => ExecuteExecuteable(filename, parameters, out string[] _, out int _, out _,
 			waitforexit: waitforexit, hidden: hidden,
 			admin: admin);
 
-      /// <summary>
-      ///  Executes an Executeable
-      /// </summary>
-      /// <param name="filename">The name of the file to execute</param>
-      /// <param name="parameters">The parameters to use when satrting the file</param>
-      /// <param name="returnData"> The String returned by the file</param>
-      /// <param name="exitCode"> The exit code returned by the executable, only available if waitforexit=true</param>
-      /// <param name="pid"></param>
-      /// <param name="readReturnData">Whether to Read the output of the executeable started</param>
-      /// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
-      /// <param name="hidden">Whether the main window of this executeable (if existing) should be hidden</param>
-      /// <param name="admin">Whether the file should be executed with</param>
-      /// <param name="asUser"></param>
-      /// <param name="getPID"></param>
-      /// <returns>Whether the operation were successfull</returns>
-      public static bool ExecuteExecuteable(string filename, string parameters, out string[] returnData,
+		/// <summary>
+		///  Executes an Executeable
+		/// </summary>
+		/// <param name="filename">The name of the file to execute</param>
+		/// <param name="parameters">The parameters to use when satrting the file</param>
+		/// <param name="returnData"> The String returned by the file</param>
+		/// <param name="exitCode"> The exit code returned by the executable, only available if waitforexit=true</param>
+		/// <param name="pid"></param>
+		/// <param name="readReturnData">Whether to Read the output of the executeable started</param>
+		/// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
+		/// <param name="hidden">Whether the main window of this executeable (if existing) should be hidden</param>
+		/// <param name="admin">Whether the file should be executed with</param>
+		/// <param name="asUser"></param>
+		/// <param name="getPID"></param>
+		/// <returns>Whether the operation were successfull</returns>
+		public static bool ExecuteExecuteable(string filename, string parameters, out string[] returnData,
 			out int exitCode, out int pid, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
 			bool admin = false, bool asUser = false, bool getPID = false) {
 			pid = 0;
@@ -167,56 +167,56 @@ namespace StorageManagementTool {
 
 		public static IEnumerable<DriveInfo> getDrives() => FileSystem.Drives;
 
-      /// <summary>
-      ///  Executes an Command using Windows Commandline
-      /// </summary>
-      /// <param name="cmd">The Command to Execute</param>
-      /// <param name="admin">Whether the Command should be executed with</param>
-      /// <param name="hidden">Whether to hide the Commandline </param>
-      /// <param name="waitforexit">
-      ///  Whether to wait until the command execution completed
-      /// </param>
-      /// <param name="asUser"></param>
-      /// <param name="debug">
-      ///  Whether to run the command in debug mode
-      /// </param>
-      /// <returns>Whether the operation were successful</returns>
-      public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
+		/// <summary>
+		///  Executes an Command using Windows Commandline
+		/// </summary>
+		/// <param name="cmd">The Command to Execute</param>
+		/// <param name="admin">Whether the Command should be executed with</param>
+		/// <param name="hidden">Whether to hide the Commandline </param>
+		/// <param name="waitforexit">
+		///  Whether to wait until the command execution completed
+		/// </param>
+		/// <param name="asUser"></param>
+		/// <param name="debug">
+		///  Whether to run the command in debug mode
+		/// </param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
 			bool asUser = false,
 			bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug, asUser);
 
-      /// <summary>
-      ///  Adds a Backslash for each quotation mark and backslash
-      /// </summary>
-      /// <param name="source">The string to add backslashes to</param>
-      /// <returns>The  source with backslashes</returns>
-      private static string AddBackslahes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
+		/// <summary>
+		///  Adds a Backslash for each quotation mark and backslash
+		/// </summary>
+		/// <param name="source">The string to add backslashes to</param>
+		/// <returns>The  source with backslashes</returns>
+		private static string AddBackslahes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
-      /// <summary>
-      ///  Checks if one Path is the parent of another
-      /// </summary>
-      /// <param name="parentPath">The parent path</param>
-      /// <param name="childPath">The child path</param>
-      /// <returns>Whether parentPath is a paren of childPath</returns>
-      public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath) =>
+		/// <summary>
+		///  Checks if one Path is the parent of another
+		/// </summary>
+		/// <param name="parentPath">The parent path</param>
+		/// <param name="childPath">The child path</param>
+		/// <returns>Whether parentPath is a paren of childPath</returns>
+		public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath) =>
 			parentPath.FullName.StartsWith(childPath.FullName + Path.DirectorySeparatorChar);
 
-      /// <summary>
-      ///  Executes an Command using Windows Commandline
-      /// </summary>
-      /// <param name="cmd">The Command to Execute</param>
-      /// <param name="admin">Whether the Command should be executed with</param>
-      /// <param name="hidden">Whether to hide the Commandline </param>
-      /// <param name="returnData">The Data returned by the executeable</param>
-      /// <param name="waitforexit">
-      ///  Whether to wait until the command execution completed
-      /// </param>
-      /// <param name="debug">
-      ///  Whether to run the command in debug mode
-      /// </param>
-      /// <param name="readReturnData">Whether to read the output of the Application</param>
-      /// <returns>Whether the operation were successful</returns>
-      public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
+		/// <summary>
+		///  Executes an Command using Windows Commandline
+		/// </summary>
+		/// <param name="cmd">The Command to Execute</param>
+		/// <param name="admin">Whether the Command should be executed with</param>
+		/// <param name="hidden">Whether to hide the Commandline </param>
+		/// <param name="returnData">The Data returned by the executeable</param>
+		/// <param name="waitforexit">
+		///  Whether to wait until the command execution completed
+		/// </param>
+		/// <param name="debug">
+		///  Whether to run the command in debug mode
+		/// </param>
+		/// <param name="readReturnData">Whether to read the output of the Application</param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
 			bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser = false) => ExecuteExecuteable(
 				                                                                                                  Path.Combine(
 					                                                                                                  Environment.GetFolderPath(
@@ -231,11 +231,11 @@ namespace StorageManagementTool {
 
 		#region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
 
-      /// <summary>
-      ///  Tests whether the program is being executed with Admin privileges
-      /// </summary>
-      /// <returns>Whether the Program is being executed with Admin privileges</returns>
-      public static bool IsCurrentUserAdministrator() {
+		/// <summary>
+		///  Tests whether the program is being executed with Admin privileges
+		/// </summary>
+		/// <returns>Whether the Program is being executed with Admin privileges</returns>
+		public static bool IsCurrentUserAdministrator() {
 			try {
 				return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 				//   new UserPrincipal().IsMemberOf(new )
@@ -247,10 +247,10 @@ namespace StorageManagementTool {
 
 		#endregion
 
-      /// <summary>
-      ///  Restarts Program as Administartor
-      /// </summary>
-      public static void RestartAsAdministrator(params string[] parameters) {
+		/// <summary>
+		///  Restarts Program as Administartor
+		/// </summary>
+		public static void RestartAsAdministrator(params string[] parameters) {
 //         if (ExecuteCommand($"start \"{Pro cess.GetCurrentProcess().MainModule.FileName}\"{string.Join(" ", parameters.Select(x => $"\"{x}\""))}",true,false)) {
 //              Environment.Exit(0);
 //         }
@@ -260,12 +260,12 @@ namespace StorageManagementTool {
 			}
 		}
 
-      /// <summary>
-      ///  Reads the whole content of an StreamReader
-      /// </summary>
-      /// <param name="reader">The StreamReader to read from</param>
-      /// <returns>The strings saved in the StreamReader</returns>
-      private static string[] FromStream(this TextReader reader) {
+		/// <summary>
+		///  Reads the whole content of an StreamReader
+		/// </summary>
+		/// <param name="reader">The StreamReader to read from</param>
+		/// <returns>The strings saved in the StreamReader</returns>
+		private static string[] FromStream(this TextReader reader) {
 			List<string> ret = new List<string>();
 			string line;
 			while ((line = reader.ReadLine()) != null) {
@@ -275,20 +275,20 @@ namespace StorageManagementTool {
 			return ret.ToArray();
 		}
 
-      /// <summary>
-      ///  Checks whether a local user with the given name exists
-      /// </summary>
-      /// <param name="name">The name of the user</param>
-      /// <returns>Whether the username exists</returns>
-      public static bool IsUser(string name) =>
+		/// <summary>
+		///  Checks whether a local user with the given name exists
+		/// </summary>
+		/// <param name="name">The name of the user</param>
+		/// <returns>Whether the username exists</returns>
+		public static bool IsUser(string name) =>
 			UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
 
-      /// <summary>
-      ///  Checks whether a given user is a local administrator
-      /// </summary>
-      /// <param name="username">The userame</param>
-      /// <returns></returns>
-      public static bool IsAdmin(string username) {
+		/// <summary>
+		///  Checks whether a given user is a local administrator
+		/// </summary>
+		/// <param name="username">The userame</param>
+		/// <returns></returns>
+		public static bool IsAdmin(string username) {
 			UserPrincipal user = UserPrincipal
 				.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, username);
 
@@ -299,47 +299,47 @@ namespace StorageManagementTool {
 			return user.IsMemberOf(GetPrincipalContext(), IdentityType.Sid, "S-1-5-32-544");
 		}
 
-      /// <summary>
-      ///  Converts a IEnumerable of KeyValuePairs to the appropriate dictionary
-      /// </summary>
-      /// <typeparam name="TKey">The Key Type of the dictionary</typeparam>
-      /// <typeparam name="TValue">The Value type of the dictionary</typeparam>
-      /// <param name="source">The IEnumerable of KeyValuePairs to use</param>
-      /// <returns>A dictionary containing all KeyValuePairs of the source</returns>
-      public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(
+		/// <summary>
+		///  Converts a IEnumerable of KeyValuePairs to the appropriate dictionary
+		/// </summary>
+		/// <typeparam name="TKey">The Key Type of the dictionary</typeparam>
+		/// <typeparam name="TValue">The Value type of the dictionary</typeparam>
+		/// <param name="source">The IEnumerable of KeyValuePairs to use</param>
+		/// <returns>A dictionary containing all KeyValuePairs of the source</returns>
+		public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(
 			this IEnumerable<KeyValuePair<TKey, TValue>> source) {
 			return source.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
 		}
 
-      /// <summary>
-      ///  Converts a DateTime to its Win32 representation
-      /// </summary>
-      /// <param name="toConvert">The DateTime to convert</param>
-      /// <returns>The Win32 representation of the DateTime object</returns>
-      public static string DateTimeToWin32Format(DateTime toConvert) =>
+		/// <summary>
+		///  Converts a DateTime to its Win32 representation
+		/// </summary>
+		/// <param name="toConvert">The DateTime to convert</param>
+		/// <returns>The Win32 representation of the DateTime object</returns>
+		public static string DateTimeToWin32Format(DateTime toConvert) =>
 			$"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
 
-      /// <summary>
-      ///  Loads the local PrincipalContext
-      /// </summary>
-      /// <returns>The local PrincipalContext</returns>
+		/// <summary>
+		///  Loads the local PrincipalContext
+		/// </summary>
+		/// <returns>The local PrincipalContext</returns>
 
-      #region Based upon https://stackoverflow.com/a/3681442/6730162 last access 18.02.2018
-      private static PrincipalContext GetPrincipalContext() {
+		#region Based upon https://stackoverflow.com/a/3681442/6730162 last access 18.02.2018
+		private static PrincipalContext GetPrincipalContext() {
 			return new PrincipalContext(ContextType.Machine);
 		}
 
 		#endregion
 
-      /// <summary>
-      ///  Runs a stack of powershell commands
-      /// </summary>
-      /// <param name="ret">What the commands returned</param>
-      /// <param name="command">The commands to run</param>
-      /// <returns>Whether the invokation of the commands were successful</returns>
+		/// <summary>
+		///  Runs a stack of powershell commands
+		/// </summary>
+		/// <param name="ret">What the commands returned</param>
+		/// <param name="command">The commands to run</param>
+		/// <returns>Whether the invokation of the commands were successful</returns>
 
-      #region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
-      public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command) {
+		#region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
+		public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command) {
 			ret = new[] {""};
 			IEnumerable<PSObject> returned;
 			using (PowerShell PowerShellInstance = PowerShell.Create()) {
@@ -367,12 +367,12 @@ namespace StorageManagementTool {
 			ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/R /T 1", false,
 				true);
 
-      /// <summary>
-      ///  Kills first all depnding ServiceControllers and then itselves
-      /// </summary>
-      /// <param name="toKill">The ServiceController to kill</param>
-      /// <returns>Whether the operation were successful</returns>
-      private static bool RecursiveServiceKiller(ServiceController toKill) {
+		/// <summary>
+		///  Kills first all depnding ServiceControllers and then itselves
+		/// </summary>
+		/// <param name="toKill">The ServiceController to kill</param>
+		/// <returns>Whether the operation were successful</returns>
+		private static bool RecursiveServiceKiller(ServiceController toKill) {
 			IEnumerable<ServiceController> childs = toKill.DependentServices;
 			if (!(childs.All(x => x.CanStop) && childs.All(RecursiveServiceKiller))) {
 				return false;
@@ -388,20 +388,20 @@ namespace StorageManagementTool {
 			return true;
 		}
 
-      /// <summary>
-      ///  Restarts a service and all depending services
-      /// </summary>
-      /// <param name="toRestart">The service to restart</param>
-      /// <returns>Whether the operation were successful</returns>
-      public static bool RecursiveServiceRestart(ServiceController toRestart) =>
+		/// <summary>
+		///  Restarts a service and all depending services
+		/// </summary>
+		/// <param name="toRestart">The service to restart</param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool RecursiveServiceRestart(ServiceController toRestart) =>
 			RecursiveServiceKiller(toRestart) && RecursiveServiceStarter(toRestart);
 
-      /// <summary>
-      ///  Tests a given set of loacal CredetiaLS
-      /// </summary>
-      /// <param name="credentials">The credentials to test</param>
-      /// <returns>Whether the set of credentials is valid for the local machine</returns>
-      public static bool TestCredentials(EnterCredentials.Credentials credentials) {
+		/// <summary>
+		///  Tests a given set of loacal CredetiaLS
+		/// </summary>
+		/// <param name="credentials">The credentials to test</param>
+		/// <returns>Whether the set of credentials is valid for the local machine</returns>
+		public static bool TestCredentials(EnterCredentials.Credentials credentials) {
 			Process pProcess = new Process {
 				StartInfo = new ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe"),
 					" /C exit") {

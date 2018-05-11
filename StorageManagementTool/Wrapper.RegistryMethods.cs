@@ -12,12 +12,12 @@ using StorageManagementTool.GlobalizationRessources;
 
 namespace StorageManagementTool {
 	public static partial class Wrapper {
-	   /// <summary>
-	   ///  Starts all ServiceControllers depending on the given one
-	   /// </summary>
-	   /// <param name="toStart"></param>
-	   /// <returns>Whether the operation were successful</returns>
-	   private static bool RecursiveServiceStarter(ServiceController toStart) {
+		/// <summary>
+		///  Starts all ServiceControllers depending on the given one
+		/// </summary>
+		/// <param name="toStart"></param>
+		/// <returns>Whether the operation were successful</returns>
+		private static bool RecursiveServiceStarter(ServiceController toStart) {
 			IEnumerable<ServiceController> childs = toStart.DependentServices;
 			if (!childs.All(RecursiveServiceStarter)) {
 				return false;
@@ -34,12 +34,12 @@ namespace StorageManagementTool {
 		}
 
 		public static class RegistryMethods {
-		   /// <summary>
-		   ///  Gives the WIN32APi Representation of an given RegistryValueKind
-		   /// </summary>
-		   /// <param name="kind"> The RegistryValueKind to represent</param>
-		   /// <returns>The WIN32API Representation of the given RegistryValueKind</returns>
-		   private static string Win32ApiRepresentation(RegistryValueKind kind) {
+			/// <summary>
+			///  Gives the WIN32APi Representation of an given RegistryValueKind
+			/// </summary>
+			/// <param name="kind"> The RegistryValueKind to represent</param>
+			/// <returns>The WIN32API Representation of the given RegistryValueKind</returns>
+			private static string Win32ApiRepresentation(RegistryValueKind kind) {
 				switch (kind) {
 					case RegistryValueKind.String: return "REG_SZ";
 					case RegistryValueKind.ExpandString: return "REG_EXPAND_SZ";
@@ -90,12 +90,12 @@ namespace StorageManagementTool {
 				return true;
 			}
 
-		   /// <summary>
-		   ///  Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
-		   /// </summary>
-		   /// <param name="source">The registry object to fix</param>
-		   /// <returns>The fixed object</returns>
-		   private static object RegistryNumberFixGet(object source) {
+			/// <summary>
+			///  Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
+			/// </summary>
+			/// <param name="source">The registry object to fix</param>
+			/// <returns>The fixed object</returns>
+			private static object RegistryNumberFixGet(object source) {
 				if (source is int) {
 					source = BitConverter.ToUInt32(BitConverter.GetBytes((int) source), 0);
 				}
@@ -107,12 +107,12 @@ namespace StorageManagementTool {
 				return source;
 			}
 
-		   /// <summary>
-		   ///  Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
-		   /// </summary>
-		   /// <param name="toReturn">The registry object to fix</param>
-		   /// <returns>The fixed object</returns>
-		   private static object RegistryNumberFixSet(object toReturn) {
+			/// <summary>
+			///  Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
+			/// </summary>
+			/// <param name="toReturn">The registry object to fix</param>
+			/// <returns>The fixed object</returns>
+			private static object RegistryNumberFixSet(object toReturn) {
 				if (toReturn is int) {
 					toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int) toReturn), 0);
 				}
@@ -179,15 +179,15 @@ namespace StorageManagementTool {
 				return toReturn;
 			}
 
-		   /// <summary>
-		   ///  Sets an Registry Value
-		   /// </summary>
-		   /// <param name="valueLocation">The Location of the Value to change</param>
-		   /// <param name="content">The content to write into the content</param>
-		   /// <param name="registryValueKind">The type of the content</param>
-		   /// <param name="asUser"></param>
-		   /// <returns></returns>
-		   public static bool SetRegistryValue(RegistryValue valueLocation, object content, RegistryValueKind registryValueKind,
+			/// <summary>
+			///  Sets an Registry Value
+			/// </summary>
+			/// <param name="valueLocation">The Location of the Value to change</param>
+			/// <param name="content">The content to write into the content</param>
+			/// <param name="registryValueKind">The type of the content</param>
+			/// <param name="asUser"></param>
+			/// <returns></returns>
+			public static bool SetRegistryValue(RegistryValue valueLocation, object content, RegistryValueKind registryValueKind,
 				bool asUser = false) {
 				if (asUser) {
 					SetProtectedRegistryValue(valueLocation, content, registryValueKind);
@@ -271,13 +271,13 @@ namespace StorageManagementTool {
 				return true;
 			}
 
-		   /// <summary>
-		   ///  Writes a protected registry value
-		   /// </summary>
-		   /// <param name="toSet">The value to set</param>
-		   /// <param name="content">The content to set the value to</param>
-		   /// <param name="kind">The RegistyValueKind of the content</param>
-		   public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind) {
+			/// <summary>
+			///  Writes a protected registry value
+			/// </summary>
+			/// <param name="toSet">The value to set</param>
+			/// <param name="content">The content to set the value to</param>
+			/// <param name="kind">The RegistyValueKind of the content</param>
+			public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind) {
 				const string folderName = "StorageManagementToolRegistryData";
 				string path = Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg");
 				new FileInfo(path).Directory.Create();
@@ -293,10 +293,10 @@ namespace StorageManagementTool {
 				ApplyRegfile();
 			}
 
-		   /// <summary>
-		   ///  Applies a Regfile generated using SetProtectedRegistryValue
-		   /// </summary>
-		   public static void ApplyRegfile() {
+			/// <summary>
+			///  Applies a Regfile generated using SetProtectedRegistryValue
+			/// </summary>
+			public static void ApplyRegfile() {
 				const string folderName = "StorageManagementToolRegistryData";
 				ExecuteExecuteable(ExplorerPath,
 					$" /select,\"{Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg")}\"");
@@ -310,13 +310,13 @@ namespace StorageManagementTool {
 				//   $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(), folderName)}\" /IM explorer.exe");
 			}
 
-		   /// <summary>
-		   ///  Generates a value to write to a .reg file for Windows Registry Editor Version 5.00
-		   /// </summary>
-		   /// <param name="content">The object to be written in the file</param>
-		   /// <param name="kind">The RegistryValueKind of the content</param>
-		   /// <returns> A value to use in a .reg file</returns>
-		   private static string GetRegFileContent(object content, RegistryValueKind kind) {
+			/// <summary>
+			///  Generates a value to write to a .reg file for Windows Registry Editor Version 5.00
+			/// </summary>
+			/// <param name="content">The object to be written in the file</param>
+			/// <param name="kind">The RegistryValueKind of the content</param>
+			/// <returns> A value to use in a .reg file</returns>
+			private static string GetRegFileContent(object content, RegistryValueKind kind) {
 				string toWrite;
 				switch (kind) {
 					case RegistryValueKind.String:

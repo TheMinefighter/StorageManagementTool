@@ -8,34 +8,34 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace StorageManagementTool {
-   /// <summary>
-   ///  Stores session data
-   /// </summary>
-   public class Session {
-      /// <summary>
-      ///  Reference to the Session Object
-      /// </summary>
-      public static Session Singleton;
+	/// <summary>
+	///  Stores session data
+	/// </summary>
+	public class Session {
+		/// <summary>
+		///  Reference to the Session Object
+		/// </summary>
+		public static Session Singleton;
 
-      /// <summary>
-      ///  The path of the configuration file
-      /// </summary>
-      public string ConfigurationPath;
+		/// <summary>
+		///  The path of the configuration file
+		/// </summary>
+		public string ConfigurationPath;
 
-      /// <summary>
-      ///  The current JSON configuration
-      /// </summary>
-      public JSONConfig CurrentConfiguration;
+		/// <summary>
+		///  The current JSON configuration
+		/// </summary>
+		public JSONConfig CurrentConfiguration;
 
-      /// <summary>
-      ///  Whether the program runs as administrator
-      /// </summary>
-      public bool IsAdmin;
+		/// <summary>
+		///  Whether the program runs as administrator
+		/// </summary>
+		public bool IsAdmin;
 
-      /// <summary>
-      ///  Creates a new Session
-      /// </summary>
-      public Session() {
+		/// <summary>
+		///  Creates a new Session
+		/// </summary>
+		public Session() {
 			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new[]
 				{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 			Singleton = this;
@@ -75,24 +75,24 @@ namespace StorageManagementTool {
 			return toUseCultureInfo;
 		}
 
-      /// <summary>
-      ///  Refreshes the current Stadium of the Swapfile Movement
-      /// </summary>
-      /// <summary>
-      ///  Fills an given Listbox with information about the available Drives
-      /// </summary>
-      /// <param name="toFill"></param>
-      public void FillWithDriveInfo(ListBox toFill) {
+		/// <summary>
+		///  Refreshes the current Stadium of the Swapfile Movement
+		/// </summary>
+		/// <summary>
+		///  Fills an given Listbox with information about the available Drives
+		/// </summary>
+		/// <param name="toFill"></param>
+		public void FillWithDriveInfo(ListBox toFill) {
 			toFill.Items.Clear();
 			foreach (DriveInfo item in Wrapper.getDrives()) {
 				toFill.Items.Add(OperatingMethods.GetDriveInfoDescription(item));
 			}
 		}
 
-      /// <summary>
-      ///  Stores the configuration in a JSON file
-      /// </summary>
-      public void SaveCfg() {
+		/// <summary>
+		///  Stores the configuration in a JSON file
+		/// </summary>
+		public void SaveCfg() {
 			File.WriteAllText(
 				ConfigurationPath, JsonConvert.SerializeObject(CurrentConfiguration));
 		}

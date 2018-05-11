@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -7,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
@@ -114,7 +112,7 @@ namespace StorageManagementCore.WPFGUI {
 //			MessageBox.Show(iEnumerator.ToString());
 //				object test = iEnumerator.Current;
 //			MessageBox.Show(test.ToString());
-			PathsToMoveTb.Text = string.Join(";", SuggestionsLb.SelectedItems.Cast<string>());
+				PathsToMoveTb.Text = string.Join(";", SuggestionsLb.SelectedItems.Cast<string>());
 			}
 		}
 	}

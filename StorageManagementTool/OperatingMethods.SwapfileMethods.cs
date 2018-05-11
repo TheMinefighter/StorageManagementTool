@@ -22,29 +22,29 @@ namespace StorageManagementTool {
 		}
 
 		public static class SwapfileMethods {
-		   /// <summary>
-		   ///  Represents different states the swapfile can be in
-		   /// </summary>
-		   public enum SwapfileState {
-		      /// <summary>
-		      ///  Active when swapfile is in its default state
-		      /// </summary>
-		      Standard,
+			/// <summary>
+			///  Represents different states the swapfile can be in
+			/// </summary>
+			public enum SwapfileState {
+				/// <summary>
+				///  Active when swapfile is in its default state
+				/// </summary>
+				Standard,
 
-		      /// <summary>
-		      ///  Active when swapfile is disabled
-		      /// </summary>
-		      Disabled,
+				/// <summary>
+				///  Active when swapfile is disabled
+				/// </summary>
+				Disabled,
 
-		      /// <summary>
-		      ///  Active when swapfile were moved
-		      /// </summary>
-		      Moved,
+				/// <summary>
+				///  Active when swapfile were moved
+				/// </summary>
+				Moved,
 
-		      /// <summary>
-		      ///  Never active, only for technical purposes
-		      /// </summary>
-		      None
+				/// <summary>
+				///  Never active, only for technical purposes
+				/// </summary>
+				None
 			}
 
 			private static readonly string DefaultSwapfileLocation = Environment.ExpandEnvironmentVariables(@"%SystemDrive%\Swapfile.sys");
@@ -55,14 +55,14 @@ namespace StorageManagementTool {
 
 			internal static FileInfo getSwapfilePath() => new FileInfo(Wrapper.FileAndFolder.GetRealPath(DefaultSwapfileLocation));
 
-		   /// <summary>
-		   ///  Changes the Swapfile Stadium
-		   /// </summary>
-		   /// <param name="forward"></param>
-		   /// <param name="currentState">The current state of the swapfile</param>
-		   /// <param name="newLocation"></param>
-		   /// <returns></returns>
-		   public static bool ChangeSwapfileStadium(bool forward, SwapfileState currentState = SwapfileState.None,
+			/// <summary>
+			///  Changes the Swapfile Stadium
+			/// </summary>
+			/// <param name="forward"></param>
+			/// <param name="currentState">The current state of the swapfile</param>
+			/// <param name="newLocation"></param>
+			/// <returns></returns>
+			public static bool ChangeSwapfileStadium(bool forward, SwapfileState currentState = SwapfileState.None,
 				DriveInfo newLocation = null) {
 				if (currentState == SwapfileState.None) {
 					currentState = GetSwapfileState();
