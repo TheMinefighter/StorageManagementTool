@@ -307,7 +307,7 @@ namespace StorageManagementCore.Backend {
 					     MessageBoxDefaultButton.Button1) ==
 				     DialogResult.Yes)) {
 					if (!oldDir.Exists || oldDir.GetFileSystemInfos().Length == 0 ||
-					    Wrapper.FileAndFolder.MoveDirectory(oldDir, newDir)) {
+					    FileAndFolder.MoveDirectory(oldDir, newDir)) {
 						string defaultDirectory = usf.RegistryValues[0].Item1;
 						if (defaultDirectory == null) {
 							MessageBox.Show(UserShellFolderStrings.Error);
@@ -318,7 +318,7 @@ namespace StorageManagementCore.Backend {
 							new DirectoryInfo(Environment.ExpandEnvironmentVariables(defaultDirectory));
 						if (defaultDirectoryInfo.FullName != oldDir.FullName) {
 							if (defaultDirectoryInfo.Exists) {
-								Wrapper.FileAndFolder.DeleteDirectory(defaultDirectoryInfo, true, false);
+								FileAndFolder.DeleteDirectory(defaultDirectoryInfo, true, false);
 							}
 
 							Wrapper.ExecuteCommand($"mklink /D \"{defaultDirectoryInfo.FullName}\\\" \"{newDir.FullName}\"",
@@ -326,7 +326,7 @@ namespace StorageManagementCore.Backend {
 						}
 
 						if (oldDir.Exists) {
-							Wrapper.FileAndFolder.DeleteDirectory(oldDir, true, false);
+							FileAndFolder.DeleteDirectory(oldDir, true, false);
 						}
 
 						Wrapper.ExecuteCommand($"mklink /D \"{oldDir.FullName}\\\" \"{newDir.FullName}\"", true, true);

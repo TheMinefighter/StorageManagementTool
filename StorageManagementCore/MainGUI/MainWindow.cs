@@ -222,7 +222,7 @@ namespace StorageManagementCore.MainGUI {
 			//         Wrapper.ExecuteCommand(
 			//            "reg ADD \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v \"OEM LINKS\" /d \"F:\\TobiasAcc\" /f",
 			//            true, false, debug: true);
-			//         Wrapper.FileAndFolder.DeleteFile(new FileInfo("F:\\Prg\\Energy\\Eray.exe"));
+			//         FileAndFolder.DeleteFile(new FileInfo("F:\\Prg\\Energy\\Eray.exe"));
 			//Wrapper.RegistryMethods.GetRegistryValue(
 			//   new RegistryValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Cache"),
 			//   out object tmp,true);

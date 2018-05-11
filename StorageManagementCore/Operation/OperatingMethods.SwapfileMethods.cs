@@ -55,7 +55,7 @@ namespace StorageManagementCore.Operation {
 				@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
 				"SwapFileControl");
 
-			internal static FileInfo getSwapfilePath() => new FileInfo(Wrapper.FileAndFolder.GetRealPath(DefaultSwapfileLocation));
+			internal static FileInfo getSwapfilePath() => new FileInfo(FileAndFolder.GetRealPath(DefaultSwapfileLocation));
 
 			/// <summary>
 			///  Changes the Swapfile Stadium
@@ -105,14 +105,14 @@ namespace StorageManagementCore.Operation {
 
 						string oldPath = DefaultSwapfileLocation;
 						if (defaultSwapFileInfo.Exists) {
-							Wrapper.FileAndFolder.DeleteFile(defaultSwapFileInfo, false, false);
+							FileAndFolder.DeleteFile(defaultSwapFileInfo, false, false);
 						}
 
 						MoveFile(new FileInfo(oldPath), saveAs);
 						return Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 1, RegistryValueKind.DWord);
 
 					case SwapfileState.Disabled when !forward:
-						Wrapper.FileAndFolder.DeleteFile(defaultSwapFileInfo, false);
+						FileAndFolder.DeleteFile(defaultSwapFileInfo, false);
 						Wrapper.RegistryMethods.SetRegistryValue(SwapfileControl, 1, RegistryValueKind.DWord);
 						break;
 
@@ -146,7 +146,7 @@ namespace StorageManagementCore.Operation {
 					return SwapfileState.Disabled;
 				}
 
-				if (Wrapper.FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation)) {
+				if (FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation)) {
 					return SwapfileState.Moved;
 				}
 

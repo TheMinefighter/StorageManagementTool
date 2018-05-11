@@ -79,12 +79,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Backend\AdvancedUserShellFolder.cs" />
+    <Compile Include="Backend\FileAndFolder.cs" />
     <Compile Include="Backend\RegistryValue.cs" />
     <Compile Include="Backend\SpecialFolders.cs" />
     <Compile Include="Backend\UserShellFolder.cs" />
     <Compile Include="Backend\Win32ShellFolders.cs" />
     <Compile Include="Backend\Wrapper.cs" />
-    <Compile Include="Backend\Wrapper.FileAndFolder.cs" />
     <Compile Include="Backend\Wrapper.RegistryMethods.cs" />
     <Compile Include="CmdRootContext.cs" />
     <Compile Include="Configuration\ConfiguredDrive.cs" />

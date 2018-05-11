@@ -10,12 +10,12 @@ using StorageManagementCore.Operation;
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
-			PathsToMoveTb.Text = string.Join(";", Wrapper.FileAndFolder.SelectDirectories("").Select(x => x.FullName));
+			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectDirectories("").Select(x => x.FullName));
 			SuggestionsLb.UnselectAll();
 		}
 
 		private void SelectFilesToMoveBtn_OnClick(object sender, RoutedEventArgs e) {
-			PathsToMoveTb.Text = string.Join(";", Wrapper.FileAndFolder.SelectFiles("").Select(x => x.FullName));
+			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectFiles("").Select(x => x.FullName));
 			SuggestionsLb.UnselectAll();
 		}
 
@@ -30,7 +30,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void SelectBasePathBtn_Click(object sender, RoutedEventArgs e) {
-			BasePathTb.Text = Wrapper.FileAndFolder.SelectDirectory("").FullName;
+			BasePathTb.Text = FileAndFolder.SelectDirectory("").FullName;
 		}
 
 		private void SetBasePathConfigBtn_Click(object sender, RoutedEventArgs e) {
@@ -61,16 +61,16 @@ namespace StorageManagementCore.WPFGUI {
 					//TODO Not available
 				}
 
-				switch (Wrapper.FileAndFolder.IsFileOrFolder(PathsToMoveTb.Text)) {
-					case Wrapper.FileAndFolder.FileOrFolder.Neither:
+				switch (FileAndFolder.IsFileOrFolder(PathsToMoveTb.Text)) {
+					case FileAndFolder.FileOrFolder.Neither:
 						//TODO Throw error
 						return;
 						break;
-					case Wrapper.FileAndFolder.FileOrFolder.File:
+					case FileAndFolder.FileOrFolder.File:
 						FileInfo fileToMove = new FileInfo(PathsToMoveTb.Text);
 						OperatingMethods.MoveFile(fileToMove, new FileInfo(Path.Combine(BasePathTb.Text, fileToMove.Name)));
 						break;
-					case Wrapper.FileAndFolder.FileOrFolder.Folder:
+					case FileAndFolder.FileOrFolder.Folder:
 						OperatingMethods.MoveFolder(new DirectoryInfo(PathsToMoveTb.Text), new DirectoryInfo(BasePathTb.Text));
 						break;
 					default:
@@ -79,17 +79,17 @@ namespace StorageManagementCore.WPFGUI {
 			}
 			else {
 				foreach (string s in PathsToMoveTb.Text.Split(';')) {
-					switch (Wrapper.FileAndFolder.IsFileOrFolder(s)) {
-						case Wrapper.FileAndFolder.FileOrFolder.Neither:
+					switch (FileAndFolder.IsFileOrFolder(s)) {
+						case FileAndFolder.FileOrFolder.Neither:
 							//TODO Throw error
 							return;
 
 							break;
-						case Wrapper.FileAndFolder.FileOrFolder.File:
+						case FileAndFolder.FileOrFolder.File:
 							FileInfo fileToMove = new FileInfo(s);
 							OperatingMethods.MoveFile(fileToMove, new FileInfo(s), true);
 							break;
-						case Wrapper.FileAndFolder.FileOrFolder.Folder:
+						case FileAndFolder.FileOrFolder.Folder:
 							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(BasePathTb.Text), true);
 							break;
 						default:

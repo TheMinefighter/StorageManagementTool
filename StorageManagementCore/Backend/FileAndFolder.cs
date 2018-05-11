@@ -1,5 +1,4 @@
-﻿#undef MITMode
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -8,18 +7,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
-#if !MITMode
 using Microsoft.WindowsAPICodePack.Dialogs;
 
-#else
-using System.Windows.Forms;
-
-#endif
-
-
 namespace StorageManagementCore.Backend {
-	public static partial class Wrapper {
-		public static class FileAndFolder {
+public static class FileAndFolder {
+	public static void OpenFolder(DirectoryInfo info) {
+		Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, info.FullName);
+	}
 			public enum FileOrFolder : byte {
 				Neither,
 				File,
@@ -203,10 +197,10 @@ namespace StorageManagementCore.Backend {
 			}
 
 			public static bool CreateFolderSymlink(DirectoryInfo dir, DirectoryInfo newLocation) =>
-				ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+				Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
 
 			public static bool CreateFileSymlink(FileInfo file, FileInfo newLocation) =>
-				ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true, out _);
+				Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true, out _);
 
 			#region From https://stackoverflow.com/a/38308957/6730162 access on 30.9.2017
 
@@ -255,5 +249,4 @@ namespace StorageManagementCore.Backend {
 
 			#endregion
 		}
-	}
 }

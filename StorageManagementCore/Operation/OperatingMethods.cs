@@ -61,12 +61,12 @@ namespace StorageManagementCore.Operation {
 			}
 
 			if (dir.Exists) {
-				if (!Wrapper.FileAndFolder.MoveDirectory(dir, newLocation)) {
+				if (!FileAndFolder.MoveDirectory(dir, newLocation)) {
 					return false;
 				}
 			}
 
-			return Wrapper.FileAndFolder.CreateFolderSymlink(dir, newLocation);
+			return FileAndFolder.CreateFolderSymlink(dir, newLocation);
 		}
 
 		/// <summary>
@@ -97,12 +97,12 @@ namespace StorageManagementCore.Operation {
 			}
 
 			if (file.Exists) {
-				if (!Wrapper.FileAndFolder.MoveFile(file, newLocation)) {
+				if (!FileAndFolder.MoveFile(file, newLocation)) {
 					return false;
 				}
 			}
 
-			return Wrapper.FileAndFolder.CreateFileSymlink(file, newLocation);
+			return FileAndFolder.CreateFileSymlink(file, newLocation);
 			//throw new NotImplementedException();
 		}
 
@@ -113,7 +113,7 @@ namespace StorageManagementCore.Operation {
 		public static IEnumerable<string> GetRecommendedPaths() {
 			List<string> ret = new List<string>();
 			if (
-				!Wrapper.FileAndFolder.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%"))) {
+				!FileAndFolder.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%"))) {
 				ret.Add(Environment.ExpandEnvironmentVariables(@"%AppData%"));
 			}
 
@@ -126,7 +126,7 @@ namespace StorageManagementCore.Operation {
 			string[] currentsubfolders =
 				Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%"));
 			for (int i = 0; i < currentsubfolders.GetLength(0); i++) {
-				if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) &&
+				if (!FileAndFolder.IsPathSymbolic(currentsubfolders[i]) &&
 				    !blacklist.Contains(currentsubfolders[i])) {
 					ret.Add(currentsubfolders[i]);
 				}
@@ -135,7 +135,7 @@ namespace StorageManagementCore.Operation {
 			currentsubfolders =
 				Directory.GetDirectories(Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Local"));
 			for (int i = 0; i < currentsubfolders.GetLength(0); i++) {
-				if (!Wrapper.FileAndFolder.IsPathSymbolic(currentsubfolders[i]) &&
+				if (!FileAndFolder.IsPathSymbolic(currentsubfolders[i]) &&
 				    !blacklist.Contains(currentsubfolders[i])) {
 					ret.Add(currentsubfolders[i]);
 				}
@@ -385,7 +385,7 @@ namespace StorageManagementCore.Operation {
 		//            }
 		//
 		//            ZipFile.ExtractToDirectory(zipName, Path.Combine(Directory.GetCurrentDirectory(), "PsTools"));
-		//            Wrapper.FileAndFolder.DeleteFile(new FileInfo(zipName));
+		//            FileAndFolder.DeleteFile(new FileInfo(zipName));
 		//         }
 		//      }
 	}
