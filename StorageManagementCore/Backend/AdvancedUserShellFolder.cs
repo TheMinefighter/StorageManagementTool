@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Csv;
 
 namespace StorageManagementCore.Backend {
-	public struct AdvancedUserShellFolder {
+	public class AdvancedUserShellFolder {
 		public static AdvancedUserShellFolder[] AllUSF;
 		public bool ShouldBeEdited;
 		public Guid WindowsIdentifier;
@@ -17,6 +17,9 @@ namespace StorageManagementCore.Backend {
 		public string DefaultValue;
 		public bool IsUserSpecific;
 
+		private AdvancedUserShellFolder() {
+			
+		}
 		public static AdvancedUserShellFolder GetUSF(string name) {
 			return AllUSF.First(x => x.Name == name);
 		}
