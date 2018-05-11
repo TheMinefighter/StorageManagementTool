@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using StorageManagementCore.Backend;
 using ConfirmationDialogs;
 
 namespace StorageManagementCore.WPFGUI {
@@ -14,8 +13,8 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void RefreshShellFolders() {
 			ShellFoldersLb.ItemsSource = ViewHiddenFoldersCb.IsChecked == true
-				? AdvancedUserShellFolder.AllUSF.Select(x => x.LocalizedName)
-				: AdvancedUserShellFolder.AllUSF.Where(x => !x.Undefined).Select(x => x.LocalizedName);
+				? Backend.AdvancedUserShellFolder.AllUSF.Select(x => x.LocalizedName)
+				: Backend.AdvancedUserShellFolder.AllUSF.Where(x => !x.Undefined).Select(x => x.LocalizedName);
 		}
 
 		private void ChangeDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e) {
