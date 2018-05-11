@@ -72,7 +72,7 @@
                               VerticalAlignment="Top" IsChecked="True" Background="#FFFF4040" Unchecked="MoveExistingItemsCb_Unchecked" />
                     <CheckBox x:Name="ChangeDependentShellFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,121,0,0"
                               VerticalAlignment="Top" IsChecked="True" Background="#FFFF4040"
-                              Unchecked="MoveDependentShellFoldersCb_Unchecked" />
+                              Unchecked="ChangeDependentShellFoldersCb_Unchecked" />
                     <CheckBox x:Name="AutomaticShellFolderPathCb" Content="CheckBox" HorizontalAlignment="Left" Margin="473,102,0,0"
                               VerticalAlignment="Top" IsChecked="True" />
                 </Grid>
