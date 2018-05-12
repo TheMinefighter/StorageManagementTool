@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace StorageManagementCore.Backend {
 	#region Classes used as return values
@@ -211,9 +212,9 @@ namespace StorageManagementCore.Backend {
 
 		public static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) =>
 			Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
-
+[CanBeNull]
 		public static string GetSpecialFolderPath(Guid kFolderID) {
-			string sRet = "";
+			string sRet = null;
 
 			if (Win32ShellFolders.SHGetKnownFolderPath(kFolderID, 0, IntPtr.Zero, out IntPtr pPath) == 0) {
 				sRet = Marshal.PtrToStringUni(pPath);

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using StorageManagementCore.Backend;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
@@ -7,7 +8,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void RestartAsAdministratorBtn_OnClick(object sender, RoutedEventArgs e) {
-			Backend.Wrapper.RestartAsAdministrator();
-			}
+			Wrapper.RestartAsAdministrator();
+		}
 	}
 }

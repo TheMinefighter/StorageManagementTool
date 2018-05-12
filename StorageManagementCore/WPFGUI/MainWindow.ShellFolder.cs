@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ConfirmationDialogs;
+using StorageManagementCore.Backend;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
@@ -13,8 +13,8 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void RefreshShellFolders() {
 			ShellFoldersLb.ItemsSource = ViewHiddenFoldersCb.IsChecked == true
-				? Backend.AdvancedUserShellFolder.AllUSF.Select(x => x.LocalizedName)
-				: Backend.AdvancedUserShellFolder.AllUSF.Where(x => !x.Undefined).Select(x => x.LocalizedName);
+				? AdvancedUserShellFolder.AllUSF.Select(x => x.LocalizedName)
+				: AdvancedUserShellFolder.AllUSF.Where(x => !x.Undefined).Select(x => x.LocalizedName);
 		}
 
 		private void ChangeDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e) {
@@ -22,7 +22,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void MoveExistingItemsCb_Unchecked(object sender, RoutedEventArgs e) {
-			MoveExistingItemsCb.IsChecked= !Confirmation.Confirm();
+			MoveExistingItemsCb.IsChecked = !Confirmation.Confirm();
 		}
 
 		private void ViewHiddenFoldersCb_Checked(object sender, RoutedEventArgs e) {
@@ -40,7 +40,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void OpenCurrentShellFolderPathBtn_OnClick(object sender, RoutedEventArgs e) {
-			Backend.FileAndFolder.OpenFolder(new DirectoryInfo(CurrentShellFolderPathTb.Text));
+			FileAndFolder.OpenFolder(new DirectoryInfo(CurrentShellFolderPathTb.Text));
 		}
 
 		private void ViewHiddenFoldersCb_Unchecked(object sender, RoutedEventArgs e) {
@@ -48,9 +48,8 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void ShellFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
-			CurrentShellFolderPathTb.Text =
-				Backend.SpecialFolders.GetSpecialFolderPath(Backend.AdvancedUserShellFolder.GetUSF((string) ShellFoldersLb.SelectedValue)
-					.WindowsIdentifier);
+			CurrentShellFolderPathTb.Text = SpecialFolders.GetSpecialFolderPath(AdvancedUserShellFolder.GetUSF((string) ShellFoldersLb.SelectedValue)
+				                                .WindowsIdentifier) ?? "Seems as if your PC hasn´t configured that path for whatever reason";
 		}
 	}
 }
