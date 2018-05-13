@@ -6,9 +6,21 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
+using StorageManagementCore.WPFGUI.GlobalizationRessources;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
+		private void MoveFileOrFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
+			LocalizeMoveObjects();
+			SuggestionsLb.Items.Clear();
+			SuggestionsLb.ItemsSource = OperatingMethods.GetRecommendedPaths();
+		}
+
+		private void LocalizeMoveObjects() {
+			SelectFilesToMoveBtn.Content = MainWindowStrings.FileToMove_btn_Text;
+			SelectFoldersToMoveBtn.Content = MainWindowStrings.FolderToMove_btn_Text;
+		}
+
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
 			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectDirectories("").Select(x => x.FullName));
 			SuggestionsLb.UnselectAll();
@@ -97,11 +109,6 @@ namespace StorageManagementCore.WPFGUI {
 					}
 				}
 			}
-		}
-
-		private void MoveFileOrFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
-			SuggestionsLb.Items.Clear();
-			SuggestionsLb.ItemsSource = OperatingMethods.GetRecommendedPaths();
 		}
 
 //		private IEnumerator iEnumerator;

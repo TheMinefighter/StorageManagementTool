@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("StorageManagementCore")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright ©  2018 Tobias Brohl")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
