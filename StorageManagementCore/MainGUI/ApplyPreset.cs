@@ -30,8 +30,8 @@ namespace StorageManagementCore.MainGUI {
 			SelectSSD_lbl.Text = SelectSSD_lbl_Text;
 			ApplyPreset_btn.Text = ApplyPreset_btn_Text;
 			SelectScenario_lbl.Text = SelectScenario_lbl_Text;
-			Session.Singleton.FillWithDriveInfo(SelectHDD_lb);
-			Session.Singleton.FillWithDriveInfo(SelectSSD_lb);
+			OperatingMethods.FillWithDriveInfo(SelectHDD_lb);
+			OperatingMethods.FillWithDriveInfo(SelectSSD_lb);
 			Text = WindowTitle;
 			SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.ViewedName).ToArray());
 		}

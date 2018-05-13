@@ -37,8 +37,8 @@ namespace StorageManagementCore.MainGUI {
 				catch (IOException) { }
 			}
 
-			Session.Singleton.FillWithDriveInfo(Swapfilepartition_lb);
-			Session.Singleton.FillWithDriveInfo(Pagefilepartition_lb);
+			OperatingMethods.FillWithDriveInfo(Swapfilepartition_lb);
+			OperatingMethods.FillWithDriveInfo(Pagefilepartition_lb);
 		}
 
 		private void LoadUIStrings() {
@@ -79,8 +79,8 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void RefreshAvailablePartitions_btn_Click(object sender, EventArgs e) {
-			Session.Singleton.FillWithDriveInfo(Swapfilepartition_lb);
-			Session.Singleton.FillWithDriveInfo(Pagefilepartition_lb);
+			OperatingMethods.FillWithDriveInfo(Swapfilepartition_lb);
+			OperatingMethods.FillWithDriveInfo(Pagefilepartition_lb);
 		}
 
 

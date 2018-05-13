@@ -79,20 +79,6 @@ namespace StorageManagementCore {
 		}
 
 		/// <summary>
-		///  Refreshes the current Stadium of the Swapfile Movement
-		/// </summary>
-		/// <summary>
-		///  Fills an given Listbox with information about the available Drives
-		/// </summary>
-		/// <param name="toFill"></param>
-		public void FillWithDriveInfo(ListBox toFill) {
-			toFill.Items.Clear();
-			foreach (DriveInfo item in Wrapper.getDrives()) {
-				toFill.Items.Add(OperatingMethods.GetDriveInfoDescription(item));
-			}
-		}
-
-		/// <summary>
 		///  Stores the configuration in a JSON file
 		/// </summary>
 		public void SaveCfg() {

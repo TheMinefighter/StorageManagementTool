@@ -17,7 +17,17 @@ namespace StorageManagementCore {
 		/// </summary>
 		public static ConsoleIO ConsoleIOObject { get; set; }
 
+		[STAThread]
+		public static void Main(string[] args) {
+			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
+			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
+			ConsoleIO.SetVisibility(CommandLineMode);
+
+			new Session();
+			new WPFGUI.MainWindow().ShowDialog();
+		}
 		/// <summary>
+		/// 
 		///  Whether the Programm runs from any shell / commandline
 		/// </summary>
 		public static bool CommandLineMode { get; private set; }
