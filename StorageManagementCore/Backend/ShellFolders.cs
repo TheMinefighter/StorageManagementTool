@@ -1,5 +1,6 @@
 ﻿namespace StorageManagementCore.Backend {
 	public enum ShellFolders {
+		AddNewPrograms,
 		AdminTools,
 		AppUpdates,
 		CDBurning,

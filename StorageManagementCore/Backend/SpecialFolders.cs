@@ -212,7 +212,7 @@ namespace StorageManagementCore.Backend {
 
 		public static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) =>
 			Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
-[CanBeNull]
+		[CanBeNull]
 		public static string GetSpecialFolderPath(Guid kFolderID) {
 			string sRet = null;
 

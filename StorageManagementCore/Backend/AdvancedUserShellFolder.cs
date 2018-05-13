@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,6 +37,7 @@ namespace StorageManagementCore.Backend {
 					Undefined = x[2][0] == '1',
 					IsUserSpecific = x[3][0] == '1',
 					ShouldBeEdited = x[4][0] == '1',
+					//TODO To be changed
 					LocalizedName = x[0]
 				}).ToArray();
 			}
