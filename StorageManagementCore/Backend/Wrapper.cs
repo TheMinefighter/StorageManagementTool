@@ -109,7 +109,7 @@ namespace StorageManagementCore.Backend {
 
 			startInfo.UseShellExecute = false;
 			if (asUser) {
-				if (!EnterCredentials.GetCredentials(admin, out EnterCredentials.Credentials tmp)) {
+				if (!EnterCredentials.GetCredentials(admin, out Credentials tmp)) {
 					return false;
 				}
 
@@ -403,7 +403,7 @@ namespace StorageManagementCore.Backend {
 		/// </summary>
 		/// <param name="credentials">The credentials to test</param>
 		/// <returns>Whether the set of credentials is valid for the local machine</returns>
-		public static bool TestCredentials(EnterCredentials.Credentials credentials) {
+		public static bool TestCredentials(Credentials credentials) {
 			Process pProcess = new Process {
 				StartInfo = new ProcessStartInfo(
 					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe"),

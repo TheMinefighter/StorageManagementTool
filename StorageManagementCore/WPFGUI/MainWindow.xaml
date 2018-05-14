@@ -78,7 +78,7 @@
                               VerticalAlignment="Top" IsChecked="True" />
                 </Grid>
             </TabItem>
-            <TabItem x:Name="SearchTi" Header="Search" Loaded="SearchTi_OnLoaded" >
+            <TabItem x:Name="SearchTi" Header="Search" Loaded="SearchTi_OnLoaded" Selector.Selected="SearchTi_OnSelected">
                 <Grid Background="White">
                     <Button Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Width="129"
                             RenderTransformOrigin="0.533,2.95" />
@@ -170,7 +170,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="SettingsTi" Header="Settings" Loaded="SettingsTi_OnLoaded">
+            <TabItem x:Name="SettingsTi" Header="Settings" Loaded="SettingsTi_OnLoaded"  >
                 <Grid Background="White">
                     <TextBlock x:Name="EnOrDisableSendToHDDLbl" HorizontalAlignment="Left" Margin="10,192,0,0" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Top" />

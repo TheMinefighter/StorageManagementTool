@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-using System.Security;
-
-namespace StorageManagementCore.Operation {
-	public sealed class EnterCredentials {
+﻿namespace StorageManagementCore.Operation {
+	public class EnterCredentials {
 		/// <summary>
 		///  Stores Credentials for later use when an Administartor Account is required
 		/// </summary>
@@ -12,7 +9,7 @@ namespace StorageManagementCore.Operation {
 		///  Stores Credentials for later use
 		/// </summary>
 		private static Credentials _forStandard = new Credentials();
-
+		
 		/// <summary>
 		///  Gives credentials meeting specified requirements
 		/// </summary>
@@ -47,17 +44,6 @@ namespace StorageManagementCore.Operation {
 			}
 
 			return !((DialogReturnData) dialog.Tag).IsAborted;
-		}
-
-		/// <summary>
-		///  Class for storing Windows Credentials
-		/// </summary>
-		public sealed class Credentials {
-			[Browsable(false)] public SecureString Password;
-
-			public string Username;
-
-			public Credentials() => Password = new SecureString();
 		}
 
 		/// <summary>

@@ -44,7 +44,7 @@ namespace StorageManagementCore.Operation {
 			}
 
 			string username = Username_tb.Text;
-			EnterCredentials.Credentials givenCredentials = new EnterCredentials.Credentials {
+			Credentials givenCredentials = new Credentials {
 				Password = password,
 				Username = username
 			};
