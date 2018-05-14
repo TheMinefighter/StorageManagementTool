@@ -15,7 +15,6 @@ namespace StorageManagementCore.WPFGUI {
 			AdvancedUserShellFolder.LoadUSF();
 		}
 
-		private void EnOrDisableMonitoringBtn_Click(object sender, RoutedEventArgs e) { }
 
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
 	}

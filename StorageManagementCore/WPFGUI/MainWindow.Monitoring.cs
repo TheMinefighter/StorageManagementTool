@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
@@ -11,7 +12,10 @@ namespace StorageManagementCore.WPFGUI {
 			if (ssdMonitoringEnabled) {
 				MonitoredFoldersLb.ItemsSource = Session.Singleton.CurrentConfiguration.MonitoringSettings.MonitoredFolders.Select(x => x.TargetPath);
 			}
-			else {
+		}
+
+		private void MonitoredFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+			if (MonitoredFoldersLb.SelectedIndex==-1) {
 				
 			}
 		}

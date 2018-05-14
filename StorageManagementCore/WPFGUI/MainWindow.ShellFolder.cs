@@ -7,6 +7,7 @@ using StorageManagementCore.Backend;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
+		private bool _shellFolderTiOpened;
 		private void ShellFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
 			RefreshShellFolders();
 		}
@@ -50,6 +51,16 @@ namespace StorageManagementCore.WPFGUI {
 		private void ShellFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
 			CurrentShellFolderPathTb.Text = SpecialFolders.GetSpecialFolderPath(AdvancedUserShellFolder.GetUSF((string) ShellFoldersLb.SelectedValue)
 				                                .WindowsIdentifier) ?? "Seems as if your PC hasn´t configured that path for whatever reason";
+		}
+
+		private void ShellFolderTi_OnSelected(object sender, RoutedEventArgs e) {
+			if (!_shellFolderTiOpened) {
+				_shellFolderTiOpened = true;
+				if (!Session.Singleton.IsAdmin) {
+					//TODO Warning	
+				}
+				
+			}
 		}
 	}
 }
