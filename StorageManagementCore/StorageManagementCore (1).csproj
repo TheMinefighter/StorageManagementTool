@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{338EB406-98FB-4EFF-A8DA-20060C3DDEB0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>StorageManagementCore</RootNamespace>
+    <AssemblyName>StorageManagementCore</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csv, Version=1.0.31.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Csv.1.0.31\lib\net40\Csv.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NumericUpDown">
+      <HintPath>..\packages\NumericUpDown.3.0.1.0\lib\NumericUpDown.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Backend\AdvancedUserShellFolder.cs" />
+    <Compile Include="Backend\FileAndFolder.cs" />
+    <Compile Include="Backend\RegistryValue.cs" />
+    <Compile Include="Backend\SpecialFolders.cs" />
+    <Compile Include="Backend\UserShellFolder.cs" />
+    <Compile Include="Backend\Win32ShellFolders.cs" />
+    <Compile Include="Backend\Wrapper.cs" />
+    <Compile Include="Backend\Wrapper.RegistryMethods.cs" />
+    <Compile Include="CmdRootContext.cs" />
+    <Compile Include="Configuration\ConfiguredDrive.cs" />
+    <Compile Include="Configuration\MainConfiguration.cs" />
+    <Compile Include="Configuration\KnownDrive.cs" />
+    <Compile Include="Configuration\MonitoredFolder.cs" />
+    <Compile Include="Configuration\MonitoringAction.cs" />
+    <Compile Include="Configuration\MonitoringConfiguration.cs" />
+    <Compile Include="Configuration\Pagefile.cs" />
+    <Compile Include="Configuration\PagefileSysConfiguration.cs" />
+    <Compile Include="Configuration\AllPagefilesConfiguration.cs" />
+    <Compile Include="Configuration\ShellFolderConfiguration.cs" />
+    <Compile Include="Configuration\SwapfileSysConfiguration.cs" />
+    <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
+      <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GlobalizationRessources\OperatingMethodsStrings1.Designer.cs">
+      <DependentUpon>OperatingMethodsStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GlobalizationRessources\ScenarioPresetStrings.Designer.cs">
+      <DependentUpon>ScenarioPresetStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GlobalizationRessources\UserShellFolderStrings.Designer.cs">
+      <DependentUpon>UserShellFolderStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GlobalizationRessources\WrapperStrings.Designer.cs">
+      <DependentUpon>WrapperStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MainGUI\ApplyPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGUI\ApplyPreset.Designer.cs">
+      <DependentUpon>ApplyPreset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainGUI\EditUserShellFolders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGUI\EditUserShellFolders.designer.cs">
+      <DependentUpon>EditUserShellFolders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainGUI\EditWindowsSearchSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGUI\EditWindowsSearchSettings.designer.cs">
+      <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs">
+      <DependentUpon>ApplyPresetStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.Designer.cs">
+      <DependentUpon>EditUserShellFolderStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.Designer.cs">
+      <DependentUpon>EditWindowsSearchSettingsStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MainGUI\GlobalizationRessources\MainWindowStrings.Designer.cs">
+      <DependentUpon>MainWindowStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs">
+      <DependentUpon>MonitoringSettingsStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.Designer.cs">
+      <DependentUpon>PagefileSettingsStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MainGUI\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGUI\MainWindow.designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainGUI\MonitoringSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGUI\MonitoringSettings.designer.cs">
+      <DependentUpon>MonitoringSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainGUI\PageFileSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainGUI\PageFileSettings.designer.cs">
+      <DependentUpon>PageFileSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operation\BackgroundNotificationCreator.cs" />
+    <Compile Include="Operation\EnterCredentials.cs" />
+    <Compile Include="Operation\EnterCredentialsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operation\EnterCredentialsDialog.designer.cs">
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operation\OperatingMethods.cs" />
+    <Compile Include="Operation\OperatingMethods.SSDMonitoring.cs" />
+    <Compile Include="Operation\OperatingMethods.SwapfileMethods.cs" />
+    <Compile Include="Operation\ScenarioPreset.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="WPFGUI\MainWindow.About.cs" />
+    <Compile Include="WPFGUI\MainWindow.MoveObjects.cs" />
+    <Compile Include="WPFGUI\MainWindow.ShellFolder.cs" />
+    <Compile Include="WPFGUI\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Backend\AdvancedUserShellFolderData.csv" />
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\EnterCredentialsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnterCredentialsStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScenarioPresetStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.de-DE.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\UserShellFolderStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserShellFolderStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalizationRessources\WrapperStrings.de-DE.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\WrapperStrings.en-US.resx" />
+    <EmbeddedResource Include="GlobalizationRessources\WrapperStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WrapperStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\ApplyPreset.resx">
+      <DependentUpon>ApplyPreset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\EditUserShellFolders.resx">
+      <DependentUpon>EditUserShellFolders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\EditWindowsSearchSettings.resx">
+      <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplyPresetStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditUserShellFolderStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditWindowsSearchSettingsStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MonitoringSettingsStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.de-DE.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.en-US.resx" />
+    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PagefileSettingsStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\MonitoringSettings.resx">
+      <DependentUpon>MonitoringSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainGUI\PageFileSettings.resx">
+      <DependentUpon>PageFileSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operation\EnterCredentialsDialog.resx">
+      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExtendedMessageBoxLibrary\ExtendedMessageBoxLibrary.csproj">
+      <Project>{a421800c-1bcb-41c3-8172-8d7c3583649c}</Project>
+      <Name>ExtendedMessageBoxLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalCommandlineInterface\UniversalCommandlineInterface.csproj">
+      <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>
+      <Name>UniversalCommandlineInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WPFGUI\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressources\About.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
