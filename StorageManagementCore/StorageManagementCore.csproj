@@ -109,7 +109,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="GlobalizationRessources\OperatingMethodsStrings1.Designer.cs">
+    <Compile Include="GlobalizationRessources\OperatingMethodsStrings.Designer.cs">
       <DependentUpon>OperatingMethodsStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -256,7 +256,6 @@
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.en-US.resx" />
     <EmbeddedResource Include="GlobalizationRessources\OperatingMethodsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>OperatingMethodsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.de-DE.resx" />
     <EmbeddedResource Include="GlobalizationRessources\ScenarioPresetStrings.en-US.resx" />
