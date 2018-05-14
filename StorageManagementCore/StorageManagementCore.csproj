@@ -197,7 +197,7 @@
     </Compile>
     <Compile Include="Operation\BackgroundNotificationCreator.cs" />
     <Compile Include="Operation\Credentials.cs" />
-    <Compile Include="Operation\EnterCredentials.cs" />
+    <Compile Include="Operation\CredentialsManager.cs" />
     <Compile Include="Operation\EnterCredentialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>

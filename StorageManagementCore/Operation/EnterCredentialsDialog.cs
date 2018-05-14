@@ -28,10 +28,10 @@ namespace StorageManagementCore.Operation {
 			}
 
 			if (Wrapper.IsAdmin(Username_tb.Text)) {
-				((EnterCredentials.DialogReturnData) Tag).IsAdmin = true;
+				((CredentialsManager.DialogReturnData) Tag).IsAdmin = true;
 			}
 			else {
-				if (((EnterCredentials.DialogReturnData) Tag).AdminRequired) {
+				if (((CredentialsManager.DialogReturnData) Tag).AdminRequired) {
 					MessageBox.Show(EnterCredentialsStrings.NotAdministratorButRequired, EnterCredentialsStrings.Error,
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 					Password_tb.Text = "";
@@ -40,7 +40,7 @@ namespace StorageManagementCore.Operation {
 					return;
 				}
 
-				((EnterCredentials.DialogReturnData) Tag).IsAdmin = false;
+				((CredentialsManager.DialogReturnData) Tag).IsAdmin = false;
 			}
 
 			string username = Username_tb.Text;
@@ -55,20 +55,20 @@ namespace StorageManagementCore.Operation {
 				return;
 			}
 
-			((EnterCredentials.DialogReturnData) Tag).GivenCredentials = givenCredentials;
-			((EnterCredentials.DialogReturnData) Tag).IsAborted = false;
+			((CredentialsManager.DialogReturnData) Tag).GivenCredentials = givenCredentials;
+			((CredentialsManager.DialogReturnData) Tag).IsAborted = false;
 			Close();
 		}
 
 
 		private void Abort_btn_Click(object sender, EventArgs e) {
-			((EnterCredentials.DialogReturnData) Tag).IsAborted = true;
+			((CredentialsManager.DialogReturnData) Tag).IsAborted = true;
 			Close();
 		}
 
 		private void InsertCredentialsDialog_Load(object sender, EventArgs e) {
 			Text = EnterCredentialsStrings.Window_Title;
-			if (((EnterCredentials.DialogReturnData) Tag).AdminRequired) {
+			if (((CredentialsManager.DialogReturnData) Tag).AdminRequired) {
 				Headline0_lbl.Text = string.Format(EnterCredentialsStrings.AdministratorInstructions, Environment.NewLine);
 				if (Wrapper.IsAdmin(Environment.UserName)) {
 					Username_tb.Text = Environment.UserName;

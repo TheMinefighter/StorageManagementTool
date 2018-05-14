@@ -1,5 +1,5 @@
 ﻿namespace StorageManagementCore.Operation {
-	public class EnterCredentials {
+	public static class CredentialsManager {
 		/// <summary>
 		///  Stores Credentials for later use when an Administartor Account is required
 		/// </summary>
@@ -9,7 +9,26 @@
 		///  Stores Credentials for later use
 		/// </summary>
 		private static Credentials _forStandard = new Credentials();
+
+		public static void DisposeCredentials() {
+			_forAdmin.Dispose();
+			_forStandard.Dispose();
+			_forAdmin= new Credentials();
+			_forStandard= new Credentials();
+		}
 		
+		public static (bool?, string) GetStoredCredentials() {
+			if (_forStandard.Username==null) {
+				return (null, null);
+			}
+
+			if (_forAdmin.Username==null) {
+				return (false, _forStandard.Username);
+				}
+
+			return (true, _forAdmin.Username);
+
+		}
 		/// <summary>
 		///  Gives credentials meeting specified requirements
 		/// </summary>
@@ -32,6 +51,7 @@
 
 			credentials = new Credentials();
 			EnterCredentialsDialog dialog = new EnterCredentialsDialog {Tag = new DialogReturnData(adminNeeded)};
+			DisposeCredentials();
 			dialog.ShowDialog();
 			if (((DialogReturnData) dialog.Tag).IsAborted) {
 				return false;

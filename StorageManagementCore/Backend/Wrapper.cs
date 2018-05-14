@@ -109,7 +109,7 @@ namespace StorageManagementCore.Backend {
 
 			startInfo.UseShellExecute = false;
 			if (asUser) {
-				if (!EnterCredentials.GetCredentials(admin, out Credentials tmp)) {
+				if (!CredentialsManager.GetCredentials(admin, out Credentials tmp)) {
 					return false;
 				}
 
