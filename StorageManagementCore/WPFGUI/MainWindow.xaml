@@ -78,7 +78,7 @@
                               VerticalAlignment="Top" IsChecked="True" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Search">
+            <TabItem x:Name="SearchTi" Header="Search" Loaded="SearchTi_OnLoaded" >
                 <Grid Background="White">
                     <Button Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Width="129"
                             RenderTransformOrigin="0.533,2.95" />
@@ -112,7 +112,7 @@
                             RenderTransformOrigin="0.133,0.65" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Monitoring">
+            <TabItem x:Name="MonitoringTi" Header="Monitoring" Loaded="MonitoringTi_OnLoaded" >
                 <Grid Background="White">
                     <ListBox x:Name="MonitoredFoldersLb" Margin="10,56,224,30" />
                     <CheckBox x:Name="ShowHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10"
@@ -150,7 +150,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Pagefiles">
+            <TabItem x:Name="PagefilesTi" Header="Pagefiles" Loaded="PagefilesTi_OnLoaded">
                 <Grid Background="White">
                     <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="71" Margin="580,0,0,0" VerticalAlignment="Top"
                               Width="196">

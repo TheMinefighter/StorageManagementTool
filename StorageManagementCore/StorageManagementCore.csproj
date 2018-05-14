@@ -219,7 +219,10 @@
     <Compile Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.Designer.cs" />
     <Compile Include="WPFGUI\MainWindow.About.cs" />
+    <Compile Include="WPFGUI\MainWindow.Monitoring.cs" />
     <Compile Include="WPFGUI\MainWindow.MoveObjects.cs" />
+    <Compile Include="WPFGUI\MainWindow.Pagefiles.cs" />
+    <Compile Include="WPFGUI\MainWindow.Search.cs" />
     <Compile Include="WPFGUI\MainWindow.Settings.cs" />
     <Compile Include="WPFGUI\MainWindow.ShellFolder.cs" />
     <Compile Include="WPFGUI\MainWindow.xaml.cs">
