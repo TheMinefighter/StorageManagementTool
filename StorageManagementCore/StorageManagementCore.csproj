@@ -204,9 +204,9 @@
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Operation\OperatingMethods.cs" />
-    <Compile Include="Operation\OperatingMethods.SSDMonitoring.cs" />
     <Compile Include="Operation\OperatingMethods.SwapfileMethods.cs" />
     <Compile Include="Operation\ScenarioPreset.cs" />
+    <Compile Include="Operation\SSDMonitoring.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs" />
