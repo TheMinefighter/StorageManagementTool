@@ -214,7 +214,7 @@ namespace StorageManagementCore.Operation {
 				wmicPath, "computersystem get AutomaticManagedPagefile /Value"
 				, out string[] tmp, out int _, out int _, true, true, true, true, false)) //Tests
 			{
-				if (Boolean.Parse(tmp[2].Split('=')[1])) {
+				if (bool.Parse(tmp[2].Split('=')[1])) {
 					Wrapper.ExecuteCommand(
 						wmicPath
 						+ Environment.ExpandEnvironmentVariables(
@@ -224,7 +224,7 @@ namespace StorageManagementCore.Operation {
 						wmicPath
 						, "computersystem get AutomaticManagedPagefile /Value"
 						, out tmp, out int _, out _, waitforexit: true, hidden: true, admin: true);
-					if (!Boolean.Parse(tmp[2].Split('=')[1])) {
+					if (!bool.Parse(tmp[2].Split('=')[1])) {
 						MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_CouldntDisableManagement,
 							OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 						return false;
@@ -398,7 +398,7 @@ namespace StorageManagementCore.Operation {
 		public static void FillWithDriveInfo(ListBox toFill) {
 			toFill.Items.Clear();
 			foreach (DriveInfo item in Wrapper.getDrives()) {
-				toFill.Items.Add(OperatingMethods.GetDriveInfoDescription(item));
+				toFill.Items.Add(GetDriveInfoDescription(item));
 			}
 		}
 	}

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Permissions;
 using System.Windows.Forms;
-using StorageManagementCore.MainGUI;
+using StorageManagementCore.WPFGUI;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Interpreters;
 
@@ -17,25 +17,27 @@ namespace StorageManagementCore {
 		/// </summary>
 		public static ConsoleIO ConsoleIOObject { get; set; }
 
+		/// <summary>
+		///  Whether the Programm runs from any shell / commandline
+		/// </summary>
+		public static bool CommandLineMode { get; private set; }
+
 		[STAThread]
+		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		public static void Main(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
 			ConsoleIO.SetVisibility(CommandLineMode);
 
 			new Session();
-			new WPFGUI.MainWindow().ShowDialog();
+			ProcessCommandlineArguments(args);
 		}
-		/// <summary>
-		/// 
-		///  Whether the Programm runs from any shell / commandline
-		/// </summary>
-		public static bool CommandLineMode { get; private set; }
 
 		/// <summary>
 		///  The main entry point for the application.
 		/// </summary>
-		[STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+		[STAThread]
+		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		public static void Main2(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
@@ -56,7 +58,7 @@ namespace StorageManagementCore {
 			}
 
 			new CommandlineOptionInterpreter(args) {Options = new InterpretingOptions {RootName = "StorageManagementTool"}}
-				.Interpret<CmdRootContext>(() => Application.Run(new MainWindow()));
+				.Interpret<CmdRootContext>(() => new MainWindow().ShowDialog());
 			/*
 			if (args.Count == 0) {
 			   Session.Singleton.StandardLaunch();
