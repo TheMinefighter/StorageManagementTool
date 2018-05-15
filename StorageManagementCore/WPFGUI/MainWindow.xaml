@@ -150,7 +150,7 @@
                </GroupBox>
             </Grid>
          </TabItem>
-         <TabItem x:Name="PagefilesTi" Header="Pagefiles" Loaded="PagefilesTi_OnLoaded">
+         <TabItem x:Name="PagefilesTi" Header="Pagefiles" Loaded="PagefilesTi_OnLoaded" Selector.Selected="PagefilesTi_OnSelected">
             <Grid Background="White">
                <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="71" Margin="580,10,0,0" VerticalAlignment="Top"
                               Width="196">
@@ -249,7 +249,7 @@
                      <Button x:Name="DeleteLogs" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="178"
                                     Height="22" Margin="179,10,0,0" />
                      <Button x:Name="SetLanguageAndRestartBtn_Copy" Content="Button" HorizontalAlignment="Left"
-                                    VerticalAlignment="Top" Width="178" Height="22" Margin="10,16,0,0" />
+                                    VerticalAlignment="Top" Width="178" Height="22" Margin="1,10,0,0" />
                      <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="258,32,0,0" VerticalAlignment="Top"
                                       RenderTransformOrigin="1,0.533" />
                   </Grid>
