@@ -7,7 +7,6 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
-		public ObservableCollection<DisplayableMonitoredFolder> MonitoringList { get; set; }
 		private void MonitoringTi_OnLoaded(object sender, RoutedEventArgs e) {
 			bool ssdMonitoringEnabled = SSDMonitoring.SSDMonitoringEnabled();
 			MonitoredFoldersLb.IsEnabled = ssdMonitoringEnabled;
@@ -22,10 +21,10 @@ namespace StorageManagementCore.WPFGUI {
 				
 			}
 		}
-		public class DisplayableMonitoredFolder
-		{
-			public string Message { get; set; }
-			public Brush MessageColor { get; set; }
-		}
+		//public class DisplayableMonitoredFolder
+		//{
+		//	public string Message { get; set; }
+		//	public Brush MessageColor { get; set; }
+		//}
 	}
 }
