@@ -14,7 +14,7 @@ namespace StorageManagementCore.WPFGUI
 
 	   private void PagefilesTi_OnSelected(object sender, RoutedEventArgs e)
 	   {
-		   throw new System.NotImplementedException();
+		   
 	   }
    }
 }

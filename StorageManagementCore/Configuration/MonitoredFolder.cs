@@ -33,6 +33,6 @@ namespace StorageManagementCore.Configuration {
 		}
 
 
-		public override string ToString() => JsonConvert.SerializeObject(this);
+		public override string ToString() => TargetPath;
 	}
 }
