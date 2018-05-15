@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
+		public ObservableCollection<DisplayableMonitoredFolder> MonitoringList { get; set; }
 		private void MonitoringTi_OnLoaded(object sender, RoutedEventArgs e) {
 			bool ssdMonitoringEnabled = SSDMonitoring.SSDMonitoringEnabled();
 			MonitoredFoldersLb.IsEnabled = ssdMonitoringEnabled;
@@ -18,6 +21,11 @@ namespace StorageManagementCore.WPFGUI {
 			if (MonitoredFoldersLb.SelectedIndex==-1) {
 				
 			}
+		}
+		public class DisplayableMonitoredFolder
+		{
+			public string Message { get; set; }
+			public Brush MessageColor { get; set; }
 		}
 	}
 }
