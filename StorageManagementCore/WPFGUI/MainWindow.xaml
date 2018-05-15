@@ -118,11 +118,11 @@
                <!--CheckBox x:Name="ShowHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10"
                               VerticalAlignment="Bottom" Background="#FFFF4040" /-->
                <Button x:Name="AddMonitoredFolderBtn" Content="Button" Margin="0,56,10,0" VerticalAlignment="Top"
-                            HorizontalAlignment="Right" Width="209" />
+                            HorizontalAlignment="Right" Width="209" Click="AddMonitoredFolderBtn_OnClick" />
                <TextBlock x:Name="EnOrDisableMonitoringLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Top" />
                <CheckBox x:Name="EnOrDisableMonitoringCb" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0"
-                            VerticalAlignment="Top" />
+                            VerticalAlignment="Top" Checked="EnOrDisableMonitoringCb_OnChecked" Unchecked="EnOrDisableMonitoringCb_OnChecked" />
                <Button x:Name="EnOrDisableMonitoredFolderBtn" Content="Button" Margin="0,127,10,0" VerticalAlignment="Top"
                             HorizontalAlignment="Right" Width="209" IsEnabled="False" />
                <Button x:Name="ChangeMonitoredFolderPathBtn" Content="Button" Margin="0,81,10,0" VerticalAlignment="Top"

@@ -50,7 +50,7 @@ namespace StorageManagementCore.WPFGUI {
 				SetBasePathChecked();
 			}
 			else {
-				//TODO Connat Absolute
+				//TODO Cannot Absolute
 			}
 		}
 
