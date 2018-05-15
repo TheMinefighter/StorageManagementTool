@@ -179,7 +179,7 @@
                      <TextBox x:Name="PageFileMaxSizeTb" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="154" Margin="404,63,0,0"/>
                      <Button x:Name="AddPagefileBtn" Content="Button" HorizontalAlignment="Left" Margin="404,118,0,0" VerticalAlignment="Top" Width="154"/>
                      <CheckBox x:Name="SystemManagedPagefilesCb" Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,365,0,0"/>
-                     <ComboBox x:Name="SelectDriveForNewPageFileCmb" HorizontalAlignment="Left" Margin="404,91,0,0" VerticalAlignment="Top" Width="154"/>
+                     <ComboBox x:Name="DriveForNewPageFileCmb" HorizontalAlignment="Left" Margin="404,91,0,0" VerticalAlignment="Top" Width="154"/>
                   </Grid>
                </GroupBox>
             </Grid>
