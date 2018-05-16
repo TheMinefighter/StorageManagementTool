@@ -126,9 +126,9 @@
                <Button x:Name="EnOrDisableMonitoredFolderBtn" Content="Button" Margin="0,127,10,0" VerticalAlignment="Top"
                             HorizontalAlignment="Right" Width="209" IsEnabled="False" />
                <Button x:Name="ChangeMonitoredFolderPathBtn" Content="Button" Margin="0,81,10,0" VerticalAlignment="Top"
-                            HorizontalAlignment="Right" Width="209" />
+                            HorizontalAlignment="Right" Width="209" Click="ChangeMonitoredFolderPathBtn_OnClick" />
                <Button x:Name="RemoveMonitoredFolderBtn" Content="Button" Margin="0,152,10,0" VerticalAlignment="Top"
-                            HorizontalAlignment="Right" Width="209" />
+                            HorizontalAlignment="Right" Width="209" Click="RemoveMonitoredFolderBtn_OnClick" />
                <TextBlock x:Name="EnOrDisableMonitoredFolderLbl" HorizontalAlignment="Right" Margin="0,106,170,0" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Top" IsEnabled="False" />
                <Button Content="Button" HorizontalAlignment="Left" Margin="567,366,0,0" VerticalAlignment="Top" Width="209" />

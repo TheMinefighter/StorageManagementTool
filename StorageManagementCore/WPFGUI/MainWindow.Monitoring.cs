@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow
@@ -22,10 +21,7 @@ namespace StorageManagementCore.WPFGUI {
 		{
 			AddMonitoredFolderBtn.IsEnabled = ssdMonitoringEnabled;
 			MonitoredFoldersLb.IsEnabled = ssdMonitoringEnabled;
-			if (ssdMonitoringEnabled)
-			{
-				MonitoredFoldersLb.ItemsSource = _newMonitoringCfg.MonitoredFolders;
-			}
+			MonitoredFoldersLb.ItemsSource = ssdMonitoringEnabled ? _newMonitoringCfg.MonitoredFolders : Enumerable.Empty<Configuration.MonitoredFolder>();
 		}
 
 		private void MonitoredFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -45,8 +41,27 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void AddMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
 		{
-			_newMonitoringCfg.MonitoredFolders.Add(new MonitoredFolder(Backend.FileAndFolder.SelectDirectory("").FullName));
+			//TODO Add desc
+			_newMonitoringCfg.MonitoredFolders.Add(new Configuration.MonitoredFolder(Backend.FileAndFolder.SelectDirectory("").FullName));
+			MonitoredFoldersLb.Items.Refresh();
 			MonitoredFoldersLb.SelectedIndex = _newMonitoringCfg.MonitoredFolders.Count - 1;
+			MonitoredFoldersLb.Focus();
 		}
+
+		private void ChangeMonitoredFolderPathBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			//TODO Add desc
+			_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].TargetPath =
+				Backend.FileAndFolder.SelectDirectory("").FullName;
+			MonitoredFoldersLb.Items.Refresh();
+			MonitoredFoldersLb.Focus();
+      }
+
+		private void RemoveMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			_newMonitoringCfg.MonitoredFolders.RemoveAt(MonitoredFoldersLb.SelectedIndex);
+			MonitoredFoldersLb.Items.Refresh();
+			MonitoredFoldersLb.Focus();
+      }
 	}
 }
