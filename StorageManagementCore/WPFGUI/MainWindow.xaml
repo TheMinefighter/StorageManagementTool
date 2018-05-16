@@ -114,7 +114,7 @@
          </TabItem>
          <TabItem x:Name="MonitoringTi" Header="Monitoring" Loaded="MonitoringTi_OnLoaded" >
             <Grid Background="White">
-               <ListBox x:Name="MonitoredFoldersLb" Margin="10,56,224,30" SelectionChanged="MonitoredFoldersLb_OnSelectionChanged" />
+               <ListBox x:Name="MonitoredFoldersLb" Margin="10,56,224,30" SelectionChanged="MonitoredFoldersLb_OnSelectionChanged"  />
                <!--CheckBox x:Name="ShowHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10"
                               VerticalAlignment="Bottom" Background="#FFFF4040" /-->
                <Button x:Name="AddMonitoredFolderBtn" Content="Button" Margin="0,56,10,0" VerticalAlignment="Top"
@@ -131,21 +131,21 @@
                             HorizontalAlignment="Right" Width="209" Click="RemoveMonitoredFolderBtn_OnClick" />
                <TextBlock x:Name="EnOrDisableMonitoredFolderLbl" HorizontalAlignment="Right" Margin="0,106,170,0" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Top" IsEnabled="False" />
-               <Button Content="Button" HorizontalAlignment="Left" Margin="567,366,0,0" VerticalAlignment="Top" Width="209" />
-               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="567,247,0,0" VerticalAlignment="Top"
+               <Button x:Name="ApplyMonitoringBtn" Content="Button" HorizontalAlignment="Left" Margin="567,366,0,0" VerticalAlignment="Top" Width="209" Click="ApplyMonitoringBtn_OnClick"/>
+               <GroupBox x:Name="MonitoringForDirectoriesGb" Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="567,247,0,0" VerticalAlignment="Top"
                               Width="209">
                   <Grid Margin="0,0,-2,-12">
-                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" />
-                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" />
+                     <RadioButton x:Name="ForDirectoriesIgnore" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MonitoringForDirectories_Changed" />
+                     <RadioButton x:Name="ForDirectoriesAsk" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Click="MonitoringForDirectories_Changed"  />
+                     <RadioButton x:Name="ForDirectoriesMove" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" Click="MonitoringForDirectories_Changed"  />
                   </Grid>
                </GroupBox>
-               <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="567,177,0,0" VerticalAlignment="Top"
+               <GroupBox x:Name="MonitoringForFilesGb" Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="567,177,0,0" VerticalAlignment="Top"
                               Width="209">
                   <Grid Margin="0,0,-2,-12">
-                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" />
-                     <RadioButton Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" />
+                     <RadioButton x:Name="ForFilesIgnoreRb" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MonitoringForFiles_Changed" />
+                     <RadioButton x:Name="ForFilesAskRb" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Click="MonitoringForFiles_Changed" />
+                     <RadioButton x:Name="ForFilesMoveRb" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" Click="MonitoringForFiles_Changed" />
                   </Grid>
                </GroupBox>
             </Grid>

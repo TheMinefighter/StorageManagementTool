@@ -44,7 +44,7 @@ namespace StorageManagementCore.Operation {
 					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
 
-				if (monitoredFolder.ForFolders != MonitoringAction.Ignore) {
+				if (monitoredFolder.ForDirectories != MonitoringAction.Ignore) {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
 					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FolderCreated;
 					tempFileSystemWatcher.NotifyFilter = NotifyFilters.DirectoryName;
@@ -62,7 +62,7 @@ namespace StorageManagementCore.Operation {
 //Multi Lang
 		private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e) {
 			MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
-			switch (tmp.ForFolders) {
+			switch (tmp.ForDirectories) {
 				case MonitoringAction.Ignore:
 					break;
 				case MonitoringAction.Ask:

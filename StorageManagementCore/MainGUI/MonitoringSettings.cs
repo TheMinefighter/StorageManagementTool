@@ -130,7 +130,7 @@ namespace StorageManagementCore.MainGUI {
 		private void AllFolders_lb_SelectedIndexChanged(object sender, EventArgs e) {
 			EnableControls();
 			if (AllFolders_lb.SelectedIndex != -1) {
-				_forFoldersDictionary[_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders].Checked =
+				_forFoldersDictionary[_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForDirectories].Checked =
 					true;
 				_forFilesDictionary[_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles].Checked =
 					true;
@@ -172,7 +172,7 @@ namespace StorageManagementCore.MainGUI {
 
 		private void ForFoldersChanged(object sender, EventArgs e) {
 			if (((RadioButton) sender).Checked) {
-				_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFolders =
+				_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForDirectories =
 					_forFoldersDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
 			}
 		}
