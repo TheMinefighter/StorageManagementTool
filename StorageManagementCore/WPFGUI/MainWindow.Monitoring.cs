@@ -5,11 +5,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using StorageManagementCore.Configuration;
+using  StorageManagementCore.WPFGUI.GlobalizationRessources;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow
 	{
+      private bool _isMonitoringActive;
 		private readonly Dictionary<Configuration.MonitoringAction, RadioButton> _forFilesDictionary =
 			new Dictionary<Configuration.MonitoringAction, RadioButton>();
 
@@ -20,16 +21,32 @@ namespace StorageManagementCore.WPFGUI {
 		private void MonitoringTi_OnLoaded(object sender, RoutedEventArgs e)
 		{
 			_newMonitoringCfg = Session.Singleton.CurrentConfiguration.MonitoringSettings;
-			bool ssdMonitoringEnabled = Operation.SSDMonitoring.SSDMonitoringEnabled();
-			EnOrDisableMonitoringCb.IsChecked = ssdMonitoringEnabled;
-			MonitoringEnOrDisabled(ssdMonitoringEnabled);
-			_forDirectoriesDictionary.Add(Configuration.MonitoringAction.Ask,ForDirectoriesAsk);
-			_forDirectoriesDictionary.Add(Configuration.MonitoringAction.Ignore,ForDirectoriesIgnore);
+			_isMonitoringActive = Operation.SSDMonitoring.SSDMonitoringEnabled();
+			EnOrDisableMonitoringCb.IsChecked = _isMonitoringActive;
+			MonitoringEnOrDisabled(_isMonitoringActive);
+			LoadRadioButtonDictionaries();
+			LocalizeMonitoring();
+		}
+
+		private void LocalizeMonitoring()
+		{
+			ForFilesAskRb.Content = MonitoringSettingsStrings.AskForAction_Text;
+			ForDirectoriesAsk.Content = MonitoringSettingsStrings.AskForAction_Text;
+			ForFilesIgnoreRb.Content = MonitoringSettingsStrings.Ignore_Text;
+			ForDirectoriesIgnore.Content = MonitoringSettingsStrings.Ignore_Text;
+			ForFilesMoveRb.Content = MonitoringSettingsStrings.AutomaticMove_Text;
+			ForDirectoriesMove.Content = MonitoringSettingsStrings.AutomaticMove_Text;
+		}
+
+		private void LoadRadioButtonDictionaries()
+		{
+			_forDirectoriesDictionary.Add(Configuration.MonitoringAction.Ask, ForDirectoriesAsk);
+			_forDirectoriesDictionary.Add(Configuration.MonitoringAction.Ignore, ForDirectoriesIgnore);
 			_forDirectoriesDictionary.Add(Configuration.MonitoringAction.Move, ForDirectoriesMove);
 			_forFilesDictionary.Add(Configuration.MonitoringAction.Ask, ForFilesAskRb);
 			_forFilesDictionary.Add(Configuration.MonitoringAction.Ignore, ForFilesIgnoreRb);
 			_forFilesDictionary.Add(Configuration.MonitoringAction.Move, ForFilesMoveRb);
-      }
+		}
 
 		private void MonitoringEnOrDisabled(bool ssdMonitoringEnabled)
 		{
@@ -86,8 +103,11 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void ApplyMonitoringBtn_OnClick(object sender, RoutedEventArgs e)
 		{
-			Session.Singleton.CurrentConfiguration.MonitoringSettings =_newMonitoringCfg.Clone() as MonitoringConfiguration;
-
+			Session.Singleton.CurrentConfiguration.MonitoringSettings =_newMonitoringCfg.Clone() as Configuration. MonitoringConfiguration;
+			if (_isMonitoringActive!=EnOrDisableMonitoringCb.IsChecked)
+			{
+				Operation.SSDMonitoring.SetSSDMonitoring(EnOrDisableMonitoringCb.IsChecked.Value);
+			}
 		}
 
 		private void MonitoringForFiles_Changed(object sender, RoutedEventArgs e)
