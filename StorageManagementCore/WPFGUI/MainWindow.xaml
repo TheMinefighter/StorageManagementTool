@@ -114,25 +114,23 @@
          </TabItem>
          <TabItem x:Name="MonitoringTi" Header="Monitoring" Loaded="MonitoringTi_OnLoaded" >
             <Grid Background="White">
-               <ListBox x:Name="MonitoredFoldersLb" Margin="10,56,224,30" SelectionChanged="MonitoredFoldersLb_OnSelectionChanged"  />
+               <ListBox x:Name="MonitoredFoldersLb" Margin="10,30,224,30" SelectionChanged="MonitoredFoldersLb_OnSelectionChanged"  />
                <!--CheckBox x:Name="ShowHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10"
                               VerticalAlignment="Bottom" Background="#FFFF4040" /-->
-               <Button x:Name="AddMonitoredFolderBtn" Content="Button" Margin="0,56,10,0" VerticalAlignment="Top"
+               <Button x:Name="AddMonitoredFolderBtn" Content="Button" Margin="0,30,10,0" VerticalAlignment="Top"
                             HorizontalAlignment="Right" Width="209" Click="AddMonitoredFolderBtn_OnClick" />
-               <TextBlock x:Name="EnOrDisableMonitoringLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"
-                               Text="TextBlock" VerticalAlignment="Top" />
-               <CheckBox x:Name="EnOrDisableMonitoringCb" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0"
+               <CheckBox x:Name="EnOrDisableMonitoringCb" Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0"
                             VerticalAlignment="Top" Checked="EnOrDisableMonitoringCb_OnChecked" Unchecked="EnOrDisableMonitoringCb_OnChecked" />
-               <Button x:Name="EnOrDisableMonitoredFolderBtn" Content="Button" Margin="0,127,10,0" VerticalAlignment="Top"
-                            HorizontalAlignment="Right" Width="209" IsEnabled="False" />
-               <Button x:Name="ChangeMonitoredFolderPathBtn" Content="Button" Margin="0,81,10,0" VerticalAlignment="Top"
+               <Button x:Name="EnOrDisableMonitoredFolderBtn" Content="Button" Margin="0,342,10,0" VerticalAlignment="Top"
+                            HorizontalAlignment="Right" Width="209" IsEnabled="False" Visibility="Hidden" />
+               <Button x:Name="ChangeMonitoredFolderPathBtn" Content="Button" Margin="0,55,10,0" VerticalAlignment="Top"
                             HorizontalAlignment="Right" Width="209" Click="ChangeMonitoredFolderPathBtn_OnClick" />
-               <Button x:Name="RemoveMonitoredFolderBtn" Content="Button" Margin="0,152,10,0" VerticalAlignment="Top"
+               <Button x:Name="RemoveMonitoredFolderBtn" Content="Button" Margin="0,105,10,0" VerticalAlignment="Top"
                             HorizontalAlignment="Right" Width="209" Click="RemoveMonitoredFolderBtn_OnClick" />
-               <TextBlock x:Name="EnOrDisableMonitoredFolderLbl" HorizontalAlignment="Right" Margin="0,106,170,0" TextWrapping="Wrap"
-                               Text="TextBlock" VerticalAlignment="Top" IsEnabled="False" />
-               <Button x:Name="ApplyMonitoringBtn" Content="Button" HorizontalAlignment="Left" Margin="567,366,0,0" VerticalAlignment="Top" Width="209" Click="ApplyMonitoringBtn_OnClick"/>
-               <GroupBox x:Name="MonitoringForDirectoriesGb" Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="567,247,0,0" VerticalAlignment="Top"
+               <TextBlock x:Name="EnOrDisableMonitoredFolderLbl" HorizontalAlignment="Right" Margin="0,321,169,0" TextWrapping="Wrap"
+                               Text="TextBlock" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden" />
+               <Button x:Name="ApplyMonitoringBtn" Content="Button" HorizontalAlignment="Left" Margin="567,390,0,0" VerticalAlignment="Top" Width="209" Click="ApplyMonitoringBtn_OnClick"/>
+               <GroupBox x:Name="MonitoringForDirectoriesGb" Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="568,200,0,0" VerticalAlignment="Top"
                               Width="209">
                   <Grid Margin="0,0,-2,-12">
                      <RadioButton x:Name="ForDirectoriesIgnore" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MonitoringForDirectories_Changed" />
@@ -140,7 +138,7 @@
                      <RadioButton x:Name="ForDirectoriesMove" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" Click="MonitoringForDirectories_Changed"  />
                   </Grid>
                </GroupBox>
-               <GroupBox x:Name="MonitoringForFilesGb" Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="567,177,0,0" VerticalAlignment="Top"
+               <GroupBox x:Name="MonitoringForFilesGb" Header="GroupBox" HorizontalAlignment="Left" Height="65" Margin="567,130,0,0" VerticalAlignment="Top"
                               Width="209">
                   <Grid Margin="0,0,-2,-12">
                      <RadioButton x:Name="ForFilesIgnoreRb" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MonitoringForFiles_Changed" />
@@ -148,6 +146,7 @@
                      <RadioButton x:Name="ForFilesMoveRb" Content="RadioButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" Click="MonitoringForFiles_Changed" />
                   </Grid>
                </GroupBox>
+               <Button x:Name="OpenMonitoredFolderBtn" Content="Button" HorizontalAlignment="Left" Margin="567,80,0,0" VerticalAlignment="Top" Width="209" Click="OpenMonitoredFolderBtn_OnClick" />
             </Grid>
          </TabItem>
          <TabItem x:Name="PagefilesTi" Header="Pagefiles" Loaded="PagefilesTi_OnLoaded" Selector.Selected="PagefilesTi_OnSelected">

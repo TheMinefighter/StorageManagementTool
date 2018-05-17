@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +28,7 @@ namespace StorageManagementCore.WPFGUI {
 			MonitoringEnOrDisabled(_isMonitoringActive);
 			LoadRadioButtonDictionaries();
 			LocalizeMonitoring();
+			DisableDueSelection(false);
 		}
 
 		private void LocalizeMonitoring()
@@ -36,6 +39,11 @@ namespace StorageManagementCore.WPFGUI {
 			ForDirectoriesIgnore.Content = MonitoringSettingsStrings.Ignore_Text;
 			ForFilesMoveRb.Content = MonitoringSettingsStrings.AutomaticMove_Text;
 			ForDirectoriesMove.Content = MonitoringSettingsStrings.AutomaticMove_Text;
+			AddMonitoredFolderBtn.Content = MonitoringSettingsStrings.AddFolder_btn_Text;
+			ChangeMonitoredFolderPathBtn.Content = MonitoringSettingsStrings.ChangeFolder_btn_Text;
+			RemoveMonitoredFolderBtn.Content = MonitoringSettingsStrings.RemoveSelectedFolder_btn_Text;
+			ApplyMonitoringBtn.Content = MonitoringSettingsStrings.SaveSettings_btn_Text;
+			EnOrDisableMonitoringCb.Content = MonitoringSettingsStrings.EnableNotifications_cb_Text;
 		}
 
 		private void LoadRadioButtonDictionaries()
@@ -55,17 +63,28 @@ namespace StorageManagementCore.WPFGUI {
 			MonitoredFoldersLb.ItemsSource = ssdMonitoringEnabled ? _newMonitoringCfg.MonitoredFolders : Enumerable.Empty<Configuration.MonitoredFolder>();
 		}
 
-		private void MonitoredFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
-			if (MonitoredFoldersLb.SelectedIndex==-1) {
-				
-			}
-			else
+		private void MonitoredFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			bool somethingSelected = MonitoredFoldersLb.SelectedIndex != -1;
+			if (somethingSelected)
 			{
-				_forFilesDictionary[_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForFiles].IsChecked = true;
+				_forFilesDictionary[_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForFiles]
+					.IsChecked = true;
 
-				_forDirectoriesDictionary[_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForDirectories].IsChecked = true;
-         }
+				_forDirectoriesDictionary[
+					_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForDirectories].IsChecked = true;
+			}
+
+			DisableDueSelection(somethingSelected);
 		}
+
+		private void DisableDueSelection(bool somethingSelected)
+		{
+			RemoveMonitoredFolderBtn.IsEnabled = somethingSelected;
+			ChangeMonitoredFolderPathBtn.IsEnabled = somethingSelected;
+			OpenMonitoredFolderBtn.IsEnabled = somethingSelected;
+		}
+
 		//public class DisplayableMonitoredFolder
 		//{
 		//	public string Message { get; set; }
@@ -121,5 +140,10 @@ namespace StorageManagementCore.WPFGUI {
 			_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForDirectories =
 				_forDirectoriesDictionary.First(x => x.Value.IsChecked == true).Key;
       }
+
+		private void OpenMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			Backend.FileAndFolder.OpenFolder(new DirectoryInfo(MonitoredFoldersLb.SelectedItem as string));
+		}
 	}
 }
