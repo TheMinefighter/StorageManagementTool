@@ -4,6 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
+	/// <inheritdoc />
 	/// <summary>
 	///  Container for all settings for SSD Monitoring
 	/// </summary>

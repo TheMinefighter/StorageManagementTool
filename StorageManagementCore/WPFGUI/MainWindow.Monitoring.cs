@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow
@@ -85,7 +86,8 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void ApplyMonitoringBtn_OnClick(object sender, RoutedEventArgs e)
 		{
-			
+			Session.Singleton.CurrentConfiguration.MonitoringSettings =_newMonitoringCfg.Clone() as MonitoringConfiguration;
+
 		}
 
 		private void MonitoringForFiles_Changed(object sender, RoutedEventArgs e)
