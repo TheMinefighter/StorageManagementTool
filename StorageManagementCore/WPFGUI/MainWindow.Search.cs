@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using StorageManagementCore.WPFGUI.GlobalizationRessources;
 
 namespace StorageManagementCore.WPFGUI {
@@ -35,6 +37,10 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void SelectNewSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
 			NewSearchPathTb.Text = Backend.FileAndFolder.SelectDirectory().FullName;
+		}
+
+		private void NewSearchPathTb_OnTextChanged(object sender, TextChangedEventArgs e) {
+			NewSearchPathTb.Background = Directory.Exists(NewSearchPathTb.Text) ? Brushes.White : Brushes.DarkOrange;
 		}
 	}
 }
