@@ -60,11 +60,11 @@
                     <TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,193,0" TextWrapping="Wrap" Text="TextBox"
                              VerticalAlignment="Top" IsReadOnly="True" />
                     <TextBlock x:Name="CurrentShellFolderPathLbl" HorizontalAlignment="Left" Margin="217,10,0,0" TextWrapping="Wrap"
-                               Text="TextBlock" VerticalAlignment="Top" />
+                               VerticalAlignment="Top" />
                     <Button x:Name="OpenCurrentShellFolderPathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0"
                             VerticalAlignment="Top" Width="178" Click="OpenCurrentShellFolderPathBtn_OnClick" />
                     <TextBlock HorizontalAlignment="Left" Margin="217,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
-                    <TextBox x:Name="NewShellFolderPathTb" Height="20" Margin="217,77,193,0" TextWrapping="Wrap" Text="TextBox"
+                    <TextBox x:Name="NewShellFolderPathTb" Height="20" Margin="217,77,193,0" TextWrapping="Wrap"
                              VerticalAlignment="Top" IsEnabled="False" />
                     <Button Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0" VerticalAlignment="Top" Width="178"
                             IsEnabled="False" />
@@ -81,13 +81,13 @@
             </TabItem>
             <TabItem x:Name="SearchTi" Header="Search" Loaded="SearchTi_OnLoaded" Selector.Selected="SearchTi_OnSelected">
                 <Grid Background="White">
-                    <Button x:Name="OpenCurrentSearchPathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0"
+                    <Button x:Name="OpenCurrentSearchDirectoryBtn" Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0"
                             VerticalAlignment="Top" Width="129"
-                            RenderTransformOrigin="0.533,2.95" Click="OpenCurrentSearchPathBtn_OnClick" />
+                            RenderTransformOrigin="0.533,2.95" Click="OpenCurrentSearchDirectoryBtn_OnClick" />
                     <TextBox x:Name="CurrentSearchPathTb" Height="20" Margin="10,31,144,0" TextWrapping="Wrap" Text="TextBox"
                              VerticalAlignment="Top"
                              RenderTransformOrigin="0.5,0.5" IsReadOnly="True" />
-                    <TextBlock x:Name="CurrentSearchPathLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"
+                    <TextBlock x:Name="CurrentSearchDirectoryLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Top" />
                     <Button x:Name="SelectNewSearchDirectoryBtn" Content="Button" HorizontalAlignment="Right" Margin="0,77,10,0"
                             VerticalAlignment="Top" Width="129" Click="SelectNewSearchDirectoryBtn_OnClick"

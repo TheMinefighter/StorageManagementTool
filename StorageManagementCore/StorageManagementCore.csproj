@@ -212,7 +212,7 @@
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.Designer.cs" />
+    <Compile Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\MainWindowStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs" />
@@ -386,9 +386,9 @@
     <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.de-DE.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.de-DE.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.en-US.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.resx" />
