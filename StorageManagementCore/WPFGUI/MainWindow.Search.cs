@@ -12,6 +12,12 @@ namespace StorageManagementCore.WPFGUI {
 				_searchTiOpened = true;
 				if (!Session.Singleton.IsAdmin) {
 					//TODO Warning
+					ApplySearchPathBtn.IsEnabled = false;
+				}
+				else {
+					if (Operation.OperatingMethods.GetSearchDataPath(out DirectoryInfo path)) {
+						CurrentSearchPathTb.Text = path.FullName;
+					}
 				}
 			}
 		}
