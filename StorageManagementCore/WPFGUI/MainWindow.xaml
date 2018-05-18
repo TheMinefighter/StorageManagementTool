@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="489" Width="800" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
+        Title="StorageManagementTool" Height="489" Width="800" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
         Loaded="Window_Loaded">
    <Grid RenderTransformOrigin="0.5,0.5">
       <Grid.RenderTransform>
@@ -80,9 +80,9 @@
          </TabItem>
          <TabItem x:Name="SearchTi" Header="Search" Loaded="SearchTi_OnLoaded" Selector.Selected="SearchTi_OnSelected">
             <Grid Background="White">
-               <Button Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Width="129"
-                            RenderTransformOrigin="0.533,2.95" />
-               <TextBox Height="20" Margin="10,31,144,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"
+               <Button x:Name="OpenCurrentSearchPathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Width="129"
+                            RenderTransformOrigin="0.533,2.95" Click="OpenCurrentSearchPathBtn_OnClick" />
+               <TextBox x:Name="CurrentSearchPathTb" Height="20" Margin="10,31,144,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"
                              RenderTransformOrigin="0.5,0.5" IsReadOnly="True">
                   <TextBox.RenderTransform>
                      <TransformGroup>
@@ -93,10 +93,10 @@
                      </TransformGroup>
                   </TextBox.RenderTransform>
                </TextBox>
-               <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
-               <Button Content="Button" HorizontalAlignment="Right" Margin="0,77,10,0" VerticalAlignment="Top" Width="129"
+               <TextBlock x:Name="CurrentSearchPathLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
+               <Button x:Name="SelectNewSearchDirectorybtn" Content="Button" HorizontalAlignment="Right" Margin="0,77,10,0" VerticalAlignment="Top" Width="129"
                             RenderTransformOrigin="0.133,0.65" />
-               <TextBox Height="20" Margin="10,77,144,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"
+               <TextBox x:Name="NewSearchPathTb" Height="20" Margin="10,77,144,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"
                              RenderTransformOrigin="0.5,0.5">
                   <TextBox.RenderTransform>
                      <TransformGroup>
@@ -107,8 +107,8 @@
                      </TransformGroup>
                   </TextBox.RenderTransform>
                </TextBox>
-               <TextBlock HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
-               <Button Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="286"
+               <TextBlock x:Name="NewSearchPathLbl" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
+               <Button x:Name="ApplySearchPathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="286"
                             RenderTransformOrigin="0.133,0.65" />
             </Grid>
          </TabItem>

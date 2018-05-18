@@ -19,5 +19,10 @@ namespace StorageManagementCore.WPFGUI {
 
 
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+
+		private void OpenCurrentSearchPathBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
