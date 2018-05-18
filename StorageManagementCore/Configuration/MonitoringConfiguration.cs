@@ -8,7 +8,7 @@ namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Container for all settings for SSD Monitoring
 	/// </summary>
-	public class MonitoringConfiguration: ICloneable {
+	public class MonitoringConfiguration : ICloneable {
 		/// <summary>
 		///  The MonitoredFolders configured in this MonitoringSetting
 		/// </summary>
@@ -19,11 +19,11 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public MonitoringConfiguration() => MonitoredFolders = new List<MonitoredFolder>();
 
+		public object Clone() {
+			return new MonitoringConfiguration {MonitoredFolders = MonitoredFolders.Select(x => x.Clone()).Cast<MonitoredFolder>().ToList()};
+		}
+
 
 		public override string ToString() => JsonConvert.SerializeObject(this);
-		public object Clone()
-		{
-			return new MonitoringConfiguration(){MonitoredFolders = MonitoredFolders.Select(x=>x.Clone()).Cast<MonitoredFolder>().ToList()};
-		}
 	}
 }

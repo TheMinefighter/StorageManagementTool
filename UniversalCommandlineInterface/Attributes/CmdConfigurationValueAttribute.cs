@@ -8,7 +8,8 @@ namespace UniversalCommandlineInterface.Attributes {
 		public bool IsReadonly;
 
 
-		public CmdConfigurationValueAttribute(Predicate<string> test, string help = null, string extendedHelp = null, bool isReadonly = false) {
+		public CmdConfigurationValueAttribute(Predicate<string> test, string help = null, string extendedHelp = null,
+			bool isReadonly = false) {
 			IsReadonly = isReadonly;
 			Help = help;
 			ExtendedHelp = extendedHelp;

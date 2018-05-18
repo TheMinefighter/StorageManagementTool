@@ -13,22 +13,22 @@
 		public static void DisposeCredentials() {
 			_forAdmin.Dispose();
 			_forStandard.Dispose();
-			_forAdmin= new Credentials();
-			_forStandard= new Credentials();
+			_forAdmin = new Credentials();
+			_forStandard = new Credentials();
 		}
-		
+
 		public static (bool?, string) GetStoredCredentials() {
-			if (_forStandard.Username==null) {
+			if (_forStandard.Username == null) {
 				return (null, null);
 			}
 
-			if (_forAdmin.Username==null) {
+			if (_forAdmin.Username == null) {
 				return (false, _forStandard.Username);
-				}
+			}
 
 			return (true, _forAdmin.Username);
-
 		}
+
 		/// <summary>
 		///  Gives credentials meeting specified requirements
 		/// </summary>

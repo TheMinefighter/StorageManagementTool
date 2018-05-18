@@ -223,7 +223,8 @@ namespace StorageManagementCore.Backend {
 			bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser = false) => ExecuteExecuteable(
 				                                                                                                  Path.Combine(
 					                                                                                                  Environment.GetFolderPath(
-						                                                                                                  Environment.SpecialFolder
+						                                                                                                  Environment
+							                                                                                                  .SpecialFolder
 							                                                                                                  .System),
 					                                                                                                  @"cmd.exe"),
 				                                                                                                  (debug ? "/K " : "/C ") + cmd,
@@ -283,7 +284,8 @@ namespace StorageManagementCore.Backend {
 		/// </summary>
 		/// <param name="name">The name of the user</param>
 		/// <returns>Whether the username exists</returns>
-		public static bool IsUser(string name) => UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
+		public static bool IsUser(string name) =>
+			UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
 
 		/// <summary>
 		///  Checks whether a given user is a local administrator
@@ -327,6 +329,7 @@ namespace StorageManagementCore.Backend {
 		/// <returns>The local PrincipalContext</returns>
 
 		#region Based upon https://stackoverflow.com/a/3681442/6730162 last access 18.02.2018
+
 		private static PrincipalContext GetPrincipalContext() {
 			return new PrincipalContext(ContextType.Machine);
 		}
@@ -341,6 +344,7 @@ namespace StorageManagementCore.Backend {
 		/// <returns>Whether the invokation of the commands were successful</returns>
 
 		#region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
+
 		public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command) {
 			ret = new[] {""};
 			IEnumerable<PSObject> returned;

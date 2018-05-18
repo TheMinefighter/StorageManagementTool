@@ -1,20 +1,19 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Contains information about a folder, which should be monitored
 	/// </summary>
-	public class MonitoredFolder :ICloneable {
-		/// <summary>
-		///  The MonitoringAction to execute for new files
-		/// </summary>
-		public MonitoringAction ForFiles;
-
+	public class MonitoredFolder : ICloneable {
 		/// <summary>
 		///  The MonitoringAction to execute for new folders
 		/// </summary>
 		public MonitoringAction ForDirectories;
+
+		/// <summary>
+		///  The MonitoringAction to execute for new files
+		/// </summary>
+		public MonitoringAction ForFiles;
 
 		/// <summary>
 		///  The target path of this MonitoredFolder
@@ -33,11 +32,9 @@ namespace StorageManagementCore.Configuration {
 			ForDirectories = MonitoringAction.Ask;
 		}
 
+		public object Clone() => new MonitoredFolder {ForDirectories = ForDirectories, ForFiles = ForFiles, TargetPath = TargetPath};
+
 
 		public override string ToString() => TargetPath;
-		public object Clone()
-		{
-			return new MonitoredFolder(){ForDirectories = ForDirectories,ForFiles = ForFiles,TargetPath = TargetPath};
-		}
 	}
 }

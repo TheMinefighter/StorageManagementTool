@@ -7,9 +7,7 @@ namespace StorageManagementCore.WPFGUI {
 	///  Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
-		public MainWindow()
-		{
-
+		public MainWindow() {
 			InitializeComponent();
 		}
 
@@ -19,10 +17,5 @@ namespace StorageManagementCore.WPFGUI {
 
 
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-
-		private void OpenCurrentSearchPathBtn_OnClick(object sender, RoutedEventArgs e)
-		{
-			throw new System.NotImplementedException();
-		}
 	}
 }
