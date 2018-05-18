@@ -126,6 +126,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 			return false;
 		}
 
-		internal override bool Interpret(bool printErrors = true) => Interpret(out ContextInterpreter _, printErrors, false);
+		internal override bool Interpret(bool printErrors = true) => Interpret(out ContextInterpreter _, printErrors);
 	}
 }

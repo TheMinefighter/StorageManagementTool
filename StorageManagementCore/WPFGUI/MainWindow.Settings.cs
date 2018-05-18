@@ -20,7 +20,7 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void EnOrDisableSendToHDDCb_OnChecked(object sender, RoutedEventArgs e) {
 			if (HDDPathValid()) {
-				OperatingMethods.EnableSendToHDD(true);
+				OperatingMethods.EnableSendToHDD();
 			}
 			else {
 				//TODO throw message

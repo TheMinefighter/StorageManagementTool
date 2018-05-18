@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Windows;
-using StorageManagementCore.Backend;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
@@ -18,11 +17,11 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void OpenCurrentSearchPathBtn_OnClick(object sender, RoutedEventArgs e) {
-			FileAndFolder.OpenFolder(new DirectoryInfo(CurrentSearchPathTb.Text));
+			Backend.FileAndFolder.OpenFolder(new DirectoryInfo(CurrentSearchPathTb.Text));
 		}
 
 		private void SelectNewSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
-			throw new System.NotImplementedException();
+			NewSearchPathTb.Text = Backend.FileAndFolder.SelectDirectory().FullName;
 		}
 	}
 }

@@ -22,12 +22,12 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
-			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectDirectories("").Select(x => x.FullName));
+			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectDirectories().Select(x => x.FullName));
 			SuggestionsLb.UnselectAll();
 		}
 
 		private void SelectFilesToMoveBtn_OnClick(object sender, RoutedEventArgs e) {
-			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectFiles("").Select(x => x.FullName));
+			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectFiles().Select(x => x.FullName));
 			SuggestionsLb.UnselectAll();
 		}
 
@@ -42,7 +42,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void SelectBasePathBtn_Click(object sender, RoutedEventArgs e) {
-			BasePathTb.Text = FileAndFolder.SelectDirectory("").FullName;
+			BasePathTb.Text = FileAndFolder.SelectDirectory().FullName;
 		}
 
 		private void SetBasePathConfigBtn_Click(object sender, RoutedEventArgs e) {

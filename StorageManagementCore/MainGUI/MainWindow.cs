@@ -86,7 +86,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void OpenSelectedFolder_btn_Click(object sender, EventArgs e) {
-			Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, FolderToMove_tb.Text, false, false, false);
+			Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, FolderToMove_tb.Text);
 		}
 
 		private void RestartAsAdministartor_btn_Click(object sender, EventArgs e) {

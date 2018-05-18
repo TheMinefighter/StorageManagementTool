@@ -109,7 +109,7 @@ namespace StorageManagementCore.MainGUI {
 		private void OpenSelectedfolder_btn_Click(object sender, EventArgs e) {
 			Wrapper.ExecuteExecuteable(
 				Wrapper.ExplorerPath,
-				(string) AllFolders_lb.SelectedItem, false, false, false);
+				(string) AllFolders_lb.SelectedItem);
 		}
 
 		private void RemoveSelectedFolder_btn_Click(object sender, EventArgs e) {

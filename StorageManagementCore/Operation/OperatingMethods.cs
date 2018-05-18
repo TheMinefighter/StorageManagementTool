@@ -212,7 +212,7 @@ namespace StorageManagementCore.Operation {
 
 			if (Wrapper.ExecuteExecuteable(
 				wmicPath, "computersystem get AutomaticManagedPagefile /Value"
-				, out string[] tmp, out int _, out int _, true, true, true, true, false)) //Tests
+				, out string[] tmp, out int _, out int _, true, true, true, true)) //Tests
 			{
 				if (bool.Parse(tmp[2].Split('=')[1])) {
 					Wrapper.ExecuteCommand(

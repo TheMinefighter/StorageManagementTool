@@ -154,7 +154,7 @@ namespace StorageManagementCore.Backend {
 					"%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs"),
 				CommonUSF(UserShellFolderStrings.Common_Templates_Name, "Common Templates", "%PROGRAMDATA%\\Microsoft\\Windows\\Templates"),
 				CommonUSF(UserShellFolderStrings.Common_Start_Menu_Name, "Common Start Menu", "%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu"),
-				CommonUSF(UserShellFolderStrings.OEM_Links_Name, "OEM Links", "%PROGRAMDATA%\\OEM\\Links", false, true, true),
+				CommonUSF(UserShellFolderStrings.OEM_Links_Name, "OEM Links", "%PROGRAMDATA%\\OEM\\Links", false),
 				CommonUSF(UserShellFolderStrings.Common_Administrative_Tools_Name, "Common Administrative Tools",
 					"%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Administartive Tools", false),
 				//TODO Add all CLSID Paths
