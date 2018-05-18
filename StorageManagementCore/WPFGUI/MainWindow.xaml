@@ -86,37 +86,19 @@
                             RenderTransformOrigin="0.533,2.95" Click="OpenCurrentSearchPathBtn_OnClick" />
                     <TextBox x:Name="CurrentSearchPathTb" Height="20" Margin="10,31,144,0" TextWrapping="Wrap" Text="TextBox"
                              VerticalAlignment="Top"
-                             RenderTransformOrigin="0.5,0.5" IsReadOnly="True">
-                        <TextBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleY="1" ScaleX="1" />
-                                <SkewTransform AngleY="0" AngleX="0" />
-                                <RotateTransform Angle="0" />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </TextBox.RenderTransform>
-                    </TextBox>
+                             RenderTransformOrigin="0.5,0.5" IsReadOnly="True" />
                     <TextBlock x:Name="CurrentSearchPathLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Top" />
-                    <Button x:Name="SelectNewSearchDirectorybtn" Content="Button" HorizontalAlignment="Right" Margin="0,77,10,0"
-                            VerticalAlignment="Top" Width="129"
+                    <Button x:Name="SelectNewSearchDirectoryBtn" Content="Button" HorizontalAlignment="Right" Margin="0,77,10,0"
+                            VerticalAlignment="Top" Width="129" Click="SelectNewSearchDirectoryBtn_OnClick"
                             RenderTransformOrigin="0.133,0.65" />
                     <TextBox x:Name="NewSearchPathTb" Height="20" Margin="10,77,144,0" TextWrapping="Wrap" Text="TextBox"
                              VerticalAlignment="Top"
-                             RenderTransformOrigin="0.5,0.5">
-                        <TextBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleY="1" ScaleX="1" />
-                                <SkewTransform AngleY="0" AngleX="0" />
-                                <RotateTransform Angle="0" />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </TextBox.RenderTransform>
-                    </TextBox>
+                             RenderTransformOrigin="0.5,0.5" />
                     <TextBlock x:Name="NewSearchPathLbl" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock"
                                VerticalAlignment="Top" />
                     <Button x:Name="ApplySearchPathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10"
-                            VerticalAlignment="Bottom" Width="286"
+                            VerticalAlignment="Bottom" Width="286" Click="ApplySearchPathBtn_OnClick"
                             RenderTransformOrigin="0.133,0.65" />
                 </Grid>
             </TabItem>

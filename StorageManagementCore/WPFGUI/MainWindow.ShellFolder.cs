@@ -63,5 +63,9 @@ namespace StorageManagementCore.WPFGUI {
 				}
 			}
 		}
+
+		private void ApplySearchPathBtn_OnClick(object sender, RoutedEventArgs e) {
+			throw new System.NotImplementedException();
+		}
 	}
 }
