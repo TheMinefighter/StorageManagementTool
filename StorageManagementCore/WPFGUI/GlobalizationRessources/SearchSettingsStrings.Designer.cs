@@ -19,10 +19,10 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SearchSettingsStrings {
+    internal class SearchSettingsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationRessources.SearchSettingsStrings", typeof(SearchSettingsStrings).Assembly);
@@ -51,7 +51,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Abort_btn_Text {
+        internal static string Abort_btn_Text {
             get {
                 return ResourceManager.GetString("Abort_btn_Text", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CurrentLocation_lbl_Text {
+        internal static string CurrentLocation_lbl_Text {
             get {
                 return ResourceManager.GetString("CurrentLocation_lbl_Text", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Error {
+        internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string NewPath_lbl_Text {
+        internal static string NewPath_lbl_Text {
             get {
                 return ResourceManager.GetString("NewPath_lbl_Text", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OpenCurrentPath_btn_Text {
+        internal static string OpenCurrentPath_btn_Text {
             get {
                 return ResourceManager.GetString("OpenCurrentPath_btn_Text", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OpenNewPath_btn_Text {
+        internal static string OpenNewPath_btn_Text {
             get {
                 return ResourceManager.GetString("OpenNewPath_btn_Text", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string RefreshCurrentPath_btn_Text {
+        internal static string RefreshCurrentPath_btn_Text {
             get {
                 return ResourceManager.GetString("RefreshCurrentPath_btn_Text", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SaveSettings_btn_Text {
+        internal static string SaveSettings_btn_Text {
             get {
                 return ResourceManager.GetString("SaveSettings_btn_Text", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SelectNewPath_btn_Text {
+        internal static string SelectNewPath_btn_Text {
             get {
                 return ResourceManager.GetString("SelectNewPath_btn_Text", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SetSearchDataPath_RestartErrorService {
+        internal static string SetSearchDataPath_RestartErrorService {
             get {
                 return ResourceManager.GetString("SetSearchDataPath_RestartErrorService", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string SetSearchDataPath_RestartNoAdmin {
+        internal static string SetSearchDataPath_RestartNoAdmin {
             get {
                 return ResourceManager.GetString("SetSearchDataPath_RestartNoAdmin", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ShowFurtherSettings_btn_Text {
+        internal static string ShowFurtherSettings_btn_Text {
             get {
                 return ResourceManager.GetString("ShowFurtherSettings_btn_Text", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string WindowTitle {
+        internal static string WindowTitle {
             get {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
             }

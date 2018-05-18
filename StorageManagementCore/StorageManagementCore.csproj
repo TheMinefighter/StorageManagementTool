@@ -212,12 +212,16 @@
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\MainWindowStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.Designer.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.Designer.cs" />
+    <Compile Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchSettingsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.Designer.cs" />
     <Compile Include="WPFGUI\MainWindow.About.cs" />
     <Compile Include="WPFGUI\MainWindow.Monitoring.cs" />
@@ -388,7 +392,10 @@
     <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SearchSettingsStrings.Designer.cs</LastGenOutput>
+    </Content>
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.resx" />
