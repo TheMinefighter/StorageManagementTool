@@ -219,4 +219,7 @@
   <data name="IsPathAbsoluteCbText" xml:space="preserve">
     <value>Absoluten Pfad nutzen</value>
   </data>
+  <data name="RootPathLblText" xml:space="preserve">
+    <value>Zielpfad</value>
+  </data>
 </root>

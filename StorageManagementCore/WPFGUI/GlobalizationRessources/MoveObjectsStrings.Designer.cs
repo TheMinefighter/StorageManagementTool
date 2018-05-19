@@ -333,6 +333,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string RootPathLblText {
+            get {
+                return ResourceManager.GetString("RootPathLblText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SetHDDPathAsDefault_btn_Text {
             get {
                 return ResourceManager.GetString("SetHDDPathAsDefault_btn_Text", resourceCulture);

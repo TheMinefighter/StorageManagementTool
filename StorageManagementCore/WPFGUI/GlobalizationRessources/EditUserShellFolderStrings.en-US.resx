@@ -165,4 +165,7 @@
   <data name="Closing_WantRestart_Title" xml:space="preserve">
     <value>Restart?</value>
   </data>
+  <data name="GenerateNewPathCbText" xml:space="preserve">
+    <value>Generate new path</value>
+  </data>
 </root>

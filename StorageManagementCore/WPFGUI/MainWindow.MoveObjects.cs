@@ -6,10 +6,11 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-using StorageManagementCore.WPFGUI.GlobalizationRessources;
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.MoveObjectsStrings;
 
-namespace StorageManagementCore.WPFGUI {
-	public partial class MainWindow {
+namespace StorageManagementCore.WPFGUI
+{
+   public partial class MainWindow {
 		private void MoveFileOrFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
 			LocalizeMoveObjects();
 			SuggestionsLb.Items.Clear();
@@ -17,11 +18,14 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void LocalizeMoveObjects() {
-			SelectFilesToMoveBtn.Content = MoveObjectsStrings.FileToMove_btn_Text;
-			SelectFoldersToMoveBtn.Content = MoveObjectsStrings.FolderToMove_btn_Text;
-			//ObjectsToMoveLbl.Text=MainWindowStrings
-
-      }
+			SelectFilesToMoveBtn.Content = FileToMove_btn_Text;
+			SelectFoldersToMoveBtn.Content = FolderToMove_btn_Text;
+			ObjectsToMoveLbl.Text = ObjectsToMoveLblText;
+			IsMoveObjectsRootPathAbsoluteCb.Content = IsPathAbsoluteCbText;
+			SelectMoveObjectsRootPathBtn.Content = SetRootPath_btn_Text;
+			MoveObjectsRootPathLbl.Text = RootPathLblText;
+			SetRootPathConfigBtn.Content = SetHDDPathAsDefault_btn_Text;
+		}
 
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
 			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectDirectories().Select(x => x.FullName));
@@ -39,26 +43,26 @@ namespace StorageManagementCore.WPFGUI {
 				: Brushes.DarkOrange;
 		}
 
-		private void BasePathTb_TextChanged(object sender, TextChangedEventArgs e) {
-			BasePathTb.Background = Directory.Exists(BasePathTb.Text) ? Brushes.White : Brushes.DarkOrange;
+		private void RootPathTb_TextChanged(object sender, TextChangedEventArgs e) {
+			MoveObjectsRootPathTb.Background = Directory.Exists(MoveObjectsRootPathTb.Text) ? Brushes.White : Brushes.DarkOrange;
 		}
 
-		private void SelectBasePathBtn_Click(object sender, RoutedEventArgs e) {
-			BasePathTb.Text = FileAndFolder.SelectDirectory().FullName;
+		private void SelectRootPathBtn_Click(object sender, RoutedEventArgs e) {
+			MoveObjectsRootPathTb.Text = FileAndFolder.SelectDirectory().FullName;
 		}
 
-		private void SetBasePathConfigBtn_Click(object sender, RoutedEventArgs e) {
-			if (IsBasePathAbsoluteCb.IsChecked == false) {
-				SetBasePathChecked();
+		private void SetRootPathConfigBtn_Click(object sender, RoutedEventArgs e) {
+			if (IsMoveObjectsRootPathAbsoluteCb.IsChecked == false) {
+				SetRootPathChecked();
 			}
 			else {
 				//TODO Cannot Absolute
 			}
 		}
 
-		private void SetBasePathChecked() {
-			if (Directory.Exists(BasePathTb.Text)) {
-				Session.Singleton.CurrentConfiguration.DefaultHDDPath = BasePathTb.Text;
+		private void SetRootPathChecked() {
+			if (Directory.Exists(MoveObjectsRootPathTb.Text)) {
+				Session.Singleton.CurrentConfiguration.DefaultHDDPath = MoveObjectsRootPathTb.Text;
 			}
 			else {
 				//TODO Throw not available
@@ -66,11 +70,11 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void MoveObjectsBtn_Click(object sender, RoutedEventArgs e) {
-			if (!Directory.Exists(BasePathTb.Text)) {
+			if (!Directory.Exists(MoveObjectsRootPathTb.Text)) {
 				//TODO Throw
 			}
 
-			if (IsBasePathAbsoluteCb.IsChecked == true) {
+			if (IsMoveObjectsRootPathAbsoluteCb.IsChecked == true) {
 				if (PathsToMoveTb.Text.Contains(';')) {
 					//TODO Not available
 				}
@@ -82,10 +86,10 @@ namespace StorageManagementCore.WPFGUI {
 						break;
 					case FileAndFolder.FileOrFolder.File:
 						FileInfo fileToMove = new FileInfo(PathsToMoveTb.Text);
-						OperatingMethods.MoveFile(fileToMove, new FileInfo(Path.Combine(BasePathTb.Text, fileToMove.Name)));
+						OperatingMethods.MoveFile(fileToMove, new FileInfo(Path.Combine(MoveObjectsRootPathTb.Text, fileToMove.Name)));
 						break;
 					case FileAndFolder.FileOrFolder.Folder:
-						OperatingMethods.MoveFolder(new DirectoryInfo(PathsToMoveTb.Text), new DirectoryInfo(BasePathTb.Text));
+						OperatingMethods.MoveFolder(new DirectoryInfo(PathsToMoveTb.Text), new DirectoryInfo(MoveObjectsRootPathTb.Text));
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
@@ -104,7 +108,7 @@ namespace StorageManagementCore.WPFGUI {
 							OperatingMethods.MoveFile(fileToMove, new FileInfo(s), true);
 							break;
 						case FileAndFolder.FileOrFolder.Folder:
-							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(BasePathTb.Text), true);
+							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(MoveObjectsRootPathTb.Text), true);
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
@@ -113,14 +117,8 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
-//		private IEnumerator iEnumerator;
 		private void SuggestionsLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
 			if (SuggestionsLb.SelectedItems.Count != 0) {
-//			iEnumerator = SuggestionsLb.SelectedItems.GetEnumerator();
-//				iEnumerator.MoveNext();
-//			MessageBox.Show(iEnumerator.ToString());
-//				object test = iEnumerator.Current;
-//			MessageBox.Show(test.ToString());
 				PathsToMoveTb.Text = string.Join(";", SuggestionsLb.SelectedItems.Cast<string>());
 			}
 		}

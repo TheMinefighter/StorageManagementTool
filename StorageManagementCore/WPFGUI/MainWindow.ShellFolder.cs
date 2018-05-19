@@ -4,13 +4,26 @@ using System.Windows;
 using System.Windows.Controls;
 using ConfirmationDialogs;
 using StorageManagementCore.Backend;
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.EditUserShellFolderStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private bool _shellFolderTiOpened;
 
-		private void ShellFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
+		private void ShellFolderTi_OnLoaded(object sender, RoutedEventArgs e)
+		{
 			RefreshShellFolders();
+			LocalizeShellFolders();
+		}
+
+		private void LocalizeShellFolders()
+		{
+			CurrentShellFolderPathLbl.Text = CurrentUSFPath_lbl_Text;
+			OpenCurrentShellFolderPathBtn.Content = USFOpenCurrentPath_btn_Text;
+			SelectNewShellFolderPathBtn.Content = SelectNewUSFPath_btn_Text;
+			NewShellFolderPathLbl.Text = NewUSFPath_lbl_Text;
+
+
 		}
 
 		private void RefreshShellFolders() {

@@ -72,6 +72,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ChangeDependentShellFoldersCbText {
+            get {
+                return ResourceManager.GetString("ChangeDependentShellFoldersCbText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Closing_WantRestart_Text {
             get {
                 return ResourceManager.GetString("Closing_WantRestart_Text", resourceCulture);
@@ -102,6 +111,24 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string GenerateNewPathCbText {
+            get {
+                return ResourceManager.GetString("GenerateNewPathCbText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MoveExistingItemsCbText {
+            get {
+                return ResourceManager.GetString("MoveExistingItemsCbText", resourceCulture);
             }
         }
         
