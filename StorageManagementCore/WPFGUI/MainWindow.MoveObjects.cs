@@ -24,7 +24,7 @@ namespace StorageManagementCore.WPFGUI
 			IsMoveObjectsRootPathAbsoluteCb.Content = IsPathAbsoluteCbText;
 			SelectMoveObjectsRootPathBtn.Content = SetRootPath_btn_Text;
 			MoveObjectsRootPathLbl.Text = RootPathLblText;
-			SetRootPathConfigBtn.Content = SetHDDPathAsDefault_btn_Text;
+			SetMoveObjectsRootPathConfigBtn.Content = SetHDDPathAsDefault_btn_Text;
 		}
 
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
@@ -43,8 +43,11 @@ namespace StorageManagementCore.WPFGUI
 				: Brushes.DarkOrange;
 		}
 
-		private void RootPathTb_TextChanged(object sender, TextChangedEventArgs e) {
-			MoveObjectsRootPathTb.Background = Directory.Exists(MoveObjectsRootPathTb.Text) ? Brushes.White : Brushes.DarkOrange;
+		private void RootPathTb_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			bool exists = Directory.Exists(MoveObjectsRootPathTb.Text);
+			SetMoveObjectsRootPathConfigBtn.IsEnabled = exists;
+         MoveObjectsRootPathTb.Background = exists ? Brushes.White : Brushes.DarkOrange;
 		}
 
 		private void SelectRootPathBtn_Click(object sender, RoutedEventArgs e) {

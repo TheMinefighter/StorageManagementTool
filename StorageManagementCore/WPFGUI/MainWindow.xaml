@@ -41,7 +41,7 @@
                              Margin="10,118,10,35" />
                     <Button x:Name="MoveObjectsBtn" Content="Button" Margin="0,0,10,10" VerticalAlignment="Bottom"
                             HorizontalAlignment="Right" Width="374" Click="MoveObjectsBtn_Click" />
-                    <Button x:Name="SetRootPathConfigBtn" Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0"
+                    <Button x:Name="SetMoveObjectsRootPathConfigBtn" Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0"
                             VerticalAlignment="Top" Width="154" Click="SetRootPathConfigBtn_Click" />
                     <CheckBox x:Name="IsMoveObjectsRootPathAbsoluteCb" Content="CheckBox" HorizontalAlignment="Left" Margin="332,81,0,0"
                               VerticalAlignment="Top" />
@@ -58,7 +58,7 @@
                               VerticalAlignment="Bottom" Background="#FFFF4040" Checked="ViewHiddenFoldersCb_Checked"
                               Unchecked="ViewHiddenFoldersCb_Unchecked" />
                     <TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,193,0" TextWrapping="Wrap" Text="TextBox"
-                             VerticalAlignment="Top" IsReadOnly="True" />
+                             VerticalAlignment="Top" IsReadOnly="True" TextChanged="CurrentShellFolderPathTb_OnTextChanged" />
                     <TextBlock x:Name="CurrentShellFolderPathLbl" HorizontalAlignment="Left" Margin="217,10,0,0" TextWrapping="Wrap"
                                VerticalAlignment="Top" Text="TextBlock" />
                     <Button x:Name="OpenCurrentShellFolderPathBtn" Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0"
@@ -70,13 +70,13 @@
                             IsEnabled="False" />
                     <Button x:Name="ApplyShellFolderLocationBtn" Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10"
                             VerticalAlignment="Bottom" Width="178" Click="ApplyShellFolderLocationBtn_Click" />
-                    <CheckBox x:Name="MoveExistingItemsCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,101,0,0"
+                    <CheckBox x:Name="MoveExistingShellFolderItemsCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,101,0,0"
                               VerticalAlignment="Top" IsChecked="True" Background="#FFFF4040" Unchecked="MoveExistingItemsCb_Unchecked" />
                     <CheckBox x:Name="ChangeDependentShellFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="217,121,0,0"
                               VerticalAlignment="Top" IsChecked="True" Background="#FFFF4040"
                               Unchecked="ChangeDependentShellFoldersCb_Unchecked" />
                     <CheckBox x:Name="AutomaticShellFolderPathCb" Content="CheckBox" HorizontalAlignment="Left" Margin="473,102,0,0"
-                              VerticalAlignment="Top" IsChecked="True" />
+                              VerticalAlignment="Top" IsChecked="True" Checked="AutomaticShellFolderPathCb_Checked" Unchecked="AutomaticShellFolderPathCb_Checked" />
                 </Grid>
             </TabItem>
             <TabItem x:Name="SearchTi" Header="Search" Loaded="SearchTi_OnLoaded" Selector.Selected="SearchTi_OnSelected">
@@ -84,7 +84,7 @@
                     <Button x:Name="OpenCurrentSearchDirectoryBtn" Content="Button" HorizontalAlignment="Right" Margin="0,31,10,0"
                             VerticalAlignment="Top" Width="129"
                             RenderTransformOrigin="0.533,2.95" Click="OpenCurrentSearchDirectoryBtn_OnClick" />
-                    <TextBox x:Name="CurrentSearchPathTb" Height="20" Margin="10,31,144,0" TextWrapping="Wrap" Text="TextBox"
+                    <TextBox x:Name="CurrentSearchPathTb" Height="20" Margin="10,31,144,0" TextWrapping="Wrap"
                              VerticalAlignment="Top"
                              RenderTransformOrigin="0.5,0.5" IsReadOnly="True" />
                     <TextBlock x:Name="CurrentSearchDirectoryLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap"

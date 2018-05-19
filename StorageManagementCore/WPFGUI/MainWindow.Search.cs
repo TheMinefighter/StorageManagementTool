@@ -34,8 +34,11 @@ namespace StorageManagementCore.WPFGUI {
 		private void OpenCurrentSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
 			Backend.FileAndFolder.OpenFolder(new DirectoryInfo(CurrentSearchPathTb.Text));
 		}
+		private void ApplySearchPathBtn_OnClick(object sender, RoutedEventArgs e)
+		{
 
-		private void SelectNewSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
+		}
+      private void SelectNewSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
 			NewSearchPathTb.Text = Backend.FileAndFolder.SelectDirectory().FullName;
 		}
 
