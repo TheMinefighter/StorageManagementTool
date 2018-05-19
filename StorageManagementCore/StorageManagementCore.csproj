@@ -210,15 +210,51 @@
     <Compile Include="Operation\SSDMonitoring.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\MainWindowStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.Designer.cs" />
-    <Compile Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.Designer.cs" />
+    <Compile Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplyPresetStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditUserShellFolderStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\MainWindowStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindowStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MonitoringSettingsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PagefileSettingsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScenarioPresetStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchSettingsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserShellFolderStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="WPFGUI\MainWindow.About.cs" />
     <Compile Include="WPFGUI\MainWindow.Monitoring.cs" />
     <Compile Include="WPFGUI\MainWindow.MoveObjects.cs" />
@@ -382,31 +418,58 @@
   <ItemGroup>
     <Content Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplyPresetStrings.Designer.cs</LastGenOutput>
+    </Content>
     <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\EditUserShellFolderStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditUserShellFolderStrings.Designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.de-DE.resx" />
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.en-US.resx" />
-    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.resx" />
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SearchSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SearchSettingsStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\EnterCredentialsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnterCredentialsStrings.Designer.cs</LastGenOutput>
+    </Content>
     <Content Include="WPFGUI\GlobalizationRessources\MainWindowStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\MainWindowStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\MainWindowStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\MainWindowStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+    </Content>
     <Content Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MonitoringSettingsStrings.Designer.cs</LastGenOutput>
+    </Content>
     <Content Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\PagefileSettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PagefileSettingsStrings.Designer.cs</LastGenOutput>
+    </Content>
     <Content Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScenarioPresetStrings.Designer.cs</LastGenOutput>
+    </Content>
     <Content Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.de-DE.resx" />
     <Content Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.en-US.resx" />
-    <Content Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.resx" />
+    <Content Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserShellFolderStrings.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

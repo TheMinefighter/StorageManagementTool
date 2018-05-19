@@ -39,7 +39,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.GlobalizationRessources.UserShellFolderStrings", typeof(UserShellFolderStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationRessources.UserShellFolderStrings", typeof(UserShellFolderStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
