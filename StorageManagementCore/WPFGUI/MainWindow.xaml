@@ -22,18 +22,18 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="SelectFoldersToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="10,31,0,0"
+                    <Button x:Name="SelectFoldersToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="463,31,0,0"
                             VerticalAlignment="Top" Width="154" Click="SelectFoldersToMoveBtn_Click" />
                     <TextBox x:Name="PathsToMoveTb" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" Height="20"
-                             Margin="328,32,10,0"
+                             Margin="10,31,328,0"
                              VerticalAlignment="Top" TextChanged="PathsToMoveTb_TextChanged" Background="White" />
-                    <Button x:Name="SelectBasePathBtn" Content="Button" HorizontalAlignment="Left" Margin="10,77,0,0"
-                            VerticalAlignment="Top" Width="154" Click="SelectBasePathBtn_Click" />
+                    <Button x:Name="SelectBasePathBtn" Content="Button" HorizontalAlignment="Left" Margin="463,76,0,0"
+                            VerticalAlignment="Top" Width="154" Click="SelectBasePathBtn_Click" RenderTransformOrigin="1.942,0.85" />
                     <TextBlock x:Name="BasPathLbl" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="TextBlock"
                                VerticalAlignment="Top" />
-                    <TextBlock x:Name="PathLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock"
+                    <TextBlock x:Name="ObjectsToMoveLbl" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock"
                                VerticalAlignment="Top" />
-                    <TextBox x:Name="BasePathTb" Height="20" Margin="169,77,300,0" TextWrapping="Wrap"
+                    <TextBox x:Name="BasePathTb" Height="20" Margin="10,77,459,0" TextWrapping="Wrap"
                              VerticalAlignment="Top" TextChanged="BasePathTb_TextChanged" />
                     <TextBlock x:Name="SuggestionsLbl" HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="TextBlock"
                                VerticalAlignment="Top" />
@@ -43,9 +43,9 @@
                             HorizontalAlignment="Right" Width="374" Click="MoveObjectsBtn_Click" />
                     <Button x:Name="SetBasePathConfigBtn" Content="Button" HorizontalAlignment="Right" Margin="0,76,10,0"
                             VerticalAlignment="Top" Width="154" Click="SetBasePathConfigBtn_Click" />
-                    <CheckBox x:Name="IsBasePathAbsoluteCb" Content="CheckBox" HorizontalAlignment="Left" Margin="491,82,0,0"
+                    <CheckBox x:Name="IsBasePathAbsoluteCb" Content="CheckBox" HorizontalAlignment="Left" Margin="332,81,0,0"
                               VerticalAlignment="Top" />
-                    <Button x:Name="SelectFilesToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="169,31,0,0"
+                    <Button x:Name="SelectFilesToMoveBtn" Content="Button" HorizontalAlignment="Left" Margin="622,31,0,0"
                             VerticalAlignment="Top" Width="154" Click="SelectFilesToMoveBtn_OnClick" />
                 </Grid>
             </TabItem>

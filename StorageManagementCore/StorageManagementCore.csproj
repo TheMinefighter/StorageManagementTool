@@ -225,10 +225,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="WPFGUI\GlobalizationRessources\MainWindowStrings.Designer.cs">
+    <Compile Include="WPFGUI\GlobalizationRessources\MoveObjectsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MainWindowStrings.resx</DependentUpon>
+      <DependentUpon>MoveObjectsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -440,11 +440,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EnterCredentialsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MainWindowStrings.de-DE.resx" />
-    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MainWindowStrings.en-US.resx" />
-    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MainWindowStrings.resx">
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MoveObjectsStrings.de-DE.resx" />
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MoveObjectsStrings.en-US.resx" />
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MoveObjectsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>MoveObjectsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.de-DE.resx" />
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\MonitoringSettingsStrings.en-US.resx" />

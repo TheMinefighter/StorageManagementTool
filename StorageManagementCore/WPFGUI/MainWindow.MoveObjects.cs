@@ -17,9 +17,11 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void LocalizeMoveObjects() {
-			SelectFilesToMoveBtn.Content = MainWindowStrings.FileToMove_btn_Text;
-			SelectFoldersToMoveBtn.Content = MainWindowStrings.FolderToMove_btn_Text;
-		}
+			SelectFilesToMoveBtn.Content = MoveObjectsStrings.FileToMove_btn_Text;
+			SelectFoldersToMoveBtn.Content = MoveObjectsStrings.FolderToMove_btn_Text;
+			//ObjectsToMoveLbl.Text=MainWindowStrings
+
+      }
 
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
 			PathsToMoveTb.Text = string.Join(";", FileAndFolder.SelectDirectories().Select(x => x.FullName));
