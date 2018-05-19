@@ -213,4 +213,10 @@
   <data name="MoveFile_NoNewPath" xml:space="preserve">
     <value />
   </data>
+  <data name="ObjectsToMoveLblText" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="IsPathAbsoluteCbText" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

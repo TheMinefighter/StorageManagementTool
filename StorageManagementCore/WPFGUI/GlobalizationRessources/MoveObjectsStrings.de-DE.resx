@@ -148,10 +148,10 @@
     <value>Fehler</value>
   </data>
   <data name="FileToMove_btn_Text" xml:space="preserve">
-    <value>Datei zum Verschieben wählen</value>
+    <value>Dateien auswählen</value>
   </data>
   <data name="FolderToMove_btn_Text" xml:space="preserve">
-    <value>Ordner zum Verschieben wählen</value>
+    <value>Ordner zauswählen</value>
   </data>
   <data name="FurtherSettings_gb_Text" xml:space="preserve">
     <value>Weitere Einstellungen</value>
@@ -201,7 +201,7 @@
   <data name="SetRootPath_btn_Text" xml:space="preserve">
     <value>Neuen Basis Pfad wählen</value>
   </data>
-   <data name="Suggestions_gb_Text" xml:space="preserve">
+  <data name="Suggestions_gb_Text" xml:space="preserve">
     <value>Vorschläge</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
@@ -212,5 +212,11 @@
   </data>
   <data name="MoveFile_NoNewPath" xml:space="preserve">
     <value>Der Pfad für den neuen Speicherort neue ist leer, möchten sie jetzt einen Speicherort auswählen?</value>
+  </data>
+  <data name="ObjectsToMoveLblText" xml:space="preserve">
+    <value>Zu verschiebende Objekte</value>
+  </data>
+  <data name="IsPathAbsoluteCbText" xml:space="preserve">
+    <value>Absoluten Pfad nutzen</value>
   </data>
 </root>

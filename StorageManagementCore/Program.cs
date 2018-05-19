@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using StorageManagementCore.WPFGUI;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Interpreters;
-
+//TODO Rename Directory methods to Folder
 namespace StorageManagementCore {
 	/// <summary>
 	///  Main class of this Program

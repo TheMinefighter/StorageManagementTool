@@ -145,10 +145,10 @@
     <value>Error</value>
   </data>
   <data name="FileToMove_btn_Text" xml:space="preserve">
-    <value>Select file to move</value>
+    <value>Select files</value>
   </data>
   <data name="FolderToMove_btn_Text" xml:space="preserve">
-    <value>Select folder to move</value>
+    <value>Select folders</value>
   </data>
   <data name="FurtherSettings_gb_Text" xml:space="preserve">
     <value>Further settings</value>
@@ -201,7 +201,7 @@
   <data name="EnableSendToHDD" xml:space="preserve">
     <value>Enable send to HDD</value>
   </data>
-   <data name="Suggestions_gb_Text" xml:space="preserve">
+  <data name="Suggestions_gb_Text" xml:space="preserve">
     <value>Suggestions</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
@@ -212,5 +212,11 @@
   </data>
   <data name="MoveFile_NoNewPath" xml:space="preserve">
     <value>You didn't select a root path to move the file to, select now a new root path?</value>
+  </data>
+  <data name="ObjectsToMoveLblText" xml:space="preserve">
+    <value>Objects to move</value>
+  </data>
+  <data name="IsPathAbsoluteCbText" xml:space="preserve">
+    <value>Use absolute path</value>
   </data>
 </root>
