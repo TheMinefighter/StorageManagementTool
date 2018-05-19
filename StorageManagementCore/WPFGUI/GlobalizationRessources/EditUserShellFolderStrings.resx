@@ -174,4 +174,7 @@
   <data name="ChangeDependentShellFoldersCbText" xml:space="preserve">
     <value></value>
   </data>
+  <data name="ViewHiddenFoldersCbText" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

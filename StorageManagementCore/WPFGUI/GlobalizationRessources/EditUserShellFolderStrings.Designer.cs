@@ -230,5 +230,14 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
                 return ResourceManager.GetString("USFOpenNewPath_NoPathSelected", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ViewHiddenFoldersCbText {
+            get {
+                return ResourceManager.GetString("ViewHiddenFoldersCbText", resourceCulture);
+            }
+        }
     }
 }

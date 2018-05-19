@@ -168,4 +168,13 @@
   <data name="GenerateNewPathCbText" xml:space="preserve">
     <value>Neuen Pfad generieren</value>
   </data>
+  <data name="MoveExistingItemsCbText" xml:space="preserve">
+    <value>Bestehende Elemente verschieben</value>
+  </data>
+  <data name="ChangeDependentShellFoldersCbText" xml:space="preserve">
+    <value>Abhängige ShellFolder ändern</value>
+  </data>
+  <data name="ViewHiddenFoldersCbText" xml:space="preserve">
+    <value>Versteckte ShellFolder anzeigen</value>
+  </data>
 </root>
