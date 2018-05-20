@@ -2,7 +2,7 @@
 using System.Windows;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettingsStrings;
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e) {
