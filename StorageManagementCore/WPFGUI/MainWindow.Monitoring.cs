@@ -6,10 +6,11 @@ using System.Windows.Controls;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
-using StorageManagementCore.WPFGUI.GlobalizationRessources;
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.MonitoringSettingsStrings;
 
-namespace StorageManagementCore.WPFGUI {
-	public partial class MainWindow {
+namespace StorageManagementCore.WPFGUI
+{
+   public partial class MainWindow {
 		private readonly Dictionary<MonitoringAction, RadioButton> _forDirectoriesDictionary =
 			new Dictionary<MonitoringAction, RadioButton>();
 
@@ -30,17 +31,18 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void LocalizeMonitoring() {
-			ForFilesAskRb.Content = MonitoringSettingsStrings.AskForAction_Text;
-			ForDirectoriesAsk.Content = MonitoringSettingsStrings.AskForAction_Text;
-			ForFilesIgnoreRb.Content = MonitoringSettingsStrings.Ignore_Text;
-			ForDirectoriesIgnore.Content = MonitoringSettingsStrings.Ignore_Text;
-			ForFilesMoveRb.Content = MonitoringSettingsStrings.AutomaticMove_Text;
-			ForDirectoriesMove.Content = MonitoringSettingsStrings.AutomaticMove_Text;
-			AddMonitoredFolderBtn.Content = MonitoringSettingsStrings.AddFolder_btn_Text;
-			ChangeMonitoredFolderPathBtn.Content = MonitoringSettingsStrings.ChangeFolder_btn_Text;
-			RemoveMonitoredFolderBtn.Content = MonitoringSettingsStrings.RemoveSelectedFolder_btn_Text;
-			ApplyMonitoringBtn.Content = MonitoringSettingsStrings.SaveSettings_btn_Text;
-			EnOrDisableMonitoringCb.Content = MonitoringSettingsStrings.EnableNotifications_cb_Text;
+			ForFilesAskRb.Content = AskForAction_Text;
+			ForDirectoriesAsk.Content = AskForAction_Text;
+			ForFilesIgnoreRb.Content = Ignore_Text;
+			ForDirectoriesIgnore.Content = Ignore_Text;
+			ForFilesMoveRb.Content = AutomaticMove_Text;
+			ForDirectoriesMove.Content = AutomaticMove_Text;
+			AddMonitoredFolderBtn.Content = AddFolder_btn_Text;
+			ChangeMonitoredFolderPathBtn.Content = ChangeFolder_btn_Text;
+			RemoveMonitoredFolderBtn.Content = RemoveSelectedFolder_btn_Text;
+			ApplyMonitoringBtn.Content = SaveSettings_btn_Text;
+			EnOrDisableMonitoringCb.Content = EnableNotifications_cb_Text;
+			OpenMonitoredFolderBtn.Content = OpenSelectedfolder_btn_Text;
 		}
 
 		private void LoadRadioButtonDictionaries() {
@@ -75,6 +77,8 @@ namespace StorageManagementCore.WPFGUI {
 			RemoveMonitoredFolderBtn.IsEnabled = somethingSelected;
 			ChangeMonitoredFolderPathBtn.IsEnabled = somethingSelected;
 			OpenMonitoredFolderBtn.IsEnabled = somethingSelected;
+			MonitoringForFilesGb.IsEnabled = somethingSelected;
+			MonitoringForDirectoriesGb.IsEnabled = somethingSelected;
 		}
 
 		//public class DisplayableMonitoredFolder
@@ -125,8 +129,13 @@ namespace StorageManagementCore.WPFGUI {
 				_forDirectoriesDictionary.First(x => x.Value.IsChecked == true).Key;
 		}
 
-		private void OpenMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e) {
-			FileAndFolder.OpenFolder(new DirectoryInfo(MonitoredFoldersLb.SelectedItem as string));
+		private void OpenMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			string path = (MonitoredFoldersLb.SelectedItem as MonitoredFolder).TargetPath;
+			if (Directory.Exists(path))
+			{
+				FileAndFolder.OpenFolder(new DirectoryInfo(path));
+			}
 		}
 	}
 }
