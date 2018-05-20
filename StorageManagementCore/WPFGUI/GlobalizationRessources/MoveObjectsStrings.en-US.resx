@@ -193,7 +193,7 @@
     <value>Restart with administrator privileges</value>
   </data>
   <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
-    <value>Save selected path as standard</value>
+    <value>Save path as standard</value>
   </data>
   <data name="SetRootPath_btn_Text" xml:space="preserve">
     <value>Set new root path</value>

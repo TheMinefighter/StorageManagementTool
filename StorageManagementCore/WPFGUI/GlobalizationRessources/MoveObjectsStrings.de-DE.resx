@@ -196,7 +196,7 @@
     <value>Neustarten mit Adminstatorrechten</value>
   </data>
   <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
-    <value>HDD Speicherort als Standard speichern</value>
+    <value>Pfad als Standard speichern</value>
   </data>
   <data name="SetRootPath_btn_Text" xml:space="preserve">
     <value>Neuen Basis Pfad wählen</value>
