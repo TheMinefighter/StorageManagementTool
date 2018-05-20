@@ -288,6 +288,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string MoveObjectsBtnText {
+            get {
+                return ResourceManager.GetString("MoveObjectsBtnText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string NoAdministratorPrivilegesAvailable {
             get {
                 return ResourceManager.GetString("NoAdministratorPrivilegesAvailable", resourceCulture);

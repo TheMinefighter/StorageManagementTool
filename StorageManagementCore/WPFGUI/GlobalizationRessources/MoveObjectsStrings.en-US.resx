@@ -222,4 +222,7 @@
   <data name="RootPathLblText" xml:space="preserve">
     <value>Target path</value>
   </data>
+  <data name="MoveObjectsBtnText" xml:space="preserve">
+    <value>Move Objects</value>
+  </data>
 </root>

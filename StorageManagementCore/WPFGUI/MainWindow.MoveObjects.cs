@@ -25,6 +25,8 @@ namespace StorageManagementCore.WPFGUI
 			SelectMoveObjectsRootPathBtn.Content = SetRootPath_btn_Text;
 			MoveObjectsRootPathLbl.Text = RootPathLblText;
 			SetMoveObjectsRootPathConfigBtn.Content = SetHDDPathAsDefault_btn_Text;
+			SuggestionsLbl.Text = Suggestions_gb_Text;
+			MoveObjectsBtn.Content = MoveObjectsBtnText;
 		}
 
 		private void SelectFoldersToMoveBtn_Click(object sender, RoutedEventArgs e) {
