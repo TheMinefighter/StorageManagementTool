@@ -8,9 +8,8 @@ using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.MoveObjectsStrings;
 
-namespace StorageManagementCore.WPFGUI
-{
-   public partial class MainWindow {
+namespace StorageManagementCore.WPFGUI {
+	public partial class MainWindow {
 		private void MoveFileOrFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
 			LocalizeMoveObjects();
 			SuggestionsLb.Items.Clear();
@@ -45,11 +44,10 @@ namespace StorageManagementCore.WPFGUI
 				: Brushes.DarkOrange;
 		}
 
-		private void RootPathTb_TextChanged(object sender, TextChangedEventArgs e)
-		{
+		private void RootPathTb_TextChanged(object sender, TextChangedEventArgs e) {
 			bool exists = Directory.Exists(MoveObjectsRootPathTb.Text);
 			SetMoveObjectsRootPathConfigBtn.IsEnabled = exists;
-         MoveObjectsRootPathTb.Background = exists ? Brushes.White : Brushes.DarkOrange;
+			MoveObjectsRootPathTb.Background = exists ? Brushes.White : Brushes.DarkOrange;
 		}
 
 		private void SelectRootPathBtn_Click(object sender, RoutedEventArgs e) {

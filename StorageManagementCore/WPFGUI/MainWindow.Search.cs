@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using StorageManagementCore.Backend;
+using StorageManagementCore.Operation;
 using StorageManagementCore.WPFGUI.GlobalizationRessources;
 
 namespace StorageManagementCore.WPFGUI {
@@ -24,7 +26,7 @@ namespace StorageManagementCore.WPFGUI {
 					ApplySearchPathBtn.IsEnabled = false;
 				}
 				else {
-					if (Operation.OperatingMethods.GetSearchDataPath(out DirectoryInfo path)) {
+					if (OperatingMethods.GetSearchDataPath(out DirectoryInfo path)) {
 						CurrentSearchPathTb.Text = path.FullName;
 					}
 				}
@@ -32,14 +34,13 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void OpenCurrentSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
-			Backend.FileAndFolder.OpenFolder(new DirectoryInfo(CurrentSearchPathTb.Text));
+			FileAndFolder.OpenFolder(new DirectoryInfo(CurrentSearchPathTb.Text));
 		}
-		private void ApplySearchPathBtn_OnClick(object sender, RoutedEventArgs e)
-		{
 
-		}
-      private void SelectNewSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
-			NewSearchPathTb.Text = Backend.FileAndFolder.SelectDirectory().FullName;
+		private void ApplySearchPathBtn_OnClick(object sender, RoutedEventArgs e) { }
+
+		private void SelectNewSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
+			NewSearchPathTb.Text = FileAndFolder.SelectDirectory().FullName;
 		}
 
 		private void NewSearchPathTb_OnTextChanged(object sender, TextChangedEventArgs e) {

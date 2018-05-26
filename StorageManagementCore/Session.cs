@@ -19,17 +19,17 @@ namespace StorageManagementCore {
 		/// </summary>
 		public static Session Singleton;
 
-		/// <summary>
-		///  The path of the configuration file
-		/// </summary>
-		public string ConfigurationPath;
+		private readonly string ConfigurationFolder;
 
 		/// <summary>
 		///  The current JSON configuration
 		/// </summary>
 		public MainConfiguration Configuration;
 
-		private readonly string ConfigurationFolder;
+		/// <summary>
+		///  The path of the configuration file
+		/// </summary>
+		public string ConfigurationPath;
 
 		/// <summary>
 		///  Whether the program runs as administrator
@@ -55,6 +55,7 @@ namespace StorageManagementCore {
 				if (!Directory.Exists(ConfigurationFolder)) {
 					Directory.CreateDirectory(ConfigurationFolder);
 				}
+
 				Singleton.SaveCfg();
 			}
 
@@ -65,7 +66,6 @@ namespace StorageManagementCore {
 			ScenarioPreset.LoadPresets();
 			UserShellFolder.LoadEditable();
 			IsAdmin = Wrapper.IsCurrentUserAdministrator();
-
 		}
 
 		private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,

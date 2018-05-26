@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -220,20 +220,18 @@ namespace StorageManagementCore.Backend {
 		/// <param name="readReturnData">Whether to read the output of the Application</param>
 		/// <returns>Whether the operation were successful</returns>
 		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
-			bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser = false) {
-			return ExecuteExecuteable(
-				       Path.Combine(
-					       Environment.GetFolderPath(
-						       Environment
-							       .SpecialFolder
-							       .System),
-					       @"cmd.exe"),
-				       (debug ? "/K " : "/C ") + cmd,
-				       out returnData, out int tmp,
-				       out int _, readReturnData,
-				       waitforexit, hidden,
-				       admin, asUser) && tmp == 0;
-		}
+			bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser = false) => ExecuteExecuteable(
+				                                                                                                  Path.Combine(
+					                                                                                                  Environment.GetFolderPath(
+						                                                                                                  Environment
+							                                                                                                  .SpecialFolder
+							                                                                                                  .System),
+					                                                                                                  @"cmd.exe"),
+				                                                                                                  (debug ? "/K " : "/C ") + cmd,
+				                                                                                                  out returnData, out int tmp,
+				                                                                                                  out int _, readReturnData,
+				                                                                                                  waitforexit, hidden,
+				                                                                                                  admin, asUser) && tmp == 0;
 
 		#region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
 

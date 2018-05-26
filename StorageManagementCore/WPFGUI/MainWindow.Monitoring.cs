@@ -8,9 +8,8 @@ using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.MonitoringSettingsStrings;
 
-namespace StorageManagementCore.WPFGUI
-{
-   public partial class MainWindow {
+namespace StorageManagementCore.WPFGUI {
+	public partial class MainWindow {
 		private readonly Dictionary<MonitoringAction, RadioButton> _forDirectoriesDictionary =
 			new Dictionary<MonitoringAction, RadioButton>();
 
@@ -129,11 +128,9 @@ namespace StorageManagementCore.WPFGUI
 				_forDirectoriesDictionary.First(x => x.Value.IsChecked == true).Key;
 		}
 
-		private void OpenMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
-		{
+		private void OpenMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e) {
 			string path = (MonitoredFoldersLb.SelectedItem as MonitoredFolder).TargetPath;
-			if (Directory.Exists(path))
-			{
+			if (Directory.Exists(path)) {
 				FileAndFolder.OpenFolder(new DirectoryInfo(path));
 			}
 		}

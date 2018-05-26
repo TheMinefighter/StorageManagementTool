@@ -34,7 +34,7 @@ namespace StorageManagementCore.Backend {
 			}
 		}
 
-		public static DirectoryInfo SelectDirectory(string description="") {
+		public static DirectoryInfo SelectDirectory(string description = "") {
 #if MITMode
 				using (FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description}) {
 					fbd.ShowDialog();
@@ -48,7 +48,7 @@ namespace StorageManagementCore.Backend {
 #endif
 		}
 
-		public static IEnumerable<DirectoryInfo> SelectDirectories(string description="") {
+		public static IEnumerable<DirectoryInfo> SelectDirectories(string description = "") {
 #if MITMode
 				using (FolderBrowserDialog fbd = new FolderBrowserDialog {Description = description}) {
 					fbd.ShowDialog();
@@ -62,7 +62,7 @@ namespace StorageManagementCore.Backend {
 #endif
 		}
 
-		public static FileInfo SelectFile(string description="") {
+		public static FileInfo SelectFile(string description = "") {
 #if MITMode
 				using (OpenFileDialog fd = new OpenFileDialog() {Title = description}) {
 					fd.ShowDialog();
@@ -75,7 +75,7 @@ namespace StorageManagementCore.Backend {
 #endif
 		}
 
-		public static IEnumerable<FileInfo> SelectFiles(string description="") {
+		public static IEnumerable<FileInfo> SelectFiles(string description = "") {
 #if MITMode
 				using (OpenFileDialog fd = new OpenFileDialog {Title = description, Multiselect = true}) {
 					fd.ShowDialog();

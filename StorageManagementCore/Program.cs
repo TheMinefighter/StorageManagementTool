@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using StorageManagementCore.WPFGUI;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Interpreters;
+
 //TODO Rename Directory methods to Folder
 namespace StorageManagementCore {
 	/// <summary>
@@ -25,7 +26,7 @@ namespace StorageManagementCore {
 		[STAThread]
 		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		public static void Main(string[] args) {
-			FileInfo parentName = new FileInfo(Process.GetCurrentProcess() .ProcessName);
+			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
 			ConsoleIO.SetVisibility(CommandLineMode);
 
