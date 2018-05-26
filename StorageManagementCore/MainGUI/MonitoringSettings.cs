@@ -60,7 +60,7 @@ namespace StorageManagementCore.MainGUI {
 			_forFilesDictionary.Add(MonitoringAction.Ask, AskActionForFiles_rb);
 			_forFilesDictionary.Add(MonitoringAction.Ignore, IgnoreForFiles_rb);
 			_forFilesDictionary.Add(MonitoringAction.Move, AutomaticMoveForFiles_rb);
-			_editedConfigurations = Session.Singleton.CurrentConfiguration.MonitoringSettings ??
+			_editedConfigurations = Session.Singleton.Configuration.MonitoringSettings ??
 			                        new MonitoringConfiguration();
 			_whenEnabled = new List<Control> {
 				AllFolders_lb,
@@ -151,8 +151,8 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void SaveSettings_btn_Click(object sender, EventArgs e) {
-			if (!_editedConfigurations.Equals(Session.Singleton.CurrentConfiguration.MonitoringSettings)) {
-				Session.Singleton.CurrentConfiguration.MonitoringSettings = _editedConfigurations;
+			if (!_editedConfigurations.Equals(Session.Singleton.Configuration.MonitoringSettings)) {
+				Session.Singleton.Configuration.MonitoringSettings = _editedConfigurations;
 				Session.Singleton.SaveCfg();
 			}
 

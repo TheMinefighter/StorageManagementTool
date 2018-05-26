@@ -6,6 +6,13 @@ namespace StorageManagementCore.Configuration {
 	///  Represents the JSON serializable configuration data of program
 	/// </summary>
 	public class MainConfiguration {
+		public MainConfiguration() {
+			AllPagefilesSettings= new AllPagefilesConfiguration();
+			MonitoringSettings= new MonitoringConfiguration();
+			ShellFolderSettings= new List<ShellFolderConfiguration>();
+			Version = "1.1";
+		}
+
 		/// <summary>
 		/// </summary>
 		public AllPagefilesConfiguration AllPagefilesSettings;

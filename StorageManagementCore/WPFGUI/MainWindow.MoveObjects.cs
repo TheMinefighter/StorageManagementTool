@@ -67,7 +67,7 @@ namespace StorageManagementCore.WPFGUI
 
 		private void SetRootPathChecked() {
 			if (Directory.Exists(MoveObjectsRootPathTb.Text)) {
-				Session.Singleton.CurrentConfiguration.DefaultHDDPath = MoveObjectsRootPathTb.Text;
+				Session.Singleton.Configuration.DefaultHDDPath = MoveObjectsRootPathTb.Text;
 			}
 			else {
 				//TODO Throw not available

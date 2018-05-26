@@ -57,7 +57,7 @@ namespace StorageManagementCore.Operation {
 
 			DirectoryInfo baseDir = hdd.RootDirectory.CreateSubdirectory($"SSD{i}");
 
-			Session.Singleton.CurrentConfiguration.DefaultHDDPath = baseDir.FullName;
+			Session.Singleton.Configuration.DefaultHDDPath = baseDir.FullName;
 			Session.Singleton.SaveCfg();
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
 			foreach (KeyValuePair<string, string> currentPair in usfToMove) {
@@ -107,7 +107,7 @@ namespace StorageManagementCore.Operation {
 			} while (!empty);
 
 			DirectoryInfo baseDir = hdd.RootDirectory.CreateSubdirectory($"SSD{i}");
-			Session.Singleton.CurrentConfiguration.DefaultHDDPath = baseDir.FullName;
+			Session.Singleton.Configuration.DefaultHDDPath = baseDir.FullName;
 			Session.Singleton.SaveCfg();
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
 			foreach (KeyValuePair<string, string> currentPair in usfToMove) {

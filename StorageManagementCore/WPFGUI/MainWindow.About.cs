@@ -5,6 +5,8 @@ using System.Windows;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
+		public Visibility Lol { get; set; }
+
 		private void AboutTextWb_OnLoaded(object sender, RoutedEventArgs e) {
 			Assembly current = Assembly.GetExecutingAssembly();
 			const string res = "StorageManagementCore.Ressources.About.html";

@@ -25,7 +25,7 @@ namespace StorageManagementCore.MainGUI {
 			LoadUIStrings();
 			//string str = GlobalizationRessources.WrapperStrings.GetRegistryValue_Exception;
 			//WrapperStrings.ResourceManager.GetString("SetRegistryValue_UnauthorizedAccess");
-			HDDSavePath_tb.Text = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
+			HDDSavePath_tb.Text = Session.Singleton.Configuration.DefaultHDDPath;
 			IEnumerable<string> rec = OperatingMethods.GetRecommendedPaths();
 			foreach (string item in rec) {
 				Suggestion_lb.Items.Add(item);
@@ -72,7 +72,7 @@ namespace StorageManagementCore.MainGUI {
 			}
 			else {
 				SetSendToHDD_btn.Text = EnableSendToHDD;
-				SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
+				SetSendToHDD_btn.Enabled = Directory.Exists(Session.Singleton.Configuration.DefaultHDDPath);
 			}
 		}
 
@@ -108,7 +108,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void MoveFolder_btn_Click(object sender, EventArgs e) {
-			if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "") {
+			if (Session.Singleton.Configuration.DefaultHDDPath == "") {
 				if (MessageBox.Show(
 					    MoveFolder_NoNewPath,
 					    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
@@ -143,7 +143,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void MoveFile_btn_Click(object sender, EventArgs e) {
-			if (Session.Singleton.CurrentConfiguration.DefaultHDDPath == "") {
+			if (Session.Singleton.Configuration.DefaultHDDPath == "") {
 				if (MessageBox.Show(
 					    MoveFile_NoNewPath,
 					    Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
@@ -164,7 +164,7 @@ namespace StorageManagementCore.MainGUI {
 				return;
 			}
 
-			string newPath = Path.Combine(Session.Singleton.CurrentConfiguration.DefaultHDDPath,
+			string newPath = Path.Combine(Session.Singleton.Configuration.DefaultHDDPath,
 				FileToMovePath_tb.Text.Remove(1, 1));
 			string oldPath = FileToMovePath_tb.Text;
 			ProgramStatusStrip.Text = OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath))
@@ -178,7 +178,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void SetRootPathAsDefault_btn_Click(object sender, EventArgs e) {
-			Session.Singleton.CurrentConfiguration.DefaultHDDPath = HDDPath_fbd.SelectedPath;
+			Session.Singleton.Configuration.DefaultHDDPath = HDDPath_fbd.SelectedPath;
 			Session.Singleton.SaveCfg();
 		}
 

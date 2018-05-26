@@ -31,7 +31,7 @@ namespace StorageManagementCore.Operation {
 		///  Initalizes the Background Process
 		/// </summary>
 		public static void Initalize() {
-			_mainConfiguration = Session.Singleton.CurrentConfiguration;
+			_mainConfiguration = Session.Singleton.Configuration;
 
 			foreach (MonitoredFolder monitoredFolder in _mainConfiguration.MonitoringSettings
 				.MonitoredFolders) {

@@ -27,7 +27,9 @@ namespace StorageManagementCore {
 		/// <summary>
 		///  The current JSON configuration
 		/// </summary>
-		public MainConfiguration CurrentConfiguration;
+		public MainConfiguration Configuration;
+
+		private readonly string ConfigurationFolder;
 
 		/// <summary>
 		///  Whether the program runs as administrator
@@ -41,19 +43,29 @@ namespace StorageManagementCore {
 			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new[]
 				{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 			Singleton = this;
-			ConfigurationPath = Path.Combine(Environment.GetFolderPath(
-					Environment.SpecialFolder.MyDocuments),
-				"StorageManagementToolConfiguration.json");
-			CurrentConfiguration = File.Exists(ConfigurationPath)
-				? JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath))
-				: new MainConfiguration();
+			ConfigurationFolder = Path.Combine(Environment.GetFolderPath(
+				Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
+			ConfigurationPath = Path.Combine(ConfigurationFolder,
+				"MainConfiguration.json");
+			if (File.Exists(ConfigurationPath)) {
+				Configuration = JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath));
+			}
+			else {
+				Configuration = new MainConfiguration();
+				if (!Directory.Exists(ConfigurationFolder)) {
+					Directory.CreateDirectory(ConfigurationFolder);
+				}
+				Singleton.SaveCfg();
+			}
+
 			CultureInfo requestedCulture =
-				CultureInfo.GetCultureInfo(CurrentConfiguration.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
+				CultureInfo.GetCultureInfo(Configuration.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
 			CultureInfo toUseCultureInfo = BestPossibleCulture(requestedCulture, availableSpecificCultures);
 			Thread.CurrentThread.CurrentUICulture = toUseCultureInfo;
 			ScenarioPreset.LoadPresets();
 			UserShellFolder.LoadEditable();
 			IsAdmin = Wrapper.IsCurrentUserAdministrator();
+
 		}
 
 		private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,
@@ -82,7 +94,7 @@ namespace StorageManagementCore {
 		/// </summary>
 		public void SaveCfg() {
 			File.WriteAllText(
-				ConfigurationPath, JsonConvert.SerializeObject(CurrentConfiguration));
+				ConfigurationPath, JsonConvert.SerializeObject(Configuration));
 		}
 	}
 }

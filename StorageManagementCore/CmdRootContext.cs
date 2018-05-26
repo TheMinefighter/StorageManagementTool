@@ -28,7 +28,7 @@ namespace StorageManagementCore {
 			FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")] string newPath = null
 		) {
 			if (newPath == null) {
-				newPath = Session.Singleton.CurrentConfiguration.DefaultHDDPath;
+				newPath = Session.Singleton.Configuration.DefaultHDDPath;
 			}
 
 			foreach (string oldPath in oldPaths) {

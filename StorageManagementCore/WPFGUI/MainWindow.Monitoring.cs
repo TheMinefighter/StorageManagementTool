@@ -21,7 +21,7 @@ namespace StorageManagementCore.WPFGUI
 		private MonitoringConfiguration _newMonitoringCfg;
 
 		private void MonitoringTi_OnLoaded(object sender, RoutedEventArgs e) {
-			_newMonitoringCfg = Session.Singleton.CurrentConfiguration.MonitoringSettings;
+			_newMonitoringCfg = Session.Singleton.Configuration.MonitoringSettings;
 			_isMonitoringActive = SSDMonitoring.SSDMonitoringEnabled();
 			EnOrDisableMonitoringCb.IsChecked = _isMonitoringActive;
 			MonitoringEnOrDisabled(_isMonitoringActive);
@@ -113,7 +113,7 @@ namespace StorageManagementCore.WPFGUI
 		}
 
 		private void ApplyMonitoringBtn_OnClick(object sender, RoutedEventArgs e) {
-			Session.Singleton.CurrentConfiguration.MonitoringSettings = _newMonitoringCfg.Clone() as MonitoringConfiguration;
+			Session.Singleton.Configuration.MonitoringSettings = _newMonitoringCfg.Clone() as MonitoringConfiguration;
 			if (_isMonitoringActive != EnOrDisableMonitoringCb.IsChecked) {
 				SSDMonitoring.SetSSDMonitoring(EnOrDisableMonitoringCb.IsChecked.Value);
 			}

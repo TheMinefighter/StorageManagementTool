@@ -27,8 +27,8 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
-		private static bool HDDPathValid() => Session.Singleton.CurrentConfiguration.DefaultHDDPath != null &&
-		                                      Directory.Exists(Session.Singleton.CurrentConfiguration.DefaultHDDPath);
+		private static bool HDDPathValid() => Session.Singleton.Configuration.DefaultHDDPath != null &&
+		                                      Directory.Exists(Session.Singleton.Configuration.DefaultHDDPath);
 
 		private void EnOrDisableSendToHDDCb_OnUnchecked(object sender, RoutedEventArgs e) {
 			OperatingMethods.EnableSendToHDD(false);
