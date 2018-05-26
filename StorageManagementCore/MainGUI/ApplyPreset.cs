@@ -59,7 +59,7 @@ namespace StorageManagementCore.MainGUI {
 				return;
 			}
 
-			IEnumerable<DriveInfo> driveInfos = Wrapper.getDrives();
+			IEnumerable<DriveInfo> driveInfos = Wrapper.GetDrives();
 			DriveInfo HDDToUse = driveInfos.First(x =>
 				OperatingMethods.GetDriveInfoDescription(x) == SelectHDD_lb.SelectedItem.ToString());
 			DriveInfo SSDToUse = driveInfos.First(x =>

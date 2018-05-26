@@ -168,7 +168,7 @@ namespace StorageManagementCore.Backend {
 			return true;
 		}
 
-		public static IEnumerable<DriveInfo> getDrives() => FileSystem.Drives;
+		public static IEnumerable<DriveInfo> GetDrives() => FileSystem.Drives;
 
 		/// <summary>
 		///  Executes an Command using Windows Commandline
@@ -193,7 +193,7 @@ namespace StorageManagementCore.Backend {
 		/// </summary>
 		/// <param name="source">The string to add backslashes to</param>
 		/// <returns>The  source with backslashes</returns>
-		private static string AddBackslahes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
+		public static string AddBackslahes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
 		/// <summary>
 		///  Checks if one Path is the parent of another
@@ -219,19 +219,12 @@ namespace StorageManagementCore.Backend {
 		/// </param>
 		/// <param name="readReturnData">Whether to read the output of the Application</param>
 		/// <returns>Whether the operation were successful</returns>
-		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
-			bool waitforexit = true, bool debug = false, bool readReturnData = false, bool asUser = false) => ExecuteExecuteable(
-				                                                                                                  Path.Combine(
-					                                                                                                  Environment.GetFolderPath(
-						                                                                                                  Environment
-							                                                                                                  .SpecialFolder
-							                                                                                                  .System),
-					                                                                                                  @"cmd.exe"),
-				                                                                                                  (debug ? "/K " : "/C ") + cmd,
-				                                                                                                  out returnData, out int tmp,
-				                                                                                                  out int _, readReturnData,
-				                                                                                                  waitforexit, hidden,
-				                                                                                                  admin, asUser) && tmp == 0;
+		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData, bool waitforexit = true,
+			bool debug = false, bool readReturnData = false, bool asUser = false) {
+			return ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
+				       (debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden, admin,
+				       asUser) && tmp == 0;
+		}
 
 		#region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
 
@@ -372,35 +365,6 @@ namespace StorageManagementCore.Backend {
 		public static bool RestartComputer() => ExecuteExecuteable(
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/R /T 1", false,
 			true);
-
-		/// <summary>
-		///  Kills first all depnding ServiceControllers and then itselves
-		/// </summary>
-		/// <param name="toKill">The ServiceController to kill</param>
-		/// <returns>Whether the operation were successful</returns>
-		private static bool RecursiveServiceKiller(ServiceController toKill) {
-			IEnumerable<ServiceController> childs = toKill.DependentServices;
-			if (!(childs.All(x => x.CanStop) && childs.All(RecursiveServiceKiller))) {
-				return false;
-			}
-
-			try {
-				toKill.Stop();
-			}
-			catch (Exception) {
-				return false;
-			}
-
-			return true;
-		}
-
-		/// <summary>
-		///  Restarts a service and all depending services
-		/// </summary>
-		/// <param name="toRestart">The service to restart</param>
-		/// <returns>Whether the operation were successful</returns>
-		public static bool RecursiveServiceRestart(ServiceController toRestart) =>
-			RecursiveServiceKiller(toRestart) && RecursiveServiceStarter(toRestart);
 
 		/// <summary>
 		///  Tests a given set of loacal CredetiaLS

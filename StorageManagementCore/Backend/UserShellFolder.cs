@@ -200,7 +200,7 @@ namespace StorageManagementCore.Backend {
 		}
 
 		public DirectoryInfo GetPath() {
-			Wrapper.RegistryMethods.GetRegistryValue(RegistryValues[0].Item2, out object regValue, AccessAsUser);
+			RegistryMethods.GetRegistryValue(RegistryValues[0].Item2, out object regValue, AccessAsUser);
 			return new DirectoryInfo((string) regValue ?? UserShellFolderStrings.Error);
 		}
 
@@ -263,7 +263,7 @@ namespace StorageManagementCore.Backend {
 						bool skip = false;
 						do {
 							retry = false;
-							if (!Wrapper.RegistryMethods.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String,
+							if (!RegistryMethods.SetRegistryValue(x, newPathOfChild, RegistryValueKind.String,
 								usf.AccessAsUser)) {
 								switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
 									string.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Text,
@@ -296,7 +296,7 @@ namespace StorageManagementCore.Backend {
 			}
 
 			if (usf.RegistryValues.All(x =>
-				Wrapper.RegistryMethods.SetRegistryValue(x.Item2, newDir.FullName, RegistryValueKind.String,
+				RegistryMethods.SetRegistryValue(x.Item2, newDir.FullName, RegistryValueKind.String,
 					usf.AccessAsUser))) {
 				if (newDir.Exists && oldDir.Exists && usf.MoveExistingFiles &&
 				    (copyContents == OperatingMethods.QuestionAnswer.Yes ||

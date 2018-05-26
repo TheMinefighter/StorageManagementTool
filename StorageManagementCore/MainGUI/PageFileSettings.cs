@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.FileIO;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
 using static StorageManagementCore.MainGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementCore.MainGUI {
 	public partial class PagefileSettings : Form {
-		private OperatingMethods.SwapfileMethods.SwapfileState currentState;
+		private Swapfile.SwapfileState currentState;
 
 		public PagefileSettings() {
 			InitializeComponent();
@@ -24,11 +26,11 @@ namespace StorageManagementCore.MainGUI {
 
 		private void PageFileOptionDialog_Load(object sender, EventArgs e) {
 			LoadUIStrings();
-			currentState = OperatingMethods.SwapfileMethods.GetSwapfileState();
+			currentState = Swapfile.GetSwapfileState();
 			Swapfileinfo_tb.Text = currentState.GetStateDescription();
 
 			Pagefilepartition_lb_SelectedIndexChanged(null, null);
-			foreach (DriveInfo driveInfo in Wrapper.getDrives()) {
+			foreach (DriveInfo driveInfo in (IEnumerable<DriveInfo>) FileSystem.Drives) {
 				try {
 					if (driveInfo.AvailableFreeSpace >= 16 * 1048576) {
 						Swapfilepartition_lb.Items.Add(OperatingMethods.GetDriveInfoDescription(driveInfo));
@@ -59,7 +61,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void SwapfileStepBackward_btn_Click(object sender, EventArgs e) {
-			if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(false, currentState) &&
+			if (Swapfile.ChangeSwapfileStadium(false, currentState) &&
 			    MessageBox.Show(
 				    SwapfileSuccessful_Restart_Text,
 				    SwapfileSuccessful_Restart_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
@@ -70,7 +72,7 @@ namespace StorageManagementCore.MainGUI {
 		private void SwapfileStepForward_btn_Click(object sender, EventArgs e) {
 			OperatingMethods.GetDriveInfoFromDescription(out DriveInfo info, (string) Swapfilepartition_lb.SelectedItem);
 
-			if (OperatingMethods.SwapfileMethods.ChangeSwapfileStadium(true, currentState, info) &&
+			if (Swapfile.ChangeSwapfileStadium(true, currentState, info) &&
 			    MessageBox.Show(
 				    SwapfileSuccessful_Restart_Text,
 				    SwapfileSuccessful_Restart_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {

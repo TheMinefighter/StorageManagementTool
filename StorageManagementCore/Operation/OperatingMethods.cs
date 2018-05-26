@@ -292,7 +292,7 @@ namespace StorageManagementCore.Operation {
 		/// <returns>Whether the operation were successful</returns>
 		public static bool SetSearchDataPath(DirectoryInfo newPath) {
 			if (newPath.Exists) {
-				if (Wrapper.RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegistryValue,
+				if (RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegistryValue,
 					newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
 					RegistryValueKind.String,
 					true)) {
@@ -337,7 +337,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="description">The description of the DriveInfo</param>
 		/// <returns>Whether the described DriveInfo were found</returns>
 		public static bool GetDriveInfoFromDescription(out DriveInfo driveInfo, string description) {
-			driveInfo = Wrapper.getDrives().FirstOrDefault(x => GetDriveInfoDescription(x) == description);
+			driveInfo = FileSystem.Drives.FirstOrDefault(x => GetDriveInfoDescription(x) == description);
 			return driveInfo != null;
 		}
 
@@ -356,7 +356,7 @@ namespace StorageManagementCore.Operation {
 		public static bool GetSearchDataPath(out DirectoryInfo directory) {
 			directory = null;
 
-			if (!Wrapper.RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text,
+			if (!RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text,
 				true)) {
 				return false;
 			}
@@ -397,7 +397,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="toFill"></param>
 		public static void FillWithDriveInfo(ListBox toFill) {
 			toFill.Items.Clear();
-			foreach (DriveInfo item in Wrapper.getDrives()) {
+			foreach (DriveInfo item in (IEnumerable<DriveInfo>) FileSystem.Drives) {
 				toFill.Items.Add(GetDriveInfoDescription(item));
 			}
 		}
