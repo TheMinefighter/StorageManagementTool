@@ -2,12 +2,15 @@
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.AboutStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		public Visibility Lol { get; set; }
 
-		private void AboutTextWb_OnLoaded(object sender, RoutedEventArgs e) {
+		private void AboutTextWb_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			AboutTi.Content = AboutTiText;
 			Assembly current = Assembly.GetExecutingAssembly();
 			const string res = "StorageManagementCore.Ressources.About.html";
 			using (Stream stream = current.GetManifestResourceStream(res)) {

@@ -211,6 +211,11 @@
     <Compile Include="Operation\Swapfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="WPFGUI\GlobalizationRessources\AboutStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AboutStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -420,6 +425,12 @@
     <EmbeddedResource Include="Ressources\About.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\AboutStrings.de-DE.resx" />
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\AboutStrings.en-US.resx" />
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\AboutStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AboutStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.de-DE.resx" />
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.en-US.resx" />
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\ApplyPresetStrings.resx">

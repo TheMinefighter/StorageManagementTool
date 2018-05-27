@@ -321,7 +321,7 @@
                               RenderTransformOrigin="1,0.533" />
                 </Grid>
             </TabItem>
-            <TabItem Header="About">
+            <TabItem x:Name="AboutTi" Header="About">
 
                 <WebBrowser x:Name="AboutTextWb" Loaded="AboutTextWb_OnLoaded" Visibility="{Binding Lol}" />
 
