@@ -10,7 +10,7 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void AboutTextWb_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			AboutTi.Content = AboutTiText;
+			AboutTi.Header = AboutTiText;
 			Assembly current = Assembly.GetExecutingAssembly();
 			const string res = "StorageManagementCore.Ressources.About.html";
 			using (Stream stream = current.GetManifestResourceStream(res)) {

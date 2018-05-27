@@ -4,10 +4,13 @@ using System.Windows;
 using System.Windows.Input;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
-		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e) {
+		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			PagefilesTi.Header = PagefilesTiText;
 			NewSwapfileDriveCmb.ItemsSource =
 				Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);
 			DriveForNewPageFileCmb.ItemsSource = Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);

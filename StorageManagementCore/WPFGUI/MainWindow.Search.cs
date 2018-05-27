@@ -4,18 +4,25 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-using StorageManagementCore.WPFGUI.GlobalizationRessources;
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.SearchSettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private bool _searchTiOpened;
 
-		private void SearchTi_OnLoaded(object sender, RoutedEventArgs e) {
-			SelectNewSearchDirectoryBtn.Content = SearchSettingsStrings.SelectNewPath_btn_Text;
-			NewSearchPathLbl.Text = SearchSettingsStrings.NewPath_lbl_Text;
-			OpenCurrentSearchDirectoryBtn.Content = SearchSettingsStrings.OpenCurrentPath_btn_Text;
-			CurrentSearchDirectoryLbl.Text = SearchSettingsStrings.CurrentLocation_lbl_Text;
-			ApplySearchPathBtn.Content = SearchSettingsStrings.SaveSettings_btn_Text;
+		private void SearchTi_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			LocalizeSearch();
+		}
+
+		private void LocalizeSearch()
+		{
+			SearchTi.Header = SearchTiText;
+			SelectNewSearchDirectoryBtn.Content = SelectNewPath_btn_Text;
+			NewSearchPathLbl.Text = NewPath_lbl_Text;
+			OpenCurrentSearchDirectoryBtn.Content = OpenCurrentPath_btn_Text;
+			CurrentSearchDirectoryLbl.Text = CurrentLocation_lbl_Text;
+			ApplySearchPathBtn.Content = SaveSettings_btn_Text;
 		}
 
 		private void SearchTi_OnSelected(object sender, RoutedEventArgs e) {

@@ -162,4 +162,7 @@
   <data name="ChangeFolder_fbdDescription" xml:space="preserve">
     <value>Wählen sie den neuen Pfad des Ordners aus</value>
   </data>
+  <data name="MonitoringTiText" xml:space="preserve">
+    <value>SSD Überwachung</value>
+  </data>
 </root>

@@ -2,11 +2,14 @@
 using System.Windows;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-
+using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsStrings;
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
-		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e) {
+		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			SettingsTi.Header = SettingsTiText;
 			DefaultHDDPathChanged();
+
 			//TODO IsAdministratorTb
 		}
 

@@ -18,7 +18,9 @@ namespace StorageManagementCore.WPFGUI {
 
 		}
 
-		private void LocalizeMoveObjects() {
+		private void LocalizeMoveObjects()
+		{
+			MoveFileOrFolderTi.Header = MoveFileOrFolderTiText;
 			SelectFilesToMoveBtn.Content = FileToMove_btn_Text;
 			SelectFoldersToMoveBtn.Content = FolderToMove_btn_Text;
 			ObjectsToMoveLbl.Text = ObjectsToMoveLblText;

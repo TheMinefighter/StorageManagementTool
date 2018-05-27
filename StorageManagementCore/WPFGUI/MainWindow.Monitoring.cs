@@ -20,6 +20,7 @@ namespace StorageManagementCore.WPFGUI {
 		private MonitoringConfiguration _newMonitoringCfg;
 
 		private void MonitoringTi_OnLoaded(object sender, RoutedEventArgs e) {
+
 			_newMonitoringCfg = Session.Singleton.Configuration.MonitoringSettings;
 			_isMonitoringActive = SSDMonitoring.SSDMonitoringEnabled();
 			EnOrDisableMonitoringCb.IsChecked = _isMonitoringActive;
@@ -29,7 +30,9 @@ namespace StorageManagementCore.WPFGUI {
 			DisableDueSelection(false);
 		}
 
-		private void LocalizeMonitoring() {
+		private void LocalizeMonitoring()
+		{
+			MonitoringTi.Header = MonitoringTiText;
 			ForFilesAskRb.Content = AskForAction_Text;
 			ForDirectoriesAsk.Content = AskForAction_Text;
 			ForFilesIgnoreRb.Content = Ignore_Text;

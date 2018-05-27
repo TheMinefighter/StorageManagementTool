@@ -67,7 +67,7 @@
                     <CheckBox x:Name="ViewHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,0,0,10"
                               VerticalAlignment="Bottom" Background="#FFFF4040" Checked="ViewHiddenFoldersCb_Checked"
                               Unchecked="ViewHiddenFoldersCb_Unchecked" />
-                    <TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,193,0" TextWrapping="Wrap" Text="TextBox"
+                    <TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,193,0" TextWrapping="Wrap" 
                              VerticalAlignment="Top" IsReadOnly="True" TextChanged="CurrentShellFolderPathTb_OnTextChanged" />
                     <TextBlock x:Name="CurrentShellFolderPathLbl" HorizontalAlignment="Left" Margin="217,10,0,0" TextWrapping="Wrap"
                                VerticalAlignment="Top" Text="TextBlock" />

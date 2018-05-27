@@ -25,7 +25,9 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
-		private void LocalizeShellFolders() {
+		private void LocalizeShellFolders()
+		{
+			ShellFolderTi.Header = ShellFolderTiText;
 			CurrentShellFolderPathLbl.Text = CurrentUSFPath_lbl_Text;
 			OpenCurrentShellFolderPathBtn.Content = USFOpenCurrentPath_btn_Text;
 			SelectNewShellFolderPathBtn.Content = SelectNewUSFPath_btn_Text;

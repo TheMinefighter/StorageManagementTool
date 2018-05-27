@@ -256,6 +256,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchSettingsStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="WPFGUI\GlobalizationRessources\SettingsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SettingsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -478,6 +483,12 @@
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\ScenarioPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ScenarioPresetStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SettingsStrings.de-DE.resx" />
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SettingsStrings.en-US.resx" />
+    <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SettingsStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SettingsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.de-DE.resx" />
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.en-US.resx" />
