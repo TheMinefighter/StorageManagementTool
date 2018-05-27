@@ -196,7 +196,7 @@
     <value>Neustarten mit Adminstatorrechten</value>
   </data>
   <data name="SetHDDPathAsDefault_btn_Text" xml:space="preserve">
-    <value>Pfad als Standard speichern</value>
+    <value>Pfad als Standard</value>
   </data>
   <data name="SetRootPath_btn_Text" xml:space="preserve">
     <value>Neuen Basis Pfad wählen</value>
@@ -217,7 +217,7 @@
     <value>Zu verschiebende Objekte</value>
   </data>
   <data name="IsPathAbsoluteCbText" xml:space="preserve">
-    <value>Absoluten Pfad nutzen</value>
+    <value>Absoluter Pfad</value>
   </data>
   <data name="RootPathLblText" xml:space="preserve">
     <value>Zielpfad</value>

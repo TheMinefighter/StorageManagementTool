@@ -14,6 +14,8 @@ namespace StorageManagementCore.WPFGUI {
 			LocalizeMoveObjects();
 			SuggestionsLb.Items.Clear();
 			SuggestionsLb.ItemsSource = OperatingMethods.GetRecommendedPaths();
+			MoveObjectsRootPathTb.Text = Session.Singleton.Configuration.DefaultHDDPath ?? "";
+
 		}
 
 		private void LocalizeMoveObjects() {
@@ -66,6 +68,7 @@ namespace StorageManagementCore.WPFGUI {
 		private void SetRootPathChecked() {
 			if (Directory.Exists(MoveObjectsRootPathTb.Text)) {
 				Session.Singleton.Configuration.DefaultHDDPath = MoveObjectsRootPathTb.Text;
+				Session.Singleton.SaveCfg();
 			}
 			else {
 				//TODO Throw not available

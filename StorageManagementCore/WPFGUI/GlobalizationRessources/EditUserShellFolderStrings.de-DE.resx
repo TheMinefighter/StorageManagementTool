@@ -136,10 +136,10 @@
     <value>Neuen Pfad übernehmen</value>
   </data>
   <data name="SetUSF_NoneSelected" xml:space="preserve">
-    <value>Bitte wählen sie einen UserShellFolder aus um diesen zu editieren.</value>
+    <value>Bitte wählen sie einen Systemordner aus um diesen zu editieren.</value>
   </data>
   <data name="SetUSF_NoNewPath" xml:space="preserve">
-    <value>Bitte wählen sie einen neuen Pfad  für den UserShellFolder aus.</value>
+    <value>Bitte wählen sie einen neuen Pfad  für den Systemordner aus.</value>
   </data>
   <data name="USFOpenCurrentPath_btn_Text" xml:space="preserve">
     <value>Aktuellen Pfad öffnen</value>
@@ -148,7 +148,7 @@
     <value>Der aktuelle Pfad ({0}) existiert nicht.</value>
   </data>
   <data name="USFOpenCurrentPath_NoPathSelected" xml:space="preserve">
-    <value>Wählen sie einen UserShellFolder aus um dessen aktuellen Pfad öffnen zu können</value>
+    <value>Wählen sie einen Systemordner aus um dessen aktuellen Pfad öffnen zu können</value>
   </data>
   <data name="USFOpenNewPath_btn_Text" xml:space="preserve">
     <value>Neuen Pfad öffnen</value>
@@ -157,10 +157,10 @@
     <value>Der augewählte Pfad ({0}) existiert nicht.</value>
   </data>
   <data name="USFOpenNewPath_NoPathSelected" xml:space="preserve">
-    <value>Wählen sie einen neuen Pfad für den UserShellFolder um diesen öffnen zu können</value>
+    <value>Wählen sie einen neuen Pfad für den Systemordner um diesen öffnen zu können</value>
   </data>
   <data name="Closing_WantRestart_Text" xml:space="preserve">
-    <value>Ein UserShellFolder wurde geändert damit die Änderungen genutzt werden können muss der Computer neugestartet werden. Jetzt neustarten?</value>
+    <value>Ein Systemordner wurde geändert damit die Änderungen genutzt werden können muss der Computer neugestartet werden. Jetzt neustarten?</value>
   </data>
   <data name="Closing_WantRestart_Title" xml:space="preserve">
     <value>Neustarten?</value>
@@ -172,9 +172,9 @@
     <value>Bestehende Elemente verschieben</value>
   </data>
   <data name="ChangeDependentShellFoldersCbText" xml:space="preserve">
-    <value>Abhängige ShellFolder ändern</value>
+    <value>Abhängige Systemordner ändern</value>
   </data>
   <data name="ViewHiddenFoldersCbText" xml:space="preserve">
-    <value>Versteckte ShellFolder anzeigen</value>
+    <value>Versteckte Systemordneranzeigen</value>
   </data>
 </root>
