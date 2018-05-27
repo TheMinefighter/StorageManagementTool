@@ -177,4 +177,7 @@
   <data name="ViewHiddenFoldersCbText" xml:space="preserve">
     <value>Versteckte Systemordneranzeigen</value>
   </data>
+  <data name="ShellFolderTiText" xml:space="preserve">
+    <value>Systemordner bearbeiten</value>
+  </data>
 </root>

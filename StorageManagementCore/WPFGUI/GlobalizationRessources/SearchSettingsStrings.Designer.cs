@@ -135,6 +135,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string SearchTiText {
+            get {
+                return ResourceManager.GetString("SearchTiText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SelectNewPath_btn_Text {
             get {
                 return ResourceManager.GetString("SelectNewPath_btn_Text", resourceCulture);

@@ -225,6 +225,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string MoveFileOrFolderTiText {
+            get {
+                return ResourceManager.GetString("MoveFileOrFolderTiText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MoveFilesOrFolder_gb_Text {
             get {
                 return ResourceManager.GetString("MoveFilesOrFolder_gb_Text", resourceCulture);

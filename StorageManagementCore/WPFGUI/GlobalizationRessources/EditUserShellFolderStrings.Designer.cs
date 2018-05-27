@@ -180,6 +180,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ShellFolderTiText {
+            get {
+                return ResourceManager.GetString("ShellFolderTiText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string USFOpenCurrentPath_btn_Text {
             get {
                 return ResourceManager.GetString("USFOpenCurrentPath_btn_Text", resourceCulture);

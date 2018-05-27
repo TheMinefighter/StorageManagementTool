@@ -142,4 +142,7 @@
   <data name="AddFolder_fbdDescription" xml:space="preserve">
     <value></value>
   </data>
+  <data name="MonitoringTiText" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

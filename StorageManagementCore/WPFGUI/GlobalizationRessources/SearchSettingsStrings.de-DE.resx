@@ -156,4 +156,7 @@
   <data name="Error" xml:space="preserve">
     <value>Fehler</value>
   </data>
+  <data name="SearchTiText" xml:space="preserve">
+    <value>Suchindizierung</value>
+  </data>
 </root>

@@ -171,4 +171,7 @@
   <data name="ExtendedPagefileOptions_Title" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="PagefilesTiText" xml:space="preserve">
+    <value>Pagefiles</value>
+  </data>
 </root>

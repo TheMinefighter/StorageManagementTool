@@ -177,4 +177,7 @@
   <data name="ViewHiddenFoldersCbText" xml:space="preserve">
     <value>View hidden ShellFolders</value>
   </data>
+  <data name="ShellFolderTiText" xml:space="preserve">
+    <value>Edit ShellFolders</value>
+  </data>
 </root>
