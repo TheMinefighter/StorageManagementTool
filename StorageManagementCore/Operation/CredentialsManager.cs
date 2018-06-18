@@ -1,38 +1,39 @@
-﻿namespace StorageManagementCore.Operation
+﻿using System;
+
+namespace StorageManagementCore.Operation
 {
 	public static class CredentialsManager
 	{
 		/// <summary>
 		///  Stores Credentials for later use when an Administartor Account is required
 		/// </summary>
-		private static Credentials _forAdmin = new Credentials();
+		private static bool _forAdmin = false;
 
 		/// <summary>
 		///  Stores Credentials for later use
 		/// </summary>
-		private static Credentials _forStandard = new Credentials();
+		private static Credentials _credentials = new Credentials();
 
+		public static bool AdminstratorCredentials => _forAdmin;
+		public static bool HasCredentials => _credentials.Username == null;
+
+        public static EventHandler OnCredentialsChanged;
 		public static void DisposeCredentials()
 		{
-			_forAdmin.Dispose();
-			_forStandard.Dispose();
-			_forAdmin = new Credentials();
-			_forStandard = new Credentials();
+			_credentials.Dispose();
+			_forAdmin = false;
+			_credentials = new Credentials();
+			OnCredentialsChanged(null,EventArgs.Empty);
 		}
 
 		public static (bool?, string) GetStoredCredentials()
 		{
-			if (_forStandard.Username == null)
+			if (_credentials.Username == null)
 			{
 				return (null, null);
 			}
 
-			if (_forAdmin.Username == null)
-			{
-				return (false, _forStandard.Username);
-			}
-
-			return (true, _forAdmin.Username);
+			return _forAdmin ? (true, _credentials.Username) : (false, _credentials.Username);
 		}
 
 		/// <summary>
@@ -45,17 +46,17 @@
 		{
 			if (adminNeeded)
 			{
-				if (_forAdmin.Username != null)
+				if (_forAdmin)
 				{
-					credentials = _forAdmin;
+					credentials = _credentials;
 					return true;
 				}
 			}
 			else
 			{
-				if (_forStandard.Username != null)
+				if (_credentials.Username != null)
 				{
-					credentials = _forStandard;
+					credentials = _credentials;
 					return true;
 				}
 			}
@@ -70,13 +71,14 @@
 			}
 
 			credentials = ((DialogReturnData) dialog.Tag).GivenCredentials;
-			_forStandard = ((DialogReturnData) dialog.Tag).GivenCredentials;
+			_credentials = ((DialogReturnData) dialog.Tag).GivenCredentials;
 			if (((DialogReturnData) dialog.Tag).IsAdmin)
 			{
-				_forAdmin = ((DialogReturnData) dialog.Tag).GivenCredentials;
+				_forAdmin = true;
 			}
 
-			return !((DialogReturnData) dialog.Tag).IsAborted;
+			OnCredentialsChanged(null, EventArgs.Empty);
+			return true;
 		}
 
 		/// <summary>

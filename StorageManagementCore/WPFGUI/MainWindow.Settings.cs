@@ -27,11 +27,16 @@ namespace StorageManagementCore.WPFGUI
 				};
 			SettingsTi.Header = SettingsTiText;
 			DefaultHDDPathChanged();
+			CredentialsManager.OnCredentialsChanged += (s, a) => { };
 
 			//TODO IsAdministratorTb
 		}
 
-		private void DefaultHDDPathChanged()
+		private void RemoveCredentialsBtn_Click(object sender, RoutedEventArgs e)
+		{
+				CredentialsManager.DisposeCredentials();
+		}
+        private void DefaultHDDPathChanged()
 		{
 			EnOrDisableSendToHDDCb.IsEnabled = HDDPathValid();
 		}

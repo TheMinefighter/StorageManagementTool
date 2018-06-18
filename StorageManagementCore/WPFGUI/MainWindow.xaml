@@ -349,8 +349,8 @@
                               VerticalAlignment="Top" Width="377">
                         <Grid Margin="0,5,-2,-12">
                             <Button x:Name="DeleteLogs" Content="Button" HorizontalAlignment="Left"
-                                    VerticalAlignment="Top" Width="178"
-                                    Height="22" Margin="179,10,0,0" />
+                                    VerticalAlignment="Top" Width="173"
+                                    Height="22" Margin="184,10,0,0" />
                             <Button x:Name="SetLanguageAndRestartBtn_Copy" Content="Button" HorizontalAlignment="Left"
                                     VerticalAlignment="Top" Width="178" Height="22" Margin="1,10,0,0" />
                             <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="258,32,0,0"
@@ -367,10 +367,10 @@
                                 <ColumnDefinition Width="5" />
                                 <ColumnDefinition Width="91*" />
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="RevokeAuthorizationsBtn" Content="Button" Margin="0,16,0,0"
+                            <Button x:Name="RemoveCredentialsBtn" Content="Button" Margin="0,16,0,0"
                                     VerticalAlignment="Top"
-                                    Height="22" Grid.Column="2" />
-                            <Button Content="Button" VerticalAlignment="Top" Height="22"
+                                    Height="22" Grid.Column="2" Click="RemoveCredentialsBtn_Click" />
+                            <Button x:Name="ChangeCredentialsBtn" Content="Button" VerticalAlignment="Top" Height="22"
                                     Margin="0,16,0,0" />
                             <TextBlock TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.ColumnSpan="3" />
                             <TextBlock x:Name="IsAdministratorTb" TextWrapping="Wrap" Text="TextBlock"
