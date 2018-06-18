@@ -154,4 +154,10 @@
   <data name="PagefilesTiText" xml:space="preserve">
     <value></value>
   </data>
+  <data name="RemovePagefileBtnText" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="AddPagefileBtnText" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

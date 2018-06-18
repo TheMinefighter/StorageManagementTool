@@ -32,6 +32,8 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void LocalizeMonitoring()
 		{
+			MonitoringForFilesGb.Content = ActionForFiles_gb_Text;
+			MonitoringForDirectoriesGb.Content = ActionForFolders_gb_Text;
 			MonitoringTi.Header = MonitoringTiText;
 			ForFilesAskRb.Content = AskForAction_Text;
 			ForDirectoriesAsk.Content = AskForAction_Text;

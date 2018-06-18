@@ -63,6 +63,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string AddPagefileBtnText {
+            get {
+                return ResourceManager.GetString("AddPagefileBtnText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ApplyPagefileChanges_btn_Text {
             get {
                 return ResourceManager.GetString("ApplyPagefileChanges_btn_Text", resourceCulture);
@@ -174,6 +183,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static string RefreshAvailableParitions_btn_Text {
             get {
                 return ResourceManager.GetString("RefreshAvailableParitions_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string RemovePagefileBtnText {
+            get {
+                return ResourceManager.GetString("RemovePagefileBtnText", resourceCulture);
             }
         }
         

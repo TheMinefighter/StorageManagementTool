@@ -97,5 +97,9 @@ namespace StorageManagementCore.WPFGUI {
 			NewShellFolderPathTb.IsEnabled = !AutomaticShellFolderPathCb.IsChecked.Value;
 			SelectNewShellFolderPathBtn.IsEnabled = !AutomaticShellFolderPathCb.IsChecked.Value;
 		}
+
+		private void SelectNewShellFolderPathBtn_OnClick(object sender, RoutedEventArgs e) {
+			NewShellFolderPathTb.Text = Backend.FileAndFolder.SelectDirectory().FullName;
+		}
 	}
 }
