@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace UniversalCommandlineInterface.Attributes {
-	[AttributeUsage(AttributeTargets.GenericParameter | AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
+namespace UniversalCommandlineInterface.Attributes
+{
+	[AttributeUsage(AttributeTargets.GenericParameter | AttributeTargets.Parameter | AttributeTargets.Field |
+	                AttributeTargets.Property)]
 	//TODO Add Defaults
-	public class CmdParameterAttribute : Attribute {
-		public enum CmdParameterUsage {
+	public class CmdParameterAttribute : Attribute
+	{
+		public enum CmdParameterUsage
+		{
 			RawValueWithDecleration,
 			NoRawsButDecleration,
 			DirectAliasOrDeclared,
@@ -28,7 +32,8 @@ namespace UniversalCommandlineInterface.Attributes {
 		internal CmdParameterUsage Usage;
 
 
-		public CmdParameterAttribute(string name, CmdParameterUsage usage = CmdParameterUsage.Default) {
+		public CmdParameterAttribute(string name, CmdParameterUsage usage = CmdParameterUsage.Default)
+		{
 			Name = name;
 			Usage = usage;
 //         AvailableWithoutAlias = availableWithoutAlias??true;
@@ -37,11 +42,17 @@ namespace UniversalCommandlineInterface.Attributes {
 //         _DeclerationNeededExplicitlyDeclared = declerationNeeded != null;
 		}
 
-		public void LoadAlias() {
-			if (!_loaded) {
-				ParameterAliases = MyInfo.GetCustomAttributes(typeof(CmdParameterAliasAttribute), false).Cast<CmdParameterAliasAttribute>();
-				if (Usage == CmdParameterUsage.Default) {
-					Usage = ParameterAliases.Any() ? CmdParameterUsage.OnlyDirectAlias : CmdParameterUsage.RawValueWithDecleration;
+		public void LoadAlias()
+		{
+			if (!_loaded)
+			{
+				ParameterAliases = MyInfo.GetCustomAttributes(typeof(CmdParameterAliasAttribute), false)
+					.Cast<CmdParameterAliasAttribute>();
+				if (Usage == CmdParameterUsage.Default)
+				{
+					Usage = ParameterAliases.Any()
+						? CmdParameterUsage.OnlyDirectAlias
+						: CmdParameterUsage.RawValueWithDecleration;
 				}
 
 				_loaded = true;

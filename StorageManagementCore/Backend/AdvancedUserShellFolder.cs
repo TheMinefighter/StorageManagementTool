@@ -5,8 +5,10 @@ using System.Linq;
 using System.Reflection;
 using Csv;
 
-namespace StorageManagementCore.Backend {
-	public class AdvancedUserShellFolder {
+namespace StorageManagementCore.Backend
+{
+	public class AdvancedUserShellFolder
+	{
 		public static AdvancedUserShellFolder[] AllUSF;
 		public string DefaultValue;
 		public bool IsUserSpecific;
@@ -16,22 +18,34 @@ namespace StorageManagementCore.Backend {
 		public bool Undefined;
 		public Guid WindowsIdentifier;
 
-		private AdvancedUserShellFolder() { }
+		private AdvancedUserShellFolder()
+		{
+		}
 
-		public static AdvancedUserShellFolder GetUSF(ShellFolders s) => AllUSF[(int) s];
+		public static AdvancedUserShellFolder GetUSF(ShellFolders s)
+		{
+			return AllUSF[(int) s];
+		}
 
-		public static AdvancedUserShellFolder GetUSF(string name) => AllUSF[(int) Enum.Parse(typeof(ShellFolders), name)];
+		public static AdvancedUserShellFolder GetUSF(string name)
+		{
+			return AllUSF[(int) Enum.Parse(typeof(ShellFolders), name)];
+		}
 
-		public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier) {
+		public static AdvancedUserShellFolder GetUSF(Guid windowsIdentifier)
+		{
 			return AllUSF.First(x => x.WindowsIdentifier == windowsIdentifier);
 		}
 
-		public static void LoadUSF() {
+		public static void LoadUSF()
+		{
 			Assembly current = Assembly.GetExecutingAssembly();
 			const string res = "StorageManagementCore.Backend.AdvancedUserShellFolderData.csv";
-			using (Stream stream = current.GetManifestResourceStream(res)) {
+			using (Stream stream = current.GetManifestResourceStream(res))
+			{
 				IEnumerable<ICsvLine> data = CsvReader.ReadFromStream(stream);
-				AllUSF = data.Select(x => new AdvancedUserShellFolder {
+				AllUSF = data.Select(x => new AdvancedUserShellFolder
+				{
 					Name = x[0],
 					WindowsIdentifier = new Guid(x[1]),
 					Undefined = x[2][0] == '1',

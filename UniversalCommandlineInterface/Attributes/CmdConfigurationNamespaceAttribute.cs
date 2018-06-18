@@ -1,14 +1,17 @@
 ﻿using System;
 
-namespace UniversalCommandlineInterface.Attributes {
+namespace UniversalCommandlineInterface.Attributes
+{
 	[AttributeUsage(AttributeTargets.Class)]
-	public class CmdConfigurationNamespaceAttribute : Attribute {
+	public class CmdConfigurationNamespaceAttribute : Attribute
+	{
 		public string ExtendedHelp;
 		public string Help;
 		public bool IsReadonly;
 		public string Name;
 
-		public CmdConfigurationNamespaceAttribute(bool isReadonly, string name, string help, string extendedHelp) {
+		public CmdConfigurationNamespaceAttribute(bool isReadonly, string name, string help, string extendedHelp)
+		{
 			IsReadonly = isReadonly;
 			Name = name;
 			Help = help;

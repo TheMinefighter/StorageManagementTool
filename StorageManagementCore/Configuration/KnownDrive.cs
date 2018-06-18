@@ -1,5 +1,7 @@
-﻿namespace StorageManagementCore.Configuration {
-	public enum KnownDrive {
+﻿namespace StorageManagementCore.Configuration
+{
+	public enum KnownDrive
+	{
 		Unknown,
 		SystemDrive,
 		NasDrive,

@@ -1,6 +1,9 @@
-﻿namespace StorageManagementCore.Configuration {
-	public class SwapfileSysConfiguration {
-		public enum SwapfileState {
+﻿namespace StorageManagementCore.Configuration
+{
+	public class SwapfileSysConfiguration
+	{
+		public enum SwapfileState
+		{
 			Untouched,
 			Disabled,
 			Moved

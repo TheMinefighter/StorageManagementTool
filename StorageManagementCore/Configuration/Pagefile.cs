@@ -1,7 +1,9 @@
-﻿namespace StorageManagementCore.Configuration {
+﻿namespace StorageManagementCore.Configuration
+{
 	/// <summary>
 	/// </summary>
-	public class Pagefile {
+	public class Pagefile
+	{
 		/// <summary>
 		///  The drive to store on
 		/// </summary>
@@ -17,7 +19,8 @@
 		/// </summary>
 		public int MinSize;
 
-		public Pagefile(ConfiguredDrive drive, int maxSize, int minSize) {
+		public Pagefile(ConfiguredDrive drive, int maxSize, int minSize)
+		{
 			Drive = drive;
 			MaxSize = maxSize;
 			MinSize = minSize;

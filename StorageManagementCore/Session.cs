@@ -9,11 +9,13 @@ using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
 
-namespace StorageManagementCore {
+namespace StorageManagementCore
+{
 	/// <summary>
 	///  Stores session data
 	/// </summary>
-	public class Session {
+	public class Session
+	{
 		/// <summary>
 		///  Reference to the Session Object
 		/// </summary>
@@ -39,18 +41,22 @@ namespace StorageManagementCore {
 		/// <summary>
 		///  Creates a new Session
 		/// </summary>
-		public Session() {
+		public Session()
+		{
 			Singleton = this;
 			ConfigurationFolder = Path.Combine(Environment.GetFolderPath(
 				Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
 			ConfigurationPath = Path.Combine(ConfigurationFolder,
 				"MainConfiguration.json");
-			if (File.Exists(ConfigurationPath)) {
+			if (File.Exists(ConfigurationPath))
+			{
 				Configuration = JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath));
 			}
-			else {
+			else
+			{
 				Configuration = new MainConfiguration();
-				if (!Directory.Exists(ConfigurationFolder)) {
+				if (!Directory.Exists(ConfigurationFolder))
+				{
 					Directory.CreateDirectory(ConfigurationFolder);
 				}
 
@@ -67,13 +73,18 @@ namespace StorageManagementCore {
 		}
 
 		private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,
-			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures) {
+			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures)
+		{
 			CultureInfo requestedParent = requestedCulture.Parent;
 			CultureInfo toUseCultureInfo = null;
-			for (int i = 0; i < availableSpecificCultures.Count(); i++) {
-				if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent)) {
-					foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i)) {
-						if (cultureInfo.Equals(requestedCulture)) {
+			for (int i = 0; i < availableSpecificCultures.Count(); i++)
+			{
+				if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent))
+				{
+					foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i))
+					{
+						if (cultureInfo.Equals(requestedCulture))
+						{
 							toUseCultureInfo = cultureInfo;
 						}
 					}
@@ -90,7 +101,8 @@ namespace StorageManagementCore {
 		/// <summary>
 		///  Stores the configuration in a JSON file
 		/// </summary>
-		public void SaveCfg() {
+		public void SaveCfg()
+		{
 			File.WriteAllText(
 				ConfigurationPath, JsonConvert.SerializeObject(Configuration));
 		}

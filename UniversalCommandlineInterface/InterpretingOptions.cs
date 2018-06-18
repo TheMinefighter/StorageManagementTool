@@ -1,6 +1,9 @@
-﻿namespace UniversalCommandlineInterface {
-	public class InterpretingOptions {
-		public static InterpretingOptions DefaultOptions = new InterpretingOptions {
+﻿namespace UniversalCommandlineInterface
+{
+	public class InterpretingOptions
+	{
+		public static InterpretingOptions DefaultOptions = new InterpretingOptions
+		{
 			IgnoreParameterCase = true,
 			PreferredArgumentPrefix = '/'
 		};
