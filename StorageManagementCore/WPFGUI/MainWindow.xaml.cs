@@ -18,7 +18,7 @@ namespace StorageManagementCore.WPFGUI {
 			if (!Session.Singleton.IsAdmin && Session.Singleton.Configuration.CredentialsOnStartup) {
 				List<string> args = Environment.GetCommandLineArgs().ToList();
 				args.RemoveAt(0);
-				Wrapper.RestartAsAdministrator(args.ToArray());
+				Wrapper.RestartProgram(true, args.ToArray());
 			}
 
 			AdvancedUserShellFolder.LoadUSF();
@@ -29,5 +29,6 @@ namespace StorageManagementCore.WPFGUI {
 
 
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-	}
+
+    }
 }

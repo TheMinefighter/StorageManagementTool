@@ -247,12 +247,9 @@ namespace StorageManagementCore.Backend {
 		/// <summary>
 		///  Restarts Program as Administartor
 		/// </summary>
-		public static void RestartAsAdministrator(params string[] parameters) {
-//         if (ExecuteCommand($"start \"{Pro cess.GetCurrentProcess().MainModule.FileName}\"{string.Join(" ", parameters.Select(x => $"\"{x}\""))}",true,false)) {
-//              Environment.Exit(0);
-//         }
+		public static void RestartProgram(bool administrator, params string[] parameters) {
 
-			if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ", parameters), true)) {
+			if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ", parameters),administrator)) {
 				Environment.Exit(0);
 			}
 		}

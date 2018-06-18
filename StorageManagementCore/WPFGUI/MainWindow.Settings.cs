@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
@@ -7,6 +10,18 @@ namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e)
 		{
+			List<object> cultureInfos = Program.AvailableSpecificCultures.SelectMany(x =>x).Select(x=>(object) new SelectableUICulture{Value = x}).ToList();
+			string defaultlang = "Systemsprache";
+			cultureInfos.Insert(0, defaultlang);
+			SelectLanguageCmb.Items.Clear();
+			SelectLanguageCmb.ItemsSource = cultureInfos;
+			SelectLanguageCmb.SelectedItem = Session.Singleton.Configuration.DefaultHDDPath == null
+				? (object)defaultlang
+				:(object) new SelectableUICulture
+				{
+					Value = CultureInfo.CreateSpecificCulture(Session.Singleton.Configuration.LanguageOverride)
+						
+				};
 			SettingsTi.Header = SettingsTiText;
 			DefaultHDDPathChanged();
 
@@ -18,7 +33,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void RestartAsAdministratorBtn_OnClick(object sender, RoutedEventArgs e) {
-			Wrapper.RestartAsAdministrator();
+			Wrapper.RestartProgram(true);
 		}
 
 		private void EnOrDisableSendToHDDCb_OnChecked(object sender, RoutedEventArgs e) {
@@ -36,5 +51,21 @@ namespace StorageManagementCore.WPFGUI {
 		private void EnOrDisableSendToHDDCb_OnUnchecked(object sender, RoutedEventArgs e) {
 			OperatingMethods.EnableSendToHDD(false);
 		}
-	}
+
+		private void SetLanguageAndRestartBtn_Click(object sender, RoutedEventArgs e)
+		{
+			if (SelectLanguageCmb.SelectionBoxItem is SelectableUICulture c)
+			{
+				Session.Singleton.Configuration.LanguageOverride = c.Value.ToString();
+
+			}
+			else
+			{
+				Session.Singleton.Configuration.LanguageOverride = null;
+				}
+
+			Session.Singleton.SaveCfg();
+				Backend.Wrapper.RestartProgram(false);
+		}
+    }
 }

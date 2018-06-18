@@ -19,7 +19,7 @@ namespace StorageManagementCore.MainGUI {
 					    MessageBoxButtons.YesNo,
 					    MessageBoxIcon.Error,
 					    MessageBoxDefaultButton.Button1) == DialogResult.Yes) {
-					Wrapper.RestartAsAdministrator();
+					Wrapper.RestartProgram(true);
 				}
 				else {
 					Close();

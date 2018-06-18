@@ -90,7 +90,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void RestartAsAdministartor_btn_Click(object sender, EventArgs e) {
-			Wrapper.RestartAsAdministrator();
+			Wrapper.RestartProgram(true);
 		}
 
 		private void FileToMoveSel_btn_Click(object sender, EventArgs e) {

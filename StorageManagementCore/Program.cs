@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Security.Permissions;
 using System.Windows.Forms;
@@ -55,7 +57,7 @@ namespace StorageManagementCore {
 		private static void ProcessCommandlineArguments(string[] args) {
 			if (false) {
 				//For debugging purposes only
-				MessageBox.Show(string.Join(" , ", args));
+				MessageBox.Show(String.Join(" , ", args));
 			}
 
 			new CommandlineOptionInterpreter(args) {Options = new InterpretingOptions {RootName = "StorageManagementTool"}}
@@ -308,5 +310,8 @@ private static void MoveObjectFromCommandline(List<string> args) {
 			}
 			*/
 		}
+
+		public static readonly IEnumerable<IEnumerable<CultureInfo>> AvailableSpecificCultures = new[]
+			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 	}
 }

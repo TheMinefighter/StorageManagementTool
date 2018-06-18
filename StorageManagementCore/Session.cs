@@ -40,8 +40,6 @@ namespace StorageManagementCore {
 		///  Creates a new Session
 		/// </summary>
 		public Session() {
-			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures = new[]
-				{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 			Singleton = this;
 			ConfigurationFolder = Path.Combine(Environment.GetFolderPath(
 				Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
@@ -61,7 +59,7 @@ namespace StorageManagementCore {
 
 			CultureInfo requestedCulture =
 				CultureInfo.GetCultureInfo(Configuration.LanguageOverride ?? CultureInfo.CurrentUICulture.Name);
-			CultureInfo toUseCultureInfo = BestPossibleCulture(requestedCulture, availableSpecificCultures);
+			CultureInfo toUseCultureInfo = BestPossibleCulture(requestedCulture, Program.AvailableSpecificCultures);
 			Thread.CurrentThread.CurrentUICulture = toUseCultureInfo;
 			ScenarioPreset.LoadPresets();
 			UserShellFolder.LoadEditable();

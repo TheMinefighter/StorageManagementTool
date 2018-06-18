@@ -15,7 +15,7 @@ namespace StorageManagementCore {
 
 		[CmdAction("Admin")]
 		public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
-			Wrapper.RestartAsAdministrator(args ?? new string[] { });
+			Wrapper.RestartProgram(true, args ?? new string[] { });
 		}
 
 		[CmdAction("Move")]

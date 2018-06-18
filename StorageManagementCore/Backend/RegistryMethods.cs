@@ -216,7 +216,7 @@ namespace StorageManagementCore.Backend {
 						    WrapperStrings.SetRegistryValue_Security,
 						    valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
 					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
-					Wrapper.RestartAsAdministrator();
+					Wrapper.RestartProgram(true);
 					Environment.Exit(0);
 				}
 
@@ -229,7 +229,7 @@ namespace StorageManagementCore.Backend {
 						    valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
 					    WrapperStrings.Error,
 					    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
-					Wrapper.RestartAsAdministrator();
+					Wrapper.RestartProgram(true);
 					return true;
 				}
 
