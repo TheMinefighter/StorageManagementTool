@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using StorageManagementCore.WPFGUI;
@@ -14,6 +15,7 @@ namespace StorageManagementCore {
 	///  Main class of this Program
 	/// </summary>
 	public static class Program {
+		public static char DriveLetter(this DriveInfo d) => d.Name.First();
 		public static readonly CultureInfo[][] AvailableSpecificCultures =
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 

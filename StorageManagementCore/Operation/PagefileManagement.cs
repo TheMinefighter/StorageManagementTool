@@ -16,7 +16,7 @@ namespace StorageManagementCore.Operation {
 
 //		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg) { }
 //
-		private static bool GetCurrentPagefileConfiguration(out PagefileSysConfiguration cfg) {
+		public static bool GetCurrentPagefileConfiguration(out PagefileSysConfiguration cfg) {
 			cfg = new PagefileSysConfiguration();
 			if (!Wrapper.ExecuteExecuteable(
 				WmicPath, "pagefileset list /FORMAT:CSV"
@@ -28,6 +28,13 @@ namespace StorageManagementCore.Operation {
 				cfg.Pagefiles.Add(new Pagefile(new ConfiguredDrive(line["Name"].First()), int.Parse(line["MaximumSize"]),
 					int.Parse(line["MaximumSize"])));
 			}
+
+			if (!GetSystemManaged(out bool val)) {
+				return false;
+			}
+
+			cfg.SystemManaged = val;
+			return true;
 		}
 
 //
