@@ -16,6 +16,11 @@ namespace StorageManagementCore.Operation {
 
 //		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg) { }
 //
+		/// <summary>
+		/// Reads the current <exception cref="PagefileSysConfiguration"></exception>
+		/// </summary>
+		/// <param name="cfg">The current <see cref="PagefileSysConfiguration"/></param>
+		/// <returns>Whether the operation were successful</returns>
 		public static bool GetCurrentPagefileConfiguration(out PagefileSysConfiguration cfg) {
 			cfg = new PagefileSysConfiguration();
 			if (!Wrapper.ExecuteExecuteable(
@@ -38,7 +43,11 @@ namespace StorageManagementCore.Operation {
 		}
 
 //
-//		private static bool DeleteAllPagefiles() { }
+		/// <summary>
+		/// Deletes all pagefiles
+		/// </summary>
+		/// <returns>Whether the operation were successful</returns>
+	//	private static bool DeleteAllPagefiles() { }
 //
 //		private static bool SetSystemManaged(bool SystemManaged) { }
 //
@@ -51,7 +60,7 @@ namespace StorageManagementCore.Operation {
 		/// </summary>
 		/// <param name="systemManaged">Whether pagefiles are system managed</param>
 		/// <returns>Whether the operation where successfull</returns>
-		public static bool GetSystemManaged(out bool systemManaged) {
+		private static bool GetSystemManaged(out bool systemManaged) {
 			systemManaged = false;
 			if (!Wrapper.ExecuteExecuteable(
 				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
