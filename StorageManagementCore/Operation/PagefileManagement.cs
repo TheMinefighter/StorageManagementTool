@@ -24,6 +24,11 @@ namespace StorageManagementCore.Operation {
 //
 //		private static bool DeletePagefile(DriveInfo drive) { }
 // Maybe I will write some WMIC GET API in the future...
+		/// <summary>
+		/// Checks wether pagefiles are currently system-manged
+		/// </summary>
+		/// <param name="systemManaged">Whether pagefiles are system managed</param>
+		/// <returns>Whether the operation where successfull</returns>
 		public static bool GetSystemManaged(out bool systemManaged) {
 			systemManaged = false;
 			if (!Wrapper.ExecuteExecuteable(
@@ -32,16 +37,15 @@ namespace StorageManagementCore.Operation {
 				return false;
 			}
 
-			if (tmp.Length != 7) {
+			string data = string.Join("",tmp);
+
+			int occurence = data.IndexOf("AutomaticManagedPagefile=",/*required because culture specific otherwise*/ StringComparison.Ordinal);
+			if (occurence==-1) {
 				return false;
 			}
+			
 
-			string data = tmp[2];
-			if (!data.StartsWith("AutomaticManagedPagefile=")) {
-				return false;
-			}
-
-			if (bool.TryParse(data.Split('=')[1], out systemManaged)) {
+			if (!bool.TryParse(string.Concat(data.Skip(occurence+"AutomaticManagedPagefile=".Length).TakeWhile(c => c!=' ')), out systemManaged)) {
 				return false;
 			}
 

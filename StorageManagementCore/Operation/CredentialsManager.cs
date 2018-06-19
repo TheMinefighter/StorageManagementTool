@@ -77,7 +77,7 @@ namespace StorageManagementCore.Operation {
 			public bool IsAborted { get; set; }
 			public Credentials GivenCredentials { get; set; }
 			public bool IsAdmin { get; set; }
-			public bool AdminRequired { get; set; }
+			public bool AdminRequired { get; }
 
 			public DialogReturnData() { }
 

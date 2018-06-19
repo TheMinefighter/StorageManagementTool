@@ -4,9 +4,8 @@ using System.Diagnostics;
 namespace Test {
 	internal class Program {
 		public static void Main(string[] args) {
-			StorageManagementCore.Operation.PagefileManagement.GetSystemManaged(out bool val);
-			Console.WriteLine(val);
-			Console.ReadLine();
+			Console.WriteLine(StorageManagementCore.Operation.PagefileManagement.GetSystemManaged(out bool val)+"with data" +val);
+			//Console.ReadLine();
 		}
 	}
 }
