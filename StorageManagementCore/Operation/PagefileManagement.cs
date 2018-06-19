@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Csv;
 using Microsoft.VisualBasic.FileIO;
 using StorageManagementCore.Backend;
+using StorageManagementCore.Configuration;
 using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Operation {
@@ -14,7 +16,20 @@ namespace StorageManagementCore.Operation {
 
 //		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg) { }
 //
-//		private static bool GetCurrentPagefileConfiguration(out Configuration.PagefileSysConfiguration cfg) { }
+		private static bool GetCurrentPagefileConfiguration(out PagefileSysConfiguration cfg) {
+			cfg = new PagefileSysConfiguration();
+			if (!Wrapper.ExecuteExecuteable(
+				WmicPath, "pagefileset list /FORMAT:CSV"
+				, out string[] tmp, out int _, out int _, true, true, true, true)) {
+				return false;
+			}
+
+			foreach (ICsvLine line in CsvReader.Read(new StringReader(string.Join(Environment.NewLine, tmp)))) {
+				cfg.Pagefiles.Add(new Pagefile(new ConfiguredDrive(line["Name"].First()), int.Parse(line["MaximumSize"]),
+					int.Parse(line["MaximumSize"])));
+			}
+		}
+
 //
 //		private static bool DeleteAllPagefiles() { }
 //
@@ -25,7 +40,7 @@ namespace StorageManagementCore.Operation {
 //		private static bool DeletePagefile(DriveInfo drive) { }
 // Maybe I will write some WMIC GET API in the future...
 		/// <summary>
-		/// Checks wether pagefiles are currently system-manged
+		///  Checks wether pagefiles are currently system-manged
 		/// </summary>
 		/// <param name="systemManaged">Whether pagefiles are system managed</param>
 		/// <returns>Whether the operation where successfull</returns>
@@ -37,15 +52,15 @@ namespace StorageManagementCore.Operation {
 				return false;
 			}
 
-			string data = string.Join("",tmp);
+			string data = string.Join("", tmp);
 
-			int occurence = data.IndexOf("AutomaticManagedPagefile=",/*required because culture specific otherwise*/ StringComparison.Ordinal);
-			if (occurence==-1) {
+			string wmicKey = "AutomaticManagedPagefile=";
+			int occurence = data.IndexOf(wmicKey, /*required because culture specific otherwise*/ StringComparison.Ordinal);
+			if (occurence == -1) {
 				return false;
 			}
-			
 
-			if (!bool.TryParse(string.Concat(data.Skip(occurence+"AutomaticManagedPagefile=".Length).TakeWhile(c => c!=' ')), out systemManaged)) {
+			if (!bool.TryParse(string.Concat(data.Skip(occurence + wmicKey.Length).TakeWhile(c => c != ' ')), out systemManaged)) {
 				return false;
 			}
 

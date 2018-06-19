@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
+using StorageManagementCore.Operation;
 
 namespace Test {
 	internal class Program {
 		public static void Main(string[] args) {
-			Console.WriteLine(StorageManagementCore.Operation.PagefileManagement.GetSystemManaged(out bool val)+"with data" +val);
+			Console.WriteLine(PagefileManagement.GetSystemManaged(out bool val) + "with data" + val);
 			//Console.ReadLine();
 		}
 	}
