@@ -1,4 +1,6 @@
-﻿namespace StorageManagementCore.Configuration {
+﻿using JetBrains.Annotations;
+
+namespace StorageManagementCore.Configuration {
 	/// <summary>
 	/// </summary>
 	public class Pagefile {
@@ -13,7 +15,7 @@
 		public int MaxSize;
 
 		/// <summary>
-		///  Minimum sie in MB
+		///  Minimum size in MB
 		/// </summary>
 		public int MinSize;
 

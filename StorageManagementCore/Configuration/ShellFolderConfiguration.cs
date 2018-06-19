@@ -1,6 +1,8 @@
-﻿namespace StorageManagementCore.Configuration {
+﻿using System;
+
+namespace StorageManagementCore.Configuration {
 	public class ShellFolderConfiguration {
 		public string Path;
-		public string WindowsIdentifier;
+		public Guid WindowsIdentifier;
 	}
 }
