@@ -17,7 +17,7 @@ namespace StorageManagementCore
 	/// </summary>
 	public static class Program
 	{
-		public static readonly IEnumerable<IEnumerable<CultureInfo>> AvailableSpecificCultures = new[]
+		public static readonly CultureInfo[][] AvailableSpecificCultures = new[]
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 
 		/// <summary>

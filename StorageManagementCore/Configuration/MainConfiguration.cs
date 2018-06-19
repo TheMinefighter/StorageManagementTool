@@ -6,8 +6,7 @@ namespace StorageManagementCore.Configuration
 	/// <summary>
 	///  Represents the JSON serializable configuration data of program
 	/// </summary>
-	public class MainConfiguration
-	{
+	public class MainConfiguration {
 		/// <summary>
 		/// </summary>
 		public AllPagefilesConfiguration AllPagefilesSettings;
@@ -38,17 +37,14 @@ namespace StorageManagementCore.Configuration
 		/// </summary>
 		public string Version;
 
-		public MainConfiguration()
-		{
-			AllPagefilesSettings = new AllPagefilesConfiguration();
-			MonitoringSettings = new MonitoringConfiguration();
-			ShellFolderSettings = new List<ShellFolderConfiguration>();
-			Version = "1.1";
-		}
+		public MainConfiguration() { }
+		public static MainConfiguration DefaultSettings() => new MainConfiguration {
+			AllPagefilesSettings = new AllPagefilesConfiguration(),
+			MonitoringSettings = new MonitoringConfiguration(),
+			ShellFolderSettings = new List<ShellFolderConfiguration>(),
+			Version = "1.1"
+		};
 
-		public override string ToString()
-		{
-			return JsonConvert.SerializeObject(this);
-		}
+		public override string ToString() => JsonConvert.SerializeObject(this);
 	}
 }

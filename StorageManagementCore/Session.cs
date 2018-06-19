@@ -54,7 +54,7 @@ namespace StorageManagementCore
 			}
 			else
 			{
-				Configuration = new MainConfiguration();
+				Configuration = MainConfiguration.DefaultSettings();
 				if (!Directory.Exists(ConfigurationFolder))
 				{
 					Directory.CreateDirectory(ConfigurationFolder);
@@ -73,15 +73,15 @@ namespace StorageManagementCore
 		}
 
 		private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,
-			IEnumerable<IEnumerable<CultureInfo>> availableSpecificCultures)
+			CultureInfo[][] availableSpecificCultures)
 		{
 			CultureInfo requestedParent = requestedCulture.Parent;
 			CultureInfo toUseCultureInfo = null;
-			for (int i = 0; i < availableSpecificCultures.Count(); i++)
+			for (int i = 0; i < availableSpecificCultures.Length; i++)
 			{
-				if (availableSpecificCultures.ElementAt(i).ElementAt(0).Parent.Equals(requestedParent))
+				if (availableSpecificCultures[i][0].Parent.Equals(requestedParent))
 				{
-					foreach (CultureInfo cultureInfo in availableSpecificCultures.ElementAt(i))
+					foreach (CultureInfo cultureInfo in availableSpecificCultures[i])
 					{
 						if (cultureInfo.Equals(requestedCulture))
 						{
