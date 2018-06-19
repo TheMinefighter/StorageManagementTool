@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalCommandlineInterfa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageManagementCore", "StorageManagementCore\StorageManagementCore.csproj", "{338EB406-98FB-4EFF-A8DA-20060C3DDEB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{7A03EB56-1210-483C-8AFE-3B61FC3A9D0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{338EB406-98FB-4EFF-A8DA-20060C3DDEB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{338EB406-98FB-4EFF-A8DA-20060C3DDEB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{338EB406-98FB-4EFF-A8DA-20060C3DDEB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A03EB56-1210-483C-8AFE-3B61FC3A9D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A03EB56-1210-483C-8AFE-3B61FC3A9D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A03EB56-1210-483C-8AFE-3B61FC3A9D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A03EB56-1210-483C-8AFE-3B61FC3A9D0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

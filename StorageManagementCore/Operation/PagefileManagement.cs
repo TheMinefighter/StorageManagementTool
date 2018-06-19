@@ -9,6 +9,26 @@ using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Operation {
 	public static class PagefileManagement {
+		private static readonly string WmicPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
+//
+//		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg){}
+//
+//		private static bool GetCurrentPagefileConfiguration(out Configuration.PagefileSysConfiguration cfg){}
+//
+//		private static bool DeleteAllPagefiles() {}
+//
+//		private static bool SetSystemManaged( bool SystemManaged){}
+//
+//		private static bool ChangePagefile(Configuration.Pagefile cfg){}
+//
+//		private static bool DeletePagefile(DriveInfo drive) {}
+//
+//		private static bool GetSystemManaged(out bool systemManaged) {
+//			if (Wrapper.ExecuteExecuteable(
+//				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
+//				, out string[] tmp, out int _, out int _, true, true, true, true)) ;
+//		}
+		
 		/// <summary>
 		///  Changes the systems pagefile settings
 		/// </summary>
@@ -42,7 +62,6 @@ namespace StorageManagementCore.Operation {
 		/// <param name="minSize">The min size of the pagefile in MB</param>
 		/// <returns></returns>
 		public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize) {
-			string wmicPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
 			if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
 			{
 				MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_MinGreaterMax,
@@ -59,17 +78,17 @@ namespace StorageManagementCore.Operation {
 			}
 
 			if (Wrapper.ExecuteExecuteable(
-				wmicPath, "computersystem get AutomaticManagedPagefile /Value"
+				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
 				, out string[] tmp, out int _, out int _, true, true, true, true)) //Tests
 			{
 				if (bool.Parse(tmp[2].Split('=')[1])) {
 					Wrapper.ExecuteCommand(
-						wmicPath
+						WmicPath
 						+ Environment.ExpandEnvironmentVariables(
 							" computersystem where \"name='%computername%' \" set AutomaticManagedPagefile=False")
 						, true, true, out _); //Disables automatic Pagefile  management
 					Wrapper.ExecuteExecuteable(
-						wmicPath
+						WmicPath
 						, "computersystem get AutomaticManagedPagefile /Value"
 						, out tmp, out int _, out _, waitforexit: true, hidden: true, admin: true);
 					if (!bool.Parse(tmp[2].Split('=')[1])) {
@@ -80,20 +99,20 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
-			Wrapper.ExecuteExecuteable(wmicPath,
+			Wrapper.ExecuteExecuteable(WmicPath,
 				"pagefileset delete /NOINTERACTIVE", out _, out int _, out _, waitforexit: true, hidden: true,
 				admin: true); //Deletes all Pagefiles
 
-			Wrapper.ExecuteExecuteable(wmicPath,
+			Wrapper.ExecuteExecuteable(WmicPath,
 				$"pagefileset create name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\"", out _,
 				out int _, out _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile
 
-			Wrapper.ExecuteExecuteable(wmicPath,
+			Wrapper.ExecuteExecuteable(WmicPath,
 				$"pagefileset where name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\" set InitialSize={minSize},MaximumSize={maxSize}",
 				out _, out int _, out _, waitforexit: true, hidden: true, admin: true);
 			// Sets Pagefile Size
 
-			Wrapper.ExecuteExecuteable(wmicPath,
+			Wrapper.ExecuteExecuteable(WmicPath,
 				" get", out tmp, out int _, out int _, true, true,
 				true, true); //Checks wether there is exactly 1 pagefile existing
 			if (tmp.Length != 2) {
