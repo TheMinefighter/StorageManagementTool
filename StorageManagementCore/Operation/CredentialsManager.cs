@@ -12,7 +12,7 @@ namespace StorageManagementCore.Operation {
 		/// </summary>
 		private static Credentials _credentials = new Credentials();
 
-		public static EventHandler OnCredentialsChanged;
+		public static EventHandler OnCredentialsChanged = (a, b) => { };
 
 		public static bool AdminstratorCredentials => _forAdmin;
 		public static bool HasCredentials => _credentials.Username == null;
@@ -29,7 +29,7 @@ namespace StorageManagementCore.Operation {
 				return (null, null);
 			}
 
-			return _forAdmin ? (true, _credentials.Username) : (false, _credentials.Username);
+			return (_forAdmin, _credentials.Username);
 		}
 
 		/// <summary>

@@ -9,26 +9,45 @@ using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Operation {
 	public static class PagefileManagement {
-		private static readonly string WmicPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
+		private static readonly string WmicPath =
+			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
+
+//		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg) { }
 //
-//		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg){}
+//		private static bool GetCurrentPagefileConfiguration(out Configuration.PagefileSysConfiguration cfg) { }
 //
-//		private static bool GetCurrentPagefileConfiguration(out Configuration.PagefileSysConfiguration cfg){}
+//		private static bool DeleteAllPagefiles() { }
 //
-//		private static bool DeleteAllPagefiles() {}
+//		private static bool SetSystemManaged(bool SystemManaged) { }
 //
-//		private static bool SetSystemManaged( bool SystemManaged){}
+//		private static bool ChangePagefile(Configuration.Pagefile cfg) { }
 //
-//		private static bool ChangePagefile(Configuration.Pagefile cfg){}
-//
-//		private static bool DeletePagefile(DriveInfo drive) {}
-//
-//		private static bool GetSystemManaged(out bool systemManaged) {
-//			if (Wrapper.ExecuteExecuteable(
-//				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
-//				, out string[] tmp, out int _, out int _, true, true, true, true)) ;
-//		}
-		
+//		private static bool DeletePagefile(DriveInfo drive) { }
+// Maybe I will write some WMIC GET API in the future...
+		public static bool GetSystemManaged(out bool systemManaged) {
+			systemManaged = false;
+			if (!Wrapper.ExecuteExecuteable(
+				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
+				, out string[] tmp, out int _, out int _, true, true, true, true)) {
+				return false;
+			}
+
+			if (tmp.Length != 7) {
+				return false;
+			}
+
+			string data = tmp[2];
+			if (!data.StartsWith("AutomaticManagedPagefile=")) {
+				return false;
+			}
+
+			if (bool.TryParse(data.Split('=')[1], out systemManaged)) {
+				return false;
+			}
+
+			return true;
+		}
+
 		/// <summary>
 		///  Changes the systems pagefile settings
 		/// </summary>
