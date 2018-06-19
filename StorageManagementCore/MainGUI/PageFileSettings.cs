@@ -122,7 +122,7 @@ namespace StorageManagementCore.MainGUI
 			int maxSize = decimal.ToInt32(MaximumPagefilesize_nud.Value);
 			int selectedPartitionIndex = Pagefilepartition_lb.SelectedIndex;
 			string currentSelection = (string) Pagefilepartition_lb.Items[selectedPartitionIndex];
-			OperatingMethods.ChangePagefileSettings(currentSelection, maxSize, minSize);
+			PagefileManagement.ChangePagefileSettings(currentSelection, maxSize, minSize);
 		}
 
 		private void Pagefilepartition_lb_SelectedIndexChanged(object sender, EventArgs e)

@@ -93,7 +93,7 @@ namespace StorageManagementCore.Operation
 			}
 
 			int memory = (int) (new ComputerInfo().TotalPhysicalMemory / 1048576L);
-			OperatingMethods.ChangePagefileSettings(hdd, memory, memory * 2);
+			PagefileManagement.ChangePagefileSettings(hdd, memory, memory * 2);
 			OperatingMethods.EnableSendToHDD();
 			OperatingMethods.SetHibernate(false);
 			OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));
@@ -135,7 +135,7 @@ namespace StorageManagementCore.Operation
 			}
 
 			int memory = (int) (new ComputerInfo().TotalPhysicalMemory / 1048576L);
-			OperatingMethods.ChangePagefileSettings(hdd, memory, memory * 2);
+			PagefileManagement.ChangePagefileSettings(hdd, memory, memory * 2);
 			OperatingMethods.SetHibernate(false);
 			OperatingMethods.EnableSendToHDD();
 			OperatingMethods.SetSearchDataPath(baseDir.CreateSubdirectory("WindowsSearchData"));

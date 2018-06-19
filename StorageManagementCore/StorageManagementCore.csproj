@@ -206,6 +206,7 @@
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Operation\OperatingMethods.cs" />
+    <Compile Include="Operation\PagefileManagement.cs" />
     <Compile Include="Operation\ScenarioPreset.cs" />
     <Compile Include="Operation\SSDMonitoring.cs" />
     <Compile Include="Operation\Swapfile.cs" />

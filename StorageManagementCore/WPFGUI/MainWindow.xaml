@@ -370,14 +370,14 @@
                             <Button x:Name="RemoveCredentialsBtn" Content="Button" Margin="0,16,0,0"
                                     VerticalAlignment="Top"
                                     Height="22" Grid.Column="2" Click="RemoveCredentialsBtn_Click" />
-                            <Button x:Name="ChangeCredentialsBtn" Content="Button" VerticalAlignment="Top" Height="22"
-                                    Margin="0,16,0,0" />
-                            <TextBlock TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.ColumnSpan="3" />
-                            <TextBlock x:Name="IsAdministratorTb" TextWrapping="Wrap" Text="TextBlock"
-                                       VerticalAlignment="Top" Margin="0,43,0,0" Grid.ColumnSpan="3" />
+                            <Button Grid.Column="0" x:Name="ChangeCredentialsBtn" Content="Button" VerticalAlignment="Top" Height="22"
+                                    Margin="0,16,0,0" Click="ChangeCredentialsBtn_OnClick" />
+                            <TextBlock x:Name="CurrentCredentialsLbl" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Column="0" />
+                            <TextBlock x:Name="IsAdministratorLbl" TextWrapping="Wrap" Text="TextBlock"
+                                       VerticalAlignment="Top" Margin="0,43,0,0" Grid.ColumnSpan="3" Grid.Column="0" />
                             <Button x:Name="RestartAsAdministratorBtn" Content="Button" VerticalAlignment="Top"
                                     Height="22" Margin="0,64,0,0" Click="RestartAsAdministratorBtn_OnClick"
-                                    Grid.ColumnSpan="3" />
+                                    Grid.ColumnSpan="3" Grid.Column="0" />
                         </Grid>
                     </GroupBox>
                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,317,0,0" VerticalAlignment="Top"

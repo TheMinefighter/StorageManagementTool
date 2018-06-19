@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -79,5 +80,9 @@ namespace StorageManagementCore.WPFGUI
 			Session.Singleton.SaveCfg();
 			Wrapper.RestartProgram(false);
 		}
+
+		private void ChangeCredentialsBtn_OnClick(object sender, RoutedEventArgs e) {
+			CredentialsManager.GetCredentials(false, out Credentials _);
+       		}
 	}
 }
