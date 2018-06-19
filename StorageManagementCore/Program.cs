@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -10,14 +9,12 @@ using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Interpreters;
 
 //TODO Rename Directory methods to Folder
-namespace StorageManagementCore
-{
+namespace StorageManagementCore {
 	/// <summary>
 	///  Main class of this Program
 	/// </summary>
-	public static class Program
-	{
-		public static readonly CultureInfo[][] AvailableSpecificCultures = new[]
+	public static class Program {
+		public static readonly CultureInfo[][] AvailableSpecificCultures =
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 
 		/// <summary>
@@ -32,8 +29,7 @@ namespace StorageManagementCore
 
 		[STAThread]
 		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-		public static void Main(string[] args)
-		{
+		public static void Main(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
 			ConsoleIO.SetVisibility(CommandLineMode);
@@ -47,8 +43,7 @@ namespace StorageManagementCore
 		/// </summary>
 		[STAThread]
 		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-		public static void Main2(string[] args)
-		{
+		public static void Main2(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
 			ConsoleIO.SetVisibility(CommandLineMode);
@@ -61,10 +56,8 @@ namespace StorageManagementCore
 		///  Processes aguments
 		/// </summary>
 		/// <param name="args">The arguments to process</param>
-		private static void ProcessCommandlineArguments(string[] args)
-		{
-			if (false)
-			{
+		private static void ProcessCommandlineArguments(string[] args) {
+			if (false) {
 				//For debugging purposes only
 				MessageBox.Show(string.Join(" , ", args));
 			}

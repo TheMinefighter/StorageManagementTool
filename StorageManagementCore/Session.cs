@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using Newtonsoft.Json;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
 
-namespace StorageManagementCore
-{
+namespace StorageManagementCore {
 	/// <summary>
 	///  Stores session data
 	/// </summary>
-	public class Session
-	{
+	public class Session {
 		/// <summary>
 		///  Reference to the Session Object
 		/// </summary>
@@ -41,22 +37,18 @@ namespace StorageManagementCore
 		/// <summary>
 		///  Creates a new Session
 		/// </summary>
-		public Session()
-		{
+		public Session() {
 			Singleton = this;
 			ConfigurationFolder = Path.Combine(Environment.GetFolderPath(
 				Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
 			ConfigurationPath = Path.Combine(ConfigurationFolder,
 				"MainConfiguration.json");
-			if (File.Exists(ConfigurationPath))
-			{
+			if (File.Exists(ConfigurationPath)) {
 				Configuration = JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath));
 			}
-			else
-			{
+			else {
 				Configuration = MainConfiguration.DefaultSettings();
-				if (!Directory.Exists(ConfigurationFolder))
-				{
+				if (!Directory.Exists(ConfigurationFolder)) {
 					Directory.CreateDirectory(ConfigurationFolder);
 				}
 
@@ -73,36 +65,30 @@ namespace StorageManagementCore
 		}
 
 		private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,
-			CultureInfo[][] availableSpecificCultures)
-		{
+			CultureInfo[][] availableSpecificCultures) {
 			CultureInfo requestedParent = requestedCulture.Parent;
 			CultureInfo toUseCultureInfo = null;
-			for (int i = 0; i < availableSpecificCultures.Length; i++)
-			{
-				if (availableSpecificCultures[i][0].Parent.Equals(requestedParent))
-				{
-					foreach (CultureInfo cultureInfo in availableSpecificCultures[i])
-					{
-						if (cultureInfo.Equals(requestedCulture))
-						{
+			foreach (CultureInfo[] baseCulture in availableSpecificCultures) {
+				if (baseCulture[0].Parent.Equals(requestedParent)) {
+					foreach (CultureInfo cultureInfo in baseCulture) {
+						if (cultureInfo.Equals(requestedCulture)) {
 							toUseCultureInfo = cultureInfo;
 						}
 					}
 
-					toUseCultureInfo = toUseCultureInfo ?? availableSpecificCultures.ElementAt(i).ElementAt(0);
+					toUseCultureInfo = toUseCultureInfo ?? baseCulture[0];
 					break;
 				}
 			}
 
-			toUseCultureInfo = toUseCultureInfo ?? availableSpecificCultures.ElementAt(0).ElementAt(0);
+			toUseCultureInfo = toUseCultureInfo ?? availableSpecificCultures[0][0];
 			return toUseCultureInfo;
 		}
 
 		/// <summary>
 		///  Stores the configuration in a JSON file
 		/// </summary>
-		public void SaveCfg()
-		{
+		public void SaveCfg() {
 			File.WriteAllText(
 				ConfigurationPath, JsonConvert.SerializeObject(Configuration));
 		}

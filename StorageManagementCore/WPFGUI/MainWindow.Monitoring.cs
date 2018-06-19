@@ -8,10 +8,8 @@ using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.MonitoringSettingsStrings;
 
-namespace StorageManagementCore.WPFGUI
-{
-	public partial class MainWindow
-	{
+namespace StorageManagementCore.WPFGUI {
+	public partial class MainWindow {
 		private readonly Dictionary<MonitoringAction, RadioButton> _forDirectoriesDictionary =
 			new Dictionary<MonitoringAction, RadioButton>();
 
@@ -21,8 +19,7 @@ namespace StorageManagementCore.WPFGUI
 		private bool _isMonitoringActive;
 		private MonitoringConfiguration _newMonitoringCfg;
 
-		private void MonitoringTi_OnLoaded(object sender, RoutedEventArgs e)
-		{
+		private void MonitoringTi_OnLoaded(object sender, RoutedEventArgs e) {
 			_newMonitoringCfg = Session.Singleton.Configuration.MonitoringSettings;
 			_isMonitoringActive = SSDMonitoring.SSDMonitoringEnabled();
 			EnOrDisableMonitoringCb.IsChecked = _isMonitoringActive;
@@ -32,8 +29,7 @@ namespace StorageManagementCore.WPFGUI
 			DisableDueSelection(false);
 		}
 
-		private void LocalizeMonitoring()
-		{
+		private void LocalizeMonitoring() {
 			MonitoringForFilesGb.Content = ActionForFiles_gb_Text;
 			MonitoringForDirectoriesGb.Content = ActionForFolders_gb_Text;
 			MonitoringTi.Header = MonitoringTiText;
@@ -51,8 +47,7 @@ namespace StorageManagementCore.WPFGUI
 			OpenMonitoredFolderBtn.Content = OpenSelectedfolder_btn_Text;
 		}
 
-		private void LoadRadioButtonDictionaries()
-		{
+		private void LoadRadioButtonDictionaries() {
 			_forDirectoriesDictionary.Add(MonitoringAction.Ask, ForDirectoriesAsk);
 			_forDirectoriesDictionary.Add(MonitoringAction.Ignore, ForDirectoriesIgnore);
 			_forDirectoriesDictionary.Add(MonitoringAction.Move, ForDirectoriesMove);
@@ -61,8 +56,7 @@ namespace StorageManagementCore.WPFGUI
 			_forFilesDictionary.Add(MonitoringAction.Move, ForFilesMoveRb);
 		}
 
-		private void MonitoringEnOrDisabled(bool ssdMonitoringEnabled)
-		{
+		private void MonitoringEnOrDisabled(bool ssdMonitoringEnabled) {
 			AddMonitoredFolderBtn.IsEnabled = ssdMonitoringEnabled;
 			MonitoredFoldersLb.IsEnabled = ssdMonitoringEnabled;
 			MonitoredFoldersLb.ItemsSource = ssdMonitoringEnabled
@@ -70,11 +64,9 @@ namespace StorageManagementCore.WPFGUI
 				: Enumerable.Empty<MonitoredFolder>();
 		}
 
-		private void MonitoredFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
+		private void MonitoredFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
 			bool somethingSelected = MonitoredFoldersLb.SelectedIndex != -1;
-			if (somethingSelected)
-			{
+			if (somethingSelected) {
 				_forFilesDictionary[_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForFiles]
 					.IsChecked = true;
 
@@ -85,8 +77,7 @@ namespace StorageManagementCore.WPFGUI
 			DisableDueSelection(somethingSelected);
 		}
 
-		private void DisableDueSelection(bool somethingSelected)
-		{
+		private void DisableDueSelection(bool somethingSelected) {
 			RemoveMonitoredFolderBtn.IsEnabled = somethingSelected;
 			ChangeMonitoredFolderPathBtn.IsEnabled = somethingSelected;
 			OpenMonitoredFolderBtn.IsEnabled = somethingSelected;
@@ -99,13 +90,11 @@ namespace StorageManagementCore.WPFGUI
 		//	public string Message { get; set; }
 		//	public Brush MessageColor { get; set; }
 		//}
-		private void EnOrDisableMonitoringCb_OnChecked(object sender, RoutedEventArgs e)
-		{
+		private void EnOrDisableMonitoringCb_OnChecked(object sender, RoutedEventArgs e) {
 			MonitoringEnOrDisabled(EnOrDisableMonitoringCb.IsChecked.Value);
 		}
 
-		private void AddMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
-		{
+		private void AddMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e) {
 			//TODO Add desc
 			_newMonitoringCfg.MonitoredFolders.Add(new MonitoredFolder(FileAndFolder.SelectDirectory().FullName));
 			MonitoredFoldersLb.Items.Refresh();
@@ -113,8 +102,7 @@ namespace StorageManagementCore.WPFGUI
 			MonitoredFoldersLb.Focus();
 		}
 
-		private void ChangeMonitoredFolderPathBtn_OnClick(object sender, RoutedEventArgs e)
-		{
+		private void ChangeMonitoredFolderPathBtn_OnClick(object sender, RoutedEventArgs e) {
 			//TODO Add desc
 			_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].TargetPath =
 				FileAndFolder.SelectDirectory().FullName;
@@ -122,39 +110,32 @@ namespace StorageManagementCore.WPFGUI
 			MonitoredFoldersLb.Focus();
 		}
 
-		private void RemoveMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
-		{
+		private void RemoveMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e) {
 			_newMonitoringCfg.MonitoredFolders.RemoveAt(MonitoredFoldersLb.SelectedIndex);
 			MonitoredFoldersLb.Items.Refresh();
 			MonitoredFoldersLb.Focus();
 		}
 
-		private void ApplyMonitoringBtn_OnClick(object sender, RoutedEventArgs e)
-		{
+		private void ApplyMonitoringBtn_OnClick(object sender, RoutedEventArgs e) {
 			Session.Singleton.Configuration.MonitoringSettings = _newMonitoringCfg.Clone() as MonitoringConfiguration;
-			if (_isMonitoringActive != EnOrDisableMonitoringCb.IsChecked)
-			{
+			if (_isMonitoringActive != EnOrDisableMonitoringCb.IsChecked) {
 				SSDMonitoring.SetSSDMonitoring(EnOrDisableMonitoringCb.IsChecked.Value);
 			}
 		}
 
-		private void MonitoringForFiles_Changed(object sender, RoutedEventArgs e)
-		{
+		private void MonitoringForFiles_Changed(object sender, RoutedEventArgs e) {
 			_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForFiles =
 				_forFilesDictionary.First(x => x.Value.IsChecked == true).Key;
 		}
 
-		private void MonitoringForDirectories_Changed(object sender, RoutedEventArgs e)
-		{
+		private void MonitoringForDirectories_Changed(object sender, RoutedEventArgs e) {
 			_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].ForDirectories =
 				_forDirectoriesDictionary.First(x => x.Value.IsChecked == true).Key;
 		}
 
-		private void OpenMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e)
-		{
+		private void OpenMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e) {
 			string path = (MonitoredFoldersLb.SelectedItem as MonitoredFolder).TargetPath;
-			if (Directory.Exists(path))
-			{
+			if (Directory.Exists(path)) {
 				FileAndFolder.OpenFolder(new DirectoryInfo(path));
 			}
 		}

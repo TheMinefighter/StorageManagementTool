@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace UniversalCommandlineInterface
-{
-	public class CommandlineParameterAlias
-	{
+namespace UniversalCommandlineInterface {
+	public class CommandlineParameterAlias {
 		public IEnumerable<string> extendedHelp;
 		public string Help;
 
@@ -12,8 +10,7 @@ namespace UniversalCommandlineInterface
 		public object Value;
 
 		public CommandlineParameterAlias(string name, object value, string help = "",
-			IEnumerable<string> extendedHelp = null)
-		{
+			IEnumerable<string> extendedHelp = null) {
 			Name = name;
 			Value = value;
 			Help = help;

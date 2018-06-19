@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace StorageManagementCore.Configuration
-{
+namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Contains information about a folder, which should be monitored
 	/// </summary>
-	public class MonitoredFolder : ICloneable
-	{
+	public class MonitoredFolder : ICloneable {
 		/// <summary>
 		///  The MonitoringAction to execute for new folders
 		/// </summary>
@@ -22,30 +20,22 @@ namespace StorageManagementCore.Configuration
 		/// </summary>
 		public string TargetPath;
 
-		public MonitoredFolder()
-		{
-		}
+		public MonitoredFolder() { }
 
 		/// <summary>
 		///  Creates a new MonitoredFolder object with a given target targetPath
 		/// </summary>
 		/// <param name="targetPath">The target targetPath</param>
-		public MonitoredFolder(string targetPath)
-		{
+		public MonitoredFolder(string targetPath) {
 			TargetPath = targetPath;
 			ForFiles = MonitoringAction.Ask;
 			ForDirectories = MonitoringAction.Ask;
 		}
 
-		public object Clone()
-		{
-			return new MonitoredFolder {ForDirectories = ForDirectories, ForFiles = ForFiles, TargetPath = TargetPath};
-		}
+		public object Clone() =>
+			new MonitoredFolder {ForDirectories = ForDirectories, ForFiles = ForFiles, TargetPath = TargetPath};
 
 
-		public override string ToString()
-		{
-			return TargetPath;
-		}
+		public override string ToString() => TargetPath;
 	}
 }

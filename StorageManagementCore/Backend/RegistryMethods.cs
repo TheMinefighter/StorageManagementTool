@@ -8,19 +8,15 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using StorageManagementCore.GlobalizationRessources;
 
-namespace StorageManagementCore.Backend
-{
-	public static class RegistryMethods
-	{
+namespace StorageManagementCore.Backend {
+	public static class RegistryMethods {
 		/// <summary>
 		///  Gives the WIN32APi Representation of an given RegistryValueKind
 		/// </summary>
 		/// <param name="kind"> The RegistryValueKind to represent</param>
 		/// <returns>The WIN32API Representation of the given RegistryValueKind</returns>
-		private static string Win32ApiRepresentation(RegistryValueKind kind)
-		{
-			switch (kind)
-			{
+		private static string Win32ApiRepresentation(RegistryValueKind kind) {
+			switch (kind) {
 				case RegistryValueKind.String: return "REG_SZ";
 				case RegistryValueKind.ExpandString: return "REG_EXPAND_SZ";
 				case RegistryValueKind.Binary: return "REG_BINARY";
@@ -33,22 +29,18 @@ namespace StorageManagementCore.Backend
 			}
 		}
 
-		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false)
-		{
+		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
 			toReturn = null;
-			if (asUser)
-			{
+			if (asUser) {
 				if (!Wrapper.ExecuteExecuteable(
 					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"reg.exe"),
 					$" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true,
 					true, true, true,
-					true))
-				{
+					true)) {
 					return false;
 				}
 
-				if (ret.Length == 2)
-				{
+				if (ret.Length == 2) {
 					return false;
 				}
 
@@ -60,12 +52,10 @@ namespace StorageManagementCore.Backend
 				return true;
 			}
 
-			try
-			{
+			try {
 				toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, null);
 			}
-			catch (Exception e)
-			{
+			catch (Exception e) {
 				return MessageBox.Show(
 					       string.Format(WrapperStrings.GetRegistryValue_Exception,
 						       path.ValueName, path.RegistryKey, e.Message),
@@ -83,15 +73,12 @@ namespace StorageManagementCore.Backend
 		/// </summary>
 		/// <param name="source">The registry object to fix</param>
 		/// <returns>The fixed object</returns>
-		private static object RegistryNumberFixGet(object source)
-		{
-			if (source is int)
-			{
+		private static object RegistryNumberFixGet(object source) {
+			if (source is int) {
 				source = BitConverter.ToUInt32(BitConverter.GetBytes((int) source), 0);
 			}
 
-			if (source is long)
-			{
+			if (source is long) {
 				source = BitConverter.ToUInt64(BitConverter.GetBytes((long) source), 0);
 			}
 
@@ -103,25 +90,20 @@ namespace StorageManagementCore.Backend
 		/// </summary>
 		/// <param name="toReturn">The registry object to fix</param>
 		/// <returns>The fixed object</returns>
-		private static object RegistryNumberFixSet(object toReturn)
-		{
-			if (toReturn is int)
-			{
+		private static object RegistryNumberFixSet(object toReturn) {
+			if (toReturn is int) {
 				toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int) toReturn), 0);
 			}
 
-			if (toReturn is long)
-			{
+			if (toReturn is long) {
 				toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long) toReturn), 0);
 			}
 
 			return toReturn;
 		}
 
-		private static RegistryValueKind FromWin32Api(string src)
-		{
-			switch (src)
-			{
+		private static RegistryValueKind FromWin32Api(string src) {
+			switch (src) {
 				#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
 
 				case "REG_BINARY": return RegistryValueKind.Binary;
@@ -144,11 +126,9 @@ namespace StorageManagementCore.Backend
 			}
 		}
 
-		private static object RegistryObjectFromString(string data, RegistryValueKind kind)
-		{
+		private static object RegistryObjectFromString(string data, RegistryValueKind kind) {
 			object toReturn = data;
-			switch (kind)
-			{
+			switch (kind) {
 				case RegistryValueKind.DWord:
 
 					toReturn = uint.Parse(data.Substring(2), NumberStyles.HexNumber);
@@ -187,19 +167,15 @@ namespace StorageManagementCore.Backend
 		/// <returns></returns>
 		public static bool SetRegistryValue(RegistryValue valueLocation, object content,
 			RegistryValueKind registryValueKind,
-			bool asUser = false)
-		{
-			if (asUser)
-			{
+			bool asUser = false) {
+			if (asUser) {
 				SetProtectedRegistryValue(valueLocation, content, registryValueKind);
 				return true;
 			}
 
-			if (!Session.Singleton.IsAdmin)
-			{
+			if (!Session.Singleton.IsAdmin) {
 				string value;
-				switch (registryValueKind)
-				{
+				switch (registryValueKind) {
 					case RegistryValueKind.DWord:
 						value = content is int ? ((int) content).ToString() : ((uint) content).ToString();
 						break;
@@ -224,56 +200,48 @@ namespace StorageManagementCore.Backend
 				if (!Wrapper.ExecuteExecuteable(
 					    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "reg.exe"),
 					    $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
-					    out string[] _, out int tmpExitCode, out _, true, true, true, true, asUser) || tmpExitCode == 1)
-				{
+					    out string[] _, out int tmpExitCode, out _, true, true, true, true, asUser) || tmpExitCode == 1) {
 					return false;
 				}
 
 				return true;
 			}
 
-			try
-			{
+			try {
 				Registry.SetValue(valueLocation.RegistryKey, valueLocation.ValueName, content, registryValueKind);
 			}
-			catch (SecurityException)
-			{
+			catch (SecurityException) {
 				if (MessageBox.Show(
 					    string.Format(
 						    WrapperStrings.SetRegistryValue_Security,
 						    valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
-					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-				{
+					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
 					Wrapper.RestartProgram(true);
 					Environment.Exit(0);
 				}
 
 				return false;
 			}
-			catch (UnauthorizedAccessException)
-			{
+			catch (UnauthorizedAccessException) {
 				if (MessageBox.Show(
 					    string.Format(
 						    WrapperStrings.SetRegistryValue_UnauthorizedAccess,
 						    valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
 					    WrapperStrings.Error,
-					    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-				{
+					    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
 					Wrapper.RestartProgram(true);
 					return true;
 				}
 
 				return false;
 			}
-			catch (Exception e)
-			{
+			catch (Exception e) {
 				if (MessageBox.Show(
 					    string.Format(
 						    WrapperStrings.SetRegistry_Exception,
 						    valueLocation.ValueName, valueLocation.ValueName, content, registryValueKind, e.Message),
 					    WrapperStrings.Error, MessageBoxButtons.RetryCancel,
-					    MessageBoxIcon.Error) == DialogResult.Retry)
-				{
+					    MessageBoxIcon.Error) == DialogResult.Retry) {
 					return SetRegistryValue(valueLocation, content, registryValueKind);
 				}
 
@@ -289,15 +257,13 @@ namespace StorageManagementCore.Backend
 		/// <param name="toSet">The value to set</param>
 		/// <param name="content">The content to set the value to</param>
 		/// <param name="kind">The RegistyValueKind of the content</param>
-		public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind)
-		{
+		public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind) {
 			const string folderName = "StorageManagementToolRegistryData";
 			string path = Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg");
 			new FileInfo(path).Directory.Create();
 			string toWrite = GetRegFileContent(content, kind);
 			File.WriteAllLines(path,
-				new[]
-				{
+				new[] {
 					"Windows Registry Editor Version 5.00",
 					"",
 					$"[{toSet.RegistryKey}]",
@@ -310,8 +276,7 @@ namespace StorageManagementCore.Backend
 		/// <summary>
 		///  Applies a Regfile generated using SetProtectedRegistryValue
 		/// </summary>
-		public static void ApplyRegfile()
-		{
+		public static void ApplyRegfile() {
 			const string folderName = "StorageManagementToolRegistryData";
 			Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath,
 				$" /select,\"{Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg")}\"");
@@ -331,11 +296,9 @@ namespace StorageManagementCore.Backend
 		/// <param name="content">The object to be written in the file</param>
 		/// <param name="kind">The RegistryValueKind of the content</param>
 		/// <returns> A value to use in a .reg file</returns>
-		private static string GetRegFileContent(object content, RegistryValueKind kind)
-		{
+		private static string GetRegFileContent(object content, RegistryValueKind kind) {
 			string toWrite;
-			switch (kind)
-			{
+			switch (kind) {
 				case RegistryValueKind.String:
 					toWrite = $"\"{Wrapper.AddBackslahes((string) content)}\"";
 					break;

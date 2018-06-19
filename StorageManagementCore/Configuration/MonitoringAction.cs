@@ -1,10 +1,8 @@
-﻿namespace StorageManagementCore.Configuration
-{
+﻿namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Represents all available actions for the event, when a new file or folder has been created
 	/// </summary>
-	public enum MonitoringAction
-	{
+	public enum MonitoringAction {
 		/// <summary>
 		///  Just does nothing
 		/// </summary>

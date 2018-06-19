@@ -5,15 +5,12 @@ using Microsoft.Win32;
 using StorageManagementCore.Backend;
 using StorageManagementCore.GlobalizationRessources;
 
-namespace StorageManagementCore.Operation
-{
-	public static class Swapfile
-	{
+namespace StorageManagementCore.Operation {
+	public static class Swapfile {
 		/// <summary>
 		///  Represents different states the swapfile can be in
 		/// </summary>
-		public enum SwapfileState
-		{
+		public enum SwapfileState {
 			/// <summary>
 			///  Active when swapfile is in its default state
 			/// </summary>
@@ -42,10 +39,7 @@ namespace StorageManagementCore.Operation
 			@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management",
 			"SwapFileControl");
 
-		internal static FileInfo getSwapfilePath()
-		{
-			return new FileInfo(FileAndFolder.GetRealPath(DefaultSwapfileLocation));
-		}
+		internal static FileInfo getSwapfilePath() => new FileInfo(FileAndFolder.GetRealPath(DefaultSwapfileLocation));
 
 		/// <summary>
 		///  Changes the Swapfile Stadium
@@ -55,16 +49,13 @@ namespace StorageManagementCore.Operation
 		/// <param name="newLocation"></param>
 		/// <returns></returns>
 		public static bool ChangeSwapfileStadium(bool forward, SwapfileState currentState = SwapfileState.None,
-			DriveInfo newLocation = null)
-		{
-			if (currentState == SwapfileState.None)
-			{
+			DriveInfo newLocation = null) {
+			if (currentState == SwapfileState.None) {
 				currentState = GetSwapfileState();
 			}
 
 			FileInfo defaultSwapFileInfo = new FileInfo(DefaultSwapfileLocation);
-			switch (currentState)
-			{
+			switch (currentState) {
 				case SwapfileState.Standard when forward:
 					return RegistryMethods.SetRegistryValue(SwapfileControl, 0, RegistryValueKind.DWord);
 
@@ -75,12 +66,10 @@ namespace StorageManagementCore.Operation
 					return false;
 
 				case SwapfileState.Disabled when forward:
-					if (newLocation == null)
-					{
+					if (newLocation == null) {
 						if (MessageBox.Show(
 							    OperatingMethodsStrings.SetStadium_NoNewPathGiven, OperatingMethodsStrings.Error,
-							    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-						{
+							    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
 							return ChangeSwapfileStadium(forward, currentState, newLocation);
 						}
 
@@ -88,12 +77,10 @@ namespace StorageManagementCore.Operation
 					}
 
 					FileInfo saveAs = new FileInfo(Path.Combine(newLocation.RootDirectory.FullName, "Swapfile.sys"));
-					if (!saveAs.Exists)
-					{
+					if (!saveAs.Exists) {
 						if (MessageBox.Show(
 							    OperatingMethodsStrings.Error, OperatingMethodsStrings.SetStadium_NewInvalid,
-							    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-						{
+							    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
 							return ChangeSwapfileStadium(forward, currentState, newLocation);
 						}
 
@@ -101,8 +88,7 @@ namespace StorageManagementCore.Operation
 					}
 
 					string oldPath = DefaultSwapfileLocation;
-					if (defaultSwapFileInfo.Exists)
-					{
+					if (defaultSwapFileInfo.Exists) {
 						FileAndFolder.DeleteFile(defaultSwapFileInfo, false, false);
 					}
 
@@ -133,32 +119,26 @@ namespace StorageManagementCore.Operation
 			return true;
 		}
 
-		public static SwapfileState GetSwapfileState()
-		{
-			if (!RegistryMethods.GetRegistryValue(SwapfileControl, out object regValue))
-			{
+		public static SwapfileState GetSwapfileState() {
+			if (!RegistryMethods.GetRegistryValue(SwapfileControl, out object regValue)) {
 				return SwapfileState.None;
 			}
 
 			// 1/Null --> swapfile enabled
 			// 0 --> disabled
-			if ((uint?) regValue == 0)
-			{
+			if ((uint?) regValue == 0) {
 				return SwapfileState.Disabled;
 			}
 
-			if (FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation))
-			{
+			if (FileAndFolder.IsPathSymbolic(DefaultSwapfileLocation)) {
 				return SwapfileState.Moved;
 			}
 
 			return SwapfileState.Standard;
 		}
 
-		public static string GetStateDescription(this SwapfileState state)
-		{
-			switch (state)
-			{
+		public static string GetStateDescription(this SwapfileState state) {
+			switch (state) {
 				case SwapfileState.Standard:
 					return OperatingMethodsStrings.GetDescription_Base + OperatingMethodsStrings.GetDescription_Standard;
 				case SwapfileState.Disabled:

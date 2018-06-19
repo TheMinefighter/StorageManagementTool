@@ -4,27 +4,21 @@ using System.Windows.Forms;
 using StorageManagementCore.Backend;
 using StorageManagementCore.GlobalizationRessources;
 
-namespace StorageManagementCore.Operation
-{
-	public sealed partial class EnterCredentialsDialog : Form
-	{
-		public EnterCredentialsDialog()
-		{
+namespace StorageManagementCore.Operation {
+	public sealed partial class EnterCredentialsDialog : Form {
+		public EnterCredentialsDialog() {
 			InitializeComponent();
 		}
 
-		private void Ok_btn_Click(object sender, EventArgs e)
-		{
+		private void Ok_btn_Click(object sender, EventArgs e) {
 			SecureString password = new SecureString();
 
-			foreach (char c in Password_tb.Text)
-			{
+			foreach (char c in Password_tb.Text) {
 				password.AppendChar(c);
 			}
 
 			Password_tb.Text = "";
-			if (!Wrapper.IsUser(Username_tb.Text))
-			{
+			if (!Wrapper.IsUser(Username_tb.Text)) {
 				MessageBox.Show(EnterCredentialsStrings.EnterAUsername, EnterCredentialsStrings.Error, MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
 				Password_tb.Text = "";
@@ -33,14 +27,11 @@ namespace StorageManagementCore.Operation
 				return;
 			}
 
-			if (Wrapper.IsAdmin(Username_tb.Text))
-			{
+			if (Wrapper.IsAdmin(Username_tb.Text)) {
 				((CredentialsManager.DialogReturnData) Tag).IsAdmin = true;
 			}
-			else
-			{
-				if (((CredentialsManager.DialogReturnData) Tag).AdminRequired)
-				{
+			else {
+				if (((CredentialsManager.DialogReturnData) Tag).AdminRequired) {
 					MessageBox.Show(EnterCredentialsStrings.NotAdministratorButRequired, EnterCredentialsStrings.Error,
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 					Password_tb.Text = "";
@@ -53,13 +44,11 @@ namespace StorageManagementCore.Operation
 			}
 
 			string username = Username_tb.Text;
-			Credentials givenCredentials = new Credentials
-			{
+			Credentials givenCredentials = new Credentials {
 				Password = password,
 				Username = username
 			};
-			if (!Wrapper.TestCredentials(givenCredentials))
-			{
+			if (!Wrapper.TestCredentials(givenCredentials)) {
 				MessageBox.Show(EnterCredentialsStrings.EnteredCredentialsAreInvalid, EnterCredentialsStrings.Error,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
@@ -73,25 +62,20 @@ namespace StorageManagementCore.Operation
 		}
 
 
-		private void Abort_btn_Click(object sender, EventArgs e)
-		{
+		private void Abort_btn_Click(object sender, EventArgs e) {
 			((CredentialsManager.DialogReturnData) Tag).IsAborted = true;
 			Close();
 		}
 
-		private void InsertCredentialsDialog_Load(object sender, EventArgs e)
-		{
+		private void InsertCredentialsDialog_Load(object sender, EventArgs e) {
 			Text = EnterCredentialsStrings.Window_Title;
-			if (((CredentialsManager.DialogReturnData) Tag).AdminRequired)
-			{
+			if (((CredentialsManager.DialogReturnData) Tag).AdminRequired) {
 				Headline0_lbl.Text = string.Format(EnterCredentialsStrings.AdministratorInstructions, Environment.NewLine);
-				if (Wrapper.IsAdmin(Environment.UserName))
-				{
+				if (Wrapper.IsAdmin(Environment.UserName)) {
 					Username_tb.Text = Environment.UserName;
 				}
 			}
-			else
-			{
+			else {
 				Headline0_lbl.Text = string.Format(EnterCredentialsStrings.NormalInstructions, Environment.NewLine);
 				Username_tb.Text = Environment.UserName;
 			}
@@ -102,10 +86,8 @@ namespace StorageManagementCore.Operation
 			Username_lbl.Text = EnterCredentialsStrings.Username_lbl_Text;
 		}
 
-		private void Password_tb_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Enter)
-			{
+		private void Password_tb_KeyDown(object sender, KeyEventArgs e) {
+			if (e.KeyCode == Keys.Enter) {
 				Ok_btn_Click(null, null);
 			}
 		}

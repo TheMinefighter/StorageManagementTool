@@ -16,16 +16,14 @@ namespace StorageManagementCore.Operation {
 		/// <param name="maxSize">The maximum Size of the Pagefile in MB</param>
 		/// <param name="minSize">The minimum Size of the Pagefile in MB</param>
 		/// <returns>Whether the Operation were successfull</returns>
-		public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize)
-		{
+		public static bool ChangePagefileSettings(string currentSelection, int maxSize, int minSize) {
 			List<string> tempDriveInfoList = FileSystem.Drives.Select(OperatingMethods.GetDriveInfoDescription).ToList();
 			int selectedPartitionIndex;
 			if (tempDriveInfoList.Contains(currentSelection)) //Tests whether the selected partition is available
 			{
 				selectedPartitionIndex = tempDriveInfoList.IndexOf(currentSelection);
 			}
-			else
-			{
+			else {
 				MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_SelectedPartitionMissing,
 					OperatingMethodsStrings.Error,
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -43,8 +41,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="maxSize">The max size of pagefile in MB</param>
 		/// <param name="minSize">The min size of the pagefile in MB</param>
 		/// <returns></returns>
-		public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize)
-		{
+		public static bool ChangePagefileSettings(DriveInfo toUse, int maxSize, int minSize) {
 			string wmicPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
 			if (maxSize < minSize) //Tests whether the maxSize is smaller than the minSize
 			{
@@ -65,8 +62,7 @@ namespace StorageManagementCore.Operation {
 				wmicPath, "computersystem get AutomaticManagedPagefile /Value"
 				, out string[] tmp, out int _, out int _, true, true, true, true)) //Tests
 			{
-				if (Boolean.Parse(tmp[2].Split('=')[1]))
-				{
+				if (bool.Parse(tmp[2].Split('=')[1])) {
 					Wrapper.ExecuteCommand(
 						wmicPath
 						+ Environment.ExpandEnvironmentVariables(
@@ -76,8 +72,7 @@ namespace StorageManagementCore.Operation {
 						wmicPath
 						, "computersystem get AutomaticManagedPagefile /Value"
 						, out tmp, out int _, out _, waitforexit: true, hidden: true, admin: true);
-					if (!Boolean.Parse(tmp[2].Split('=')[1]))
-					{
+					if (!bool.Parse(tmp[2].Split('=')[1])) {
 						MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_CouldntDisableManagement,
 							OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 						return false;
@@ -101,12 +96,10 @@ namespace StorageManagementCore.Operation {
 			Wrapper.ExecuteExecuteable(wmicPath,
 				" get", out tmp, out int _, out int _, true, true,
 				true, true); //Checks wether there is exactly 1 pagefile existing
-			if (tmp.Length != 2)
-			{
+			if (tmp.Length != 2) {
 				switch (MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_Not1Pagefile,
 					OperatingMethodsStrings.Error,
-					MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
-				{
+					MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)) {
 					case DialogResult.Cancel: return false;
 					case DialogResult.Retry: return ChangePagefileSettings(toUse, maxSize, minSize);
 				}

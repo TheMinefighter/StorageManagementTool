@@ -13,13 +13,11 @@ using Microsoft.VisualBasic.FileIO;
 using StorageManagementCore.GlobalizationRessources;
 using StorageManagementCore.Operation;
 
-namespace StorageManagementCore.Backend
-{
+namespace StorageManagementCore.Backend {
 	/// <summary>
 	///  Contains system functionalities, which are not specific for this project
 	/// </summary>
-	public static class Wrapper
-	{
+	public static class Wrapper {
 		/// <summary>
 		///  The file extensions, which are executeable as standalone
 		/// </summary>
@@ -45,12 +43,10 @@ namespace StorageManagementCore.Backend
 		/// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
 		/// <returns>Whether the operation were successfull</returns>
 		public static bool ExecuteExecuteable(string filename, string parameters, bool admin = false,
-			bool hidden = false, bool waitforexit = false)
-		{
-			return ExecuteExecuteable(filename, parameters, out string[] _, out int _, out _,
-				waitforexit: waitforexit, hidden: hidden,
-				admin: admin);
-		}
+			bool hidden = false, bool waitforexit = false) => ExecuteExecuteable(filename, parameters, out string[] _, out int _,
+			out _,
+			waitforexit: waitforexit, hidden: hidden,
+			admin: admin);
 
 		/// <summary>
 		///  Executes an Executeable
@@ -69,20 +65,16 @@ namespace StorageManagementCore.Backend
 		/// <returns>Whether the operation were successfull</returns>
 		public static bool ExecuteExecuteable(string filename, string parameters, out string[] returnData,
 			out int exitCode, out int pid, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
-			bool admin = false, bool asUser = false, bool getPID = false)
-		{
+			bool admin = false, bool asUser = false, bool getPID = false) {
 			pid = 0;
 			FileInfo toRun = new FileInfo(filename);
 			exitCode = 0;
 			returnData = null;
-			if (!toRun.Exists)
-			{
+			if (!toRun.Exists) {
 				if (MessageBox.Show(
 					    string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
-					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-				{
-					OpenFileDialog alternativeExecuteableSel = new OpenFileDialog
-					{
+					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
+					OpenFileDialog alternativeExecuteableSel = new OpenFileDialog {
 						Filter =
 							$"{WrapperStrings.ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
 						Title = string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound_SelectionTitle, toRun.Name)
@@ -94,36 +86,30 @@ namespace StorageManagementCore.Backend
 				}
 			}
 
-			if (!ExecuteableExtensions.Contains(toRun.Extension))
-			{
+			if (!ExecuteableExtensions.Contains(toRun.Extension)) {
 				if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
 					string.Format(WrapperStrings.ExecuteExecuteable_WrongEnding,
 						toRun.FullName, toRun.Extension),
 					WrapperStrings.Error,
-					MessageBoxButtons.YesNo, MessageBoxIcon.Error)))
-				{
+					MessageBoxButtons.YesNo, MessageBoxIcon.Error))) {
 					return false;
 				}
 			}
 
 			Process process = new Process();
-			ProcessStartInfo startInfo = new ProcessStartInfo
-			{
+			ProcessStartInfo startInfo = new ProcessStartInfo {
 				WindowStyle = hidden ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal,
 				FileName = toRun.FullName,
 				Arguments = parameters,
 				RedirectStandardOutput = readReturnData
 			};
-			if (readReturnData && admin)
-			{
+			if (readReturnData && admin) {
 				asUser = true;
 			}
 
 			startInfo.UseShellExecute = false;
-			if (asUser)
-			{
-				if (!CredentialsManager.GetCredentials(admin, out Credentials tmp))
-				{
+			if (asUser) {
+				if (!CredentialsManager.GetCredentials(admin, out Credentials tmp)) {
 					return false;
 				}
 
@@ -131,34 +117,28 @@ namespace StorageManagementCore.Backend
 				startInfo.UserName = tmp.Username;
 			}
 
-			if (admin)
-			{
+			if (admin) {
 				startInfo.Verb = "runas";
-				if (!asUser)
-				{
+				if (!asUser) {
 					startInfo.UseShellExecute = true;
 				}
 			}
 
-			if (!waitforexit)
-			{
+			if (!waitforexit) {
 				process.Exited += (emitter, args) => ((Process) emitter).Dispose();
 			}
 
 			process.StartInfo = startInfo;
-			try
-			{
+			try {
 				process.Start();
 			}
-			catch (Win32Exception)
-			{
+			catch (Win32Exception) {
 				DialogResult retry = MessageBox.Show(
 					string.Format(
 						WrapperStrings.ExecuteExecuteable_AdminError,
 						toRun.FullName),
 					WrapperStrings.Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
-				switch (retry)
-				{
+				switch (retry) {
 					case DialogResult.Retry:
 						ExecuteExecuteable(filename, parameters, admin, hidden, waitforexit);
 						break;
@@ -170,16 +150,13 @@ namespace StorageManagementCore.Backend
 				}
 			}
 
-			if (getPID)
-			{
+			if (getPID) {
 				pid = process.Id;
 			}
 
-			if (waitforexit)
-			{
+			if (waitforexit) {
 				process.WaitForExit();
-				if (readReturnData)
-				{
+				if (readReturnData) {
 					returnData = process.StandardOutput.FromStream();
 				}
 
@@ -191,10 +168,7 @@ namespace StorageManagementCore.Backend
 			return true;
 		}
 
-		public static IEnumerable<DriveInfo> GetDrives()
-		{
-			return FileSystem.Drives;
-		}
+		public static IEnumerable<DriveInfo> GetDrives() => FileSystem.Drives;
 
 		/// <summary>
 		///  Executes an Command using Windows Commandline
@@ -212,20 +186,14 @@ namespace StorageManagementCore.Backend
 		/// <returns>Whether the operation were successful</returns>
 		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, bool waitforexit = true,
 			bool asUser = false,
-			bool debug = false)
-		{
-			return ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug, asUser);
-		}
+			bool debug = false) => ExecuteCommand(cmd, admin, hidden, out string[] _, waitforexit, debug, asUser);
 
 		/// <summary>
 		///  Adds a Backslash for each quotation mark and backslash
 		/// </summary>
 		/// <param name="source">The string to add backslashes to</param>
 		/// <returns>The  source with backslashes</returns>
-		public static string AddBackslahes(string source)
-		{
-			return source.Replace("\\", "\\\\").Replace("\"", "\\\"");
-		}
+		public static string AddBackslahes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
 		/// <summary>
 		///  Checks if one Path is the parent of another
@@ -233,10 +201,8 @@ namespace StorageManagementCore.Backend
 		/// <param name="parentPath">The parent path</param>
 		/// <param name="childPath">The child path</param>
 		/// <returns>Whether parentPath is a paren of childPath</returns>
-		public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath)
-		{
-			return parentPath.FullName.StartsWith(childPath.FullName + Path.DirectorySeparatorChar);
-		}
+		public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath) =>
+			parentPath.FullName.StartsWith(childPath.FullName + Path.DirectorySeparatorChar);
 
 		/// <summary>
 		///  Executes an Command using Windows Commandline
@@ -255,14 +221,15 @@ namespace StorageManagementCore.Backend
 		/// <returns>Whether the operation were successful</returns>
 		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
 			bool waitforexit = true,
-			bool debug = false, bool readReturnData = false, bool asUser = false)
-		{
-			return ExecuteExecuteable(
-				       Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
-				       (debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit,
-				       hidden, admin,
-				       asUser) && tmp == 0;
-		}
+			bool debug = false, bool readReturnData = false, bool asUser = false) => ExecuteExecuteable(
+				                                                                         Path.Combine(
+					                                                                         Environment.GetFolderPath(Environment
+						                                                                         .SpecialFolder.System), @"cmd.exe"),
+				                                                                         (debug ? "/K " : "/C ") + cmd,
+				                                                                         out returnData, out int tmp, out int _,
+				                                                                         readReturnData, waitforexit,
+				                                                                         hidden, admin,
+				                                                                         asUser) && tmp == 0;
 
 		#region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
 
@@ -270,15 +237,12 @@ namespace StorageManagementCore.Backend
 		///  Tests whether the program is being executed with Admin privileges
 		/// </summary>
 		/// <returns>Whether the Program is being executed with Admin privileges</returns>
-		public static bool IsCurrentUserAdministrator()
-		{
-			try
-			{
+		public static bool IsCurrentUserAdministrator() {
+			try {
 				return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 				//   new UserPrincipal().IsMemberOf(new )
 			}
-			catch (Exception)
-			{
+			catch (Exception) {
 				return false;
 			}
 		}
@@ -288,11 +252,9 @@ namespace StorageManagementCore.Backend
 		/// <summary>
 		///  Restarts Program as Administartor
 		/// </summary>
-		public static void RestartProgram(bool administrator, params string[] parameters)
-		{
+		public static void RestartProgram(bool administrator, params string[] parameters) {
 			if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ", parameters),
-				administrator))
-			{
+				administrator)) {
 				Environment.Exit(0);
 			}
 		}
@@ -302,12 +264,10 @@ namespace StorageManagementCore.Backend
 		/// </summary>
 		/// <param name="reader">The StreamReader to read from</param>
 		/// <returns>The strings saved in the StreamReader</returns>
-		private static string[] FromStream(this TextReader reader)
-		{
+		private static string[] FromStream(this TextReader reader) {
 			List<string> ret = new List<string>();
 			string line;
-			while ((line = reader.ReadLine()) != null)
-			{
+			while ((line = reader.ReadLine()) != null) {
 				ret.Add(line);
 			}
 
@@ -319,23 +279,19 @@ namespace StorageManagementCore.Backend
 		/// </summary>
 		/// <param name="name">The name of the user</param>
 		/// <returns>Whether the username exists</returns>
-		public static bool IsUser(string name)
-		{
-			return UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
-		}
+		public static bool IsUser(string name) =>
+			UserPrincipal.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, name) != null;
 
 		/// <summary>
 		///  Checks whether a given user is a local administrator
 		/// </summary>
 		/// <param name="username">The userame</param>
 		/// <returns></returns>
-		public static bool IsAdmin(string username)
-		{
+		public static bool IsAdmin(string username) {
 			UserPrincipal user = UserPrincipal
 				.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, username);
 
-			if (user == null)
-			{
+			if (user == null) {
 				return false;
 			}
 
@@ -350,8 +306,7 @@ namespace StorageManagementCore.Backend
 		/// <param name="source">The IEnumerable of KeyValuePairs to use</param>
 		/// <returns>A dictionary containing all KeyValuePairs of the source</returns>
 		public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(
-			this IEnumerable<KeyValuePair<TKey, TValue>> source)
-		{
+			this IEnumerable<KeyValuePair<TKey, TValue>> source) {
 			return source.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
 		}
 
@@ -360,11 +315,8 @@ namespace StorageManagementCore.Backend
 		/// </summary>
 		/// <param name="toConvert">The DateTime to convert</param>
 		/// <returns>The Win32 representation of the DateTime object</returns>
-		public static string DateTimeToWin32Format(DateTime toConvert)
-		{
-			return
-				$"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
-		}
+		public static string DateTimeToWin32Format(DateTime toConvert) =>
+			$"{toConvert.Year:0000}-{toConvert.Month:00}-{toConvert.Day:00}T{toConvert.Hour:00}:{toConvert.Minute:00}:{toConvert.Second:00}.{toConvert.Millisecond:000}0000";
 
 		/// <summary>
 		///  Loads the local PrincipalContext
@@ -373,8 +325,7 @@ namespace StorageManagementCore.Backend
 
 		#region Based upon https://stackoverflow.com/a/3681442/6730162 last access 18.02.2018
 
-		private static PrincipalContext GetPrincipalContext()
-		{
+		private static PrincipalContext GetPrincipalContext() {
 			return new PrincipalContext(ContextType.Machine);
 		}
 
@@ -389,25 +340,20 @@ namespace StorageManagementCore.Backend
 
 		#region Based upon https://blogs.msdn.microsoft.com/kebab/2014/04/28/executing-powershell-scripts-from-c/ last access 10.02.2018
 
-		public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command)
-		{
+		public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command) {
 			ret = new[] {""};
 			IEnumerable<PSObject> returned;
-			using (PowerShell PowerShellInstance = PowerShell.Create())
-			{
-				foreach (string s in command)
-				{
+			using (PowerShell PowerShellInstance = PowerShell.Create()) {
+				foreach (string s in command) {
 					PowerShellInstance.AddScript(s);
 				}
 
-				try
-				{
+				try {
 					{
 						returned = PowerShellInstance.Invoke();
 					}
 				}
-				catch (Exception)
-				{
+				catch (Exception) {
 					return false;
 				}
 			}
@@ -418,26 +364,20 @@ namespace StorageManagementCore.Backend
 
 		#endregion
 
-		public static bool RestartComputer()
-		{
-			return ExecuteExecuteable(
-				Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/R /T 1", false,
-				true);
-		}
+		public static bool RestartComputer() => ExecuteExecuteable(
+			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/R /T 1", false,
+			true);
 
 		/// <summary>
 		///  Tests a given set of loacal CredetiaLS
 		/// </summary>
 		/// <param name="credentials">The credentials to test</param>
 		/// <returns>Whether the set of credentials is valid for the local machine</returns>
-		public static bool TestCredentials(Credentials credentials)
-		{
-			Process pProcess = new Process
-			{
+		public static bool TestCredentials(Credentials credentials) {
+			Process pProcess = new Process {
 				StartInfo = new ProcessStartInfo(
 					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe"),
-					" /C exit")
-				{
+					" /C exit") {
 					WindowStyle = ProcessWindowStyle.Hidden,
 					UseShellExecute = false,
 					Password = new SecureString(),
@@ -447,12 +387,10 @@ namespace StorageManagementCore.Backend
 
 			pProcess.StartInfo.Password = credentials.Password;
 
-			try
-			{
+			try {
 				pProcess.Start();
 			}
-			catch (Exception)
-			{
+			catch (Exception) {
 				return false;
 			}
 

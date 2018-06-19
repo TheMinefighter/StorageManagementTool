@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace StorageManagementCore.Backend
-{ //All from 
-	public class Win32ShellFolders
-	{
+namespace StorageManagementCore.Backend { //All from 
+	public class Win32ShellFolders {
 		#region User32
 
 		#region Public class externs
@@ -20,8 +18,7 @@ namespace StorageManagementCore.Backend
 
 		#region Public class constants
 
-		public static class SystemConsts
-		{
+		public static class SystemConsts {
 			public const int MAX_PATH = 256;
 			public const uint BIF_RETURNONLYFSDIRS = 0x0001;
 			public const uint BIF_DONTGOBELOWDOMAIN = 0x0002;
@@ -73,13 +70,16 @@ namespace StorageManagementCore.Backend
 
 //From https://gist.github.com/josy1024/5cca8a66bfdefb12abff1721ff44f35f
 		[DllImport("shell32.dll")]
-		public static extern int SHSetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)] Guid folderId, uint flags,
+		public static extern int SHSetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)]
+			Guid folderId, uint flags,
 			IntPtr token,
-			[MarshalAs(UnmanagedType.LPWStr)] string path);
+			[MarshalAs(UnmanagedType.LPWStr)]
+			string path);
 
 		[DllImport("shell32.dll")]
 		public static extern int SHGetKnownFolderPath(
-			[MarshalAs(UnmanagedType.LPStruct)] Guid rfid,
+			[MarshalAs(UnmanagedType.LPStruct)]
+			Guid rfid,
 			uint dwFlags,
 			IntPtr hToken,
 			out IntPtr pszPath
@@ -90,25 +90,27 @@ namespace StorageManagementCore.Backend
 		#region Public class structures
 
 		[StructLayout(LayoutKind.Sequential)]
-		public struct SHITEMID
-		{
+		public struct SHITEMID {
 			public ushort cb;
-			[MarshalAs(UnmanagedType.LPArray)] public byte[] abID;
+
+			[MarshalAs(UnmanagedType.LPArray)]
+			public byte[] abID;
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
-		public struct ITEMIDLIST
-		{
+		public struct ITEMIDLIST {
 			public SHITEMID mkid;
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
-		public struct BROWSEINFO
-		{
+		public struct BROWSEINFO {
 			public IntPtr hwndOwner;
 			public IntPtr pidlRoot;
 			public IntPtr pszDisplayName;
-			[MarshalAs(UnmanagedType.LPTStr)] public string lpszTitle;
+
+			[MarshalAs(UnmanagedType.LPTStr)]
+			public string lpszTitle;
+
 			public uint ulFlags;
 			public IntPtr lpfn;
 			public int lParam;
@@ -116,8 +118,7 @@ namespace StorageManagementCore.Backend
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
-		public struct SHFILEINFO
-		{
+		public struct SHFILEINFO {
 			public const int NAMESIZE = 80;
 			public IntPtr hIcon;
 			public int iIcon;
@@ -134,8 +135,7 @@ namespace StorageManagementCore.Backend
 
 		#region Public classes
 
-		public enum WindowsSpecialFolder : byte
-		{
+		public enum WindowsSpecialFolder : byte {
 			AddNewPrograms,
 			AdminTools,
 			AppUpdates,
@@ -226,8 +226,7 @@ namespace StorageManagementCore.Backend
 		}
 		//   public 
 
-		public static class KnownFolder
-		{
+		public static class KnownFolder {
 			public static readonly Guid AddNewPrograms = new Guid("de61d971-5ebc-4f02-a3a9-6c82895e5c04");
 			public static readonly Guid AdminTools = new Guid("724EF170-A42D-4FEF-9F26-B60E846FBA4F");
 			public static readonly Guid AppUpdates = new Guid("a305ce99-f527-492b-8b1a-7e76fa98d6e4");

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace StorageManagementCore.Configuration
-{
+namespace StorageManagementCore.Configuration {
 	/// <summary>
 	///  Represents the JSON serializable configuration data of program
 	/// </summary>
@@ -37,7 +36,7 @@ namespace StorageManagementCore.Configuration
 		/// </summary>
 		public string Version;
 
-		public MainConfiguration() { }
+
 		public static MainConfiguration DefaultSettings() => new MainConfiguration {
 			AllPagefilesSettings = new AllPagefilesConfiguration(),
 			MonitoringSettings = new MonitoringConfiguration(),

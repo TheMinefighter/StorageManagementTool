@@ -1,22 +1,16 @@
 ﻿using System;
 using UniversalCommandlineInterface.Interpreters;
 
-namespace UniversalCommandlineInterface
-{
-	public class ContextDefaultAction
-	{
+namespace UniversalCommandlineInterface {
+	public class ContextDefaultAction {
 		private bool direct;
 		public Action<ContextInterpreter> Interpret { get; internal set; }
 
-		internal ContextDefaultAction()
-		{
-		}
+		internal ContextDefaultAction() { }
 
-		public static implicit operator ContextDefaultAction(ContextAction action)
-		{
+		public static implicit operator ContextDefaultAction(ContextAction action) {
 			ContextDefaultAction ret = new ContextDefaultAction();
-			switch (action)
-			{
+			switch (action) {
 				case ContextAction.PrintHelp:
 					ret.Interpret = x => x.PrintHelp();
 					break;
@@ -36,8 +30,7 @@ namespace UniversalCommandlineInterface
 			return ret;
 		}
 
-		public static implicit operator ContextDefaultAction(Action todo)
-		{
+		public static implicit operator ContextDefaultAction(Action todo) {
 			return new ContextDefaultAction {Interpret = x => todo()};
 		}
 	}

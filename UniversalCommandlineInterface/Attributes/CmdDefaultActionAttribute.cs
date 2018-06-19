@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace UniversalCommandlineInterface.Attributes
-{
+namespace UniversalCommandlineInterface.Attributes {
 	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-	public class CmdDefaultActionAttribute : Attribute
-	{
+	public class CmdDefaultActionAttribute : Attribute {
 		private bool IsDirect;
 		private ContextDefaultAction toRun;
 	}
