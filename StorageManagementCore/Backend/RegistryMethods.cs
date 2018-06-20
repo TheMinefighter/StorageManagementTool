@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
@@ -29,6 +30,40 @@ namespace StorageManagementCore.Backend {
 			}
 		}
 
+		private static RegistryValueKind FromWin32Api(string src) {
+			switch (src) {
+				#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
+				case "REG_BINARY": return RegistryValueKind.Binary;
+				case "REG_DWORD_LITTLE_ENDIAN":
+				case "REG_DWORD_BIG_ENDIAN":
+				case "REG_DWORD": return RegistryValueKind.DWord;
+				case "REG_EXPAND_SZ": return RegistryValueKind.ExpandString;
+				case "REG_NONE": return RegistryValueKind.None;
+				case "REG_QWORD_LITTLE_ENDIAN":
+				case "REG_QWORD": return RegistryValueKind.QWord;
+				case "REG_SZ": return RegistryValueKind.String;
+				case "REG_RESOURCE_LIST":
+				case "REG_RESOURCE_REQUIREMENTS_LIST":
+				case "REG_FULL_RESOURCE_DESCRIPTOR":
+				case "REG_LINK": return RegistryValueKind.Unknown;
+
+				#endregion
+
+				default: throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private static readonly Map<RegistryHive, string> RegistryRootKeys = new Map<RegistryHive, string> {
+			{RegistryHive.ClassesRoot, "HKEY_CLASSES_ROOT"},
+			{RegistryHive.CurrentConfig, "HKEY_CURRENT_CONFIG"},
+			{RegistryHive.CurrentUser, "HKEY_CURRENT_USER"},
+			{RegistryHive.DynData, "HKEY_DYN_DATA"},
+			{RegistryHive.LocalMachine, "HKEY_LOCAL_MACHINE"},
+			{RegistryHive.PerformanceData, "HKEY_PERFORMANCE_DATA"},
+			{RegistryHive.Users, "HKEY_USERS"}
+		};
+
+
 		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
 			toReturn = null;
 			if (asUser) {
@@ -53,7 +88,8 @@ namespace StorageManagementCore.Backend {
 			}
 
 			try {
-				toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, null);
+				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split(Path.DirectorySeparatorChar)[0]],RegistryView.Registry64).OpenSubKey()
+				toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, -1);
 			}
 			catch (Exception e) {
 				return MessageBox.Show(
@@ -100,30 +136,6 @@ namespace StorageManagementCore.Backend {
 			}
 
 			return toReturn;
-		}
-
-		private static RegistryValueKind FromWin32Api(string src) {
-			switch (src) {
-				#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
-
-				case "REG_BINARY": return RegistryValueKind.Binary;
-				case "REG_DWORD_LITTLE_ENDIAN":
-				case "REG_DWORD_BIG_ENDIAN":
-				case "REG_DWORD": return RegistryValueKind.DWord;
-				case "REG_EXPAND_SZ": return RegistryValueKind.ExpandString;
-				case "REG_NONE": return RegistryValueKind.None;
-				case "REG_QWORD_LITTLE_ENDIAN":
-				case "REG_QWORD": return RegistryValueKind.QWord;
-				case "REG_SZ": return RegistryValueKind.String;
-				case "REG_RESOURCE_LIST":
-				case "REG_RESOURCE_REQUIREMENTS_LIST":
-				case "REG_FULL_RESOURCE_DESCRIPTOR":
-				case "REG_LINK": return RegistryValueKind.Unknown;
-
-				#endregion
-
-				default: throw new ArgumentOutOfRangeException();
-			}
 		}
 
 		private static object RegistryObjectFromString(string data, RegistryValueKind kind) {

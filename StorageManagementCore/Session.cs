@@ -34,11 +34,28 @@ namespace StorageManagementCore {
 		/// </summary>
 		public bool IsAdmin;
 
+		private bool UnpriviligedSymlinksAvailable;
+
 		/// <summary>
 		///  Creates a new Session
 		/// </summary>
 		public Session() {
 			Singleton = this;
+			UnpriviligedSymlinksAvailable =
+				RegistryMethods.GetRegistryValue(
+					new RegistryValue(
+						"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock",
+						"AllowDevelopmentWithoutDevLicense"), out object val) &&
+				int.TryParse((string) val, out int isDev) &&
+				isDev!=0&&
+				RegistryMethods.GetRegistryValue(
+					new RegistryValue(
+						"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
+						"ReleaseId"),
+					out object release) &&
+				int.TryParse((string) release, out int releaseId) &&
+				releaseId >= 1703;
+
 			ConfigurationFolder = Path.Combine(Environment.GetFolderPath(
 				Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
 			ConfigurationPath = Path.Combine(ConfigurationFolder,

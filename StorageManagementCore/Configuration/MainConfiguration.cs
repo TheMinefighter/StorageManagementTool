@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace StorageManagementCore.Configuration {
@@ -29,7 +30,7 @@ namespace StorageManagementCore.Configuration {
 
 		/// <summary>
 		/// </summary>
-		public List<ShellFolderConfiguration> ShellFolderSettings;
+		public Dictionary<Guid, string> ShellFolderSettings;
 
 		/// <summary>
 		///  The Version of the Configuration
@@ -40,7 +41,7 @@ namespace StorageManagementCore.Configuration {
 		public static MainConfiguration DefaultSettings() => new MainConfiguration {
 			AllPagefilesSettings = new AllPagefilesConfiguration(),
 			MonitoringSettings = new MonitoringConfiguration(),
-			ShellFolderSettings = new List<ShellFolderConfiguration>(),
+			ShellFolderSettings = new Dictionary<Guid, string>(),
 			Version = "1.1"
 		};
 

@@ -9,8 +9,9 @@ namespace Test {
 		public static void Main(string[] args) {
 //			Console.WriteLine(PagefileManagement.GetCurrentPagefileConfiguration(out PagefileSysConfiguration val));
 //			Console.WriteLine(JsonConvert.SerializeObject(val));
-			Console.WriteLine(JsonConvert.SerializeObject(FileSystem.Drives));
+	//		Console.WriteLine(JsonConvert.SerializeObject(FileSystem.Drives));
 			//Console.ReadLine();
+		 	Console.Write(Environment.OSVersion.Version.Revision); 
 		}
 	}
 }

@@ -1,14 +1,17 @@
 ﻿using System.IO;
+using Microsoft.Win32;
 
 namespace StorageManagementCore.Backend {
 	/// <summary>
 	///  Class for storing a windows registry path
 	/// </summary>
 	public struct RegistryValue {
+		public string SubKey;
+		public RegistryHive hive;
 		/// <summary>
 		///  The where the value is stored
 		/// </summary>
-		public string RegistryKey;
+		public string RegistryKey  => ;
 
 		/// <summary>
 		///  The name of the value
