@@ -202,7 +202,7 @@ namespace StorageManagementCore.Backend {
 		/// <param name="childPath">The child path</param>
 		/// <returns>Whether parentPath is a paren of childPath</returns>
 		public static bool IsSubfolder(DirectoryInfo parentPath, DirectoryInfo childPath) =>
-			parentPath.FullName.StartsWith(childPath.FullName + Path.DirectorySeparatorChar);
+			parentPath.FullName.StartsWith(childPath.FullName + '\\');
 
 		/// <summary>
 		///  Executes an Command using Windows Commandline

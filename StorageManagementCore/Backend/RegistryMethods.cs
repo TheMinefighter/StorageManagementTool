@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,49 +12,80 @@ using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Backend {
 	public static class RegistryMethods {
-		/// <summary>
-		///  Gives the WIN32APi Representation of an given RegistryValueKind
-		/// </summary>
-		/// <param name="kind"> The RegistryValueKind to represent</param>
-		/// <returns>The WIN32API Representation of the given RegistryValueKind</returns>
-		private static string Win32ApiRepresentation(RegistryValueKind kind) {
-			switch (kind) {
-				case RegistryValueKind.String: return "REG_SZ";
-				case RegistryValueKind.ExpandString: return "REG_EXPAND_SZ";
-				case RegistryValueKind.Binary: return "REG_BINARY";
-				case RegistryValueKind.DWord: return "REG_DWORD";
-				case RegistryValueKind.MultiString: return "REG_MULTI_SZ";
-				case RegistryValueKind.QWord: return "REG_QWORD";
-				case RegistryValueKind.Unknown: return "REG_RESSOURCE_LIST";
-				case RegistryValueKind.None: return "REG_NONE";
-				default: throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
-			}
-		}
+		#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
 
-		private static RegistryValueKind FromWin32Api(string src) {
-			switch (src) {
-				#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
-				case "REG_BINARY": return RegistryValueKind.Binary;
-				case "REG_DWORD_LITTLE_ENDIAN":
-				case "REG_DWORD_BIG_ENDIAN":
-				case "REG_DWORD": return RegistryValueKind.DWord;
-				case "REG_EXPAND_SZ": return RegistryValueKind.ExpandString;
-				case "REG_NONE": return RegistryValueKind.None;
-				case "REG_QWORD_LITTLE_ENDIAN":
-				case "REG_QWORD": return RegistryValueKind.QWord;
-				case "REG_SZ": return RegistryValueKind.String;
-				case "REG_RESOURCE_LIST":
-				case "REG_RESOURCE_REQUIREMENTS_LIST":
-				case "REG_FULL_RESOURCE_DESCRIPTOR":
-				case "REG_LINK": return RegistryValueKind.Unknown;
+		public static readonly Dictionary<RegistryValueKind, string> ToWin32Api = new Dictionary<RegistryValueKind, string>() {
+			{RegistryValueKind.String, "REG_SZ"},
+			{RegistryValueKind.ExpandString, "REG_EXPAND_SZ"},
+			{RegistryValueKind.Binary, "REG_BINARY"},
+			{RegistryValueKind.DWord, "REG_DWORD"},
+			{RegistryValueKind.MultiString, "REG_MULTI_SZ"},
+			{RegistryValueKind.QWord, "REG_QWORD"},
+			//Technically not the only solution but in 99% of the cases where this really iounlikely case is used it is correct
+			{RegistryValueKind.Unknown, "REG_RESSOURCE_LIST"}
+		};
 
-				#endregion
+		public static readonly Dictionary<string, RegistryValueKind> FromWin32Api= new Dictionary<string, RegistryValueKind> {
+	{"REG_BINARY",RegistryValueKind.Binary},
+	{"REG_DWORD_LITTLE_ENDIAN",RegistryValueKind.DWord },
+	{"REG_DWORD_BIG_ENDIAN",RegistryValueKind.DWord },
+	{"REG_DWORD",RegistryValueKind.DWord},
+	{"REG_EXPAND_SZ",RegistryValueKind.ExpandString},
+	{"REG_NONE",RegistryValueKind.None},
+	{"REG_QWORD_LITTLE_ENDIAN", RegistryValueKind.QWord },
+	{"REG_QWORD",RegistryValueKind.QWord},
+	{"REG_SZ",RegistryValueKind.String},
+	{"REG_RESOURCE_LIST", RegistryValueKind.Unknown},
+	{"REG_RESOURCE_REQUIREMENTS_LIST", RegistryValueKind.Unknown},
+	{"REG_FULL_RESOURCE_DESCRIPTOR", RegistryValueKind.Unknown},
+	{"REG_LINK",RegistryValueKind.Unknown},
+	{"REG_NONE", RegistryValueKind.None}
+};
+		#endregion
+//		/// <summary>
+//		///  Gives the WIN32APi Representation of an given RegistryValueKind
+//		/// </summary>
+//		/// <param name="kind"> The RegistryValueKind to represent</param>
+//		/// <returns>The WIN32API Representation of the given RegistryValueKind</returns>
+//		private static string Win32ApiRepresentation(RegistryValueKind kind) {
+//			switch (kind) {
+//				case RegistryValueKind.String: return "REG_SZ";
+//				case RegistryValueKind.ExpandString: return "REG_EXPAND_SZ";
+//				case RegistryValueKind.Binary: return "REG_BINARY";
+//				case RegistryValueKind.DWord: return "REG_DWORD";
+//				case RegistryValueKind.MultiString: return "REG_MULTI_SZ";
+//				case RegistryValueKind.QWord: return "REG_QWORD";
+//				case RegistryValueKind.Unknown: return "REG_RESSOURCE_LIST";
+//				case RegistryValueKind.None: return "REG_NONE";
+//				default: throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
+//			}
+//		}
+//
+//		private static RegistryValueKind FromWin32Api(string src) {
+//			switch (src) {
+//				#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
+//
+//				case "REG_BINARY": return RegistryValueKind.Binary;
+//				case "REG_DWORD_LITTLE_ENDIAN":
+//				case "REG_DWORD_BIG_ENDIAN":
+//				case "REG_DWORD": return RegistryValueKind.DWord;
+//				case "REG_EXPAND_SZ": return RegistryValueKind.ExpandString;
+//				case "REG_NONE": return RegistryValueKind.None;
+//				case "REG_QWORD_LITTLE_ENDIAN":
+//				case "REG_QWORD": return RegistryValueKind.QWord;
+//				case "REG_SZ": return RegistryValueKind.String;
+//				case "REG_RESOURCE_LIST":
+//				case "REG_RESOURCE_REQUIREMENTS_LIST":
+//				case "REG_FULL_RESOURCE_DESCRIPTOR":
+//				case "REG_LINK": return RegistryValueKind.Unknown;
+//
+//				#endregion
+//
+//				default: throw new ArgumentOutOfRangeException();
+//			}
+//		}
 
-				default: throw new ArgumentOutOfRangeException();
-			}
-		}
-
-		private static readonly Map<RegistryHive, string> RegistryRootKeys = new Map<RegistryHive, string> {
+		public static readonly Map<RegistryHive, string> RegistryRootKeys = new Map<RegistryHive, string> {
 			{RegistryHive.ClassesRoot, "HKEY_CLASSES_ROOT"},
 			{RegistryHive.CurrentConfig, "HKEY_CURRENT_CONFIG"},
 			{RegistryHive.CurrentUser, "HKEY_CURRENT_USER"},
@@ -65,6 +97,7 @@ namespace StorageManagementCore.Backend {
 
 
 		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
+			
 			toReturn = null;
 			if (asUser) {
 				if (!Wrapper.ExecuteExecuteable(
@@ -80,7 +113,7 @@ namespace StorageManagementCore.Backend {
 				}
 
 				string thirdLine = ret[2];
-				RegistryValueKind kind = FromWin32Api(thirdLine.Substring(8 + path.ValueName.Length).Split(' ')[0]);
+				RegistryValueKind kind = FromWin32Api[thirdLine.Substring(8 + path.ValueName.Length).Split(' ')[0]];
 				string data = thirdLine.Substring(12 + path.ValueName.Length + kind.ToString().Length).Trim();
 				toReturn = RegistryObjectFromString(data, kind);
 
@@ -88,7 +121,8 @@ namespace StorageManagementCore.Backend {
 			}
 
 			try {
-				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split(Path.DirectorySeparatorChar)[0]],RegistryView.Registry64).OpenSubKey()
+//				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split('\\')[0]],
+//					RegistryView.Registry64).OpenSubKey()
 				toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, -1);
 			}
 			catch (Exception e) {
@@ -208,7 +242,7 @@ namespace StorageManagementCore.Backend {
 						break;
 				}
 
-				string kind = Win32ApiRepresentation(registryValueKind);
+				string kind = ToWin32Api[registryValueKind];
 				if (!Wrapper.ExecuteExecuteable(
 					    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "reg.exe"),
 					    $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",

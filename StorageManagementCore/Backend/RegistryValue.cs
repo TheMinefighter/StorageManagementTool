@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.Win32;
 
 namespace StorageManagementCore.Backend {
@@ -11,7 +12,7 @@ namespace StorageManagementCore.Backend {
 		/// <summary>
 		///  The where the value is stored
 		/// </summary>
-		public string RegistryKey  => ;
+		public string RegistryKey  =>RegistryMethods.RegistryRootKeys[hive]+'\\'+ SubKey;
 
 		/// <summary>
 		///  The name of the value
@@ -19,7 +20,10 @@ namespace StorageManagementCore.Backend {
 		public string ValueName;
 
 		public RegistryValue(string registryKey, string valueName) {
-			RegistryKey = registryKey;
+			int indexOf = registryKey.IndexOf('\\');
+			hive = RegistryMethods.RegistryRootKeys[ registryKey.Substring(0,indexOf)];
+			SubKey = registryKey.Substring(indexOf + 1);
+			//RegistryKey = registryKey;
 			ValueName = valueName;
 		}
 
@@ -27,6 +31,6 @@ namespace StorageManagementCore.Backend {
 
 		public static implicit operator (string, string)(RegistryValue s) => (s.RegistryKey, s.ValueName);
 
-		public override string ToString() => RegistryKey + Path.DirectorySeparatorChar + ValueName;
+		public override string ToString() => RegistryKey + '\\' + ValueName;
 	}
 }
