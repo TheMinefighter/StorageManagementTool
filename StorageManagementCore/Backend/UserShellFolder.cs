@@ -278,7 +278,7 @@ namespace StorageManagementCore.Backend {
 								switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
 									string.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Text,
 										child.Key.ViewedName,
-										x.ValueName, x.RegistryKey, newPathOfChild), OperatingMethodsStrings.Error,
+										x.ValueName, x.RegistryKeyName, newPathOfChild), OperatingMethodsStrings.Error,
 									new[] {
 										OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Retry,
 										string.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Skip,

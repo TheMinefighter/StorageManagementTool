@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Net;
 using Microsoft.Win32;
 
 namespace StorageManagementCore.Backend {
@@ -8,29 +9,32 @@ namespace StorageManagementCore.Backend {
 	/// </summary>
 	public struct RegistryValue {
 		public string SubKey;
-		public RegistryHive hive;
+		public RegistryHive Hive;
 		/// <summary>
 		///  The where the value is stored
 		/// </summary>
-		public string RegistryKey  =>RegistryMethods.RegistryRootKeys[hive]+'\\'+ SubKey;
+		public string RegistryKeyName  =>RegistryMethods.RegistryRootKeys[Hive]+'\\'+ SubKey;
 
 		/// <summary>
 		///  The name of the value
 		/// </summary>
 		public string ValueName;
 
+		
 		public RegistryValue(string registryKey, string valueName) {
 			int indexOf = registryKey.IndexOf('\\');
-			hive = RegistryMethods.RegistryRootKeys[ registryKey.Substring(0,indexOf)];
+			Hive = RegistryMethods.RegistryRootKeys[ registryKey.Substring(0,indexOf)];
 			SubKey = registryKey.Substring(indexOf + 1);
 			//RegistryKey = registryKey;
 			ValueName = valueName;
 		}
 
-		public static implicit operator RegistryValue((string, string) s) => new RegistryValue(s.Item1, s.Item2);
+		public RegistryValue(RegistryHive hive, string subKey, string valueName) {
+			Hive = hive;
+			SubKey = subKey;
+			ValueName = valueName;
+		}
 
-		public static implicit operator (string, string)(RegistryValue s) => (s.RegistryKey, s.ValueName);
-
-		public override string ToString() => RegistryKey + '\\' + ValueName;
+		public override string ToString() => RegistryKeyName + '\\' + ValueName;
 	}
 }

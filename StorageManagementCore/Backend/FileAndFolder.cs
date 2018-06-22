@@ -195,26 +195,29 @@ namespace StorageManagementCore.Backend {
 
 			return true;
 		}
+
 		public static bool CreateFolderSymlink(DirectoryInfo dir, DirectoryInfo newLocation) {
-			if (CreateSymbolicLink(dir.FullName,newLocation.FullName,SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_DIRECTORY)) {
+			if (CreateSymbolicLink(dir.FullName, newLocation.FullName, SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_DIRECTORY)) {
 				return true;
 			}
+
 //TODO Complete
 			return false;
 		}
-		
-			//Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
-		[Flags]
-private enum SymbolicLinkFlags :uint {
-			None=0x00,
-			SYMBOLIC_LINK_FLAG_DIRECTORY=0x01,
-			SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE=0x02
-}
-		
-		[DllImport("kernel32.dll" , EntryPoint = "CreateSymbolicLinkW", CharSet = CharSet.Unicode)]
-		private static extern bool CreateSymbolicLink(string lpSymlinkFileName,string lpTargetFileName, SymbolicLinkFlags dwFlags);
+
+		[DllImport("kernel32.dll", EntryPoint = "CreateSymbolicLinkW", CharSet = CharSet.Unicode)]
+		private static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLinkFlags dwFlags);
+
 		public static bool CreateFileSymlink(FileInfo file, FileInfo newLocation) =>
 			Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true, out _);
+
+		//Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+		[Flags]
+		private enum SymbolicLinkFlags : uint {
+			None = 0x00,
+			SYMBOLIC_LINK_FLAG_DIRECTORY = 0x01,
+			SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE = 0x02
+		}
 
 		#region From https://stackoverflow.com/a/38308957/6730162 access on 30.9.2017
 

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
@@ -41,20 +42,7 @@ namespace StorageManagementCore {
 		/// </summary>
 		public Session() {
 			Singleton = this;
-			UnpriviligedSymlinksAvailable =
-				RegistryMethods.GetRegistryValue(
-					new RegistryValue(
-						"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock",
-						"AllowDevelopmentWithoutDevLicense"), out object val) &&
-				int.TryParse((string) val, out int isDev) &&
-				isDev!=0&&
-				RegistryMethods.GetRegistryValue(
-					new RegistryValue(
-						"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
-						"ReleaseId"),
-					out object release) &&
-				int.TryParse((string) release, out int releaseId) &&
-				releaseId >= 1703;
+			//Potential to be changed in future
 
 			ConfigurationFolder = Path.Combine(Environment.GetFolderPath(
 				Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
@@ -79,6 +67,23 @@ namespace StorageManagementCore {
 			ScenarioPreset.LoadPresets();
 			UserShellFolder.LoadEditable();
 			IsAdmin = Wrapper.IsCurrentUserAdministrator();
+			UnpriviligedSymlinksAvailable =
+				RegistryMethods.GetRegistryValue(
+					new RegistryValue(RegistryHive.LocalMachine,
+						"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock",
+						"AllowDevelopmentWithoutDevLicense"), out object isDevobject) &&
+				isDevobject is string isDevString &&
+				int.TryParse(isDevString, out int isDev) &&
+				isDev != 0 && Environment.OSVersion.Version.Major > 10 ||
+				Environment.OSVersion.Version.Major == 10 &&
+				RegistryMethods.GetRegistryValue(
+					new RegistryValue(RegistryHive.LocalMachine,
+						"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
+						"ReleaseId"),
+					out object release) &&
+				release is string releaseString &&
+				int.TryParse(releaseString, out int releaseId) &&
+				releaseId >= 1703;
 		}
 
 		private static CultureInfo BestPossibleCulture(CultureInfo requestedCulture,

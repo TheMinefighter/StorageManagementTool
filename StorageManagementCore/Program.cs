@@ -15,7 +15,6 @@ namespace StorageManagementCore {
 	///  Main class of this Program
 	/// </summary>
 	public static class Program {
-		public static char DriveLetter(this DriveInfo d) => d.Name.First();
 		public static readonly CultureInfo[][] AvailableSpecificCultures =
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 
@@ -28,6 +27,8 @@ namespace StorageManagementCore {
 		///  Whether the Programm runs from any shell / commandline
 		/// </summary>
 		public static bool CommandLineMode { get; private set; }
+
+		public static char DriveLetter(this DriveInfo d) => d.Name.First();
 
 		[STAThread]
 		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]

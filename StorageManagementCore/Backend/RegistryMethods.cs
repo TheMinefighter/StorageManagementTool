@@ -42,48 +42,6 @@ namespace StorageManagementCore.Backend {
 	{"REG_NONE", RegistryValueKind.None}
 };
 		#endregion
-//		/// <summary>
-//		///  Gives the WIN32APi Representation of an given RegistryValueKind
-//		/// </summary>
-//		/// <param name="kind"> The RegistryValueKind to represent</param>
-//		/// <returns>The WIN32API Representation of the given RegistryValueKind</returns>
-//		private static string Win32ApiRepresentation(RegistryValueKind kind) {
-//			switch (kind) {
-//				case RegistryValueKind.String: return "REG_SZ";
-//				case RegistryValueKind.ExpandString: return "REG_EXPAND_SZ";
-//				case RegistryValueKind.Binary: return "REG_BINARY";
-//				case RegistryValueKind.DWord: return "REG_DWORD";
-//				case RegistryValueKind.MultiString: return "REG_MULTI_SZ";
-//				case RegistryValueKind.QWord: return "REG_QWORD";
-//				case RegistryValueKind.Unknown: return "REG_RESSOURCE_LIST";
-//				case RegistryValueKind.None: return "REG_NONE";
-//				default: throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
-//			}
-//		}
-//
-//		private static RegistryValueKind FromWin32Api(string src) {
-//			switch (src) {
-//				#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
-//
-//				case "REG_BINARY": return RegistryValueKind.Binary;
-//				case "REG_DWORD_LITTLE_ENDIAN":
-//				case "REG_DWORD_BIG_ENDIAN":
-//				case "REG_DWORD": return RegistryValueKind.DWord;
-//				case "REG_EXPAND_SZ": return RegistryValueKind.ExpandString;
-//				case "REG_NONE": return RegistryValueKind.None;
-//				case "REG_QWORD_LITTLE_ENDIAN":
-//				case "REG_QWORD": return RegistryValueKind.QWord;
-//				case "REG_SZ": return RegistryValueKind.String;
-//				case "REG_RESOURCE_LIST":
-//				case "REG_RESOURCE_REQUIREMENTS_LIST":
-//				case "REG_FULL_RESOURCE_DESCRIPTOR":
-//				case "REG_LINK": return RegistryValueKind.Unknown;
-//
-//				#endregion
-//
-//				default: throw new ArgumentOutOfRangeException();
-//			}
-//		}
 
 		public static readonly Map<RegistryHive, string> RegistryRootKeys = new Map<RegistryHive, string> {
 			{RegistryHive.ClassesRoot, "HKEY_CLASSES_ROOT"},
@@ -95,14 +53,13 @@ namespace StorageManagementCore.Backend {
 			{RegistryHive.Users, "HKEY_USERS"}
 		};
 
-
 		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
 			
 			toReturn = null;
 			if (asUser) {
 				if (!Wrapper.ExecuteExecuteable(
 					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"reg.exe"),
-					$" query \"{path.RegistryKey}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true,
+					$" query \"{path.RegistryKeyName}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true,
 					true, true, true,
 					true)) {
 					return false;
@@ -121,14 +78,15 @@ namespace StorageManagementCore.Backend {
 			}
 
 			try {
+				RegistryKey.OpenBaseKey(path.Hive,RegistryView.Default).OpenSubKey(path.ValueName)
 //				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split('\\')[0]],
 //					RegistryView.Registry64).OpenSubKey()
-				toReturn = Registry.GetValue(path.RegistryKey, path.ValueName, -1);
+				toReturn = Registry.GetValue(path.RegistryKeyName, path.ValueName, -1);
 			}
 			catch (Exception e) {
 				return MessageBox.Show(
 					       string.Format(WrapperStrings.GetRegistryValue_Exception,
-						       path.ValueName, path.RegistryKey, e.Message),
+						       path.ValueName, path.RegistryKeyName, e.Message),
 					       WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
 				       DialogResult.Retry && GetRegistryValue(path, out toReturn, asUser);
 			}
@@ -245,7 +203,7 @@ namespace StorageManagementCore.Backend {
 				string kind = ToWin32Api[registryValueKind];
 				if (!Wrapper.ExecuteExecuteable(
 					    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "reg.exe"),
-					    $" add \"{valueLocation.RegistryKey}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
+					    $" add \"{valueLocation.RegistryKeyName}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
 					    out string[] _, out int tmpExitCode, out _, true, true, true, true, asUser) || tmpExitCode == 1) {
 					return false;
 				}
@@ -254,13 +212,13 @@ namespace StorageManagementCore.Backend {
 			}
 
 			try {
-				Registry.SetValue(valueLocation.RegistryKey, valueLocation.ValueName, content, registryValueKind);
+				Registry.SetValue(valueLocation.RegistryKeyName, valueLocation.ValueName, content, registryValueKind);
 			}
 			catch (SecurityException) {
 				if (MessageBox.Show(
 					    string.Format(
 						    WrapperStrings.SetRegistryValue_Security,
-						    valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
+						    valueLocation.ValueName, valueLocation.RegistryKeyName, content, registryValueKind),
 					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
 					Wrapper.RestartProgram(true);
 					Environment.Exit(0);
@@ -272,7 +230,7 @@ namespace StorageManagementCore.Backend {
 				if (MessageBox.Show(
 					    string.Format(
 						    WrapperStrings.SetRegistryValue_UnauthorizedAccess,
-						    valueLocation.ValueName, valueLocation.RegistryKey, content, registryValueKind),
+						    valueLocation.ValueName, valueLocation.RegistryKeyName, content, registryValueKind),
 					    WrapperStrings.Error,
 					    MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
 					Wrapper.RestartProgram(true);
@@ -312,7 +270,7 @@ namespace StorageManagementCore.Backend {
 				new[] {
 					"Windows Registry Editor Version 5.00",
 					"",
-					$"[{toSet.RegistryKey}]",
+					$"[{toSet.RegistryKeyName}]",
 					$"\"{Wrapper.AddBackslahes(toSet.ValueName)}\"={toWrite}"
 				});
 			// I know that the following is exploiting UAC a bit, but the Warning will not be suppressed, so I don´t see any real reasons not to do that

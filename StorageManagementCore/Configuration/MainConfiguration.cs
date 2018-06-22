@@ -28,6 +28,9 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public MonitoringConfiguration MonitoringSettings;
 
+		public bool DisableUnprivilgedLinkCreation;
+		
+
 		/// <summary>
 		/// </summary>
 		public Dictionary<Guid, string> ShellFolderSettings;

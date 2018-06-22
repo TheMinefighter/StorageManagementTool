@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace StorageManagementCore.Configuration {
+﻿namespace StorageManagementCore.Configuration {
 	/// <summary>
 	/// </summary>
 	public class Pagefile {
