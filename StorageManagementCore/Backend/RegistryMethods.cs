@@ -39,7 +39,6 @@ namespace StorageManagementCore.Backend {
 	{"REG_RESOURCE_REQUIREMENTS_LIST", RegistryValueKind.Unknown},
 	{"REG_FULL_RESOURCE_DESCRIPTOR", RegistryValueKind.Unknown},
 	{"REG_LINK",RegistryValueKind.Unknown},
-	{"REG_NONE", RegistryValueKind.None}
 };
 		#endregion
 
@@ -78,7 +77,7 @@ namespace StorageManagementCore.Backend {
 			}
 
 			try {
-				RegistryKey.OpenBaseKey(path.Hive,RegistryView.Default).OpenSubKey(path.ValueName)
+	//			RegistryKey.OpenBaseKey(path.Hive,RegistryView.Default).OpenSubKey(path.ValueName)
 //				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split('\\')[0]],
 //					RegistryView.Registry64).OpenSubKey()
 				toReturn = Registry.GetValue(path.RegistryKeyName, path.ValueName, -1);

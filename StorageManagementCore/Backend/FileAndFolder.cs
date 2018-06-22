@@ -197,7 +197,11 @@ namespace StorageManagementCore.Backend {
 		}
 
 		public static bool CreateFolderSymlink(DirectoryInfo dir, DirectoryInfo newLocation) {
-			if (CreateSymbolicLink(dir.FullName, newLocation.FullName, SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_DIRECTORY)) {
+			if (CreateSymbolicLink(dir.FullName, newLocation.FullName,
+				(Session.Singleton.UnpriviligedSymlinksAvailable
+					? SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
+					: SymbolicLinkFlags.None) |
+				SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_DIRECTORY)) {
 				return true;
 			}
 
