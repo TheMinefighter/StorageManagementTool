@@ -80,8 +80,17 @@ namespace UniversalCommandlineInterface.Interpreters {
 					}
 				}
 			}
-
+#if DEBUG
+			try {
+				MyActionAttribute.MyInfo.Invoke(null, invokers);
+			}
+			catch (Exception e) {
+				throw e.InnerException;
+			}
+#else
 			MyActionAttribute.MyInfo.Invoke(null, invokers);
+#endif
+
 			return true;
 			//throw new NotImplementedException();
 		}

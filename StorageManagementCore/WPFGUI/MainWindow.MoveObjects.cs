@@ -107,7 +107,7 @@ namespace StorageManagementCore.WPFGUI {
 							break;
 						case FileAndFolder.FileOrFolder.File:
 							FileInfo fileToMove = new FileInfo(s);
-							OperatingMethods.MoveFile(fileToMove, new FileInfo(s), true);
+							OperatingMethods.MoveFile(fileToMove,new DirectoryInfo(MoveObjectsRootPathTb.Text));
 							break;
 						case FileAndFolder.FileOrFolder.Folder:
 							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(MoveObjectsRootPathTb.Text),

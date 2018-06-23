@@ -60,7 +60,7 @@ namespace StorageManagementCore {
 				}
 
 				if (fileOrFolder) {
-					OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath), true);
+					OperatingMethods.MoveFile(new FileInfo(oldPath), new DirectoryInfo(newPath));
 				}
 				else {
 					OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath), true);

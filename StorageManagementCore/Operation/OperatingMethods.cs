@@ -69,6 +69,10 @@ namespace StorageManagementCore.Operation {
 			return FileAndFolder.CreateFolderSymlink(dir, newLocation);
 		}
 
+		public static bool MoveFile(FileInfo file, DirectoryInfo newLocation) =>
+			MoveFile(file,
+				new FileInfo(Path.Combine(newLocation.FullName, file.FullName.Remove(1, 1))));
+
 		/// <summary>
 		///  Moves a file to anothrrer Loaction using symlinks
 		/// </summary>
@@ -76,7 +80,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="newLocation">The location to move the file to</param>
 		/// <param name="adjustNewPath"></param>
 		/// <returns>Whether the operation were successful</returns>
-		public static bool MoveFile(FileInfo file, FileInfo newLocation, bool adjustNewPath = false) {
+		public static bool MoveFile(FileInfo file, FileInfo newLocation) {
 			if (file == newLocation) {
 				if (
 					MessageBox.Show(OperatingMethodsStrings.Error, OperatingMethodsStrings.MoveFolderOrFile_PathsEqual,
@@ -88,9 +92,9 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
-			if (adjustNewPath) {
-				newLocation = new FileInfo(Path.Combine(newLocation.FullName, file.FullName.Remove(1, 1)));
-			}
+//			if (adjustNewPath) {
+//				newLocation = new FileInfo(Path.Combine(newLocation.FullName, file.FullName.Remove(1, 1)));
+//			}
 
 			if (!newLocation.Directory.Exists) {
 				newLocation.Directory.Create();
