@@ -90,6 +90,7 @@ namespace UniversalCommandlineInterface.Interpreters {
 							newCtx = new ContextInterpreter(this, cmdContextAttribute);
 							return true;
 						}
+
 						return false;
 					}
 

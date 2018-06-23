@@ -34,10 +34,11 @@ namespace StorageManagementCore {
 		///  Whether the program runs as administrator
 		/// </summary>
 		public bool IsAdmin;
-/// <summary>
-/// Whether UnprivilgedSymlinks available
-/// </summary>
-public bool UnpriviligedSymlinksAvailable;
+
+		/// <summary>
+		///  Whether UnprivilgedSymlinks available
+		/// </summary>
+		public bool UnpriviligedSymlinksAvailable;
 
 		/// <summary>
 		///  Creates a new Session
@@ -70,7 +71,7 @@ public bool UnpriviligedSymlinksAvailable;
 			UserShellFolder.LoadEditable();
 			IsAdmin = Wrapper.IsCurrentUserAdministrator();
 			UnpriviligedSymlinksAvailable =
-				!Configuration.DisableUnprivilgedLinkCreation&&
+				!Configuration.DisableUnprivilgedLinkCreation &&
 				RegistryMethods.GetRegistryValue(
 					new RegistryValue(RegistryHive.LocalMachine,
 						"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock",

@@ -14,12 +14,14 @@ namespace StorageManagementCore.Operation {
 		private static readonly string WmicPath =
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
 
-//		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg) { }
+		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg) {
+			throw null;//TODO do
+              }
 //
 		/// <summary>
-		/// Reads the current <exception cref="PagefileSysConfiguration"></exception>
+		///  Reads the current <exception cref="PagefileSysConfiguration"></exception>
 		/// </summary>
-		/// <param name="cfg">The current <see cref="PagefileSysConfiguration"/></param>
+		/// <param name="cfg">The current <see cref="PagefileSysConfiguration" /></param>
 		/// <returns>Whether the operation were successful</returns>
 		public static bool GetCurrentPagefileConfiguration(out PagefileSysConfiguration cfg) {
 			cfg = new PagefileSysConfiguration();
@@ -30,7 +32,7 @@ namespace StorageManagementCore.Operation {
 			}
 
 			foreach (ICsvLine line in CsvReader.Read(new StringReader(string.Join(Environment.NewLine, tmp)))) {
-				cfg.Pagefiles.Add(new Pagefile(new ConfiguredDrive(new DriveInfo(line["Name"]) ), int.Parse(line["MaximumSize"]),
+				cfg.Pagefiles.Add(new Pagefile(new ConfiguredDrive(new DriveInfo(line["Name"])), int.Parse(line["MaximumSize"]),
 					int.Parse(line["MaximumSize"])));
 			}
 
@@ -42,18 +44,24 @@ namespace StorageManagementCore.Operation {
 			return true;
 		}
 
-//
 		/// <summary>
-		/// Deletes all pagefiles
+		///  Deletes all pagefiles
 		/// </summary>
 		/// <returns>Whether the operation were successful</returns>
-	//	private static bool DeleteAllPagefiles() { }
-//
-//		private static bool SetSystemManaged(bool SystemManaged) { }
-//
-//		private static bool ChangePagefile(Configuration.Pagefile cfg) { }
-//
-//		private static bool DeletePagefile(DriveInfo drive) { }
+		private static bool DeleteAllPagefiles() => Wrapper.ExecuteExecuteable(WmicPath,
+			"pagefileset delete /NOINTERACTIVE", out _, out int _, out _, waitforexit: true, hidden: true,
+			admin: true);
+
+		private static bool SetSystemManaged(bool SystemManaged) =>
+			Wrapper.ExecuteExecuteable(WmicPath, $" computersystem set AutomaticManagedPagefile={SystemManaged}", true, true);
+
+		private static bool ChangePagefile(Pagefile cfg) {
+			throw null; }
+
+		private static bool DeletePagefile(DriveInfo drive) =>
+			Wrapper.ExecuteExecuteable(WmicPath,
+				$"pagefileset where \" name=\'{drive.Name}\\pagefile.sys\' \" DELETE /NOINTERACTIVE");
+
 // Maybe I will write some WMIC GET API in the future...
 		/// <summary>
 		///  Checks wether pagefiles are currently system-manged

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
@@ -12,36 +11,6 @@ using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Backend {
 	public static class RegistryMethods {
-		#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
-
-		public static readonly Dictionary<RegistryValueKind, string> ToWin32Api = new Dictionary<RegistryValueKind, string>() {
-			{RegistryValueKind.String, "REG_SZ"},
-			{RegistryValueKind.ExpandString, "REG_EXPAND_SZ"},
-			{RegistryValueKind.Binary, "REG_BINARY"},
-			{RegistryValueKind.DWord, "REG_DWORD"},
-			{RegistryValueKind.MultiString, "REG_MULTI_SZ"},
-			{RegistryValueKind.QWord, "REG_QWORD"},
-			//Technically not the only solution but in 99% of the cases where this really iounlikely case is used it is correct
-			{RegistryValueKind.Unknown, "REG_RESSOURCE_LIST"}
-		};
-
-		public static readonly Dictionary<string, RegistryValueKind> FromWin32Api= new Dictionary<string, RegistryValueKind> {
-	{"REG_BINARY",RegistryValueKind.Binary},
-	{"REG_DWORD_LITTLE_ENDIAN",RegistryValueKind.DWord },
-	{"REG_DWORD_BIG_ENDIAN",RegistryValueKind.DWord },
-	{"REG_DWORD",RegistryValueKind.DWord},
-	{"REG_EXPAND_SZ",RegistryValueKind.ExpandString},
-	{"REG_NONE",RegistryValueKind.None},
-	{"REG_QWORD_LITTLE_ENDIAN", RegistryValueKind.QWord },
-	{"REG_QWORD",RegistryValueKind.QWord},
-	{"REG_SZ",RegistryValueKind.String},
-	{"REG_RESOURCE_LIST", RegistryValueKind.Unknown},
-	{"REG_RESOURCE_REQUIREMENTS_LIST", RegistryValueKind.Unknown},
-	{"REG_FULL_RESOURCE_DESCRIPTOR", RegistryValueKind.Unknown},
-	{"REG_LINK",RegistryValueKind.Unknown},
-};
-		#endregion
-
 		public static readonly Map<RegistryHive, string> RegistryRootKeys = new Map<RegistryHive, string> {
 			{RegistryHive.ClassesRoot, "HKEY_CLASSES_ROOT"},
 			{RegistryHive.CurrentConfig, "HKEY_CURRENT_CONFIG"},
@@ -53,7 +22,6 @@ namespace StorageManagementCore.Backend {
 		};
 
 		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
-			
 			toReturn = null;
 			if (asUser) {
 				if (!Wrapper.ExecuteExecuteable(
@@ -77,7 +45,7 @@ namespace StorageManagementCore.Backend {
 			}
 
 			try {
-	//			RegistryKey.OpenBaseKey(path.Hive,RegistryView.Default).OpenSubKey(path.ValueName)
+				//			RegistryKey.OpenBaseKey(path.Hive,RegistryView.Default).OpenSubKey(path.ValueName)
 //				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split('\\')[0]],
 //					RegistryView.Registry64).OpenSubKey()
 				toReturn = Registry.GetValue(path.RegistryKeyName, path.ValueName, -1);
@@ -338,5 +306,36 @@ namespace StorageManagementCore.Backend {
 
 			return toWrite;
 		}
+
+		#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
+
+		public static readonly Dictionary<RegistryValueKind, string> ToWin32Api = new Dictionary<RegistryValueKind, string> {
+			{RegistryValueKind.String, "REG_SZ"},
+			{RegistryValueKind.ExpandString, "REG_EXPAND_SZ"},
+			{RegistryValueKind.Binary, "REG_BINARY"},
+			{RegistryValueKind.DWord, "REG_DWORD"},
+			{RegistryValueKind.MultiString, "REG_MULTI_SZ"},
+			{RegistryValueKind.QWord, "REG_QWORD"},
+			//Technically not the only solution but in 99% of the cases where this really iounlikely case is used it is correct
+			{RegistryValueKind.Unknown, "REG_RESSOURCE_LIST"}
+		};
+
+		public static readonly Dictionary<string, RegistryValueKind> FromWin32Api = new Dictionary<string, RegistryValueKind> {
+			{"REG_BINARY", RegistryValueKind.Binary},
+			{"REG_DWORD_LITTLE_ENDIAN", RegistryValueKind.DWord},
+			{"REG_DWORD_BIG_ENDIAN", RegistryValueKind.DWord},
+			{"REG_DWORD", RegistryValueKind.DWord},
+			{"REG_EXPAND_SZ", RegistryValueKind.ExpandString},
+			{"REG_NONE", RegistryValueKind.None},
+			{"REG_QWORD_LITTLE_ENDIAN", RegistryValueKind.QWord},
+			{"REG_QWORD", RegistryValueKind.QWord},
+			{"REG_SZ", RegistryValueKind.String},
+			{"REG_RESOURCE_LIST", RegistryValueKind.Unknown},
+			{"REG_RESOURCE_REQUIREMENTS_LIST", RegistryValueKind.Unknown},
+			{"REG_FULL_RESOURCE_DESCRIPTOR", RegistryValueKind.Unknown},
+			{"REG_LINK", RegistryValueKind.Unknown}
+		};
+
+		#endregion
 	}
 }

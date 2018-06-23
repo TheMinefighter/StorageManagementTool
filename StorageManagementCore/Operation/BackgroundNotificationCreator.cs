@@ -10,7 +10,6 @@ namespace StorageManagementCore.Operation {
 	///  Class containing functionalities for Background Process
 	/// </summary>
 	public static class BackgroundNotificationCreator {
-
 		/// <summary>
 		///  The FileSystemWatchers currently active
 		/// </summary>

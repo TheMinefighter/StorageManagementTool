@@ -18,6 +18,8 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public string DefaultHDDPath;
 
+		public bool DisableUnprivilgedLinkCreation;
+
 		/// <summary>
 		///  Overrides the UI language if not null
 		/// </summary>
@@ -28,8 +30,6 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public MonitoringConfiguration MonitoringSettings;
 
-		public bool DisableUnprivilgedLinkCreation;
-		
 
 		/// <summary>
 		/// </summary>
