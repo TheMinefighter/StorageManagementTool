@@ -55,6 +55,8 @@ namespace StorageManagementCore.Operation {
 		private static bool SetSystemManaged(bool SystemManaged) =>
 			Wrapper.ExecuteExecuteable(WmicPath, $" computersystem set AutomaticManagedPagefile={SystemManaged}", true, true);
 
+		public static bool AddPagefile(DriveInfo drive) => throw null;
+		public static bool AddPagefile(Pagefile cfg) => AddPagefile(cfg.Drive.LocalDrive) && ChangePagefile(cfg);
 		private static bool ChangePagefile(Pagefile cfg) {
 			throw null; }
 
