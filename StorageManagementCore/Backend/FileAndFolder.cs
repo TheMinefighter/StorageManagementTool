@@ -197,32 +197,49 @@ namespace StorageManagementCore.Backend {
 		}
 
 		public static bool CreateFolderSymlink(DirectoryInfo dir, DirectoryInfo newLocation) {
-			if (true) {
+			if (true && (Session.Singleton.IsAdmin || Session.Singleton.UnpriviligedSymlinksAvailable)) {
 				if (CreateSymbolicLink(dir.FullName, newLocation.FullName + '\\',
 					    (Session.Singleton.UnpriviligedSymlinksAvailable
 						    ? SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
 						    : SymbolicLinkFlags.None) |
 					    SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_DIRECTORY) == 1) {
-					Marshal.GetLastWin32Error();
 					return true;
 				}
-
-				Marshal.GetLastWin32Error();
-//TODO Complete
-				return false;
+				else {
+#if DEBUG
+					Marshal.GetLastWin32Error();
+#endif
+					return false;
+				}
 			}
 			else {
-			 return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
+				return Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
 			}
 		}
 
 		[DllImport("kernel32.dll", EntryPoint = "CreateSymbolicLinkW", CharSet = CharSet.Unicode)]
 		private static extern int CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLinkFlags dwFlags);
 
-		public static bool CreateFileSymlink(FileInfo file, FileInfo newLocation) =>
-			Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true, out _);
+		public static bool CreateFileSymlink(FileInfo file, FileInfo newLocation) {
+			if (true && (Session.Singleton.IsAdmin || Session.Singleton.UnpriviligedSymlinksAvailable)) {
+				if (CreateSymbolicLink(file.FullName, newLocation.FullName,
+					    Session.Singleton.UnpriviligedSymlinksAvailable
+						    ? SymbolicLinkFlags.SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
+						    : SymbolicLinkFlags.None) == 1) {
+					return true;
+				}
+				else {
+#if DEBUG
+					Marshal.GetLastWin32Error();
+#endif
+					return false;
+				}
+			}
+			else {
+				return Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true, out _);
+			}
+		}
 
-		//Wrapper.ExecuteCommand($"mklink /D \"{dir.FullName}\" \"{newLocation.FullName}\"", true, true);
 		[Flags]
 		private enum SymbolicLinkFlags : uint {
 			None = 0x00,
