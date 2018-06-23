@@ -76,7 +76,7 @@ public bool UnpriviligedSymlinksAvailable;
 						"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock",
 						"AllowDevelopmentWithoutDevLicense"), out object isDevobject) &&
 				isDevobject is string isDevString &&
-				int.TryParse(isDevString, out int isDev) &&
+				uint.TryParse(isDevString, out uint isDev) &&
 				isDev != 0 && Environment.OSVersion.Version.Major > 10 ||
 				Environment.OSVersion.Version.Major == 10 &&
 				RegistryMethods.GetRegistryValue(
@@ -85,7 +85,7 @@ public bool UnpriviligedSymlinksAvailable;
 						"ReleaseId"),
 					out object release) &&
 				release is string releaseString &&
-				int.TryParse(releaseString, out int releaseId) &&
+				uint.TryParse(releaseString, out uint releaseId) &&
 				releaseId >= 1703;
 		}
 
