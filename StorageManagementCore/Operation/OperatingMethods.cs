@@ -92,10 +92,6 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
-//			if (adjustNewPath) {
-//				newLocation = new FileInfo(Path.Combine(newLocation.FullName, file.FullName.Remove(1, 1)));
-//			}
-
 			if (!newLocation.Directory.Exists) {
 				newLocation.Directory.Create();
 			}
@@ -107,7 +103,6 @@ namespace StorageManagementCore.Operation {
 			}
 
 			return FileAndFolder.CreateFileSymlink(file, newLocation);
-			//throw new NotImplementedException();
 		}
 
 		/// <summary>

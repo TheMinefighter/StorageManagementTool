@@ -10,10 +10,6 @@ namespace StorageManagementCore.Operation {
 	///  Class containing functionalities for Background Process
 	/// </summary>
 	public static class BackgroundNotificationCreator {
-		/// <summary>
-		///  The JSON configuration
-		/// </summary>
-		private static MainConfiguration _mainConfiguration;
 
 		/// <summary>
 		///  The FileSystemWatchers currently active
@@ -31,9 +27,7 @@ namespace StorageManagementCore.Operation {
 		///  Initalizes the Background Process
 		/// </summary>
 		public static void Initalize() {
-			_mainConfiguration = Session.Singleton.Configuration;
-
-			foreach (MonitoredFolder monitoredFolder in _mainConfiguration.MonitoringSettings
+			foreach (MonitoredFolder monitoredFolder in Session.Singleton.Configuration.MonitoringSettings
 				.MonitoredFolders) {
 				if (monitoredFolder.ForFiles != MonitoringAction.Ignore) {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
@@ -59,7 +53,7 @@ namespace StorageManagementCore.Operation {
 			}
 		}
 
-//Multi Lang
+//TODO Multi Lang
 		private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e) {
 			MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
 			switch (tmp.ForDirectories) {
@@ -77,13 +71,13 @@ namespace StorageManagementCore.Operation {
 						    }
 					    )).NumberOfClickedButton == 1) {
 						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-							new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
+							new DirectoryInfo(Session.Singleton.Configuration.DefaultHDDPath), true);
 					}
 
 					break;
 				case MonitoringAction.Move:
 					OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-						new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
+						new DirectoryInfo(Session.Singleton.Configuration.DefaultHDDPath), true);
 
 					break;
 				default:
@@ -108,13 +102,13 @@ namespace StorageManagementCore.Operation {
 						    }
 					    )).NumberOfClickedButton == 1) {
 						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
-							new DirectoryInfo(_mainConfiguration.DefaultHDDPath), true);
+							new DirectoryInfo(Session.Singleton.Configuration.DefaultHDDPath), true);
 					}
 
 					break;
 				case MonitoringAction.Move:
 					OperatingMethods.MoveFile(new FileInfo(e.FullPath),
-						new FileInfo(Path.Combine(_mainConfiguration.DefaultHDDPath, e.FullPath.Remove(1, 1)))
+						new FileInfo(Path.Combine(Session.Singleton.Configuration.DefaultHDDPath, e.FullPath.Remove(1, 1)))
 					);
 					break;
 				default:

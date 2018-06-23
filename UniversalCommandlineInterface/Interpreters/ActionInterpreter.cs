@@ -75,7 +75,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 						invokersDeclared[i] = true;
 					}
 					else {
-						//throw
 						return false;
 					}
 				}
@@ -92,7 +91,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 #endif
 
 			return true;
-			//throw new NotImplementedException();
 		}
 
 		/// <summary>
@@ -108,8 +106,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 				if (IsParameterDeclaration(out CmdParameterAttribute found)) {
 					if (IncreaseOffset()) {
 						//TODO What if Empty Array
-						//throw
-
 						return false;
 					}
 
@@ -154,7 +150,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 
 							if (!CommandlineMethods.GetValueFromString(TopInterpreter.Args[Offset], realType,
 								out object toAppend)) {
-								//throw
 								return false;
 							}
 
@@ -189,7 +184,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 					}
 
 					else {
-						//throw
 						return false;
 					}
 				}
@@ -197,7 +191,6 @@ namespace UniversalCommandlineInterface.Interpreters {
 					invokationArguments.Add(found, aliasValue);
 				}
 				else {
-					//throw
 					return false;
 				}
 
