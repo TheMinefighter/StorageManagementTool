@@ -72,6 +72,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string AutomaticSetupBtnContent {
+            get {
+                return ResourceManager.GetString("AutomaticSetupBtnContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ChangeCredentialsBtnContent {
             get {
                 return ResourceManager.GetString("ChangeCredentialsBtnContent", resourceCulture);

@@ -124,4 +124,7 @@
   <data name="EnOrDisableSendToHDDCbContent" xml:space="preserve">
     <value></value>
   </data>
+  <data name="AutomaticSetupBtnContent" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

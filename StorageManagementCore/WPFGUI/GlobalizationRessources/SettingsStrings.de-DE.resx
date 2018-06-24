@@ -132,4 +132,7 @@
   <data name="EnOrDisableSendToHDDCbContent" xml:space="preserve">
     <value>„Auf HDD Speichern‟ im Senden an Menü des Explorers anzeigen</value>
   </data>
+  <data name="AutomaticSetupBtnContent" xml:space="preserve">
+    <value>Automatisches Setup</value>
+  </data>
 </root>
