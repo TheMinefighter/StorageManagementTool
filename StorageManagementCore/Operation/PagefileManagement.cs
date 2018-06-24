@@ -128,9 +128,7 @@ namespace StorageManagementCore.Operation {
 				//TODO Error message
 			}
 
-			if (cfg.) {
-				
-			}
+		
 
 			if (cfg.SystemManaged) {
 				return DeleteAllPagefiles() && SetSystemManaged(true);
@@ -139,8 +137,8 @@ namespace StorageManagementCore.Operation {
 			if (cfg.Pagefiles.Count==0) {
 				return DeleteAllPagefiles();
 			}
-			
 
+			return true;
 		}
 
 //

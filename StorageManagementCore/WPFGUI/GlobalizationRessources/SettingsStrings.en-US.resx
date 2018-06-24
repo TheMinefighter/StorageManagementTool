@@ -124,6 +124,9 @@
     <value>Restart as administrator</value>
   </data>
   <data name="IsAdministratorLblText" xml:space="preserve">
-    <value>The Program runs {0} adminstrator privilges</value>
+    <value>The program runs as adminstrator</value>
+  </data>
+  <data name="IsNoAdministratorLblText" xml:space="preserve">
+    <value>The program doesn't run as administrator</value>
   </data>
 </root>

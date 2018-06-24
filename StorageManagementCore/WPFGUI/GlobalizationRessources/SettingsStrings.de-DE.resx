@@ -124,6 +124,9 @@
     <value>Als Administrator neustarten</value>
   </data>
   <data name="IsAdministratorLblText" xml:space="preserve">
-    <value>Das Progamm wird {0}las Administrator ausgeführt+</value>
+    <value>Das Progamm wird als Administrator ausgeführt</value>
+  </data>
+  <data name="IsNoAdministratorLblText" xml:space="preserve">
+    <value>Das Programm wird nicht als Administrator ausgeführt</value>
   </data>
 </root>

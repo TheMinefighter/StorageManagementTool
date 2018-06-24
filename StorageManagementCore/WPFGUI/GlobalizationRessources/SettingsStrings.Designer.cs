@@ -108,6 +108,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string IsNoAdministratorLblText {
+            get {
+                return ResourceManager.GetString("IsNoAdministratorLblText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string RestartAsAdministratorBtnContent {
             get {
                 return ResourceManager.GetString("RestartAsAdministratorBtnContent", resourceCulture);

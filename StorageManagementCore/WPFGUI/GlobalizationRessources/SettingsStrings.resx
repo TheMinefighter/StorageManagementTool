@@ -118,4 +118,7 @@
   <data name="RestartAsAdministratorBtnContent" xml:space="preserve">
     <value></value>
   </data>
+  <data name="IsNoAdministratorLblText" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

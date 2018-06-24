@@ -30,6 +30,9 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void LocalizeSettings()
 		{
+			RestartAsAdministratorBtn.Content = RestartAsAdministratorBtnContent;
+			RestartAsAdministratorBtn.IsEnabled = !Session.Singleton.IsAdmin;
+			IsAdministratorLbl.Text = Session.Singleton.IsAdmin ? IsAdministratorLblText : IsNoAdministratorLblText;
 			SettingsTi.Header = SettingsTiText;
 		}
 
