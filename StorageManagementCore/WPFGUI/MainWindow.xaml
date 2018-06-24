@@ -367,9 +367,9 @@
 								<ColumnDefinition Width="5" />
 								<ColumnDefinition Width="91*" />
 							</Grid.ColumnDefinitions>
-							<Button x:Name="RemoveCredentialsBtn" Content="Button" Margin="0,16,0,0"
+							<Button x:Name="DisposeCredentialsBtn" Content="Button" Margin="0,16,0,0"
 							        VerticalAlignment="Top"
-							        Height="22" Grid.Column="2" Click="RemoveCredentialsBtn_Click" />
+							        Height="22" Grid.Column="2" Click="DisposeCredentialsBtn_Click" />
 							<Button Grid.Column="0" x:Name="ChangeCredentialsBtn" Content="Button" VerticalAlignment="Top" Height="22"
 							        Margin="0,16,0,0" Click="ChangeCredentialsBtn_OnClick" />
 							<TextBlock x:Name="CurrentCredentialsLbl" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.ColumnSpan="3"
@@ -381,13 +381,13 @@
 							        Grid.ColumnSpan="3" Grid.Column="0" />
 						</Grid>
 					</GroupBox>
-					<CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,317,0,0" VerticalAlignment="Top"
+					<CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,359,0,0" VerticalAlignment="Top"
 					          RenderTransformOrigin="0.23,1.711" IsChecked="True" Background="#FFFF4040" />
 					<Button x:Name="DeleteConfigurationBtn" Content="Button" HorizontalAlignment="Left"
-					        Margin="198,337,0,0"
+					        Margin="198,379,0,0"
 					        VerticalAlignment="Top" Width="196" Background="#FFFF4040" Height="22" />
 					<Button x:Name="DeleteConfigurationBtn_Copy" Content="Button" HorizontalAlignment="Left"
-					        Margin="10,337,0,0"
+					        Margin="10,379,0,0"
 					        VerticalAlignment="Top" Width="183" Background="#FFFF4040" Height="22" />
 					<CheckBox x:Name="__" Content="CheckBox" HorizontalAlignment="Left" Margin="10,297,0,0"
 					          VerticalAlignment="Top" />

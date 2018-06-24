@@ -108,12 +108,40 @@ namespace StorageManagementCore.Operation {
 				return null;
 			}
 		}
-/// <summary>
-/// Applies a given <see cref="PagefileSysConfiguration"/>
-/// </summary>
-/// <param name="cfg">The <see cref="PagefileSysConfiguration"/> to apply</param>
-/// <returns>Whether the Operation were successful</returns>
-		public static bool ApplyConfiguration(PagefileSysConfiguration cfg) => throw null;
+
+		/// <summary>
+		/// Applies a given <see cref="PagefileSysConfiguration"/>
+		/// </summary>
+		/// <param name="cfg">The <see cref="PagefileSysConfiguration"/> to apply</param>
+		/// <returns>Whether the Operation were successful</returns>
+		public static bool ApplyConfiguration(PagefileSysConfiguration cfg) {
+			if (!GetCurrentPagefileConfiguration(out PagefileSysConfiguration current)) {
+				//TODO Error message, recursive
+			}
+
+			List<DriveInfo> errors = DoesPagefileCfgFit(current, cfg);
+			if (errors==null) {
+				//TODO Error message
+			}
+
+			if (errors.Count>0) {
+				//TODO Error message
+			}
+
+			if (cfg.) {
+				
+			}
+
+			if (cfg.SystemManaged) {
+				return DeleteAllPagefiles() && SetSystemManaged(true);
+			}
+
+			if (cfg.Pagefiles.Count==0) {
+				return DeleteAllPagefiles();
+			}
+			
+
+		}
 
 //
 		/// <summary>

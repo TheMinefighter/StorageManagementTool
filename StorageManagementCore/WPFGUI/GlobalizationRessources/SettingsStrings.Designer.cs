@@ -63,6 +63,60 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string AuthorizationGbContent {
+            get {
+                return ResourceManager.GetString("AuthorizationGbContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeCredentialsBtnContent {
+            get {
+                return ResourceManager.GetString("ChangeCredentialsBtnContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CurrentCredentialsLblText {
+            get {
+                return ResourceManager.GetString("CurrentCredentialsLblText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DisposeCredentialsBtnContent {
+            get {
+                return ResourceManager.GetString("DisposeCredentialsBtnContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string IsAdministratorLblText {
+            get {
+                return ResourceManager.GetString("IsAdministratorLblText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string RestartAsAdministratorBtnContent {
+            get {
+                return ResourceManager.GetString("RestartAsAdministratorBtnContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SettingsTiText {
             get {
                 return ResourceManager.GetString("SettingsTiText", resourceCulture);

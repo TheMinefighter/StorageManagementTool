@@ -120,4 +120,10 @@
   <data name="SettingsTiText" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="RestartAsAdministratorBtnContent" xml:space="preserve">
+    <value>Restart as administrator</value>
+  </data>
+  <data name="IsAdministratorLblText" xml:space="preserve">
+    <value>The Program runs {0} adminstrator privilges</value>
+  </data>
 </root>

@@ -21,14 +21,19 @@ namespace StorageManagementCore.WPFGUI {
 				: (object) new SelectableUICulture {
 					Value = CultureInfo.CreateSpecificCulture(Session.Singleton.Configuration.LanguageOverride)
 				};
-			SettingsTi.Header = SettingsTiText;
+			LocalizeSettings();
 			DefaultHDDPathChanged();
 			CredentialsManager.OnCredentialsChanged += (s, a) => { };
 
 			//TODO IsAdministratorTb
 		}
 
-		private void RemoveCredentialsBtn_Click(object sender, RoutedEventArgs e) {
+		private void LocalizeSettings()
+		{
+			SettingsTi.Header = SettingsTiText;
+		}
+
+		private void DisposeCredentialsBtn_Click(object sender, RoutedEventArgs e) {
 			CredentialsManager.DisposeCredentials();
 		}
 
@@ -46,7 +51,8 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
-		private static bool HDDPathValid() => Session.Singleton.Configuration.DefaultHDDPath != null &&
+		private static bool HDDPathValid() => 
+			Session.Singleton.Configuration.DefaultHDDPath != null &&
 		                                      Directory.Exists(Session.Singleton.Configuration.DefaultHDDPath);
 
 		private void EnOrDisableSendToHDDCb_OnUnchecked(object sender, RoutedEventArgs e) {

@@ -100,4 +100,22 @@
   <data name="SettingsTiText" xml:space="preserve">
     <value></value>
   </data>
+  <data name="AuthorizationGbContent" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CurrentCredentialsLblText" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ChangeCredentialsBtnContent" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DisposeCredentialsBtnContent" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="IsAdministratorLblText" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="RestartAsAdministratorBtnContent" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
