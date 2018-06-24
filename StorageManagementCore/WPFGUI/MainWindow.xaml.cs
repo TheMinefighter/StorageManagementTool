@@ -30,5 +30,6 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
 
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void LocalizeSettings()
 		{
+			DeleteConfigurationBtn.Content = DeleteConfigurationBtnContent;
+			AuthorizationGb.Header = AuthorizationGbHeader;
 			AutomaticSetupBtn.Content = AutomaticSetupBtnContent;
 			EnOrDisableSendToHDDCb.Content = EnOrDisableSendToHDDCbContent;
 			//TODO Autolocalize that filename by desktop.ini
@@ -83,6 +86,12 @@ namespace StorageManagementCore.WPFGUI {
 		private void AutomaticSetupBtn_Click(object sender, RoutedEventArgs e)
 		{
 			new MainGUI.ApplyPreset().ShowDialog();
+		}
+		private void DeleteConfigurationBtn_Click(object sender, RoutedEventArgs e)
+		{
+			OperatingMethods.EnableSendToHDD(false);
+			Backend.FileAndFolder.DeleteFile(new FileInfo(Session.Singleton.ConfigurationPath), false, false);
+				Environment.Exit(0);
 		}
     }
 }

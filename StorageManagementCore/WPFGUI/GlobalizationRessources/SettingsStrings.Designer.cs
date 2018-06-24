@@ -63,9 +63,9 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AuthorizationGbContent {
+        internal static string AuthorizationGbHeader {
             get {
-                return ResourceManager.GetString("AuthorizationGbContent", resourceCulture);
+                return ResourceManager.GetString("AuthorizationGbHeader", resourceCulture);
             }
         }
         
@@ -93,6 +93,15 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static string CurrentCredentialsLblText {
             get {
                 return ResourceManager.GetString("CurrentCredentialsLblText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DeleteConfigurationBtnContent {
+            get {
+                return ResourceManager.GetString("DeleteConfigurationBtnContent", resourceCulture);
             }
         }
         

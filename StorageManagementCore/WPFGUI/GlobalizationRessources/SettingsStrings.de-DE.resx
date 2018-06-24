@@ -135,7 +135,10 @@
   <data name="AutomaticSetupBtnContent" xml:space="preserve">
     <value>Automatisches Setup</value>
   </data>
-  <data name="AuthorizationGbContent" xml:space="preserve">
+  <data name="AuthorizationGbHeader" xml:space="preserve">
     <value>Authorisierungen</value>
+  </data>
+  <data name="DeleteConfigurationBtnContent" xml:space="preserve">
+    <value>Konfiguration löschen und Programm schließen</value>
   </data>
 </root>

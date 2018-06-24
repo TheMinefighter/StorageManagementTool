@@ -281,8 +281,8 @@
 					          Checked="EnOrDisableSendToHDDCb_OnChecked" Unchecked="EnOrDisableSendToHDDCb_OnUnchecked" />
                     <Button x:Name="AutomaticSetupBtn" Content="Button" Margin="10,165,0,0"
 					        VerticalAlignment="Top" Height="22" Click="AutomaticSetupBtn_Click" />
-                    <GroupBox x:Name="DefaultBasePathGb" Header="GroupBox" Height="140" Margin="10,10,10,0"
-					          VerticalAlignment="Top" Grid.ColumnSpan="3">
+                    <GroupBox x:Name="DefaultBasePathGb" Header="This box will provide functionallity, which haven't been implemented yet" Height="140" Margin="10,10,10,0"
+					          VerticalAlignment="Top" Grid.ColumnSpan="3" IsEnabled="False">
                         <Grid Margin="0,0,-12,-12">
                             <Button Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10"
 							        VerticalAlignment="Bottom" Width="286"
@@ -387,12 +387,10 @@
 					          RenderTransformOrigin="0.23,1.711" IsChecked="True" Background="#FFFF4040" />
                     <Button x:Name="DeleteConfigurationBtn" Content="Button" HorizontalAlignment="Left"
 					        Margin="198,379,0,0"
-					        VerticalAlignment="Top" Width="196" Background="#FFFF4040" Height="22" />
+					        VerticalAlignment="Top" Width="196" Background="#FFFF4040" Height="22" Click="DeleteConfigurationBtn_Click" />
                     <Button x:Name="DeleteConfigurationBtn_Copy" Content="Button" HorizontalAlignment="Left"
 					        Margin="10,379,0,0"
 					        VerticalAlignment="Top" Width="183" Background="#FFFF4040" Height="22" />
-                    <CheckBox x:Name="__" Content="CheckBox" HorizontalAlignment="Left" Margin="10,297,0,0"
-					          VerticalAlignment="Top" />
                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="201,269,0,0"
 					          VerticalAlignment="Top"
 					          RenderTransformOrigin="1,0.533" Grid.Column="2" />
