@@ -129,4 +129,7 @@
   <data name="IsNoAdministratorLblText" xml:space="preserve">
     <value>Das Programm wird nicht als Administrator ausgeführt</value>
   </data>
+  <data name="EnOrDisableSendToHDDCbContent" xml:space="preserve">
+    <value>„Auf HDD Speichern‟ im Senden an Menü des Explorers anzeigen</value>
+  </data>
 </root>

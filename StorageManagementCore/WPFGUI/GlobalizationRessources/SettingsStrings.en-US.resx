@@ -129,4 +129,7 @@
   <data name="IsNoAdministratorLblText" xml:space="preserve">
     <value>The program doesn't run as administrator</value>
   </data>
+  <data name="EnOrDisableSendToHDDCbContent" xml:space="preserve">
+    <value>Show "Store on HDD" in the Send to menu of the explorer</value>
+  </data>
 </root>

@@ -121,4 +121,7 @@
   <data name="IsNoAdministratorLblText" xml:space="preserve">
     <value></value>
   </data>
+  <data name="EnOrDisableSendToHDDCbContent" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

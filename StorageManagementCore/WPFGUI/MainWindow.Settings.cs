@@ -30,6 +30,8 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void LocalizeSettings()
 		{
+			EnOrDisableSendToHDDCb.Content = EnOrDisableSendToHDDCbContent;
+			//TODO Autolocalize that filename by desktop.ini
 			RestartAsAdministratorBtn.Content = RestartAsAdministratorBtnContent;
 			RestartAsAdministratorBtn.IsEnabled = !Session.Singleton.IsAdmin;
 			IsAdministratorLbl.Text = Session.Singleton.IsAdmin ? IsAdministratorLblText : IsNoAdministratorLblText;

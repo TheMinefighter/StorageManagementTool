@@ -270,12 +270,9 @@
 			</TabItem>
 			<TabItem x:Name="SettingsTi" Header="Settings" Loaded="SettingsTi_OnLoaded">
 				<Grid Background="White">
-					<TextBlock x:Name="EnOrDisableSendToHDDLbl" HorizontalAlignment="Left" Margin="10,192,0,0"
-					           TextWrapping="Wrap"
-					           Text="TextBlock" VerticalAlignment="Top" />
-					<CheckBox x:Name="EnOrDisableSendToHDDCb" Content="Button" HorizontalAlignment="Left"
-					          Margin="10,213,0,0"
-					          VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,0.65" Height="22"
+                    <CheckBox x:Name="EnOrDisableSendToHDDCb" Content="Button" HorizontalAlignment="Left"
+					          Margin="10,198,0,0"
+					          VerticalAlignment="Top" Width="384" RenderTransformOrigin="0.133,0.65" Height="22"
 					          Checked="EnOrDisableSendToHDDCb_OnChecked" Unchecked="EnOrDisableSendToHDDCb_OnUnchecked" />
 					<Button x:Name="AutomaticSetupBtn" Content="Button" HorizontalAlignment="Left" Margin="10,165,0,0"
 					        VerticalAlignment="Top" Width="333" Height="22" />
