@@ -30,6 +30,7 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void LocalizeSettings()
 		{
+			AutomaticSetupBtn.Content = AutomaticSetupBtnContent;
 			EnOrDisableSendToHDDCb.Content = EnOrDisableSendToHDDCbContent;
 			//TODO Autolocalize that filename by desktop.ini
 			RestartAsAdministratorBtn.Content = RestartAsAdministratorBtnContent;
@@ -79,5 +80,9 @@ namespace StorageManagementCore.WPFGUI {
 		private void ChangeCredentialsBtn_OnClick(object sender, RoutedEventArgs e) {
 			CredentialsManager.GetCredentials(false, out Credentials _);
 		}
-	}
+		private void AutomaticSetupBtn_Click(object sender, RoutedEventArgs e)
+		{
+			new MainGUI.ApplyPreset().ShowDialog();
+		}
+    }
 }

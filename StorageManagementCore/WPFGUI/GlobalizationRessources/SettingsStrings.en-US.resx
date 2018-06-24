@@ -135,4 +135,7 @@
   <data name="AutomaticSetupBtnContent" xml:space="preserve">
     <value>Automatic setup</value>
   </data>
+  <data name="AuthorizationGbContent" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
 </root>
