@@ -32,7 +32,7 @@ namespace StorageManagementCore.MainGUI {
 			Pagefilepartition_lb_SelectedIndexChanged(null, null);
 			foreach (DriveInfo driveInfo in (IEnumerable<DriveInfo>) FileSystem.Drives) {
 				try {
-					if (driveInfo.AvailableFreeSpace >= 16 * 1048576) {
+					if (driveInfo.TotalFreeSpace >= 16 * 1048576) {
 						Swapfilepartition_lb.Items.Add(OperatingMethods.GetDriveInfoDescription(driveInfo));
 					}
 				}

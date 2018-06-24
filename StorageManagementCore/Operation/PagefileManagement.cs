@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Csv;
+using JetBrains.Annotations;
 using Microsoft.VisualBasic.FileIO;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
@@ -14,9 +15,54 @@ namespace StorageManagementCore.Operation {
 		private static readonly string WmicPath =
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
 
-		public static bool ApplyConfiguration(Configuration.PagefileSysConfiguration cfg) {
-			throw null;//TODO do
-              }
+
+		public static Dictionary<DriveInfo, long> GetFutureFreeSpace(PagefileSysConfiguration current) {
+			Dictionary<DriveInfo, long> ret = FileSystem.Drives.ToDictionary(x => x, x => x.TotalFreeSpace);
+			if (current.SystemManaged) {
+				string rootPath = Path.GetPathRoot(Environment.SystemDirectory);
+
+				FileInfo pagefile = new FileInfo(Path.Combine(rootPath, "pagefile.sys"));
+				long length;
+				try {
+					length = pagefile.Length;
+				}
+				catch (Exception e) {
+					return null;
+				}
+
+				DriveInfo rootPathInfo = new DriveInfo(rootPath);
+				return null; //rootPathInfo.TotalFreeSpace+length-;
+			}
+			else {
+				return null;
+			}
+		}
+
+		[CanBeNull]
+		public static List<DriveInfo> DoesPagefileFit(PagefileSysConfiguration current, PagefileSysConfiguration proposed) {
+			if (current.SystemManaged) {
+				string rootPath = Path.GetPathRoot(Environment.SystemDirectory);
+
+				FileInfo pagefile = new FileInfo(Path.Combine(rootPath, "pagefile.sys"));
+				long length;
+				try {
+					length = pagefile.Length;
+				}
+				catch (Exception e) {
+					return null;
+				}
+
+				DriveInfo rootPathInfo = new DriveInfo(rootPath);
+				return null;
+				long x = rootPathInfo.TotalFreeSpace + length - 0;
+			}
+			else {
+				return null;
+			}
+		}
+
+		public static bool ApplyConfiguration(PagefileSysConfiguration cfg) => throw null;
+
 //
 		/// <summary>
 		///  Reads the current <exception cref="PagefileSysConfiguration"></exception>
@@ -52,13 +98,20 @@ namespace StorageManagementCore.Operation {
 			"pagefileset delete /NOINTERACTIVE", out _, out int _, out _, waitforexit: true, hidden: true,
 			admin: true);
 
-		private static bool SetSystemManaged(bool SystemManaged) =>
-			Wrapper.ExecuteExecuteable(WmicPath, $" computersystem set AutomaticManagedPagefile={SystemManaged}", true, true);
+		private static bool SetSystemManaged(bool systemManaged) =>
+			Wrapper.ExecuteExecuteable(WmicPath, $" computersystem set AutomaticManagedPagefile={systemManaged}", true, true);
 
-		public static bool AddPagefile(DriveInfo drive) => throw null;
+		public static bool AddPagefile(DriveInfo drive) =>
+			Wrapper.ExecuteExecuteable(WmicPath,
+				$"pagefileset create name=\"{Path.Combine(drive.Name, "Pagefile.sys")}\"", out _,
+				out int _, out _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile;
+
 		public static bool AddPagefile(Pagefile cfg) => AddPagefile(cfg.Drive.LocalDrive) && ChangePagefile(cfg);
-		private static bool ChangePagefile(Pagefile cfg) {
-			throw null; }
+
+		private static bool ChangePagefile(Pagefile cfg) =>
+			Wrapper.ExecuteExecuteable(WmicPath,
+				$"pagefileset where where \" name=\'{cfg.Drive.LocalDrive.Name}\\pagefile.sys\' \" set InitialSize={cfg.MinSize},MaximumSize={cfg.MaxSize}",
+				out _, out int _, out _, waitforexit: true, hidden: true, admin: true);
 
 		private static bool DeletePagefile(DriveInfo drive) =>
 			Wrapper.ExecuteExecuteable(WmicPath,
@@ -133,7 +186,7 @@ namespace StorageManagementCore.Operation {
 				return false;
 			}
 
-			if (toUse.AvailableFreeSpace < minSize * 1048576L) //Tests whether enough space is available
+			if (toUse.TotalFreeSpace < minSize * 1048576L) //Tests whether enough space is available
 			{
 				MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_NotEnoughSpace,
 					OperatingMethodsStrings.Error,

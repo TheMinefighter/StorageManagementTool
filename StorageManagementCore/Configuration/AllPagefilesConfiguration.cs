@@ -9,5 +9,10 @@ namespace StorageManagementCore.Configuration {
 
 		[NotNull]
 		public SwapfileSysConfiguration SwapfileSysSettings;
+
+		public AllPagefilesConfiguration() {
+			SwapfileSysSettings= new SwapfileSysConfiguration();
+			PagefileSysSettings= new PagefileSysConfiguration();
+		}
 	}
 }
