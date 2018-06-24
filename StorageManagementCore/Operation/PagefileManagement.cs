@@ -13,11 +13,12 @@ using StorageManagementCore.GlobalizationRessources;
 namespace StorageManagementCore.Operation {
 	public static class PagefileManagement {
 		private static readonly string WmicPath =
-			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem\\wmic.exe");
+			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem","wmic.exe");
+//Note: longs will only work until 16.000PB of storage
 
-
-		public static Dictionary<DriveInfo, long> GetFutureFreeSpace(PagefileSysConfiguration current) {
-			Dictionary<DriveInfo, long> ret = FileSystem.Drives.ToDictionary(x => x, x => x.TotalFreeSpace);
+		[CanBeNull]
+		public static Dictionary<char, long> GetFutureFreeSpace(PagefileSysConfiguration current) {
+			Dictionary<char, long> ret = FileSystem.Drives.ToDictionary(x => x.GetDriveLetter(), x => x.TotalFreeSpace);
 			if (current.SystemManaged) {
 				string rootPath = Path.GetPathRoot(Environment.SystemDirectory);
 
@@ -30,16 +31,20 @@ namespace StorageManagementCore.Operation {
 					return null;
 				}
 
-				DriveInfo rootPathInfo = new DriveInfo(rootPath);
-				return null; //rootPathInfo.TotalFreeSpace+length-;
+				ret[rootPath.First()] += length;
+				return ret;
 			}
 			else {
-				return null;
+				foreach (Pagefile currentPagefile in current.Pagefiles) {
+					ret[currentPagefile.Drive.LocalDrive.GetDriveLetter()] += currentPagefile.MinSize;
+				}
+				return ret;
 			}
+			
 		}
 
 		[CanBeNull]
-		public static List<DriveInfo> DoesPagefileFit(PagefileSysConfiguration current, PagefileSysConfiguration proposed) {
+		public static List<DriveInfo> DoesPagefileCfgFit(PagefileSysConfiguration current, PagefileSysConfiguration proposed) {
 			if (current.SystemManaged) {
 				string rootPath = Path.GetPathRoot(Environment.SystemDirectory);
 

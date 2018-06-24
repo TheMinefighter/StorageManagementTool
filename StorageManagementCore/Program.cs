@@ -28,7 +28,7 @@ namespace StorageManagementCore {
 		/// </summary>
 		public static bool CommandLineMode { get; private set; }
 
-		public static char DriveLetter(this DriveInfo d) => d.Name.First();
+		public static char GetDriveLetter(this DriveInfo d) => d.Name.First();
 
 		[STAThread]
 		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
