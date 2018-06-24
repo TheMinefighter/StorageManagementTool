@@ -11,6 +11,9 @@ using StorageManagementCore.Configuration;
 using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Operation {
+	/// <summary>
+	/// A class providing methods for managing pagefiles
+	/// </summary>
 	public static class PagefileManagement {
 		/// <summary>
 		/// The number of bytes in a Megabyte
@@ -105,7 +108,11 @@ namespace StorageManagementCore.Operation {
 				return null;
 			}
 		}
-
+/// <summary>
+/// Applies a given <see cref="PagefileSysConfiguration"/>
+/// </summary>
+/// <param name="cfg">The <see cref="PagefileSysConfiguration"/> to apply</param>
+/// <returns>Whether the Operation were successful</returns>
 		public static bool ApplyConfiguration(PagefileSysConfiguration cfg) => throw null;
 
 //
