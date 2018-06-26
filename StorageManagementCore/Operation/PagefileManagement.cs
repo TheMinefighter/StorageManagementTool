@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -123,11 +124,38 @@ namespace StorageManagementCore.Operation {
 			if (current.SystemManaged&&!SetSystemManaged(false)) {
 				return false;
 			}
-			
-			List<char> toBeDeleted= new List<char>();
+
+			List<Pagefile> changingPagefiles = current.Pagefiles.ToList();
+//			List<char> toBeDeleted= new List<char>();
 			foreach (Pagefile currentPagefile in current.Pagefiles) {
 				if (!proposed.Pagefiles.Select(x=>x.Drive).Contains(currentPagefile.Drive)) {
-					toBeDeleted.Add(currentPagefile.Drive.LocalDrive.GetDriveLetter());
+					if (DeletePagefile(currentPagefile.Drive.LocalDrive)) {
+						changingPagefiles.Remove(currentPagefile);
+					}
+					else {
+						return false;
+					}
+
+					//toBeDeleted.Add(currentPagefile.Drive.LocalDrive.GetDriveLetter());
+				}
+			}
+//
+//			foreach (char x in toBeDeleted) {
+//				if (!DeletePagefile(new DriveInfo(x.ToString()))) {
+//					return false;
+//				}
+//				else {
+//					changingPagefiles.RemoveAll(y => y.Drive.LocalDrive.GetDriveLetter() == x);
+//				}
+//			}
+			foreach (Pagefile proposedPagefile in proposed.Pagefiles) {
+				if (!current.Pagefiles.Select(x=>x.Drive).Contains(proposedPagefile.Drive)) {
+					if (AddPagefile(proposedPagefile)) {
+						changingPagefiles.Add(proposedPagefile);
+					}
+					else {
+						return false;
+					}
 				}
 			}
 
