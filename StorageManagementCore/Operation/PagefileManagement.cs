@@ -27,7 +27,7 @@ namespace StorageManagementCore.Operation {
 		private static readonly string WmicPath =
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem", "wmic.exe");
 
-//Note: longs will only work until 16.000PB of storage
+		//Note: longs will only work until 16.000PB of free storage, but in that time Windows will hopefully have all functionalities of this program
 // Will Use DriveInfos here in the future but currently it is impossible for dictionaries: https://github.com/dotnet/corefx/issues/30627
 		/// <summary>
 		/// The free space the drives will have when the pagefiles have been removed

@@ -3,11 +3,14 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using StorageManagementCore.Backend;
+using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
-	public partial class MainWindow {
+	public partial class MainWindow
+	{
+		private PagefileSysConfiguration _proposedPagefileConfiguration=new PagefileSysConfiguration();
 		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e) {
 			PagefilesTi.Header = PagefilesTiText;
 			NewSwapfileDriveCmb.ItemsSource =
@@ -34,6 +37,11 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void PageFileSizeTb_OnPreviewTextInput(object sender, TextCompositionEventArgs e) {
 			e.Handled = !IsTextNumber(e.Text);
+		}
+
+		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

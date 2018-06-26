@@ -38,9 +38,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConfirmationDialogs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\TheMinefighter.ConfirmationDialogs.1.0.3-beta\lib\net40\ConfirmationDialogs.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ConfirmationDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TheMinefighter.ConfirmationDialogs.1.1.2\lib\net35\ConfirmationDialogs.dll</HintPath>
     </Reference>
     <Reference Include="Csv, Version=1.0.31.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Csv.1.0.31\lib\net40\Csv.dll</HintPath>
@@ -59,8 +58,8 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NumericUpDown">
-      <HintPath>..\packages\NumericUpDown.3.0.1.0\lib\NumericUpDown.dll</HintPath>
+    <Reference Include="NumericUpDown, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NumericUpDown.3.0.2\lib\NumericUpDown.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -398,6 +397,7 @@
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\StorageManagementCore.WPFGUI.MainWindow.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
