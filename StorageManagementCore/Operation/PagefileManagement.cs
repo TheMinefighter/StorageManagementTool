@@ -167,6 +167,18 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
+			if (!GetCurrentPagefileConfiguration(out PagefileSysConfiguration newOne)) {
+				return false;
+			}
+			if (newOne.Pagefiles.UnorderedEqual(proposed.Pagefiles)) {
+				//TODO Pagefiles inequal error
+				return false;
+			}
+
+			if (newOne.SystemManaged!=proposed.SystemManaged) {
+				//TODO SystemManaged inequal error
+				return false;
+			}
 			
 			return true;
 		}
