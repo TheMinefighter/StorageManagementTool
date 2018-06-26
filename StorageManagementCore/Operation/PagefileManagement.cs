@@ -70,7 +70,10 @@ namespace StorageManagementCore.Operation {
 		/// otherwise a <see cref="List{T}"/> with the drives where the future configuration would exceed the limits </returns>
 		[CanBeNull]
 		public static List<DriveInfo> DoesPagefileCfgFit(PagefileSysConfiguration current, PagefileSysConfiguration proposed) {
-			if (!proposed.SystemManaged) {
+			if (proposed.SystemManaged) {
+				return new List<DriveInfo>();
+			}
+			else {
 				List<DriveInfo> ret = new List<DriveInfo>();
 				Dictionary<char, long> futureFreeSpace = GetFutureFreeSpace(current);
 				if (futureFreeSpace == null) {
@@ -83,29 +86,8 @@ namespace StorageManagementCore.Operation {
 						ret.Add(new DriveInfo(drive.ToString()));
 					}
 				}
-			}
-			else {
-				return new List<DriveInfo>();
-			}
 
-			if (current.SystemManaged) {
-				string rootPath = Path.GetPathRoot(Environment.SystemDirectory);
-
-				FileInfo pagefile = new FileInfo(Path.Combine(rootPath, "pagefile.sys"));
-				long length;
-				try {
-					length = pagefile.Length;
-				}
-				catch (Exception e) {
-					return null;
-				}
-
-				DriveInfo rootPathInfo = new DriveInfo(rootPath);
-				return null;
-				long x = rootPathInfo.TotalFreeSpace + length - 0;
-			}
-			else {
-				return null;
+				return ret;
 			}
 		}
 
