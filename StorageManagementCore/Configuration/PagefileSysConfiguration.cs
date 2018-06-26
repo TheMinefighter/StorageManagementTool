@@ -6,7 +6,7 @@ namespace StorageManagementCore.Configuration {
 		[NotNull] [ItemNotNull]
 		public List<Pagefile> Pagefiles;
 
-		public bool SystemManaged;
+		public bool SystemManaged { get; set; }
 
 		public PagefileSysConfiguration() => Pagefiles = new List<Pagefile>();
 	}

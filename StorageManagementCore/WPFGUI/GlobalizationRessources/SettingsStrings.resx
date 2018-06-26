@@ -130,4 +130,7 @@
   <data name="DeleteConfigurationBtnContent" xml:space="preserve">
     <value></value>
   </data>
+  <data name="EnOrDisableCredentialsOnStartupCbContent" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

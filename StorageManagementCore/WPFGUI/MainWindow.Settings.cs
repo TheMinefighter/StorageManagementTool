@@ -25,13 +25,14 @@ namespace StorageManagementCore.WPFGUI {
 			LocalizeSettings();
 			DefaultHDDPathChanged();
 			CredentialsManager.OnCredentialsChanged += (s, a) => { };
-
+			EnOrDisableCredentialsOnStartupCb.IsChecked = Session.Singleton.UnpriviligedSymlinksAvailable;
 			//TODO IsAdministratorTb
 		}
 
 		private void LocalizeSettings()
 		{
-			DeleteConfigurationBtn.Content = DeleteConfigurationBtnContent;
+			EnOrDisableCredentialsOnStartupCb.Content = EnOrDisableCredentialsOnStartupCbContent;
+            DeleteConfigurationBtn.Content = DeleteConfigurationBtnContent;
 			AuthorizationGb.Header = AuthorizationGbHeader;
 			AutomaticSetupBtn.Content = AutomaticSetupBtnContent;
 			EnOrDisableSendToHDDCb.Content = EnOrDisableSendToHDDCbContent;
@@ -52,6 +53,12 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void RestartAsAdministratorBtn_OnClick(object sender, RoutedEventArgs e) {
 			Wrapper.RestartProgram(true);
+		}
+
+		private void EnOrDisableCredentialsOnStartupCb_OnChecked(object sender, RoutedEventArgs e)
+		{
+			Session.Singleton.Configuration.CredentialsOnStartup = EnOrDisableCredentialsOnStartupCb.IsChecked.Value;
+				Session.Singleton.SaveCfg();
 		}
 
 		private void EnOrDisableSendToHDDCb_OnChecked(object sender, RoutedEventArgs e) {

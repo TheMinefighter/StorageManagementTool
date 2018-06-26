@@ -141,4 +141,7 @@
   <data name="DeleteConfigurationBtnContent" xml:space="preserve">
     <value>Konfiguration löschen und Programm schließen</value>
   </data>
+  <data name="EnOrDisableCredentialsOnStartupCbContent" xml:space="preserve">
+    <value>Beim Start nach Administratorenrechten fragen</value>
+  </data>
 </root>

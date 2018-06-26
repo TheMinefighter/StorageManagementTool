@@ -168,8 +168,7 @@
 					           TextWrapping="Wrap"
 					           Text="TextBlock" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden"
 					           Grid.Column="1" />
-                    <Button x:Name="ApplyMonitoringBtn" Content="Button" HorizontalAlignment="Left" Margin="0,390,0,0"
-					        VerticalAlignment="Top" Width="209" Click="ApplyMonitoringBtn_OnClick" Grid.Column="1" />
+                    <Button x:Name="ApplyMonitoringBtn" Content="Button" Margin="0,0,10,10" Click="ApplyMonitoringBtn_OnClick" Grid.Column="1" Height="20" VerticalAlignment="Bottom" />
                     <Button x:Name="OpenMonitoredFolderBtn" Content="Button" Margin="0,80,10,0"
 					        VerticalAlignment="Top" Click="OpenMonitoredFolderBtn_OnClick" Grid.Column="1" />
                     <GroupBox x:Name="MonitoringForDirectoriesGb" Header="GroupBox" Height="65"
@@ -230,9 +229,8 @@
                             <ComboBox x:Name="NewSwapfileDriveCmb" Margin="10,31,10,0" VerticalAlignment="Top" />
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="PagefilesGb" Grid.Column="0" Header="GroupBox" HorizontalAlignment="Left"
-					          Height="400" Margin="10,10,0,0" VerticalAlignment="Top"
-					          Width="570">
+                    <GroupBox x:Name="PagefilesGb" Grid.Column="0" Header="GroupBox"
+					          Height="400" Margin="10,10,0,0" VerticalAlignment="Top">
                         <Grid Margin="-8,0,-2,-12">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -275,9 +273,9 @@
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="387*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="EnOrDisableSendToHDDCb" Content="Button" HorizontalAlignment="Left"
+                    <CheckBox x:Name="EnOrDisableSendToHDDCb" Content="Button"
 					          Margin="10,198,0,0"
-					          VerticalAlignment="Top" Width="384" RenderTransformOrigin="0.133,0.65" Height="22"
+					          VerticalAlignment="Top" RenderTransformOrigin="0.133,0.65" Height="22"
 					          Checked="EnOrDisableSendToHDDCb_OnChecked" Unchecked="EnOrDisableSendToHDDCb_OnUnchecked" />
                     <Button x:Name="AutomaticSetupBtn" Content="Button" Margin="10,165,0,0"
 					        VerticalAlignment="Top" Height="22" Click="AutomaticSetupBtn_Click" />
@@ -356,7 +354,7 @@
                             <Button x:Name="SetLanguageAndRestartBtn_Copy" Content="Button" HorizontalAlignment="Left"
 							        VerticalAlignment="Top" Width="178" Height="22" Margin="1,10,0,0" />
                             <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="258,32,0,0"
-							          VerticalAlignment="Top"
+							          VerticalAlignment="Top" Visibility="Hidden"
 							          RenderTransformOrigin="1,0.533" />
                         </Grid>
                     </GroupBox>
@@ -383,17 +381,21 @@
 							        Grid.ColumnSpan="3" Grid.Column="0" />
                         </Grid>
                     </GroupBox>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,359,0,0" VerticalAlignment="Top"
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="37,324,0,0" VerticalAlignment="Top"
 					          RenderTransformOrigin="0.23,1.711" IsChecked="True" Background="#FFFF4040" />
                     <Button x:Name="DeleteConfigurationBtn" Content="Button" HorizontalAlignment="Left"
-					        Margin="198,379,0,0"
-					        VerticalAlignment="Top" Width="196" Background="#FFFF4040" Height="22" Click="DeleteConfigurationBtn_Click" />
+					        Margin="10,388,0,0"
+					        VerticalAlignment="Top" Width="384" Background="#FFFF4040" Height="22" Click="DeleteConfigurationBtn_Click" />
                     <Button x:Name="DeleteConfigurationBtn_Copy" Content="Button" HorizontalAlignment="Left"
-					        Margin="10,379,0,0"
-					        VerticalAlignment="Top" Width="183" Background="#FFFF4040" Height="22" />
+					        Margin="10,361,0,0" Background="#FFFF4040" Style="{DynamicResource DangerousButton}"
+					        VerticalAlignment="Top" Width="383"  Height="22" />
                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="201,269,0,0"
 					          VerticalAlignment="Top"
-					          RenderTransformOrigin="1,0.533" Grid.Column="2" />
+					          RenderTransformOrigin="1,0.533" Grid.Column="2" Visibility="Hidden" />
+                    <CheckBox x:Name="EnOrDisableCredentialsOnStartupCb" Content="Button"
+                        Margin="10,225,0,0"
+                        VerticalAlignment="Top" RenderTransformOrigin="0.133,0.65" Height="22"
+                        Checked="EnOrDisableSendToHDDCb_OnChecked" Unchecked="EnOrDisableSendToHDDCb_OnChecked" />
                 </Grid>
             </TabItem>
             <TabItem x:Name="AboutTi" Header="About">
@@ -403,4 +405,14 @@
             </TabItem>
         </TabControl>
     </Grid>
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="DangerousButton">
+            <Setter Property="Background" Value="Green"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkGoldenrod"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 </Window>
