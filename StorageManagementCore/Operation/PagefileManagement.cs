@@ -111,8 +111,6 @@ namespace StorageManagementCore.Operation {
 				//TODO Error message
 			}
 
-		
-
 			if (proposed.SystemManaged) {
 				return DeleteAllPagefiles() && SetSystemManaged(true);
 			}
@@ -126,7 +124,6 @@ namespace StorageManagementCore.Operation {
 			}
 
 			List<Pagefile> changingPagefiles = current.Pagefiles.ToList();
-//			List<char> toBeDeleted= new List<char>();
 			foreach (Pagefile currentPagefile in current.Pagefiles) {
 				if (!proposed.Pagefiles.Select(x=>x.Drive).Contains(currentPagefile.Drive)) {
 					if (DeletePagefile(currentPagefile.Drive.LocalDrive)) {
@@ -135,19 +132,9 @@ namespace StorageManagementCore.Operation {
 					else {
 						return false;
 					}
-
-					//toBeDeleted.Add(currentPagefile.Drive.LocalDrive.GetDriveLetter());
 				}
 			}
-//
-//			foreach (char x in toBeDeleted) {
-//				if (!DeletePagefile(new DriveInfo(x.ToString()))) {
-//					return false;
-//				}
-//				else {
-//					changingPagefiles.RemoveAll(y => y.Drive.LocalDrive.GetDriveLetter() == x);
-//				}
-//			}
+			
 			foreach (Pagefile proposedPagefile in proposed.Pagefiles) {
 				if (!current.Pagefiles.Select(x=>x.Drive).Contains(proposedPagefile.Drive)) {
 					if (AddPagefile(proposedPagefile)) {
@@ -183,7 +170,6 @@ namespace StorageManagementCore.Operation {
 			return true;
 		}
 
-//
 		/// <summary>
 		///  Reads the current <exception cref="PagefileSysConfiguration"></exception>
 		/// </summary>
