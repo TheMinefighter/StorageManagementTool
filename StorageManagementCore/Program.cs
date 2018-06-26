@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -17,7 +18,66 @@ namespace StorageManagementCore {
 	public static class Program {
 		public static readonly CultureInfo[][] AvailableSpecificCultures =
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
-
+		//based upon https://www.dotnetperls.com/list-equals last access 
+		public static bool UnorderedEqual<T>(this ICollection<T> a, ICollection<T> b)
+		{
+			// 1
+			// Require that the counts are equal
+			if (a.Count != b.Count)
+			{
+				return false;
+			}
+			// 2
+			// Initialize new Dictionary of the type
+			Dictionary<T, int> d = new Dictionary<T, int>();
+			// 3
+			// Add each key's frequency from collection A to the Dictionary
+			foreach (T item in a)
+			{
+				if (d.TryGetValue(item, out int c))
+				{
+					d[item] = c + 1;
+				}
+				else
+				{
+					d.Add(item, 1);
+				}
+			}
+			// 4
+			// Add each key's frequency from collection B to the Dictionary
+			// Return early if we detect a mismatch
+			foreach (T item in b)
+			{
+				if (d.TryGetValue(item, out int c))
+				{
+					if (c == 0)
+					{
+						return false;
+					}
+					else
+					{
+						d[item] = c - 1;
+					}
+				}
+				else
+				{
+					// Not in dictionary
+					return false;
+				}
+			}
+			// 5
+			// Verify that all frequencies are zero
+			foreach (int v in d.Values)
+			{
+				if (v != 0)
+				{
+					return false;
+				}
+			}
+			// 6
+			// We know the collections are equal
+			return true;
+		}
 		/// <summary>
 		///  A reference to an object containig methods for the console IO operations
 		/// </summary>

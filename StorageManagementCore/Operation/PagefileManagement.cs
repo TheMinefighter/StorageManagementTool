@@ -159,6 +159,15 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
+			foreach (Pagefile proposedPagefile in proposed.Pagefiles) {
+				if (!changingPagefiles.Contains(proposedPagefile)) {
+					if (!ChangePagefile(proposedPagefile)) {
+						return false;
+					}
+				}
+			}
+
+			
 			return true;
 		}
 
