@@ -94,14 +94,14 @@ namespace StorageManagementCore.Operation {
 		/// <summary>
 		/// Applies a given <see cref="PagefileSysConfiguration"/>
 		/// </summary>
-		/// <param name="cfg">The <see cref="PagefileSysConfiguration"/> to apply</param>
+		/// <param name="proposed">The <see cref="PagefileSysConfiguration"/> to apply</param>
 		/// <returns>Whether the Operation were successful</returns>
-		public static bool ApplyConfiguration(PagefileSysConfiguration cfg) {
+		public static bool ApplyConfiguration(PagefileSysConfiguration proposed) {
 			if (!GetCurrentPagefileConfiguration(out PagefileSysConfiguration current)) {
 				//TODO Error message, recursive
 			}
 
-			List<DriveInfo> errors = DoesPagefileCfgFit(current, cfg);
+			List<DriveInfo> errors = DoesPagefileCfgFit(current, proposed);
 			if (errors==null) {
 				//TODO Error message
 			}
@@ -112,12 +112,23 @@ namespace StorageManagementCore.Operation {
 
 		
 
-			if (cfg.SystemManaged) {
+			if (proposed.SystemManaged) {
 				return DeleteAllPagefiles() && SetSystemManaged(true);
 			}
 
-			if (cfg.Pagefiles.Count==0) {
+			if (proposed.Pagefiles.Count==0) {
 				return DeleteAllPagefiles();
+			}
+
+			if (current.SystemManaged&&!SetSystemManaged(false)) {
+				return false;
+			}
+			
+			List<char> toBeDeleted= new List<char>();
+			foreach (Pagefile currentPagefile in current.Pagefiles) {
+				if (!proposed.Pagefiles.Select(x=>x.Drive).Contains(currentPagefile.Drive)) {
+					toBeDeleted.Add(currentPagefile.Drive.LocalDrive.GetDriveLetter());
+				}
 			}
 
 			return true;
