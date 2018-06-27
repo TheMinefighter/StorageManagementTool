@@ -12,6 +12,7 @@ namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
+			DataContext = ProposedPagefileConfiguration;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {

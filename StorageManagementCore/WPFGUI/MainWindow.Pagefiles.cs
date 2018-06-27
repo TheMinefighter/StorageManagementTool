@@ -10,7 +10,7 @@ using static StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettin
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow
 	{
-		private PagefileSysConfiguration _proposedPagefileConfiguration=new PagefileSysConfiguration();
+		public PagefileSysConfiguration ProposedPagefileConfiguration { get; set; }=new PagefileSysConfiguration();
 		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e) {
 			PagefilesTi.Header = PagefilesTiText;
 			NewSwapfileDriveCmb.ItemsSource =
@@ -41,7 +41,6 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e)
 		{
-			throw new System.NotImplementedException();
 		}
 	}
 }

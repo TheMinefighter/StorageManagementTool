@@ -15,8 +15,11 @@ namespace StorageManagementCore.Configuration {
 			get => _systemManaged;
 			set
 			{
-				_systemManaged = value;
-				OnPropertyChanged(nameof(SystemManaged));
+				if (value!= _systemManaged) {
+				
+					_systemManaged = value;
+					OnPropertyChanged(nameof(SystemManaged));	
+				}
 
 			}
 		}
