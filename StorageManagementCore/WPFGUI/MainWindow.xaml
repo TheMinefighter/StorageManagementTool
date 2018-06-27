@@ -253,7 +253,7 @@
 								<ColumnDefinition Width="5" />
 								<ColumnDefinition Width="164*" />
 							</Grid.ColumnDefinitions>
-							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35"
+							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35" SelectedItem="{Binding Path=SelectedPagefile}"
 							         IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}"
 							         ItemsSource="{Binding Path=PagefileConfiguration.Pagefiles}">
 								<!--<ListBox.ItemTemplate>
@@ -268,7 +268,7 @@
 							                  VerticalAlignment="Top" Margin="0,56,10,0" Grid.Row="0" Grid.Column="2"
 							                  DataObject.Pasting="PageFileSizeTb_OnPasting"
 							                  PreviewTextInput="PageFileSizeTb_OnPreviewTextInput" Width="Auto" MaxValue="65536" Increment="1022" MinValue="16"
-							                  Value="{Binding ElementName=PagefilesLb, Path=SelectedValue. }" />
+							                  Value="{Binding Path=SelectedPagefile. }" />
 
 							<nu:NumericUpDown x:Name="PageFileMaxSizeTb" Height="23"
 							                  VerticalAlignment="Top" Margin="0,105,10,0" Grid.Row="0" Grid.Column="2"

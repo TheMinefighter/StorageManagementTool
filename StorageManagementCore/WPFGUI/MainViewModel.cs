@@ -23,7 +23,7 @@ namespace StorageManagementCore.WPFGUI {
 
 		public MainViewModel() {
 			PagefileConfiguration= Operation.PagefileManagement.GetCurrentPagefileConfiguration(out PagefileSysConfiguration tmp)?tmp: new PagefileSysConfiguration();
-			SelectedPagefile = PagefileConfiguration.Pagefiles.FirstOrDefault();
+			SelectedPagefile = null;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

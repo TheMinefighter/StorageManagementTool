@@ -1,23 +1,39 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 
 namespace StorageManagementCore.Configuration {
 	/// <summary>
 	/// </summary>
-	public class Pagefile : IEquatable<Pagefile> {
+	public class Pagefile : IEquatable<Pagefile>, INotifyPropertyChanged {
+		private ConfiguredDrive _drive;
+		private int _maxSize;
+		private int _minSize;
+
 		/// <summary>
 		///  The drive to store on
 		/// </summary>
-		public ConfiguredDrive Drive;
+		public ConfiguredDrive Drive {
+			get => _drive;
+			set { _drive = value; OnPropertyChanged(nameof(Drive)); }
+		}
 
 		/// <summary>
 		///  Maximum size in MB
 		/// </summary>
-		public int MaxSize;
+		public int MaxSize {
+			get => _maxSize;
+			set { _maxSize = value; OnPropertyChanged(nameof(MaxSize)); }
+		}
 
 		/// <summary>
 		///  Minimum size in MB
 		/// </summary>
-		public int MinSize;
+		public int MinSize {
+			get => _minSize;
+			set { _minSize = value; OnPropertyChanged(nameof(MinSize)); }
+		}
 
 		public Pagefile(ConfiguredDrive drive, int maxSize, int minSize) {
 			Drive = drive;
@@ -52,6 +68,14 @@ namespace StorageManagementCore.Configuration {
 				hashCode = (hashCode * 397) ^ MinSize;
 				return hashCode;
 			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		[NotifyPropertyChangedInvocator]
+		protected virtual void OnPropertyChanged([CallerMemberName]
+			string propertyName = null) {
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }
