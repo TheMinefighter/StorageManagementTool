@@ -13,7 +13,8 @@ namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
-			PagefilesTi.DataContext = ProposedPagefileConfiguration;
+			MainViewModel viewModel = (MainViewModel) Resources["ViewModel"];
+			//PagefilesTi.DataContext = ProposedPagefileConfiguration;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {

@@ -25,6 +25,8 @@ namespace StorageManagementCore.Configuration {
 			MinSize = minSize;
 		}
 
+		public override string ToString() => Drive.ToString() + '(' + MinSize + '-' + MaxSize + ')';
+
 		public bool Equals(Pagefile other) => Drive.Equals(other.Drive) && MaxSize == other.MaxSize && MinSize == other.MinSize;
 
 		public override bool Equals(object obj) {

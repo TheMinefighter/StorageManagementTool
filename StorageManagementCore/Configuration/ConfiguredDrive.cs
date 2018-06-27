@@ -5,9 +5,9 @@ using JetBrains.Annotations;
 namespace StorageManagementCore.Configuration {
 	public struct ConfiguredDrive : IEquatable<ConfiguredDrive> {
 		[NotNull]
-		public DriveInfo LocalDrive;
+		public readonly DriveInfo LocalDrive;
 
-		public KnownDrive Type;
+		public readonly KnownDrive Type;
 
 		public ConfiguredDrive(DriveInfo drive) {
 			LocalDrive = drive;
@@ -31,5 +31,7 @@ namespace StorageManagementCore.Configuration {
 				return ((int) Type * 397) ^ LocalDrive.GetDriveLetter().GetHashCode();
 			}
 		}
+
+		public override string ToString() => LocalDrive.Name;
 	}
 }

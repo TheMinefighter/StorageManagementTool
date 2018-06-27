@@ -253,7 +253,13 @@
 								<ColumnDefinition Width="5" />
 								<ColumnDefinition Width="164*" />
 							</Grid.ColumnDefinitions>
-							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35" IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
+							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35" IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock ></TextBlock>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
 							<Button x:Name="RemovePagefileBtn" Content="Button" Margin="0,10,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
 							<nu:NumericUpDown x:Name="PageFileMinSizeTb" Height="23"
@@ -267,13 +273,13 @@
 							                  DataObject.Pasting="PageFileSizeTb_OnPasting" Width="Auto" Increment="2048" MaxValue="65536" MinValue="16"
 							                  Value="8192" />
 							<Button x:Name="AddPagefileBtn" Content="Button" Margin="0,208,10,0"
-							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
+							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
 							<CheckBox x:Name="SystemManagedPagefilesCb" Content="CheckBox" HorizontalAlignment="Left"
 							          Margin="10,0,0,15" Grid.Column="0" Height="15" VerticalAlignment="Bottom" IsChecked="{Binding Path=PagefileConfiguration.SystemManaged, Mode=TwoWay}" />
 							<ComboBox x:Name="DriveForNewPageFileCmb" Margin="0,154,10,0"
-							          VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
+							          VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
 							<Button x:Name="ChangePagefileBtn" Content="Button" Margin="0,181,10,0"
-							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
+							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
 							<TextBlock Grid.Column="2" Margin="0,35,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
 							<TextBlock Grid.Column="2" Margin="0,84,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
 							<TextBlock Grid.Column="2" Margin="0,133,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />

@@ -282,7 +282,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="WPFGUI\SelectableUICulture.cs" />
+    <Compile Include="WPFGUI\Views\SelectableUICulture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
