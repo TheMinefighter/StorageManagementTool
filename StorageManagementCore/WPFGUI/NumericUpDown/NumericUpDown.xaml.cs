@@ -19,7 +19,7 @@ namespace Stopbyte.Controls
     /// <summary>
     /// Interaction logic for NumericSpinner.xaml
     /// </summary>
-    public partial class NumericSpinner : UserControl
+    public partial class NumericUpDown : UserControl
     {
         #region Fields
 
@@ -28,18 +28,18 @@ namespace Stopbyte.Controls
 
         #endregion
 
-        public NumericSpinner()
+        public NumericUpDown()
         {
             InitializeComponent();
 
             tb_main.SetBinding(TextBox.TextProperty, new Binding("Value") { ElementName = "root_numeric_spinner",
                 Mode = BindingMode.TwoWay, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
 
-            DependencyPropertyDescriptor.FromProperty(ValueProperty, typeof(NumericSpinner)).AddValueChanged(this, PropertyChanged);
-            DependencyPropertyDescriptor.FromProperty(ValueProperty, typeof(NumericSpinner)).AddValueChanged(this, ValueChanged);
-            DependencyPropertyDescriptor.FromProperty(DecimalsProperty, typeof(NumericSpinner)).AddValueChanged(this, PropertyChanged);
-            DependencyPropertyDescriptor.FromProperty(MinValueProperty, typeof(NumericSpinner)).AddValueChanged(this, PropertyChanged);
-            DependencyPropertyDescriptor.FromProperty(MaxValueProperty, typeof(NumericSpinner)).AddValueChanged(this, PropertyChanged);
+            DependencyPropertyDescriptor.FromProperty(ValueProperty, typeof(NumericUpDown)).AddValueChanged(this, PropertyChanged);
+            DependencyPropertyDescriptor.FromProperty(ValueProperty, typeof(NumericUpDown)).AddValueChanged(this, ValueChanged);
+            DependencyPropertyDescriptor.FromProperty(DecimalsProperty, typeof(NumericUpDown)).AddValueChanged(this, PropertyChanged);
+            DependencyPropertyDescriptor.FromProperty(MinValueProperty, typeof(NumericUpDown)).AddValueChanged(this, PropertyChanged);
+            DependencyPropertyDescriptor.FromProperty(MaxValueProperty, typeof(NumericUpDown)).AddValueChanged(this, PropertyChanged);
 
             PropertyChanged += (x, y) => validate();
         }
@@ -49,7 +49,7 @@ namespace Stopbyte.Controls
         public readonly static DependencyProperty ValueProperty = DependencyProperty.Register(
             "Value",
             typeof(decimal),
-            typeof(NumericSpinner),
+            typeof(NumericUpDown),
             new PropertyMetadata(new decimal(0)));
 
         public decimal Value
@@ -72,7 +72,7 @@ namespace Stopbyte.Controls
         public readonly static DependencyProperty StepProperty = DependencyProperty.Register(
             "Step",
             typeof(decimal),
-            typeof(NumericSpinner),
+            typeof(NumericUpDown),
             new PropertyMetadata(new decimal(0.1)));
 
         public decimal Step
@@ -91,7 +91,7 @@ namespace Stopbyte.Controls
         public readonly static DependencyProperty DecimalsProperty = DependencyProperty.Register(
             "Decimals",
             typeof(int),
-            typeof(NumericSpinner),
+            typeof(NumericUpDown),
             new PropertyMetadata(2));
 
         public int Decimals
@@ -110,7 +110,7 @@ namespace Stopbyte.Controls
         public readonly static DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue",
             typeof(decimal),
-            typeof(NumericSpinner),
+            typeof(NumericUpDown),
             new PropertyMetadata(decimal.MinValue));
 
         public decimal MinValue
@@ -131,7 +131,7 @@ namespace Stopbyte.Controls
         public readonly static DependencyProperty MaxValueProperty = DependencyProperty.Register(
             "MaxValue",
             typeof(decimal),
-            typeof(NumericSpinner),
+            typeof(NumericUpDown),
             new PropertyMetadata(decimal.MaxValue));
 
         public decimal MaxValue
