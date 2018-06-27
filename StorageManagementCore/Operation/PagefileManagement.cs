@@ -179,7 +179,9 @@ namespace StorageManagementCore.Operation {
 			cfg = new PagefileSysConfiguration();
 			if (!Wrapper.ExecuteExecuteable(
 				WmicPath, "pagefileset list /FORMAT:CSV"
-				, out string[] tmp, out int _, out int _, true, true, true, true)) {
+				, out string[] tmp, out int _, out int _, true, true, true
+				//,true
+				)) {
 				return false;
 			}
 
@@ -258,7 +260,9 @@ namespace StorageManagementCore.Operation {
 			systemManaged = false;
 			if (!Wrapper.ExecuteExecuteable(
 				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
-				, out string[] tmp, out int _, out int _, true, true, true, true)) {
+				, out string[] tmp, out int _, out int _, true, true, true
+				//, true
+				)) {
 				return false;
 			}
 
