@@ -267,8 +267,8 @@
 							<nu:NumericUpDown x:Name="PageFileMinSizeTb" Height="23"
 							                  VerticalAlignment="Top" Margin="0,56,10,0" Grid.Row="0" Grid.Column="2"
 							                  DataObject.Pasting="PageFileSizeTb_OnPasting"
-							                  PreviewTextInput="PageFileSizeTb_OnPreviewTextInput" Width="Auto" MaxValue="65536" Increment="1022" MinValue="16"
-							                  Value="{Binding Path=SelectedPagefile. }" />
+							                  PreviewTextInput="PageFileSizeTb_OnPreviewTextInput" Width="Auto" MaxValue="65536" Increment="1024" MinValue="16"
+							                  Value="{Binding Path=SelectedPagefile.MinSize, Mode=TwoWay }" />
 
 							<nu:NumericUpDown x:Name="PageFileMaxSizeTb" Height="23"
 							                  VerticalAlignment="Top" Margin="0,105,10,0" Grid.Row="0" Grid.Column="2"

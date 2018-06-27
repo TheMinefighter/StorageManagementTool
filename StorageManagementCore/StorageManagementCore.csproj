@@ -118,6 +118,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Page Include="WPFGUI\NumericUpDown\NumericSpinner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="GlobalizationRessources\ScenarioPresetStrings.Designer.cs">
       <DependentUpon>ScenarioPresetStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -283,6 +287,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WPFGUI\Views\SelectableUICulture.cs" />
+    <Compile Include="WPFGUI\NumericUpDown\NumericSpinner.xaml.cs">
+      <DependentUpon>WPFGUI\NumericUpDown\NumericSpinner.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -504,6 +511,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UserShellFolderStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WPFGUI\NumericUpDown\.gitignore" />
+    <Content Include="WPFGUI\NumericUpDown\Generic.xaml" />
+    <Content Include="WPFGUI\NumericUpDown\LICENSE" />
+    <Content Include="WPFGUI\NumericUpDown\README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
