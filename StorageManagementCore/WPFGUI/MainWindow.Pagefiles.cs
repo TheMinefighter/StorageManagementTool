@@ -8,9 +8,9 @@ using StorageManagementCore.Operation;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
-	public partial class MainWindow
-	{
-		public PagefileSysConfiguration ProposedPagefileConfiguration { get; set; }=new PagefileSysConfiguration();
+	public partial class MainWindow {
+		public PagefileSysConfiguration ProposedPagefileConfiguration { get; set; } = new PagefileSysConfiguration();
+
 		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e) {
 			PagefilesTi.Header = PagefilesTiText;
 			NewSwapfileDriveCmb.ItemsSource =
@@ -39,8 +39,6 @@ namespace StorageManagementCore.WPFGUI {
 			e.Handled = !IsTextNumber(e.Text);
 		}
 
-		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e)
-		{
-		}
+		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e) { }
 	}
 }
