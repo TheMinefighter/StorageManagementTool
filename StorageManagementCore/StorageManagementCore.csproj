@@ -270,6 +270,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserShellFolderStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="WPFGUI\MainViewModel.cs" />
     <Compile Include="WPFGUI\MainWindow.About.cs" />
     <Compile Include="WPFGUI\MainWindow.Monitoring.cs" />
     <Compile Include="WPFGUI\MainWindow.MoveObjects.cs" />

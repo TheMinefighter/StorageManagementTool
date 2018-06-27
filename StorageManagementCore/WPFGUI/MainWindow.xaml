@@ -10,6 +10,7 @@
         HorizontalContentAlignment="Stretch"
         Loaded="Window_Loaded">
 	<Window.Resources>
+		<wpfgui:MainViewModel x:Key="ViewModel" />
 		<Style TargetType="Button" x:Key="DangerousButton">
 			<Setter Property="Background" Value="Green" />
 			<Style.Triggers>
@@ -19,7 +20,7 @@
 			</Style.Triggers>
 		</Style>
 	</Window.Resources>
-	<Grid RenderTransformOrigin="0.5,0.5">
+	<Grid RenderTransformOrigin="0.5,0.5" DataContext="{StaticResource ViewModel}">
 		<Grid.RenderTransform>
 			<TransformGroup>
 				<ScaleTransform ScaleY="1" ScaleX="1" />
@@ -252,7 +253,7 @@
 								<ColumnDefinition Width="5" />
 								<ColumnDefinition Width="164*" />
 							</Grid.ColumnDefinitions>
-							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35" IsEnabled="{Binding Path=SystemManaged, Mode=OneWay}" />
+							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35" IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
 							<Button x:Name="RemovePagefileBtn" Content="Button" Margin="0,10,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
 							<nu:NumericUpDown x:Name="PageFileMinSizeTb" Height="23"
@@ -268,7 +269,7 @@
 							<Button x:Name="AddPagefileBtn" Content="Button" Margin="0,208,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
 							<CheckBox x:Name="SystemManagedPagefilesCb" Content="CheckBox" HorizontalAlignment="Left"
-							          Margin="10,0,0,15" Grid.Column="0" Height="15" VerticalAlignment="Bottom" IsChecked="{Binding Path=SystemManaged}" />
+							          Margin="10,0,0,15" Grid.Column="0" Height="15" VerticalAlignment="Bottom" IsChecked="{Binding Path=PagefileConfiguration.SystemManaged, Mode=TwoWay}" />
 							<ComboBox x:Name="DriveForNewPageFileCmb" Margin="0,154,10,0"
 							          VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
 							<Button x:Name="ChangePagefileBtn" Content="Button" Margin="0,181,10,0"
