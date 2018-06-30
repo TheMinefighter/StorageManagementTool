@@ -2,9 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:nu="clr-namespace:StorageManagementCore.WPFGUI.NumericUpDown"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfgui="clr-namespace:StorageManagementCore.WPFGUI"
+        xmlns:nu="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
         mc:Ignorable="d"
         Title="StorageManagementTool" Height="489" Width="800" VerticalContentAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
@@ -20,7 +20,7 @@
 			</Style.Triggers>
 		</Style>
 	</Window.Resources>
-	<Grid RenderTransformOrigin="0.5,0.5" DataContext="{StaticResource ViewModel}">
+	<Grid x:Name="RootGrid" RenderTransformOrigin="0.5,0.5" DataContext="{StaticResource ViewModel}">
 		<Grid.RenderTransform>
 			<TransformGroup>
 				<ScaleTransform ScaleY="1" ScaleX="1" />
@@ -255,40 +255,40 @@
 							</Grid.ColumnDefinitions>
 							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35" SelectedItem="{Binding Path=SelectedPagefile}"
 							         IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}"
-							         ItemsSource="{Binding Path=PagefileConfiguration.Pagefiles}">
-								<!--<ListBox.ItemTemplate>
+							         ItemsSource="{Binding Path=PagefileConfiguration.Pagefiles, Mode=OneWay}">
+								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<TextBlock ></TextBlock>
+										<TextBlock Text="{Binding}" />
 									</DataTemplate>
-								</ListBox.ItemTemplate>-->
+								</ListBox.ItemTemplate>
 							</ListBox>
 							<Button x:Name="RemovePagefileBtn" Content="Button" Margin="0,10,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
-							<nu:NumericUpDown x:Name="PageFileMinSizeTb" Height="23"
-							                  VerticalAlignment="Top" Margin="0,56,10,0" Grid.Row="0" Grid.Column="2"
-							                  DataObject.Pasting="PageFileSizeTb_OnPasting"
-							                  PreviewTextInput="PageFileSizeTb_OnPreviewTextInput" Width="Auto" MaxValue="65536" Step="1024" MinValue="16"
-							                  Value="{Binding Path=SelectedPagefile.MinSize, Mode=TwoWay }" />
-
-							<nu:NumericUpDown x:Name="PageFileMaxSizeTb" Height="23"
-							                  VerticalAlignment="Top" Margin="0,105,10,0" Grid.Row="0" Grid.Column="2"
-							                  DataObject.Pasting="PageFileSizeTb_OnPasting" Width="Auto" Step="2048" MaxValue="65536" MinValue="16"
-							                  Value="8192" />
-							<Button x:Name="AddPagefileBtn" Content="Button" Margin="0,208,10,0"
+							<nu:NumericUpDown x:Name="PageFileMinSizeNu"
+							                  VerticalAlignment="Top" Margin="0,56,0,0" Grid.Row="0" Grid.Column="2"
+							                  Width="154" MaxValue="{Binding ElementName=PageFileMaxSizeNu, Path=Value, Mode=OneWay}" StepSize="1024"
+							                  MinValue="16"
+							                  Value="{Binding Path=SelectedPagefile.MinSize, Mode=TwoWay }" HorizontalAlignment="Left" />
+							<nu:NumericUpDown x:Name="PageFileMaxSizeNu"
+							                  VerticalAlignment="Top" Margin="0,110,10,0" Grid.Row="0" Grid.Column="2"
+							                  Width="Auto" StepSize="2048" MaxValue="65536"
+							                  MinValue="{Binding ElementName=PageFileMinSizeNu, Path=Value, Mode=OneWay}"
+							                  Value="8192" RenderTransformOrigin="-0.74,0.87" HorizontalAlignment="Stretch" />
+							<Button x:Name="AddPagefileBtn" Content="Button" Margin="0,216,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
 							        IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
 							<CheckBox x:Name="SystemManagedPagefilesCb" Content="CheckBox" HorizontalAlignment="Left"
 							          Margin="10,0,0,15" Grid.Column="0" Height="15" VerticalAlignment="Bottom"
 							          IsChecked="{Binding Path=PagefileConfiguration.SystemManaged, Mode=TwoWay}" />
-							<ComboBox x:Name="DriveForNewPageFileCmb" Margin="0,154,10,0"
+							<ComboBox x:Name="DriveForNewPageFileCmb" Margin="0,164,10,0"
 							          VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
 							          IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
-							<Button x:Name="ChangePagefileBtn" Content="Button" Margin="0,181,10,0"
+							<Button x:Name="ChangePagefileBtn" Content="Button" Margin="0,191,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
 							        IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />
 							<TextBlock Grid.Column="2" Margin="0,35,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
-							<TextBlock Grid.Column="2" Margin="0,84,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
-							<TextBlock Grid.Column="2" Margin="0,133,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
+							<TextBlock Grid.Column="2" Margin="0,89,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
+							<TextBlock Grid.Column="2" Margin="0,143,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
 							<Button x:Name="ApplyPageFileSysBtn" Content="Button" Margin="0,0,10,10"
 							        VerticalAlignment="Bottom" Click="ApplyPageFileSysBtn_OnClick"
 							        RenderTransformOrigin="0.653,0.483" Grid.Column="2" />

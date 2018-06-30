@@ -58,8 +58,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NumericUpDown, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NumericUpDown.3.0.2\lib\NumericUpDown.dll</HintPath>
+    <Reference Include="NumericUpDownLib, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Dirkster.NumericUpDownLib.1.0.3\lib\net4\NumericUpDownLib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -118,10 +119,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Page Include="WPFGUI\NumericUpDown\NumericUpDown.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="GlobalizationRessources\ScenarioPresetStrings.Designer.cs">
       <DependentUpon>ScenarioPresetStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -287,9 +284,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WPFGUI\Views\SelectableUICulture.cs" />
-    <Compile Include="WPFGUI\NumericUpDown\NumericUpDown.xaml.cs">
-      <DependentUpon>WPFGUI\NumericUpDown\NumericSpinner.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -511,12 +505,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UserShellFolderStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="WPFGUI\NumericUpDown\.gitignore" />
-    <Content Include="WPFGUI\NumericUpDown\Generic.xaml" />
-    <Content Include="WPFGUI\NumericUpDown\LICENSE" />
-    <Content Include="WPFGUI\NumericUpDown\README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
