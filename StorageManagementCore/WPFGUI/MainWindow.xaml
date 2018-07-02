@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfgui="clr-namespace:StorageManagementCore.WPFGUI"
         xmlns:nu="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
-        mc:Ignorable="d"
-        Title="StorageManagementTool" Height="489" Width="800" VerticalContentAlignment="Stretch"
+        Height="489" Width="800" mc:Ignorable="d"
+        Title="StorageManagementTool" VerticalContentAlignment="Stretch"  
         HorizontalContentAlignment="Stretch"
         Loaded="Window_Loaded">
 	<Window.Resources>

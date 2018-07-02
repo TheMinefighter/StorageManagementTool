@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using StorageManagementCore.Backend;
 
 namespace StorageManagementCore.WPFGUI {
-	/// <inheritdoc />
+	/// <inheritdoc cref="Window" />
 	/// <summary>
 	///  Interaction logic for MainWindow.xaml
 	/// </summary>

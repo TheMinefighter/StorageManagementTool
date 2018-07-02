@@ -10,13 +10,19 @@ namespace StorageManagementCore.Configuration {
 		private ConfiguredDrive _drive;
 		private int _maxSize;
 		private int _minSize;
-        public string ToDisplay => Drive.ToString() + '(' + MinSize + '-' + MaxSize + ')';
-        /// <summary>
-        ///  The drive to store on
-        /// </summary>
-        public ConfiguredDrive Drive {
+		public string ToDisplay => ToString();
+
+		/// <summary>
+		///  The drive to store on
+		/// </summary>
+		public ConfiguredDrive Drive {
 			get => _drive;
-			set { _drive = value; OnPropertyChanged(nameof(Drive)); }
+			set {
+				if (!Equals(value, _drive)) {
+					_drive = value;
+					OnPropertyChanged(nameof(Drive));
+				}
+			}
 		}
 
 		/// <summary>
@@ -24,7 +30,12 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public int MaxSize {
 			get => _maxSize;
-			set { _maxSize = value; OnPropertyChanged(nameof(MaxSize)); }
+			set {
+				if (value != _maxSize) {
+					_maxSize = value;
+					OnPropertyChanged(nameof(MaxSize));
+				}
+			}
 		}
 
 		/// <summary>
@@ -32,13 +43,18 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public int MinSize {
 			get => _minSize;
-			set { _minSize = value; OnPropertyChanged(nameof(MinSize)); }
+			set {
+				if (value != _minSize) {
+					_minSize = value;
+					OnPropertyChanged(nameof(MinSize));
+				}
+			}
 		}
 
 		public Pagefile(ConfiguredDrive drive, int maxSize, int minSize) {
-			Drive = drive;
-			MaxSize = maxSize;
-			MinSize = minSize;
+			_drive = drive;
+			_maxSize = maxSize;
+			_minSize = minSize;
 		}
 
 		public override string ToString() => $"{Drive} ({MinSize}-{MaxSize})";
