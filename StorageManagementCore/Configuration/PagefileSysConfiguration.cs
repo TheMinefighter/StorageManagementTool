@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
@@ -8,8 +7,9 @@ namespace StorageManagementCore.Configuration {
 	public class PagefileSysConfiguration : INotifyPropertyChanged {
 		private bool _systemManaged;
 
-		[NotNull] [ItemNotNull]
-		public  ObservableCollection<Pagefile> Pagefiles { get; }
+		[NotNull]
+		[ItemNotNull]
+		public ObservableCollection<Pagefile> Pagefiles { get; }
 
 		public bool SystemManaged {
 			get => _systemManaged;

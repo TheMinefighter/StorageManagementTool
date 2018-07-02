@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using StorageManagementCore.Configuration;
+using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
 	public class MainViewModel : INotifyPropertyChanged {
@@ -21,7 +21,7 @@ namespace StorageManagementCore.WPFGUI {
 		public PagefileSysConfiguration PagefileConfiguration { get; set; }
 
 		public MainViewModel() {
-			PagefileConfiguration = Operation.PagefileManagement.GetCurrentPagefileConfiguration(out PagefileSysConfiguration tmp)
+			PagefileConfiguration = PagefileManagement.GetCurrentPagefileConfiguration(out PagefileSysConfiguration tmp)
 				? tmp
 				: new PagefileSysConfiguration();
 			SelectedPagefile = null;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,16 +12,16 @@ using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Operation {
 	/// <summary>
-	/// A class providing methods for managing pagefiles
+	///  A class providing methods for managing pagefiles
 	/// </summary>
 	public static class PagefileManagement {
 		/// <summary>
-		/// The number of bytes in a Megabyte
+		///  The number of bytes in a Megabyte
 		/// </summary>
 		private const long BytesInMegabyte = 1048576L;
 
 		/// <summary>
-		/// The path of the wmic.exe
+		///  The path of the wmic.exe
 		/// </summary>
 		private static readonly string WmicPath =
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wbem", "wmic.exe");
@@ -30,10 +29,10 @@ namespace StorageManagementCore.Operation {
 		//Note: longs will only work until 16.000PB of free storage, but in that time Windows will hopefully have all functionalities of this program
 // Will Use DriveInfos here in the future but currently it is impossible for dictionaries: https://github.com/dotnet/corefx/issues/30627
 		/// <summary>
-		/// The free space the drives will have when the pagefiles have been removed
+		///  The free space the drives will have when the pagefiles have been removed
 		/// </summary>
-		/// <param name="current"> The <see cref="PagefileSysConfiguration"/> containing the pagefiles which should be calculated</param>
-		/// <returns><see langword="null"/> if check failed, otherwise each drive with its free space after the removal of the listed pagefiles </returns>
+		/// <param name="current"> The <see cref="PagefileSysConfiguration" /> containing the pagefiles which should be calculated</param>
+		/// <returns><see langword="null" /> if check failed, otherwise each drive with its free space after the removal of the listed pagefiles </returns>
 		[CanBeNull]
 		public static Dictionary<char, long> GetFutureFreeSpace(PagefileSysConfiguration current) {
 			Dictionary<char, long> ret = FileSystem.Drives.ToDictionary(x => x.GetDriveLetter(), x => x.TotalFreeSpace);
@@ -62,13 +61,17 @@ namespace StorageManagementCore.Operation {
 		}
 
 		/// <summary>
-		/// Checks if PagefileConfiguration will fit on the drives
+		///  Checks if PagefileConfiguration will fit on the drives
 		/// </summary>
-		/// <param name="current">The current <see cref="PagefileSysConfiguration"/>,
-		/// which can be obtained by <see cref="GetCurrentPagefileConfiguration"/></param>
-		/// <param name="proposed">The proposed <see cref="PagefileSysConfiguration"/></param>
-		/// <returns><see langword="null"/> if check failed, an empty <see cref="List{T}"/> if pagefiles will fit on each drive,
-		/// otherwise a <see cref="List{T}"/> with the drives where the future configuration would exceed the limits </returns>
+		/// <param name="current">
+		///  The current <see cref="PagefileSysConfiguration" />,
+		///  which can be obtained by <see cref="GetCurrentPagefileConfiguration" />
+		/// </param>
+		/// <param name="proposed">The proposed <see cref="PagefileSysConfiguration" /></param>
+		/// <returns>
+		///  <see langword="null" /> if check failed, an empty <see cref="List{T}" /> if pagefiles will fit on each drive,
+		///  otherwise a <see cref="List{T}" /> with the drives where the future configuration would exceed the limits
+		/// </returns>
 		[CanBeNull]
 		public static List<DriveInfo> DoesPagefileCfgFit(PagefileSysConfiguration current, PagefileSysConfiguration proposed) {
 			if (proposed.SystemManaged) {
@@ -83,7 +86,7 @@ namespace StorageManagementCore.Operation {
 
 				foreach (Pagefile proposedPagefile in proposed.Pagefiles) {
 					char drive = proposedPagefile.Drive.LocalDrive.GetDriveLetter();
-					if (futureFreeSpace[drive] - (proposedPagefile.MinSize * BytesInMegabyte) < 0) {
+					if (futureFreeSpace[drive] - proposedPagefile.MinSize * BytesInMegabyte < 0) {
 						ret.Add(new DriveInfo(drive.ToString()));
 					}
 				}
@@ -93,9 +96,9 @@ namespace StorageManagementCore.Operation {
 		}
 
 		/// <summary>
-		/// Applies a given <see cref="PagefileSysConfiguration"/>
+		///  Applies a given <see cref="PagefileSysConfiguration" />
 		/// </summary>
-		/// <param name="proposed">The <see cref="PagefileSysConfiguration"/> to apply</param>
+		/// <param name="proposed">The <see cref="PagefileSysConfiguration" /> to apply</param>
 		/// <returns>Whether the Operation were successful</returns>
 		public static bool ApplyConfiguration(PagefileSysConfiguration proposed) {
 			if (!GetCurrentPagefileConfiguration(out PagefileSysConfiguration current)) {
@@ -103,11 +106,11 @@ namespace StorageManagementCore.Operation {
 			}
 
 			List<DriveInfo> errors = DoesPagefileCfgFit(current, proposed);
-			if (errors==null) {
+			if (errors == null) {
 				//TODO Error message
 			}
 
-			if (errors.Count>0) {
+			if (errors.Count > 0) {
 				//TODO Error message
 			}
 
@@ -115,17 +118,17 @@ namespace StorageManagementCore.Operation {
 				return DeleteAllPagefiles() && SetSystemManaged(true);
 			}
 
-			if (proposed.Pagefiles.Count==0) {
+			if (proposed.Pagefiles.Count == 0) {
 				return DeleteAllPagefiles();
 			}
 
-			if (current.SystemManaged&&!SetSystemManaged(false)) {
+			if (current.SystemManaged && !SetSystemManaged(false)) {
 				return false;
 			}
 
 			List<Pagefile> changingPagefiles = current.Pagefiles.ToList();
 			foreach (Pagefile currentPagefile in current.Pagefiles) {
-				if (!proposed.Pagefiles.Select(x=>x.Drive).Contains(currentPagefile.Drive)) {
+				if (!proposed.Pagefiles.Select(x => x.Drive).Contains(currentPagefile.Drive)) {
 					if (DeletePagefile(currentPagefile.Drive.LocalDrive)) {
 						changingPagefiles.Remove(currentPagefile);
 					}
@@ -134,9 +137,9 @@ namespace StorageManagementCore.Operation {
 					}
 				}
 			}
-			
+
 			foreach (Pagefile proposedPagefile in proposed.Pagefiles) {
-				if (!current.Pagefiles.Select(x=>x.Drive).Contains(proposedPagefile.Drive)) {
+				if (!current.Pagefiles.Select(x => x.Drive).Contains(proposedPagefile.Drive)) {
 					if (AddPagefile(proposedPagefile)) {
 						changingPagefiles.Add(proposedPagefile);
 					}
@@ -157,16 +160,17 @@ namespace StorageManagementCore.Operation {
 			if (!GetCurrentPagefileConfiguration(out PagefileSysConfiguration newOne)) {
 				return false;
 			}
+
 			if (newOne.Pagefiles.UnorderedEqual(proposed.Pagefiles)) {
 				//TODO Pagefiles inequal error
 				return false;
 			}
 
-			if (newOne.SystemManaged!=proposed.SystemManaged) {
+			if (newOne.SystemManaged != proposed.SystemManaged) {
 				//TODO SystemManaged inequal error
 				return false;
 			}
-			
+
 			return true;
 		}
 
@@ -181,7 +185,7 @@ namespace StorageManagementCore.Operation {
 				WmicPath, "pagefileset list /FORMAT:CSV"
 				, out string[] tmp, out int _, out int _, true, true, true
 				//,true
-				)) {
+			)) {
 				return false;
 			}
 
@@ -207,7 +211,7 @@ namespace StorageManagementCore.Operation {
 			admin: true);
 
 		/// <summary>
-		/// Sets wether pagefiles are system managed
+		///  Sets wether pagefiles are system managed
 		/// </summary>
 		/// <param name="systemManaged">whether pagefiles should be system managed in the future</param>
 		/// <returns>Whether the operation were successful</returns>
@@ -215,9 +219,9 @@ namespace StorageManagementCore.Operation {
 			Wrapper.ExecuteExecuteable(WmicPath, $" computersystem set AutomaticManagedPagefile={systemManaged}", true, true);
 
 		/// <summary>
-		/// Adds a pagefile to a specified drive
+		///  Adds a pagefile to a specified drive
 		/// </summary>
-		/// <param name="drive">The <see cref="DriveInfo"/> to add the pagefile to</param>
+		/// <param name="drive">The <see cref="DriveInfo" /> to add the pagefile to</param>
 		/// <returns>Whether the Operation were successful</returns>
 		public static bool AddPagefile(DriveInfo drive) =>
 			Wrapper.ExecuteExecuteable(WmicPath,
@@ -225,14 +229,14 @@ namespace StorageManagementCore.Operation {
 				out int _, out _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile;
 
 		/// <summary>
-		/// Adds a pagefile with specified settings to a specified drive
+		///  Adds a pagefile with specified settings to a specified drive
 		/// </summary>
-		/// <param name="cfg">The <see cref="Pagefile"/> to add</param>
+		/// <param name="cfg">The <see cref="Pagefile" /> to add</param>
 		/// <returns>Whether the Operation were successful</returns>
 		public static bool AddPagefile(Pagefile cfg) => AddPagefile(cfg.Drive.LocalDrive) && ChangePagefile(cfg);
 
 		/// <summary>
-		/// Changed a specified pagefile, which allready exists
+		///  Changed a specified pagefile, which allready exists
 		/// </summary>
 		/// <param name="cfg">The configuration to apply to the pagefile</param>
 		/// <returns>Whether the Operation were successful</returns>
@@ -242,7 +246,7 @@ namespace StorageManagementCore.Operation {
 				out _, out int _, out _, waitforexit: true, hidden: true, admin: true);
 
 		/// <summary>
-		/// Deletes the pagefile on one specified drive
+		///  Deletes the pagefile on one specified drive
 		/// </summary>
 		/// <param name="drive">The drive to delete the pagefile from</param>
 		/// <returns>Whether the Operation were successful</returns>
@@ -262,7 +266,7 @@ namespace StorageManagementCore.Operation {
 				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
 				, out string[] tmp, out int _, out int _, true, true, true
 				//, true
-				)) {
+			)) {
 				return false;
 			}
 
