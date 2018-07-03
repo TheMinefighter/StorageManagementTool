@@ -91,7 +91,7 @@ namespace StorageManagementCore.Backend {
 
 		public static FolderProperties GetPath(string sFolderKey) {
 			//Overloaded
-			FolderList FolderKey = FolderList.None;
+			FolderList folderKey = FolderList.None;
 			//Determine the folder type
 			switch (sFolderKey) {
 				#region System's Environment.SpecialFolder elements
@@ -100,19 +100,19 @@ namespace StorageManagementCore.Backend {
 				//remove due to SO's character limit
 				//Full code: http://pastebin.com/dE0Y6tFB
 				case "System":
-					FolderKey = FolderList.System;
+					folderKey = FolderList.System;
 					break;
 				case "SystemX86":
-					FolderKey = FolderList.SystemX86;
+					folderKey = FolderList.SystemX86;
 					break;
 				case "Templates":
-					FolderKey = FolderList.Templates;
+					folderKey = FolderList.Templates;
 					break;
 				case "UserProfile":
-					FolderKey = FolderList.UserProfile;
+					folderKey = FolderList.UserProfile;
 					break;
 				case "Windows":
-					FolderKey = FolderList.Windows;
+					folderKey = FolderList.Windows;
 					break;
 
 				#endregion
@@ -120,22 +120,22 @@ namespace StorageManagementCore.Backend {
 				#region Custom elements
 
 				case "Links":
-					FolderKey = FolderList.Links;
+					folderKey = FolderList.Links;
 					break;
 
 				#endregion
 			}
 
-			return GetPath(FolderKey);
+			return GetPath(folderKey);
 		}
 
-		public static FolderProperties GetPath(FolderList FolderKey) {
+		public static FolderProperties GetPath(FolderList folderKey) {
 			FolderProperties fp = new FolderProperties();
 			FolderType sfType = FolderType.None;
 			Environment.SpecialFolder sf = Environment.SpecialFolder.AdminTools;
 
 			//Determine the folder type
-			switch (FolderKey) {
+			switch (folderKey) {
 				#region System's Environment.SpecialFolder elements
 
 				//There was more code here but had to

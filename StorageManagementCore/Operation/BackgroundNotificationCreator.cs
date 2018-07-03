@@ -10,10 +10,6 @@ namespace StorageManagementCore.Operation {
 	///  Class containing functionalities for Background Process
 	/// </summary>
 	public static class BackgroundNotificationCreator {
-		/// <summary>
-		///  The FileSystemWatchers currently active
-		/// </summary>
-		private static readonly List<FileSystemWatcher> FileSystemWatchers = new List<FileSystemWatcher>();
 
 		/// <summary>
 		///  Dictionary from FileSystemWatchers to MonitoredFolders
@@ -32,7 +28,6 @@ namespace StorageManagementCore.Operation {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
 					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FileCreated;
 					tempFileSystemWatcher.NotifyFilter = NotifyFilters.FileName;
-					FileSystemWatchers.Add(tempFileSystemWatcher);
 					FileSystemWatcher2MonitoredFolders.Add(tempFileSystemWatcher, monitoredFolder);
 					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
@@ -41,18 +36,14 @@ namespace StorageManagementCore.Operation {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
 					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FolderCreated;
 					tempFileSystemWatcher.NotifyFilter = NotifyFilters.DirectoryName;
-					FileSystemWatchers.Add(tempFileSystemWatcher);
 					FileSystemWatcher2MonitoredFolders.Add(tempFileSystemWatcher, monitoredFolder);
 					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
 			}
-
-			while (true) {
-				Thread.Sleep(2000000000); //Needed to keep FileSystemWatchers active; I know thats dirty
-			}
+				Thread.Sleep(Timeout.Infinite); 
 		}
 
-//TODO Multi Lang
+
 		private static void MonitoredFolderWatcher_FolderCreated(object sender, FileSystemEventArgs e) {
 			MonitoredFolder tmp = FileSystemWatcher2MonitoredFolders[(FileSystemWatcher) sender];
 			switch (tmp.ForDirectories) {
@@ -60,6 +51,7 @@ namespace StorageManagementCore.Operation {
 					break;
 				case MonitoringAction.Ask:
 					if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
+						    //TODO Multi Lang
 						    new[] {
 							    "Es wurde der neue Ordner " + new DirectoryInfo(e.FullPath).Name + "  in ",
 							    tmp.TargetPath,

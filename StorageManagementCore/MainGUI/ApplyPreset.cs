@@ -33,7 +33,7 @@ namespace StorageManagementCore.MainGUI {
 			OperatingMethods.FillWithDriveInfo(SelectHDD_lb);
 			OperatingMethods.FillWithDriveInfo(SelectSSD_lb);
 			Text = WindowTitle;
-			SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.ViewedName).ToArray());
+			SelectScenario_lb.Items.AddRange(ScenarioPreset.AvailablePresets.Select(x => x.ViewedName).Cast<object>().ToArray());
 		}
 
 		private void ApplyPreset_btn_Click(object sender, EventArgs e) {
@@ -59,7 +59,7 @@ namespace StorageManagementCore.MainGUI {
 				return;
 			}
 
-			IEnumerable<DriveInfo> driveInfos = Wrapper.GetDrives();
+			IEnumerable<DriveInfo> driveInfos =  Wrapper.GetDrives().ToArray();
 			DriveInfo HDDToUse = driveInfos.First(x =>
 				OperatingMethods.GetDriveInfoDescription(x) == SelectHDD_lb.SelectedItem.ToString());
 			DriveInfo SSDToUse = driveInfos.First(x =>

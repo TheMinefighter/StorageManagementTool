@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfgui="clr-namespace:StorageManagementCore.WPFGUI"
-        xmlns:nu="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
+        xmlns:nud="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
         Height="489" Width="800" mc:Ignorable="d"
         Title="StorageManagementTool" VerticalContentAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
@@ -245,9 +245,6 @@
 					<GroupBox x:Name="PagefilesGb" Grid.Column="0" Header="GroupBox"
 					          Height="400" Margin="10,10,0,0" VerticalAlignment="Top">
 						<Grid Margin="-8,0,-2,-12">
-							<Grid.RowDefinitions>
-								<RowDefinition />
-							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="399*" />
 								<ColumnDefinition Width="5" />
@@ -258,22 +255,28 @@
 							         ItemsSource="{Binding Path=PagefileConfiguration.Pagefiles, Mode=OneWay}">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<TextBlock Text="{Binding}" />
+										<TextBlock Text="{Binding Path=ToDisplay}" />
 									</DataTemplate>
 								</ListBox.ItemTemplate>
 							</ListBox>
 							<Button x:Name="RemovePagefileBtn" Content="Button" Margin="0,10,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
-							<nu:NumericUpDown x:Name="PageFileMinSizeNu"
-							                  VerticalAlignment="Top" Margin="0,56,0,0" Grid.Row="0" Grid.Column="2"
-							                  Width="154" MaxValue="{Binding ElementName=PageFileMaxSizeNu, Path=Value, Mode=OneWay}" StepSize="1024"
-							                  MinValue="16"
-							                  Value="{Binding Path=SelectedPagefile.MinSize, Mode=TwoWay }" HorizontalAlignment="Left" />
-							<nu:NumericUpDown x:Name="PageFileMaxSizeNu"
-							                  VerticalAlignment="Top" Margin="0,110,10,0" Grid.Row="0" Grid.Column="2"
-							                  Width="Auto" StepSize="2048" MaxValue="65536"
-							                  MinValue="{Binding ElementName=PageFileMinSizeNu, Path=Value, Mode=OneWay}"
-							                  Value="8192" RenderTransformOrigin="-0.74,0.87" HorizontalAlignment="Stretch" />
+							<nud:NumericUpDown x:Name="PageFileMinSizeNud"
+							                   Value="{Binding Path=SelectedPagefile.MinSize, Mode=TwoWay }" VerticalAlignment="Top" Margin="0,56,0,0"
+							                   Grid.Row="0"
+							                   Grid.Column="2"
+							                   Width="154"
+							                   MaxValue="{Binding ElementName=PageFileMaxSizeNud, Path=Value, Mode=OneWay, FallbackValue=2147483647}"
+							                   StepSize="1024"
+							                   MinValue="16"
+							                   HorizontalAlignment="Left" />
+							<nud:NumericUpDown x:Name="PageFileMaxSizeNud"
+							                   Value="{Binding Path=SelectedPagefile.MaxSize, Mode=TwoWay}" VerticalAlignment="Top" Margin="0,110,10,0"
+							                   Grid.Row="0"
+							                   Grid.Column="2"
+							                   Width="Auto" StepSize="2048" MaxValue="65536"
+							                   MinValue="{Binding ElementName=PageFileMinSizeNud, Path=Value, Mode=OneWay, FallbackValue=-2147483648}"
+							                   RenderTransformOrigin="-0.74,0.87" HorizontalAlignment="Stretch" />
 							<Button x:Name="AddPagefileBtn" Content="Button" Margin="0,216,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
 							        IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}" />

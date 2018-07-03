@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
+using StorageManagementCore.WPFGUI.Views;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
@@ -97,7 +98,7 @@ namespace StorageManagementCore.WPFGUI {
 		private void DeleteConfigurationBtn_Click(object sender, RoutedEventArgs e)
 		{
 			OperatingMethods.EnableSendToHDD(false);
-			Backend.FileAndFolder.DeleteFile(new FileInfo(Session.Singleton.ConfigurationPath), false, false);
+			FileAndFolder.DeleteFile(new FileInfo(Session.Singleton.ConfigurationPath), false, false);
 				Environment.Exit(0);
 		}
     }

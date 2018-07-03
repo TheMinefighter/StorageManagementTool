@@ -83,7 +83,6 @@ namespace StorageManagementCore.WPFGUI {
 					case FileAndFolder.FileOrFolder.Neither:
 						//TODO Throw error
 						return;
-						break;
 					case FileAndFolder.FileOrFolder.File:
 						FileInfo fileToMove = new FileInfo(PathsToMoveTb.Text);
 						OperatingMethods.MoveFile(fileToMove,
@@ -104,7 +103,6 @@ namespace StorageManagementCore.WPFGUI {
 							//TODO Throw error
 							return;
 
-							break;
 						case FileAndFolder.FileOrFolder.File:
 							FileInfo fileToMove = new FileInfo(s);
 							OperatingMethods.MoveFile(fileToMove, new DirectoryInfo(MoveObjectsRootPathTb.Text));

@@ -230,7 +230,7 @@ namespace StorageManagementCore.Backend {
 		/// <param name="kind">The RegistyValueKind of the content</param>
 		public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind) {
 			const string folderName = "StorageManagementToolRegistryData";
-			string path = Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg");
+			string path = Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChanges.reg");
 			new FileInfo(path).Directory.Create();
 			string toWrite = GetRegFileContent(content, kind);
 			File.WriteAllLines(path,
@@ -250,15 +250,15 @@ namespace StorageManagementCore.Backend {
 		public static void ApplyRegfile() {
 			const string folderName = "StorageManagementToolRegistryData";
 			Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath,
-				$" /select,\"{Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChages.reg")}\"");
-			//Thread.Sleep(1000);
-			//SendKeys.SendWait("{ENTER}");
-			//Thread.Sleep(1000);
-			//ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
-			//   $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
-			////For people, who have the "Display full name in titlebar" option enabled
-			//ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
-			//   $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(), folderName)}\" /IM explorer.exe");
+				$" /select,\"{Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChanges.reg")}\"");
+/*			Thread.Sleep(1000);
+			SendKeys.SendWait("{ENTER}");
+			Thread.Sleep(1000);
+			ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+			   $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
+			//For people, who have the "Display full name in titlebar" option enabled
+			ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+			   $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(), folderName)}\" /IM explorer.exe");*/
 		}
 
 		/// <summary>
@@ -299,7 +299,7 @@ namespace StorageManagementCore.Backend {
 					toWrite = "hex(0):" + string.Join(",",
 						          Encoding.Unicode.GetBytes((string) content).Select(x => x.ToString("X2").ToLower()));
 					break;
-				case RegistryValueKind.Unknown:
+
 				default:
 					throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
 			}

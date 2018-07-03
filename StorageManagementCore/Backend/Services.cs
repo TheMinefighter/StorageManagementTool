@@ -26,9 +26,10 @@ namespace StorageManagementCore.Backend {
 		}
 
 		/// <summary>
-		///  Kills first all depnding ServiceControllers and then itselves
+		///  Kills first all depending ServiceControllers and then itself
 		/// </summary>
 		/// <param name="toKill">The ServiceController to kill</param>
+		/// <param name="data">The Hierarchy of dependent processes discovered</param>
 		/// <returns>Whether the operation were successful</returns>
 		private static bool RecursiveServiceKiller(ServiceController toKill, out ServiceHierarchy data) {
 			data = new ServiceHierarchy(toKill);
@@ -80,17 +81,6 @@ namespace StorageManagementCore.Backend {
 			public ServiceHierarchy(ServiceController me) {
 				Me = me;
 				Members = new List<ServiceHierarchy>();
-			}
-
-			public static ServiceHierarchy AllStarting(ServiceController me) {
-				ServiceHierarchy toReturn = new ServiceHierarchy {
-					Me = me,
-					Members = me.DependentServices
-						.Where(x => x.Status == ServiceControllerStatus.Running ||
-						            x.Status == ServiceControllerStatus.StartPending)
-						.Select(AllStarting).ToList()
-				};
-				return toReturn;
 			}
 		}
 	}

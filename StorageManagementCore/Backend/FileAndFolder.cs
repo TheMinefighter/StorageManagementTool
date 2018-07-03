@@ -110,7 +110,8 @@ namespace StorageManagementCore.Backend {
 		/// </summary>
 		/// <param name="toBeDeleted">The Folder to delete</param>
 		/// <param name="deletePermanent">Whether the Folder should be deleted permanently</param>
-		/// <returns>Whether the operation were sucessful</returns>
+		/// <param name="ask">Whether to ask for confirmation</param>
+		/// <returns>Whether the operation were successful</returns>
 		public static bool DeleteDirectory(DirectoryInfo toBeDeleted, bool deletePermanent = true, bool ask = true) {
 			try {
 				FileSystem.DeleteDirectory(toBeDeleted.FullName, ask ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs,
@@ -154,13 +155,13 @@ namespace StorageManagementCore.Backend {
 		///  Deletes a file
 		/// </summary>
 		/// <param name="toDelete">The file to delete</param>
-		/// <param name="ShowFullDialog"></param>
+		/// <param name="showFullDialog"></param>
 		/// <param name="deletePermanent">Whether it should be deleted permanently</param>
 		/// <returns>Whether the operation were successful</returns>
-		public static bool DeleteFile(FileInfo toDelete, bool ShowFullDialog = true, bool deletePermanent = true) {
+		public static bool DeleteFile(FileInfo toDelete, bool showFullDialog = true, bool deletePermanent = true) {
 			try {
 				FileSystem.DeleteFile(toDelete.FullName,
-					ShowFullDialog ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs,
+					showFullDialog ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs,
 					deletePermanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin);
 			}
 			catch (Exception) {

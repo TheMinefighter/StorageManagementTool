@@ -13,7 +13,7 @@ namespace StorageManagementCore.Backend {
 		public string ViewedName;
 		public (string, RegistryValue)[] RegistryValues;
 		public bool MoveExistingFiles;
-		public bool isUserSpecific;
+		public bool IsUserSpecific;
 		public bool AccessAsUser;
 		public string Identifier;
 		private const string HKCU = "HKEY_CURRENT_USER";
@@ -57,7 +57,7 @@ namespace StorageManagementCore.Backend {
 			MoveExistingFiles = moveExistingFiles;
 			AccessAsUser = accessAsUser;
 			Identifier = identifier ?? registryValues[0].Item2.ValueName;
-			isUserSpecific = registryValues[0].Item1 == null;
+			IsUserSpecific = registryValues[0].Item1 == null;
 		}
 
 		private static UserShellFolder NormalUSF(string name, string id, string DeltaPath, bool user = true,
@@ -71,7 +71,7 @@ namespace StorageManagementCore.Backend {
 				MoveExistingFiles = moveExistingFiles,
 				Identifier = id,
 
-				isUserSpecific = true
+				IsUserSpecific = true
 			};
 			usf.RegistryValues =
 				user
@@ -98,7 +98,7 @@ namespace StorageManagementCore.Backend {
 				MoveExistingFiles = moveExistingFiles,
 				Identifier = id,
 				AccessAsUser = asUser,
-				isUserSpecific = false
+				IsUserSpecific = false
 			};
 		}
 
@@ -188,7 +188,7 @@ namespace StorageManagementCore.Backend {
 					},
 					MoveExistingFiles = false,
 					ViewedName = UserShellFolderStrings.PrivateTemp,
-					isUserSpecific = true
+					IsUserSpecific = true
 				},
 				new UserShellFolder(UserShellFolderStrings.PublicTemp,
 					new[] {

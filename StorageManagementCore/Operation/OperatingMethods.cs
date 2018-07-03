@@ -78,7 +78,6 @@ namespace StorageManagementCore.Operation {
 		/// </summary>
 		/// <param name="file">The file to move</param>
 		/// <param name="newLocation">The location to move the file to</param>
-		/// <param name="adjustNewPath"></param>
 		/// <returns>Whether the operation were successful</returns>
 		public static bool MoveFile(FileInfo file, FileInfo newLocation) {
 			if (file == newLocation) {
@@ -92,7 +91,7 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
-			if (!newLocation.Directory.Exists) {
+			if (newLocation.Directory != null && !newLocation.Directory.Exists) {
 				newLocation.Directory.Create();
 			}
 

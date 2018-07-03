@@ -19,7 +19,7 @@ namespace StorageManagementCore.MainGUI {
 		private MonitoringConfiguration _editedConfigurations = new MonitoringConfiguration();
 		private List<Control> _whenEnabled = new List<Control>();
 		private List<Control> _whenSelected = new List<Control>();
-		private bool IsMonitored;
+		private bool _isMonitored;
 
 		public MonitoringSettings() {
 			InitializeComponent();
@@ -82,8 +82,8 @@ namespace StorageManagementCore.MainGUI {
 			AllFolders_lb.Items.Clear();
 			AllFolders_lb.Items.AddRange(
 				_editedConfigurations.MonitoredFolders.Select(x => x.TargetPath).Cast<object>().ToArray());
-			IsMonitored = SSDMonitoring.SSDMonitoringEnabled();
-			EnableNotifications_cb.Checked = IsMonitored;
+			_isMonitored = SSDMonitoring.SSDMonitoringEnabled();
+			EnableNotifications_cb.Checked = _isMonitored;
 		}
 
 		private void EnableControls() {
@@ -157,7 +157,7 @@ namespace StorageManagementCore.MainGUI {
 				Session.Singleton.SaveCfg();
 			}
 
-			if (EnableNotifications_cb.Checked != IsMonitored) {
+			if (EnableNotifications_cb.Checked != _isMonitored) {
 				if (!SSDMonitoring.SetSSDMonitoring(EnableNotifications_cb.Checked)) {
 					return;
 					//error
@@ -183,10 +183,6 @@ namespace StorageManagementCore.MainGUI {
 				_editedConfigurations.MonitoredFolders[AllFolders_lb.SelectedIndex].ForFiles =
 					_forFilesDictionary.FirstOrDefault(x => x.Value == (RadioButton) sender).Key;
 			}
-		}
-
-		private void InitalizeSSDMonitoring_btn_Click(object sender, EventArgs e) {
-			SSDMonitoring.InitalizeSSDMonitoring();
 		}
 	}
 }

@@ -57,7 +57,7 @@ namespace StorageManagementCore.Configuration {
 			_minSize = minSize;
 		}
 
-		public bool Equals(Pagefile other) => Drive.Equals(other.Drive) && MaxSize == other.MaxSize && MinSize == other.MinSize;
+		public bool Equals(Pagefile other) => other !=null && Drive.Equals(other.Drive) && MaxSize == other.MaxSize && MinSize == other.MinSize;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -92,6 +92,8 @@ namespace StorageManagementCore.Configuration {
 		protected virtual void OnPropertyChanged([CallerMemberName]
 			string propertyName = null) {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ToDisplay)));
+			
 		}
 	}
 }

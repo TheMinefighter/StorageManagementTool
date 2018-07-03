@@ -10,7 +10,7 @@ using static StorageManagementCore.MainGUI.GlobalizationRessources.PagefileSetti
 
 namespace StorageManagementCore.MainGUI {
 	public partial class PagefileSettings : Form {
-		private Swapfile.SwapfileState currentState;
+		private Swapfile.SwapfileState _currentState;
 
 		public PagefileSettings() {
 			InitializeComponent();
@@ -26,8 +26,8 @@ namespace StorageManagementCore.MainGUI {
 
 		private void PageFileOptionDialog_Load(object sender, EventArgs e) {
 			LoadUIStrings();
-			currentState = Swapfile.GetSwapfileState();
-			Swapfileinfo_tb.Text = currentState.GetStateDescription();
+			_currentState = Swapfile.GetSwapfileState();
+			Swapfileinfo_tb.Text = _currentState.GetStateDescription();
 
 			Pagefilepartition_lb_SelectedIndexChanged(null, null);
 			foreach (DriveInfo driveInfo in (IEnumerable<DriveInfo>) FileSystem.Drives) {
@@ -61,7 +61,7 @@ namespace StorageManagementCore.MainGUI {
 		}
 
 		private void SwapfileStepBackward_btn_Click(object sender, EventArgs e) {
-			if (Swapfile.ChangeSwapfileStadium(false, currentState) &&
+			if (Swapfile.ChangeSwapfileStadium(false, _currentState) &&
 			    MessageBox.Show(
 				    SwapfileSuccessful_Restart_Text,
 				    SwapfileSuccessful_Restart_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
@@ -72,7 +72,7 @@ namespace StorageManagementCore.MainGUI {
 		private void SwapfileStepForward_btn_Click(object sender, EventArgs e) {
 			OperatingMethods.GetDriveInfoFromDescription(out DriveInfo info, (string) Swapfilepartition_lb.SelectedItem);
 
-			if (Swapfile.ChangeSwapfileStadium(true, currentState, info) &&
+			if (Swapfile.ChangeSwapfileStadium(true, _currentState, info) &&
 			    MessageBox.Show(
 				    SwapfileSuccessful_Restart_Text,
 				    SwapfileSuccessful_Restart_Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {

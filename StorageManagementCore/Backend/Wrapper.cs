@@ -145,7 +145,6 @@ namespace StorageManagementCore.Backend {
 					case DialogResult.Ignore:
 						ExecuteExecuteable(filename, parameters, false, hidden, waitforexit);
 						break;
-					case DialogResult.Abort:
 					default: return false;
 				}
 			}
@@ -210,7 +209,7 @@ namespace StorageManagementCore.Backend {
 		/// <param name="cmd">The Command to Execute</param>
 		/// <param name="admin">Whether the Command should be executed with</param>
 		/// <param name="hidden">Whether to hide the Commandline </param>
-		/// <param name="returnData">The Data returned by the executeable</param>
+		/// <param name="returnData">The Data returned by the executable</param>
 		/// <param name="waitforexit">
 		///  Whether to wait until the command execution completed
 		/// </param>
@@ -218,6 +217,7 @@ namespace StorageManagementCore.Backend {
 		///  Whether to run the command in debug mode
 		/// </param>
 		/// <param name="readReturnData">Whether to read the output of the Application</param>
+		/// <param name="asUser">Whether to run the command as user</param>
 		/// <returns>Whether the operation were successful</returns>
 		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
 			bool waitforexit = true,
@@ -250,7 +250,7 @@ namespace StorageManagementCore.Backend {
 		#endregion
 
 		/// <summary>
-		///  Restarts Program as Administartor
+		///  Restarts Program as Administrator
 		/// </summary>
 		public static void RestartProgram(bool administrator, params string[] parameters) {
 			if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ", parameters),
@@ -343,14 +343,14 @@ namespace StorageManagementCore.Backend {
 		public static bool RunPowershellCommand(out IEnumerable<string> ret, params string[] command) {
 			ret = new[] {""};
 			IEnumerable<PSObject> returned;
-			using (PowerShell PowerShellInstance = PowerShell.Create()) {
+			using (PowerShell powerShellInstance = PowerShell.Create()) {
 				foreach (string s in command) {
-					PowerShellInstance.AddScript(s);
+					powerShellInstance.AddScript(s);
 				}
 
 				try {
 					{
-						returned = PowerShellInstance.Invoke();
+						returned = powerShellInstance.Invoke();
 					}
 				}
 				catch (Exception) {
