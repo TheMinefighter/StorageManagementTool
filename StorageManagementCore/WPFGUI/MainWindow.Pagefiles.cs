@@ -14,10 +14,16 @@ namespace StorageManagementCore.WPFGUI {
 			NewSwapfileDriveCmb.ItemsSource =
 				Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);
 			DriveForNewPageFileCmb.ItemsSource = Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);
+		
 		}
 
 		private void PagefilesTi_OnSelected(object sender, RoutedEventArgs e) { }
 
 		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e) { }
+
+		private void SystemManagedPagefilesCb_OnUnchecked(object sender, RoutedEventArgs e)
+		{
+			PagefilesLb.SelectedItem = null;
+		}
 	}
 }
