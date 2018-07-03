@@ -13,11 +13,11 @@ namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
-			MainViewModel viewModel = (MainViewModel) Resources["ViewModel"];
+		
 			//PagefilesTi.DataContext = ProposedPagefileConfiguration;
 		}
-
-		private void Window_Loaded(object sender, RoutedEventArgs e) {
+		MainViewModel ViewModel => (MainViewModel)Resources["ViewModel"];
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
 			if (!Session.Singleton.IsAdmin && Session.Singleton.Configuration.CredentialsOnStartup) {
 				List<string> args = Environment.GetCommandLineArgs().ToList();
 				args.RemoveAt(0);
