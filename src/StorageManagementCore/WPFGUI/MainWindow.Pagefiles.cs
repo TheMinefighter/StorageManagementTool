@@ -37,7 +37,7 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void AddPagefileBtn_OnClick(object sender, RoutedEventArgs e)
 		{
-			ViewModel.PagefileConfiguration.Pagefiles.Add(new Pagefile(OperatingMethods.));
+		//	ViewModel.PagefileConfiguration.Pagefiles.Add(new Pagefile(OperatingMethods.));
 		}
 	}
 }

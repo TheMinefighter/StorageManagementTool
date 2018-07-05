@@ -283,6 +283,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WPFGUI\ValueConverters\DriveInfoConverter.cs" />
     <Compile Include="WPFGUI\Views\SelectableUICulture.cs" />
   </ItemGroup>
   <ItemGroup>
