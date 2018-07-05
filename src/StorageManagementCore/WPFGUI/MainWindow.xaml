@@ -411,7 +411,7 @@
 							        Grid.ColumnSpan="3" Grid.Column="0" />
                         </Grid>
                     </GroupBox>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="37,324,0,0" VerticalAlignment="Top"
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="37,324,0,0g" VerticalAlignment="Top"
 					          RenderTransformOrigin="0.23,1.711" IsChecked="True" Background="#FFFF4040" />
                     <Button x:Name="DeleteConfigurationBtn" Content="Button" HorizontalAlignment="Left"
 					        Margin="10,388,0,0"
