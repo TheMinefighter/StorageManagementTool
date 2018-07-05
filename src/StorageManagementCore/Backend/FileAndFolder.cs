@@ -15,6 +15,9 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace StorageManagementCore.Backend {
 	public static class FileAndFolder {
+		/// <summary>
+		/// Just redirects <see cref="FileSystem"/>.<see cref="Drives"/> but implementing <see cref="System.ComponentModel.INotifyPropertyChanged"/>
+		/// </summary>
 		public class DriveInfoProvider : INotifyPropertyChanged {
 			private static readonly ManagementEventWatcher EventWatcher;
 
@@ -25,6 +28,9 @@ namespace StorageManagementCore.Backend {
 			public DriveInfoProvider() {
 				EventWatcher.EventArrived += (o, args) => OnPropertyChanged(nameof(Drives));
 			}
+			/// <summary>
+			/// The redirected <see cref="DriveInfo"/>s but with <see cref="INotifyPropertyChanged"/>
+			/// </summary>
 			public ReadOnlyCollection<DriveInfo> Drives => FileSystem.Drives;
 			public event PropertyChangedEventHandler PropertyChanged;
 
