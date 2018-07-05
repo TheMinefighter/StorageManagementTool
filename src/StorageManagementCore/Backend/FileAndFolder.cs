@@ -1,16 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Management;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using JetBrains.Annotations;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace StorageManagementCore.Backend {
 	public static class FileAndFolder {
+		public class DriveInfoProvider : INotifyPropertyChanged {
+			private static readonly ManagementEventWatcher EventWatcher;
+
+			static DriveInfoProvider() {
+				EventWatcher = new ManagementEventWatcher("SELECT * FROM Win32_VolumeChangeEvent");
+				EventWatcher.Start();
+			}
+			public DriveInfoProvider() {
+				EventWatcher.EventArrived += (o, args) => OnPropertyChanged(nameof(Drives));
+			}
+			public ReadOnlyCollection<DriveInfo> Drives => FileSystem.Drives;
+			public event PropertyChangedEventHandler PropertyChanged;
+
+			[NotifyPropertyChangedInvocator]
+			protected virtual void OnPropertyChanged([CallerMemberName]
+				string propertyName = null) {
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
 		public enum FileOrFolder : byte {
 			Neither,
 			File,
