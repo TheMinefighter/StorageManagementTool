@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 using System.Windows.Forms;
+using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore.WPFGUI.ValueConverters {
 	public class DriveInfoConverter : IValueConverter {

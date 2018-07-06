@@ -13,7 +13,7 @@
         Loaded="Window_Loaded">
 	<Window.Resources>
 		<dataProviders:DriveInfoProvider x:Key="CurrentDriveInfoProvider" />
-		<converter:DriveInfoConverter x:Key="driveInfoConverter" />
+		<converter:DriveInfoConverter x:Key="DriveInfoConverter" />
 		<wpfgui:MainViewModel x:Key="ViewModel" />
 		<Style TargetType="Button" x:Key="DangerousButton">
 			<Setter Property="Background" Value="Green" />
@@ -176,7 +176,8 @@
 					           TextWrapping="Wrap"
 					           Text="TextBlock" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden"
 					           Grid.Column="1" />
-					<Button x:Name="ApplyMonitoringBtn" Content="Button" Margin="0,0,10,10" Click="ApplyMonitoringBtn_OnClick" Grid.Column="1" Height="20"
+					<Button x:Name="ApplyMonitoringBtn" Content="Button" Margin="0,0,10,10" Click="ApplyMonitoringBtn_OnClick" Grid.Column="1"
+					        Height="20"
 					        VerticalAlignment="Bottom" />
 					<Button x:Name="OpenMonitoredFolderBtn" Content="Button" Margin="0,80,10,0"
 					        VerticalAlignment="Top" Click="OpenMonitoredFolderBtn_OnClick" Grid.Column="1" />
@@ -224,7 +225,8 @@
 								<ColumnDefinition Width="5" />
 								<ColumnDefinition Width="164*" />
 							</Grid.ColumnDefinitions>
-							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35" SelectedItem="{Binding Path=SelectedPagefile}"
+							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35"
+							         SelectedItem="{Binding Path=SelectedPagefile}"
 							         IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}"
 							         ItemsSource="{Binding Path=PagefileConfiguration.Pagefiles, Mode=OneWay}">
 								<ListBox.ItemTemplate>
@@ -238,7 +240,8 @@
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" />
 							<TextBlock x:Name="MinimumPagefileSizeLbl" Grid.Column="2" Margin="0,35,10,0" TextWrapping="Wrap" Text="TextBlock"
 							           VerticalAlignment="Top" />
-							<nud:NumericUpDown x:Name="MinimumPagefileSizeNud" IsEnabled="{Binding Path=SelectedPagefile, Mode=OneWay, TargetNullValue=false}"
+							<nud:NumericUpDown x:Name="MinimumPagefileSizeNud"
+							                   IsEnabled="{Binding Path=SelectedPagefile, Mode=OneWay, TargetNullValue=false}"
 							                   Value="{Binding Path=SelectedPagefile.MinSize, Mode=TwoWay }" VerticalAlignment="Top" Margin="0,56,0,0"
 							                   Grid.Row="0"
 							                   Grid.Column="2"
@@ -249,8 +252,10 @@
 							                   HorizontalAlignment="Left" />
 							<TextBlock x:Name="MaximumPagefileSizeLbl" Grid.Column="2" Margin="0,89,10,0" TextWrapping="Wrap" Text="TextBlock"
 							           VerticalAlignment="Top" />
-							<nud:NumericUpDown x:Name="MaximumPagefileSizeNud" IsEnabled="{Binding Path=SelectedPagefile, Mode=OneWay, TargetNullValue=false}"
-							                   Value="{Binding Path=SelectedPagefile.MaxSize, Mode=TwoWay}" VerticalAlignment="Top" Margin="0,110,10,0"
+							<nud:NumericUpDown x:Name="MaximumPagefileSizeNud"
+							                   IsEnabled="{Binding Path=SelectedPagefile, Mode=OneWay, TargetNullValue=false}"
+							                   Value="{Binding Path=SelectedPagefile.MaxSize, Mode=TwoWay}" VerticalAlignment="Top"
+							                   Margin="0,110,10,0"
 							                   Grid.Row="0"
 							                   Grid.Column="2"
 							                   Width="Auto" StepSize="2048" MaxValue="65536"
@@ -261,8 +266,12 @@
 							<ComboBox x:Name="DriveForNewPageFileCmb" Margin="0,164,10,0"
 							          ItemsSource="{Binding Source={StaticResource CurrentDriveInfoProvider}, Path=Drives, Mode=OneWay}"
 							          VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
-							          IsEnabled="{Binding Path=PagefileConfiguration.Manual, Mode=OneWay}">
-								<ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Converter={StaticResource driveInfoConverter}}"></TextBlock></DataTemplate></ComboBox.ItemTemplate>
+							          IsEnabled="{Binding Path=PagefileConfiguration.Manual, Mode=OneWay}" SelectedIndex="0">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Converter={StaticResource DriveInfoConverter}}" />
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
 							</ComboBox>
 							<Button x:Name="AddPagefileBtn" Content="Button" Margin="0,191,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
@@ -313,7 +322,8 @@
 					          Checked="EnOrDisableSendToHDDCb_OnChecked" Unchecked="EnOrDisableSendToHDDCb_OnUnchecked" />
 					<Button x:Name="AutomaticSetupBtn" Content="Button" Margin="10,165,0,0"
 					        VerticalAlignment="Top" Height="22" Click="AutomaticSetupBtn_Click" />
-					<GroupBox x:Name="DefaultBasePathGb" Header="This box will provide functionallity, which haven't been implemented yet" Height="140"
+					<GroupBox x:Name="DefaultBasePathGb" Header="This box will provide functionallity, which haven't been implemented yet"
+					          Height="140"
 					          Margin="10,10,10,0"
 					          VerticalAlignment="Top" Grid.ColumnSpan="3" IsEnabled="False">
 						<Grid Margin="0,0,-12,-12">
