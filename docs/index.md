@@ -7,7 +7,7 @@ The StorageManagementTool is a tool for managing the storage of your computer wi
 * Customizing the windows indexing location
 * Many more
 
-[Find out more about the features of this project and how to use them!](./usage.md)
+[Find out more about the features of this project and how to use them!](./usage.html)
 Furthermore it is good for a SSD / NAS seperation. 
 It provides primarily a WPF based GUI, and a (rather extensive) CLI.
 ## Why this project exists
