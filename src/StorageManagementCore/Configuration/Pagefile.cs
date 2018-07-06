@@ -10,7 +10,7 @@ namespace StorageManagementCore.Configuration {
 		private ConfiguredDrive _drive;
 		private int _maxSize;
 		private int _minSize;
-		public string ToDisplay => ToString();
+		public Pagefile Self => this;
 
 		/// <summary>
 		///  The drive to store on
@@ -57,7 +57,8 @@ namespace StorageManagementCore.Configuration {
 			_minSize = minSize;
 		}
 
-		public bool Equals(Pagefile other) => other !=null && Drive.Equals(other.Drive) && MaxSize == other.MaxSize && MinSize == other.MinSize;
+		public bool Equals(Pagefile other) =>
+			other != null && Drive.Equals(other.Drive) && MaxSize == other.MaxSize && MinSize == other.MinSize;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -92,8 +93,7 @@ namespace StorageManagementCore.Configuration {
 		protected virtual void OnPropertyChanged([CallerMemberName]
 			string propertyName = null) {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ToDisplay)));
-			
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Self)));
 		}
 	}
 }
