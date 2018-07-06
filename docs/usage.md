@@ -6,7 +6,7 @@
 # Send to HDD
 # Further settings
 ## Language
-The GUI exists (for 99%) in english and german to change that go to Settings>Language, select the language you want and click "Safe and restart"
+The GUI exists (for 99%) in english and german to change that go to Settings > Language, select the language you want and click "Safe and restart"
 ## Credentials & Authorizations
 Such a programm needs many authorizations, but due to the fact that it is open-source, so you can read each line of code and look what I do with your authorizations. First of all you can run the program as administrator to access most functionality. If you dom't want to start it as admin every time yourself, you can enable "Ask for administrator priviliges on startup" in the settings tab.
 
