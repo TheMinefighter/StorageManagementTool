@@ -12,7 +12,13 @@ namespace StorageManagementCore.WPFGUI {
 	/// </summary>
 	public partial class MainWindow : Window {
 		public MainWindow() {
-			InitializeComponent();
+			try {
+				InitializeComponent();
+			}
+			catch (Exception e) {
+				Console.WriteLine(e);
+				throw;
+			}
 		
 			//PagefilesTi.DataContext = ProposedPagefileConfiguration;
 		}
