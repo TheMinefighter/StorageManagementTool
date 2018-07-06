@@ -228,7 +228,7 @@
 							</Grid.ColumnDefinitions>
 							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35"
 							         SelectedItem="{Binding Path=SelectedPagefile}"
-							         IsEnabled="{Binding Path=PagefileConfiguration.SystemManaged, Mode=OneWay}"
+							         IsEnabled="{Binding Path=PagefileConfiguration.Manual, Mode=OneWay}"
 							         ItemsSource="{Binding Path=PagefileConfiguration.Pagefiles, Mode=OneWay}">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
@@ -244,22 +244,15 @@
 							<nud:NumericUpDown x:Name="MinimumPagefileSizeNud"
 							                   IsEnabled="{Binding Path=SelectedPagefile, Mode=OneWay, TargetNullValue=false}"
 							                   Value="{Binding Path=SelectedPagefile.MinSize, Mode=TwoWay }" VerticalAlignment="Top" Margin="0,56,0,0"
-							                   Grid.Row="0"
-							                   Grid.Column="2"
-							                   Width="154"
+							                   Grid.Row="0"  Grid.Column="2" Width="154"
 							                   MaxValue="{Binding ElementName=MaximumPagefileSizeNud, Path=Value, Mode=OneWay, FallbackValue=2147483647}"
-							                   StepSize="1024"
-							                   MinValue="16"
-							                   HorizontalAlignment="Left" />
+							                   StepSize="1024" MinValue="16"  HorizontalAlignment="Left" />
 							<TextBlock x:Name="MaximumPagefileSizeLbl" Grid.Column="2" Margin="0,89,10,0" TextWrapping="Wrap" Text="TextBlock"
 							           VerticalAlignment="Top" />
 							<nud:NumericUpDown x:Name="MaximumPagefileSizeNud"
 							                   IsEnabled="{Binding Path=SelectedPagefile, Mode=OneWay, TargetNullValue=false}"
 							                   Value="{Binding Path=SelectedPagefile.MaxSize, Mode=TwoWay}" VerticalAlignment="Top"
-							                   Margin="0,110,10,0"
-							                   Grid.Row="0"
-							                   Grid.Column="2"
-							                   Width="Auto" StepSize="2048" MaxValue="65536"
+							                   Margin="0,110,10,0" Grid.Row="0" Grid.Column="2" Width="Auto" StepSize="2048" MaxValue="65536"
 							                   MinValue="{Binding ElementName=MinimumPagefileSizeNud, Path=Value, Mode=OneWay, FallbackValue=-2147483648}"
 							                   RenderTransformOrigin="-0.74,0.87" HorizontalAlignment="Stretch" />
 							<TextBlock x:Name="DriveForNewPageFileLbl" Grid.Column="2" Margin="0,143,10,0" TextWrapping="Wrap" Text="TextBlock"

@@ -190,8 +190,8 @@ namespace StorageManagementCore.Operation {
 			}
 
 			foreach (ICsvLine line in CsvReader.Read(new StringReader(string.Join(Environment.NewLine, tmp)))) {
-				cfg.Pagefiles.Add(new Pagefile(new ConfiguredDrive(new DriveInfo(line["Name"])), int.Parse(line["MaximumSize"]),
-					int.Parse(line["InitialSize"])));
+				cfg.Pagefiles.Add(new Pagefile(new ConfiguredDrive(new DriveInfo(line["Name"])),
+					int.Parse(line["InitialSize"]), int.Parse(line["MaximumSize"])));
 			}
 
 			if (!GetSystemManaged(out bool val)) {

@@ -51,7 +51,7 @@ namespace StorageManagementCore.Configuration {
 			}
 		}
 
-		public Pagefile(ConfiguredDrive drive, int maxSize, int minSize) {
+		public Pagefile(ConfiguredDrive drive, int minSize, int maxSize) {
 			_drive = drive;
 			_maxSize = maxSize;
 			_minSize = minSize;

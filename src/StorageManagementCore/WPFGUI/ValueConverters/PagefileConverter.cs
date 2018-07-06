@@ -23,7 +23,7 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 			if (targetType == typeof(Pagefile) && value is string toConvert) {
 				string[] partsA = toConvert.Split('(')[0].Split(';');
 				string[] partsB = partsA[2].Split('-').Select(x => x.Split('M')[0]).ToArray();
-				return new Pagefile(new ConfiguredDrive(new DriveInfo(partsA[0])), int.Parse(partsB[0]), int.Parse(partsB[1]));
+				return new Pagefile(new ConfiguredDrive(new DriveInfo(partsA[0])), int.Parse(partsB[1]), int.Parse(partsB[0]));
 			}
 			else {
 				throw new InvalidOperationException();

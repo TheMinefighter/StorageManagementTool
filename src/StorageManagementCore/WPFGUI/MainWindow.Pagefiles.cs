@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Windows;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
@@ -16,11 +17,9 @@ namespace StorageManagementCore.WPFGUI {
 			//DriveForNewPageFileCmb.ItemsSource = Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);
 			LocalizePagefiles();
 			//TODO Cleanup resources
-
 		}
 
-		private void LocalizePagefiles()
-		{
+		private void LocalizePagefiles() {
 			MaximumPagefileSizeLbl.Text = MaximumPagefileSize_lbl_Text;
 			MinimumPagefileSizeLbl.Text = MinimumPagefileSize_lbl_Text;
 			DriveForNewPageFileLbl.Text = PagefileDrive_lbl_Text;
@@ -30,14 +29,13 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e) { }
 
-		private void SystemManagedPagefilesCb_OnUnchecked(object sender, RoutedEventArgs e)
-		{
+		private void SystemManagedPagefilesCb_OnUnchecked(object sender, RoutedEventArgs e) {
 			PagefilesLb.SelectedItem = null;
 		}
 
-		private void AddPagefileBtn_OnClick(object sender, RoutedEventArgs e)
-		{
-		//	ViewModel.PagefileConfiguration.Pagefiles.Add(new Pagefile(OperatingMethods.));
+		private void AddPagefileBtn_OnClick(object sender, RoutedEventArgs e) {
+			ViewModel.PagefileConfiguration.Pagefiles.Add(
+				new Pagefile(new ConfiguredDrive((DriveInfo) DriveForNewPageFileCmb.SelectedItem),2048, 4096));
 		}
 	}
 }
