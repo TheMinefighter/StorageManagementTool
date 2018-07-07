@@ -148,7 +148,7 @@
     <value>Verfügbare Partitionen aktualisieren</value>
   </data>
   <data name="ApplyPagefileChanges_btn_Text" xml:space="preserve">
-    <value>OK</value>
+    <value>Änderungen anwenden</value>
   </data>
   <data name="ExtendedPagefileOptions_btn_Text" xml:space="preserve">
     <value>Weitere Optionen</value>
@@ -173,5 +173,11 @@
   </data>
   <data name="PagefilesTiText" xml:space="preserve">
     <value>Auslagerungsdateien</value>
+  </data>
+  <data name="RemovePagefileBtnText" xml:space="preserve">
+    <value>Pagefile entfernen</value>
+  </data>
+  <data name="AddPagefileBtnText" xml:space="preserve">
+    <value>Pagefile hinzufügen</value>
   </data>
 </root>

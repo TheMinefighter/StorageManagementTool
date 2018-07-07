@@ -167,5 +167,14 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
                 return ResourceManager.GetString("SettingsTiText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SystemLanguageText {
+            get {
+                return ResourceManager.GetString("SystemLanguageText", resourceCulture);
+            }
+        }
     }
 }

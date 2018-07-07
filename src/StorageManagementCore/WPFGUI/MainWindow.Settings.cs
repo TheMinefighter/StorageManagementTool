@@ -6,27 +6,15 @@ using System.Linq;
 using System.Windows;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-using StorageManagementCore.WPFGUI.Views;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e) {
-			List<object> cultureInfos = Program.AvailableSpecificCultures.SelectMany(x => x)
-				.Select(x => (object) new SelectableUICulture {Value = x}).ToList();
-			string defaultlang = "Systemsprache";
-			cultureInfos.Insert(0, defaultlang);
-			SelectLanguageCmb.Items.Clear();
-			SelectLanguageCmb.ItemsSource = cultureInfos;
-			SelectLanguageCmb.SelectedItem = Session.Singleton.Configuration.DefaultHDDPath == null
-				? defaultlang
-				: (object) new SelectableUICulture {
-					Value = CultureInfo.CreateSpecificCulture(Session.Singleton.Configuration.LanguageOverride)
-				};
 			LocalizeSettings();
 			DefaultHDDPathChanged();
 			CredentialsManager.OnCredentialsChanged += (s, a) => { };
-			EnOrDisableCredentialsOnStartupCb.IsChecked = Session.Singleton.UnpriviligedSymlinksAvailable;
+			EnOrDisableCredentialsOnStartupCb.IsChecked = Session.Singleton.Configuration.CredentialsOnStartup;
 			//TODO IsAdministratorTb
 		}
 
@@ -77,8 +65,8 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void SetLanguageAndRestartBtn_Click(object sender, RoutedEventArgs e) {
-			if (SelectLanguageCmb.SelectionBoxItem is SelectableUICulture c) {
-				Session.Singleton.Configuration.LanguageOverride = c.Value.ToString();
+			if (SelectLanguageCmb.SelectedItem is CultureInfo c) {
+				Session.Singleton.Configuration.LanguageOverride = c.Name;
 			}
 			else {
 				Session.Singleton.Configuration.LanguageOverride = null;

@@ -133,4 +133,7 @@
   <data name="EnOrDisableCredentialsOnStartupCbContent" xml:space="preserve">
     <value></value>
   </data>
+  <data name="SystemLanguageText" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

@@ -218,6 +218,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\DataProviders\DriveInfoProvider.cs" />
+    <Compile Include="WPFGUI\DataProviders\LanguageProvider.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\AboutStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -263,7 +264,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchSettingsStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="WPFGUI\GlobalizationRessources\SettingsStrings.Designer.cs">
+    <Compile Include="WPFGUI\GlobalizationRessources\SettingsStrings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SettingsStrings.resx</DependentUpon>
@@ -286,8 +287,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WPFGUI\ValueConverters\DriveInfoConverter.cs" />
+    <Compile Include="WPFGUI\ValueConverters\NativeLanguageConverter.cs" />
     <Compile Include="WPFGUI\ValueConverters\PagefileConverter.cs" />
-    <Compile Include="WPFGUI\Views\SelectableUICulture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -501,7 +502,7 @@
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SettingsStrings.en-US.resx" />
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\SettingsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SettingsStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>SettingsStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.de-DE.resx" />
     <EmbeddedResource Include="WPFGUI\GlobalizationRessources\UserShellFolderStrings.en-US.resx" />

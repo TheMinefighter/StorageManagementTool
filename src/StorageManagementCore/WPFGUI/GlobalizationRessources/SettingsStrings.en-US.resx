@@ -144,4 +144,10 @@
   <data name="EnOrDisableCredentialsOnStartupCbContent" xml:space="preserve">
     <value>Ask for administrator priviliges on startup</value>
   </data>
+  <data name="SystemLanguageText" xml:space="preserve">
+    <value>System language</value>
+  </data>
+  <data name="ChangeCredentialsBtnContent" xml:space="preserve">
+    <value>Change Credentials</value>
+  </data>
 </root>
