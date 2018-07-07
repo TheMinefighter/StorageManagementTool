@@ -16,7 +16,7 @@ namespace StorageManagementCore.WPFGUI.ValueConverters
 		        {
 			        case CultureInfo cultureInfo:
 				        return cultureInfo.NativeName;
-			        case null:
+			        case DBNull _:
 				        return SystemLanguageText;
 			        default:
 				        throw new InvalidOperationException();
@@ -30,7 +30,7 @@ namespace StorageManagementCore.WPFGUI.ValueConverters
 
 
 	    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
-            targetType == typeof(CultureInfo) && value is string toConvert ?(toConvert==SystemLanguageText?null: CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.NativeName == toConvert)) :
+            targetType == typeof(object) && value is string toConvert ?(toConvert==SystemLanguageText?(object) DBNull.Value: CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.NativeName == toConvert)) :
                 throw new InvalidOperationException();
     }
 }

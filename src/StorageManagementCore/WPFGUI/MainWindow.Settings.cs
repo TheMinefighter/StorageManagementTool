@@ -10,7 +10,9 @@ using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsString
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
-		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e) {
+		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			SelectLanguageCmb.SelectedItem = (object) Session.Singleton.Configuration.LanguageOverride ?? DBNull.Value;
 			LocalizeSettings();
 			DefaultHDDPathChanged();
 			CredentialsManager.OnCredentialsChanged += (s, a) => { };
@@ -65,11 +67,16 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void SetLanguageAndRestartBtn_Click(object sender, RoutedEventArgs e) {
-			if (SelectLanguageCmb.SelectedItem is CultureInfo c) {
-				Session.Singleton.Configuration.LanguageOverride = c.Name;
-			}
-			else {
-				Session.Singleton.Configuration.LanguageOverride = null;
+			switch (SelectLanguageCmb.SelectedItem)
+			{
+				case CultureInfo c:
+					Session.Singleton.Configuration.LanguageOverride = c.Name;
+					break;
+				case DBNull _:
+					Session.Singleton.Configuration.LanguageOverride = null;
+					break;
+				default:
+					return;
 			}
 
 			Session.Singleton.SaveCfg();
