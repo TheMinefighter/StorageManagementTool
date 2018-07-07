@@ -7,21 +7,41 @@ using StorageManagementCore.Operation;
 namespace StorageManagementCore.WPFGUI {
 	public class MainViewModel : INotifyPropertyChanged {
 		private Pagefile _selectedPagefile;
+		private MonitoredFolder _selectedMonitoredFolder;
+		private PagefileSysConfiguration _proposedPagefileConfiguration;
 
 		public Pagefile SelectedPagefile {
 			get => _selectedPagefile;
 			set {
 				if (!ReferenceEquals(value, _selectedPagefile)) {
 					_selectedPagefile = value;
-					OnPropertyChanged(nameof(SelectedPagefile));
+					OnPropertyChanged();
 				}
 			}
 		}
 
-		public PagefileSysConfiguration PagefileConfiguration { get; set; }
+		public MonitoredFolder SelectedMonitoredFolder {
+			get => _selectedMonitoredFolder;
+			set {
+				if (_selectedMonitoredFolder != value) {
+					_selectedMonitoredFolder = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		public PagefileSysConfiguration ProposedPagefileConfiguration {
+			get => _proposedPagefileConfiguration;
+			set {
+				if (_proposedPagefileConfiguration != value) {
+					_proposedPagefileConfiguration = value;
+					OnPropertyChanged();
+				}
+			}
+		}
 
 		public MainViewModel() {
-			PagefileConfiguration = PagefileManagement.GetCurrentPagefileConfiguration(out PagefileSysConfiguration tmp)
+			ProposedPagefileConfiguration = PagefileManagement.GetCurrentPagefileConfiguration(out PagefileSysConfiguration tmp)
 				? tmp
 				: new PagefileSysConfiguration();
 			SelectedPagefile = null;

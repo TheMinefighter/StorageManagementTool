@@ -230,8 +230,8 @@
 							</Grid.ColumnDefinitions>
 							<ListBox x:Name="PagefilesLb" Grid.Row="0" Grid.Column="0" Margin="10,10,0,35"
 							         SelectedItem="{Binding Path=SelectedPagefile}"
-							         IsEnabled="{Binding Path=PagefileConfiguration.Manual, Mode=OneWay}"
-							         ItemsSource="{Binding Path=PagefileConfiguration.Pagefiles, Mode=OneWay}">
+							         IsEnabled="{Binding Path=ProposedPagefileConfiguration.Manual, Mode=OneWay}"
+							         ItemsSource="{Binding Path=ProposedPagefileConfiguration.Pagefiles, Mode=OneWay}">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
 										<TextBlock Text="{Binding Path=Self, Converter={StaticResource PagefileConverter}, Mode=OneWay}" />
@@ -262,7 +262,7 @@
 							<ComboBox x:Name="DriveForNewPageFileCmb" Margin="0,164,10,0"
 							          ItemsSource="{Binding Source={StaticResource CurrentDriveInfoProvider}, Path=Drives, Mode=OneWay}"
 							          VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
-							          IsEnabled="{Binding Path=PagefileConfiguration.Manual, Mode=OneWay}" SelectedIndex="0">
+							          IsEnabled="{Binding Path=ProposedPagefileConfiguration.Manual, Mode=OneWay}" SelectedIndex="0">
 								<ComboBox.ItemTemplate>
 									<DataTemplate>
 										<TextBlock Text="{Binding Converter={StaticResource DriveInfoConverter}}" />
@@ -271,10 +271,10 @@
 							</ComboBox>
 							<Button x:Name="AddPagefileBtn" Content="Button" Margin="0,191,10,0"
 							        VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"
-							        IsEnabled="{Binding Path=PagefileConfiguration.Manual, Mode=OneWay}" Click="AddPagefileBtn_OnClick" />
+							        IsEnabled="{Binding Path=ProposedPagefileConfiguration.Manual, Mode=OneWay}" Click="AddPagefileBtn_OnClick" />
 							<CheckBox x:Name="SystemManagedPagefilesCb" Content="CheckBox" HorizontalAlignment="Left"
 							          Margin="10,0,0,15" Grid.Column="0" Height="15" VerticalAlignment="Bottom"
-							          IsChecked="{Binding Path=PagefileConfiguration.SystemManaged, Mode=TwoWay}"
+							          IsChecked="{Binding Path=ProposedPagefileConfiguration.SystemManaged, Mode=TwoWay}"
 							          Checked="SystemManagedPagefilesCb_OnChecked" />
 							<Button x:Name="ApplyPagefileSysBtn" Content="Button" Margin="0,0,10,10"
 							        VerticalAlignment="Bottom" Click="ApplyPageFileSysBtn_OnClick"

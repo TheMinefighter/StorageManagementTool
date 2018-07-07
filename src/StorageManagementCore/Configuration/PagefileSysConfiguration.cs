@@ -13,7 +13,7 @@ namespace StorageManagementCore.Configuration {
 			set {
 				if (value != _systemManaged) {
 					_systemManaged = value;
-					OnPropertyChanged(nameof(SystemManaged));
+					OnPropertyChanged();
 					OnPropertyChanged(nameof(Manual));
 				}
 			}

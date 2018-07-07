@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -10,18 +11,18 @@ namespace StorageManagementCore.Configuration {
 	/// </summary>
 	public class MonitoringConfiguration : ICloneable {
 		/// <summary>
-		///  The MonitoredFolders configured in this MonitoringSetting
+		///  The SelectedMonitoredFolder configured in this MonitoringSetting
 		/// </summary>
-		public List<MonitoredFolder> MonitoredFolders;
+		public ObservableCollection<MonitoredFolder> MonitoredFolders;
 
 		/// <summary>
 		///  Creates a new MonitoringSetting
 		/// </summary>
-		public MonitoringConfiguration() => MonitoredFolders = new List<MonitoredFolder>();
+		public MonitoringConfiguration() => MonitoredFolders = new ObservableCollection<MonitoredFolder>());
 
 		public object Clone() {
 			return new MonitoringConfiguration {
-				MonitoredFolders = MonitoredFolders.Select(x => x.Clone()).Cast<MonitoredFolder>().ToList()
+				MonitoredFolders =new ObservableCollection<MonitoredFolder>( MonitoredFolders.Select(x => x.Clone()).Cast<MonitoredFolder>())
 			};
 		}
 

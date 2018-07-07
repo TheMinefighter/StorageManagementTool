@@ -20,7 +20,7 @@ namespace StorageManagementCore.Configuration {
 			set {
 				if (!Equals(value, _drive)) {
 					_drive = value;
-					OnPropertyChanged(nameof(Drive));
+					OnPropertyChanged();
 				}
 			}
 		}
@@ -33,7 +33,7 @@ namespace StorageManagementCore.Configuration {
 			set {
 				if (value != _maxSize) {
 					_maxSize = value;
-					OnPropertyChanged(nameof(MaxSize));
+					OnPropertyChanged();
 				}
 			}
 		}
@@ -46,7 +46,7 @@ namespace StorageManagementCore.Configuration {
 			set {
 				if (value != _minSize) {
 					_minSize = value;
-					OnPropertyChanged(nameof(MinSize));
+					OnPropertyChanged();
 				}
 			}
 		}

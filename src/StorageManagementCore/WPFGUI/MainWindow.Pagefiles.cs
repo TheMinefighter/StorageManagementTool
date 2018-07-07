@@ -37,12 +37,12 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void AddPagefileBtn_OnClick(object sender, RoutedEventArgs e) {
-			ViewModel.PagefileConfiguration.Pagefiles.Add(
+			ViewModel.ProposedPagefileConfiguration.Pagefiles.Add(
 				new Pagefile(new ConfiguredDrive((DriveInfo) DriveForNewPageFileCmb.SelectedItem),2048, 4096));
 		}
 
 		private void RemovePagefileBtn_OnClick(object sender, RoutedEventArgs e) {
-			ViewModel.PagefileConfiguration.Pagefiles.RemoveAt(PagefilesLb.SelectedIndex);
+			ViewModel.ProposedPagefileConfiguration.Pagefiles.RemoveAt(PagefilesLb.SelectedIndex);
 		}
 	}
 }

@@ -61,7 +61,7 @@ namespace StorageManagementCore.Operation {
 		}
 
 		/// <summary>
-		///  Checks if PagefileConfiguration will fit on the drives
+		///  Checks if ProposedPagefileConfiguration will fit on the drives
 		/// </summary>
 		/// <param name="current">
 		///  The current <see cref="PagefileSysConfiguration" />,

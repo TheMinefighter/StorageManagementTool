@@ -12,7 +12,7 @@ namespace StorageManagementCore.Operation {
 	public static class BackgroundNotificationCreator {
 
 		/// <summary>
-		///  Dictionary from FileSystemWatchers to MonitoredFolders
+		///  Dictionary from FileSystemWatchers to SelectedMonitoredFolder
 		/// </summary>
 		private static readonly Dictionary<FileSystemWatcher, MonitoredFolder>
 			FileSystemWatcher2MonitoredFolders

@@ -3,7 +3,7 @@
 namespace StorageManagementCore.Operation {
 	public static class CredentialsManager {
 		/// <summary>
-		///  Stores Credentials for later use when an Administartor Account is required
+		///  Whether the stored credentials are valid for administrator only operations
 		/// </summary>
 		private static bool _forAdmin;
 
@@ -14,7 +14,7 @@ namespace StorageManagementCore.Operation {
 
 		public static EventHandler OnCredentialsChanged = (a, b) => { };
 
-		public static bool AdminstratorCredentials => _forAdmin;
+		public static bool AdminstratorCredentials => _forAdmin&& _credentials.Username == null;
 		public static bool HasCredentials => _credentials.Username == null;
 
 		public static void DisposeCredentials() {
