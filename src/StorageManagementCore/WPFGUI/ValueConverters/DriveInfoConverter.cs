@@ -7,10 +7,19 @@ using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore.WPFGUI.ValueConverters {
 	public class DriveInfoConverter : IValueConverter {
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-			targetType == typeof(string) && value is DriveInfo drive
-				? Operation.OperatingMethods.GetDriveInfoDescription(drive)
-				: throw new InvalidOperationException();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+			if (targetType == typeof(string)) {
+				if (value is DriveInfo drive) {
+					return Operation.OperatingMethods.GetDriveInfoDescription(drive);
+				}
+				else {
+					return "Some Error just occurred if u see that";
+				}
+			}
+			else {
+				throw new InvalidOperationException();
+			}
+		}
 
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>

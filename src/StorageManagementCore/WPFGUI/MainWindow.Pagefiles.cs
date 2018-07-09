@@ -12,8 +12,6 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e) {
 			PagefilesTi.Header = PagefilesTiText;
-			NewSwapfileDriveCmb.ItemsSource =
-				Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);
 			//DriveForNewPageFileCmb.ItemsSource = Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);
 			LocalizePagefiles();
 			//TODO Cleanup resources

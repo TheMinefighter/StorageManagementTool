@@ -18,7 +18,7 @@ namespace StorageManagementCore.Configuration {
 		/// <summary>
 		///  Creates a new MonitoringSetting
 		/// </summary>
-		public MonitoringConfiguration() => MonitoredFolders = new ObservableCollection<MonitoredFolder>());
+		public MonitoringConfiguration() => MonitoredFolders = new ObservableCollection<MonitoredFolder>();
 
 		public object Clone() {
 			return new MonitoringConfiguration {

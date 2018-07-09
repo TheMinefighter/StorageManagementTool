@@ -30,6 +30,7 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
+		
 		public PagefileSysConfiguration ProposedPagefileConfiguration {
 			get => _proposedPagefileConfiguration;
 			set {
