@@ -16,7 +16,7 @@ namespace StorageManagementCore.Backend {
 		public bool Undefined;
 		public Guid WindowsIdentifier;
 
-		private AdvancedUserShellFolder() { }
+		internal AdvancedUserShellFolder() { }
 
 		public static AdvancedUserShellFolder GetUSF(ShellFolders s) => AllUSF[(int) s];
 

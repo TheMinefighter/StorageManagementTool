@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backend\AdvancedUserShellFolder.cs" />
+    <Compile Include="Backend\AllShellFolders.cs" />
     <Compile Include="Backend\FileAndFolder.cs" />
     <Compile Include="Backend\Map.cs" />
     <Compile Include="Backend\RegistryMethods.cs" />
