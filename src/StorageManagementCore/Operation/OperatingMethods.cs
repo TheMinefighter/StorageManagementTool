@@ -46,11 +46,11 @@ namespace StorageManagementCore.Operation {
 		/// <param name="newLocation">The Directory to move the file to</param>
 		/// <param name="adjustNewPath"></param>
 		/// <returns>Whether the operation were successful</returns>
-		public static bool MoveFolder(DirectoryInfo toMove, DirectoryInfo newLocation, bool adjustNewPath = false) {
+		public static bool MoveFolderPhysically(DirectoryInfo toMove, DirectoryInfo newLocation, bool adjustNewPath = false) {
 			if (toMove == newLocation) {
 				if (MessageBox.Show(OperatingMethodsStrings.Error, OperatingMethodsStrings.MoveFolderOrFile_PathsEqual,
 					    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
-					MoveFolder(toMove, newLocation, adjustNewPath);
+					MoveFolderPhysically(toMove, newLocation, adjustNewPath);
 				}
 			}
 
@@ -58,7 +58,7 @@ namespace StorageManagementCore.Operation {
 				newLocation = new DirectoryInfo(Path.Combine(newLocation.FullName, toMove.FullName.Remove(1, 1)));
 			}
 
-			DirectorySecurity currentControl = toMove.GetAccessControl();
+			
 			if (newLocation.Parent != null && !newLocation.Parent.Exists) {
 				newLocation.Parent.Create();
 			}
@@ -68,48 +68,11 @@ namespace StorageManagementCore.Operation {
 					return false;
 				}
 			}
-
-			CalculateACLInheritance(currentControl);
-
-			newLocation.SetAccessControl(currentControl);
 			return FileAndFolder.CreateFolderSymlink(toMove, newLocation);
 		}
 
-		private static void CalculateACLInheritance(FileSystemSecurity currentControl) {
-			IEnumerable<FileSystemAccessRule> accessRules = currentControl.GetAccessRules(true, true, typeof(SecurityIdentifier))
-				.OfType<FileSystemAccessRule>();
-			foreach (FileSystemAccessRule currentRule in accessRules) {
-				if (currentRule.IsInherited) {
-					currentControl.RemoveAccessRule(currentRule);
-					FileSystemRights newRights;
-
-					switch (currentRule.FileSystemRights) {
-						//Needed for weird (probably legacy), undocumented aliases
-						case (FileSystemRights) 0x10000000:
-							newRights = FileSystemRights.FullControl;
-							break;
-						case (FileSystemRights) (-0x1FFF0000):
-							newRights = FileSystemRights.Modify;
-							break;
-						case (FileSystemRights) (-1610612736):
-							newRights =
-								(FileSystemRights) 0x000201bf; //( FileSystemRights.ReadAndExecute | FileSystemRights.Write | FileSystemRights.ListDirectory)
-
-							break;
-						default:
-							newRights = currentRule.FileSystemRights;
-							break;
-					}
-
-					currentControl.AddAccessRule(new FileSystemAccessRule(currentRule.IdentityReference,
-						newRights, currentRule.InheritanceFlags, currentRule.PropagationFlags,
-						currentRule.AccessControlType));
-				}
-			}
-		}
-
-		public static bool MoveFile(FileInfo file, DirectoryInfo newLocation) =>
-			MoveFile(file,
+		public static bool MoveFilePhysically(FileInfo file, DirectoryInfo newLocation) =>
+			MoveFilePhysically(file,
 				new FileInfo(Path.Combine(newLocation.FullName, file.FullName.Remove(1, 1))));
 
 		/// <summary>
@@ -118,12 +81,12 @@ namespace StorageManagementCore.Operation {
 		/// <param name="toMove">The file to move</param>
 		/// <param name="newLocation">The location to move the file to</param>
 		/// <returns>Whether the operation were successful</returns>
-		public static bool MoveFile(FileInfo toMove, FileInfo newLocation) {
+		public static bool MoveFilePhysically(FileInfo toMove, FileInfo newLocation) {
 			if (toMove == newLocation) {
 				if (
 					MessageBox.Show(OperatingMethodsStrings.Error, OperatingMethodsStrings.MoveFolderOrFile_PathsEqual,
 						MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
-					MoveFile(toMove, newLocation);
+					MoveFilePhysically(toMove, newLocation);
 				}
 				else {
 					return false;

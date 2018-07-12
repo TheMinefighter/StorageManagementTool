@@ -130,7 +130,7 @@ namespace StorageManagementCore.MainGUI {
 			}
 
 			ProgramStatusStrip.Text =
-				OperatingMethods.MoveFolder(new DirectoryInfo(FolderToMove_tb.Text), new DirectoryInfo(HDDSavePath_tb.Text),
+				OperatingMethods.MoveFolderPhysically(new DirectoryInfo(FolderToMove_tb.Text), new DirectoryInfo(HDDSavePath_tb.Text),
 					true)
 					? MoveFolderSuccessful
 					: MoveFolderError;
@@ -167,7 +167,7 @@ namespace StorageManagementCore.MainGUI {
 			string newPath = Path.Combine(Session.Singleton.Configuration.DefaultHDDPath,
 				FileToMovePath_tb.Text.Remove(1, 1));
 			string oldPath = FileToMovePath_tb.Text;
-			ProgramStatusStrip.Text = OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath))
+			ProgramStatusStrip.Text = OperatingMethods.MoveFilePhysically(new FileInfo(oldPath), new FileInfo(newPath))
 				? MoveFileSuccessful
 				: MoveFileError;
 			FileToMovePath_tb.Text = "";
@@ -201,7 +201,7 @@ namespace StorageManagementCore.MainGUI {
 		private void button3_Click(object sender, EventArgs e) {
 			AdvancedUserShellFolder.LoadUSF();
 			SpecialFolders.DebugShowAllFolders();
-//         OperatingMethods.MoveFolder(new DirectoryInfo(@"c:\Program Files\Microsoft Office"),
+//         OperatingMethods.MoveFolderPhysically(new DirectoryInfo(@"c:\Program Files\Microsoft Office"),
 //            new DirectoryInfo("F:\\SSDAllo\\C\\Program Files\\Microsoft Office"));
 			//         Wrapper.RegistryMethods.ApplyRegfile();
 			//         Wrapper.RegistryMethods.SetProtectedRegistryValue(new RegistryValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders","OEM LINKS"),"F:\\TobiasAcc\\Desktop\\JufoTesting\\OEM2",RegistryValueKind.String );

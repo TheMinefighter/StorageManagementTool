@@ -61,13 +61,13 @@ namespace StorageManagementCore.Operation {
 							    "Verschieben"
 						    }
 					    )).NumberOfClickedButton == 1) {
-						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
+						OperatingMethods.MoveFolderPhysically(new DirectoryInfo(e.FullPath),
 							new DirectoryInfo(Session.Singleton.Configuration.DefaultHDDPath), true);
 					}
 
 					break;
 				case MonitoringAction.Move:
-					OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
+					OperatingMethods.MoveFolderPhysically(new DirectoryInfo(e.FullPath),
 						new DirectoryInfo(Session.Singleton.Configuration.DefaultHDDPath), true);
 
 					break;
@@ -92,13 +92,13 @@ namespace StorageManagementCore.Operation {
 							    "Verschieben"
 						    }
 					    )).NumberOfClickedButton == 1) {
-						OperatingMethods.MoveFolder(new DirectoryInfo(e.FullPath),
+						OperatingMethods.MoveFolderPhysically(new DirectoryInfo(e.FullPath),
 							new DirectoryInfo(Session.Singleton.Configuration.DefaultHDDPath), true);
 					}
 
 					break;
 				case MonitoringAction.Move:
-					OperatingMethods.MoveFile(new FileInfo(e.FullPath),
+					OperatingMethods.MoveFilePhysically(new FileInfo(e.FullPath),
 						new FileInfo(Path.Combine(Session.Singleton.Configuration.DefaultHDDPath, e.FullPath.Remove(1, 1)))
 					);
 					break;

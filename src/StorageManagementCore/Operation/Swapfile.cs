@@ -92,7 +92,7 @@ namespace StorageManagementCore.Operation {
 						FileAndFolder.DeleteFile(defaultSwapFileInfo, false, false);
 					}
 
-					OperatingMethods.MoveFile(new FileInfo(oldPath), saveAs);
+					OperatingMethods.MoveFilePhysically(new FileInfo(oldPath), saveAs);
 					return RegistryMethods.SetRegistryValue(SwapfileControl, 1, RegistryValueKind.DWord);
 
 				case SwapfileState.Disabled when !forward:

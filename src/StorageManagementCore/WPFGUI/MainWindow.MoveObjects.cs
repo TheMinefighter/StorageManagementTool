@@ -85,11 +85,11 @@ namespace StorageManagementCore.WPFGUI {
 						return;
 					case FileAndFolder.FileOrFolder.File:
 						FileInfo fileToMove = new FileInfo(PathsToMoveTb.Text);
-						OperatingMethods.MoveFile(fileToMove,
+						OperatingMethods.MoveFilePhysically(fileToMove,
 							new FileInfo(Path.Combine(MoveObjectsRootPathTb.Text, fileToMove.Name)));
 						break;
 					case FileAndFolder.FileOrFolder.Folder:
-						OperatingMethods.MoveFolder(new DirectoryInfo(PathsToMoveTb.Text),
+						OperatingMethods.MoveFolderPhysically(new DirectoryInfo(PathsToMoveTb.Text),
 							new DirectoryInfo(MoveObjectsRootPathTb.Text));
 						break;
 					default:
@@ -105,10 +105,10 @@ namespace StorageManagementCore.WPFGUI {
 
 						case FileAndFolder.FileOrFolder.File:
 							FileInfo fileToMove = new FileInfo(s);
-							OperatingMethods.MoveFile(fileToMove, new DirectoryInfo(MoveObjectsRootPathTb.Text));
+							OperatingMethods.MoveFilePhysically(fileToMove, new DirectoryInfo(MoveObjectsRootPathTb.Text));
 							break;
 						case FileAndFolder.FileOrFolder.Folder:
-							OperatingMethods.MoveFolder(new DirectoryInfo(s), new DirectoryInfo(MoveObjectsRootPathTb.Text),
+							OperatingMethods.MoveFolderPhysically(new DirectoryInfo(s), new DirectoryInfo(MoveObjectsRootPathTb.Text),
 								true);
 							break;
 						default:

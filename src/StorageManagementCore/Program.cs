@@ -359,7 +359,7 @@ private static void MoveObjectFromCommandline(List<string> args) {
 			      OperatingMethods.MoveFile(new FileInfo(oldPath), new FileInfo(newPath));
 			   }
 			   else {
-			      OperatingMethods.MoveFolder(new DirectoryInfo(oldPath), new DirectoryInfo(newPath));
+			      OperatingMethods.MoveFolderPhysically(new DirectoryInfo(oldPath), new DirectoryInfo(newPath));
 			   }
 
 			   //   OperatingMethods.MoveFolderOrFile(newPath, oldPath, fileOrFolder);
