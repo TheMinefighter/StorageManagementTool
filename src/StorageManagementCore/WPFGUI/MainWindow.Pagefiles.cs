@@ -1,9 +1,6 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Windows;
-using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
-using StorageManagementCore.Operation;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
@@ -36,7 +33,7 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void AddPagefileBtn_OnClick(object sender, RoutedEventArgs e) {
 			ViewModel.ProposedPagefileConfiguration.Pagefiles.Add(
-				new Pagefile(new ConfiguredDrive((DriveInfo) DriveForNewPageFileCmb.SelectedItem),2048, 4096));
+				new Pagefile(new ConfiguredDrive((DriveInfo) DriveForNewPageFileCmb.SelectedItem), 2048, 4096));
 		}
 
 		private void RemovePagefileBtn_OnClick(object sender, RoutedEventArgs e) {

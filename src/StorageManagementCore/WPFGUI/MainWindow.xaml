@@ -451,9 +451,7 @@
 				</Grid>
 			</TabItem>
 			<TabItem x:Name="AboutTi" Header="About">
-
 				<WebBrowser x:Name="AboutTextWb" Loaded="AboutTextWb_OnLoaded" />
-
 			</TabItem>
 		</TabControl>
 	</Grid>

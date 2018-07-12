@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using StorageManagementCore.Backend;
+using StorageManagementCore.MainGUI;
 using StorageManagementCore.Operation;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
-		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e)
-		{
+		private void SettingsTi_OnLoaded(object sender, RoutedEventArgs e) {
 			SelectLanguageCmb.SelectedItem = (object) Session.Singleton.Configuration.LanguageOverride ?? DBNull.Value;
 			LocalizeSettings();
 			DefaultHDDPathChanged();
@@ -20,10 +18,9 @@ namespace StorageManagementCore.WPFGUI {
 			//TODO IsAdministratorTb
 		}
 
-		private void LocalizeSettings()
-		{
+		private void LocalizeSettings() {
 			EnOrDisableCredentialsOnStartupCb.Content = EnOrDisableCredentialsOnStartupCbContent;
-            DeleteConfigurationBtn.Content = DeleteConfigurationBtnContent;
+			DeleteConfigurationBtn.Content = DeleteConfigurationBtnContent;
 			AuthorizationGb.Header = AuthorizationGbHeader;
 			AutomaticSetupBtn.Content = AutomaticSetupBtnContent;
 			EnOrDisableSendToHDDCb.Content = EnOrDisableSendToHDDCbContent;
@@ -46,10 +43,9 @@ namespace StorageManagementCore.WPFGUI {
 			Wrapper.RestartProgram(true);
 		}
 
-		private void EnOrDisableCredentialsOnStartupCb_OnChecked(object sender, RoutedEventArgs e)
-		{
+		private void EnOrDisableCredentialsOnStartupCb_OnChecked(object sender, RoutedEventArgs e) {
 			Session.Singleton.Configuration.CredentialsOnStartup = EnOrDisableCredentialsOnStartupCb.IsChecked.Value;
-				Session.Singleton.SaveCfg();
+			Session.Singleton.SaveCfg();
 		}
 
 		private void EnOrDisableSendToHDDCb_OnChecked(object sender, RoutedEventArgs e) {
@@ -58,17 +54,16 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
-		private static bool HDDPathValid() => 
+		private static bool HDDPathValid() =>
 			Session.Singleton.Configuration.DefaultHDDPath != null &&
-		                                      Directory.Exists(Session.Singleton.Configuration.DefaultHDDPath);
+			Directory.Exists(Session.Singleton.Configuration.DefaultHDDPath);
 
 		private void EnOrDisableSendToHDDCb_OnUnchecked(object sender, RoutedEventArgs e) {
 			OperatingMethods.EnableSendToHDD(false);
 		}
 
 		private void SetLanguageAndRestartBtn_Click(object sender, RoutedEventArgs e) {
-			switch (SelectLanguageCmb.SelectedItem)
-			{
+			switch (SelectLanguageCmb.SelectedItem) {
 				case CultureInfo c:
 					Session.Singleton.Configuration.LanguageOverride = c.Name;
 					break;
@@ -86,15 +81,15 @@ namespace StorageManagementCore.WPFGUI {
 		private void ChangeCredentialsBtn_OnClick(object sender, RoutedEventArgs e) {
 			CredentialsManager.GetCredentials(false, out Credentials _);
 		}
-		private void AutomaticSetupBtn_Click(object sender, RoutedEventArgs e)
-		{
-			new MainGUI.ApplyPreset().ShowDialog();
+
+		private void AutomaticSetupBtn_Click(object sender, RoutedEventArgs e) {
+			new ApplyPreset().ShowDialog();
 		}
-		private void DeleteConfigurationBtn_Click(object sender, RoutedEventArgs e)
-		{
+
+		private void DeleteConfigurationBtn_Click(object sender, RoutedEventArgs e) {
 			OperatingMethods.EnableSendToHDD(false);
 			FileAndFolder.DeleteFile(new FileInfo(Session.Singleton.ConfigurationPath), false, false);
-				Environment.Exit(0);
+			Environment.Exit(0);
 		}
-    }
+	}
 }

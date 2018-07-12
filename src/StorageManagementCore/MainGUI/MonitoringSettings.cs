@@ -17,9 +17,9 @@ namespace StorageManagementCore.MainGUI {
 			new Dictionary<MonitoringAction, RadioButton>();
 
 		private MonitoringConfiguration _editedConfigurations = new MonitoringConfiguration();
+		private bool _isMonitored;
 		private List<Control> _whenEnabled = new List<Control>();
 		private List<Control> _whenSelected = new List<Control>();
-		private bool _isMonitored;
 
 		public MonitoringSettings() {
 			InitializeComponent();

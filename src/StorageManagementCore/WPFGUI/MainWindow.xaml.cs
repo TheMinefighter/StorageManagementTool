@@ -11,6 +11,8 @@ namespace StorageManagementCore.WPFGUI {
 	///  Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
+		private MainViewModel ViewModel => (MainViewModel) Resources["ViewModel"];
+
 		public MainWindow() {
 			try {
 				InitializeComponent();
@@ -19,11 +21,11 @@ namespace StorageManagementCore.WPFGUI {
 				Console.WriteLine(e);
 				throw;
 			}
-		
+
 			//PagefilesTi.DataContext = ProposedPagefileConfiguration;
 		}
-		MainViewModel ViewModel => (MainViewModel)Resources["ViewModel"];
-        private void Window_Loaded(object sender, RoutedEventArgs e) {
+
+		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			if (!Session.Singleton.IsAdmin && Session.Singleton.Configuration.CredentialsOnStartup) {
 				List<string> args = Environment.GetCommandLineArgs().ToList();
 				args.RemoveAt(0);

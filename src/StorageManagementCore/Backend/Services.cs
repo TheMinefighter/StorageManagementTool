@@ -73,8 +73,8 @@ namespace StorageManagementCore.Backend {
 		}
 
 		private class ServiceHierarchy {
-			public ServiceController Me;
-			public List<ServiceHierarchy> Members;
+			public readonly ServiceController Me;
+			public readonly List<ServiceHierarchy> Members;
 
 			private ServiceHierarchy() { }
 

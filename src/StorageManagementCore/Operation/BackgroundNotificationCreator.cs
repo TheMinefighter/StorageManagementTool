@@ -10,7 +10,6 @@ namespace StorageManagementCore.Operation {
 	///  Class containing functionalities for Background Process
 	/// </summary>
 	public static class BackgroundNotificationCreator {
-
 		/// <summary>
 		///  Dictionary from FileSystemWatchers to SelectedMonitoredFolder
 		/// </summary>
@@ -40,7 +39,8 @@ namespace StorageManagementCore.Operation {
 					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
 			}
-				Thread.Sleep(Timeout.Infinite); 
+
+			Thread.Sleep(Timeout.Infinite);
 		}
 
 

@@ -6,9 +6,9 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
 	public class MainViewModel : INotifyPropertyChanged {
-		private Pagefile _selectedPagefile;
-		private MonitoredFolder _selectedMonitoredFolder;
 		private PagefileSysConfiguration _proposedPagefileConfiguration;
+		private MonitoredFolder _selectedMonitoredFolder;
+		private Pagefile _selectedPagefile;
 
 		public Pagefile SelectedPagefile {
 			get => _selectedPagefile;
@@ -30,7 +30,7 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
-		
+
 		public PagefileSysConfiguration ProposedPagefileConfiguration {
 			get => _proposedPagefileConfiguration;
 			set {

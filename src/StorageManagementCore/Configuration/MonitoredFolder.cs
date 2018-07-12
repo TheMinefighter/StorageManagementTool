@@ -8,9 +8,9 @@ namespace StorageManagementCore.Configuration {
 	///  Contains information about a folder, which should be monitored
 	/// </summary>
 	public class MonitoredFolder : ICloneable, INotifyPropertyChanged {
-		private string _targetPath;
-		private MonitoringAction _forFiles;
 		private MonitoringAction _forDirectories;
+		private MonitoringAction _forFiles;
+		private string _targetPath;
 
 		/// <summary>
 		///  The MonitoringAction to execute for new folders
@@ -18,12 +18,11 @@ namespace StorageManagementCore.Configuration {
 		public MonitoringAction ForDirectories {
 			get => _forDirectories;
 			set {
-				if (_forDirectories!=value) {
+				if (_forDirectories != value) {
 					_forDirectories = value;
 					OnPropertyChanged();
 				}
-
-				 }
+			}
 		}
 
 		/// <summary>
@@ -45,7 +44,7 @@ namespace StorageManagementCore.Configuration {
 		public string TargetPath {
 			get => _targetPath;
 			set {
-				if (_targetPath!=value) {
+				if (_targetPath != value) {
 					_targetPath = value;
 					OnPropertyChanged();
 				}
@@ -67,9 +66,10 @@ namespace StorageManagementCore.Configuration {
 		public object Clone() =>
 			new MonitoredFolder {ForDirectories = ForDirectories, ForFiles = ForFiles, TargetPath = TargetPath};
 
+		public event PropertyChangedEventHandler PropertyChanged;
+
 
 		public override string ToString() => TargetPath;
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged([CallerMemberName]

@@ -14,7 +14,7 @@ namespace StorageManagementCore.Operation {
 
 		public static EventHandler OnCredentialsChanged = (a, b) => { };
 
-		public static bool AdminstratorCredentials => _forAdmin&& _credentials.Username == null;
+		public static bool AdminstratorCredentials => _forAdmin && _credentials.Username == null;
 		public static bool HasCredentials => _credentials.Username == null;
 
 		public static void DisposeCredentials() {
