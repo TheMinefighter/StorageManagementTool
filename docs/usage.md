@@ -1,8 +1,15 @@
 # Moving files and folders
 You can simply move files or whole folders from your SSD to your HDD or NAS. You can do that in the program or via the [Send to HDD feature](usage.html#Send-to-HDD).
 
-In the main tab you can select which file(s) or folder(s) you want to move, or paste paths, separated with semicolons.
+In the main tab you can select which file(s) or folder(s) you want to move, choose (multiple) from the suggestions or paste paths, separated with semicolons.
+ 
+Then you can specify the path you want to move the data to:
+By default it moves your data (e.g. C:\\Users\\YourName\\Appdata\\Local\\YourDataDirectory\\) to your the configured export path (e.g. F:\\SSD).
+From there the program reconstructs the original path (e.g. F:\\SSD\\C\\Users\\YourName\\Appdata\\Local\\YourDataDirectory\\)  
+You can disable that reconstruction by checking 'Use absolute path'. Furthermore you can change that path and (optionally) make that changed path the default.
 # Customize Shellfolders
+You can customize the windows shellfolders (e.g. Documents, Downloads..) from this program. For these operations the program has to run as administrator.
+ 
 # Customize windows indexing
 # Monitoring folders
 # Configure pagefiles
@@ -13,7 +20,7 @@ When you want to use that feature check 'Show Store on HDD in Send to menu of th
 # Further settings
 
 ## Language
-The GUI exists (for 99%) in english and german to change that go to Settings > Language,
+The GUI exists (for 99.8%) in english and german to change that go to Settings > Language,
 select the language you want and click "Safe and restart"
 ## Credentials & Authorizations
 Such a program needs many authorizations, but due to the fact that it is open-source,
