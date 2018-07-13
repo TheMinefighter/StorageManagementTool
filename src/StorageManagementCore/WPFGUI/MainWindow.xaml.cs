@@ -67,5 +67,9 @@ namespace StorageManagementCore.WPFGUI {
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+
+		private void EnOrDisableHibernateBtn_OnClick(object sender, RoutedEventArgs e) {
+				OperatingMethods.SetHibernate(!File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMDRIVE%\\hibfil.sys")));
+		}
 	}
 }
