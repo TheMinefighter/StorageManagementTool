@@ -513,6 +513,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs\acknowledgements.md" />
     <Content Include="docs\assets\css\fonts.scss" />
     <Content Include="docs\assets\images\bullet.png" />
     <Content Include="docs\index.md" />
