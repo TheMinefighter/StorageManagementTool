@@ -9,6 +9,8 @@ From there the program reconstructs the original path (e.g. F:\\SSD\\C\\Users\\Y
 You can disable that reconstruction by checking 'Use absolute path'. Furthermore you can change that path and (optionally) make that changed path the default.
 # Customize ShellFolders
 You can customize the windows ShellFolders (e.g. Documents, Downloads..) from this program. For these operations the program has to run as administrator.
+
+To do that go to the 'Edit ShellFolders' tab. There you can select the ShellFolder you want to edit 
  
 # Customize windows indexing location
 # Monitoring folders
@@ -18,7 +20,7 @@ You can customize the windows ShellFolders (e.g. Documents, Downloads..) from th
 The program has a feature which adds a 'Store on HDD' option to the 'Send to' option of the windows explorer.
 When you want to use that feature check 'Show Store on HDD in Send to menu of the explorer' in the Settings tab
 # Further settings
-
+Such a big project has multiple settings (and many more planned), which are documented in the following sections:
 ## Language
 The GUI exists (for 99.8%) in english and german to change that go to Settings > Language,
 select the language you want and click "Safe and restart"
@@ -33,5 +35,5 @@ For some operations (which I am trying to solve differently) the program needs m
 which makes it required for the program to run some commands "as user" therefore it needs the name and password of an administrator account.
 These are NOT stored between sessions.
 These are securely stored as [SecureString and thereby encrypted](https://msdn.microsoft.com/en-us/library/system.security.securestring(v=vs.110).aspx#Anchor_5),
-so that even if my program would want to it couldn't get your password in plain text.
+so that even if my program would want to it could not get your password in plain text.
 To erase these from memory in a session go to Settings > Authorizations and click "Delete Credentials" thereby your encrypted password gets disposed.
