@@ -11,13 +11,35 @@ You can disable that reconstruction by checking 'Use absolute path'. Furthermore
 You can customize the windows ShellFolders (e.g. Documents, Downloads..) from this program. For these operations the program has to run as administrator.
 
 To do that go to the 'Edit ShellFolders' tab. There you can select the ShellFolder you want to edit.
- Then you can inspect the current path, select a new path and apply that change.
+Then you can inspect the current path, select a new path and apply that change.
+ 
 Furthermore you can decide whether to move existing items (strongly recommended) and whether to change dependent ShellFolders.
 [Please touch these settings only if you really know what you are doing.](warnings.html)
  
 # Customize windows indexing location
+
+You can change the location where windows indexing files are located. Therefore enter the 'Search indexing' tab.
+There you can change the location of windows search indexing.
+**This feature is in alpha.**
+
 # Monitoring folders
+
+The program is able to monitor folders (e.g. %localappdata%). If there is a new subfolder or file created the program can react to that it 3 ways:
+- Ignore that
+- Move the file / folder to the preconfigured path
+- Ask which of the options to run
+
+To configure that feature fo to the 'SSD Monitoring' tab. There you can enable SSD Monitoring and  add, remove or change monitored folders
 # Configure pagefiles
+In the  pagefiles tab you can customize the three pagefiles windows has
+## pagefile.sys
+You can add and remove pagefiles and adjust their size, and apply the configuration
+
+## swapfile.sys
+You can set the drive of the swapfile
+**This feature is in alpha.**
+
+## hibfil.sys
 
 # Send to HDD
 The program has a feature which adds a 'Store on HDD' option to the 'Send to' option of the windows explorer.
@@ -29,7 +51,7 @@ The GUI exists (for 99.8%) in english and german to change that go to Settings >
 select the language you want and click "Safe and restart"
 ## Credentials & Authorizations
 Such a program needs many authorizations, but due to the fact that it is open-source,
-so you can read each line of code and look what I do with your authorizations.
+so you can read each line of code and look what the program does with your authorizations.
 First of all you can run the program as administrator to access most functionality.
 If you dom't want to start it as admin every time yourself,
 you can enable "Ask for administrator privileges on startup" in the settings tab.

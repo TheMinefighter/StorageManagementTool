@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Principal;
 using System.Windows.Forms;
-using IWshRuntimeLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using StorageManagementCore.Backend;
 using StorageManagementCore.GlobalizationRessources;
 using StorageManagementCore.MainGUI.GlobalizationRessources;
-using File = System.IO.File;
 
 namespace StorageManagementCore.Operation {
 	public static class OperatingMethods {
@@ -58,7 +53,6 @@ namespace StorageManagementCore.Operation {
 				newLocation = new DirectoryInfo(Path.Combine(newLocation.FullName, toMove.FullName.Remove(1, 1)));
 			}
 
-			
 			if (newLocation.Parent != null && !newLocation.Parent.Exists) {
 				newLocation.Parent.Create();
 			}
@@ -68,6 +62,7 @@ namespace StorageManagementCore.Operation {
 					return false;
 				}
 			}
+
 			return FileAndFolder.CreateFolderSymlink(toMove, newLocation);
 		}
 
@@ -169,14 +164,10 @@ namespace StorageManagementCore.Operation {
 			if (enable) {
 				#region Based upon https://stackoverflow.com/a/4909475/6730162 access on 5.11.2017 
 
-				WshShell shell = new WshShell();
-				string shortcutAddress = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
-					OperatingMethodsStrings.StoreOnHDDLinkName + ".lnk");
-				IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(shortcutAddress);
-				shortcut.Description = "Lagert den Speicherort der gegebenen Datei aus";
-				shortcut.TargetPath = Process.GetCurrentProcess().MainModule.FileName;
-				shortcut.Arguments = " -move -auto-detect -SrcPath";
-				shortcut.Save();
+				FileAndFolder.CreateShortcut(" -move -auto-detect -SrcPath", new FileInfo(Path.Combine(
+						Environment.GetFolderPath(Environment.SpecialFolder.SendTo),
+						OperatingMethodsStrings.StoreOnHDDLinkName + ".lnk")),
+					"Lagert den Speicherort der gegebenen Datei aus");
 
 				#endregion
 			}

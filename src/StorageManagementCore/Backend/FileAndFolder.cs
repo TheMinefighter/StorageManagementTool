@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Text;
+using IWshRuntimeLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using File = System.IO.File;
 
 namespace StorageManagementCore.WPFGUI.DataProviders {}
 
@@ -181,6 +184,7 @@ namespace StorageManagementCore.Backend {
 			if (preserveACL) {
 				security = toMove.GetAccessControl();
 			}
+
 			try {
 				FileSystem.MoveDirectory(toMove.FullName, destination.FullName, UIOption.AllDialogs);
 				if (preserveACL) {
@@ -204,6 +208,7 @@ namespace StorageManagementCore.Backend {
 			if (preserveACL) {
 				security = toMove.GetAccessControl();
 			}
+
 			try {
 				FileSystem.MoveFile(toMove.FullName, destination.FullName, UIOption.AllDialogs);
 				if (preserveACL) {
@@ -260,6 +265,62 @@ namespace StorageManagementCore.Backend {
 			else {
 				return Wrapper.ExecuteCommand($"mklink \"{file.FullName}\" \"{newLocation.FullName}\"", true, true, out _);
 			}
+		}
+
+		/// <summary>
+		///  Calculates the changes in ACL to do when the target is not effected by inheritance anymore
+		/// </summary>
+		/// <remarks>
+		///  When moving a file / folder from a folder, where it is effected by inheritance,
+		///  to a target where it is not anymore and you want the access control to stay the same,
+		///  these inherited rules must be converted so that they stay. This conversion is done by this method
+		/// </remarks>
+		/// <code>
+		/// DirectorySecurity currentControl = toMove.GetAccessControl();
+		/// CalculateACLInheritance(currentControl);
+		/// newLocation.SetAccessControl(currentControl);
+		/// </code>
+		/// <param name="currentControl"></param>
+		public static void CalculateACLInheritance(FileSystemSecurity currentControl) {
+			IEnumerable<FileSystemAccessRule> accessRules = currentControl.GetAccessRules(true, true, typeof(SecurityIdentifier))
+				.OfType<FileSystemAccessRule>();
+			foreach (FileSystemAccessRule currentRule in accessRules) {
+				if (currentRule.IsInherited) {
+					currentControl.RemoveAccessRule(currentRule);
+					FileSystemRights newRights;
+
+					switch (currentRule.FileSystemRights) {
+						//Needed for weird (probably legacy), undocumented aliases
+						case (FileSystemRights) 0x10000000:
+							newRights = FileSystemRights.FullControl;
+							break;
+						case (FileSystemRights) (-0x1FFF0000):
+							newRights = FileSystemRights.Modify;
+							break;
+						case (FileSystemRights) (-1610612736):
+							newRights =
+								(FileSystemRights) 0x000201bf; //( FileSystemRights.ReadAndExecute | FileSystemRights.Write | FileSystemRights.ListDirectory)
+
+							break;
+						default:
+							newRights = currentRule.FileSystemRights;
+							break;
+					}
+
+					currentControl.AddAccessRule(new FileSystemAccessRule(currentRule.IdentityReference,
+						newRights, currentRule.InheritanceFlags, currentRule.PropagationFlags,
+						currentRule.AccessControlType));
+				}
+			}
+		}
+
+		public static void CreateShortcut(string arguments, FileInfo shortcutLocation, string description = "",
+			string targetPath = null) {
+			IWshShortcut shortcut = (IWshShortcut) new WshShell().CreateShortcut(shortcutLocation.FullName);
+			shortcut.Description = description;
+			shortcut.TargetPath = targetPath ?? Process.GetCurrentProcess().MainModule.FileName;
+			shortcut.Arguments = arguments;
+			shortcut.Save();
 		}
 
 		[Flags]
@@ -319,52 +380,5 @@ namespace StorageManagementCore.Backend {
 		}
 
 		#endregion
-
-		/// <summary>
-		/// Calculates the changes in ACL to do when the target is not effected by inheritance anymore
-		/// </summary>
-		/// <remarks>
-		/// When moving a file / folder from a folder, where it is effected by inheritance,
-		/// to a target where it is not anymore and you want the access control to stay the same,
-		/// these inherited rules must be converted so that they stay. This conversion is done by this method
-		/// </remarks>
-		/// <code>
-		/// DirectorySecurity currentControl = toMove.GetAccessControl();
-		/// CalculateACLInheritance(currentControl);
-		/// newLocation.SetAccessControl(currentControl);
-		/// </code>
-		/// <param name="currentControl"></param>
-		public static void CalculateACLInheritance(FileSystemSecurity currentControl) {
-			IEnumerable<FileSystemAccessRule> accessRules = currentControl.GetAccessRules(true, true, typeof(SecurityIdentifier))
-				.OfType<FileSystemAccessRule>();
-			foreach (FileSystemAccessRule currentRule in accessRules) {
-				if (currentRule.IsInherited) {
-					currentControl.RemoveAccessRule(currentRule);
-					FileSystemRights newRights;
-
-					switch (currentRule.FileSystemRights) {
-						//Needed for weird (probably legacy), undocumented aliases
-						case (FileSystemRights) 0x10000000:
-							newRights = FileSystemRights.FullControl;
-							break;
-						case (FileSystemRights) (-0x1FFF0000):
-							newRights = FileSystemRights.Modify;
-							break;
-						case (FileSystemRights) (-1610612736):
-							newRights =
-								(FileSystemRights) 0x000201bf; //( FileSystemRights.ReadAndExecute | FileSystemRights.Write | FileSystemRights.ListDirectory)
-
-							break;
-						default:
-							newRights = currentRule.FileSystemRights;
-							break;
-					}
-
-					currentControl.AddAccessRule(new FileSystemAccessRule(currentRule.IdentityReference,
-						newRights, currentRule.InheritanceFlags, currentRule.PropagationFlags,
-						currentRule.AccessControlType));
-				}
-			}
-		}
 	}
 }

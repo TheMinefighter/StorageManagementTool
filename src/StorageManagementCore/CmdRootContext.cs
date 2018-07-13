@@ -1,8 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
 using UniversalCommandlineInterface;
 using UniversalCommandlineInterface.Attributes;
+
+// ReSharper disable UnusedMember.Global
 
 namespace StorageManagementCore {
 	[CmdContext]
@@ -13,10 +16,25 @@ namespace StorageManagementCore {
 			Automatic
 		}
 
+		internal const string StartupProceedFileName = "StorageManagementProceed.lnk";
+
 		[CmdAction("Admin")]
 		public static void RestartAsAdministrator([CmdParameter("Arguments")]
 			string[] args = null) {
 			Wrapper.RestartProgram(true, args ?? new string[] { });
+		}
+
+		[CmdAction("ContinueSwapfile")]
+		public static void ContinueSwapfile([CmdParameter("Drive")]
+			string drive,
+			[CmdParameter("Forward", CmdParameterAttribute.CmdParameterUsage.OnlyDirectAlias)]
+			[CmdParameterAlias("forward", true)]
+			[CmdParameterAlias("backward", false)]
+			bool forward) {
+			FileAndFolder.DeleteFile(
+				new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+					StartupProceedFileName)), false);
+			Swapfile.ChangeSwapfileStadium(forward, Swapfile.SwapfileState.Disabled, new DriveInfo(drive));
 		}
 
 		[CmdAction("Move")]

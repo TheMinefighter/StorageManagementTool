@@ -6,8 +6,8 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
 	/// <summary>
-    /// The Main ViewModelModel containing all further GUI Data
-    /// </summary>
+	///  The Main ViewModelModel containing all further GUI Data
+	/// </summary>
 	public class MainViewModel : INotifyPropertyChanged {
 		private PagefileSysConfiguration _proposedPagefileConfiguration;
 		private MonitoredFolder _selectedMonitoredFolder;
@@ -44,20 +44,18 @@ namespace StorageManagementCore.WPFGUI {
 			}
 		}
 
-		public MainViewModel()
-		{
+		public MainViewModel() {
 			LoadPagefiles();
 		}
 
-		public void LoadPagefiles()
-		{
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void LoadPagefiles() {
 			ProposedPagefileConfiguration = PagefileManagement.GetCurrentPagefileConfiguration(out PagefileSysConfiguration tmp)
 				? tmp
 				: new PagefileSysConfiguration();
 			SelectedPagefile = null;
 		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged([CallerMemberName]

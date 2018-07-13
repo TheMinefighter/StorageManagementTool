@@ -25,7 +25,9 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void PagefilesTi_OnSelected(object sender, RoutedEventArgs e) { }
 
-		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e) {ViewModel.LoadPagefiles(); }
+		private void ApplyPageFileSysBtn_OnClick(object sender, RoutedEventArgs e) {
+			ViewModel.LoadPagefiles();
+		}
 
 		private void SystemManagedPagefilesCb_OnChecked(object sender, RoutedEventArgs e) {
 			PagefilesLb.SelectedItem = null;
