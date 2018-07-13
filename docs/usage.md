@@ -4,13 +4,13 @@ You can simply move files or whole folders from your SSD to your HDD or NAS. You
 In the main tab you can select which file(s) or folder(s) you want to move, choose (multiple) from the suggestions or paste paths, separated with semicolons.
  
 Then you can specify the path you want to move the data to:
-By default it moves your data (e.g. C:\\Users\\YourName\\Appdata\\Local\\YourDataDirectory\\) to your the configured export path (e.g. F:\\SSD).
-From there the program reconstructs the original path (e.g. F:\\SSD\\C\\Users\\YourName\\Appdata\\Local\\YourDataDirectory\\)  
+By default it moves your data (e.g. C:\\Users\\YourName\\AppData\\Local\\YourDataDirectory\\) to your the configured export path (e.g. F:\\SSD).
+From there the program reconstructs the original path (e.g. F:\\SSD\\C\\Users\\YourName\\AppData\\Local\\YourDataDirectory\\)  
 You can disable that reconstruction by checking 'Use absolute path'. Furthermore you can change that path and (optionally) make that changed path the default.
-# Customize Shellfolders
-You can customize the windows shellfolders (e.g. Documents, Downloads..) from this program. For these operations the program has to run as administrator.
+# Customize ShellFolders
+You can customize the windows ShellFolders (e.g. Documents, Downloads..) from this program. For these operations the program has to run as administrator.
  
-# Customize windows indexing
+# Customize windows indexing location
 # Monitoring folders
 # Configure pagefiles
 
@@ -27,7 +27,11 @@ Such a program needs many authorizations, but due to the fact that it is open-so
 so you can read each line of code and look what I do with your authorizations.
 First of all you can run the program as administrator to access most functionality.
 If you dom't want to start it as admin every time yourself,
-you can enable "Ask for administrator priviliges on startup" in the settings tab.
+you can enable "Ask for administrator privileges on startup" in the settings tab.
 
 For some operations (which I am trying to solve differently) the program needs more rights due to windows weird User Account Control (UAC),
- which makes it required for the program to run some commands "as user" therefore it needs the name and password of an administrator account. These are NOT stored between sessions. These are securely stored as [SecureString and thereby encrypted](https://msdn.microsoft.com/en-us/library/system.security.securestring(v=vs.110).aspx#Anchor_5), so that even if my program would want to it couldn't get your password in plain text. To erase these from memory in a session go to Settings > Authorizations and click "Delete Credentials" thereby your encrypted password gets disposed.
+which makes it required for the program to run some commands "as user" therefore it needs the name and password of an administrator account.
+These are NOT stored between sessions.
+These are securely stored as [SecureString and thereby encrypted](https://msdn.microsoft.com/en-us/library/system.security.securestring(v=vs.110).aspx#Anchor_5),
+so that even if my program would want to it couldn't get your password in plain text.
+To erase these from memory in a session go to Settings > Authorizations and click "Delete Credentials" thereby your encrypted password gets disposed.
