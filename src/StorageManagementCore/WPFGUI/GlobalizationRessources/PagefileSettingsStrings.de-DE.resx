@@ -130,10 +130,10 @@
     <value>hiberfil.sys</value>
   </data>
   <data name="DisableHibernate_btn_Text" xml:space="preserve">
-    <value>Ruhezustand und Hybrides Herunterfahren deaktivieren</value>
+    <value>Ruhezustand deaktivieren</value>
   </data>
   <data name="Enablehibernate_btn_Text" xml:space="preserve">
-    <value>Ruhezustand  und Hybrides Herunterfahren aktivieren</value>
+    <value>Ruhezustand  aktivieren</value>
   </data>
   <data name="PagefileDrive_lbl_Text" xml:space="preserve">
     <value>Speicherort der pagefile.sys</value>

@@ -130,10 +130,10 @@
     <value>hiberfil.sys</value>
   </data>
   <data name="DisableHibernate_btn_Text" xml:space="preserve">
-    <value>Disable hibernate and hybrid shutdown</value>
+    <value>Disable hibernate</value>
   </data>
   <data name="Enablehibernate_btn_Text" xml:space="preserve">
-    <value>Enable hibernate and hybrid shutdown</value>
+    <value>Enable hibernate </value>
   </data>
   <data name="MinimumPagefileSize_lbl_Text" xml:space="preserve">
     <value>Minimum size (MB)</value>

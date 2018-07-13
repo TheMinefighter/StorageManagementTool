@@ -42,34 +42,5 @@ namespace StorageManagementCore.WPFGUI {
 
 
 		private void BaseTc_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-
-		private void SetSwapfileState_OnClick(object sender, RoutedEventArgs e) {
-			//TODO add Disabled state
-			switch (Swapfile.GetSwapfileState()) {
-				case Swapfile.SwapfileState.Standard:
-					Swapfile.ChangeSwapfileStadium(true, Swapfile.SwapfileState.Standard);
-					break;
-				case Swapfile.SwapfileState.Disabled:
-					Swapfile.ChangeSwapfileStadium(true, Swapfile.SwapfileState.Disabled,
-						(DriveInfo) NewSwapfileDriveCmb.SelectedItem);
-					break;
-				case Swapfile.SwapfileState.Moved:
-					Swapfile.ChangeSwapfileStadium(false, Swapfile.SwapfileState.Moved);
-					break;
-				case Swapfile.SwapfileState.None:
-					Swapfile.ChangeSwapfileStadium(true, Swapfile.SwapfileState.Standard);
-					FileAndFolder.CreateShortcut(
-						$"-ContinueSwapfile forward -Drive {((DriveInfo) NewSwapfileDriveCmb.SelectedItem).Name}",
-						new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup),
-							CmdRootContext.StartupProceedFileName)));
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-		}
-
-		private void EnOrDisableHibernateBtn_OnClick(object sender, RoutedEventArgs e) {
-				OperatingMethods.SetHibernate(!File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMDRIVE%\\hibfil.sys")));
-		}
 	}
 }

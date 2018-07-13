@@ -40,6 +40,7 @@ You can set the drive of the swapfile
 **This feature is in alpha.**
 
 ## hibfil.sys
+You can en- or disable the hibfil.sys 
 
 # Send to HDD
 The program has a feature which adds a 'Store on HDD' option to the 'Send to' option of the windows explorer.
