@@ -279,7 +279,10 @@
 							<Button x:Name="ApplyPagefileSysBtn" Content="Button" Margin="0,0,10,10"
 							        VerticalAlignment="Bottom" Click="ApplyPageFileSysBtn_OnClick"
 							        RenderTransformOrigin="0.653,0.483" Grid.Column="2" />
-						</Grid>
+                            <Button x:Name="ResetPagefilesBtn" Content="Button" Margin="0,0,10,35"
+           VerticalAlignment="Bottom" Click="ApplyPageFileSysBtn_OnClick"
+           RenderTransformOrigin="0.653,0.483" Grid.Column="2" />
+                        </Grid>
 					</GroupBox>
 					<GroupBox x:Name="HibfilGb" Header="GroupBox" Height="71" Margin="0,10,10,0"
 					          VerticalAlignment="Top" Grid.Column="1">
