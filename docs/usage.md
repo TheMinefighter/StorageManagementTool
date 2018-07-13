@@ -10,7 +10,10 @@ You can disable that reconstruction by checking 'Use absolute path'. Furthermore
 # Customize ShellFolders
 You can customize the windows ShellFolders (e.g. Documents, Downloads..) from this program. For these operations the program has to run as administrator.
 
-To do that go to the 'Edit ShellFolders' tab. There you can select the ShellFolder you want to edit 
+To do that go to the 'Edit ShellFolders' tab. There you can select the ShellFolder you want to edit.
+ Then you can inspect the current path, select a new path and apply that change.
+Furthermore you can decide whether to move existing items (strongly recommended) and whether to change dependent ShellFolders.
+[Please touch these settings only if you really know what you are doing.](warnings.html)
  
 # Customize windows indexing location
 # Monitoring folders

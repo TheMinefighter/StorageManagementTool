@@ -517,6 +517,7 @@
     <Content Include="docs\assets\images\bullet.png" />
     <Content Include="docs\index.md" />
     <Content Include="docs\usage.md" />
+    <Content Include="docs\warnings.md" />
     <Content Include="docs\_config.yml" />
     <Content Include="docs\_layouts\default.html" />
     <Content Include="docs\_sass\jekyll-theme-leap-day.scss" />
