@@ -522,6 +522,7 @@
     <Content Include="docs\_config.yml" />
     <Content Include="docs\_layouts\default.html" />
     <Content Include="docs\_sass\jekyll-theme-leap-day.scss" />
+    <Content Include="readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
