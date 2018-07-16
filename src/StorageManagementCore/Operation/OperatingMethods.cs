@@ -107,10 +107,6 @@ namespace StorageManagementCore.Operation {
 		/// <returns>The recommended Paths</returns>
 		public static IEnumerable<string> GetRecommendedPaths() {
 			List<string> ret = new List<string>();
-			if (
-				!FileAndFolder.IsPathSymbolic(Environment.ExpandEnvironmentVariables(@"%AppData%"))) {
-				ret.Add(Environment.ExpandEnvironmentVariables(@"%AppData%"));
-			}
 
 			IEnumerable<string> blacklist = new string[] {
 				Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData"),

@@ -14,10 +14,12 @@
 	<Window.Resources>
 		<dataProviders:DriveInfoProvider x:Key="CurrentDriveInfoProvider" />
 		<dataProviders:LanguageProvider x:Key="LanguageProvider" />
+		<dataProviders:SuggestionProvider x:Key="SuggestionProvider" />
 		<converter:NativeLanguageConverter x:Key="LanguageConverter" />
 		<converter:PagefileConverter x:Key="PagefileConverter" />
 		<converter:DriveInfoConverter x:Key="DriveInfoConverter" />
 		<wpfgui:MainViewModel x:Key="ViewModel" />
+		
 		<Style TargetType="Button" x:Key="DangerousButton">
 			<Setter Property="Background" Value="Green" />
 			<Style.Triggers>
@@ -64,7 +66,7 @@
 					<TextBlock x:Name="SuggestionsLbl" HorizontalAlignment="Left" Margin="10,102,0,0"
 					           TextWrapping="Wrap" Text="TextBlock"
 					           VerticalAlignment="Top" Height="16" Width="448" Grid.ColumnSpan="2" Grid.Column="0" />
-					<ListBox x:Name="SuggestionsLb" SelectionMode="Extended"
+					<ListBox x:Name="SuggestionsLb" SelectionMode="Extended" ItemsSource="{Binding Source={StaticResource SuggestionProvider}, Path=Suggestions}"
 					         SelectionChanged="SuggestionsLb_OnSelectionChanged"
 					         Margin="10,118,10,35" Grid.ColumnSpan="4" Grid.Column="0" />
 					<Button x:Name="MoveObjectsBtn" Content="Button" Margin="10,0,10,10" VerticalAlignment="Bottom"

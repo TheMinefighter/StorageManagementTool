@@ -220,6 +220,7 @@
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\DataProviders\DriveInfoProvider.cs" />
     <Compile Include="WPFGUI\DataProviders\LanguageProvider.cs" />
+    <Compile Include="WPFGUI\DataProviders\SuggestionProvider.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\AboutStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -12,8 +12,6 @@ namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		private void MoveFileOrFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
 			LocalizeMoveObjects();
-			SuggestionsLb.Items.Clear();
-			SuggestionsLb.ItemsSource = OperatingMethods.GetRecommendedPaths();
 			MoveObjectsRootPathTb.Text = Session.Singleton.Configuration.DefaultHDDPath ?? "";
 		}
 

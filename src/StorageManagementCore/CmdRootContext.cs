@@ -95,7 +95,7 @@ namespace StorageManagementCore {
 		public abstract class SendTo {
 			[CmdAction("Set")]
 			public static void SetSendTo(
-				[CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", true)] [CmdParameter("Enabled")]
+				[CmdParameter("Enabled")] [CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", false)]
 				bool enable = true) {
 				OperatingMethods.EnableSendToHDD(enable);
 			}

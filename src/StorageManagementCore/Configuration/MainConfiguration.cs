@@ -8,9 +8,13 @@ namespace StorageManagementCore.Configuration {
 	/// </summary>
 	public class MainConfiguration {
 		/// <summary>
+		/// The settings for all pagefiles
 		/// </summary>
 		public AllPagefilesConfiguration AllPagefilesSettings;
 
+		/// <summary>
+		/// Whether to ask for credentials on GUI startup
+		/// </summary>
 		public bool CredentialsOnStartup;
 
 		/// <summary>
@@ -18,10 +22,16 @@ namespace StorageManagementCore.Configuration {
 		/// </summary>
 		public string DefaultHDDPath;
 
+		/// <summary>
+		/// Whether to completely disable unprivileged symlink creation 
+		/// </summary>
+		/// <remarks>
+		/// This setting should be used when there are compatibility issues with unprivileged symlinks
+		/// </remarks>
 		public bool DisableUnprivilgedLinkCreation;
 
 		/// <summary>
-		///  Overrides the UI language if not null
+		///  Overrides the UI language if not null, otherwise equivalent to system language
 		/// </summary>
 		public string LanguageOverride;
 
@@ -32,7 +42,9 @@ namespace StorageManagementCore.Configuration {
 
 
 		/// <summary>
+		/// 
 		/// </summary>
+		/// <remarks> Not used yet, might be removed in future </remarks>
 		public Dictionary<Guid, string> ShellFolderSettings;
 
 		/// <summary>
