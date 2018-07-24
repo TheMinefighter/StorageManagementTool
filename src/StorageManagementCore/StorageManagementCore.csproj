@@ -146,25 +146,8 @@
     <Compile Include="MainGUI\ApplyPreset.Designer.cs">
       <DependentUpon>ApplyPreset.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainGUI\EditUserShellFolders.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainGUI\EditUserShellFolders.designer.cs">
-      <DependentUpon>EditUserShellFolders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainGUI\EditWindowsSearchSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainGUI\EditWindowsSearchSettings.designer.cs">
-      <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.Designer.cs">
       <DependentUpon>ApplyPresetStrings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.Designer.cs">
-      <DependentUpon>EditUserShellFolderStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -172,39 +155,6 @@
       <DependentUpon>EditWindowsSearchSettingsStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="MainGUI\GlobalizationRessources\MainWindowStrings.Designer.cs">
-      <DependentUpon>MainWindowStrings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.Designer.cs">
-      <DependentUpon>MonitoringSettingsStrings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.Designer.cs">
-      <DependentUpon>PagefileSettingsStrings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="MainGUI\MainWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainGUI\MainWindow.designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainGUI\MonitoringSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainGUI\MonitoringSettings.designer.cs">
-      <DependentUpon>MonitoringSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainGUI\PageFileSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainGUI\PageFileSettings.designer.cs">
-      <DependentUpon>PageFileSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Operation\BackgroundNotificationCreator.cs" />
     <Compile Include="Operation\Credentials.cs" />
@@ -351,56 +301,17 @@
     <EmbeddedResource Include="MainGUI\ApplyPreset.resx">
       <DependentUpon>ApplyPreset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\EditUserShellFolders.resx">
-      <DependentUpon>EditUserShellFolders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\EditWindowsSearchSettings.resx">
-      <DependentUpon>EditWindowsSearchSettings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.de-DE.resx" />
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.en-US.resx" />
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ApplyPresetStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.de-DE.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.en-US.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditUserShellFolderStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EditUserShellFolderStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.de-DE.resx" />
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.en-US.resx" />
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EditWindowsSearchSettingsStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.de-DE.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.en-US.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MainWindowStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.de-DE.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.en-US.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\MonitoringSettingsStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MonitoringSettingsStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.de-DE.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.en-US.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\PagefileSettingsStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>PagefileSettingsStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\MainWindow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\MonitoringSettings.resx">
-      <DependentUpon>MonitoringSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\PageFileSettings.resx">
-      <DependentUpon>PageFileSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Operation\EnterCredentialsDialog.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
