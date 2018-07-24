@@ -216,6 +216,7 @@
     <Compile Include="Operation\ScenarioPreset.cs" />
     <Compile Include="Operation\SSDMonitoring.cs" />
     <Compile Include="Operation\Swapfile.cs" />
+    <Compile Include="Operation\Update.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\DataProviders\DriveInfoProvider.cs" />
