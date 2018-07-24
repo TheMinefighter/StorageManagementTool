@@ -8,9 +8,9 @@ using System.Net.Http;
 namespace Test {
 	internal class Program {
 		public static async Task Main(string[] args) {
-			using (Updater u= new Updater()) {
+			Updater u = new Updater();
 				await u.GetReleasesData();
-			}
+			
 			//PagefileManagement.GetFutureFreeSpace(new PagefileSysConfiguration(){SystemManaged = true});
 		}
 	}
