@@ -26,7 +26,8 @@ namespace StorageManagementCore.Configuration {
 		/// Whether to completely disable unprivileged symlink creation 
 		/// </summary>
 		/// <remarks>
-		/// This setting should be used when there are compatibility issues with unprivileged symlinks
+		/// This setting should be used when there are compatibility issues with unprivileged symlinks,
+		/// which existence is completely denied in the official documentation, lol
 		/// </remarks>
 		public bool DisableUnprivilgedLinkCreation;
 

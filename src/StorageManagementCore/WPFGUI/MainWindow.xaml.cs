@@ -16,13 +16,17 @@ namespace StorageManagementCore.WPFGUI {
 		private MainViewModel ViewModel => (MainViewModel) Resources["ViewModel"];
 
 		public MainWindow() {
+#if DEBUG
 			try {
-				InitializeComponent();
-			}
-			catch (Exception e) {
-				Console.WriteLine(e);
-				throw;
-			}
+      		InitializeComponent();
+      	}
+      	catch (Exception e) {
+      		Console.WriteLine(e);
+      		throw;
+      	}	
+#else
+			InitializeComponent();
+#endif
 
 			//PagefilesTi.DataContext = ProposedPagefileConfiguration;
 		}
