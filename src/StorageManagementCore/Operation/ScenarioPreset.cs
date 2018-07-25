@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.VisualBasic.Devices;
 using StorageManagementCore.Backend;
 using StorageManagementCore.GlobalizationRessources;
@@ -37,13 +38,13 @@ namespace StorageManagementCore.Operation {
 		public Action<DriveInfo, DriveInfo> ToRun;
 
 		private static void LocalSSDAndNAS(DriveInfo ssd, DriveInfo hdd) {
-			Dictionary<string, string> usfToMove = new Dictionary<string, string> {
-				{"Personal", "Documents"},
-				{"My Music", "Music"},
-				{"My Pictures", "Pictures"},
-				{"AppData", "AppData\\Roaming"},
-				{"{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"},
-				{"Desktop", "Desktop"}
+			Dictionary<ShellFolder, string> usfToMove = new Dictionary<ShellFolder, string> {
+				{ShellFolder.KnownShellFolders.Documents, "Documents"},
+				{ShellFolder.KnownShellFolders.Music, "Music"},
+				{ShellFolder.KnownShellFolders.Pictures, "Pictures"},
+				{ShellFolder.KnownShellFolders.RoamingAppData, "AppData\\Roaming"},
+				{ShellFolder.KnownShellFolders.Downloads, "Downloads"},
+				{ShellFolder.KnownShellFolders.Desktop, "Desktop"}
 			};
 			bool empty = false;
 			int i = 0;
@@ -60,26 +61,27 @@ namespace StorageManagementCore.Operation {
 			Session.Singleton.Configuration.DefaultHDDPath = baseDir.FullName;
 			Session.Singleton.SaveCfg();
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
-			foreach (KeyValuePair<string, string> currentPair in usfToMove) {
-				UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
-				UserShellFolder.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+			foreach (KeyValuePair<ShellFolder, string> currentPair in usfToMove) {
+				ShellFolder moving = currentPair.Key;
+				ShellFolder.ChangeShellFolderChecked(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}
-
-			Dictionary<string, string> csfToMove = new Dictionary<string, string> {
-				{"ProgramFilesDir (x86)", "Program Files (x86)"},
-				{"ProgramFilesDir", "Program Files"},
-				{"Common Desktop", "Common Desktop"}
+			
+			Dictionary<ShellFolder, string> csfToMove = new Dictionary<ShellFolder, string> {
+				{ShellFolder.KnownShellFolders.ProgramFilesX86, "Program Files (x86)"},
+				{ShellFolder.KnownShellFolders.PublicDesktop, "Common Desktop"}
 			};
 			DirectoryInfo commonDir = baseDir.CreateSubdirectory("Common Data");
-			foreach (KeyValuePair<string, string> currentPair in csfToMove) {
-				UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
-				UserShellFolder.ChangeUserShellFolder(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
+			foreach (KeyValuePair<ShellFolder, string> currentPair in csfToMove) {
+				ShellFolder moving = currentPair.Key;
+				ShellFolder.ChangeShellFolderChecked(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}
 
+			ShellFolder.KnownShellFolders.ProgramFiles.SetPath(commonDir
+				.GetDirectories("Program Files (x86", SearchOption.TopDirectoryOnly).First());
 			int memory = (int) (new ComputerInfo().TotalPhysicalMemory / 1048576L);
 			PagefileManagement.ChangePagefileSettings(hdd, memory, memory * 2);
 			OperatingMethods.EnableSendToHDD();
@@ -88,13 +90,13 @@ namespace StorageManagementCore.Operation {
 		}
 
 		private static void LocalSSDAndHDD(DriveInfo ssd, DriveInfo hdd) {
-			Dictionary<string, string> usfToMove = new Dictionary<string, string> {
-				{"Personal", "Documents"},
-				{"My Music", "Music"},
-				{"My Pictures", "Pictures"},
-				{"AppData", "AppData\\Roaming"},
-				{"{374DE290-123F-4565-9164-39C4925E467B}", "Downloads"},
-				{"Desktop", "Desktop"}
+			Dictionary<ShellFolder, string> usfToMove = new Dictionary<ShellFolder, string> {
+				{ShellFolder.KnownShellFolders.Documents, "Documents"},
+				{ShellFolder.KnownShellFolders.Music, "Music"},
+				{ShellFolder.KnownShellFolders.Pictures, "Pictures"},
+				{ShellFolder.KnownShellFolders.RoamingAppData, "AppData\\Roaming"},
+				{ShellFolder.KnownShellFolders.Downloads, "Downloads"},
+				{ShellFolder.KnownShellFolders.Desktop, "Desktop"}
 			};
 			bool empty = false;
 			int i = 0;
@@ -110,9 +112,9 @@ namespace StorageManagementCore.Operation {
 			Session.Singleton.Configuration.DefaultHDDPath = baseDir.FullName;
 			Session.Singleton.SaveCfg();
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
-			foreach (KeyValuePair<string, string> currentPair in usfToMove) {
-				UserShellFolder moving = UserShellFolder.GetUserShellFolderById(currentPair.Key);
-				UserShellFolder.ChangeUserShellFolder(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+			foreach (KeyValuePair<ShellFolder, string> currentPair in usfToMove) {
+				ShellFolder moving = currentPair.Key;
+				ShellFolder.ChangeShellFolderChecked(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}

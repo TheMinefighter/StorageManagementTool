@@ -40,6 +40,8 @@ namespace StorageManagementCore {
 		/// </summary>
 		public bool UnpriviligedSymlinksAvailable;
 
+		public EventHandler LanguageChanged = (a, b) => { };
+
 		/// <summary>
 		///  Creates a new Session
 		/// </summary>
@@ -68,7 +70,6 @@ namespace StorageManagementCore {
 			CultureInfo toUseCultureInfo = BestPossibleCulture(requestedCulture, Program.AvailableSpecificCultures);
 			Thread.CurrentThread.CurrentUICulture = toUseCultureInfo;
 			ScenarioPreset.LoadPresets();
-			UserShellFolder.LoadEditable();
 			IsAdmin = Wrapper.IsCurrentUserAdministrator();
 			UnpriviligedSymlinksAvailable =
 				!Configuration.DisableUnprivilgedLinkCreation &&

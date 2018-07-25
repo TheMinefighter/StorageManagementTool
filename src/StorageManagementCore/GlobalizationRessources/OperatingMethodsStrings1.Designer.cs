@@ -65,7 +65,7 @@ namespace StorageManagementCore.GlobalizationRessources {
         /// </summary>
         internal static string ChangePagefileSettings_CouldntDisableManagement {
             get {
-                return ResourceManager.GetString("6", resourceCulture);
+                return ResourceManager.GetString("ChangePagefileSettings_CouldntDisableManagement", resourceCulture);
             }
         }
         

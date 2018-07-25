@@ -151,7 +151,7 @@
     <value>"{0}" überspringen</value>
   </data>
   <data name="ChangeUserShellFolder_ErrorChangeSubfolder_Text" xml:space="preserve">
-    <value>Das Programm hat versucht den Pfad von "{0}" zu ändern. Dafür hat es versucht den Registry Wert "{1}" unter "{2}" zu "{3}" zu ändern. Dabei ist ein Fehler aufgetreten.</value>
+    <value>Das Programm hat versucht den Pfad von "{0}", einem Teil von "{1}", auf "{2}" zu ändern. Dabei ist ein Fehler aufgetreten.</value>
   </data>
   <data name="ChangeUserShellFolder_MoveContent_Text" xml:space="preserve">
     <value>Der UserShellFolder wurde erfolgreich geändert, sollen dessen Inhalte an seinen neuen Speicherort verschoben werden?</value>
@@ -210,7 +210,7 @@
   <data name="SetSearchDataPath_InvalidPath" xml:space="preserve">
     <value>Der angegebene Ordner existiert nicht</value>
   </data>
-   <data name="SetSearchDataPath_RestartNow_Title" xml:space="preserve">
+  <data name="SetSearchDataPath_RestartNow_Title" xml:space="preserve">
     <value>Neustarten?</value>
   </data>
   <data name="SetStadium_ErrorNoneAfterLast" xml:space="preserve">

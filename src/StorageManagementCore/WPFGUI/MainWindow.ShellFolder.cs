@@ -41,8 +41,8 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void RefreshShellFolders() {
 			ShellFoldersLb.ItemsSource = ViewHiddenFoldersCb.IsChecked == true
-				? AdvancedUserShellFolder.AllUSF.Select(x => x.LocalizedName)
-				: AdvancedUserShellFolder.AllUSF.Where(x => !x.Undefined).Select(x => x.LocalizedName);
+				? ShellFolder.AllShellFolders.Select(x => x.LocalizedName)
+				: ShellFolder.AllShellFolders.Where(x => !x.Undefined).Select(x => x.LocalizedName);
 		}
 
 		private void ChangeDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e) {
@@ -70,7 +70,7 @@ private class ApplyShellFolderLocation : ICommand {
 		
 		private void ApplyShellFolderLocationBtn_Click(object sender, RoutedEventArgs e) {
 			SpecialFolders.SetSpecialFolderPath(
-				AdvancedUserShellFolder.GetUSF(ShellFoldersLb.SelectedItem as string), NewShellFolderPathTb.Text);
+				ShellFolder.GetUSF(ShellFoldersLb.SelectedItem as string), NewShellFolderPathTb.Text);
 			ShellFoldersLb_OnSelectionChanged(null, null);
 		}
 
@@ -83,7 +83,7 @@ private class ApplyShellFolderLocation : ICommand {
 		}
 
 		private void ShellFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
-			CurrentShellFolderPathTb.Text = SpecialFolders.GetSpecialFolderPath(AdvancedUserShellFolder
+			CurrentShellFolderPathTb.Text = SpecialFolders.GetSpecialFolderPath(ShellFolder
 				                                .GetUSF((string) ShellFoldersLb.SelectedValue)
 				                                .WindowsIdentifier) ??
 			                                "Seems as if your PC hasn´t configured that path for whatever reason";
