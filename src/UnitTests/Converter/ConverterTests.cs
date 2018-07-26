@@ -11,6 +11,7 @@ using Xunit;
 namespace UnitTests.Converter {
 	public class ConverterTests {
 ShellFolderFilterConverter filter= new ShellFolderFilterConverter();
+		
 		[Fact]
 		private void ShellFolderFilterTest() {
 			object resultUnfiltered= filter.Convert(new object[] {ShellFolder.AllShellFolders, true}, typeof(IEnumerable), null, CultureInfo.CurrentUICulture);

@@ -7,27 +7,35 @@ using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsString
 namespace StorageManagementCore.WPFGUI.ValueConverters {
 	public class NativeLanguageConverter : IValueConverter {
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-			if (targetType == typeof(string)) {
-				switch (value) {
-					case CultureInfo cultureInfo:
-						return cultureInfo.NativeName;
-					case DBNull _:
-						return SystemLanguageText;
-					default:
-						throw new InvalidOperationException();
-				}
+			if (targetType != typeof(string)) {
+				throw new ArgumentException("targetType must be typeof(string)", nameof(targetType));
 			}
-			else {
-				throw new InvalidOperationException();
+			switch (value) {
+				case CultureInfo cultureInfo:
+					return cultureInfo.NativeName;
+				case DBNull _:
+					return SystemLanguageText;
+				default:
+					throw new ArgumentException("value must be  a DBNull or a CultureInfo", nameof(value));
 			}
 		}
 
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
-			targetType == typeof(object) && value is string toConvert
-				? (toConvert == SystemLanguageText
-					? (object) DBNull.Value
-					: CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.NativeName == toConvert))
-				: throw new InvalidOperationException();
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+			if (targetType != typeof(object)) {
+				throw new ArgumentException("targetType must be typeof(object)", nameof(targetType));
+			}
+			if (value is string toConvert) {
+				if (toConvert == SystemLanguageText) {
+					return DBNull.Value;
+				}
+				else {
+					return CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.NativeName == toConvert);
+				}
+			}
+			else {
+				throw new ArgumentException("value must be  a string", nameof(value));
+			}
+		}
 	}
 }
