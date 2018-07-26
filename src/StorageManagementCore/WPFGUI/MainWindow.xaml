@@ -15,33 +15,36 @@
 		<dataProviders:DriveInfoProvider x:Key="CurrentDriveInfoProvider" />
 		<dataProviders:LanguageProvider x:Key="LanguageProvider" />
 		<dataProviders:SuggestionProvider x:Key="SuggestionProvider" />
+		<dataProviders:ShellFolderProvider x:Key="ShellFolderProvider" />
 		<converter:NativeLanguageConverter x:Key="LanguageConverter" />
 		<converter:PagefileConverter x:Key="PagefileConverter" />
 		<converter:DriveInfoConverter x:Key="DriveInfoConverter" />
+		<converter:ShellFolderLocalizedNameConverter x:Key="ShellFolderLocalizedNameConverter" />
+		<converter:ShellFolderFilterConverter x:Key="ShellFolderFilterConverter" />
 		<wpfgui:MainViewModel x:Key="ViewModel" />
 		<Style TargetType="Button" x:Key="DangerousButton">
-			<Setter Property="Background" Value="Red"/>
+			<Setter Property="Background" Value="Red" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
 						<Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
 			<Style.Triggers>
 				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="DarkRed"/>
+					<Setter Property="Background" Value="DarkRed" />
 				</Trigger>
 			</Style.Triggers>
 		</Style>
 		<Style TargetType="CheckBox" x:Key="DangerousCheckBox">
 
-			<Setter Property="Background" Value="Red"/>
+			<Setter Property="Background" Value="Red" />
 			<Style.Triggers>
 				<Trigger Property="IsMouseOver" Value="true">
-					<Setter Property="Background" Value="DarkRed"/>
+					<Setter Property="Background" Value="DarkRed" />
 				</Trigger>
 			</Style.Triggers>
 		</Style>
@@ -103,11 +106,28 @@
 			         Selector.Selected="ShellFolderTi_OnSelected">
 				<Grid Background="White">
 					<ListBox x:Name="ShellFoldersLb" HorizontalAlignment="Left" Margin="10,10,0,30" Width="202"
-					         SelectionChanged="ShellFoldersLb_OnSelectionChanged" />
+					         SelectionChanged="ShellFoldersLb_OnSelectionChanged">
+						<ListBox.ItemsSource>
+							<MultiBinding Converter="{StaticResource ShellFolderFilterConverter}">
+								<Binding Source="{StaticResource ShellFolderProvider}" Path="KnownShellFolders"
+								         Mode="OneWay" />
+								<Binding ElementName="ViewHiddenFoldersCb" Path="IsChecked" Mode="OneWay" />
+							</MultiBinding>
+						</ListBox.ItemsSource>
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock>
+									<TextBlock.Text>
+										<Binding Converter="{StaticResource ShellFolderLocalizedNameConverter}" Mode="OneWay" />
+									</TextBlock.Text>
+								</TextBlock>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
 					<CheckBox x:Name="ViewHiddenFoldersCb" Content="CheckBox" HorizontalAlignment="Left"
 					          Margin="10,0,0,10"
-					          VerticalAlignment="Bottom"  Style="{StaticResource DangerousCheckBox}" 
-					          Unchecked="ViewHiddenFoldersCb_Unchecked" Checked="ViewHiddenFoldersCb_Checked"/>
+					          VerticalAlignment="Bottom" Style="{StaticResource DangerousCheckBox}"
+					          Unchecked="ViewHiddenFoldersCb_Unchecked" Checked="ViewHiddenFoldersCb_Checked" />
 					<TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,193,0" TextWrapping="Wrap"
 					         VerticalAlignment="Top" IsReadOnly="True"
 					         TextChanged="CurrentShellFolderPathTb_OnTextChanged" />
@@ -131,11 +151,11 @@
 					        VerticalAlignment="Bottom" Width="178" Click="ApplyShellFolderLocationBtn_Click" />
 					<CheckBox x:Name="MoveExistingShellFolderItemsCb" Content="CheckBox" HorizontalAlignment="Left"
 					          Margin="217,101,0,0"
-					          VerticalAlignment="Top" IsChecked="True"  Style="{StaticResource DangerousCheckBox}"
+					          VerticalAlignment="Top" IsChecked="True" Style="{StaticResource DangerousCheckBox}"
 					          Unchecked="MoveExistingItemsCb_Unchecked" />
 					<CheckBox x:Name="ChangeDependentShellFoldersCb" Content="CheckBox" HorizontalAlignment="Left"
 					          Margin="217,121,0,0"
-					          VerticalAlignment="Top" IsChecked="True"  Style="{StaticResource DangerousCheckBox}"
+					          VerticalAlignment="Top" IsChecked="True" Style="{StaticResource DangerousCheckBox}"
 					          Unchecked="ChangeDependentShellFoldersCb_Unchecked" />
 					<CheckBox x:Name="AutomaticShellFolderPathCb" Content="CheckBox" HorizontalAlignment="Left"
 					          Margin="473,102,0,0"
@@ -201,7 +221,7 @@
 					           TextWrapping="Wrap"
 					           Text="TextBlock" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden"
 					           Grid.Column="1" />
-					<Button x:Name="ApplyMonitoringBtn" Content="Button" Margin="0,0,10,10" Click="ApplyMonitoringBtn_OnClick" 
+					<Button x:Name="ApplyMonitoringBtn" Content="Button" Margin="0,0,10,10" Click="ApplyMonitoringBtn_OnClick"
 					        Height="20" Grid.Column="1"
 					        VerticalAlignment="Bottom" />
 					<Button x:Name="OpenMonitoredFolderBtn" Content="Button" Margin="0,80,10,0"
@@ -241,7 +261,7 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="290*" />
 						<ColumnDefinition Width="103*" />
-					</Grid.ColumnDefinitions> 
+					</Grid.ColumnDefinitions>
 					<GroupBox x:Name="PagefilesGb" Grid.Column="0" Header="GroupBox"
 					          Height="400" Margin="10,10,0,0" VerticalAlignment="Top">
 						<Grid Margin="-8,0,-2,-12">
@@ -297,7 +317,7 @@
 							<nud:NumericUpDown x:Name="MaximumPagefileSizeNud"
 							                   VerticalAlignment="Top"
 							                   Margin="0,110,10,0" Grid.Row="0" Grid.Column="2" Width="Auto" StepSize="2048" MaxValue="65536"
-							                   
+
 							                   RenderTransformOrigin="-0.74,0.87" HorizontalAlignment="Stretch">
 								<nud:NumericUpDown.IsEnabled>
 									<Binding Path="SelectedPagefile" Mode="OneWay" TargetNullValue="false" />
@@ -355,7 +375,7 @@
 					<GroupBox x:Name="HibfilGb" Header="GroupBox" Height="71" Margin="0,10,10,0"
 					          VerticalAlignment="Top" Grid.Column="1">
 						<Grid HorizontalAlignment="Left" Margin="-8,0,-2,-12" Width="194">
-							<Button x:Name="EnOrDisableHibernateBtn" Content="Button" Margin="10,31,10,0" 
+							<Button x:Name="EnOrDisableHibernateBtn" Content="Button" Margin="10,31,10,0"
 							        VerticalAlignment="Top" RenderTransformOrigin="0.653,0.483" Click="EnOrDisableHibernateBtn_OnClick" />
 							<TextBlock x:Name="IsHibernateEnabledLbl" Margin="10,10,10,0" TextWrapping="Wrap"
 							           Text="TextBlock"
@@ -502,11 +522,11 @@
 					          RenderTransformOrigin="0.23,1.711" IsChecked="True" Style="{StaticResource DangerousCheckBox}" />
 					<Button Grid.Column="0" x:Name="DeleteConfigurationBtn" Content="Button" HorizontalAlignment="Left"
 					        Margin="10,388,0,0"
-					        VerticalAlignment="Top" Width="384" Style="{StaticResource DangerousButton}" Height="22" Click="DeleteConfigurationBtn_Click" />
-					<Button Grid.Column="0" x:Name="DeleteConfigurationBtn_Copy" Content="Button" HorizontalAlignment="Left" 
+					        VerticalAlignment="Top" Width="384" Style="{StaticResource DangerousButton}" Height="22"
+					        Click="DeleteConfigurationBtn_Click" />
+					<Button Grid.Column="0" x:Name="DeleteConfigurationBtn_Copy" Content="Button" HorizontalAlignment="Left"
 					        Margin="10,361,0,0"
-					        VerticalAlignment="Top" Width="383" Height="22" Style="{StaticResource DangerousButton}">
-					</Button>
+					        VerticalAlignment="Top" Width="383" Height="22" Style="{StaticResource DangerousButton}" />
 					<CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="201,269,0,0"
 					          VerticalAlignment="Top"
 					          RenderTransformOrigin="1,0.533" Grid.Column="2" Visibility="Hidden" />

@@ -40,9 +40,9 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void RefreshShellFolders() {
-			ShellFoldersLb.ItemsSource = ViewHiddenFoldersCb.IsChecked == true
-				? ShellFolder.AllShellFolders.Select(x => x.LocalizedName)
-				: ShellFolder.AllShellFolders.Where(x => !x.Undefined).Select(x => x.LocalizedName);
+//			ShellFoldersLb.ItemsSource = ViewHiddenFoldersCb.IsChecked == true
+//				? ShellFolder.AllShellFolders.Select(x => x.LocalizedName)
+//				: ShellFolder.AllShellFolders.Where(x => !x.Undefined).Select(x => x.LocalizedName);
 		}
 
 		private void ChangeDependentShellFoldersCb_Unchecked(object sender, RoutedEventArgs e) {
@@ -69,9 +69,9 @@ private class ApplyShellFolderLocation : ICommand {
 		
 		
 		private void ApplyShellFolderLocationBtn_Click(object sender, RoutedEventArgs e) {
-			SpecialFolders.SetSpecialFolderPath(
-				ShellFolder.GetUSF(ShellFoldersLb.SelectedItem as string), NewShellFolderPathTb.Text);
-			ShellFoldersLb_OnSelectionChanged(null, null);
+//			SpecialFolders.SetSpecialFolderPath(
+//				ShellFolder.GetUSF(ShellFoldersLb.SelectedItem as string), NewShellFolderPathTb.Text);
+//			ShellFoldersLb_OnSelectionChanged(null, null);
 		}
 
 		private void OpenCurrentShellFolderPathBtn_OnClick(object sender, RoutedEventArgs e) {
@@ -83,12 +83,12 @@ private class ApplyShellFolderLocation : ICommand {
 		}
 
 		private void ShellFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
-			CurrentShellFolderPathTb.Text = SpecialFolders.GetSpecialFolderPath(ShellFolder
-				                                .GetUSF((string) ShellFoldersLb.SelectedValue)
-				                                .WindowsIdentifier) ??
-			                                "Seems as if your PC hasn´t configured that path for whatever reason";
-			ApplyShellFolderLocationBtn.IsEnabled =
-				ShellFoldersLb.SelectedIndex != -1 && Directory.Exists(MoveObjectsRootPathTb?.Text ?? "LOL");
+//			CurrentShellFolderPathTb.Text = SpecialFolders.GetSpecialFolderPath(ShellFolder
+//				                                .GetUSF((string) ShellFoldersLb.SelectedValue)
+//				                                .WindowsIdentifier) ??
+//			                                "Seems as if your PC hasn´t configured that path for whatever reason";
+//			ApplyShellFolderLocationBtn.IsEnabled =
+//				ShellFoldersLb.SelectedIndex != -1 && Directory.Exists(MoveObjectsRootPathTb?.Text ?? "LOL");
 
 			if (AutomaticShellFolderPathCb.IsChecked == true) {
 				//NewShellFolderPathTb.Text=Session.Singleton.CurrentConfiguration.DefaultHDDPath

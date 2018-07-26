@@ -38,7 +38,6 @@ namespace StorageManagementCore.WPFGUI {
 				Wrapper.RestartProgram(true, args.ToArray());
 			}
 
-			ShellFolder.LoadUSF();
 			if (Session.Singleton.IsAdmin) {
 				Title += " (Administrator)";
 			}

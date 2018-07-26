@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -17,8 +18,7 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.Backend {
 	public partial class ShellFolder : INotifyPropertyChanged {
-		public static ShellFolder[] AllShellFolders =
-			typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToArray();
+		public static ReadOnlyCollection<ShellFolder> AllShellFolders = Array.AsReadOnly(typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToArray());
 
 		public static Dictionary<string, ShellFolder> ByName = AllShellFolders.ToDictionary(x => x.Name);
 

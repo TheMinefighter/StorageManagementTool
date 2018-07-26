@@ -175,6 +175,7 @@
     <Compile Include="Session.cs" />
     <Compile Include="WPFGUI\DataProviders\DriveInfoProvider.cs" />
     <Compile Include="WPFGUI\DataProviders\LanguageProvider.cs" />
+    <Compile Include="WPFGUI\DataProviders\ShellFolderProvider.cs" />
     <Compile Include="WPFGUI\DataProviders\SuggestionProvider.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\AboutStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -246,6 +247,8 @@
     <Compile Include="WPFGUI\ValueConverters\DriveInfoConverter.cs" />
     <Compile Include="WPFGUI\ValueConverters\NativeLanguageConverter.cs" />
     <Compile Include="WPFGUI\ValueConverters\PagefileConverter.cs" />
+    <Compile Include="WPFGUI\ValueConverters\ShellFolderConverter.cs" />
+    <Compile Include="WPFGUI\ValueConverters\ShellFolderFilterConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
