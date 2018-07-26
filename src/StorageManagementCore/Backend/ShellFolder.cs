@@ -18,12 +18,13 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.Backend {
 	public partial class ShellFolder : INotifyPropertyChanged {
+		private static string SomeRandomString = KnownShellFolders.ProgramFiles.DefaultValue;
 		public static ReadOnlyCollection<ShellFolder> AllShellFolders =
 			Array.AsReadOnly(typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToArray());
 
-		public static Dictionary<string, ShellFolder> ByName=AllShellFolders.ToDictionary(x => x.Name);
+		public static Dictionary<string, ShellFolder> ByName=typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToDictionary(x => x.Name);
 
-		public static Dictionary<Guid, ShellFolder> ByGuid= AllShellFolders.ToDictionary(x => x.WindowsIdentifier);
+		public static Dictionary<Guid, ShellFolder> ByGuid/*= AllShellFolders.ToDictionary(x => x.WindowsIdentifier)*/;
 
 		//TODO add
 		[CanBeNull] public string DefaultValue { get; }

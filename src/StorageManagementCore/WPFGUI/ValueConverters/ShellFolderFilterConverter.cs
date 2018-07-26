@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 	public class ShellFolderFilterConverter : IMultiValueConverter {
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
 #if DEBUG
+			if (targetType != typeof(IEnumerable)) {
+				throw new ArgumentException("targetType must be typeof(IEnumerable)", nameof(targetType));
+			}
 			if (values.Length != 2) {throw new ArgumentException("values must contain exactly two elements",nameof(values));}
 
 			if (values[0] is IReadOnlyCollection<ShellFolder> shellFolders) {
