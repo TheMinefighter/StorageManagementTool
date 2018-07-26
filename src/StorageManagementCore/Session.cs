@@ -40,7 +40,7 @@ namespace StorageManagementCore {
 		/// </summary>
 		public bool UnpriviligedSymlinksAvailable;
 
-		public EventHandler LanguageChanged = (a, b) => { };
+		public static EventHandler LanguageChanged = (a, b) => { };
 
 		/// <summary>
 		///  Creates a new Session

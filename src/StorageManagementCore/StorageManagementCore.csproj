@@ -93,8 +93,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend\AdvancedShellFolder.cs" />
-    <Compile Include="Backend\AllShellFolders.cs" />
+    <Compile Include="Backend\ShellFolder.cs" />
+    <Compile Include="Backend\KnownShellFolders.cs" />
     <Compile Include="Backend\FileAndFolder.cs" />
     <Compile Include="Backend\Map.cs" />
     <Compile Include="Backend\RegistryMethods.cs" />

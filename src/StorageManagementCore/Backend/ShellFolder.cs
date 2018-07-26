@@ -18,38 +18,39 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.Backend {
 	public partial class ShellFolder : INotifyPropertyChanged {
-		public static ReadOnlyCollection<ShellFolder> AllShellFolders = Array.AsReadOnly(typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToArray());
+		public static ReadOnlyCollection<ShellFolder> AllShellFolders =
+			Array.AsReadOnly(typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToArray());
 
-		public static Dictionary<string, ShellFolder> ByName = AllShellFolders.ToDictionary(x => x.Name);
+		public static Dictionary<string, ShellFolder> ByName=AllShellFolders.ToDictionary(x => x.Name);
 
-		public static Dictionary<Guid, ShellFolder> ByGuid = AllShellFolders.ToDictionary(x => x.WindowsIdentifier);
+		public static Dictionary<Guid, ShellFolder> ByGuid= AllShellFolders.ToDictionary(x => x.WindowsIdentifier);
 
 		//TODO add
-		[CanBeNull]
-		public string DefaultValue;
+		[CanBeNull] public string DefaultValue { get; }
 		public bool IsUserSpecific { get; }
 
 		//TODO Localize
 		[NotNull]
 		public string LocalizedName => Name;
+
 		[NotNull]
 		public string Name { get; }
+
 		public bool ShouldBeEdited { get; }
-		public bool Undefined { get; }
+		public bool Undefined => DefaultValue == null;
 		public Guid WindowsIdentifier { get; }
 
 		// ReSharper disable once NotNullMemberIsNotInitialized
 		// Justified by being private
 		private ShellFolder() {
-			Session.Singleton.LanguageChanged += (a, b) => OnPropertyChanged(nameof(LocalizedName));
+			Session.LanguageChanged += (a, b) => OnPropertyChanged(nameof(LocalizedName));
 		}
 
-		private ShellFolder([NotNull] string name, [NotNull] string windowsIdentifier, bool undefined, bool isUserSpecific,
+		private ShellFolder([NotNull] string name, [NotNull] string windowsIdentifier, bool isUserSpecific,
 			bool shouldBeEdited, [CanBeNull] string defaultValue) : this() {
 			IsUserSpecific = isUserSpecific;
 			Name = name;
 			ShouldBeEdited = shouldBeEdited;
-			Undefined = undefined;
 			WindowsIdentifier = new Guid(windowsIdentifier);
 			DefaultValue = defaultValue;
 		}
