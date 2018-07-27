@@ -18,16 +18,21 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.Backend {
 	public partial class ShellFolder : INotifyPropertyChanged {
-		private static string SomeRandomString = KnownShellFolders.ProgramFiles.DefaultValue;
-		public static ReadOnlyCollection<ShellFolder> AllShellFolders =
-			Array.AsReadOnly(typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToArray());
+		public static ReadOnlyCollection<ShellFolder> AllShellFolders;
+		private static Dictionary<string, ShellFolder> _byName;
 
-		public static Dictionary<string, ShellFolder> ByName=typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null)).Cast<ShellFolder>().ToDictionary(x => x.Name);
+		//Must be an on demand initialization, because C#s unchangeable object initialization order creating NullReferences otherwise 
+		public static Dictionary<string, ShellFolder> ByName => _byName ?? (_byName = AllShellFolders.ToDictionary(x => x.Name));
+		private static Dictionary<Guid, ShellFolder> _byGuid;
 
-		public static Dictionary<Guid, ShellFolder> ByGuid/*= AllShellFolders.ToDictionary(x => x.WindowsIdentifier)*/;
+		//Must be an on demand initialization, because C#s unchangeable object initialization order creating NullReferences otherwise
+		public static Dictionary<Guid, ShellFolder> ByGuid =>
+			_byGuid ?? (_byGuid = AllShellFolders.ToDictionary(x => x.WindowsIdentifier));
 
 		//TODO add
-		[CanBeNull] public string DefaultValue { get; }
+		[CanBeNull]
+		public string DefaultValue { get; }
+
 		public bool IsUserSpecific { get; }
 
 		//TODO Localize
@@ -38,6 +43,7 @@ namespace StorageManagementCore.Backend {
 		public string Name { get; }
 
 		public bool ShouldBeEdited { get; }
+		public bool Defined => DefaultValue != null;
 		public bool Undefined => DefaultValue == null;
 		public Guid WindowsIdentifier { get; }
 
@@ -54,6 +60,11 @@ namespace StorageManagementCore.Backend {
 			ShouldBeEdited = shouldBeEdited;
 			WindowsIdentifier = new Guid(windowsIdentifier);
 			DefaultValue = defaultValue;
+		}
+
+		static ShellFolder() {
+			AllShellFolders = Array.AsReadOnly(typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null))
+				.Cast<ShellFolder>().ToArray());
 		}
 
 		public static ShellFolder GetUSF(Guid windowsIdentifier) {

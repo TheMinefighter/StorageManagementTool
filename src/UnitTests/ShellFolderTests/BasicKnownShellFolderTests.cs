@@ -21,14 +21,10 @@ namespace UnitTests.ShellFolderTests {
 		[Fact]
 		private void ShellFolderNames() {
 			foreach (FieldInfo fieldInfo in fields) {
-				object value= fieldInfo.GetValue(null);
+				object value = fieldInfo.GetValue(null);
 				StorageManagementCore.Backend.ShellFolder shellFolder = (StorageManagementCore.Backend.ShellFolder) value;
-				Assert.Equal(fieldInfo.Name,shellFolder.Name);
+				Assert.Equal(fieldInfo.Name, shellFolder.Name);
 			}
-		}
-		[Fact]
-		private void ShellfolderList() {
-			Assert.Equal(fields.Select(x => x.GetValue(null)).Cast<StorageManagementCore.Backend.ShellFolder>(), StorageManagementCore.Backend.ShellFolder.AllShellFolders);
 		}
 	}
 }
