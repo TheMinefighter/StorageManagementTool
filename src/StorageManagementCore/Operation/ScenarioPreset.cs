@@ -63,7 +63,7 @@ namespace StorageManagementCore.Operation {
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
 			foreach (KeyValuePair<ShellFolder, string> currentPair in usfToMove) {
 				ShellFolder moving = currentPair.Key;
-				ShellFolder.ChangeShellFolderChecked(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+				OperatingMethods.ChangeShellFolderChecked(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}
@@ -75,7 +75,7 @@ namespace StorageManagementCore.Operation {
 			DirectoryInfo commonDir = baseDir.CreateSubdirectory("Common Data");
 			foreach (KeyValuePair<ShellFolder, string> currentPair in csfToMove) {
 				ShellFolder moving = currentPair.Key;
-				ShellFolder.ChangeShellFolderChecked(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
+				OperatingMethods.ChangeShellFolderChecked(moving.GetPath(), commonDir.CreateSubdirectory(currentPair.Value),
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}
@@ -114,7 +114,7 @@ namespace StorageManagementCore.Operation {
 			DirectoryInfo userDir = baseDir.CreateSubdirectory(Environment.UserName);
 			foreach (KeyValuePair<ShellFolder, string> currentPair in usfToMove) {
 				ShellFolder moving = currentPair.Key;
-				ShellFolder.ChangeShellFolderChecked(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
+				OperatingMethods.ChangeShellFolderChecked(moving.GetPath(), userDir.CreateSubdirectory(currentPair.Value),
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}

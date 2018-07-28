@@ -7,9 +7,11 @@ using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsString
 namespace StorageManagementCore.WPFGUI.ValueConverters {
 	public class NativeLanguageConverter : IValueConverter {
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+#if DEBUG
 			if (targetType != typeof(string)) {
 				throw new ArgumentException("targetType must be typeof(string)", nameof(targetType));
 			}
+#endif
 			switch (value) {
 				case CultureInfo cultureInfo:
 					return cultureInfo.NativeName;
@@ -22,19 +24,21 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+#if DEBUG
 			if (targetType != typeof(object)) {
 				throw new ArgumentException("targetType must be typeof(object)", nameof(targetType));
 			}
-			if (value is string toConvert) {
-				if (toConvert == SystemLanguageText) {
-					return DBNull.Value;
-				}
-				else {
-					return CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.NativeName == toConvert);
-				}
+			if (!(value is string)) {
+				throw new ArgumentException("value must be  a string", nameof(value));
+			}
+#endif
+			string toConvert = (string) value;
+
+			if (toConvert == SystemLanguageText) {
+				return DBNull.Value;
 			}
 			else {
-				throw new ArgumentException("value must be  a string", nameof(value));
+				return CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.NativeName == toConvert);
 			}
 		}
 	}

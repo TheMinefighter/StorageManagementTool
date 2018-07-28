@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ExtendedMessageBoxLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using StorageManagementCore.Backend;
@@ -289,6 +290,134 @@ namespace StorageManagementCore.Operation {
 			foreach (DriveInfo item in (IEnumerable<DriveInfo>) FileSystem.Drives) {
 				toFill.Items.Add(GetDriveInfoDescription(item));
 			}
+		}
+
+		/// <summary>
+		///  Moves an User ShellFolder to a new Location
+		/// </summary>
+		/// <param name="oldDir">The old Directory of</param>
+		/// <param name="newDir">The new Directory of the new </param>
+		/// <param name="toChange">The UserShellFolder to edit</param>
+		/// <param name="copyContents"></param>
+		/// <param name="deleteOldContents"></param>
+		/// <returns>Whether the Operation were successful</returns>
+		public static bool ChangeShellFolderChecked(DirectoryInfo oldDir, DirectoryInfo newDir, ShellFolder toChange,
+			OperatingMethods.QuestionAnswer copyContents = OperatingMethods.QuestionAnswer.Ask,
+			OperatingMethods.QuestionAnswer deleteOldContents = OperatingMethods.QuestionAnswer.Ask) {
+			if (!newDir.Exists) {
+				newDir.Create();
+			}
+
+			DirectoryInfo currentPath = toChange.GetPath();
+			Dictionary<ShellFolder, DirectoryInfo> childs = ShellFolder.AllShellFolders
+				.Select(x => new KeyValuePair<ShellFolder, DirectoryInfo>(x, x.GetPath()))
+				.Where(x => Wrapper.IsSubfolder(x.Value, currentPath)).ToDictionary();
+			bool moveAll = false;
+
+			foreach (KeyValuePair<ShellFolder, DirectoryInfo> child in childs) {
+				//Add strings
+				bool move = false;
+				if (!moveAll) {
+					//No;Yes;YesAll
+					ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
+						String.Format(OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_Text,
+							child.Key.LocalizedName),
+						OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_Title,
+						childs.Count == 1
+							? new[] {
+								OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_Yes,
+								OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_No
+							}
+							: new[] {
+								OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_YesAll,
+								OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_Yes,
+								OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_No
+							}, 0));
+					if (result.NumberOfClickedButton == 2) {
+						moveAll = true;
+					}
+					else {
+						move = result.NumberOfClickedButton == 1;
+					}
+				}
+
+				if (moveAll || move) {
+					string newPathOfChild = Path.Combine(newDir.FullName,
+						child.Value.FullName.Substring(currentPath.FullName.Length));
+					bool retry;
+					bool skip = false;
+					do {
+						retry = false;
+						if (child.Key.SetPath(new DirectoryInfo(newPathOfChild))) {
+							switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
+								String.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Text,
+									child.Key.LocalizedName, toChange.LocalizedName, newPathOfChild), OperatingMethodsStrings.Error,
+								new[] {
+									OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Retry,
+									String.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Skip,
+										child.Key.LocalizedName),
+									OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
+									OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Abort
+								}, 0)).NumberOfClickedButton) {
+								case 0:
+									retry = true;
+									break;
+								case 1:
+									skip = true;
+									break;
+								case 2: break;
+								case 3: return false;
+							}
+						}
+					} while (retry);
+
+					if (skip) {
+						break;
+					}
+				}
+			}
+
+			if (toChange.SetPath(newDir)) {
+				if (newDir.Exists && oldDir.Exists &&
+				    (copyContents == OperatingMethods.QuestionAnswer.Yes ||
+				     copyContents == OperatingMethods.QuestionAnswer.Ask &&
+				     MessageBox.Show(
+					     OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Text,
+					     OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo,
+					     MessageBoxIcon.Asterisk,
+					     MessageBoxDefaultButton.Button1) ==
+				     DialogResult.Yes)) {
+					if (!oldDir.Exists || oldDir.GetFileSystemInfos().Length == 0 ||
+					    FileAndFolder.MoveDirectory(oldDir, newDir)) {
+						string defaultDirectory = toChange.DefaultValue;
+						if (defaultDirectory == null) {
+							MessageBox.Show(UserShellFolderStrings.Error);
+							return false;
+						}
+
+						DirectoryInfo defaultDirectoryInfo =
+							new DirectoryInfo(Environment.ExpandEnvironmentVariables(defaultDirectory));
+						if (defaultDirectoryInfo.FullName != oldDir.FullName) {
+							if (defaultDirectoryInfo.Exists) {
+								FileAndFolder.DeleteDirectory(defaultDirectoryInfo, true, false);
+							}
+
+							Wrapper.ExecuteCommand($"mklink /D \"{defaultDirectoryInfo.FullName}\\\" \"{newDir.FullName}\"",
+								true, true);
+						}
+
+						if (oldDir.Exists) {
+							FileAndFolder.DeleteDirectory(oldDir, true, false);
+						}
+
+						Wrapper.ExecuteCommand($"mklink /D \"{oldDir.FullName}\\\" \"{newDir.FullName}\"", true, true);
+					}
+				}
+
+				return true;
+			}
+
+			return false;
 		}
 	}
 }
