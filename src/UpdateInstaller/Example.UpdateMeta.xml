@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UpdateMeta NewVersion="NewVersion(ShouldBeEquivalentToGitReleaseTag)">
+	<UpdateMeta.Content>
+		<UpdateFile Name="FileNameInUpdatePackage(SubfoldersSeparatedWithBackslashes).txt" MD5="TheMD5HashOfTheFile" Target="InstalledFileName(SubfoldersSeparatedWithBackslashes).txt"/>
+	</UpdateMeta.Content>
+</UpdateMeta>
