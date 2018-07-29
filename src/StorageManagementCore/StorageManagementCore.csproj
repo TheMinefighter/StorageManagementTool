@@ -443,6 +443,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="StorageManagementCLI.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="docs\acknowledgements.md" />
     <Content Include="docs\assets\css\fonts.scss" />
     <Content Include="docs\assets\images\bullet.png" />
