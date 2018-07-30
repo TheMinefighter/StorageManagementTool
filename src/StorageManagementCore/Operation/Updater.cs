@@ -17,6 +17,11 @@ namespace StorageManagementCore.Operation {
 	/// Provides functionality for automatic tests
 	/// </summary>
 	public static class Updater {
+		private const string RepositoryName = "StorageManagementTool";
+		private const string OwnerName = "TheMinefighter";
+		private const string CrawlerName = "StorageManagementToolUpdateCrawler";
+		private const string UpdatePackageName = "UpdatePackage.zip";
+
 		public static async Task<Exception> Update(bool usePrereleases) {
 			(IReadOnlyList<Release> releases, Exception releaseException) = await GetReleasesData();
 			if (releaseException != null) {
@@ -29,15 +34,15 @@ namespace StorageManagementCore.Operation {
 			}
 
 			return await DownloadUpdatePackageAsync(
-				toUpdate.Assets.First(x => x.State == "uploaded" && x.Name == "UpdatePackage.zip"),
+				toUpdate.Assets.First(x => x.State == "uploaded" && x.Name == UpdatePackageName),
 				new FileInfo(Process.GetCurrentProcess().MainModule.FileName).Directory.CreateSubdirectory("UpdateData").FullName);
 		}
 
-		public static async Task<(IReadOnlyList<Release>, Exception)> GetReleasesData() {
+		internal static async Task<(IReadOnlyList<Release>, Exception)> GetReleasesData() {
 			IReadOnlyList<Release> releases;
 			try {
-				releases = await new GitHubClient(new ProductHeaderValue("StorageManagementToolUpdateCrawler")).Repository.Release
-					.GetAll("TheMinefighter", "StorageManagementTool");
+				releases = await new GitHubClient(new ProductHeaderValue(CrawlerName,Program.VersionTag)).Repository.Release
+					.GetAll(OwnerName, RepositoryName);
 			}
 			catch (Exception e) {
 				return (null, e);
@@ -53,10 +58,10 @@ namespace StorageManagementCore.Operation {
 		/// <param name="usePrereleases">Whether to use Prereleases</param>
 		/// <returns>The <see cref="Release"/> to update to, <see langword="null"/> if no UpdatePackage is available </returns>
 		[CanBeNull]
-		private static Release ReleaseToUpdate([NotNull] [ItemNotNull] IEnumerable<Release> releases, bool usePrereleases) {
+		internal static Release ReleaseToUpdate([NotNull] [ItemNotNull] IEnumerable<Release> releases, bool usePrereleases) {
 			//Tried to do signature checking, but API does not support that
 			Release ret = releases.First(x => !x.Draft && usePrereleases || !x.Prerelease);
-			if (ret.Assets.Any(x => x.State == "uploaded" && x.Name == "UpdatePackage.zip") && ret.TagName != Program.VersionTag) {
+			if (ret.Assets.Any(x => x.State == "uploaded" && x.Name == UpdatePackageName) && ret.TagName != Program.VersionTag) {
 				return ret;
 			}
 			else {
@@ -70,7 +75,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="archive"> The <see cref="ZipArchive"/> to extract</param>
 		/// <param name="path"> The path to extract the archive to</param>
 		/// <returns></returns>
-		public static async Task<Exception> ExtractArchiveAsync(ZipArchive archive, string path) {
+		internal static async Task<Exception> ExtractArchiveAsync(ZipArchive archive, string path) {
 			foreach (ZipArchiveEntry entry in archive.Entries) {
 				string destinationPath = Path.GetFullPath(Path.Combine(path, entry.FullName));
 				if (destinationPath.StartsWith(path, StringComparison.Ordinal)) {
@@ -96,7 +101,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="source"> the <see cref="ReleaseAsset"/> of the Update package</param>
 		/// <param name="unZipPath">Where to unzip the update package to</param>
 		/// <returns><see langword="null"/> for success, otherwise the appropriate exception</returns>
-		public static async Task<Exception> DownloadUpdatePackageAsync(ReleaseAsset source, string unZipPath) {
+		internal static async Task<Exception> DownloadUpdatePackageAsync(ReleaseAsset source, string unZipPath) {
 			HttpClient downloadClient = new HttpClient();
 
 			Stream zipStream = null;
