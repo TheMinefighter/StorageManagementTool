@@ -16,6 +16,7 @@ namespace StorageManagementCore {
 	///  Main class of this Program
 	/// </summary>
 	public static class Program {
+		public const string VersionTag = "1.1-b-1.1";
 		public static readonly CultureInfo[][] AvailableSpecificCultures =
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 

@@ -60,9 +60,11 @@ namespace UpdateInstaller {
 			Console.WriteLine("Installing Update...");
 			try {
 				foreach (XElement updateFile in updateFiles) {
+					string target = updateFile.Attribute(UpdateFileTarget).Value;
+					new FileInfo(Path.Combine(Environment.CurrentDirectory, target)).Directory.Create();
 					File.Copy(
 						Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, updateFile.Attribute(UpdateFileName).Value),
-						Path.Combine(Environment.CurrentDirectory, updateFile.Attribute(UpdateFileTarget).Value));
+						Path.Combine(Environment.CurrentDirectory, target));
 				}
 			}
 			catch (Exception e) {
