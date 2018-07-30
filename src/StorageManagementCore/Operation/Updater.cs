@@ -13,32 +13,31 @@ using Octokit;
 using FileMode = System.IO.FileMode;
 
 namespace StorageManagementCore.Operation {
-	public class Updater {
-		private const string VersionTag = "1.1-b-2";
-		private HttpClient _downloadClient;
-		private readonly GitHubClient _client = new GitHubClient(new ProductHeaderValue("StorageManagementToolUpdateCrawler"));
-		private const string GitReleaseUrl = "https://api.github.com/repos/TheMinefighter/StorageManagementTool/releases";
-
-		public static async Task<Exception> Update(bool acceptPrereleases) {
-			Updater u = new Updater();
-			(IReadOnlyList<Release> releases, Exception releaseException) = await u.GetReleasesData();
+	/// <summary>
+	/// Provides functionality for automatic tests
+	/// </summary>
+	public static class Updater {
+		public static async Task<Exception> Update(bool usePrereleases) {
+			(IReadOnlyList<Release> releases, Exception releaseException) = await GetReleasesData();
 			if (releaseException != null) {
 				return releaseException;
 			}
 
-			Release toUpdate = ReleaseToUpdate(releases, acceptPrereleases);
+			Release toUpdate = ReleaseToUpdate(releases, usePrereleases);
 			if (toUpdate == null) {
 				return new Exception("No new version found.");
 			}
 
-			return await u.DownloadUpdatePackageAsync(toUpdate.Assets.First(x => x.State == "uploaded" && x.Name == "UpdatePackage.zip"),
-				new FileInfo(Process.GetCurrentProcess().MainModule.FileName).Directory.FullName);
+			return await DownloadUpdatePackageAsync(
+				toUpdate.Assets.First(x => x.State == "uploaded" && x.Name == "UpdatePackage.zip"),
+				new FileInfo(Process.GetCurrentProcess().MainModule.FileName).Directory.CreateSubdirectory("UpdateData").FullName);
 		}
 
-		public async Task<(IReadOnlyList<Release>, Exception)> GetReleasesData() {
+		public static async Task<(IReadOnlyList<Release>, Exception)> GetReleasesData() {
 			IReadOnlyList<Release> releases;
 			try {
-				releases = await _client.Repository.Release.GetAll("TheMinefighter", "StorageManagementTool");
+				releases = await new GitHubClient(new ProductHeaderValue("StorageManagementToolUpdateCrawler")).Repository.Release
+					.GetAll("TheMinefighter", "StorageManagementTool");
 			}
 			catch (Exception e) {
 				return (null, e);
@@ -47,10 +46,16 @@ namespace StorageManagementCore.Operation {
 			return (releases, null);
 		}
 
+		/// <summary>
+		/// Gets the release to update to
+		/// </summary>
+		/// <param name="releases">The <see cref="Release"/>s available</param>
+		/// <param name="usePrereleases">Whether to use Prereleases</param>
+		/// <returns>The <see cref="Release"/> to update to, <see langword="null"/> if no UpdatePackage is available </returns>
 		[CanBeNull]
-		private static Release ReleaseToUpdate([NotNull] [ItemNotNull] IEnumerable<Release> releases, bool acceptPrerelease) {
+		private static Release ReleaseToUpdate([NotNull] [ItemNotNull] IEnumerable<Release> releases, bool usePrereleases) {
 			//Tried to do signature checking, but API does not support that
-			Release ret = releases.First(x => !x.Draft && acceptPrerelease || !x.Prerelease);
+			Release ret = releases.First(x => !x.Draft && usePrereleases || !x.Prerelease);
 			if (ret.Assets.Any(x => x.State == "uploaded" && x.Name == "UpdatePackage.zip") && ret.TagName != Program.VersionTag) {
 				return ret;
 			}
@@ -59,6 +64,12 @@ namespace StorageManagementCore.Operation {
 			}
 		}
 
+		/// <summary>
+		/// Extracts an <see cref="ZipArchive"/> to a specified path
+		/// </summary>
+		/// <param name="archive"> The <see cref="ZipArchive"/> to extract</param>
+		/// <param name="path"> The path to extract the archive to</param>
+		/// <returns></returns>
 		public static async Task<Exception> ExtractArchiveAsync(ZipArchive archive, string path) {
 			foreach (ZipArchiveEntry entry in archive.Entries) {
 				string destinationPath = Path.GetFullPath(Path.Combine(path, entry.FullName));
@@ -79,14 +90,18 @@ namespace StorageManagementCore.Operation {
 			return null;
 		}
 
-		public async Task<Exception> DownloadUpdatePackageAsync(ReleaseAsset source, string unZipPath) {
-			if (_downloadClient == null) {
-				_downloadClient = new HttpClient();
-			}
+		/// <summary>
+		/// Downloads an (zipped) update package, in extracted form, to the path defined
+		/// </summary>
+		/// <param name="source"> the <see cref="ReleaseAsset"/> of the Update package</param>
+		/// <param name="unZipPath">Where to unzip the update package to</param>
+		/// <returns><see langword="null"/> for success, otherwise the appropriate exception</returns>
+		public static async Task<Exception> DownloadUpdatePackageAsync(ReleaseAsset source, string unZipPath) {
+			HttpClient downloadClient = new HttpClient();
 
 			Stream zipStream = null;
 			try {
-				zipStream = await _downloadClient.GetStreamAsync(source.BrowserDownloadUrl);
+				zipStream = await downloadClient.GetStreamAsync(source.BrowserDownloadUrl);
 			}
 			catch (Exception e) {
 				zipStream?.Dispose();
