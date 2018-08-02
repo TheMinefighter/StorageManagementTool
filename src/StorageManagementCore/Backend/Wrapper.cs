@@ -221,15 +221,11 @@ namespace StorageManagementCore.Backend {
 		/// <returns>Whether the operation were successful</returns>
 		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
 			bool waitforexit = true,
-			bool debug = false, bool readReturnData = false, bool asUser = false) => ExecuteExecuteable(
-				                                                                         Path.Combine(
-					                                                                         Environment.GetFolderPath(Environment
-						                                                                         .SpecialFolder.System), @"cmd.exe"),
-				                                                                         (debug ? "/K " : "/C ") + cmd,
-				                                                                         out returnData, out int tmp, out int _,
-				                                                                         readReturnData, waitforexit,
-				                                                                         hidden, admin,
-				                                                                         asUser) && tmp == 0;
+			bool debug = false, bool readReturnData = false, bool asUser = false) =>
+			ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
+				(debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden, admin,
+				asUser)
+			&& tmp == 0;
 
 		#region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
 
@@ -399,8 +395,6 @@ namespace StorageManagementCore.Backend {
 
 //TODO to real emitter
 
-		#region From https://stackoverflow.com/a/26473940/6730162 access on 30.9.2017
 
-		#endregion
 	}
 }

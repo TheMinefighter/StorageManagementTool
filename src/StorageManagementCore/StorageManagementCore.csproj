@@ -125,6 +125,8 @@
     <Compile Include="Configuration\AllPagefilesConfiguration.cs" />
     <Compile Include="Configuration\ShellFolderConfiguration.cs" />
     <Compile Include="Configuration\SwapfileSysConfiguration.cs" />
+    <Compile Include="Configuration\UpdateConfiguration.cs" />
+    <Compile Include="Configuration\UpdateMode.cs" />
     <Compile Include="GlobalizationRessources\EnterCredentialsStrings.Designer.cs">
       <DependentUpon>EnterCredentialsStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>

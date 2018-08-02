@@ -131,6 +131,7 @@ namespace StorageManagementCore.Backend {
 
 			return true;
 		}
+		#region From https://stackoverflow.com/a/26473940/6730162 access on 30.9.2017
 
 		/// <summary>
 		///  Tests whether a File is a symlink
@@ -141,6 +142,8 @@ namespace StorageManagementCore.Backend {
 			FileInfo pathInfo = new FileInfo(path);
 			return pathInfo.Attributes.HasFlag(FileAttributes.ReparsePoint);
 		}
+
+		#endregion
 
 		/// <summary>
 		///  Copies a file

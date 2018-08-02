@@ -2,5 +2,9 @@
 <UpdateMeta NewVersion="NewVersion(ShouldBeEquivalentToGitReleaseTag)">
 	<UpdateMeta.Content>
 		<UpdateFile Name="FileNameInUpdatePackage(SubfoldersSeparatedWithBackslashes).txt" MD5="TheMD5HashOfTheFile" Target="InstalledFileName(SubfoldersSeparatedWithBackslashes).txt"/>
+		<!-- Target and Name tag are zip slip proof, because Path.Combine does not support upwards relative paths:
+		 	> Path.Combine("C:\\TestDir","..\\TestFile.txt")
+			"C:\\TestDir\\..\\TestFile.txt"
+		-->
 	</UpdateMeta.Content>
 </UpdateMeta>
