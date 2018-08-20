@@ -50,14 +50,6 @@
       <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -363,6 +355,10 @@
     <ProjectReference Include="..\ExtendedMessageBoxLibrary\ExtendedMessageBoxLibrary.csproj">
       <Project>{a421800c-1bcb-41c3-8172-8d7c3583649c}</Project>
       <Name>ExtendedMessageBoxLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TranslationExtension\TranslationExtension.csproj">
+      <Project>{d52e1985-6a97-45e6-92bf-202350a9b007}</Project>
+      <Name>TranslationExtension</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalCommandlineInterface\UniversalCommandlineInterface.csproj">
       <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>

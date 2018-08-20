@@ -1,1 +1,16 @@
+social:
+  name: Tobias Brohl
+  links:
+  - https://twitter.com/Tobias_Brohl
+  - https://github.com/TheMinefighter
+  - https://stackoverflow.com/users/6730162
+site.twitter.username: Tobias_Brohl
+twitter:
+  username: Tobias_Brohl
+  card: summary
 theme: jekyll-theme-leap-day
+site.show_downloads: true
+author: Tobias Brohl
+site.owner_url: https://theminefighter.github.io/
+plugins:
+- jekyll-seo-tag

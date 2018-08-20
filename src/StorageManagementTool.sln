@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateInstaller", "UpdateInstaller\UpdateInstaller.csproj", "{9A0595E6-5FAF-48C1-95FB-F3EEF3344EDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationExtension", "TranslationExtension\TranslationExtension.csproj", "{D52E1985-6A97-45E6-92BF-202350A9B007}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,12 +55,16 @@ Global
 		{9A0595E6-5FAF-48C1-95FB-F3EEF3344EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A0595E6-5FAF-48C1-95FB-F3EEF3344EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A0595E6-5FAF-48C1-95FB-F3EEF3344EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D52E1985-6A97-45E6-92BF-202350A9B007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D52E1985-6A97-45E6-92BF-202350A9B007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D52E1985-6A97-45E6-92BF-202350A9B007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D52E1985-6A97-45E6-92BF-202350A9B007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {098D377C-469B-4B84-959E-4374AD489155}
 		RESX_SaveFilesImmediatelyUponChange = True
+		SolutionGuid = {098D377C-469B-4B84-959E-4374AD489155}
 	EndGlobalSection
 EndGlobal
