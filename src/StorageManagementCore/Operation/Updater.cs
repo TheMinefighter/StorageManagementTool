@@ -4,9 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Octokit;
@@ -14,7 +12,7 @@ using FileMode = System.IO.FileMode;
 
 namespace StorageManagementCore.Operation {
 	/// <summary>
-	/// Provides functionality for automatic tests
+	///  Provides functionality for automatic tests
 	/// </summary>
 	public static class Updater {
 		private const string RepositoryName = "StorageManagementTool";
@@ -41,7 +39,7 @@ namespace StorageManagementCore.Operation {
 		internal static async Task<(IReadOnlyList<Release>, Exception)> GetReleasesData() {
 			IReadOnlyList<Release> releases;
 			try {
-				releases = await new GitHubClient(new ProductHeaderValue(CrawlerName,Program.VersionTag)).Repository.Release
+				releases = await new GitHubClient(new ProductHeaderValue(CrawlerName, Program.VersionTag)).Repository.Release
 					.GetAll(OwnerName, RepositoryName);
 			}
 			catch (Exception e) {
@@ -52,11 +50,11 @@ namespace StorageManagementCore.Operation {
 		}
 
 		/// <summary>
-		/// Gets the release to update to
+		///  Gets the release to update to
 		/// </summary>
-		/// <param name="releases">The <see cref="Release"/>s available</param>
+		/// <param name="releases">The <see cref="Release" />s available</param>
 		/// <param name="usePrereleases">Whether to use Prereleases</param>
-		/// <returns>The <see cref="Release"/> to update to, <see langword="null"/> if no UpdatePackage is available </returns>
+		/// <returns>The <see cref="Release" /> to update to, <see langword="null" /> if no UpdatePackage is available </returns>
 		[CanBeNull]
 		internal static Release ReleaseToUpdate([NotNull] [ItemNotNull] IEnumerable<Release> releases, bool usePrereleases) {
 			//Tried to do signature checking, but API does not support that
@@ -70,9 +68,9 @@ namespace StorageManagementCore.Operation {
 		}
 
 		/// <summary>
-		/// Extracts an <see cref="ZipArchive"/> to a specified path
+		///  Extracts an <see cref="ZipArchive" /> to a specified path
 		/// </summary>
-		/// <param name="archive"> The <see cref="ZipArchive"/> to extract</param>
+		/// <param name="archive"> The <see cref="ZipArchive" /> to extract</param>
 		/// <param name="path"> The path to extract the archive to</param>
 		/// <returns></returns>
 		internal static async Task<Exception> ExtractArchiveAsync(ZipArchive archive, string path) {
@@ -96,11 +94,11 @@ namespace StorageManagementCore.Operation {
 		}
 
 		/// <summary>
-		/// Downloads an (zipped) update package, in extracted form, to the path defined
+		///  Downloads an (zipped) update package, in extracted form, to the path defined
 		/// </summary>
-		/// <param name="source"> the <see cref="ReleaseAsset"/> of the Update package</param>
+		/// <param name="source"> the <see cref="ReleaseAsset" /> of the Update package</param>
 		/// <param name="unZipPath">Where to unzip the update package to</param>
-		/// <returns><see langword="null"/> for success, otherwise the appropriate exception</returns>
+		/// <returns><see langword="null" /> for success, otherwise the appropriate exception</returns>
 		internal static async Task<Exception> DownloadUpdatePackageAsync(ReleaseAsset source, string unZipPath) {
 			HttpClient downloadClient = new HttpClient();
 

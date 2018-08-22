@@ -67,7 +67,7 @@ namespace StorageManagementCore.Operation {
 					moving,
 					OperatingMethods.QuestionAnswer.Yes, OperatingMethods.QuestionAnswer.Yes);
 			}
-			
+
 			Dictionary<ShellFolder, string> csfToMove = new Dictionary<ShellFolder, string> {
 				{ShellFolder.KnownShellFolders.ProgramFilesX86, "Program Files (x86)"},
 				{ShellFolder.KnownShellFolders.PublicDesktop, "Common Desktop"}

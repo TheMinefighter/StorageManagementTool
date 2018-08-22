@@ -10,13 +10,12 @@ namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
 		//public PagefileSysConfiguration ProposedPagefileConfiguration { get; set; } = new PagefileSysConfiguration();
 
-		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e)
-		{
+		private void PagefilesTi_OnLoaded(object sender, RoutedEventArgs e) {
 			EnOrDisableHibernateBtn.Content =
 				File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMDRIVE%\\hibfil.sys"))
 					? DisableHibernate_btn_Text
 					: Enablehibernate_btn_Text;
-            PagefilesTi.Header = PagefilesTiText;
+			PagefilesTi.Header = PagefilesTiText;
 			//DriveForNewPageFileCmb.ItemsSource = Wrapper.GetDrives().Select(OperatingMethods.GetDriveInfoDescription);
 			LocalizePagefiles();
 			//TODO Cleanup resources

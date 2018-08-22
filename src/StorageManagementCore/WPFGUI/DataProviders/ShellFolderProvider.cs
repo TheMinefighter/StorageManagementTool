@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using StorageManagementCore.Backend;
 
 namespace StorageManagementCore.WPFGUI.DataProviders {
-	public class ShellFolderProvider :INotifyPropertyChanged {
+	public class ShellFolderProvider : INotifyPropertyChanged {
 		public ReadOnlyCollection<ShellFolder> KnownShellFolders => ShellFolder.AllShellFolders;
 		public event PropertyChangedEventHandler PropertyChanged;
 

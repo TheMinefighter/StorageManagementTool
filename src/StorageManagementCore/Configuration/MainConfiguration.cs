@@ -8,12 +8,12 @@ namespace StorageManagementCore.Configuration {
 	/// </summary>
 	public class MainConfiguration {
 		/// <summary>
-		/// The settings for all pagefiles
+		///  The settings for all pagefiles
 		/// </summary>
 		public AllPagefilesConfiguration AllPagefilesSettings;
 
 		/// <summary>
-		/// Whether to ask for credentials on GUI startup
+		///  Whether to ask for credentials on GUI startup
 		/// </summary>
 		public bool CredentialsOnStartup;
 
@@ -23,11 +23,11 @@ namespace StorageManagementCore.Configuration {
 		public string DefaultHDDPath;
 
 		/// <summary>
-		/// Whether to completely disable unprivileged symlink creation 
+		///  Whether to completely disable unprivileged symlink creation
 		/// </summary>
 		/// <remarks>
-		/// This setting should be used when there are compatibility issues with unprivileged symlinks,
-		/// which existence is completely denied in the official documentation, lol
+		///  This setting should be used when there are compatibility issues with unprivileged symlinks,
+		///  which existence is completely denied in the official documentation, lol
 		/// </remarks>
 		public bool DisableUnprivilgedLinkCreation;
 
@@ -43,7 +43,6 @@ namespace StorageManagementCore.Configuration {
 
 
 		/// <summary>
-		/// 
 		/// </summary>
 		/// <remarks> Not used yet, might be removed in future </remarks>
 		public Dictionary<Guid, string> ShellFolderSettings;

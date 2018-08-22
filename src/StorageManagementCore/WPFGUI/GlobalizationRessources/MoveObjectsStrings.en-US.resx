@@ -225,7 +225,7 @@
   <data name="MoveObjectsBtnText" xml:space="preserve">
     <value>Move Objects</value>
   </data>
-  <data name="MoveFileOrFolderTiText" xml:space="preserve">
+  <data name="MoveFileOrFolderTiHeader" xml:space="preserve">
     <value>Move files and folders</value>
   </data>
 </root>

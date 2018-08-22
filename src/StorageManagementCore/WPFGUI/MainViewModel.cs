@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
 
@@ -15,6 +12,7 @@ namespace StorageManagementCore.WPFGUI {
 		private PagefileSysConfiguration _proposedPagefileConfiguration;
 		private MonitoredFolder _selectedMonitoredFolder;
 		private Pagefile _selectedPagefile;
+
 		public Pagefile SelectedPagefile {
 			get => _selectedPagefile;
 			set {
@@ -60,8 +58,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		[NotifyPropertyChangedInvocator]
-		protected virtual void OnPropertyChanged([CallerMemberName]
-			string propertyName = null) {
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}

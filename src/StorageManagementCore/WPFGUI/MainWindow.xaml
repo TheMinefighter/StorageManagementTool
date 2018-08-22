@@ -9,6 +9,8 @@
         xmlns:converter="clr-namespace:StorageManagementCore.WPFGUI.ValueConverters"
         xmlns:t="clr-namespace:TranslationExtension;assembly=TranslationExtension"
         xmlns:dataProviders="clr-namespace:StorageManagementCore.WPFGUI.DataProviders"
+        xmlns:globalization="clr-namespace:StorageManagementCore.WPFGUI.GlobalizationRessources"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Height="489" Width="800" mc:Ignorable="d"
         Title="StorageManagementTool" VerticalContentAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
@@ -53,9 +55,10 @@
 	</Window.Resources>
 	<Grid x:Name="RootGrid" RenderTransformOrigin="0.5,0.5" DataContext="{StaticResource ViewModel}">
 		<TabControl x:Name="BaseTc" Height="auto" Width="auto" RenderTransformOrigin="0.5,0.5"
-		            VerticalContentAlignment="Top"
+		            VerticalContentAlignment="Top" t:Settings.ResourceFile="{x:Type globalization:MoveObjectsStrings}"
 		            HorizontalContentAlignment="Left" SelectionChanged="BaseTc_SelectionChanged" Margin="0,10,0,0">
-			<TabItem t:Translation.ResourceFile="Test" x:Name="MoveFileOrFolderTi" Header="{t:Translate OverrideHypwe}" Loaded="MoveFileOrFolderTi_OnLoaded">
+			<TabItem x:Name="MoveFileOrFolderTi" Header="{t:Translate}"
+			         Loaded="MoveFileOrFolderTi_OnLoaded">
 				<Grid Background="White">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="325*" />

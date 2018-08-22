@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using StorageManagementCore.Backend;
-using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
 	/// <inheritdoc cref="Window" />
@@ -18,12 +16,12 @@ namespace StorageManagementCore.WPFGUI {
 		public MainWindow() {
 #if DEBUG
 			try {
-      		InitializeComponent();
-      	}
-      	catch (Exception e) {
-      		Console.WriteLine(e);
-      		throw;
-      	}	
+				InitializeComponent();
+			}
+			catch (Exception e) {
+				Console.WriteLine(e);
+				throw;
+			}
 #else
 			InitializeComponent();
 #endif

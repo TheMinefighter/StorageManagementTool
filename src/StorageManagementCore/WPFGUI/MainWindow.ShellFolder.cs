@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,17 +56,7 @@ namespace StorageManagementCore.WPFGUI {
 			ViewHiddenFoldersCb.IsChecked = Confirmation.Confirm();
 		}
 
-private class ApplyShellFolderLocation : ICommand {
-	public bool CanExecute(object parameter) => throw new NotImplementedException();
 
-	public void Execute(object parameter) {
-		throw new NotImplementedException();
-	}
-
-	public event EventHandler CanExecuteChanged;
-}
-		
-		
 		private void ApplyShellFolderLocationBtn_Click(object sender, RoutedEventArgs e) {
 //			SpecialFolders.SetSpecialFolderPath(
 //				ShellFolder.GetUSF(ShellFoldersLb.SelectedItem as string), NewShellFolderPathTb.Text);
@@ -112,6 +101,16 @@ private class ApplyShellFolderLocation : ICommand {
 
 		private void SelectNewShellFolderPathBtn_OnClick(object sender, RoutedEventArgs e) {
 			NewShellFolderPathTb.Text = FileAndFolder.SelectDirectory().FullName;
+		}
+
+		private class ApplyShellFolderLocation : ICommand {
+			public bool CanExecute(object parameter) => throw new NotImplementedException();
+
+			public void Execute(object parameter) {
+				throw new NotImplementedException();
+			}
+
+			public event EventHandler CanExecuteChanged;
 		}
 	}
 }

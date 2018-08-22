@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Linq;
 using StorageManagementCore.Backend;
 using Xunit;

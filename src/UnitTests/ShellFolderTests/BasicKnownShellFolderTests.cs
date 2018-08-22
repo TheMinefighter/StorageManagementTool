@@ -1,29 +1,27 @@
-using System.Linq;
 using System.Reflection;
+using StorageManagementCore.Backend;
 using Xunit;
 
 namespace UnitTests.ShellFolderTests {
 	public class BasicKnownShellFolderTests {
-		private FieldInfo[] fields;
+		public BasicKnownShellFolderTests() => fields = typeof(ShellFolder.KnownShellFolders).GetFields();
 
-		public BasicKnownShellFolderTests() {
-			fields = typeof(StorageManagementCore.Backend.ShellFolder.KnownShellFolders).GetFields();
+		private readonly FieldInfo[] fields;
+
+		[Fact]
+		private void ShellFolderNames() {
+			foreach (FieldInfo fieldInfo in fields) {
+				object value = fieldInfo.GetValue(null);
+				ShellFolder shellFolder = (ShellFolder) value;
+				Assert.Equal(fieldInfo.Name, shellFolder.Name);
+			}
 		}
 
 		[Fact]
 		private void ShellFolderTypes() {
 			foreach (FieldInfo fieldInfo in fields) {
 				object value = fieldInfo.GetValue(null);
-				Assert.IsType<StorageManagementCore.Backend.ShellFolder>(value);
-			}
-		}
-
-		[Fact]
-		private void ShellFolderNames() {
-			foreach (FieldInfo fieldInfo in fields) {
-				object value = fieldInfo.GetValue(null);
-				StorageManagementCore.Backend.ShellFolder shellFolder = (StorageManagementCore.Backend.ShellFolder) value;
-				Assert.Equal(fieldInfo.Name, shellFolder.Name);
+				Assert.IsType<ShellFolder>(value);
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 ---
 title: StorageManagementTool 
-description: Informationen about the StorageManagementTool, a tool for managing the storage of your computer 
-keywords: StorageManagementTool, TheMinefighter, SSD, HDD, Storage, Symlink, Shellfolder
+description: Informationen about the StorageManagementTool, a tool for managing the storage of your computer.
 ---
 # General
 The StorageManagementTool is a tool for managing the storage of your computer with the primary focus on the HDD / SSD seperation. It is currently in **beta** has the following main features:

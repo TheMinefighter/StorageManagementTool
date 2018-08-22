@@ -19,14 +19,12 @@ namespace StorageManagementCore {
 		internal const string StartupProceedFileName = "StorageManagementProceed.lnk";
 
 		[CmdAction("Admin")]
-		public static void RestartAsAdministrator([CmdParameter("Arguments")]
-			string[] args = null) {
+		public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
 			Wrapper.RestartProgram(true, args ?? new string[] { });
 		}
 
 		[CmdAction("ContinueSwapfile")]
-		public static void ContinueSwapfile([CmdParameter("Drive")]
-			string drive,
+		public static void ContinueSwapfile([CmdParameter("Drive")] string drive,
 			[CmdParameter("Forward", CmdParameterAttribute.CmdParameterUsage.OnlyDirectAlias)]
 			[CmdParameterAlias("forward", true)]
 			[CmdParameterAlias("backward", false)]
@@ -39,14 +37,12 @@ namespace StorageManagementCore {
 
 		[CmdAction("Move")]
 		public static void Move(
-			[CmdParameter("Srcpath")]
-			string[] oldPaths,
+			[CmdParameter("Srcpath")] string[] oldPaths,
 			[CmdParameterAlias("File", FileOrFolder.File)]
 			[CmdParameterAlias("Folder", FileOrFolder.Folder)]
 			[CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
 			[CmdParameter("Type")]
-			FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")]
-			string newPath = null
+			FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")] string newPath = null
 		) {
 			if (newPath == null) {
 				newPath = Session.Singleton.Configuration.DefaultHDDPath;
@@ -95,7 +91,9 @@ namespace StorageManagementCore {
 		public abstract class SendTo {
 			[CmdAction("Set")]
 			public static void SetSendTo(
-				[CmdParameter("Enabled")] [CmdParameterAlias("Enable", true)] [CmdParameterAlias("Disable", false)]
+				[CmdParameter("Enabled")]
+				[CmdParameterAlias("Enable", true)]
+				[CmdParameterAlias("Disable", false)]
 				bool enable = true) {
 				OperatingMethods.EnableSendToHDD(enable);
 			}

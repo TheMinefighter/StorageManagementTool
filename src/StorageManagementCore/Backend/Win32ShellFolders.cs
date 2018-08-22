@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 // ReSharper disable IdentifierTypo
@@ -75,16 +76,13 @@ namespace StorageManagementCore.Backend { //All from https://stackoverflow.com/a
 
 //From https://gist.github.com/josy1024/5cca8a66bfdefb12abff1721ff44f35f
 		[DllImport("shell32.dll")]
-		public static extern int SHSetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)]
-			Guid folderId, uint flags,
+		public static extern int SHSetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)] Guid folderId, uint flags,
 			IntPtr token,
-			[MarshalAs(UnmanagedType.LPWStr)]
-			string path);
+			[MarshalAs(UnmanagedType.LPWStr)] string path);
 
 		[DllImport("shell32.dll")]
 		public static extern int SHGetKnownFolderPath(
-			[MarshalAs(UnmanagedType.LPStruct)]
-			Guid rfid,
+			[MarshalAs(UnmanagedType.LPStruct)] Guid rfid,
 			uint dwFlags,
 			IntPtr hToken,
 			out IntPtr pszPath
@@ -98,8 +96,7 @@ namespace StorageManagementCore.Backend { //All from https://stackoverflow.com/a
 		public struct SHITEMID {
 			public ushort cb;
 
-			[MarshalAs(UnmanagedType.LPArray)]
-			public byte[] abID;
+			[MarshalAs(UnmanagedType.LPArray)] public byte[] abID;
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
@@ -113,8 +110,7 @@ namespace StorageManagementCore.Backend { //All from https://stackoverflow.com/a
 			public IntPtr pidlRoot;
 			public IntPtr pszDisplayName;
 
-			[MarshalAs(UnmanagedType.LPTStr)]
-			public string lpszTitle;
+			[MarshalAs(UnmanagedType.LPTStr)] public string lpszTitle;
 
 			public uint ulFlags;
 			public IntPtr lpfn;
@@ -129,11 +125,9 @@ namespace StorageManagementCore.Backend { //All from https://stackoverflow.com/a
 			public int iIcon;
 			public uint dwAttributes;
 
-			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = SystemConsts.MAX_PATH)]
-			public string szDisplayName;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = SystemConsts.MAX_PATH)] public string szDisplayName;
 
-			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = NAMESIZE)]
-			public string szTypeName;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = NAMESIZE)] public string szTypeName;
 		}
 
 		#endregion

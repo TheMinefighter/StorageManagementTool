@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using StorageManagementCore.Backend;
 using StorageManagementCore.WPFGUI.ValueConverters;
 using Xunit;
@@ -13,7 +11,7 @@ namespace UnitTests.Converter {
 	public class ConverterTests {
 		private readonly ShellFolderFilterConverter _filter = new ShellFolderFilterConverter();
 		private readonly NativeLanguageConverter _language = new NativeLanguageConverter();
-		readonly ShellFolderLocalizedNameConverter _shellFolderConverter = new ShellFolderLocalizedNameConverter();
+		private readonly ShellFolderLocalizedNameConverter _shellFolderConverter = new ShellFolderLocalizedNameConverter();
 
 
 		[Theory]
@@ -25,6 +23,16 @@ namespace UnitTests.Converter {
 			Assert.Equal(filtered,
 				_filter.ConvertBack(resultUnfiltered, new[] {typeof(IReadOnlyCollection<ShellFolder>), typeof(bool)}, null,
 					CultureInfo.CurrentUICulture)[1]);
+		}
+
+		[Theory]
+		[InlineData(1)]
+		[InlineData(5)]
+		private void ShellFolderConversion(int index) {
+			object result = _shellFolderConverter.Convert(ShellFolder.AllShellFolders[index], typeof(string), null,
+				CultureInfo.CurrentUICulture);
+			Assert.Equal(ShellFolder.AllShellFolders[index],
+				_shellFolderConverter.ConvertBack(result, typeof(ShellFolder), null, CultureInfo.CurrentUICulture));
 		}
 
 		//Theory not possible because DBNull.Value is not constant
@@ -46,16 +54,6 @@ namespace UnitTests.Converter {
 					Assert.Equal(currentCase, _language.ConvertBack(result, typeof(object), null, CultureInfo.CurrentUICulture));
 				}
 			}
-		}
-
-		[Theory]
-		[InlineData(1)]
-		[InlineData(5)]
-		private void ShellFolderConversion(int index) {
-			object result = _shellFolderConverter.Convert(ShellFolder.AllShellFolders[index], typeof(string), null,
-				CultureInfo.CurrentUICulture);
-			Assert.Equal(ShellFolder.AllShellFolders[index],
-				_shellFolderConverter.ConvertBack(result, typeof(ShellFolder), null, CultureInfo.CurrentUICulture));
 		}
 	}
 }

@@ -4,8 +4,7 @@ using JetBrains.Annotations;
 
 namespace StorageManagementCore.Configuration {
 	public struct ConfiguredDrive : IEquatable<ConfiguredDrive> {
-		[NotNull]
-		public readonly DriveInfo LocalDrive;
+		[NotNull] public readonly DriveInfo LocalDrive;
 
 		public readonly KnownDrive Type;
 

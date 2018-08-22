@@ -302,8 +302,8 @@ namespace StorageManagementCore.Operation {
 		/// <param name="deleteOldContents"></param>
 		/// <returns>Whether the Operation were successful</returns>
 		public static bool ChangeShellFolderChecked(DirectoryInfo oldDir, DirectoryInfo newDir, ShellFolder toChange,
-			OperatingMethods.QuestionAnswer copyContents = OperatingMethods.QuestionAnswer.Ask,
-			OperatingMethods.QuestionAnswer deleteOldContents = OperatingMethods.QuestionAnswer.Ask) {
+			QuestionAnswer copyContents = QuestionAnswer.Ask,
+			QuestionAnswer deleteOldContents = QuestionAnswer.Ask) {
 			if (!newDir.Exists) {
 				newDir.Create();
 			}
@@ -320,7 +320,7 @@ namespace StorageManagementCore.Operation {
 				if (!moveAll) {
 					//No;Yes;YesAll
 					ExtendedMessageBoxResult result = ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-						String.Format(OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_Text,
+						string.Format(OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_Text,
 							child.Key.LocalizedName),
 						OperatingMethodsStrings.ChangeUserShellFolder_SubfolderFound_Title,
 						childs.Count == 1
@@ -350,11 +350,11 @@ namespace StorageManagementCore.Operation {
 						retry = false;
 						if (child.Key.SetPath(new DirectoryInfo(newPathOfChild))) {
 							switch (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-								String.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Text,
+								string.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Text,
 									child.Key.LocalizedName, toChange.LocalizedName, newPathOfChild), OperatingMethodsStrings.Error,
 								new[] {
 									OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Retry,
-									String.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Skip,
+									string.Format(OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Skip,
 										child.Key.LocalizedName),
 									OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Ignore,
 									OperatingMethodsStrings.ChangeUserShellFolder_ErrorChangeSubfolder_Abort
@@ -379,8 +379,8 @@ namespace StorageManagementCore.Operation {
 
 			if (toChange.SetPath(newDir)) {
 				if (newDir.Exists && oldDir.Exists &&
-				    (copyContents == OperatingMethods.QuestionAnswer.Yes ||
-				     copyContents == OperatingMethods.QuestionAnswer.Ask &&
+				    (copyContents == QuestionAnswer.Yes ||
+				     copyContents == QuestionAnswer.Ask &&
 				     MessageBox.Show(
 					     OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Text,
 					     OperatingMethodsStrings.ChangeUserShellFolder_MoveContent_Title, MessageBoxButtons.YesNo,

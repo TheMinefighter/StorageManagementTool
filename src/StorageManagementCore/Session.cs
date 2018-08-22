@@ -18,6 +18,8 @@ namespace StorageManagementCore {
 		/// </summary>
 		public static Session Singleton;
 
+		public static EventHandler LanguageChanged = (a, b) => { };
+
 		private readonly string ConfigurationFolder;
 
 		/// <summary>
@@ -39,8 +41,6 @@ namespace StorageManagementCore {
 		///  Whether UnprivilgedSymlinks available
 		/// </summary>
 		public bool UnpriviligedSymlinksAvailable;
-
-		public static EventHandler LanguageChanged = (a, b) => { };
 
 		/// <summary>
 		///  Creates a new Session

@@ -72,8 +72,7 @@ namespace StorageManagementCore.Configuration {
 		public override string ToString() => TargetPath;
 
 		[NotifyPropertyChangedInvocator]
-		protected virtual void OnPropertyChanged([CallerMemberName]
-			string propertyName = null) {
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}

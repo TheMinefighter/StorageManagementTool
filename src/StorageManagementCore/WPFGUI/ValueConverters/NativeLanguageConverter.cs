@@ -28,6 +28,7 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 			if (targetType != typeof(object)) {
 				throw new ArgumentException("targetType must be typeof(object)", nameof(targetType));
 			}
+
 			if (!(value is string)) {
 				throw new ArgumentException("value must be  a string", nameof(value));
 			}

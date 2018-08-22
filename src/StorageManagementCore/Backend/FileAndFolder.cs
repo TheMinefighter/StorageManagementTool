@@ -131,6 +131,7 @@ namespace StorageManagementCore.Backend {
 
 			return true;
 		}
+
 		#region From https://stackoverflow.com/a/26473940/6730162 access on 30.9.2017
 
 		/// <summary>
@@ -341,12 +342,8 @@ namespace StorageManagementCore.Backend {
 
 		[DllImport("kernel32.dll", EntryPoint = "GetFinalPathNameByHandleW", CharSet = CharSet.Unicode,
 			SetLastError = true)]
-		private static extern int GetFinalPathNameByHandle([In]
-			IntPtr hFile, [Out]
-			StringBuilder lpszFilePath,
-			[In]
-			int cchFilePath, [In]
-			int dwFlags);
+		private static extern int GetFinalPathNameByHandle([In] IntPtr hFile, [Out] StringBuilder lpszFilePath,
+			[In] int cchFilePath, [In] int dwFlags);
 
 		private const int CREATION_DISPOSITION_OPEN_EXISTING = 3;
 		private const int FILE_FLAG_BACKUP_SEMANTICS = 0x02000000;

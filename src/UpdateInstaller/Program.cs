@@ -73,10 +73,10 @@ namespace UpdateInstaller {
 				Console.Read();
 				Environment.Exit(-1);
 			}
-			
+
 			Console.WriteLine("Update installation complete, cleaning up...");
 			try {
-				Directory.Delete(Path.Combine(Environment.CurrentDirectory,UpdateDataDirectory),true);
+				Directory.Delete(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory), true);
 			}
 			catch (Exception e) {
 				Console.WriteLine("An error occurred removing the update package. Details below. Press a key to quit");
@@ -84,8 +84,9 @@ namespace UpdateInstaller {
 				Console.Read();
 				Environment.Exit(-1);
 			}
+
 			Console.WriteLine("Cleanup done, starting StorageManagementTool");
-			StringBuilder argsBuilder= new StringBuilder(255);
+			StringBuilder argsBuilder = new StringBuilder(255);
 			foreach (string s in args) {
 				argsBuilder.Append(" \"");
 				argsBuilder.Append(s);
@@ -93,7 +94,10 @@ namespace UpdateInstaller {
 			}
 
 			try {
-				new Process {StartInfo = new ProcessStartInfo(Path.Combine(Environment.CurrentDirectory,"StorageMangementCLI.bat"),argsBuilder.ToString())}.Start();
+				new Process {
+					StartInfo = new ProcessStartInfo(Path.Combine(Environment.CurrentDirectory, "StorageMangementCLI.bat"),
+						argsBuilder.ToString())
+				}.Start();
 			}
 			catch (Exception e) {
 				Console.WriteLine("An error occurred while restarting the StorageManagementTool. Details below. Press a key to quit");
@@ -101,6 +105,7 @@ namespace UpdateInstaller {
 				Console.Read();
 				Environment.Exit(-1);
 			}
+
 			Environment.Exit(0);
 		}
 
@@ -150,7 +155,6 @@ namespace UpdateInstaller {
 					else {
 						Console.WriteLine();
 						violations = true;
-						continue;
 					}
 				}
 			}

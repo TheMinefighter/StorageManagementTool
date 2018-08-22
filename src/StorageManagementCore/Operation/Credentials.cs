@@ -7,8 +7,7 @@ namespace StorageManagementCore.Operation {
 	///  Class for storing Windows Credentials
 	/// </summary>
 	public sealed class Credentials : IDisposable {
-		[Browsable(false)]
-		public SecureString Password;
+		[Browsable(false)] public SecureString Password;
 
 		public string Username;
 

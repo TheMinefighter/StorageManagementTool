@@ -10,6 +10,7 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 			if (targetType != typeof(string)) {
 				throw new ArgumentException("targetType must be typeof(string)", nameof(targetType));
 			}
+
 			if (value is DriveInfo drive) {
 				return OperatingMethods.GetDriveInfoDescription(drive);
 			}
@@ -23,6 +24,7 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 			if (targetType != typeof(DriveInfo)) {
 				throw new ArgumentException("targetType must be typeof(DriveInfo)", nameof(targetType));
 			}
+
 			if (value is string toConvert) {
 				if (OperatingMethods.GetDriveInfoFromDescription(out DriveInfo drive, toConvert)) {
 					return drive;
