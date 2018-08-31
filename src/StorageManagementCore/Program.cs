@@ -19,7 +19,7 @@ namespace StorageManagementCore {
 		/// <summary>
 		///  The version tag of this Version
 		/// </summary>
-		/// <remarks>This should be equivalent to the Git Release tag</remarks>
+		/// <remarks>This should be kept equivalent to the Git Release tag</remarks>
 		public const string VersionTag = "1.1-b-1.1";
 
 		public static readonly CultureInfo[][] AvailableSpecificCultures =

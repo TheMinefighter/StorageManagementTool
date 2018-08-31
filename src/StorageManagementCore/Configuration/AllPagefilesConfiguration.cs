@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 
 namespace StorageManagementCore.Configuration {
-	public class AllPagefilesConfiguration {
+	public class AllPagefilesConfiguration  {
 		public bool EnableHibfilSys;
 
 		[NotNull]

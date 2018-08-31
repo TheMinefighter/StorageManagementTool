@@ -443,6 +443,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Installer\EnableUpdates\MainConfiguration.json" />
+    <Content Include="Installer\Install.nsi" />
+    <Content Include="Installer\installer.exe" />
+    <Content Include="Installer\License.rtf" />
+    <Content Include="Installer\StrContainsFun.nsi" />
     <None Include="StorageManagementCLI.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

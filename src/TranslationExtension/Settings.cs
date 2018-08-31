@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using JetBrains.Annotations;
 
-namespace TranslationExtension {
+namespace LocalizationExtension {
 	//Class based upon https://stackoverflow.com/a/5782985/6730162
 	/// <summary>
 	/// Provides additional Localization related settings

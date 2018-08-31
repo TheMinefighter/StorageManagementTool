@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Windows;
 using JetBrains.Annotations;
 
-namespace TranslationExtension {
+namespace LocalizationExtension {
 	/// <summary>
 	/// Provides easy WPF Localization
 	/// </summary>

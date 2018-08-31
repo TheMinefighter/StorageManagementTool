@@ -40,8 +40,11 @@ namespace StorageManagementCore.Configuration {
 		///  The configured SSD MonitoringSetting
 		/// </summary>
 		public MonitoringConfiguration MonitoringSettings;
-
-
+/// <summary>
+/// The settings (semi)-automatic updates
+/// </summary>
+		public UpdateConfiguration UpdateSettings;
+			
 		/// <summary>
 		/// </summary>
 		/// <remarks> Not used yet, might be removed in future </remarks>
@@ -53,13 +56,15 @@ namespace StorageManagementCore.Configuration {
 		public string Version;
 
 
-		public static MainConfiguration DefaultSettings() => new MainConfiguration {
+		public static MainConfiguration Default => new MainConfiguration {
 			AllPagefilesSettings = new AllPagefilesConfiguration(),
 			MonitoringSettings = new MonitoringConfiguration(),
 			ShellFolderSettings = new Dictionary<Guid, string>(),
+			UpdateSettings = UpdateConfiguration.Default,
 			Version = "1.1"
 		};
 
 		public override string ToString() => JsonConvert.SerializeObject(this);
+
 	}
 }

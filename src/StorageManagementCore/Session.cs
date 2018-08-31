@@ -57,7 +57,7 @@ namespace StorageManagementCore {
 				Configuration = JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath));
 			}
 			else {
-				Configuration = MainConfiguration.DefaultSettings();
+				Configuration = MainConfiguration.Default;
 				if (!Directory.Exists(ConfigurationFolder)) {
 					Directory.CreateDirectory(ConfigurationFolder);
 				}

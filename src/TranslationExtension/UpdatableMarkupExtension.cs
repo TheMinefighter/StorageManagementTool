@@ -5,7 +5,7 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using JetBrains.Annotations;
 
-namespace TranslationExtension {
+namespace LocalizationExtension {
 //The following class is NOT my own work and instead from https://www.thomaslevesque.com/2009/07/28/wpf-a-markup-extension-that-can-update-its-target/
 //According to https://www.thomaslevesque.com/about/#comment-105 no further licensing stuff is required
 	/// <summary>
