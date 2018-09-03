@@ -38,7 +38,7 @@ namespace StorageManagementCore {
 		public bool IsAdmin;
 
 		/// <summary>
-		///  Whether UnprivilgedSymlinks available
+		///  Whether Unpriviliged Symlinks available
 		/// </summary>
 		public bool UnpriviligedSymlinksAvailable;
 

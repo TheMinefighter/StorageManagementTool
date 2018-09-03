@@ -91,7 +91,6 @@ namespace LocalizationExtension {
 		/// <param name="propertyName"></param>
 		/// <exception cref="ArgumentException">When the given Property does not exist in the type provided</exception>
 		private void Initialize(Type type, string propertyName) {
-#if DEBUG
 			PropertyInfo resourceProperty = type.GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Static);
 			if (resourceProperty is null) {
 				throw new ArgumentException($"Could not find the resource specified (\"{propertyName}\")",
@@ -103,11 +102,7 @@ namespace LocalizationExtension {
 			}
 
 			_getValue = () => (string) resourceProperty.GetValue(null);
-#else
-			PropertyInfo propertyInfo = type.GetProperty(propertyName);
-			// ReSharper disable once PossibleNullReferenceException
-			_getValue = () => (string) propertyInfo.GetValue(null);
-#endif
+
 		}
 
 		/// <summary>
