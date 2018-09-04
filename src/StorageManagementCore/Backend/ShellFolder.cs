@@ -18,16 +18,26 @@ using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.Backend {
 	public partial class ShellFolder : INotifyPropertyChanged {
+		private static ReadOnlyMap<string, ShellFolder> _byLocalizedName;
+
+		public static ReadOnlyMap<string, ShellFolder> ByLocalizedName =>
+			_byLocalizedName ?? (_byLocalizedName = new ReadOnlyMap<string, ShellFolder>(
+				AllShellFolders.Select(x => new KeyValuePair<string, ShellFolder>(x.LocalizedName, x))));
+
 		public static ReadOnlyCollection<ShellFolder> AllShellFolders;
 		private static Dictionary<string, ShellFolder> _byName;
 
 		//Must be an on demand initialization, because C#s unchangeable object initialization order creating NullReferences otherwise 
-		public static Dictionary<string, ShellFolder> ByName => _byName ?? (_byName = AllShellFolders.ToDictionary(x => x.Name));
+		public static Dictionary<string, ShellFolder> ByName {
+			get { return _byName ?? (_byName = AllShellFolders.ToDictionary(x => x.Name)); }
+		}
+
 		private static Dictionary<Guid, ShellFolder> _byGuid;
 
 		//Must be an on demand initialization, because C#s unchangeable object initialization order creating NullReferences otherwise
-		public static Dictionary<Guid, ShellFolder> ByGuid =>
-			_byGuid ?? (_byGuid = AllShellFolders.ToDictionary(x => x.WindowsIdentifier));
+		public static Dictionary<Guid, ShellFolder> ByGuid {
+			get { return _byGuid ?? (_byGuid = AllShellFolders.ToDictionary(x => x.WindowsIdentifier)); }
+		}
 
 		//TODO add
 		[CanBeNull]
@@ -37,15 +47,25 @@ namespace StorageManagementCore.Backend {
 
 		//TODO Localize
 		[NotNull]
-		public string LocalizedName => Name;
+		public string LocalizedName {
+			get { return Name; }
+		}
 
 		[NotNull]
 		public string Name { get; }
 
 		public bool ShouldBeEdited { get; }
-		public bool Defined => DefaultValue != null;
-		public bool Undefined => DefaultValue == null;
+
+		public bool Defined {
+			get { return DefaultValue != null; }
+		}
+
+		public bool Undefined {
+			get { return DefaultValue == null; }
+		}
+
 		public Guid WindowsIdentifier { get; }
+
 
 		// ReSharper disable once NotNullMemberIsNotInitialized
 		// Justified by being private
@@ -63,12 +83,14 @@ namespace StorageManagementCore.Backend {
 		}
 
 		static ShellFolder() {
+			Session.LanguageChanged += (a, b) => _byLocalizedName = null;
 			AllShellFolders = Array.AsReadOnly(typeof(KnownShellFolders).GetFields().Select(x => x.GetValue(null))
 				.Cast<ShellFolder>().ToArray());
 		}
 
 		public static ShellFolder GetUSF(Guid windowsIdentifier) {
 			return AllShellFolders.First(x => x.WindowsIdentifier == windowsIdentifier);
+			
 		}
 
 		public static void DebugAllFolders() {
@@ -95,7 +117,9 @@ namespace StorageManagementCore.Backend {
 			return string.IsNullOrEmpty(specialFolderPath) ? new DirectoryInfo(specialFolderPath) : null;
 		}
 
-		public bool SetPath(DirectoryInfo newPath) => SetSpecialFolderPath(WindowsIdentifier, newPath.FullName);
+		public bool SetPath(DirectoryInfo newPath) {
+			return SetSpecialFolderPath(WindowsIdentifier, newPath.FullName);
+		}
 
 		public static bool SetSpecialFolderPath(Guid folderId, string newPath) {
 			if (SetSpecialFolderPathInternal(folderId, newPath) == 0) {
@@ -107,8 +131,9 @@ namespace StorageManagementCore.Backend {
 			return false;
 		}
 
-		private static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) =>
-			Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
+		private static int SetSpecialFolderPathInternal(Guid folderId, string fPrgTt) {
+			return Win32ShellFolders.SHSetKnownFolderPath(folderId, 0, IntPtr.Zero, fPrgTt);
+		}
 
 		[CanBeNull]
 		public static string GetSpecialFolderPath(Guid kFolderID) {

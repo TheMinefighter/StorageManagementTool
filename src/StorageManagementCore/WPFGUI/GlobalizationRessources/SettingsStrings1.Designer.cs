@@ -176,5 +176,41 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
                 return ResourceManager.GetString("SystemLanguageText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UpdateMode_DownloadAndInstallOnStartup {
+            get {
+                return ResourceManager.GetString("UpdateMode_DownloadAndInstallOnStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UpdateMode_DownloadOnStartupInstallManual {
+            get {
+                return ResourceManager.GetString("UpdateMode_DownloadOnStartupInstallManual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UpdateMode_DownloadOnStartupInstallNext {
+            get {
+                return ResourceManager.GetString("UpdateMode_DownloadOnStartupInstallNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UpdateMode_NoUpdates {
+            get {
+                return ResourceManager.GetString("UpdateMode_NoUpdates", resourceCulture);
+            }
+        }
     }
 }

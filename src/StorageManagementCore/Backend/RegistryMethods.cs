@@ -11,7 +11,7 @@ using StorageManagementCore.GlobalizationRessources;
 
 namespace StorageManagementCore.Backend {
 	public static class RegistryMethods {
-		public static readonly Map<RegistryHive, string> RegistryRootKeys = new Map<RegistryHive, string> {
+		public static readonly ReadOnlyMap<RegistryHive, string> RegistryRootKeys = new Map<RegistryHive, string> {
 			{RegistryHive.ClassesRoot, "HKEY_CLASSES_ROOT"},
 			{RegistryHive.CurrentConfig, "HKEY_CURRENT_CONFIG"},
 			{RegistryHive.CurrentUser, "HKEY_CURRENT_USER"},

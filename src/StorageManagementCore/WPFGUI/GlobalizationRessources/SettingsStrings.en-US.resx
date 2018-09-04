@@ -150,4 +150,16 @@
   <data name="ChangeCredentialsBtnContent" xml:space="preserve">
     <value>Change Credentials</value>
   </data>
+  <data name="UpdateMode_NoUpdates" xml:space="preserve">
+    <value>No Updates</value>
+  </data>
+  <data name="UpdateMode_DownloadAndInstallOnStartup" xml:space="preserve">
+    <value>Download and install on program startup</value>
+  </data>
+  <data name="UpdateMode_DownloadOnStartupInstallNext" xml:space="preserve">
+    <value>Download on program startup, install next time</value>
+  </data>
+  <data name="UpdateMode_DownloadOnStartupInstallManual" xml:space="preserve">
+    <value>Download on program startup, install manually</value>
+  </data>
 </root>

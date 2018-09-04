@@ -95,6 +95,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\ReadOnlyMap.cs" />
     <Compile Include="Backend\ShellFolder.cs" />
     <Compile Include="Backend\KnownShellFolders.cs" />
     <Compile Include="Backend\FileAndFolder.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="WPFGUI\ValueConverters\PagefileConverter.cs" />
     <Compile Include="WPFGUI\ValueConverters\ShellFolderConverter.cs" />
     <Compile Include="WPFGUI\ValueConverters\ShellFolderFilterConverter.cs" />
+    <Compile Include="WPFGUI\ValueConverters\UpdateModeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

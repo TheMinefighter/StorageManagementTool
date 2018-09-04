@@ -57,7 +57,11 @@ namespace LocalizationExtension {
 		/// <exception cref="InvalidOperationException">When the <see cref="Settings.ResourceFileProperty"/> is not set</exception>
 		public LocalizeExtension(string resourceName) : this(DBNull.Value) {
 			_getValueOnDemandInitializer = p => {
-				Type toUse = Settings.GetResourceFile(TargetObject as UIElement);
+				UIElement targetUiElement = TargetObject as UIElement;
+				if (targetUiElement is null) {
+					throw new InvalidOperationException("The related element is no UI Element");
+				}
+				Type toUse = Settings.GetResourceFile(targetUiElement);
 				if (toUse is null) {
 					throw new InvalidOperationException("No resource type specified");
 				}
@@ -93,7 +97,7 @@ namespace LocalizationExtension {
 		private void Initialize(Type type, string propertyName) {
 			PropertyInfo resourceProperty = type.GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Static);
 			if (resourceProperty is null) {
-				throw new ArgumentException($"Could not find the resource specified (\"{propertyName}\")",
+				throw new ArgumentException($"Could not find the resource specified (\"{propertyName}\") in the ResourceType specified (\"{type}\")",
 					nameof(propertyName));
 			}
 

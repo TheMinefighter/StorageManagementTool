@@ -30,7 +30,6 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-			//TODO Add converter tests
 			if (targetType != typeof(Pagefile)) {
 				throw new ArgumentOutOfRangeException(nameof(targetType), "targetType must be typeof(Pagefile)");
 			}
