@@ -182,6 +182,7 @@
     <Compile Include="WPFGUI\DataProviders\LanguageProvider.cs" />
     <Compile Include="WPFGUI\DataProviders\ShellFolderProvider.cs" />
     <Compile Include="WPFGUI\DataProviders\SuggestionProvider.cs" />
+    <Compile Include="WPFGUI\DataProviders\UpdateModesProvider.cs" />
     <Compile Include="WPFGUI\GlobalizationRessources\AboutStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
