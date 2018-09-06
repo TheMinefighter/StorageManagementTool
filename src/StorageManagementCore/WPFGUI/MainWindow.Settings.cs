@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using StorageManagementCore.Backend;
 using StorageManagementCore.MainGUI;
 using StorageManagementCore.Operation;
@@ -91,5 +92,13 @@ namespace StorageManagementCore.WPFGUI {
 			FileAndFolder.DeleteFile(new FileInfo(Session.Singleton.ConfigurationPath), false, false);
 			Environment.Exit(0);
 		}
+		private void SelectLanguageCmb_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
 	}
+
+
+
+	
 }
