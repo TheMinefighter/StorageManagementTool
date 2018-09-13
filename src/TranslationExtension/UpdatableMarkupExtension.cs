@@ -9,7 +9,7 @@ namespace LocalizationExtension {
 //The following class is NOT my own work and instead from https://www.thomaslevesque.com/2009/07/28/wpf-a-markup-extension-that-can-update-its-target/
 //According to https://www.thomaslevesque.com/about/#comment-105 no further licensing stuff is required
 	/// <summary>
-	/// A base class for making <see cref="MarkupExtension"/>s updateable without the need for an internal <see cref="Binding"/>
+	///  A base class for making <see cref="MarkupExtension" />s updateable without the need for an internal <see cref="Binding" />
 	/// </summary>
 	public abstract class UpdateableMarkupExtension : MarkupExtension {
 		/// <summary>
@@ -17,18 +17,20 @@ namespace LocalizationExtension {
 		/// </summary>
 		[CanBeNull]
 		protected object TargetObject { get; private set; }
-/// <summary>
-/// Whether the target is readonly
-/// </summary>
-		protected bool IsReadOnly{ get; private set; }
+
+		/// <summary>
+		///  Whether the target is readonly
+		/// </summary>
+		protected bool IsReadOnly { get; private set; }
+
 		/// <summary>
 		///  The targeted property, null until first evaluation
 		/// </summary>
 		[CanBeNull]
 		protected object TargetProperty { get; private set; }
- 
+
 		/// <summary>
-		/// Provides the value request and (if needed) sets update information
+		///  Provides the value request and (if needed) sets update information
 		/// </summary>
 		/// <param name="serviceProvider">The <see cref="T:System.IServiceProvider" /> providing additional data</param>
 		/// <returns>The result of the <see cref="T:System.Windows.Markup.MarkupExtension" /></returns>
@@ -44,7 +46,8 @@ namespace LocalizationExtension {
 						IsReadOnly = propertyInfo.CanWrite;
 						break;
 					default:
-						throw new ArgumentException("The targetProperty provided is not a DependencyProperty neither of PropertyInfo", nameof(serviceProvider));
+						throw new ArgumentException("The targetProperty provided is not a DependencyProperty neither of PropertyInfo",
+							nameof(serviceProvider));
 				}
 			}
 
@@ -52,12 +55,12 @@ namespace LocalizationExtension {
 		}
 
 		/// <summary>
-		/// Updates the value of the target
+		///  Updates the value of the target
 		/// </summary>
 		/// <param name="value"> the value to update to</param>
 		/// <exception cref="InvalidOperationException"> Thrown when the current instance has not been evaluated before</exception>
 		protected void UpdateValue(object value) {
-			if (TargetObject != null&& !IsReadOnly ) {
+			if (TargetObject != null && !IsReadOnly) {
 				if (TargetProperty is DependencyProperty prop1) {
 					DependencyObject obj = TargetObject as DependencyObject;
 
@@ -89,10 +92,10 @@ namespace LocalizationExtension {
 		}
 
 		/// <summary>
-		/// Provides the value of the <see cref="MarkupExtension"/>
+		///  Provides the value of the <see cref="MarkupExtension" />
 		/// </summary>
-		/// <param name="serviceProvider"> The <see cref="IServiceProvider"/> providing additional data</param>
-		/// <returns> The result of the <see cref="MarkupExtension"/></returns>
+		/// <param name="serviceProvider"> The <see cref="IServiceProvider" /> providing additional data</param>
+		/// <returns> The result of the <see cref="MarkupExtension" /></returns>
 		protected abstract object ProvideValueInternal(IServiceProvider serviceProvider);
 	}
 }

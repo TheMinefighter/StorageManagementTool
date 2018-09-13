@@ -56,7 +56,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="usePrereleases">Whether to use Prereleases</param>
 		/// <returns>The <see cref="Release" /> to update to, <see langword="null" /> if no UpdatePackage is available </returns>
 		[CanBeNull]
-		internal static Release ReleaseToUpdate([NotNull] [ItemNotNull] IEnumerable<Release> releases, bool usePrereleases) {
+		internal static Release ReleaseToUpdate([NotNull, ItemNotNull] IEnumerable<Release> releases, bool usePrereleases) {
 			//Tried to do signature checking, but API does not support that
 			Release ret = releases.First(x => !x.Draft && usePrereleases || !x.Prerelease);
 			if (ret.Assets.Any(x => x.State == "uploaded" && x.Name == UpdatePackageName) && ret.TagName != Program.VersionTag) {

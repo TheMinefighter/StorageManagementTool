@@ -5,23 +5,24 @@ using JetBrains.Annotations;
 
 namespace LocalizationExtension {
 	/// <summary>
-	/// Provides easy WPF Localization
+	///  Provides easy WPF Localization
 	/// </summary>
 	public class LocalizeExtension : UpdateableMarkupExtension {
 		/// <summary>
-		/// Shall be called when the language changes at runtime
+		///  Shall be called when the language changes at runtime
 		/// </summary>
 		public static EventHandler LanguageChanged = (e, args) => { };
 
-		private Func<string> _getValue;
 		private readonly Action<IServiceProvider> _getValueOnDemandInitializer;
+
+		private Func<string> _getValue;
 
 		private LocalizeExtension(DBNull internalBase) => LanguageChanged += OnLanguageChanged;
 
 		/// <summary>
-		/// Creates a new <see cref="LocalizeExtension"/> 
+		///  Creates a new <see cref="LocalizeExtension" />
 		/// </summary>
-		/// <exception cref="InvalidOperationException">When the <see cref="Settings.ResourceFileProperty"/> is not set</exception>
+		/// <exception cref="InvalidOperationException">When the <see cref="Settings.ResourceFileProperty" /> is not set</exception>
 		public LocalizeExtension() : this(DBNull.Value) {
 			_getValueOnDemandInitializer = p => {
 				Type toUse = Settings.GetResourceFile(TargetObject as UIElement);
@@ -51,16 +52,17 @@ namespace LocalizationExtension {
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="LocalizeExtension"/> overriding the resource name
+		///  Creates a new <see cref="LocalizeExtension" /> overriding the resource name
 		/// </summary>
 		/// <param name="resourceName">The name of the resource to use</param>
-		/// <exception cref="InvalidOperationException">When the <see cref="Settings.ResourceFileProperty"/> is not set</exception>
+		/// <exception cref="InvalidOperationException">When the <see cref="Settings.ResourceFileProperty" /> is not set</exception>
 		public LocalizeExtension(string resourceName) : this(DBNull.Value) {
 			_getValueOnDemandInitializer = p => {
 				UIElement targetUiElement = TargetObject as UIElement;
 				if (targetUiElement is null) {
 					throw new InvalidOperationException("The related element is no UI Element");
 				}
+
 				Type toUse = Settings.GetResourceFile(targetUiElement);
 				if (toUse is null) {
 					throw new InvalidOperationException("No resource type specified");
@@ -71,7 +73,7 @@ namespace LocalizationExtension {
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="LocalizeExtension"/> overriding the resource type as well as the resource name
+		///  Creates a new <see cref="LocalizeExtension" /> overriding the resource type as well as the resource name
 		/// </summary>
 		/// <param name="resourceType">The type in which the resource to use is</param>
 		/// <param name="resourceName">The name of the resource to use</param>
@@ -80,7 +82,7 @@ namespace LocalizationExtension {
 		}
 
 		/// <summary>
-		/// Handles a runtime language change
+		///  Handles a runtime language change
 		/// </summary>
 		/// <param name="sender">The event sender</param>
 		/// <param name="eventArgs"> The event arguments</param>
@@ -89,7 +91,7 @@ namespace LocalizationExtension {
 		}
 
 		/// <summary>
-		/// Initializes a instance of this class
+		///  Initializes a instance of this class
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="propertyName"></param>
@@ -97,7 +99,8 @@ namespace LocalizationExtension {
 		private void Initialize(Type type, string propertyName) {
 			PropertyInfo resourceProperty = type.GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Static);
 			if (resourceProperty is null) {
-				throw new ArgumentException($"Could not find the resource specified (\"{propertyName}\") in the ResourceType specified (\"{type}\")",
+				throw new ArgumentException(
+					$"Could not find the resource specified (\"{propertyName}\") in the ResourceType specified (\"{type}\")",
 					nameof(propertyName));
 			}
 
@@ -106,11 +109,10 @@ namespace LocalizationExtension {
 			}
 
 			_getValue = () => (string) resourceProperty.GetValue(null);
-
 		}
 
 		/// <summary>
-		/// The <see cref="ProvideValueInternal"/> Implementation
+		///  The <see cref="ProvideValueInternal" /> Implementation
 		/// </summary>
 		/// <param name="provider">The service provider, providing additional information</param>
 		/// <returns>The localized string</returns>
@@ -136,7 +138,7 @@ namespace LocalizationExtension {
 		}
 
 		/// <summary>
-		/// Provides the translation text
+		///  Provides the translation text
 		/// </summary>
 		/// <param name="serviceProvider">The service provider, providing additional information</param>
 		/// <returns>The localized string</returns>

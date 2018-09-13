@@ -21,8 +21,7 @@ namespace StorageManagementCore.Configuration {
 
 		public bool Manual => !SystemManaged;
 
-		[NotNull]
-		[ItemNotNull]
+		[NotNull, ItemNotNull]
 		public ObservableCollection<Pagefile> Pagefiles { get; }
 
 		public PagefileSysConfiguration() => Pagefiles = new ObservableCollection<Pagefile>();

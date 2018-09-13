@@ -8,7 +8,8 @@ using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore.WPFGUI.DataProviders {
 	public class UpdateModesProvider : INotifyPropertyChanged {
-		public ReadOnlyCollection<UpdateMode> UpdateModes { get; } = Enum.GetValues(typeof(UpdateMode)).Cast<UpdateMode>().ToList().AsReadOnly();
+		public ReadOnlyCollection<UpdateMode> UpdateModes { get; } =
+			Enum.GetValues(typeof(UpdateMode)).Cast<UpdateMode>().ToList().AsReadOnly();
 
 		public UpdateModesProvider() => Session.LanguageChanged += (a, b) => OnPropertyChanged(nameof(UpdateModes));
 		public event PropertyChangedEventHandler PropertyChanged;

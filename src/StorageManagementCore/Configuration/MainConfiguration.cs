@@ -40,15 +40,16 @@ namespace StorageManagementCore.Configuration {
 		///  The configured SSD MonitoringSetting
 		/// </summary>
 		public MonitoringConfiguration MonitoringSettings;
-/// <summary>
-/// The settings (semi)-automatic updates
-/// </summary>
-		public UpdateConfiguration UpdateSettings;
-			
+
 		/// <summary>
 		/// </summary>
 		/// <remarks> Not used yet, might be removed in future </remarks>
 		public Dictionary<Guid, string> ShellFolderSettings;
+
+		/// <summary>
+		///  The settings (semi)-automatic updates
+		/// </summary>
+		public UpdateConfiguration UpdateSettings;
 
 		/// <summary>
 		///  The Version of the Configuration
@@ -65,6 +66,5 @@ namespace StorageManagementCore.Configuration {
 		};
 
 		public override string ToString() => JsonConvert.SerializeObject(this);
-
 	}
 }

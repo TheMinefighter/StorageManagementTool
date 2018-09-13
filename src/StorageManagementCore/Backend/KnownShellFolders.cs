@@ -1,5 +1,3 @@
-
-
 // ReSharper disable StringLiteralTypo
 
 namespace StorageManagementCore.Backend {

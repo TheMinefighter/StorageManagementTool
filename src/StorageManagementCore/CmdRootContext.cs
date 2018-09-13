@@ -25,9 +25,8 @@ namespace StorageManagementCore {
 
 		[CmdAction("ContinueSwapfile")]
 		public static void ContinueSwapfile([CmdParameter("Drive")] string drive,
-			[CmdParameter("Forward", CmdParameterAttribute.CmdParameterUsage.OnlyDirectAlias)]
-			[CmdParameterAlias("forward", true)]
-			[CmdParameterAlias("backward", false)]
+			[CmdParameter("Forward", CmdParameterAttribute.CmdParameterUsage.OnlyDirectAlias), CmdParameterAlias("forward", true),
+			 CmdParameterAlias("backward", false)]
 			bool forward) {
 			FileAndFolder.DeleteFile(
 				new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup),
@@ -38,10 +37,8 @@ namespace StorageManagementCore {
 		[CmdAction("Move")]
 		public static void Move(
 			[CmdParameter("Srcpath")] string[] oldPaths,
-			[CmdParameterAlias("File", FileOrFolder.File)]
-			[CmdParameterAlias("Folder", FileOrFolder.Folder)]
-			[CmdParameterAlias("Auto-detect", FileOrFolder.Automatic)]
-			[CmdParameter("Type")]
+			[CmdParameterAlias("File", FileOrFolder.File), CmdParameterAlias("Folder", FileOrFolder.Folder),
+			 CmdParameterAlias("Auto-detect", FileOrFolder.Automatic), CmdParameter("Type")]
 			FileOrFolder moveFileOrFolder = FileOrFolder.Automatic, [CmdParameter("newpath")] string newPath = null
 		) {
 			if (newPath == null) {
@@ -91,9 +88,8 @@ namespace StorageManagementCore {
 		public abstract class SendTo {
 			[CmdAction("Set")]
 			public static void SetSendTo(
-				[CmdParameter("Enabled")]
-				[CmdParameterAlias("Enable", true)]
-				[CmdParameterAlias("Disable", false)]
+				[CmdParameter("Enabled"), CmdParameterAlias("Enable", true),
+				 CmdParameterAlias("Disable", false)]
 				bool enable = true) {
 				OperatingMethods.EnableSendToHDD(enable);
 			}

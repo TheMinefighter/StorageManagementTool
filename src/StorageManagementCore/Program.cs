@@ -90,8 +90,7 @@ namespace StorageManagementCore {
 
 		public static char GetDriveLetter(this DriveInfo d) => d.Name.First();
 
-		[STAThread]
-		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+		[STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		public static void Main(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";

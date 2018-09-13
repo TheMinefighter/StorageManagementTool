@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 
 namespace StorageManagementCore.Backend {
 	//The following class is mostly copied from https://stackoverflow.com/a/41907561/6730162 last access 20.06.2018
-	public class Map<T1, T2> : ReadOnlyMap<T1,T2> {
-
+	public class Map<T1, T2> : ReadOnlyMap<T1, T2> {
 		public new T1 this[T2 backward] {
 			get => _backward[backward];
 			set => _backward[backward] = value;
@@ -53,15 +50,13 @@ namespace StorageManagementCore.Backend {
 			return true;
 		}
 
-		public class Indexer<T3, T4> : ReadOnlyIndexer<T3,T4> {
-
+		public class Indexer<T3, T4> : ReadOnlyIndexer<T3, T4> {
 			public new T4 this[T3 index] {
 				get => _dictionary[index];
 				set => _dictionary[index] = value;
 			}
 
-			public Indexer(Dictionary<T3, T4> dictionary) : base(dictionary) {}
-
+			public Indexer(Dictionary<T3, T4> dictionary) : base(dictionary) { }
 		}
 	}
 }

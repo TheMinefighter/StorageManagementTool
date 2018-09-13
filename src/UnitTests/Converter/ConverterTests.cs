@@ -14,9 +14,7 @@ namespace UnitTests.Converter {
 		private readonly ShellFolderLocalizedNameConverter _shellFolderConverter = new ShellFolderLocalizedNameConverter();
 
 
-		[Theory]
-		[InlineData(true)]
-		[InlineData(false)]
+		[Theory, InlineData(true), InlineData(false)]
 		private void ShellFolderFilterTest(bool filtered) {
 			object resultUnfiltered = _filter.Convert(new object[] {ShellFolder.AllShellFolders, filtered}, typeof(IEnumerable),
 				null, CultureInfo.CurrentUICulture);
@@ -25,9 +23,7 @@ namespace UnitTests.Converter {
 					CultureInfo.CurrentUICulture)[1]);
 		}
 
-		[Theory]
-		[InlineData(1)]
-		[InlineData(5)]
+		[Theory, InlineData(1), InlineData(5)]
 		private void ShellFolderConversion(int index) {
 			object result = _shellFolderConverter.Convert(ShellFolder.AllShellFolders[index], typeof(string), null,
 				CultureInfo.CurrentUICulture);

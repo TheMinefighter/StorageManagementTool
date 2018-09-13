@@ -92,13 +92,9 @@ namespace StorageManagementCore.WPFGUI {
 			FileAndFolder.DeleteFile(new FileInfo(Session.Singleton.ConfigurationPath), false, false);
 			Environment.Exit(0);
 		}
-		private void SelectLanguageCmb_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
+
+		private void SelectLanguageCmb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
 			throw new NotImplementedException();
 		}
 	}
-
-
-
-	
 }

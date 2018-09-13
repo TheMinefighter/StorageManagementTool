@@ -4,7 +4,7 @@ using System.Windows.Data;
 using StorageManagementCore.Configuration;
 
 namespace StorageManagementCore.WPFGUI.ValueConverters {
-	public class UpdateModeConverter  : IValueConverter {
+	public class UpdateModeConverter : IValueConverter {
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
 #if DEBUG
 			if (targetType != typeof(string)) {
