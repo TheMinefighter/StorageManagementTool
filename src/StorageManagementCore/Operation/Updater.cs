@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using JetBrains.Annotations;
+using kalexi.Monads.Either.Code;
+using Newtonsoft.Json;
 using Octokit;
 using FileMode = System.IO.FileMode;
 
@@ -15,39 +21,88 @@ namespace StorageManagementCore.Operation {
 	///  Provides functionality for automatic tests
 	/// </summary>
 	public static class Updater {
+		private class InternalVerification {
+			public string reason;
+			public bool verified;
+			
+		}
+
+		private class InternalCommit {
+			public InternalVerification verification;
+			public string name;
+			
+			
+		}
+		private class InternalCommitRoot {
+			public InternalCommit commit;
+			
+		}
 		private const string RepositoryName = "StorageManagementTool";
 		private const string OwnerName = "TheMinefighter";
-		private const string CrawlerName = "StorageManagementToolUpdateCrawler";
+		private const string CrawlerName = "StorageManagementTool_UpdateCrawler";
 		private const string UpdatePackageName = "UpdatePackage.zip";
+		private const string ApiUrl = "https://api.github.com";
 
+		public static async Task<T> FirstOrDefaultAsync<T>(this IEnumerable<T> collection, Func<T, Task<bool>> predicate)
+              {
+//                  Contract.Requires<ArgumentNullException>(collection != null);
+//                  Contract.Requires<ArgumentNullException>(predicate != null);
+      
+                  foreach (T item in collection)
+                  {
+                      bool isResult = await predicate(item).ConfigureAwait(false);
+                      if (isResult)
+                      {
+                          return item;
+                      }
+                  }
+      
+                  return default(T);
+              }
 		public static async Task<Exception> Update(bool usePrereleases) {
-			(IReadOnlyList<Release> releases, Exception releaseException) = await GetReleasesData();
-			if (releaseException != null) {
-				return releaseException;
+			Either<Release, Exception> toUpdate = await ReleaseToUpdate(usePrereleases);
+			if (toUpdate.IsRight) {
+				return toUpdate.Right;
 			}
 
-			Release toUpdate = ReleaseToUpdate(releases, usePrereleases);
-			if (toUpdate == null) {
+			if (toUpdate.Left == null) {
 				return new Exception("No new version found.");
 			}
 
 			return await DownloadUpdatePackageAsync(
-				toUpdate.Assets.First(x => x.State == "uploaded" && x.Name == UpdatePackageName),
+				toUpdate.Left.Assets.First(x => x.State == "uploaded" && x.Name == UpdatePackageName),
 				new FileInfo(Process.GetCurrentProcess().MainModule.FileName).Directory.CreateSubdirectory("UpdateData").FullName);
 		}
 
-		internal static async Task<(IReadOnlyList<Release>, Exception)> GetReleasesData() {
+		internal static async Task<Either<IReadOnlyList<Release>, Exception>> GetReleasesData() {
 			IReadOnlyList<Release> releases;
 			try {
-				releases = await new GitHubClient(new ProductHeaderValue(CrawlerName, Program.VersionTag)).Repository.Release
+				releases = await GetGitHubClient().Repository.Release
 					.GetAll(OwnerName, RepositoryName);
 			}
 			catch (Exception e) {
-				return (null, e);
+				return e;
 			}
 
-			return (releases, null);
+			return new Either<IReadOnlyList<Release>, Exception>(releases);
 		}
+
+		private static GitHubClient GetGitHubClient() => new GitHubClient(new ProductHeaderValue(CrawlerName, Program.VersionTag));
+
+//		internal static async Task<Either<IEnumerable<string>, Exception>> GetTrustedTagNames() {
+//			try {
+//				httpResponseMessage = await c.GetAsync($"repos/{OwnerName}/{RepositoryName}/git/refs/tags");
+//			}
+//			catch (Exception e) {
+//				return e;
+//			}
+//
+//			string tagListString= await httpResponseMessage.Content.ReadAsStringAsync();
+//XDocument xd = XDocument.Parse(tagListString);
+//			//IReadOnlyList<RepositoryTag> readOnlyList;
+//		//	return new Either<IEnumerable<string>, Exception>(readOnlyList.Where(x=>NewTag).Select(x => x.Name));
+//			return null;
+//		}
 
 		/// <summary>
 		///  Gets the release to update to
@@ -56,15 +111,48 @@ namespace StorageManagementCore.Operation {
 		/// <param name="usePrereleases">Whether to use Prereleases</param>
 		/// <returns>The <see cref="Release" /> to update to, <see langword="null" /> if no UpdatePackage is available </returns>
 		[CanBeNull]
-		internal static Release ReleaseToUpdate([NotNull, ItemNotNull] IEnumerable<Release> releases, bool usePrereleases) {
-			//Tried to do signature checking, but API does not support that
-			Release ret = releases.First(x => !x.Draft && usePrereleases || !x.Prerelease);
-			if (ret.Assets.Any(x => x.State == "uploaded" && x.Name == UpdatePackageName) && ret.TagName != Program.VersionTag) {
-				return ret;
+		internal static async Task<Either<Release, Exception>> ReleaseToUpdate(bool usePrereleases) {
+			GitHubClient client = GetGitHubClient();
+			HttpClient hClient= new HttpClient(){BaseAddress = new Uri("https://api.github.com")};
+			hClient.DefaultRequestHeaders.Add("User-Agent",CrawlerName);
+			Either<IReadOnlyList<Release>, Exception> releaseData = await GetReleasesData();
+			if (releaseData.IsRight) {
+				return releaseData.Right;
 			}
-			else {
-				return null;
+
+			IReadOnlyList<RepositoryTag> tags;
+			try {
+				tags = await client.Repository.GetAllTags(OwnerName, RepositoryName); }
+			catch (Exception e) {
+				return e;
 			}
+			return await releaseData.Left.FirstOrDefaultAsync(async x => {                  
+				RepositoryTag t = tags.FirstOrDefault(y => y.Name == x.TagName);
+				if (t== null) {
+					return false;
+				}
+
+				HttpResponseMessage message= await hClient.GetAsync($"repos/{OwnerName}/{RepositoryName}/commits/{t.Commit.Sha}");
+				if (message.StatusCode!=HttpStatusCode.OK) {
+					return false;
+				}
+
+				string messageContent = await message.Content.ReadAsStringAsync();
+				InternalCommitRoot root = JsonConvert.DeserializeObject<InternalCommitRoot>(messageContent);
+				if (root?.commit?.verification?.reason != "valid") {
+					return false;
+				}
+
+				string commitName = root.commit?.name;
+				if (commitName==null) {
+					return false;
+				}
+
+				if (!commitName.EndsWith("release", StringComparison.OrdinalIgnoreCase)) {
+					return false;
+				}
+				return !x.Draft  && usePrereleases || !x.Prerelease;
+			});
 		}
 
 		/// <summary>
