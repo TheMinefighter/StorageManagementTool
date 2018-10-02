@@ -82,7 +82,7 @@ namespace LocalizationExtension {
 				else // _targetProperty is PropertyInfo
 				{
 					PropertyInfo prop = TargetProperty as PropertyInfo;
-					if (prop == null) {
+					if (prop is null) {
 						throw new InvalidOperationException();
 					}
 

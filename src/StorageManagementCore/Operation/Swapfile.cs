@@ -66,7 +66,7 @@ namespace StorageManagementCore.Operation {
 					return false;
 
 				case SwapfileState.Disabled when forward:
-					if (newLocation == null) {
+					if (newLocation is null) {
 						if (MessageBox.Show(
 							    OperatingMethodsStrings.SetStadium_NoNewPathGiven, OperatingMethodsStrings.Error,
 							    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {

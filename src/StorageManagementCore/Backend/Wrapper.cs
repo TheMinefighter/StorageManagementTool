@@ -287,7 +287,7 @@ namespace StorageManagementCore.Backend {
 			UserPrincipal user = UserPrincipal
 				.FindByIdentity(GetPrincipalContext(), IdentityType.SamAccountName, username);
 
-			if (user == null) {
+			if (user is null) {
 				return false;
 			}
 

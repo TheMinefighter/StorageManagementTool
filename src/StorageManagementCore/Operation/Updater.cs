@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
 using JetBrains.Annotations;
 using kalexi.Monads.Either.Code;
 using Newtonsoft.Json;
@@ -21,51 +18,33 @@ namespace StorageManagementCore.Operation {
 	///  Provides functionality for automatic tests
 	/// </summary>
 	public static class Updater {
-		private class InternalVerification {
-			public string reason;
-			public bool verified;
-			
-		}
-
-		private class InternalCommit {
-			public InternalVerification verification;
-			public string name;
-			
-			
-		}
-		private class InternalCommitRoot {
-			public InternalCommit commit;
-			
-		}
 		private const string RepositoryName = "StorageManagementTool";
 		private const string OwnerName = "TheMinefighter";
 		private const string CrawlerName = "StorageManagementTool_UpdateCrawler";
 		private const string UpdatePackageName = "UpdatePackage.zip";
 		private const string ApiUrl = "https://api.github.com";
 
-		public static async Task<T> FirstOrDefaultAsync<T>(this IEnumerable<T> collection, Func<T, Task<bool>> predicate)
-              {
+		public static async Task<T> FirstOrDefaultAsync<T>(this IEnumerable<T> collection, Func<T, Task<bool>> predicate) {
 //                  Contract.Requires<ArgumentNullException>(collection != null);
 //                  Contract.Requires<ArgumentNullException>(predicate != null);
-      
-                  foreach (T item in collection)
-                  {
-                      bool isResult = await predicate(item).ConfigureAwait(false);
-                      if (isResult)
-                      {
-                          return item;
-                      }
-                  }
-      
-                  return default(T);
-              }
+
+			foreach (T item in collection) {
+				bool isResult = await predicate(item).ConfigureAwait(false);
+				if (isResult) {
+					return item;
+				}
+			}
+
+			return default(T);
+		}
+
 		public static async Task<Exception> Update(bool usePrereleases) {
 			Either<Release, Exception> toUpdate = await ReleaseToUpdate(usePrereleases);
 			if (toUpdate.IsRight) {
 				return toUpdate.Right;
 			}
 
-			if (toUpdate.Left == null) {
+			if (toUpdate.Left is null) {
 				return new Exception("No new version found.");
 			}
 
@@ -113,8 +92,8 @@ namespace StorageManagementCore.Operation {
 		[CanBeNull]
 		internal static async Task<Either<Release, Exception>> ReleaseToUpdate(bool usePrereleases) {
 			GitHubClient client = GetGitHubClient();
-			HttpClient hClient= new HttpClient {BaseAddress = new Uri("https://api.github.com")};
-			hClient.DefaultRequestHeaders.Add("User-Agent",CrawlerName);
+			HttpClient hClient = new HttpClient {BaseAddress = new Uri("https://api.github.com")};
+			hClient.DefaultRequestHeaders.Add("User-Agent", CrawlerName);
 			Either<IReadOnlyList<Release>, Exception> releaseData = await GetReleasesData();
 			if (releaseData.IsRight) {
 				return releaseData.Right;
@@ -122,10 +101,12 @@ namespace StorageManagementCore.Operation {
 
 			IReadOnlyList<RepositoryTag> tags;
 			try {
-				tags = await client.Repository.GetAllTags(OwnerName, RepositoryName); }
+				tags = await client.Repository.GetAllTags(OwnerName, RepositoryName);
+			}
 			catch (Exception e) {
 				return e;
 			}
+
 			return await releaseData.Left.FirstOrDefaultAsync(async x => {
 				if (!x.Assets.Any(y => y.State == "uploaded" && y.Name == UpdatePackageName)) {
 					return false;
@@ -134,14 +115,14 @@ namespace StorageManagementCore.Operation {
 				if (x.TagName == Program.VersionTag) {
 					return false;
 				}
-				
+
 				RepositoryTag t = tags.FirstOrDefault(y => y.Name == x.TagName);
-				if (t== null) {
+				if (t is null) {
 					return false;
 				}
 
-				HttpResponseMessage message= await hClient.GetAsync($"repos/{OwnerName}/{RepositoryName}/commits/{t.Commit.Sha}");
-				if (message.StatusCode!=HttpStatusCode.OK) {
+				HttpResponseMessage message = await hClient.GetAsync($"repos/{OwnerName}/{RepositoryName}/commits/{t.Commit.Sha}");
+				if (message.StatusCode != HttpStatusCode.OK) {
 					return false;
 				}
 
@@ -152,14 +133,15 @@ namespace StorageManagementCore.Operation {
 				}
 
 				string commitName = root.commit?.name;
-				if (commitName==null) {
+				if (commitName == null) {
 					return false;
 				}
 
 				if (!commitName.EndsWith("release", StringComparison.OrdinalIgnoreCase)) {
 					return false;
 				}
-				return !x.Draft  && usePrereleases || !x.Prerelease;
+
+				return !x.Draft && usePrereleases || !x.Prerelease;
 			});
 		}
 
@@ -212,6 +194,20 @@ namespace StorageManagementCore.Operation {
 					return await ExtractArchiveAsync(archive, unZipPath);
 				}
 			}
+		}
+
+		private class InternalVerification {
+			public string reason;
+			public bool verified;
+		}
+
+		private class InternalCommit {
+			public string name;
+			public InternalVerification verification;
+		}
+
+		private class InternalCommitRoot {
+			public InternalCommit commit;
 		}
 	}
 }

@@ -28,7 +28,7 @@ namespace LocalizationExtension {
 		/// <exception cref="ArgumentNullException"> If element is null</exception>
 		[CanBeNull]
 		public static Type GetResourceFile(DependencyObject element) {
-			if (element == null) {
+			if (element is null) {
 				throw new ArgumentNullException(nameof(element));
 			}
 
@@ -43,7 +43,7 @@ namespace LocalizationExtension {
 		/// <exception cref="ArgumentNullException">If element is null </exception>
 		public static void SetResourceFile([NotNull] DependencyObject element, [CanBeNull] Type value) {
 			Console.WriteLine("Test");
-			if (element == null) {
+			if (element is null) {
 				throw new ArgumentNullException(nameof(element));
 			}
 

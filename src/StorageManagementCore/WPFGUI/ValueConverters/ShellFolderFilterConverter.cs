@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -31,7 +30,7 @@ namespace StorageManagementCore.WPFGUI.ValueConverters {
 			}
 #else
 			bool allowAllShellFolders = (bool) values[1];
-			return ((IReadOnlyCollection<ShellFolder>) values[0]).Where(x => allowAllShellFolders || (x.Defined && x.ShouldBeEdited));
+			return ((IReadOnlyCollection<ShellFolder>) values[0]).Where(x => allowAllShellFolders || x.Defined && x.ShouldBeEdited);
 #endif
 		}
 

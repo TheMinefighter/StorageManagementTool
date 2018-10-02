@@ -23,7 +23,7 @@ namespace UpdateInstaller {
 			Console.WriteLine();
 			Console.WriteLine("Verifying update package integrity...");
 			XElement content = (XElement) root.Nodes().FirstOrDefault(x => x is XElement e && e.Name == "UpdateMeta.Content");
-			if (content == null) {
+			if (content is null) {
 				Console.WriteLine("The update package does not define it's content. Press a key to quit.");
 				Console.Read();
 				Environment.Exit(-1);
@@ -113,7 +113,7 @@ namespace UpdateInstaller {
 			bool violations = false;
 			for (int i = 0; i < updateFiles.Length; i++) {
 				XAttribute name = updateFiles[i].Attribute(UpdateFileName);
-				if (name == null) {
+				if (name is null) {
 					Console.WriteLine($"The UpdateFile {i} has no name defined. Press a key to quit.");
 					Console.Read();
 					Environment.Exit(-1);
@@ -126,14 +126,14 @@ namespace UpdateInstaller {
 				}
 
 				XAttribute target = updateFiles[i].Attribute(UpdateFileTarget);
-				if (target == null) {
+				if (target is null) {
 					Console.WriteLine($"The UpdateFile {i} has no target defined. Press a key to quit.");
 					Console.Read();
 					Environment.Exit(-1);
 				}
 
 				XAttribute expectedHash = updateFiles[i].Attribute(UpdateFileMD5);
-				if (expectedHash == null) {
+				if (expectedHash is null) {
 					Console.WriteLine($"The UpdateFile {i} has no hash defined. Press P to proceed or any other key to quit.");
 					if (Console.ReadKey().Key != ConsoleKey.P) {
 						Environment.Exit(-1);
@@ -206,7 +206,7 @@ namespace UpdateInstaller {
 			}
 
 			XElement root = meta.Root;
-			if (root == null) {
+			if (root is null) {
 				Console.WriteLine("The root tag of UpdateData\\UpdateMeta.xml does not exist.  Press a key to quit.");
 				Console.Read();
 				Environment.Exit(-1);
@@ -217,7 +217,7 @@ namespace UpdateInstaller {
 
 		private static void NewVersion(XElement root) {
 			XAttribute newVersion = root.Attribute("NewVersion");
-			if (newVersion == null) {
+			if (newVersion is null) {
 				Console.WriteLine(
 					"The NewVersion attribute of the root tag of UpdateData\\UpdateMeta.xml does not exist. Press a key to quit.");
 				Console.Read();

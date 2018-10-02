@@ -13,7 +13,7 @@ ShowInstDetails show
 
 !define APPNAME "StorageManagementTool"
 !define COMPANYNAME "TheMinefighter"
-!define DESCRIPTION "A short description goes here"
+!define DESCRIPTION "A tool for managing the storage of your pc"
 !define VERSIONMAJOR 1
 !define VERSIONMINOR 1
 !define VERSIONBUILD 1

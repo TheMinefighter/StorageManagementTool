@@ -80,7 +80,7 @@ namespace StorageManagementCore.Operation {
 			else {
 				List<DriveInfo> ret = new List<DriveInfo>();
 				Dictionary<char, long> futureFreeSpace = GetFutureFreeSpace(current);
-				if (futureFreeSpace == null) {
+				if (futureFreeSpace is null) {
 					return null;
 				}
 
@@ -106,7 +106,7 @@ namespace StorageManagementCore.Operation {
 			}
 
 			List<DriveInfo> errors = DoesPagefileCfgFit(current, proposed);
-			if (errors == null) {
+			if (errors is null) {
 				//TODO Error message
 			}
 

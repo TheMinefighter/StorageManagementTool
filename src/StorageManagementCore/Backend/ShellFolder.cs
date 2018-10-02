@@ -49,7 +49,7 @@ namespace StorageManagementCore.Backend {
 
 		public bool Defined => DefaultValue != null;
 
-		public bool Undefined => DefaultValue == null;
+		public bool Undefined => DefaultValue is null;
 
 		public Guid WindowsIdentifier { get; }
 
