@@ -81,6 +81,10 @@ Section "Automatic Update (Can be changed later)" AutoUpdates
 	File .\EnableUpdates\MainConfiguration.json
 SectionEnd
 
+Section "Protect installation folder (strongly recommended)" ProtectInstall
+	ExecShell "-ProtectInstallationFolder" "$INSTDIR\bin\StorageManagementCore.exe"
+SectionEnd
+
 ;Section "Send To HDD (Can be changed later)"
 ;	CreateShortCut
 ;SectionEnd
@@ -132,12 +136,12 @@ Function LaunchLink
    SMPROGRAMS: $SMPROGRAMS  $\r$\n \
    Start Menu Folder: $STARTMENU_FOLDER $\r$\n \
    InstallDirectory: $INSTDIR "
-  ExecShell "" "$INSTDIR\bin\StorageManagementCore.exe"
+   ExecShell "" "$INSTDIR\bin\StorageManagementCore.exe"
 FunctionEnd
 
 Section "uninstall"
 	Goto done
-ReadRegStr $IntSMName HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "InternalStartmenuFolder"
+	ReadRegStr $IntSMName HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "InternalStartmenuFolder"
 	;This could theoretically also be true if the user is called _FOLDER but nobody would do that
 	StrCmp $IntSMName "<NONE>" done
 	RMDir /r $IntSMName
@@ -152,4 +156,5 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdates} "Enables fully automatic updates. Update settings can be changed later on."
 !insertmacro MUI_DESCRIPTION_TEXT ${CoreComponent} "The main part of the StorageManagementTool"
+!insertmacro MUI_DESCRIPTION_TEXT ${ProtectInstall} "Protect the installation folder, so that it can only be modified with administrator priviliges. Disabling this might open security vulnerabilities!"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END

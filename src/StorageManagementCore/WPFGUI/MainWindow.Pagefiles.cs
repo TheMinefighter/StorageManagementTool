@@ -53,7 +53,6 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void SetSwapfileState_OnClick(object sender, RoutedEventArgs e) {
-			//TODO add Disabled state
 			switch (Swapfile.GetSwapfileState()) {
 				case Swapfile.SwapfileState.Standard:
 					Swapfile.ChangeSwapfileStadium(true, Swapfile.SwapfileState.Standard);

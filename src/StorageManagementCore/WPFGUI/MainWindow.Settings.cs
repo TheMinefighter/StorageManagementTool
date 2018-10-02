@@ -94,7 +94,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void SelectLanguageCmb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 	}
 }

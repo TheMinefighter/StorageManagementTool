@@ -392,7 +392,5 @@ namespace StorageManagementCore.Backend {
 
 			return true;
 		}
-
-//TODO to real emitter
 	}
 }

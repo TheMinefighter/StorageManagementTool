@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
 using UniversalCommandlineInterface;
@@ -19,8 +24,8 @@ namespace StorageManagementCore {
 		internal const string StartupProceedFileName = "StorageManagementProceed.lnk";
 
 		[CmdAction("Admin")]
-		public static void RestartAsAdministrator([CmdParameter("Arguments")] string[] args = null) {
-			Wrapper.RestartProgram(true, args ?? new string[] { });
+		public static void RestartAsAdministrator([CmdParameter("Arguments")]params string[] args) {
+			Wrapper.RestartProgram(true, args ?? Environment.GetCommandLineArgs().Skip(1).ToArray());
 		}
 
 		[CmdAction("ContinueSwapfile")]
@@ -84,6 +89,19 @@ namespace StorageManagementCore {
 			BackgroundNotificationCreator.Initalize();
 		}
 
+		[CmdAction("ProtectInstallationFolder")]
+		public static void ProtectInstallationFolder() {
+			if (!Wrapper.IsCurrentUserAdministrator()) {
+				RestartAsAdministrator("-ProtectInstallationFolder");
+			}
+			DirectoryInfo instDir= new FileInfo(Process.GetCurrentProcess().MainModule.FileName).Directory;
+			DirectorySecurity security = new DirectorySecurity();
+			security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid,null  // Not needed but for whatever reason not optional, see https://docs.microsoft.com/en-us/dotnet/api/system.security.principal.securityidentifier.-ctor?view=netframework-4.7.2#System_Security_Principal_SecurityIdentifier__ctor_System_Security_Principal_WellKnownSidType_System_Security_Principal_SecurityIdentifier_
+			),FileSystemRights.ReadAndExecute,AccessControlType.Allow ));
+			security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.AccountAdministratorSid,null),FileSystemRights.FullControl,AccessControlType.Allow ));
+			instDir.SetAccessControl(security);
+			instDir.Attributes &= FileAttributes.ReadOnly;
+		}
 		[CmdContext("SendTo")]
 		public abstract class SendTo {
 			[CmdAction("Set")]

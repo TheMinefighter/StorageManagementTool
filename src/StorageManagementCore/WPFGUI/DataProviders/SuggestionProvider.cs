@@ -18,7 +18,6 @@ namespace StorageManagementCore.WPFGUI.DataProviders {
 				EnableRaisingEvents = true
 			};
 
-		//TODO implement
 		public IEnumerable<string> Suggestions => OperatingMethods.GetRecommendedPaths();
 
 		public SuggestionProvider() {

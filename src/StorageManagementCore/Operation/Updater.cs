@@ -113,7 +113,7 @@ namespace StorageManagementCore.Operation {
 		[CanBeNull]
 		internal static async Task<Either<Release, Exception>> ReleaseToUpdate(bool usePrereleases) {
 			GitHubClient client = GetGitHubClient();
-			HttpClient hClient= new HttpClient(){BaseAddress = new Uri("https://api.github.com")};
+			HttpClient hClient= new HttpClient {BaseAddress = new Uri("https://api.github.com")};
 			hClient.DefaultRequestHeaders.Add("User-Agent",CrawlerName);
 			Either<IReadOnlyList<Release>, Exception> releaseData = await GetReleasesData();
 			if (releaseData.IsRight) {
@@ -126,7 +126,15 @@ namespace StorageManagementCore.Operation {
 			catch (Exception e) {
 				return e;
 			}
-			return await releaseData.Left.FirstOrDefaultAsync(async x => {                  
+			return await releaseData.Left.FirstOrDefaultAsync(async x => {
+				if (!x.Assets.Any(y => y.State == "uploaded" && y.Name == UpdatePackageName)) {
+					return false;
+				}
+
+				if (x.TagName == Program.VersionTag) {
+					return false;
+				}
+				
 				RepositoryTag t = tags.FirstOrDefault(y => y.Name == x.TagName);
 				if (t== null) {
 					return false;

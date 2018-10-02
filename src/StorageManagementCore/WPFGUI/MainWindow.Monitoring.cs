@@ -95,7 +95,6 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void AddMonitoredFolderBtn_OnClick(object sender, RoutedEventArgs e) {
-			//TODO Add desc
 			_newMonitoringCfg.MonitoredFolders.Add(new MonitoredFolder(FileAndFolder.SelectDirectory().FullName));
 			MonitoredFoldersLb.Items.Refresh();
 			MonitoredFoldersLb.SelectedIndex = _newMonitoringCfg.MonitoredFolders.Count - 1;
@@ -103,7 +102,6 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void ChangeMonitoredFolderPathBtn_OnClick(object sender, RoutedEventArgs e) {
-			//TODO Add desc
 			_newMonitoringCfg.MonitoredFolders[MonitoredFoldersLb.SelectedIndex].TargetPath =
 				FileAndFolder.SelectDirectory().FullName;
 			MonitoredFoldersLb.Items.Refresh();
