@@ -163,11 +163,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.Designer.cs">
-      <DependentUpon>EditWindowsSearchSettingsStrings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Operation\BackgroundNotificationCreator.cs" />
     <Compile Include="Operation\Credentials.cs" />
     <Compile Include="Operation\CredentialsManager.cs" />
@@ -331,12 +326,6 @@
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ApplyPresetStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.de-DE.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.en-US.resx" />
-    <EmbeddedResource Include="MainGUI\GlobalizationRessources\EditWindowsSearchSettingsStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EditWindowsSearchSettingsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Operation\EnterCredentialsDialog.resx">
       <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>

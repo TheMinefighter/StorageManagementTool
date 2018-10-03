@@ -54,8 +54,8 @@ namespace StorageManagementCore.WPFGUI {
 				if (!Session.Singleton.IsAdmin)
 				{
 					if (MessageBox.Show(
-						    EditWindowsSearchSettingsStrings.SetSearchDataPath_RestartNoAdmin,
-						    OperatingMethodsStrings.SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo,
+						    SetSearchDataPath_RestartNoAdmin,
+						    SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo,
 						    MessageBoxIcon.Question) ==
 					    System.Windows.Forms.DialogResult.Yes)
 					{
