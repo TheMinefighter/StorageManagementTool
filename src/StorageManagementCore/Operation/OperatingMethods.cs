@@ -185,15 +185,7 @@ namespace StorageManagementCore.Operation {
 					newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
 					RegistryValueKind.String,
 					true)) {
-					if (!Session.Singleton.IsAdmin) {
-						if (MessageBox.Show(
-							    EditWindowsSearchSettingsStrings.SetSearchDataPath_RestartNoAdmin,
-							    OperatingMethodsStrings.SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo,
-							    MessageBoxIcon.Question) ==
-						    DialogResult.Yes) {
-							Wrapper.RestartComputer();
-						}
-					}
+
 
 					return true;
 				}

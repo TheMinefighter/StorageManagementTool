@@ -1,10 +1,15 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
+using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.MainGUI.GlobalizationRessources;
 using StorageManagementCore.Operation;
+using  System.Windows.Forms;
 using static StorageManagementCore.WPFGUI.GlobalizationRessources.SearchSettingsStrings;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
@@ -42,7 +47,23 @@ namespace StorageManagementCore.WPFGUI {
 			FileAndFolder.OpenFolder(new DirectoryInfo(CurrentSearchPathTb.Text));
 		}
 
-		private void ApplySearchPathBtn_OnClick(object sender, RoutedEventArgs e) { }
+		private void ApplySearchPathBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			if (OperatingMethods.SetSearchDataPath(new DirectoryInfo(CurrentBasePathTb.Text)))
+			{
+				if (!Session.Singleton.IsAdmin)
+				{
+					if (MessageBox.Show(
+						    EditWindowsSearchSettingsStrings.SetSearchDataPath_RestartNoAdmin,
+						    OperatingMethodsStrings.SetSearchDataPath_RestartNow_Title, MessageBoxButtons.YesNo,
+						    MessageBoxIcon.Question) ==
+					    System.Windows.Forms.DialogResult.Yes)
+					{
+						Wrapper.RestartComputer();
+					}
+				}
+            }
+		}
 
 		private void SelectNewSearchDirectoryBtn_OnClick(object sender, RoutedEventArgs e) {
 			NewSearchPathTb.Text = FileAndFolder.SelectDirectory().FullName;
