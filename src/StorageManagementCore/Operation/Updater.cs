@@ -195,9 +195,14 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 		}
-
+// ReSharper disable InconsistentNaming
+#pragma warning disable 649
 		private class InternalVerification {
+			
+
 			public string reason;
+
+			
 			public bool verified;
 		}
 
@@ -209,5 +214,7 @@ namespace StorageManagementCore.Operation {
 		private class InternalCommitRoot {
 			public InternalCommit commit;
 		}
+		// ReSharper restore InconsistentNaming
+		#pragma warning restore 649
 	}
 }

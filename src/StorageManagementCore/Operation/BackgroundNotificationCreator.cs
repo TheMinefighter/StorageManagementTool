@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using ExtendedMessageBoxLibrary;
 using StorageManagementCore.Configuration;
+using static StorageManagementCore.GlobalizationRessources.BackgroundNotificationStrings;
 
 namespace StorageManagementCore.Operation {
 	/// <summary>
@@ -51,14 +52,11 @@ namespace StorageManagementCore.Operation {
 					break;
 				case MonitoringAction.Ask:
 					if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-						    //TODO Multi Lang
-						    new[] {
-							    "Es wurde der neue Ordner " + new DirectoryInfo(e.FullPath).Name + "  in ",
-							    tmp.TargetPath,
-							    " gefunden. Soll diese verschoben oder ignoriert werden"
-						    }, "Neue Datei gefunden", new[] {
-							    "Ignorieren",
-							    "Verschieben"
+						    string.Format(NewFolderFoundText,
+							    new DirectoryInfo(e.FullPath).Name, tmp.TargetPath)
+						    , NewFolderFoundTitle, new[] {
+							    IgnoreText,
+							    MoveText
 						    }
 					    )).NumberOfClickedButton == 1) {
 						OperatingMethods.MoveFolderPhysically(new DirectoryInfo(e.FullPath),
@@ -83,13 +81,11 @@ namespace StorageManagementCore.Operation {
 					break;
 				case MonitoringAction.Ask:
 					if (ExtendedMessageBox.Show(new ExtendedMessageBoxConfiguration(
-						    new[] {
-							    $"Es wurde die neue Datei {new FileInfo(e.FullPath).Name}  in ",
-							    tmp.TargetPath,
-							    " erzeugt. Soll diese verschoben oder ignoriert werden"
-						    }, "Neue Datei gefunden", new[] {
-							    "Ignorieren",
-							    "Verschieben"
+						    string.Format(NewFileFoundText,
+							    new FileInfo(e.FullPath).Name, tmp.TargetPath)
+						    , NewFileFoundTitle, new[] {
+							    IgnoreText,
+							    MoveText
 						    }
 					    )).NumberOfClickedButton == 1) {
 						OperatingMethods.MoveFolderPhysically(new DirectoryInfo(e.FullPath),
