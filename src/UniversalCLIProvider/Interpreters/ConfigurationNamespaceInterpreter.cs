@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using UniversalCLIOptionProvider.Attributes;
+using UniversalCLIProvider.Attributes;
 
-namespace UniversalCLIOptionProvider.Interpreters {
+namespace UniversalCLIProvider.Interpreters {
 	public class ConfigurationNamespaceInterpreter {
 		private CmdConfigurationNamespaceAttribute _attribute;
 		public ManagedConfigurationInterpreter ConfigurationInterpreter;

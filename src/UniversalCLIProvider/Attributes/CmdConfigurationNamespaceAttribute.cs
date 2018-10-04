@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using PropertyOrFieldInfoPackage;
 
-namespace UniversalCLIOptionProvider.Attributes {
+namespace UniversalCLIProvider.Attributes {
 	[AttributeUsage(AttributeTargets.Class)]
 	public class CmdConfigurationNamespaceAttribute : Attribute {
 		private CmdConfigurationValueAttribute[] _configurationValues;

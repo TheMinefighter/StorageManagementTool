@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using UniversalCLIOptionProvider.Attributes;
+using UniversalCLIProvider.Attributes;
 
-namespace UniversalCLIOptionProvider.Interpreters {
+namespace UniversalCLIProvider.Interpreters {
 	public class CommandlineOptionInterpreter {
 		public string[] Args;
 		public ConsoleIO ConsoleIO;

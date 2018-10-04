@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace UniversalCLIOptionProvider {
+namespace UniversalCLIProvider {
 	public static class FieldOrPropertyMethods {
 		public static IEnumerable<FieldOrPropertyInfo> GetFieldsAndProperties(this TypeInfo src) => src.DeclaredProperties
 			.Select(x => new FieldOrPropertyInfo(x))

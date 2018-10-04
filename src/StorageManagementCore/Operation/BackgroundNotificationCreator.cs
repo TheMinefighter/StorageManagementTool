@@ -25,19 +25,21 @@ namespace StorageManagementCore.Operation {
 			foreach (MonitoredFolder monitoredFolder in Session.Singleton.Configuration.MonitoringSettings
 				.MonitoredFolders) {
 				if (monitoredFolder.ForFiles != MonitoringAction.Ignore) {
-					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
-					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FileCreated;
-					tempFileSystemWatcher.NotifyFilter = NotifyFilters.FileName;
+					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath) {
+						Created += MonitoredFolderWatcher_FileCreated,
+						NotifyFilter = NotifyFilters.FileName,
+						EnableRaisingEvents = true
+					};
 					FileSystemWatcher2MonitoredFolders.Add(tempFileSystemWatcher, monitoredFolder);
-					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
 
 				if (monitoredFolder.ForDirectories != MonitoringAction.Ignore) {
-					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath);
-					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FolderCreated;
-					tempFileSystemWatcher.NotifyFilter = NotifyFilters.DirectoryName;
+					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath) {
+						Created += MonitoredFolderWatcher_FolderCreated,
+						NotifyFilter = NotifyFilters.DirectoryName,
+						EnableRaisingEvents = true
+					};
 					FileSystemWatcher2MonitoredFolders.Add(tempFileSystemWatcher, monitoredFolder);
-					tempFileSystemWatcher.EnableRaisingEvents = true;
 				}
 			}
 

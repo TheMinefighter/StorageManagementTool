@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UniversalCLIOptionProvider.Attributes;
+using UniversalCLIProvider.Attributes;
 
-namespace UniversalCLIOptionProvider.Interpreters {
+namespace UniversalCLIProvider.Interpreters {
 	public abstract class BaseInterpreter {
 		public string Name { get; }
 		public int Offset { get; internal set; }

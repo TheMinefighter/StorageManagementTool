@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using UniversalCLIOptionProvider.Attributes;
+using UniversalCLIProvider.Attributes;
 
-namespace UniversalCLIOptionProvider.Interpreters {
+namespace UniversalCLIProvider.Interpreters {
 	public class ManagedConfigurationInterpreter : BaseInterpreter {
 		private string _configurationRootName;
 		private string[] _contextTrace;

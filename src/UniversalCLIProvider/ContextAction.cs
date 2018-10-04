@@ -1,4 +1,4 @@
-﻿namespace UniversalCLIOptionProvider {
+﻿namespace UniversalCLIProvider {
 	public enum ContextAction : byte {
 		PrintError = 3,
 		PrintHelp = 2,

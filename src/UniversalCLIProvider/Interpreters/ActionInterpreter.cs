@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using UniversalCLIOptionProvider.Attributes;
+using UniversalCLIProvider.Attributes;
 
-namespace UniversalCLIOptionProvider.Interpreters {
+namespace UniversalCLIProvider.Interpreters {
 	public class ActionInterpreter : BaseInterpreter, IDisposable {
 		private bool _cached;
 		public CmdActionAttribute MyActionAttribute;

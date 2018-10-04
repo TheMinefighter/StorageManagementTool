@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniversalCLIOptionProvider {
+namespace UniversalCLIProvider {
 	/// <summary>
 	///  Class storing the Actions for Console Operations
 	/// </summary>

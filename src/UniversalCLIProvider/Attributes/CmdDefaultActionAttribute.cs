@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniversalCLIOptionProvider.Attributes {
+namespace UniversalCLIProvider.Attributes {
 	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
 	public class CmdDefaultActionAttribute : Attribute {
 		private bool IsDirect;

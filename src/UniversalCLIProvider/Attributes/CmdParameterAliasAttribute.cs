@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniversalCLIOptionProvider.Attributes {
+namespace UniversalCLIProvider.Attributes {
 	[AttributeUsage(AttributeTargets.GenericParameter | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field,
 		AllowMultiple = true)]
 	public class CmdParameterAliasAttribute : Attribute {

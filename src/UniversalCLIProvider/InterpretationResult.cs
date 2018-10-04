@@ -1,4 +1,4 @@
-﻿namespace UniversalCLIOptionProvider {
+﻿namespace UniversalCLIProvider {
 	public enum InterpretationResult {
 		Unknown,
 		Success,

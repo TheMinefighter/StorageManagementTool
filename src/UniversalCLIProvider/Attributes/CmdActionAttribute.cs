@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace UniversalCLIOptionProvider.Attributes {
+namespace UniversalCLIProvider.Attributes {
 	[AttributeUsage(AttributeTargets.Method)]
 	public class CmdActionAttribute : Attribute {
 		private bool _cached;

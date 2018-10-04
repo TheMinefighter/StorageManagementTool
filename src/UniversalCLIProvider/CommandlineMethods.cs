@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using Newtonsoft.Json;
-using UniversalCLIOptionProvider.Attributes;
+using UniversalCLIProvider.Attributes;
 
-namespace UniversalCLIOptionProvider {
+namespace UniversalCLIProvider {
 	public static class CommandlineMethods {
 //      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search) {
 //         value = null;
