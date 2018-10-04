@@ -6,7 +6,9 @@
 		};
 
 		public bool IgnoreParameterCase = true;
-		public string InteractiveOption = "Interactive";
+		public string InteractiveOption = "Master:Interactive";
+		public string BinOption= "Master:Bin";
+		
 		public char PreferredArgumentPrefix = '/';
 		public string RootName = ".";
 
