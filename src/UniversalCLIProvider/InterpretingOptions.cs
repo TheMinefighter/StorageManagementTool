@@ -7,7 +7,7 @@
 
 		public bool IgnoreParameterCase = true;
 		public string InteractiveOption = "Master:Interactive";
-		public string BinOption= "Master:Bin";
+		public string HexOption= "Master:Hex";
 		
 		public char PreferredArgumentPrefix = '/';
 		public string RootName = ".";

@@ -84,7 +84,7 @@ namespace UniversalCLIProvider.Interpreters {
 				contextInterpreter.MyContextAttribute.MyInfo = baseContext.GetTypeInfo();
 				contextInterpreter.MyContextAttribute.LoadIfNot();
 				if (Args.Length > 0) {
-					if (contextInterpreter.IsParameterEqual(Options.BinOption,Args[0])) {
+					if (contextInterpreter.IsParameterEqual(Options.HexOption,Args[0])) {
 						if (BinaryReprocessor()) {
 							Interpret(baseContext, defaultAction);
 						}

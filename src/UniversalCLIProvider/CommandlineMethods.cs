@@ -1,10 +1,26 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using Newtonsoft.Json;
 using UniversalCLIProvider.Attributes;
 
 namespace UniversalCLIProvider {
 	public static class CommandlineMethods {
+		public static string toHexArgumentString(string[] originalArguments, Encoding encoding = null) {
+			encoding = encoding ?? Encoding.UTF8;
+			int typicalEncodingLength = encoding.GetByteCount("s");
+			StringBuilder stringBuilder = new StringBuilder(typicalEncodingLength * originalArguments.Sum(x => x.Length) +originalArguments.Length * 8);
+			foreach (string argument in originalArguments) {
+				stringBuilder.Append(argument.Length.ToString("x8"));
+				foreach (byte b in encoding.GetBytes(argument)) {
+					stringBuilder.Append(b.ToString("x2"));
+				}
+			}
+
+			return stringBuilder.ToString();
+		}
+		
 //      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search) {
 //         value = null;
 //         bool success = false;
