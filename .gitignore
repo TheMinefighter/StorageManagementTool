@@ -264,3 +264,5 @@ __pycache__/
 /FV1.ggb
 /P1V1.ggb
 /src/StorageManagementCore/StorageManagementCore.csproj.DotSettings
+*.dll
+/src/UniversalCLIProvider/PropertyOrFieldInfo.0.1.1/lib/netcoreapp2.0/PropertyOrFieldInfo.xml
