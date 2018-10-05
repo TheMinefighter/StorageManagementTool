@@ -365,6 +365,10 @@
       <Project>{d52e1985-6a97-45e6-92bf-202350a9b007}</Project>
       <Name>TranslationExtension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversalCLIProvider\UniversalCLIProvider.csproj">
+      <Project>{6000409d-762c-4ac8-91e6-d00804b7b527}</Project>
+      <Name>UniversalCLIProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversalCommandlineInterface\UniversalCommandlineInterface.csproj">
       <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>
       <Name>UniversalCommandlineInterface</Name>

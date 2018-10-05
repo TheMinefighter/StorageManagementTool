@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -6,8 +7,9 @@ using System.Security.AccessControl;
 using System.Security.Principal;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-using UniversalCommandlineInterface;
-using UniversalCommandlineInterface.Attributes;
+using StorageManagementCore.WPFGUI;
+using UniversalCLIProvider;
+using UniversalCLIProvider.Attributes;
 
 // ReSharper disable UnusedMember.Global
 
@@ -25,6 +27,20 @@ namespace StorageManagementCore {
 		[CmdAction("Admin")]
 		public static void RestartAsAdministrator([CmdParameter("Arguments")] params string[] args) {
 			Wrapper.RestartProgram(true, args ?? Environment.GetCommandLineArgs().Skip(1).ToArray());
+		}
+
+		[CmdAction("UI")]
+		public static void RunUi([CmdParameter("UIProperties")] Dictionary<string,object> propertyCollection=null) {
+			Dictionary<string, object>modifiers= new Dictionary<string, object>(1);
+			if (!(propertyCollection is null)) {
+				modifiers.Add("PropertyCollection",propertyCollection);
+			}
+
+			if (modifiers.Count==0) {
+				new MainWindow().ShowDialog();
+			}
+
+			new MainWindow {Tag = modifiers}.ShowDialog();
 		}
 
 		[CmdAction("ContinueSwapfile")]
@@ -118,8 +134,8 @@ namespace StorageManagementCore {
 			[CmdAction("Get")]
 			public static void GetSendTo() {
 				bool isSendToHddEnabled = OperatingMethods.IsSendToHDDEnabled();
-				ConsoleIO.WriteLine(isSendToHddEnabled.ToString());
-				ConsoleIO.WriteLine($"SendTo feature is{(isSendToHddEnabled ? string.Empty : " not")} enabled");
+				ConsoleIO.WriteLineToMain(isSendToHddEnabled.ToString());
+				ConsoleIO.WriteLineToMain($"SendTo feature is{(isSendToHddEnabled ? string.Empty : " not")} enabled");
 			}
 		}
 	}

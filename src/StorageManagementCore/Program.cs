@@ -4,11 +4,12 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using StorageManagementCore.WPFGUI;
-using UniversalCommandlineInterface;
-using UniversalCommandlineInterface.Interpreters;
+using UniversalCLIProvider;
+using UniversalCLIProvider.Interpreters;
 
 //TODO Rename Directory methods to Folder
 namespace StorageManagementCore {
@@ -94,25 +95,11 @@ namespace StorageManagementCore {
 		public static void Main(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
 			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
-			ConsoleIO.SetVisibility(CommandLineMode);
+			SetConsoleVisibility(CommandLineMode);
 
 			new Session();
 			ProcessCommandlineArguments(args);
 		}
-
-//		/// <summary>
-//		///  The main entry point for the application.
-//		/// </summary>
-//		[STAThread]
-//		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-//		public static void Main(string[] args) {
-//			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
-//			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
-//			ConsoleIO.SetVisibility(CommandLineMode);
-//
-//			new Session();
-//			ProcessCommandlineArguments(args);
-//		}
 
 		/// <summary>
 		///  Processes aguments
@@ -374,5 +361,21 @@ private static void MoveObjectFromCommandline(List<string> args) {
 			}
 			*/
 		}
+
+		public static void SetConsoleVisibility(bool visible) {
+			ShowWindow(GetConsoleWindow(), visible ? SW_SHOW : SW_HIDE);}
+		
+		      #region From https://stackoverflow.com/a/3571628/6730162 access on 08.01.2018
+
+      [DllImport("kernel32.dll")]
+      public static extern IntPtr GetConsoleWindow();
+
+      [DllImport("user32.dll")]
+      public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+      public const int SW_HIDE = 0;
+      public const int SW_SHOW = 5;
+
+      #endregion
 	}
 }
