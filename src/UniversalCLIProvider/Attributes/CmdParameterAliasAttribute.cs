@@ -1,7 +1,8 @@
 ﻿using System;
 
 namespace UniversalCLIProvider.Attributes {
-	[AttributeUsage(AttributeTargets.GenericParameter | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field,
+	[AttributeUsage(AttributeTargets.GenericParameter | AttributeTargets.Parameter | AttributeTargets.Property |
+	                AttributeTargets.Field,
 		AllowMultiple = true)]
 	public class CmdParameterAliasAttribute : Attribute {
 		public readonly string Name;

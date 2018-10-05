@@ -30,13 +30,13 @@ namespace StorageManagementCore {
 		}
 
 		[CmdAction("UI")]
-		public static void RunUi([CmdParameter("UIProperties")] Dictionary<string,object> propertyCollection=null) {
-			Dictionary<GUIModifier, object>modifiers= new Dictionary<GUIModifier, object>(1);
+		public static void RunUi([CmdParameter("UIProperties")] Dictionary<string, object> propertyCollection = null) {
+			Dictionary<GUIModifier, object> modifiers = new Dictionary<GUIModifier, object>(1);
 			if (!(propertyCollection is null)) {
-				modifiers.Add(GUIModifier.UIProperties,propertyCollection);
+				modifiers.Add(GUIModifier.UIProperties, propertyCollection);
 			}
 
-			if (modifiers.Count==0) {
+			if (modifiers.Count == 0) {
 				new MainWindow().ShowDialog();
 			}
 

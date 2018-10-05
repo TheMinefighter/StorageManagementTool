@@ -363,19 +363,20 @@ private static void MoveObjectFromCommandline(List<string> args) {
 		}
 
 		public static void SetConsoleVisibility(bool visible) {
-			ShowWindow(GetConsoleWindow(), visible ? SW_SHOW : SW_HIDE);}
-		
-		      #region From https://stackoverflow.com/a/3571628/6730162 access on 08.01.2018
+			ShowWindow(GetConsoleWindow(), visible ? SW_SHOW : SW_HIDE);
+		}
 
-      [DllImport("kernel32.dll")]
-      public static extern IntPtr GetConsoleWindow();
+		#region From https://stackoverflow.com/a/3571628/6730162 access on 08.01.2018
 
-      [DllImport("user32.dll")]
-      public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+		[DllImport("kernel32.dll")]
+		public static extern IntPtr GetConsoleWindow();
 
-      public const int SW_HIDE = 0;
-      public const int SW_SHOW = 5;
+		[DllImport("user32.dll")]
+		public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-      #endregion
+		public const int SW_HIDE = 0;
+		public const int SW_SHOW = 5;
+
+		#endregion
 	}
 }

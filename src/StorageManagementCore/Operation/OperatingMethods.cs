@@ -8,7 +8,6 @@ using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using StorageManagementCore.Backend;
 using StorageManagementCore.GlobalizationRessources;
-using StorageManagementCore.MainGUI.GlobalizationRessources;
 
 namespace StorageManagementCore.Operation {
 	public static class OperatingMethods {
@@ -185,8 +184,6 @@ namespace StorageManagementCore.Operation {
 					newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
 					RegistryValueKind.String,
 					true)) {
-
-
 					return true;
 				}
 

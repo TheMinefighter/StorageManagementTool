@@ -10,7 +10,8 @@ namespace UniversalCLIProvider {
 		public static string toHexArgumentString(string[] originalArguments, Encoding encoding = null) {
 			encoding = encoding ?? Encoding.UTF8;
 			int typicalEncodingLength = encoding.GetByteCount("s");
-			StringBuilder stringBuilder = new StringBuilder(typicalEncodingLength * originalArguments.Sum(x => x.Length) +originalArguments.Length * 8);
+			StringBuilder stringBuilder =
+				new StringBuilder(typicalEncodingLength * originalArguments.Sum(x => x.Length) + originalArguments.Length * 8);
 			foreach (string argument in originalArguments) {
 				stringBuilder.Append(argument.Length.ToString("x8"));
 				foreach (byte b in encoding.GetBytes(argument)) {
@@ -20,7 +21,7 @@ namespace UniversalCLIProvider {
 
 			return stringBuilder.ToString();
 		}
-		
+
 //      public static bool GetAliasValue(out object value, CmdParameterAttribute cmdParameterAttribute, string search) {
 //         value = null;
 //         bool success = false;

@@ -16,11 +16,13 @@ namespace UniversalCLIProvider.Interpreters {
 
 		protected ManagedConfigurationInterpreter(CommandlineOptionInterpreter top, int offset = 0) : base(top, offset) { }
 
-		protected ManagedConfigurationInterpreter(BaseInterpreter parent, string name, int offset = 0) : base(parent, name, offset) { }
+		protected ManagedConfigurationInterpreter(BaseInterpreter parent, string name, int offset = 0) :
+			base(parent, name, offset) { }
 
 		internal override void PrintHelp() {
 			int maxlength =
-				new int[] {_namespaces.Keys.Select(x => x.Help.Length).Max(), _values.Keys.Select(x => x.Help.Length).Max()}.Max() + 1;
+				new int[] {_namespaces.Keys.Select(x => x.Help.Length).Max(), _values.Keys.Select(x => x.Help.Length).Max()}.Max() +
+				1;
 			StringBuilder ConsoleStack = new StringBuilder();
 			TopInterpreter.ConsoleIO.WriteLine($"Syntax: {Path} ");
 			foreach (CmdConfigurationNamespaceAttribute cmdConfigurationNamespaceAttribute in _namespaces.Keys) {

@@ -13,7 +13,8 @@ namespace UniversalCLIProvider.Attributes {
 
 		public void LoadParametersAndAlias() {
 			foreach (ParameterInfo parameterInfo in MyInfo.GetParameters()) {
-				foreach (CmdParameterAttribute parameterAttribute in parameterInfo.GetCustomAttributes(typeof(CmdParameterAttribute), false)
+				foreach (CmdParameterAttribute parameterAttribute in parameterInfo
+					.GetCustomAttributes(typeof(CmdParameterAttribute), false)
 					.Cast<CmdParameterAttribute>()) {
 					parameterAttribute.MyInfo = parameterInfo;
 					parameterAttribute.LoadAlias();

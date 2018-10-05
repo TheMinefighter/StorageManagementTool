@@ -1,5 +1,5 @@
 namespace StorageManagementCore.WPFGUI {
 	public enum GUIModifier : byte {
-		UIProperties=1
+		UIProperties = 1
 	}
 }

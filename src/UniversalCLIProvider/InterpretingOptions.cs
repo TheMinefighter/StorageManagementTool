@@ -5,10 +5,11 @@
 			PreferredArgumentPrefix = '/'
 		};
 
+		public string HexOption = "Master:Hex";
+
 		public bool IgnoreParameterCase = true;
 		public string InteractiveOption = "Master:Interactive";
-		public string HexOption= "Master:Hex";
-		
+
 		public char PreferredArgumentPrefix = '/';
 		public string RootName = ".";
 

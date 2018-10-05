@@ -93,12 +93,12 @@ namespace UniversalCLIProvider.Interpreters {
 			//throw new NotImplementedException();
 		}
 
-	   /// <summary>
-	   ///  reads all arguments
-	   /// </summary>
-	   /// <param name="invokationArguments"></param>
-	   /// <returns></returns>
-	   private bool GetValues(out Dictionary<CmdParameterAttribute, object> invokationArguments) {
+		/// <summary>
+		///  reads all arguments
+		/// </summary>
+		/// <param name="invokationArguments"></param>
+		/// <returns></returns>
+		private bool GetValues(out Dictionary<CmdParameterAttribute, object> invokationArguments) {
 			invokationArguments = new Dictionary<CmdParameterAttribute, object>();
 			Type iEnumerableCache = null;
 			// value = null;
@@ -171,7 +171,8 @@ namespace UniversalCLIProvider.Interpreters {
 						else {
 							ConstructorInfo constructorInfo;
 							try {
-								constructorInfo = parameterType.GetConstructor(new Type[] {typeof(IEnumerable<>).MakeGenericType(realType)});
+								constructorInfo =
+									parameterType.GetConstructor(new Type[] {typeof(IEnumerable<>).MakeGenericType(realType)});
 							}
 							catch (Exception e) {
 								Console.WriteLine(e);

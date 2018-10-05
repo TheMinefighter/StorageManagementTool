@@ -9,11 +9,53 @@ namespace UniversalCLIProvider {
 			.Select(x => new FieldOrPropertyInfo(x))
 			.Concat(src.DeclaredProperties.Select(x => new FieldOrPropertyInfo(x)));
 	}
+
 	public class FieldOrPropertyInfo : MemberInfo {
 		private readonly FieldInfo _fieldInfo;
+		private readonly MemberInfo _memberInfo;
 		private readonly PropertyInfo _propertyInfo;
 		private readonly bool field;
-		private readonly MemberInfo _memberInfo;
+
+		public override Type DeclaringType => _memberInfo.DeclaringType;
+
+		public override MemberTypes MemberType => _memberInfo.MemberType;
+
+		public override string Name => _memberInfo.Name;
+
+		public override Type ReflectedType => _memberInfo.ReflectedType;
+
+
+		public bool CanRead {
+			get {
+				if (field) {
+					return _fieldInfo.IsPublic;
+				}
+				else {
+					if (!_propertyInfo.CanRead) {
+						return false;
+					}
+					else {
+						return _propertyInfo.GetGetMethod().IsPublic;
+					}
+				}
+			}
+		}
+
+		public bool CanWrite {
+			get {
+				if (field) {
+					return _fieldInfo.IsPublic;
+				}
+				else {
+					if (!_propertyInfo.CanWrite) {
+						return false;
+					}
+					else {
+						return _propertyInfo.GetSetMethod().IsPublic;
+					}
+				}
+			}
+		}
 
 		private FieldOrPropertyInfo() { }
 
@@ -56,58 +98,15 @@ namespace UniversalCLIProvider {
 		}
 
 
-
 		public static explicit operator PropertyInfo(FieldOrPropertyInfo src) => src._propertyInfo;
 		public static explicit operator FieldInfo(FieldOrPropertyInfo src) => src._fieldInfo;
 		public static explicit operator FieldOrPropertyInfo(FieldInfo src) => new FieldOrPropertyInfo(src);
 		public static explicit operator FieldOrPropertyInfo(PropertyInfo src) => new FieldOrPropertyInfo(src);
 		public override object[] GetCustomAttributes(bool inherit) => _memberInfo.GetCustomAttributes(inherit);
 
-		public override object[] GetCustomAttributes(Type attributeType, bool inherit) => _memberInfo.GetCustomAttributes(attributeType, inherit);
+		public override object[] GetCustomAttributes(Type attributeType, bool inherit) =>
+			_memberInfo.GetCustomAttributes(attributeType, inherit);
 
 		public override bool IsDefined(Type attributeType, bool inherit) => _memberInfo.IsDefined(attributeType, inherit);
-
-		public override Type DeclaringType => _memberInfo.DeclaringType;
-
-		public override MemberTypes MemberType => _memberInfo.MemberType;
-
-		public override string Name => _memberInfo.Name;
-
-		public override Type ReflectedType => _memberInfo.ReflectedType;
-
-		
-		public bool CanRead {
-			get {
-				if (field) {
-					return _fieldInfo.IsPublic;
-					
-				}
-				else {
-					if (!_propertyInfo.CanRead) {
-						return false;
-					}
-					else {
-						return _propertyInfo.GetGetMethod().IsPublic;
-					}
-				}
-			}
-		}
-		public bool CanWrite
-		{
-			get {
-				if (field) {
-					return _fieldInfo.IsPublic;
-					
-				}
-				else {
-					if (!_propertyInfo.CanWrite) {
-						return false;
-					}
-					else {
-						return _propertyInfo.GetSetMethod().IsPublic;
-					}
-				}
-			}
-		}
 	}
 }
