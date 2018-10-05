@@ -31,10 +31,10 @@ namespace StorageManagementCore {
 		/// </summary>
 		public static ConsoleIO ConsoleIOObject { get; set; }
 
-		/// <summary>
-		///  Whether the Programm runs from any shell / commandline
-		/// </summary>
-		public static bool CommandLineMode { get; private set; }
+//		/// <summary>
+//		///  Whether the Programm runs from any shell / commandline
+//		/// </summary>
+//		public static bool CommandLineMode { get; private set; }
 
 		//based upon https://www.dotnetperls.com/list-equals last access 
 		public static bool UnorderedEqual<T>(this ICollection<T> a, ICollection<T> b) {
@@ -94,15 +94,15 @@ namespace StorageManagementCore {
 		[STAThread, PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		public static void Main(string[] args) {
 			FileInfo parentName = new FileInfo(Process.GetCurrentProcess().ProcessName);
-			CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
-			SetConsoleVisibility(CommandLineMode);
+			//CommandLineMode = parentName.Name == "cmd.exe" || parentName.Name == "powershell.exe";
+			//SetConsoleVisibility(CommandLineMode);
 
 			new Session();
 			ProcessCommandlineArguments(args);
 		}
 
 		/// <summary>
-		///  Processes aguments
+		///  Processes arguments
 		/// </summary>
 		/// <param name="args">The arguments to process</param>
 		private static void ProcessCommandlineArguments(string[] args) {

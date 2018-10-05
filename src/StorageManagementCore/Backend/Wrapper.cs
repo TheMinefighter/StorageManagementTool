@@ -248,13 +248,14 @@ namespace StorageManagementCore.Backend {
 		/// <summary>
 		///  Restarts Program as Administrator
 		/// </summary>
-		public static void RestartProgram(bool administrator, params string[] parameters) {
-			if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, string.Join(" ", parameters),
+		public static void RestartProgram(bool administrator,string[] parameters= null,bool hexWrapper=false) {
+			parameters=parameters?? new string[0];
+			if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName,(hexWrapper?"-Master:Hex "+UniversalCLIProvider.CommandlineMethods.toHexArgumentString(parameters):string.Join(" ", parameters)) ,
 				administrator)) {
 				Environment.Exit(0);
 			}
 		}
-
+		
 		/// <summary>
 		///  Reads the whole content of an StreamReader
 		/// </summary>

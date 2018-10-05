@@ -26,7 +26,7 @@ namespace StorageManagementCore {
 
 		[CmdAction("Admin")]
 		public static void RestartAsAdministrator([CmdParameter("Arguments")] params string[] args) {
-			Wrapper.RestartProgram(true, args ?? Environment.GetCommandLineArgs().Skip(1).ToArray());
+			Wrapper.RestartProgram(true,parameters: args ?? Environment.GetCommandLineArgs().Skip(1).ToArray());
 		}
 
 		[CmdAction("UI")]

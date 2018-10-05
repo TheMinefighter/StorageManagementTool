@@ -14,6 +14,7 @@ namespace StorageManagementCore.WPFGUI {
 		private MainViewModel ViewModel => (MainViewModel) Resources["ViewModel"];
 
 		public MainWindow() {
+			Program.SetConsoleVisibility(false);
 #if DEBUG
 			try {
 				InitializeComponent();

@@ -26,19 +26,19 @@ namespace StorageManagementCore.Operation {
 				.MonitoredFolders) {
 				if (monitoredFolder.ForFiles != MonitoringAction.Ignore) {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath) {
-						Created += MonitoredFolderWatcher_FileCreated,
 						NotifyFilter = NotifyFilters.FileName,
 						EnableRaisingEvents = true
 					};
+					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FileCreated;
 					FileSystemWatcher2MonitoredFolders.Add(tempFileSystemWatcher, monitoredFolder);
 				}
 
 				if (monitoredFolder.ForDirectories != MonitoringAction.Ignore) {
 					FileSystemWatcher tempFileSystemWatcher = new FileSystemWatcher(monitoredFolder.TargetPath) {
-						Created += MonitoredFolderWatcher_FolderCreated,
 						NotifyFilter = NotifyFilters.DirectoryName,
 						EnableRaisingEvents = true
 					};
+					tempFileSystemWatcher.Created += MonitoredFolderWatcher_FolderCreated;
 					FileSystemWatcher2MonitoredFolders.Add(tempFileSystemWatcher, monitoredFolder);
 				}
 			}
