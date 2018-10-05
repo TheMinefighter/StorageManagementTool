@@ -39,6 +39,24 @@ namespace StorageManagementCore.WPFGUI {
 			if (Session.Singleton.IsAdmin) {
 				Title += " (Administrator)";
 			}
+
+			if (Tag is Dictionary<GUIModifier,object> modifierDictionary) {
+				foreach (KeyValuePair<GUIModifier,object> modifierPair in modifierDictionary) {
+					switch (modifierPair.Key) {
+						case GUIModifier.UIProperties: {
+							if (modifierPair.Value is Dictionary<string,object> propertiesToSet) {
+								foreach (KeyValuePair<string,object> propertyPair in propertiesToSet) {
+									object element = typeof(MainWindow).GetProperty(propertyPair.Key.Split(',')[0]).GetValue(this);
+									element.GetType().GetProperty(propertyPair.Key.Split(',')[1]).SetValue(element,propertyPair.Value);
+								}
+							}
+
+							break;
+						}
+						default: throw new InvalidOperationException();
+					}
+				}
+			}
 		}
 
 

@@ -31,9 +31,9 @@ namespace StorageManagementCore {
 
 		[CmdAction("UI")]
 		public static void RunUi([CmdParameter("UIProperties")] Dictionary<string,object> propertyCollection=null) {
-			Dictionary<string, object>modifiers= new Dictionary<string, object>(1);
+			Dictionary<GUIModifier, object>modifiers= new Dictionary<GUIModifier, object>(1);
 			if (!(propertyCollection is null)) {
-				modifiers.Add("PropertyCollection",propertyCollection);
+				modifiers.Add(GUIModifier.UIProperties,propertyCollection);
 			}
 
 			if (modifiers.Count==0) {
