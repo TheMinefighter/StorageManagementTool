@@ -14,9 +14,8 @@ namespace UniversalCLIProvider.Attributes {
 		public string Name;
 		public IList<CmdContextAttribute> subCtx = new List<CmdContextAttribute>();
 
-		public CmdContextAttribute(string name, ContextDefaultAction defaultAction = null) {
-			defaultAction = defaultAction ?? ContextAction.PrintHelp;
-			DefaultAction = defaultAction;
+		public CmdContextAttribute(string name) {
+			DefaultAction = ContextAction.PrintHelp;
 			Name = name;
 		}
 

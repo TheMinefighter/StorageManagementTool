@@ -121,7 +121,7 @@ namespace UniversalCLIProvider {
 
 						return parseable;
 					}
-					else if (source.StartsWith("{") && source.EndsWith("}")) {
+					else if ((source.StartsWith("{") && source.EndsWith("}"))||(source.StartsWith("[") && source.EndsWith("]"))) {
 						try {
 							JsonConvert.DeserializeObject(source, expectedType);
 						}
@@ -170,7 +170,7 @@ namespace UniversalCLIProvider {
 			}
 		}
 
-		public static bool WithoutDeclerationAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
+		public static bool WithoutDeclarationAllowed(this CmdParameterAttribute.CmdParameterUsage src) {
 			switch (src) {
 				case CmdParameterAttribute.CmdParameterUsage.RawValueWithDecleration:
 					return false;

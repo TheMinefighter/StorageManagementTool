@@ -143,7 +143,7 @@ namespace UniversalCLIProvider.Interpreters {
 							}
 
 							if (IsAlias(out CmdParameterAttribute tmpParameterAttribute, out object _) &&
-							    tmpParameterAttribute.Usage.WithoutDeclerationAllowed() ||
+							    tmpParameterAttribute.Usage.WithoutDeclarationAllowed() ||
 							    IsParameterDeclaration(out CmdParameterAttribute _)) {
 								break;
 							}
@@ -188,7 +188,7 @@ namespace UniversalCLIProvider.Interpreters {
 						return false;
 					}
 				}
-				else if (IsAlias(out found, out object aliasValue) && found.Usage.WithoutDeclerationAllowed()) {
+				else if (IsAlias(out found, out object aliasValue) && found.Usage.WithoutDeclarationAllowed()) {
 					invokationArguments.Add(found, aliasValue);
 				}
 				else {
