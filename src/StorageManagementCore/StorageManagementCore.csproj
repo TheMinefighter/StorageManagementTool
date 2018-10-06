@@ -374,6 +374,10 @@
       <Project>{2d5f2f0a-d936-4b3d-837c-1b0fba24c85e}</Project>
       <Name>UniversalCommandlineInterface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UpdateInstaller\UpdateInstaller.csproj">
+      <Project>{9a0595e6-5faf-48c1-95fb-f3eef3344edb}</Project>
+      <Name>UpdateInstaller</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="WPFGUI\MainWindow.xaml">

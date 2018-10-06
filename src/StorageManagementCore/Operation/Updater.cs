@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using kalexi.Monads.Either.Code;
 using Newtonsoft.Json;
 using Octokit;
+using StorageManagementCore.Backend;
+using StorageManagementCore.Configuration;
 using FileMode = System.IO.FileMode;
 
 namespace StorageManagementCore.Operation {
@@ -24,10 +28,37 @@ namespace StorageManagementCore.Operation {
 		private const string UpdatePackageName = "UpdatePackage.zip";
 		private const string ApiUrl = "https://api.github.com";
 
-		public static async Task<T> FirstOrDefaultAsync<T>(this IEnumerable<T> collection, Func<T, Task<bool>> predicate) {
-//                  Contract.Requires<ArgumentNullException>(collection != null);
-//                  Contract.Requires<ArgumentNullException>(predicate != null);
+		public static void InvokeUpdateProcess(UpdateConfiguration config) {
+			switch (config.Mode) {
+				case UpdateMode.NoUpdates: return;
+				case UpdateMode.DownloadAndInstallOnStartup:
+					Update(config.UsePreReleases).ContinueWith(e => {
+						if (e.Result == null) {
+							Wrapper.ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true);
+							Environment.Exit(0);
+						}
+					}).RunSynchronously();
+					break;
+				case UpdateMode.DownloadOnStartupInstallNext:
+					if (Directory.Exists(Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),
+						UpdateInstaller.Update.UpdateDataDirectory))) {
+						Wrapper.ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true);
+						Environment.Exit(0);
+					}
+					else {
+						Update(config.UsePreReleases);
+					}
+					break;
+				case UpdateMode.DownloadOnStartupInstallManual:
+					Update(config.UsePreReleases).Start();
+					break;
 
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		public static async Task<T> FirstOrDefaultAsync<T>(this IEnumerable<T> collection, Func<T, Task<bool>> predicate) {
 			foreach (T item in collection) {
 				bool isResult = await predicate(item).ConfigureAwait(false);
 				if (isResult) {
@@ -67,21 +98,6 @@ namespace StorageManagementCore.Operation {
 		}
 
 		private static GitHubClient GetGitHubClient() => new GitHubClient(new ProductHeaderValue(CrawlerName, Program.VersionTag));
-
-//		internal static async Task<Either<IEnumerable<string>, Exception>> GetTrustedTagNames() {
-//			try {
-//				httpResponseMessage = await c.GetAsync($"repos/{OwnerName}/{RepositoryName}/git/refs/tags");
-//			}
-//			catch (Exception e) {
-//				return e;
-//			}
-//
-//			string tagListString= await httpResponseMessage.Content.ReadAsStringAsync();
-//XDocument xd = XDocument.Parse(tagListString);
-//			//IReadOnlyList<RepositoryTag> readOnlyList;
-//		//	return new Either<IEnumerable<string>, Exception>(readOnlyList.Where(x=>NewTag).Select(x => x.Name));
-//			return null;
-//		}
 
 		/// <summary>
 		///  Gets the release to update to

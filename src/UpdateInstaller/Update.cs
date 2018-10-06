@@ -4,19 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace UpdateInstaller {
-	internal static class Program {
-		private const string UpdateFileName = "Name";
-		private const string UpdateFileTarget = "Target";
-		private const string UpdateFileMD5 = "MD5";
-		private const string UpdateDataDirectory = "UpdateData";
+	public static class Update {
+		public const string UpdateFileName = "Name";
+		public const string UpdateFileTarget = "Target";
+		public const string UpdateFileMD5 = "MD5";
+		public const string UpdateDataDirectory = "UpdateData";
 
 		public static void Main(string[] args) {
 			Console.Title = "Update installer of the StorageManagementTool";
 			Console.WriteLine("This is the update installer of the StorageManagementTool");
 			Console.WriteLine();
+				Console.WriteLine("Wait a second...");
+				Thread.Sleep(1000);
 			Console.WriteLine("Reading Update Data...");
 			XElement root = GetRoot();
 			NewVersion(root);
@@ -29,7 +32,7 @@ namespace UpdateInstaller {
 				Environment.Exit(-1);
 			}
 
-			XElement[] updateFiles = content.Nodes().Where(x => x is XElement).Cast<XElement>().Where(x => x.Name == "UpdateFile")
+			XElement[] updateFiles = content.Nodes().OfType<XElement>().Where(x => x.Name == "UpdateFile")
 				.ToArray();
 			bool violation = VerifyPackage(updateFiles);
 			if (violation) {
