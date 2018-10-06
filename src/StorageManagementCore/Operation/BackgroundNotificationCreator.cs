@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using ExtendedMessageBoxLibrary;
 using StorageManagementCore.Configuration;
-using static StorageManagementCore.GlobalizationRessources.BackgroundNotificationStrings;
+using static StorageManagementCore.GlobalizationResources.BackgroundNotificationStrings;
 
 namespace StorageManagementCore.Operation {
 	/// <summary>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
+namespace StorageManagementCore.GlobalizationResources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ApplyPresetStrings {
+    internal class BackgroundNotificationStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ApplyPresetStrings() {
+        internal BackgroundNotificationStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationRessources.ApplyPresetStrings", typeof(ApplyPresetStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.GlobalizationResources.BackgroundNotificationStrings", typeof(BackgroundNotificationStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,90 +63,54 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ApplyPreset_btn_Text {
+        internal static string IgnoreText {
             get {
-                return ResourceManager.GetString("ApplyPreset_btn_Text", resourceCulture);
+                return ResourceManager.GetString("IgnoreText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Error {
+        internal static string MoveText {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("MoveText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Load_AdministratorRequired {
+        internal static string NewFileFoundText {
             get {
-                return ResourceManager.GetString("Load_AdministratorRequired", resourceCulture);
+                return ResourceManager.GetString("NewFileFoundText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NoHDDSelectedButRequired {
+        internal static string NewFileFoundTitle {
             get {
-                return ResourceManager.GetString("NoHDDSelectedButRequired", resourceCulture);
+                return ResourceManager.GetString("NewFileFoundTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NoScenarioSelected {
+        internal static string NewFolderFoundText {
             get {
-                return ResourceManager.GetString("NoScenarioSelected", resourceCulture);
+                return ResourceManager.GetString("NewFolderFoundText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NoSSDSelectedButRequired {
+        internal static string NewFolderFoundTitle {
             get {
-                return ResourceManager.GetString("NoSSDSelectedButRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SelectHDD_lbl_Text {
-            get {
-                return ResourceManager.GetString("SelectHDD_lbl_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SelectScenario_lbl_Text {
-            get {
-                return ResourceManager.GetString("SelectScenario_lbl_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SelectSSD_lbl_Text {
-            get {
-                return ResourceManager.GetString("SelectSSD_lbl_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string WindowTitle {
-            get {
-                return ResourceManager.GetString("WindowTitle", resourceCulture);
+                return ResourceManager.GetString("NewFolderFoundTitle", resourceCulture);
             }
         }
     }

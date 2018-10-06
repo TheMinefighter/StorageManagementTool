@@ -9,7 +9,7 @@
         xmlns:converter="clr-namespace:StorageManagementCore.WPFGUI.ValueConverters"
         xmlns:t="clr-namespace:LocalizationExtension;assembly=TranslationExtension"
         xmlns:dataProviders="clr-namespace:StorageManagementCore.WPFGUI.DataProviders"
-        xmlns:globalization="clr-namespace:StorageManagementCore.WPFGUI.GlobalizationRessources"
+        xmlns:globalization="clr-namespace:StorageManagementCore.WPFGUI.GlobalizationResources"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         Height="489" Width="800" mc:Ignorable="d"
         Title="StorageManagementTool" VerticalContentAlignment="Stretch"

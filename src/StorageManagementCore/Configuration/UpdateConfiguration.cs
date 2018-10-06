@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using StorageManagementCore.Backend;
-using StorageManagementCore.WPFGUI.GlobalizationRessources;
+using StorageManagementCore.WPFGUI.GlobalizationResources;
 
 namespace StorageManagementCore.Configuration {
 	public class UpdateConfiguration {

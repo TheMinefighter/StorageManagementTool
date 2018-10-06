@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualBasic.Devices;
 using StorageManagementCore.Backend;
-using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.GlobalizationResources;
 
 namespace StorageManagementCore.Operation {
 	/// <summary>

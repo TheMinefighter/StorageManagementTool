@@ -4,7 +4,7 @@ using System.Windows;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
-using static StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettingsStrings;
+using static StorageManagementCore.WPFGUI.GlobalizationResources.PagefileSettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {

@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
-using static StorageManagementCore.WPFGUI.GlobalizationRessources.MonitoringSettingsStrings;
+using static StorageManagementCore.WPFGUI.GlobalizationResources.MonitoringSettingsStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {

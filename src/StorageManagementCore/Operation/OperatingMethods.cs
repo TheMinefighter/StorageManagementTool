@@ -7,7 +7,7 @@ using ExtendedMessageBoxLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using StorageManagementCore.Backend;
-using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.GlobalizationResources;
 
 namespace StorageManagementCore.Operation {
 	public static class OperatingMethods {

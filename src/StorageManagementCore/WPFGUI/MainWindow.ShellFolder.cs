@@ -6,7 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using ConfirmationDialogs;
 using StorageManagementCore.Backend;
-using static StorageManagementCore.WPFGUI.GlobalizationRessources.EditUserShellFolderStrings;
+using static StorageManagementCore.WPFGUI.GlobalizationResources.EditUserShellFolderStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {

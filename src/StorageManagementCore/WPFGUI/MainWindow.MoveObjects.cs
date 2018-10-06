@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-using static StorageManagementCore.WPFGUI.GlobalizationRessources.MoveObjectsStrings;
+using static StorageManagementCore.WPFGUI.GlobalizationResources.MoveObjectsStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {

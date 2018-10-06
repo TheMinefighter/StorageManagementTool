@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementCore.GlobalizationRessources {
+namespace StorageManagementCore.WPFGUI.GlobalizationResources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace StorageManagementCore.GlobalizationRessources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EnterCredentialsStrings {
+    internal class MonitoringSettingsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EnterCredentialsStrings() {
+        internal MonitoringSettingsStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace StorageManagementCore.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.GlobalizationRessources.EnterCredentialsStrings", typeof(EnterCredentialsStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationResources.MonitoringSettingsStrings", typeof(MonitoringSettingsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -72,90 +72,135 @@ namespace StorageManagementCore.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AdministratorInstructions {
+        internal static string ActionForFiles_gb_Text {
             get {
-                return ResourceManager.GetString("AdministratorInstructions", resourceCulture);
+                return ResourceManager.GetString("ActionForFiles_gb_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EnterAUsername {
+        internal static string ActionForFolders_gb_Text {
             get {
-                return ResourceManager.GetString("EnterAUsername", resourceCulture);
+                return ResourceManager.GetString("ActionForFolders_gb_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EnteredCredentialsAreInvalid {
+        internal static string AddFolder_btn_Text {
             get {
-                return ResourceManager.GetString("EnteredCredentialsAreInvalid", resourceCulture);
+                return ResourceManager.GetString("AddFolder_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Error {
+        internal static string AddFolder_fbdDescription {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("AddFolder_fbdDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NormalInstructions {
+        internal static string AskForAction_Text {
             get {
-                return ResourceManager.GetString("NormalInstructions", resourceCulture);
+                return ResourceManager.GetString("AskForAction_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NotAdministratorButRequired {
+        internal static string AutomaticMove_Text {
             get {
-                return ResourceManager.GetString("NotAdministratorButRequired", resourceCulture);
+                return ResourceManager.GetString("AutomaticMove_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Ok_btn_Text {
+        internal static string ChangeFolder_btn_Text {
             get {
-                return ResourceManager.GetString("Ok_btn_Text", resourceCulture);
+                return ResourceManager.GetString("ChangeFolder_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Password_lbl_Text {
+        internal static string ChangeFolder_fbdDescription {
             get {
-                return ResourceManager.GetString("Password_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("ChangeFolder_fbdDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Username_lbl_Text {
+        internal static string EnableNotifications_cb_Text {
             get {
-                return ResourceManager.GetString("Username_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("EnableNotifications_cb_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Window_Title {
+        internal static string Ignore_Text {
             get {
-                return ResourceManager.GetString("Window_Title", resourceCulture);
+                return ResourceManager.GetString("Ignore_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MonitoringTiText {
+            get {
+                return ResourceManager.GetString("MonitoringTiText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string OpenSelectedfolder_btn_Text {
+            get {
+                return ResourceManager.GetString("OpenSelectedfolder_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string RemoveSelectedFolder_btn_Text {
+            get {
+                return ResourceManager.GetString("RemoveSelectedFolder_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SaveSettings_btn_Text {
+            get {
+                return ResourceManager.GetString("SaveSettings_btn_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
             }
         }
     }

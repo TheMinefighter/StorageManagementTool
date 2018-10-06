@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using static StorageManagementCore.WPFGUI.GlobalizationRessources.SettingsStrings;
+using static StorageManagementCore.WPFGUI.GlobalizationResources.SettingsStrings;
 
 namespace StorageManagementCore.WPFGUI.ValueConverters {
 	public class NativeLanguageConverter : IValueConverter {

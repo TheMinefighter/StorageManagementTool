@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using StorageManagementCore.Backend;
-using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.GlobalizationResources;
 
 namespace StorageManagementCore.Operation {
 	public static class Swapfile {

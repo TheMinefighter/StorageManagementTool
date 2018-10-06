@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
+namespace StorageManagementCore.GlobalizationResources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationRessources.ScenarioPresetStrings", typeof(ScenarioPresetStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.GlobalizationResources.ScenarioPresetStrings", typeof(ScenarioPresetStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
+namespace StorageManagementCore.WPFGUI.GlobalizationResources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EnterCredentialsStrings {
+    internal class ApplyPresetStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EnterCredentialsStrings() {
+        internal ApplyPresetStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationRessources.EnterCredentialsStrings", typeof(EnterCredentialsStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationResources.ApplyPresetStrings", typeof(ApplyPresetStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,36 +63,9 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Abort_btn_Text {
+        internal static string ApplyPreset_btn_Text {
             get {
-                return ResourceManager.GetString("Abort_btn_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string AdministratorInstructions {
-            get {
-                return ResourceManager.GetString("AdministratorInstructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string EnterAUsername {
-            get {
-                return ResourceManager.GetString("EnterAUsername", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string EnteredCredentialsAreInvalid {
-            get {
-                return ResourceManager.GetString("EnteredCredentialsAreInvalid", resourceCulture);
+                return ResourceManager.GetString("ApplyPreset_btn_Text", resourceCulture);
             }
         }
         
@@ -108,54 +81,72 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NormalInstructions {
+        internal static string Load_AdministratorRequired {
             get {
-                return ResourceManager.GetString("NormalInstructions", resourceCulture);
+                return ResourceManager.GetString("Load_AdministratorRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NotAdministratorButRequired {
+        internal static string NoHDDSelectedButRequired {
             get {
-                return ResourceManager.GetString("NotAdministratorButRequired", resourceCulture);
+                return ResourceManager.GetString("NoHDDSelectedButRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Ok_btn_Text {
+        internal static string NoScenarioSelected {
             get {
-                return ResourceManager.GetString("Ok_btn_Text", resourceCulture);
+                return ResourceManager.GetString("NoScenarioSelected", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Password_lbl_Text {
+        internal static string NoSSDSelectedButRequired {
             get {
-                return ResourceManager.GetString("Password_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("NoSSDSelectedButRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Username_lbl_Text {
+        internal static string SelectHDD_lbl_Text {
             get {
-                return ResourceManager.GetString("Username_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("SelectHDD_lbl_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Window_Title {
+        internal static string SelectScenario_lbl_Text {
             get {
-                return ResourceManager.GetString("Window_Title", resourceCulture);
+                return ResourceManager.GetString("SelectScenario_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SelectSSD_lbl_Text {
+            get {
+                return ResourceManager.GetString("SelectSSD_lbl_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
             }
         }
     }

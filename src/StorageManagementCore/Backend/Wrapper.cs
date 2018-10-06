@@ -10,7 +10,7 @@ using System.Security;
 using System.Security.Principal;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
-using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.GlobalizationResources;
 using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.Backend {

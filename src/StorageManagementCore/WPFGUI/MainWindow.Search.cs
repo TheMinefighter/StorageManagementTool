@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Operation;
-using static StorageManagementCore.WPFGUI.GlobalizationRessources.SearchSettingsStrings;
+using static StorageManagementCore.WPFGUI.GlobalizationResources.SearchSettingsStrings;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace StorageManagementCore.WPFGUI {

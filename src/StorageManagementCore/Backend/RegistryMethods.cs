@@ -7,7 +7,7 @@ using System.Security;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.GlobalizationResources;
 
 namespace StorageManagementCore.Backend {
 	public static class RegistryMethods {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
+namespace StorageManagementCore.WPFGUI.GlobalizationResources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class PagefileSettingsStrings {
+    internal class SearchSettingsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PagefileSettingsStrings() {
+        internal SearchSettingsStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationRessources.PagefileSettingsStrings", typeof(PagefileSettingsStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationResources.SearchSettingsStrings", typeof(SearchSettingsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,180 +63,126 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AddPagefileBtnText {
+        internal static string Abort_btn_Text {
             get {
-                return ResourceManager.GetString("AddPagefileBtnText", resourceCulture);
+                return ResourceManager.GetString("Abort_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ApplyPagefileChanges_btn_Text {
+        internal static string CurrentLocation_lbl_Text {
             get {
-                return ResourceManager.GetString("ApplyPagefileChanges_btn_Text", resourceCulture);
+                return ResourceManager.GetString("CurrentLocation_lbl_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DisableHibernate_btn_Text {
+        internal static string Error {
             get {
-                return ResourceManager.GetString("DisableHibernate_btn_Text", resourceCulture);
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Enablehibernate_btn_Text {
+        internal static string NewPath_lbl_Text {
             get {
-                return ResourceManager.GetString("Enablehibernate_btn_Text", resourceCulture);
+                return ResourceManager.GetString("NewPath_lbl_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExtendedPagefileOptions_btn_Text {
+        internal static string OpenCurrentPath_btn_Text {
             get {
-                return ResourceManager.GetString("ExtendedPagefileOptions_btn_Text", resourceCulture);
+                return ResourceManager.GetString("OpenCurrentPath_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExtendedPagefileOptions_Text {
+        internal static string OpenNewPath_btn_Text {
             get {
-                return ResourceManager.GetString("ExtendedPagefileOptions_Text", resourceCulture);
+                return ResourceManager.GetString("OpenNewPath_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExtendedPagefileOptions_Title {
+        internal static string RefreshCurrentPath_btn_Text {
             get {
-                return ResourceManager.GetString("ExtendedPagefileOptions_Title", resourceCulture);
+                return ResourceManager.GetString("RefreshCurrentPath_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string HiberfilSettings_gb_Text {
+        internal static string SaveSettings_btn_Text {
             get {
-                return ResourceManager.GetString("HiberfilSettings_gb_Text", resourceCulture);
+                return ResourceManager.GetString("SaveSettings_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string MaximumPagefileSize_lbl_Text {
+        internal static string SearchTiText {
             get {
-                return ResourceManager.GetString("MaximumPagefileSize_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("SearchTiText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string MinimumPagefileSize_lbl_Text {
+        internal static string SelectNewPath_btn_Text {
             get {
-                return ResourceManager.GetString("MinimumPagefileSize_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("SelectNewPath_btn_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PagefileDrive_lbl_Text {
+        internal static string SetSearchDataPath_RestartErrorService {
             get {
-                return ResourceManager.GetString("PagefileDrive_lbl_Text", resourceCulture);
+                return ResourceManager.GetString("SetSearchDataPath_RestartErrorService", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PagefileSettings_gb_Text {
+        internal static string SetSearchDataPath_RestartNoAdmin {
             get {
-                return ResourceManager.GetString("PagefileSettings_gb_Text", resourceCulture);
+                return ResourceManager.GetString("SetSearchDataPath_RestartNoAdmin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PagefilesTiText {
+        internal static string SetSearchDataPath_RestartNow_Title {
             get {
-                return ResourceManager.GetString("PagefilesTiText", resourceCulture);
+                return ResourceManager.GetString("SetSearchDataPath_RestartNow_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string RefreshAvailableParitions_btn_Text {
+        internal static string ShowFurtherSettings_btn_Text {
             get {
-                return ResourceManager.GetString("RefreshAvailableParitions_btn_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string RemovePagefileBtnText {
-            get {
-                return ResourceManager.GetString("RemovePagefileBtnText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SwapfileSettings_gb_Text {
-            get {
-                return ResourceManager.GetString("SwapfileSettings_gb_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SwapfileStepBackward_btn_Text {
-            get {
-                return ResourceManager.GetString("SwapfileStepBackward_btn_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SwapfileStepForward_btn_Text {
-            get {
-                return ResourceManager.GetString("SwapfileStepForward_btn_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SwapfileSuccessful_Restart_Text {
-            get {
-                return ResourceManager.GetString("SwapfileSuccessful_Restart_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SwapfileSuccessful_Restart_Title {
-            get {
-                return ResourceManager.GetString("SwapfileSuccessful_Restart_Title", resourceCulture);
+                return ResourceManager.GetString("ShowFurtherSettings_btn_Text", resourceCulture);
             }
         }
         

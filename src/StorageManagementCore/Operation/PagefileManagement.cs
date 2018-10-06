@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using Microsoft.VisualBasic.FileIO;
 using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
-using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.GlobalizationResources;
 
 namespace StorageManagementCore.Operation {
 	/// <summary>

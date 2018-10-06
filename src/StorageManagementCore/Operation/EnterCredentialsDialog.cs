@@ -2,7 +2,7 @@
 using System.Security;
 using System.Windows.Forms;
 using StorageManagementCore.Backend;
-using StorageManagementCore.GlobalizationRessources;
+using StorageManagementCore.GlobalizationResources;
 
 namespace StorageManagementCore.Operation {
 	public sealed partial class EnterCredentialsDialog : Form {

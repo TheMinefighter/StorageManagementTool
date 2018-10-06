@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
+namespace StorageManagementCore.GlobalizationResources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UserShellFolderStrings {
+    internal class OperatingMethodsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UserShellFolderStrings() {
+        internal OperatingMethodsStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.WPFGUI.GlobalizationRessources.UserShellFolderStrings", typeof(UserShellFolderStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StorageManagementCore.GlobalizationResources.OperatingMethodsStrings", typeof(OperatingMethodsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,162 +63,252 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Administrative_Tools_Name {
+        internal static string ChangePagefileSettings_CouldntDisableManagement {
             get {
-                return ResourceManager.GetString("Administrative_Tools_Name", resourceCulture);
+                return ResourceManager.GetString("ChangePagefileSettings_CouldntDisableManagement", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Appdata_Name {
+        internal static string ChangePagefileSettings_MinGreaterMax {
             get {
-                return ResourceManager.GetString("Appdata_Name", resourceCulture);
+                return ResourceManager.GetString("ChangePagefileSettings_MinGreaterMax", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Cache_Name {
+        internal static string ChangePagefileSettings_Not1Pagefile {
             get {
-                return ResourceManager.GetString("Cache_Name", resourceCulture);
+                return ResourceManager.GetString("ChangePagefileSettings_Not1Pagefile", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CD_Burning_Name {
+        internal static string ChangePagefileSettings_NotEnoughSpace {
             get {
-                return ResourceManager.GetString("CD_Burning_Name", resourceCulture);
+                return ResourceManager.GetString("ChangePagefileSettings_NotEnoughSpace", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_Administrative_Tools_Name {
+        internal static string ChangePagefileSettings_SelectedPartitionMissing {
             get {
-                return ResourceManager.GetString("Common_Administrative_Tools_Name", resourceCulture);
+                return ResourceManager.GetString("ChangePagefileSettings_SelectedPartitionMissing", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_AppData_Name {
+        internal static string ChangeUserShellFolder_DeleteContent_Text {
             get {
-                return ResourceManager.GetString("Common_AppData_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_DeleteContent_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_Desktop_Name {
+        internal static string ChangeUserShellFolder_DeleteContent_Title {
             get {
-                return ResourceManager.GetString("Common_Desktop_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_DeleteContent_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_Documents_Name {
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Abort {
             get {
-                return ResourceManager.GetString("Common_Documents_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Abort", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_Programs_Name {
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Ignore {
             get {
-                return ResourceManager.GetString("Common_Programs_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Ignore", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_Start_Menu_Name {
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Retry {
             get {
-                return ResourceManager.GetString("Common_Start_Menu_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Retry", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_Startup_Name {
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Skip {
             get {
-                return ResourceManager.GetString("Common_Startup_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Skip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Common_Templates_Name {
+        internal static string ChangeUserShellFolder_ErrorChangeSubfolder_Text {
             get {
-                return ResourceManager.GetString("Common_Templates_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_ErrorChangeSubfolder_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CommonMusic_Name {
+        internal static string ChangeUserShellFolder_MoveContent_Text {
             get {
-                return ResourceManager.GetString("CommonMusic_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_MoveContent_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CommonPictures_Name {
+        internal static string ChangeUserShellFolder_MoveContent_Title {
             get {
-                return ResourceManager.GetString("CommonPictures_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_MoveContent_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CommonVideo_Name {
+        internal static string ChangeUserShellFolder_RestartExplorer_Text {
             get {
-                return ResourceManager.GetString("CommonVideo_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_RestartExplorer_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Cookies_Name {
+        internal static string ChangeUserShellFolder_RestartExplorer_Title {
             get {
-                return ResourceManager.GetString("Cookies_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_RestartExplorer_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Desktop_Name {
+        internal static string ChangeUserShellFolder_SubfolderFound_No {
             get {
-                return ResourceManager.GetString("Desktop_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_No", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Downloads_Name {
+        internal static string ChangeUserShellFolder_SubfolderFound_Text {
             get {
-                return ResourceManager.GetString("Downloads_Name", resourceCulture);
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_Title {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_Yes {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeUserShellFolder_SubfolderFound_YesAll {
+            get {
+                return ResourceManager.GetString("ChangeUserShellFolder_SubfolderFound_YesAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DriveType2String_CDRom {
+            get {
+                return ResourceManager.GetString("DriveType2String_CDRom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DriveType2String_Fixed {
+            get {
+                return ResourceManager.GetString("DriveType2String_Fixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DriveType2String_Network {
+            get {
+                return ResourceManager.GetString("DriveType2String_Network", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DriveType2String_NoRootDirectory {
+            get {
+                return ResourceManager.GetString("DriveType2String_NoRootDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DriveType2String_RAM {
+            get {
+                return ResourceManager.GetString("DriveType2String_RAM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DriveType2String_Removable {
+            get {
+                return ResourceManager.GetString("DriveType2String_Removable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DriveType2String_Unknown {
+            get {
+                return ResourceManager.GetString("DriveType2String_Unknown", resourceCulture);
             }
         }
         
@@ -234,198 +324,126 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Favorites_Names {
+        internal static string GetDescription_Base {
             get {
-                return ResourceManager.GetString("Favorites_Names", resourceCulture);
+                return ResourceManager.GetString("GetDescription_Base", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Fonts_Name {
+        internal static string GetDescription_Disabled {
             get {
-                return ResourceManager.GetString("Fonts_Name", resourceCulture);
+                return ResourceManager.GetString("GetDescription_Disabled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string History_Name {
+        internal static string GetDescription_Moved {
             get {
-                return ResourceManager.GetString("History_Name", resourceCulture);
+                return ResourceManager.GetString("GetDescription_Moved", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Libraries_Name {
+        internal static string GetDescription_MovedNoAdmin {
             get {
-                return ResourceManager.GetString("Libraries_Name", resourceCulture);
+                return ResourceManager.GetString("GetDescription_MovedNoAdmin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Local_AppData_Name {
+        internal static string GetDescription_None {
             get {
-                return ResourceManager.GetString("Local_AppData_Name", resourceCulture);
+                return ResourceManager.GetString("GetDescription_None", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string My_Music_Name {
+        internal static string GetDescription_Standard {
             get {
-                return ResourceManager.GetString("My_Music_Name", resourceCulture);
+                return ResourceManager.GetString("GetDescription_Standard", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string My_Pictures_Name {
+        internal static string MoveFolderOrFile_PathsEqual {
             get {
-                return ResourceManager.GetString("My_Pictures_Name", resourceCulture);
+                return ResourceManager.GetString("MoveFolderOrFile_PathsEqual", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string My_Video_Name {
+        internal static string SetSearchDataPath_InvalidPath {
             get {
-                return ResourceManager.GetString("My_Video_Name", resourceCulture);
+                return ResourceManager.GetString("SetSearchDataPath_InvalidPath", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NetHood_Name {
+        internal static string SetSearchDataPath_RestartNow_Title {
             get {
-                return ResourceManager.GetString("NetHood_Name", resourceCulture);
+                return ResourceManager.GetString("SetSearchDataPath_RestartNow_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string OEM_Links_Name {
+        internal static string SetStadium_ErrorNoneAfterLast {
             get {
-                return ResourceManager.GetString("OEM_Links_Name", resourceCulture);
+                return ResourceManager.GetString("SetStadium_ErrorNoneAfterLast", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Personal_Name {
+        internal static string SetStadium_ErrorNoneBeforeFirst {
             get {
-                return ResourceManager.GetString("Personal_Name", resourceCulture);
+                return ResourceManager.GetString("SetStadium_ErrorNoneBeforeFirst", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PrintHood_Name {
+        internal static string SetStadium_NewInvalid {
             get {
-                return ResourceManager.GetString("PrintHood_Name", resourceCulture);
+                return ResourceManager.GetString("SetStadium_NewInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PrivateTemp {
+        internal static string SetStadium_NoNewPathGiven {
             get {
-                return ResourceManager.GetString("PrivateTemp", resourceCulture);
+                return ResourceManager.GetString("SetStadium_NoNewPathGiven", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ProgramFilesDir_Name {
+        internal static string StoreOnHDDLinkName {
             get {
-                return ResourceManager.GetString("ProgramFilesDir_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ProgramFilesDir_x86_Name {
-            get {
-                return ResourceManager.GetString("ProgramFilesDir_x86_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Programs_Name {
-            get {
-                return ResourceManager.GetString("Programs_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string PublicTemp {
-            get {
-                return ResourceManager.GetString("PublicTemp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Recent_Name {
-            get {
-                return ResourceManager.GetString("Recent_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SendTo_Name {
-            get {
-                return ResourceManager.GetString("SendTo_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Start_Menu_Name {
-            get {
-                return ResourceManager.GetString("Start_Menu_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Startup_Name {
-            get {
-                return ResourceManager.GetString("Startup_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Templates_Name {
-            get {
-                return ResourceManager.GetString("Templates_Name", resourceCulture);
+                return ResourceManager.GetString("StoreOnHDDLinkName", resourceCulture);
             }
         }
     }

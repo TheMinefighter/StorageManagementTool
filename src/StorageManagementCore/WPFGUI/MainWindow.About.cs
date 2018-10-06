@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using static StorageManagementCore.WPFGUI.GlobalizationRessources.AboutStrings;
+using static StorageManagementCore.WPFGUI.GlobalizationResources.AboutStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
