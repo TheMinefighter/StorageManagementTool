@@ -15,17 +15,18 @@ namespace StorageManagementCore.WPFGUI {
 		private MonitoredFolder _selectedMonitoredFolder;
 		private Pagefile _selectedPagefile;
 
-		public UpdateMode UpdateModeSelected
-		{
+		public UpdateMode UpdateModeSelected {
 			get => Session.Singleton.Configuration.UpdateSettings.Mode;
-			set => Session.Singleton.Configuration.UpdateSettings.Mode = value;
+			set { Session.Singleton.Configuration.UpdateSettings.Mode = value;Session.Singleton.SaveCfg(); }
 		}
 
-        public bool UsePrereleases
-		{
-			get => Session.Singleton.Configuration.UpdateSettings.UsePrereleases;
-			set => Session.Singleton.Configuration.UpdateSettings.UsePrereleases = value;
-		}
+		public bool UsePrereleases {
+	        get => Session.Singleton.Configuration.UpdateSettings.UsePrereleases;
+	        set {
+		        Session.Singleton.Configuration.UpdateSettings.UsePrereleases = value;
+		        Session.Singleton.SaveCfg();
+	        }
+        }
 
 		public Pagefile SelectedPagefile {
 			get => _selectedPagefile;
