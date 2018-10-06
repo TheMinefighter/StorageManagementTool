@@ -4,12 +4,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using ConfirmationDialogs;
 using StorageManagementCore.Backend;
 using static StorageManagementCore.WPFGUI.GlobalizationResources.EditUserShellFolderStrings;
 
 namespace StorageManagementCore.WPFGUI {
 	public partial class MainWindow {
+		
 		private bool _shellFolderTiOpened;
 
 		private void ShellFolderTi_OnLoaded(object sender, RoutedEventArgs e) {
@@ -111,6 +113,10 @@ namespace StorageManagementCore.WPFGUI {
 			}
 
 			public event EventHandler CanExecuteChanged;
+		}
+
+		private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e) {
+			System.Diagnostics.Process.Start(e.Uri.ToString());
 		}
 	}
 }

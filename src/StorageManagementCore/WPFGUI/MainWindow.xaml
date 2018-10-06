@@ -557,7 +557,20 @@
 				</Grid>
 			</TabItem>
 			<TabItem x:Name="AboutTi" Header="About">
-				<WebBrowser x:Name="AboutTextWb" Loaded="AboutTextWb_OnLoaded" />
+				<TextBlock TextWrapping="WrapWithOverflow">
+					The StorageManagementTool is project by Tobias Brohl published under MIT. <LineBreak/>
+					Attribution is hereby granted to the authors of the following libraries:
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/Dirkster99/NumericUpDownLib/master/License.md" RequestNavigate="Hyperlink_OnRequestNavigate">Dirkster99/NumericUpDownLib</Hyperlink><LineBreak/>
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/stevehansen/csv/master/LICENSE" RequestNavigate="Hyperlink_OnRequestNavigate">stevehansen/csv</Hyperlink><LineBreak/>
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/aybe/Windows-API-Code-Pack-1.1/master/LICENCE" RequestNavigate="Hyperlink_OnRequestNavigate">aybe/Windows-API-Code-Pack-1.1</Hyperlink><LineBreak/>
+					<Hyperlink NavigateUri="https://archive.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx" RequestNavigate="Hyperlink_OnRequestNavigate">aybe/WindowsAPICodePack-Shell</Hyperlink><LineBreak/>
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/dotnet/corefx/master/LICENSE.TXT" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/corefx</Hyperlink><LineBreak/>
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/dotnet/core/master/LICENSE.TXT" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/core</Hyperlink><LineBreak/> 
+					<Hyperlink NavigateUri="https://github.com/dotnet/coreclr/blob/master/LICENSE.TXT" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/coreclr</Hyperlink><LineBreak/>
+					<Hyperlink NavigateUri="https://github.com/dotnet/cli/blob/master/LICENSE" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/cli</Hyperlink><LineBreak/> 
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/LICENSE.md" RequestNavigate="Hyperlink_OnRequestNavigate">JamesNK/Newtonsoft.Json</Hyperlink><LineBreak/>
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/TheMinefighter/ConfirmationDialogs/master/LICENSE.md" RequestNavigate="Hyperlink_OnRequestNavigate">TheMinefighter/ConfirmationDialogs</Hyperlink><LineBreak/>
+				</TextBlock>
 			</TabItem>
 		</TabControl>
 	</Grid>

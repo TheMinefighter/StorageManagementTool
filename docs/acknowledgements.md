@@ -2,7 +2,7 @@
 # Acknowledgements
 Acknowledgement is hereby granted to anyone acknowledged by one of the following libraries.
 ## Referenced Libraries
-The following attribution section is for libraries and other things which are referenced or used in some other way for this package but are NOT redistributed with the package.
+The following attribution section is for libraries used:
  - [Dirkster99/NumericUpDownLib](https://raw.githubusercontent.com/Dirkster99/NumericUpDownLib/master/License.md)
  - [stevehansen/csv](https://raw.githubusercontent.com/stevehansen/csv/master/LICENSE)
  - [aybe/Windows-API-Code-Pack-1.1](https://raw.githubusercontent.com/aybe/Windows-API-Code-Pack-1.1/master/LICENCE)

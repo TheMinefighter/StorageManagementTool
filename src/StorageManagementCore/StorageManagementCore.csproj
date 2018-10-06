@@ -241,7 +241,6 @@
     </Compile>
     <Compile Include="WPFGUI\GUIModifier.cs" />
     <Compile Include="WPFGUI\MainViewModel.cs" />
-    <Compile Include="WPFGUI\MainWindow.About.cs" />
     <Compile Include="WPFGUI\MainWindow.Monitoring.cs" />
     <Compile Include="WPFGUI\MainWindow.MoveObjects.cs" />
     <Compile Include="WPFGUI\MainWindow.Pagefiles.cs" />
