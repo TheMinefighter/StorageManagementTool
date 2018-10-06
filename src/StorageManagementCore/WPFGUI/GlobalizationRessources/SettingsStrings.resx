@@ -148,4 +148,7 @@
   <data name="UpdateMode_DownloadOnStartupInstallManual" xml:space="preserve">
     <value></value>
   </data>
+  <data name="UsePrereleasesText" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

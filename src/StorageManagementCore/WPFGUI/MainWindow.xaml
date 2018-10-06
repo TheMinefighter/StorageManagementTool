@@ -58,7 +58,7 @@
 	<Grid x:Name="RootGrid" RenderTransformOrigin="0.5,0.5" DataContext="{StaticResource ViewModel}">
 		<TabControl x:Name="BaseTc" Height="auto" Width="auto" RenderTransformOrigin="0.5,0.5"
 		            VerticalContentAlignment="Top" t:Settings.ResourceFile="{x:Type globalization:MoveObjectsStrings}"
-		            HorizontalContentAlignment="Left" SelectionChanged="BaseTc_SelectionChanged" Margin="0,10,0,0">
+		            HorizontalContentAlignment="Left" SelectionChanged="BaseTc_SelectionChanged">
 			<TabItem x:Name="MoveFileOrFolderTi" Header="{t:Localize}"
 			         Loaded="MoveFileOrFolderTi_OnLoaded">
 				<Grid Background="White">
@@ -541,7 +541,7 @@
 					          Margin="10,225,0,0"
 					          VerticalAlignment="Top" RenderTransformOrigin="0.133,0.65" Height="22"
 					          Checked="EnOrDisableSendToHDDCb_OnChecked" Unchecked="EnOrDisableSendToHDDCb_OnUnchecked" />
-					<ComboBox HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" Width="374"
+					<ComboBox HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" Width="374" SelectedItem="{Binding Path=UpdateModeSelected, Mode=TwoWay}"
 					          ItemsSource="{Binding Source={StaticResource UpdateModesProvider}, Mode=OneWay, Path=UpdateModes}">
 						<ComboBox.ItemTemplate>
 							<DataTemplate>
@@ -553,7 +553,7 @@
 							</DataTemplate>
 						</ComboBox.ItemTemplate>
 					</ComboBox>
-					<CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Width="379" />
+					<CheckBox x:Name="UsePrereleasesCb" Content="CheckBox" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Width="379" IsChecked="{Binding Path=UsePrereleases, Mode=TwoWay}"/>
 				</Grid>
 			</TabItem>
 			<TabItem x:Name="AboutTi" Header="About">

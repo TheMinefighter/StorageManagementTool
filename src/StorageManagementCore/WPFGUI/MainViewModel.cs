@@ -9,9 +9,23 @@ namespace StorageManagementCore.WPFGUI {
 	///  The Main ViewModelModel containing all further GUI Data
 	/// </summary>
 	public class MainViewModel : INotifyPropertyChanged {
+		
+
 		private PagefileSysConfiguration _proposedPagefileConfiguration;
 		private MonitoredFolder _selectedMonitoredFolder;
 		private Pagefile _selectedPagefile;
+
+		public UpdateMode UpdateModeSelected
+		{
+			get => Session.Singleton.Configuration.UpdateSettings.Mode;
+			set => Session.Singleton.Configuration.UpdateSettings.Mode = value;
+		}
+
+        public bool UsePrereleases
+		{
+			get => Session.Singleton.Configuration.UpdateSettings.UsePreReleases;
+			set => Session.Singleton.Configuration.UpdateSettings.UsePreReleases = value;
+		}
 
 		public Pagefile SelectedPagefile {
 			get => _selectedPagefile;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using StorageManagementCore.Backend;
+using StorageManagementCore.Operation;
 
 namespace StorageManagementCore.WPFGUI {
 	/// <inheritdoc cref="Window" />
@@ -31,6 +32,7 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
+			Updater.InvokeUpdateProcess(Session.Singleton.Configuration.UpdateSettings);
 			if (!Session.Singleton.IsAdmin && Session.Singleton.Configuration.CredentialsOnStartup) {
 				List<string> args = Environment.GetCommandLineArgs().ToList();
 				args.RemoveAt(0);

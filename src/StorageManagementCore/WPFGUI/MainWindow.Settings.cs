@@ -30,6 +30,7 @@ namespace StorageManagementCore.WPFGUI {
 			RestartAsAdministratorBtn.IsEnabled = !Session.Singleton.IsAdmin;
 			IsAdministratorLbl.Text = Session.Singleton.IsAdmin ? IsAdministratorLblText : IsNoAdministratorLblText;
 			SettingsTi.Header = SettingsTiText;
+			UsePrereleasesCb.Content = UsePrereleasesText;
 		}
 
 		private void DisposeCredentialsBtn_Click(object sender, RoutedEventArgs e) {

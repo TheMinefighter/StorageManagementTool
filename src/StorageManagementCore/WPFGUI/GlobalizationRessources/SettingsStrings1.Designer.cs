@@ -212,5 +212,14 @@ namespace StorageManagementCore.WPFGUI.GlobalizationRessources {
                 return ResourceManager.GetString("UpdateMode_NoUpdates", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UsePrereleasesText {
+            get {
+                return ResourceManager.GetString("UsePrereleasesText", resourceCulture);
+            }
+        }
     }
 }

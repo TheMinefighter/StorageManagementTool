@@ -162,4 +162,7 @@
   <data name="UpdateMode_DownloadOnStartupInstallManual" xml:space="preserve">
     <value>Download on program startup, install manually</value>
   </data>
+  <data name="UsePrereleasesText" xml:space="preserve">
+    <value>Use prereleases</value>
+  </data>
 </root>
