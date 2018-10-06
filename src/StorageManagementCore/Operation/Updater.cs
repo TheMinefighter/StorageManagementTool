@@ -32,7 +32,7 @@ namespace StorageManagementCore.Operation {
 			switch (config.Mode) {
 				case UpdateMode.NoUpdates: return;
 				case UpdateMode.DownloadAndInstallOnStartup:
-					Update(config.UsePreReleases).ContinueWith(e => {
+					Update(config.UsePrereleases).ContinueWith(e => {
 						if (e.Result == null) {
 							Wrapper.ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true);
 							Environment.Exit(0);
@@ -46,11 +46,11 @@ namespace StorageManagementCore.Operation {
 						Environment.Exit(0);
 					}
 					else {
-						Update(config.UsePreReleases);
+						Update(config.UsePrereleases);
 					}
 					break;
 				case UpdateMode.DownloadOnStartupInstallManual:
-					Update(config.UsePreReleases).Start();
+					Update(config.UsePrereleases).Start();
 					break;
 
 				default:

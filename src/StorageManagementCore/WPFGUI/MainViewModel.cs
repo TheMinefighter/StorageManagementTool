@@ -23,8 +23,8 @@ namespace StorageManagementCore.WPFGUI {
 
         public bool UsePrereleases
 		{
-			get => Session.Singleton.Configuration.UpdateSettings.UsePreReleases;
-			set => Session.Singleton.Configuration.UpdateSettings.UsePreReleases = value;
+			get => Session.Singleton.Configuration.UpdateSettings.UsePrereleases;
+			set => Session.Singleton.Configuration.UpdateSettings.UsePrereleases = value;
 		}
 
 		public Pagefile SelectedPagefile {

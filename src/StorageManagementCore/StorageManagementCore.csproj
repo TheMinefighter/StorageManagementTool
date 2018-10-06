@@ -105,7 +105,6 @@
     <Compile Include="Backend\RegistryMethods.cs" />
     <Compile Include="Backend\RegistryValue.cs" />
     <Compile Include="Backend\Services.cs" />
-    <Compile Include="Backend\TestR.cs" />
     <Compile Include="Backend\Win32ShellFolders.cs" />
     <Compile Include="Backend\Wrapper.cs" />
     <Compile Include="CmdRootContext.cs" />

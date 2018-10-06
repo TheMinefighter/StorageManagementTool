@@ -9,7 +9,7 @@ namespace StorageManagementCore.Configuration {
 		private static ReadOnlyMap<UpdateMode, string> _updateModeByLocalizedName;
 		public UpdateMode Mode;
 
-		public bool UsePreReleases;
+		public bool UsePrereleases;
 
 		public static ReadOnlyMap<UpdateMode, string> UpdateModeByLocalizedName => _updateModeByLocalizedName ??
 		                                                                           (_updateModeByLocalizedName =
@@ -21,7 +21,7 @@ namespace StorageManagementCore.Configuration {
 						                                                                           LocalizedModeName(x)))));
 
 		public static UpdateConfiguration Default => new UpdateConfiguration {
-			UsePreReleases = true,
+			UsePrereleases = true,
 			Mode = UpdateMode.DownloadOnStartupInstallManual
 		};
 
@@ -30,7 +30,7 @@ namespace StorageManagementCore.Configuration {
 		}
 
 		public UpdateConfiguration(bool usePreReleases, UpdateMode mode) {
-			UsePreReleases = usePreReleases;
+			UsePrereleases = usePreReleases;
 			Mode = mode;
 		}
 
