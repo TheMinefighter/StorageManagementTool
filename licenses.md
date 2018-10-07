@@ -1,4 +1,5 @@
 The Sourcecode of the Storage management tool is published by Tobias Brohl under MIT License:
+
 Copyright 2018 by Tobias Brohl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
@@ -12,6 +13,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 The embedded 3rd party libraries are licensed under different licenses: 
-	a) Windows-API-Code-Pack: Legalcode available at https://github.com/aybe/Windows-API-Code-Pack-1.1/blob/master/LICENCE 
-	b) Newtonsoft.Json: Legalcode available at https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md
+
+ - a) Windows-API-Code-Pack: Legalcode available at https://github.com/aybe/Windows-API-Code-Pack-1.1/blob/master/LICENCE 
+ - b) Newtonsoft.Json: Legalcode available at https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md
 By using the libraries mentioned above in any way you agree to the Terms of that library
