@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using JetBrains.Annotations;
 using kalexi.Monads.Either.Code;
 using Newtonsoft.Json;
@@ -22,7 +23,8 @@ namespace StorageManagementCore.Operation {
 	///  Provides functionality for automatic tests
 	/// </summary>
 	public static class Updater {
-		private const string RepositoryName = "StorageManagementTool";
+		private const string RepositoryName = "PagesTest";
+		//private const string RepositoryName = "StorageManagementTool";
 		private const string OwnerName = "TheMinefighter";
 		private const string CrawlerName = "StorageManagementTool_UpdateCrawler";
 		private const string UpdatePackageName = "UpdatePackage.zip";
@@ -32,30 +34,44 @@ namespace StorageManagementCore.Operation {
 			switch (config.Mode) {
 				case UpdateMode.NoUpdates: return;
 				case UpdateMode.DownloadAndInstallOnStartup:
-					Update(config.UsePrereleases).ContinueWith(e => {
-						if (e.Result == null) {
-							Wrapper.ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true);
-							Environment.Exit(0);
-						}
-					}).RunSynchronously();
+					if (Session.Singleton.IsAdmin)
+					{
+
+						Update(config.UsePrereleases).ContinueWith(e => {
+							if (e.Result == null) {
+								RunUpdateInstaller();
+							}
+						});
+					}
 					break;
 				case UpdateMode.DownloadOnStartupInstallNext:
 					if (Directory.Exists(Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),
-						UpdateInstaller.Update.UpdateDataDirectory))) {
-						Wrapper.ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName, "", true);
-						Environment.Exit(0);
+						UpdateInstaller.Update.UpdateDataDirectory)))
+					{
+						RunUpdateInstaller();
 					}
 					else {
-						Update(config.UsePrereleases);
+						if (Session.Singleton.IsAdmin)
+						{
+							Update(config.UsePrereleases);
+						}
 					}
 					break;
 				case UpdateMode.DownloadOnStartupInstallManual:
-					Update(config.UsePrereleases).Start();
+					if (Session.Singleton.IsAdmin)
+					{
+						Update(config.UsePrereleases);
+					}
 					break;
 
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		public static void RunUpdateInstaller() {//TODO Admin check
+			Wrapper.ExecuteExecuteable(Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),"UpdateInstaller.exe"), "", true);
+			Environment.Exit(0);
 		}
 
 		public static async Task<T> FirstOrDefaultAsync<T>(this IEnumerable<T> collection, Func<T, Task<bool>> predicate) {
@@ -148,7 +164,7 @@ namespace StorageManagementCore.Operation {
 					return false;
 				}
 
-				string commitName = root.commit?.name;
+				string commitName = root.commit?.message;
 				if (commitName == null) {
 					return false;
 				}
@@ -221,7 +237,7 @@ namespace StorageManagementCore.Operation {
 		}
 
 		private class InternalCommit {
-			public string name;
+			public string message;
 			public InternalVerification verification;
 		}
 

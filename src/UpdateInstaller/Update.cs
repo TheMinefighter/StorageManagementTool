@@ -18,14 +18,59 @@ namespace UpdateInstaller {
 			Console.Title = "Update installer of the StorageManagementTool";
 			Console.WriteLine("This is the update installer of the StorageManagementTool");
 			Console.WriteLine();
-				Console.WriteLine("Wait a second...");
-				Thread.Sleep(1000);
+				Console.WriteLine("Wait a second or two...");//Only waiting that parent quits
+				Thread.Sleep(2000);
 			Console.WriteLine("Reading Update Data...");
-			XElement root = GetRoot();
-			NewVersion(root);
+			if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory))) {
+				Console.WriteLine("The UpdateData directory does not exist. Press a key to quit.");
+				Console.Read();
+				Environment.Exit(-1);
+			}
+
+			if (!File.Exists(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, "UpdateMeta.xml"))) {
+				Console.WriteLine("The UpdateData\\UpdateMeta.xml file does not exist. Press a key to quit.");
+				Console.Read();
+				Environment.Exit(-1);
+			}
+
+			XDocument meta = null;
+			try {
+				meta = XDocument.Load(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, "UpdateMeta.xml"));
+			}
+			catch (Exception e1) {
+				Console.WriteLine("Could not read UpdateData\\UpdateMeta.xml. Details below. Press a key to quit.");
+				Console.WriteLine(e1);
+				Console.Read();
+				Environment.Exit(-1);
+			}
+
+			XElement root1 = meta.Root;
+			if (root1 is null) {
+				Console.WriteLine("The root tag of UpdateData\\UpdateMeta.xml does not exist.  Press a key to quit.");
+				Console.Read();
+				Environment.Exit(-1);
+			}
+
+			XAttribute newVersion = root1.Attribute("NewVersion");
+			if (newVersion is null) {
+				Console.WriteLine(
+					"The NewVersion attribute of the root tag of UpdateData\\UpdateMeta.xml does not exist. Press a key to quit.");
+				Console.Read();
+				Environment.Exit(-1);
+			}
+
+			string newVersionValue = newVersion.Value;
+			if (newVersionValue == "") {
+				Console.WriteLine(
+					"The NewVersion attribute of the root tag of UpdateData\\UpdateMeta.xml is not defined properly. Press a key to quit.");
+				Console.Read();
+				Environment.Exit(-1);
+			}
+
+			Console.WriteLine($"The version to be installed is {newVersionValue}.");
 			Console.WriteLine();
 			Console.WriteLine("Verifying update package integrity...");
-			XElement content = (XElement) root.Nodes().FirstOrDefault(x => x is XElement e && e.Name == "UpdateMeta.Content");
+			XElement content = (XElement) root1.Nodes().FirstOrDefault(x => x is XElement e && e.Name == "UpdateMeta.Content");
 			if (content is null) {
 				Console.WriteLine("The update package does not define it's content. Press a key to quit.");
 				Console.Read();
@@ -34,8 +79,63 @@ namespace UpdateInstaller {
 
 			XElement[] updateFiles = content.Nodes().OfType<XElement>().Where(x => x.Name == "UpdateFile")
 				.ToArray();
-			bool violation = VerifyPackage(updateFiles);
-			if (violation) {
+			if (updateFiles.Length==0)
+			{
+				Console.WriteLine("The update package is empty. Press a key to quit.");
+				Console.Read();
+				Environment.Exit(-1);
+            }
+
+			bool violations = false;
+			for (int i = 0; i < updateFiles.Length; i++) {
+				XAttribute name = updateFiles[i].Attribute(UpdateFileName);
+				if (name is null) {
+					Console.WriteLine($"The UpdateFile {i} has no name defined. Press a key to quit.");
+					Console.Read();
+					Environment.Exit(-1);
+				}
+
+				if (!File.Exists(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, name.Value))) {
+					Console.WriteLine($"The UpdateFile {i} ({name.Value}) does not exist. Press a key to quit.");
+					Console.Read();
+					Environment.Exit(-1);
+				}
+
+				XAttribute target1 = updateFiles[i].Attribute(UpdateFileTarget);
+				if (target1 is null) {
+					Console.WriteLine($"The UpdateFile {i} has no target defined. Press a key to quit.");
+					Console.Read();
+					Environment.Exit(-1);
+				}
+
+				XAttribute expectedHash = updateFiles[i].Attribute(UpdateFileMD5);
+				if (expectedHash is null) {
+					Console.WriteLine($"The UpdateFile {i} has no hash defined. Press P to proceed or any other key to quit.");
+					if (Console.ReadKey().Key != ConsoleKey.P) {
+						Environment.Exit(-1);
+					}
+					else {
+						Console.WriteLine();
+						violations = true;
+						continue;
+					}
+				}
+
+				if (!string.Equals(ComputeHash(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, name.Value)),
+					expectedHash.Value,
+					StringComparison.OrdinalIgnoreCase)) {
+					Console.WriteLine($"The UpdateFile {i} has an invalid hash. Press P to proceed or any other key to quit.");
+					if (Console.ReadKey().Key != ConsoleKey.P) {
+						Environment.Exit(-1);
+					}
+					else {
+						Console.WriteLine();
+						violations = true;
+					}
+				}
+			}
+
+			if (violations) {
 				Console.WriteLine("No further integrity violations detected.");
 			}
 			else {
@@ -98,7 +198,7 @@ namespace UpdateInstaller {
 
 			try {
 				new Process {
-					StartInfo = new ProcessStartInfo(Path.Combine(Environment.CurrentDirectory, "StorageMangementCLI.bat"),
+					StartInfo = new ProcessStartInfo(Path.Combine(Environment.CurrentDirectory, "StorageManagementCLI.bat"),
 						argsBuilder.ToString())
 				}.Start();
 			}
@@ -110,59 +210,6 @@ namespace UpdateInstaller {
 			}
 
 			Environment.Exit(0);
-		}
-
-		private static bool VerifyPackage(XElement[] updateFiles) {
-			bool violations = false;
-			for (int i = 0; i < updateFiles.Length; i++) {
-				XAttribute name = updateFiles[i].Attribute(UpdateFileName);
-				if (name is null) {
-					Console.WriteLine($"The UpdateFile {i} has no name defined. Press a key to quit.");
-					Console.Read();
-					Environment.Exit(-1);
-				}
-
-				if (!File.Exists(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, name.Value))) {
-					Console.WriteLine($"The UpdateFile {i} ({name.Value}) does not exist. Press a key to quit.");
-					Console.Read();
-					Environment.Exit(-1);
-				}
-
-				XAttribute target = updateFiles[i].Attribute(UpdateFileTarget);
-				if (target is null) {
-					Console.WriteLine($"The UpdateFile {i} has no target defined. Press a key to quit.");
-					Console.Read();
-					Environment.Exit(-1);
-				}
-
-				XAttribute expectedHash = updateFiles[i].Attribute(UpdateFileMD5);
-				if (expectedHash is null) {
-					Console.WriteLine($"The UpdateFile {i} has no hash defined. Press P to proceed or any other key to quit.");
-					if (Console.ReadKey().Key != ConsoleKey.P) {
-						Environment.Exit(-1);
-					}
-					else {
-						Console.WriteLine();
-						violations = true;
-						continue;
-					}
-				}
-
-				if (!string.Equals(ComputeHash(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, name.Value)),
-					expectedHash.Value,
-					StringComparison.OrdinalIgnoreCase)) {
-					Console.WriteLine($"The UpdateFile {i} has an invalid hash. Press P to proceed or any other key to quit.");
-					if (Console.ReadKey().Key != ConsoleKey.P) {
-						Environment.Exit(-1);
-					}
-					else {
-						Console.WriteLine();
-						violations = true;
-					}
-				}
-			}
-
-			return violations;
 		}
 
 		private static string ByteArrayToString(byte[] ba) => BitConverter.ToString(ba).Replace("-", "");
@@ -182,60 +229,6 @@ namespace UpdateInstaller {
 				Environment.Exit(-1);
 				return null;
 			}
-		}
-
-		private static XElement GetRoot() {
-			if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory))) {
-				Console.WriteLine("The UpdateData directory does not exist. Press a key to quit.");
-				Console.Read();
-				Environment.Exit(-1);
-			}
-
-			if (!File.Exists(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, "UpdateMeta.xml"))) {
-				Console.WriteLine("The UpdateData\\UpdateMeta.xml file does not exist. Press a key to quit.");
-				Console.Read();
-				Environment.Exit(-1);
-			}
-
-			XDocument meta = null;
-			try {
-				meta = XDocument.Load(Path.Combine(Environment.CurrentDirectory, UpdateDataDirectory, "UpdateMeta.xml"));
-			}
-			catch (Exception e) {
-				Console.WriteLine("Could not read UpdateData\\UpdateMeta.xml. Details below. Press a key to quit.");
-				Console.WriteLine(e);
-				Console.Read();
-				Environment.Exit(-1);
-			}
-
-			XElement root = meta.Root;
-			if (root is null) {
-				Console.WriteLine("The root tag of UpdateData\\UpdateMeta.xml does not exist.  Press a key to quit.");
-				Console.Read();
-				Environment.Exit(-1);
-			}
-
-			return root;
-		}
-
-		private static void NewVersion(XElement root) {
-			XAttribute newVersion = root.Attribute("NewVersion");
-			if (newVersion is null) {
-				Console.WriteLine(
-					"The NewVersion attribute of the root tag of UpdateData\\UpdateMeta.xml does not exist. Press a key to quit.");
-				Console.Read();
-				Environment.Exit(-1);
-			}
-
-			string newVersionValue = newVersion.Value;
-			if (newVersionValue == "") {
-				Console.WriteLine(
-					"The NewVersion attribute of the root tag of UpdateData\\UpdateMeta.xml is not defined properly. Press a key to quit.");
-				Console.Read();
-				Environment.Exit(-1);
-			}
-
-			Console.WriteLine($"The version to be installed is {newVersionValue}.");
 		}
 	}
 }

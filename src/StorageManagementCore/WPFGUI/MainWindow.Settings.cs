@@ -31,6 +31,7 @@ namespace StorageManagementCore.WPFGUI {
 			IsAdministratorLbl.Text = Session.Singleton.IsAdmin ? IsAdministratorLblText : IsNoAdministratorLblText;
 			SettingsTi.Header = SettingsTiText;
 			UsePrereleasesCb.Content = UsePrereleasesText;
+			InstallUpdateBtn.Content = InstallUpdateText;
 		}
 
 		private void DisposeCredentialsBtn_Click(object sender, RoutedEventArgs e) {
@@ -96,6 +97,11 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void SelectLanguageCmb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
 			//throw new NotImplementedException();
+		}
+
+		private void InstallUpdateBtn_OnClick(object sender, RoutedEventArgs e)
+		{
+			Updater.RunUpdateInstaller();
 		}
 	}
 }
