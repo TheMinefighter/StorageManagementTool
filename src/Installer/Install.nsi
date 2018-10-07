@@ -2,6 +2,7 @@
 ; I would not consider any of the parts represented in this documentes as significant.
 ; Anyway acknowledgement is hereby granted to all contributors of the nsis documentation
 !include "MUI.nsh"
+
 !include LogicLib.nsh
 ;!include StrContainsFun.nsi
 !include StrRepFun.nsi
@@ -10,17 +11,17 @@ OutFile "installer.exe"
 RequestExecutionLevel highest
 InstallDir "$PROGRAMFILES\StorageManagementTool"
 ShowInstDetails show
-
+!define MUI_ICON "icon.ico"
 !define APPNAME "StorageManagementTool"
 !define COMPANYNAME "TheMinefighter"
 !define DESCRIPTION "A tool for managing the storage of your pc"
 !define VERSIONMAJOR 1
-!define VERSIONMINOR 1
+!define VERSIONMINOR 2
 !define VERSIONBUILD 1
 !define HELPURL "https://theminefighter.github.io/StorageManagementTool/"
 !define UPDATEURL "https://github.com/TheMinefighter/StorageManagementTool/releases" 
 !define ABOUTURL "https://theminefighter.github.io/" 
-!define INSTALLSIZE 10000
+!define INSTALLSIZE 12000
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "License.rtf"
@@ -30,10 +31,12 @@ Var StartMenuFolder
 !insertmacro MUI_PAGE_STARTMENU "Application" $StartMenuFolder
 !insertmacro MUI_PAGE_INSTFILES
 !define MUI_FINISHPAGE_RUN
-!define MUI_FINISHPAGE_RUN_TEXT "Start a shortcut"
+!define MUI_FINISHPAGE_RUN_TEXT "Start the StorageManagementTool"
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_LANGUAGE "English"
+
+
 
 Var IntSMName
  
@@ -61,12 +64,12 @@ Section "StorageManagementTool Core" CoreComponent
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" /S"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation" "$\"$INSTDIR$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$\"$INSTDIR\logo.ico$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "Publisher" "$\"${COMPANYNAME}$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "HelpLink" "$\"${HELPURL}$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLUpdateInfo" "$\"${UPDATEURL}$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLInfoAbout" "$\"${ABOUTURL}$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$\"$INSTDIR\bin\icon.ico$\""
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "Publisher" "${COMPANYNAME}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "HelpLink" "${HELPURL}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLUpdateInfo" "${UPDATEURL}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLInfoAbout" "${ABOUTURL}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "1.2-b-1.0"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InternalStartmenuFolder" "$StartMenuFolder"
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMajor" ${VERSIONMAJOR}
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMinor" ${VERSIONMINOR}
@@ -132,10 +135,6 @@ Function ValidateSM
 	Return
 FunctionEnd
 Function LaunchLink
-  MessageBox MB_OK "Reached LaunchLink $\r$\n \
-   SMPROGRAMS: $SMPROGRAMS  $\r$\n \
-   Start Menu Folder: $STARTMENU_FOLDER $\r$\n \
-   InstallDirectory: $INSTDIR "
    ExecShell "" "$INSTDIR\bin\StorageManagementCore.exe"
 FunctionEnd
 
@@ -150,7 +149,7 @@ Section "uninstall"
  
 	# Remove uninstaller information from the registry
 	
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}"
+	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
 	RMDir /r $INSTDIR
 SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN

@@ -165,4 +165,7 @@
   <data name="UsePrereleasesText" xml:space="preserve">
     <value>Use prereleases</value>
   </data>
+  <data name="InstallUpdateText" xml:space="preserve">
+    <value>Install update</value>
+  </data>
 </root>

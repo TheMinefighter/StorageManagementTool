@@ -42,7 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Logo.ico</ApplicationIcon>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConfirmationDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -456,7 +456,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Logo.ico" />
     <None Include="StorageManagementCLI.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -470,6 +469,11 @@
     <Content Include="docs\_layouts\default.html" />
     <Content Include="docs\_sass\jekyll-theme-leap-day.scss" />
     <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

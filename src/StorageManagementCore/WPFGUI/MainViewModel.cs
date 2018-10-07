@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using StorageManagementCore.Configuration;
@@ -14,6 +16,10 @@ namespace StorageManagementCore.WPFGUI {
 		private PagefileSysConfiguration _proposedPagefileConfiguration;
 		private MonitoredFolder _selectedMonitoredFolder;
 		private Pagefile _selectedPagefile;
+
+		public bool UpdateAvailable => Directory.Exists(Path.Combine(
+			Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),
+			UpdateInstaller.Update.UpdateDataDirectory));
 
 		public UpdateMode UpdateModeSelected {
 			get => Session.Singleton.Configuration.UpdateSettings.Mode;
