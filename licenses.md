@@ -14,4 +14,4 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 [The embedded 3rd party libraries are licensed under different licenses](https://theminefighter.github.io/StorageManagementTool/acknowledgements.html)
 
-When you don't want to agree to other licenses than MIT just `#define MITMode`, and you can remove any non MIT licensed library safely (program still works, only some parts of the UI are a little less fancy.)
+When you don't want to agree to other licenses than MIT just `#define MITMode`, and you can remove any non MIT licensed librarie safely (program still works, only some parts of the UI are a little less fancy.)
