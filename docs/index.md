@@ -16,5 +16,6 @@ Furthermore it is good for a SSD / NAS separation.
 It provides primarily a WPF based GUI, and a (rather extensive) CLI.
 
 [Acknowledgements](./acknowledgements.html)
+
 ## Why this project exists
 This project is based upon a more or less scientific paper which will be released to the public as soon as I have translated it to english.

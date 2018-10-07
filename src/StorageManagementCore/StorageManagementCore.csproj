@@ -37,8 +37,12 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConfirmationDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -452,6 +456,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Logo.ico" />
     <None Include="StorageManagementCLI.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
