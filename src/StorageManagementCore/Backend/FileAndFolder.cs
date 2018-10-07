@@ -11,7 +11,10 @@ using System.Text;
 using IWshRuntimeLibrary;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32.SafeHandles;
-using Microsoft.WindowsAPICodePack.Dialogs;
+#if !MITMode
+	using Microsoft.WindowsAPICodePack.Dialogs;
+#endif
+
 using File = System.IO.File;
 
 namespace StorageManagementCore.WPFGUI.DataProviders {}
