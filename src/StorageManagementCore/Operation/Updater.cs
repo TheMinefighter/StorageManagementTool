@@ -23,8 +23,8 @@ namespace StorageManagementCore.Operation {
 	///  Provides functionality for automatic tests
 	/// </summary>
 	public static class Updater {
-		private const string RepositoryName = "PagesTest";
-		//private const string RepositoryName = "StorageManagementTool";
+		//private const string RepositoryName = "PagesTest";
+		private const string RepositoryName = "StorageManagementTool";
 		private const string OwnerName = "TheMinefighter";
 		private const string CrawlerName = "StorageManagementTool_UpdateCrawler";
 		private const string UpdatePackageName = "UpdatePackage.zip";
