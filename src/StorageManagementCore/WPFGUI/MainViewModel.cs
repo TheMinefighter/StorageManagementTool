@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using StorageManagementCore.Backend;
 using StorageManagementCore.Configuration;
 using StorageManagementCore.Operation;
 
@@ -11,11 +12,11 @@ namespace StorageManagementCore.WPFGUI {
 	///  The Main ViewModelModel containing all further GUI Data
 	/// </summary>
 	public class MainViewModel : INotifyPropertyChanged {
-		
-
+		private ShellFolder _selectedShellfolder;
 		private PagefileSysConfiguration _proposedPagefileConfiguration;
 		private MonitoredFolder _selectedMonitoredFolder;
 		private Pagefile _selectedPagefile;
+		private string _proposedShellfolderPath = "";
 
 		public bool UpdateAvailable => Directory.Exists(Path.Combine(
 			Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),
@@ -23,16 +24,52 @@ namespace StorageManagementCore.WPFGUI {
 
 		public UpdateMode UpdateModeSelected {
 			get => Session.Singleton.Configuration.UpdateSettings.Mode;
-			set { Session.Singleton.Configuration.UpdateSettings.Mode = value;Session.Singleton.SaveCfg(); }
+			set {
+				Session.Singleton.Configuration.UpdateSettings.Mode = value;
+				Session.Singleton.SaveCfg();
+			}
 		}
 
+		public ShellFolder SelectedShellfolder {
+			get => _selectedShellfolder;
+			set {
+				_selectedShellfolder = value;
+				OnPropertyChanged();
+				OnPropertyChanged(nameof(CurrentShellfolderPath));
+				OnPropertyChanged(nameof(CanPathBeApplied));
+			}
+		}
+
+
+		public string CurrentShellfolderPath {
+			get {
+				if (SelectedShellfolder is null) {
+					return "";
+				}
+
+				DirectoryInfo path = SelectedShellfolder.GetPath();
+				return path != null ? path.FullName : "Seems as if your PC hasn´t configured that path for whatever reason";
+			}
+		}
+
+		public string ProposedShellfolderPath {
+			get => _proposedShellfolderPath;
+			set {
+				_proposedShellfolderPath = value;
+				OnPropertyChanged(nameof(CanPathBeApplied));
+            OnPropertyChanged();
+			}
+		}
+
+		public bool CanPathBeApplied => SelectedShellfolder != null && Directory.Exists(ProposedShellfolderPath);
+
 		public bool UsePrereleases {
-	        get => Session.Singleton.Configuration.UpdateSettings.UsePrereleases;
-	        set {
-		        Session.Singleton.Configuration.UpdateSettings.UsePrereleases = value;
-		        Session.Singleton.SaveCfg();
-	        }
-        }
+			get => Session.Singleton.Configuration.UpdateSettings.UsePrereleases;
+			set {
+				Session.Singleton.Configuration.UpdateSettings.UsePrereleases = value;
+				Session.Singleton.SaveCfg();
+			}
+		}
 
 		public Pagefile SelectedPagefile {
 			get => _selectedPagefile;

@@ -74,11 +74,10 @@ namespace StorageManagementCore.WPFGUI {
 		}
 
 		private void ShellFoldersLb_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
-//			CurrentShellFolderPathTb.Text = SpecialFolders.GetSpecialFolderPath(ShellFolder
-//				                                .GetUSF((string) ShellFoldersLb.SelectedValue)
-//				                                .WindowsIdentifier) ??
-//			                                "Seems as if your PC hasn´t configured that path for whatever reason";
-//			ApplyShellFolderLocationBtn.IsEnabled =
+			DirectoryInfo path = ((ShellFolder) ShellFoldersLb.SelectedItem).GetPath();
+//			CurrentShellFolderPathTb.Text = path != null ? path.FullName : "Seems as if your PC hasn´t configured that path for whatever reason";
+
+		//	ApplyShellFolderLocationBtn.IsEnabled =
 //				ShellFoldersLb.SelectedIndex != -1 && Directory.Exists(MoveObjectsRootPathTb?.Text ?? "LOL");
 
 			if (AutomaticShellFolderPathCb.IsChecked == true) {
@@ -90,9 +89,9 @@ namespace StorageManagementCore.WPFGUI {
 
 		private void CurrentShellFolderPathTb_OnTextChanged(object sender, TextChangedEventArgs e) {
 			if (MainWindowObject.IsLoaded) {
-				bool exists = Directory.Exists(MoveObjectsRootPathTb.Text);
+				bool exists = Directory.Exists(CurrentShellFolderPathTb.Text);
 				OpenCurrentShellFolderPathBtn.IsEnabled = exists;
-				MoveObjectsRootPathTb.Background = exists ? Brushes.White : Brushes.DarkOrange;
+				CurrentShellFolderPathTb.Background = exists ? Brushes.White : Brushes.DarkOrange;
 			}
 		}
 

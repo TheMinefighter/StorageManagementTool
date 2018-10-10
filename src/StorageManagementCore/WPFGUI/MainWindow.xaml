@@ -112,8 +112,13 @@
             <TabItem x:Name="ShellFolderTi" Header="ShellFolder" Loaded="ShellFolderTi_OnLoaded"
 			         Selector.Selected="ShellFolderTi_OnSelected">
                 <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="593*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="188*"/>
+                    </Grid.ColumnDefinitions>
                     <ListBox x:Name="ShellFoldersLb" HorizontalAlignment="Left" Margin="10,10,0,30" Width="202"
-					         SelectionChanged="ShellFoldersLb_OnSelectionChanged">
+					         SelectedItem="{Binding Path=SelectedShellfolder, Mode=TwoWay}" SelectionChanged="ShellFoldersLb_OnSelectionChanged">
                         <ListBox.ItemsSource>
                             <MultiBinding Converter="{StaticResource ShellFolderFilterConverter}">
                                 <Binding Source="{StaticResource ShellFolderProvider}" Path="KnownShellFolders"
@@ -135,27 +140,27 @@
 					          Margin="10,0,0,10"
 					          VerticalAlignment="Bottom" Style="{StaticResource DangerousCheckBox}"
 					          Unchecked="ViewHiddenFoldersCb_Unchecked" Checked="ViewHiddenFoldersCb_Checked" />
-                    <TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,193,0" TextWrapping="Wrap"
-					         VerticalAlignment="Top" IsReadOnly="True"
+                    <TextBox x:Name="CurrentShellFolderPathTb" Height="20" Margin="217,31,0.125,0" TextWrapping="Wrap"
+					         VerticalAlignment="Top" IsReadOnly="True" Text="{Binding Path=CurrentShellfolderPath, Mode=OneWay}"
 					         TextChanged="CurrentShellFolderPathTb_OnTextChanged" />
                     <TextBlock x:Name="CurrentShellFolderPathLbl" HorizontalAlignment="Left" Margin="217,10,0,0"
 					           TextWrapping="Wrap"
 					           VerticalAlignment="Top" Text="TextBlock" />
-                    <Button x:Name="OpenCurrentShellFolderPathBtn" Content="Button" HorizontalAlignment="Right"
+                    <Button x:Name="OpenCurrentShellFolderPathBtn" Content="Button"
 					        Margin="0,31,10,0"
-					        VerticalAlignment="Top" Width="178" Click="OpenCurrentShellFolderPathBtn_OnClick" />
+					        VerticalAlignment="Top" Click="OpenCurrentShellFolderPathBtn_OnClick" Grid.Column="2" />
                     <TextBlock x:Name="NewShellFolderPathLbl" HorizontalAlignment="Left" Margin="217,56,0,0"
 					           TextWrapping="Wrap"
 					           Text="TextBlock" VerticalAlignment="Top" />
-                    <TextBox x:Name="NewShellFolderPathTb" Height="20" Margin="217,77,193,0" TextWrapping="Wrap"
-					         VerticalAlignment="Top" IsEnabled="False" />
-                    <Button x:Name="SelectNewShellFolderPathBtn" Content="Button" HorizontalAlignment="Right"
+                    <TextBox x:Name="NewShellFolderPathTb" Height="20" Margin="217,76,0.125,0"
+					         VerticalAlignment="Top" Text="{Binding Path=ProposedShellfolderPath, Mode=TwoWay, FallbackValue=Test, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button x:Name="SelectNewShellFolderPathBtn" Content="Button"
 					        Margin="0,76,10,0"
-					        VerticalAlignment="Top" Width="178" Click="SelectNewShellFolderPathBtn_OnClick"
-					        IsEnabled="False" />
-                    <Button x:Name="ApplyShellFolderLocationBtn" Content="Button" HorizontalAlignment="Right"
-					        Margin="0,0,10,10"
-					        VerticalAlignment="Bottom" Width="178" Click="ApplyShellFolderLocationBtn_Click" />
+					        VerticalAlignment="Top" Click="SelectNewShellFolderPathBtn_OnClick"
+					        IsEnabled="True" Grid.Column="2" />
+                    <Button x:Name="ApplyShellFolderLocationBtn" Content="Button"
+					        Margin="0,0,10,10" IsEnabled="{Binding Path=CanPathBeApplied, Mode=OneWay}"
+					        VerticalAlignment="Bottom" Click="ApplyShellFolderLocationBtn_Click" Grid.Column="2" />
                     <CheckBox x:Name="MoveExistingShellFolderItemsCb" Content="CheckBox" HorizontalAlignment="Left"
 					          Margin="217,101,0,0"
 					          VerticalAlignment="Top" IsChecked="True" Style="{StaticResource DangerousCheckBox}"
@@ -166,8 +171,8 @@
 					          Unchecked="ChangeDependentShellFoldersCb_Unchecked" />
                     <CheckBox x:Name="AutomaticShellFolderPathCb" Content="CheckBox" HorizontalAlignment="Left"
 					          Margin="473,102,0,0"
-					          VerticalAlignment="Top" IsChecked="True" Checked="AutomaticShellFolderPathCb_Checked"
-					          Unchecked="AutomaticShellFolderPathCb_Checked" />
+					          VerticalAlignment="Top" Checked="AutomaticShellFolderPathCb_Checked"
+					          Unchecked="AutomaticShellFolderPathCb_Checked" IsEnabled="False" />
                 </Grid>
             </TabItem>
             <TabItem x:Name="SearchTi" Header="Search" Loaded="SearchTi_OnLoaded"
@@ -420,8 +425,8 @@
                 <Grid Background="White">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="198*" />
-                        <ColumnDefinition Width="11*"/>
-                        <ColumnDefinition Width="185*"/>
+                        <ColumnDefinition Width="11*" />
+                        <ColumnDefinition Width="185*" />
                         <ColumnDefinition Width="5" />
                         <ColumnDefinition Width="387*" />
                     </Grid.ColumnDefinitions>
@@ -528,7 +533,8 @@
                         </Grid>
                     </GroupBox>
                     <CheckBox Grid.Column="0" Content="CheckBox" HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top"
-					          RenderTransformOrigin="0.23,1.711" IsChecked="True" Style="{StaticResource DangerousCheckBox}" Height="15" Width="71" />
+					          RenderTransformOrigin="0.23,1.711" IsChecked="True" Style="{StaticResource DangerousCheckBox}" Height="15"
+					          Width="71" />
                     <Button Grid.Column="0" x:Name="DeleteConfigurationBtn" Content="Button" HorizontalAlignment="Left"
 					        Margin="10,388,0,0"
 					        VerticalAlignment="Top" Width="384" Style="{StaticResource DangerousButton}" Height="22"
@@ -544,7 +550,8 @@
 					          VerticalAlignment="Top" RenderTransformOrigin="0.133,0.65" Height="22"
 					          Checked="EnOrDisableSendToHDDCb_OnChecked" Unchecked="EnOrDisableSendToHDDCb_OnUnchecked" Grid.ColumnSpan="3" />
                     <ComboBox Margin="10,252,0,0" VerticalAlignment="Top" SelectedItem="{Binding Path=UpdateModeSelected, Mode=TwoWay}"
-					          ItemsSource="{Binding Source={StaticResource UpdateModesProvider}, Mode=OneWay, Path=UpdateModes}" Grid.ColumnSpan="3" Height="22">
+					          ItemsSource="{Binding Source={StaticResource UpdateModesProvider}, Mode=OneWay, Path=UpdateModes}"
+					          Grid.ColumnSpan="3" Height="22">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -555,26 +562,70 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <CheckBox x:Name="UsePrereleasesCb" Content="CheckBox" Margin="10,279,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=UsePrereleases, Mode=TwoWay}" Height="20"/>
-                    <Button x:Name="InstallUpdateBtn" Content="Button" Margin="0,279,0,0" VerticalAlignment="Top" Grid.Column="2" Height="20" IsEnabled="{Binding Mode=OneWay, Path=UpdateAvailable}" Click="InstallUpdateBtn_OnClick"/>
+                    <CheckBox x:Name="UsePrereleasesCb" Content="CheckBox" Margin="10,279,0,0" VerticalAlignment="Top"
+					          IsChecked="{Binding Path=UsePrereleases, Mode=TwoWay}" Height="20" />
+                    <Button x:Name="InstallUpdateBtn" Content="Button" Margin="0,279,0,0" VerticalAlignment="Top" Grid.Column="2" Height="20"
+					        IsEnabled="{Binding Mode=OneWay, Path=UpdateAvailable}" Click="InstallUpdateBtn_OnClick" />
                 </Grid>
             </TabItem>
             <TabItem x:Name="AboutTi" Header="About">
                 <TextBlock TextWrapping="WrapWithOverflow">
-					The StorageManagementTool is project by Tobias Brohl published under MIT. <LineBreak/>
+					The StorageManagementTool is project by Tobias Brohl published under MIT. <LineBreak />
 					Attribution is hereby granted to the authors of the following libraries:
-					<Hyperlink NavigateUri="https://raw.githubusercontent.com/Dirkster99/NumericUpDownLib/master/License.md" RequestNavigate="Hyperlink_OnRequestNavigate">Dirkster99/NumericUpDownLib</Hyperlink><LineBreak/>
-					<Hyperlink NavigateUri="https://raw.githubusercontent.com/stevehansen/csv/master/LICENSE" RequestNavigate="Hyperlink_OnRequestNavigate">stevehansen/csv</Hyperlink><LineBreak/>
-					<Hyperlink NavigateUri="https://raw.githubusercontent.com/aybe/Windows-API-Code-Pack-1.1/master/LICENCE" RequestNavigate="Hyperlink_OnRequestNavigate">aybe/Windows-API-Code-Pack-1.1</Hyperlink><LineBreak/>
-					<Hyperlink NavigateUri="https://archive.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx" RequestNavigate="Hyperlink_OnRequestNavigate">aybe/WindowsAPICodePack-Shell</Hyperlink><LineBreak/>
-					<Hyperlink NavigateUri="https://raw.githubusercontent.com/dotnet/corefx/master/LICENSE.TXT" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/corefx</Hyperlink><LineBreak/>
-					<Hyperlink NavigateUri="https://raw.githubusercontent.com/dotnet/core/master/LICENSE.TXT" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/core</Hyperlink><LineBreak/> 
-					<Hyperlink NavigateUri="https://github.com/dotnet/coreclr/blob/master/LICENSE.TXT" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/coreclr</Hyperlink><LineBreak/>
-					<Hyperlink NavigateUri="https://github.com/dotnet/cli/blob/master/LICENSE" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/cli</Hyperlink><LineBreak/> 
-					<Hyperlink NavigateUri="https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/LICENSE.md" RequestNavigate="Hyperlink_OnRequestNavigate">JamesNK/Newtonsoft.Json</Hyperlink><LineBreak/>
-					<Hyperlink NavigateUri="https://raw.githubusercontent.com/TheMinefighter/ConfirmationDialogs/master/LICENSE.md" RequestNavigate="Hyperlink_OnRequestNavigate">TheMinefighter/ConfirmationDialogs</Hyperlink><LineBreak/>
-The icon is based on graphics from <Hyperlink NavigateUri="thenounproject.com" RequestNavigate="Hyperlink_OnRequestNavigate"> The noun project</Hyperlink>
-                    by <Hyperlink NavigateUri="https://thenounproject.com/lalithamshastry/" RequestNavigate="Hyperlink_OnRequestNavigate">Lalitha</Hyperlink> and <Hyperlink NavigateUri="https://thenounproject.com/grega.cresnar/" RequestNavigate="Hyperlink_OnRequestNavigate">Gregor Cresnar</Hyperlink>.
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/Dirkster99/NumericUpDownLib/master/License.md"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						Dirkster99/NumericUpDownLib
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/stevehansen/csv/master/LICENSE"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						stevehansen/csv
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/aybe/Windows-API-Code-Pack-1.1/master/LICENCE"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						aybe/Windows-API-Code-Pack-1.1
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://archive.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						aybe/WindowsAPICodePack-Shell
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/dotnet/corefx/master/LICENSE.TXT"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						dotnet/corefx
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/dotnet/core/master/LICENSE.TXT"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						dotnet/core
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://github.com/dotnet/coreclr/blob/master/LICENSE.TXT"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						dotnet/coreclr
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://github.com/dotnet/cli/blob/master/LICENSE" RequestNavigate="Hyperlink_OnRequestNavigate">dotnet/cli</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/LICENSE.md"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						JamesNK/Newtonsoft.Json
+					</Hyperlink>
+					<LineBreak />
+					<Hyperlink NavigateUri="https://raw.githubusercontent.com/TheMinefighter/ConfirmationDialogs/master/LICENSE.md"
+					           RequestNavigate="Hyperlink_OnRequestNavigate">
+						TheMinefighter/ConfirmationDialogs
+					</Hyperlink>
+					<LineBreak />
+					The icon is based on graphics from
+					<Hyperlink NavigateUri="thenounproject.com" RequestNavigate="Hyperlink_OnRequestNavigate"> The noun project</Hyperlink>
+					by
+					<Hyperlink NavigateUri="https://thenounproject.com/lalithamshastry/" RequestNavigate="Hyperlink_OnRequestNavigate">Lalitha</Hyperlink>
+					and
+					<Hyperlink NavigateUri="https://thenounproject.com/grega.cresnar/" RequestNavigate="Hyperlink_OnRequestNavigate">Gregor Cresnar</Hyperlink>
+					.
 
                 </TextBlock>
             </TabItem>

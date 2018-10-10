@@ -21,7 +21,7 @@ namespace StorageManagementCore {
 		///  The version tag of this Version
 		/// </summary>
 		/// <remarks>This should be kept equivalent to the Git Release tag</remarks>
-		public const string VersionTag = "1.2-b-1.0";
+		public const string VersionTag = "1.2-b-1.1";
 
 		public static readonly CultureInfo[][] AvailableSpecificCultures =
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
@@ -30,11 +30,6 @@ namespace StorageManagementCore {
 		///  A reference to an object containig methods for the console IO operations
 		/// </summary>
 		public static ConsoleIO ConsoleIOObject { get; set; }
-
-//		/// <summary>
-//		///  Whether the Programm runs from any shell / commandline
-//		/// </summary>
-//		public static bool CommandLineMode { get; private set; }
 
 		//based upon https://www.dotnetperls.com/list-equals last access 
 		public static bool UnorderedEqual<T>(this ICollection<T> a, ICollection<T> b) {

@@ -102,7 +102,7 @@ namespace StorageManagementCore.Backend {
 		public DirectoryInfo GetPath() {
 			string specialFolderPath = GetSpecialFolderPath(WindowsIdentifier);
 
-			return string.IsNullOrEmpty(specialFolderPath) ? new DirectoryInfo(specialFolderPath) : null;
+			return string.IsNullOrEmpty(specialFolderPath) ? null: new DirectoryInfo(specialFolderPath);
 		}
 
 		public bool SetPath(DirectoryInfo newPath) => SetSpecialFolderPath(WindowsIdentifier, newPath.FullName);
