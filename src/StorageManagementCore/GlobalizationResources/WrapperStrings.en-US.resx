@@ -120,14 +120,14 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="ExecuteExecuteable_AdminError" xml:space="preserve">
+  <data name="ExecuteExecutable_AdminError" xml:space="preserve">
     <value>Error while executing "{0}": The user denied the program the access to administrator privileges, which are probably necessary for this action.</value>
   </data>
-  <data name="ExecuteExecuteable_FileNotFound_Text" xml:space="preserve">
+  <data name="ExecuteExecutable_FileNotFound_Text" xml:space="preserve">
     <value>The program "{0}" couldn´t be executed, due to the fact that it was not available under the expected path. Do you want to select the correct Path of the program</value>
   </data>
-  <data name="ExecuteExecuteable_WrongEnding" xml:space="preserve">
-    <value>The program "{0}" is supposed to be be executed, but files with the ending {1} are probably not executeable using Windows. Do you want to try to execute that file anyway?</value>
+  <data name="ExecuteExecutable_WrongEnding" xml:space="preserve">
+    <value>The program "{0}" is supposed to be be executed, but files with the ending {1} are probably not executable using Windows. Do you want to try to execute that file anyway?</value>
   </data>
   <data name="GetRegistryValue_Exception" xml:space="preserve">
     <value>An error occurred while reading the registry value {0} located under the key {1}: {2}</value>
@@ -144,7 +144,7 @@
   <data name="ExecuteExecutable_FileNotFound_SelectionFilter" xml:space="preserve">
     <value>Programs</value>
   </data>
-  <data name="ExecuteExecuteable_FileNotFound_SelectionTitle" xml:space="preserve">
+  <data name="Executeexecutable_FileNotFound_SelectionTitle" xml:space="preserve">
     <value>Please select the path of "{0}"</value>
   </data>
 </root>

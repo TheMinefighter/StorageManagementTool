@@ -65,7 +65,7 @@ namespace StorageManagementCore.Operation {
 
 			string tempLocation = Path.Combine(Path.GetTempPath(), "StorageManagementToolTask.xml");
 			File.WriteAllText(tempLocation, taskString);
-			return Wrapper.ExecuteExecuteable(SchtasksPath,
+			return Wrapper.Execute(SchtasksPath,
 				$"/Create /XML \"{tempLocation}\" /TN {SSDMonitoringTaskName} /RP * /RU {Environment.UserName}",
 				out string[] _, out int _, out int _, false, true, false, true);
 		}
@@ -77,7 +77,7 @@ namespace StorageManagementCore.Operation {
 		/// <returns>Whether the check were successful</returns>
 		public static bool SSDMonitoringInitalized(out bool initalized) {
 			initalized = false;
-			if (!Wrapper.ExecuteExecuteable(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,
+			if (!Wrapper.Execute(SchtasksPath, $"/QUERY /TN {SSDMonitoringTaskName}", out string[] _,
 				out int returnCode, out int _, true, true, true)) {
 				return false;
 			}
@@ -146,7 +146,7 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
-			return Wrapper.ExecuteExecuteable(SchtasksPath,
+			return Wrapper.Execute(SchtasksPath,
 				$"/CHANGE /TN {SSDMonitoringTaskName} {(enable ? "/ENABLE" : "/DISABLE")}", true, true, true);
 		}
 	}

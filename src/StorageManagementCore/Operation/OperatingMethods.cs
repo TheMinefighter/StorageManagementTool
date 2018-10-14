@@ -201,7 +201,7 @@ namespace StorageManagementCore.Operation {
 		/// </summary>
 		/// <param name="enable">Whether hibernate should be enabled (true) or disabled (false) </param>
 		public static void SetHibernate(bool enable) {
-			Wrapper.ExecuteExecuteable(
+			Wrapper.Execute(
 				Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "powercfg.exe"),
 				$"/h {(enable ? "on" : "off")}",
 				true, true,
@@ -235,8 +235,7 @@ namespace StorageManagementCore.Operation {
 		public static bool GetSearchDataPath(out DirectoryInfo directory) {
 			directory = null;
 
-			if (!RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text,
-				true)) {
+			if (!RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text)) {
 				return false;
 			}
 
@@ -249,24 +248,7 @@ namespace StorageManagementCore.Operation {
 			directory = dir.Parent.Parent;
 			return true;
 		}
-
-		//
-		//      public static void CheckForSysinternals() {
-		//         if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "PsTools", "PSEXEC.exe"))) {
-		//            string zipName = Path.Combine(Directory.GetCurrentDirectory(), "PsTools.zip");
-		//            using (WebClient tmpClient = new WebClient()) {
-		//               try {
-		//                  tmpClient.DownloadFile("https://download.sysinternals.com/files/PSTools.zip", zipName);
-		//               }
-		//               catch (Exception) {
-		//                  Console.WriteLine();
-		//               }
-		//            }
-		//
-		//            ZipFile.ExtractToDirectory(zipName, Path.Combine(Directory.GetCurrentDirectory(), "PsTools"));
-		//            FileAndFolder.DeleteFile(new FileInfo(zipName));
-		//         }
-		//      }
+		
 		/// <summary>
 		///  Refreshes the current Stadium of the Swapfile Movement
 		/// </summary>

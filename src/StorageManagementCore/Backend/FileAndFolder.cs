@@ -29,7 +29,7 @@ namespace StorageManagementCore.Backend {
 
 		public static void OpenFolder(DirectoryInfo info) {
 			//TODO Add option to mark in parent
-			Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath, info.FullName);
+			Wrapper.Execute(Wrapper.ExplorerPath, info.FullName);
 		}
 
 		public static FileOrFolder IsFileOrFolder(string path) {

@@ -21,33 +21,28 @@ namespace StorageManagementCore.Backend {
 			{RegistryHive.Users, "HKEY_USERS"}
 		};
 
-		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
+		public static bool GetRegistryValue(RegistryValue path, out object toReturn) {
 			toReturn = null;
-			if (asUser) {
-				if (!Wrapper.ExecuteExecuteable(
+			if (Session.Singleton.IsAdmin) {
+				if (!Wrapper.Execute(
 					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"reg.exe"),
 					$" query \"{path.RegistryKeyName}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true,
-					true, true, true,
-					true)) {
+					true, true, true)) {
 					return false;
 				}
 
-				if (ret.Length == 2) {
+				if (ret.Length <= 2) {
 					return false;
 				}
 
-				string thirdLine = ret[2];
-				RegistryValueKind kind = FromWin32Api[thirdLine.Substring(8 + path.ValueName.Length).Split(' ')[0]];
-				string data = thirdLine.Substring(12 + path.ValueName.Length + kind.ToString().Length).Trim();
+				RegistryValueKind kind = FromWin32Api[ret[2].Substring(8 + path.ValueName.Length).Split(' ')[0]];
+				string data = ret[2].Substring(12 + path.ValueName.Length + kind.ToString().Length).Trim();
 				toReturn = RegistryObjectFromString(data, kind);
 
 				return true;
 			}
 
 			try {
-				//			RegistryKey.OpenBaseKey(path.Hive,RegistryView.Default).OpenSubKey(path.ValueName)
-//				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split('\\')[0]],
-//					RegistryView.Registry64).OpenSubKey()
 				toReturn = Registry.GetValue(path.RegistryKeyName, path.ValueName, -1);
 			}
 			catch (Exception e) {
@@ -55,7 +50,7 @@ namespace StorageManagementCore.Backend {
 					       string.Format(WrapperStrings.GetRegistryValue_Exception,
 						       path.ValueName, path.RegistryKeyName, e.Message),
 					       WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
-				       DialogResult.Retry && GetRegistryValue(path, out toReturn, asUser);
+				       DialogResult.Retry && GetRegistryValue(path, out toReturn);
 			}
 
 			toReturn = RegistryNumberFixGet(toReturn);
@@ -168,10 +163,10 @@ namespace StorageManagementCore.Backend {
 				}
 
 				string kind = ToWin32Api[registryValueKind];
-				if (!Wrapper.ExecuteExecuteable(
+				if (!Wrapper.Execute(
 					    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "reg.exe"),
 					    $" add \"{valueLocation.RegistryKeyName}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
-					    out string[] _, out int tmpExitCode, out _, true, true, true, true, asUser) || tmpExitCode == 1) {
+					    out string[] _, out int tmpExitCode, out _, true, true, true, true) || tmpExitCode == 1) {
 					return false;
 				}
 
@@ -238,7 +233,7 @@ namespace StorageManagementCore.Backend {
 					"Windows Registry Editor Version 5.00",
 					"",
 					$"[{toSet.RegistryKeyName}]",
-					$"\"{Wrapper.AddBackslahes(toSet.ValueName)}\"={toWrite}"
+					$"\"{Wrapper.AddBackslashes(toSet.ValueName)}\"={toWrite}"
 				});
 			// I know that the following is exploiting UAC a bit, but the Warning will not be suppressed, so I don´t see any real reasons not to do that
 			ApplyRegfile();
@@ -249,15 +244,15 @@ namespace StorageManagementCore.Backend {
 		/// </summary>
 		public static void ApplyRegfile() {
 			const string folderName = "StorageManagementToolRegistryData";
-			Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath,
+			Wrapper.Execute(Wrapper.ExplorerPath,
 				$" /select,\"{Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChanges.reg")}\"");
 /*			Thread.Sleep(1000);
 			SendKeys.SendWait("{ENTER}");
 			Thread.Sleep(1000);
-			ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+			Execute(Path.Combine(System32Path, "taskkill.exe"),
 			   $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
 			//For people, who have the "Display full name in titlebar" option enabled
-			ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
+			Execute(Path.Combine(System32Path, "taskkill.exe"),
 			   $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(), folderName)}\" /IM explorer.exe");*/
 		}
 
@@ -271,7 +266,7 @@ namespace StorageManagementCore.Backend {
 			string toWrite;
 			switch (kind) {
 				case RegistryValueKind.String:
-					toWrite = $"\"{Wrapper.AddBackslahes((string) content)}\"";
+					toWrite = $"\"{Wrapper.AddBackslashes((string) content)}\"";
 					break;
 				case RegistryValueKind.ExpandString:
 					toWrite = "hex(2):" + string.Join(",",

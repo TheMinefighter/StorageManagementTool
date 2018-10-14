@@ -81,36 +81,36 @@ namespace StorageManagementCore.GlobalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExecuteExecuteable_AdminError {
+        internal static string ExecuteExecutable_AdminError {
             get {
-                return ResourceManager.GetString("ExecuteExecuteable_AdminError", resourceCulture);
+                return ResourceManager.GetString("ExecuteExecutable_AdminError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExecuteExecuteable_FileNotFound_SelectionTitle {
+        internal static string ExecuteExecutable_FileNotFound_SelectionTitle {
             get {
-                return ResourceManager.GetString("ExecuteExecuteable_FileNotFound_SelectionTitle", resourceCulture);
+                return ResourceManager.GetString("ExecuteExecutable_FileNotFound_SelectionTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExecuteExecuteable_FileNotFound_Text {
+        internal static string ExecuteExecutable_FileNotFound_Text {
             get {
-                return ResourceManager.GetString("ExecuteExecuteable_FileNotFound_Text", resourceCulture);
+                return ResourceManager.GetString("ExecuteExecutable_FileNotFound_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ExecuteExecuteable_WrongEnding {
+        internal static string ExecuteExecutable_WrongEnding {
             get {
-                return ResourceManager.GetString("ExecuteExecuteable_WrongEnding", resourceCulture);
+                return ResourceManager.GetString("ExecuteExecutable_WrongEnding", resourceCulture);
             }
         }
         

@@ -19,9 +19,6 @@ namespace StorageManagementCore {
 		public static Session Singleton;
 
 		public static EventHandler LanguageChanged = (a, b) => { };
-
-		private readonly string ConfigurationFolder;
-
 		/// <summary>
 		///  The current JSON configuration
 		/// </summary>
@@ -31,6 +28,9 @@ namespace StorageManagementCore {
 		///  The path of the configuration file
 		/// </summary>
 		public string ConfigurationPath;
+
+		public bool Compat;
+		
 
 		/// <summary>
 		///  Whether the program runs as administrator
@@ -48,21 +48,31 @@ namespace StorageManagementCore {
 		public Session() {
 			Singleton = this;
 			//Potential to be changed in future
-
-			ConfigurationFolder = Path.Combine(Environment.GetFolderPath(
-				Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
-			ConfigurationPath = Path.Combine(ConfigurationFolder,
-				"MainConfiguration.json");
-			if (File.Exists(ConfigurationPath)) {
-				Configuration = JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath));
+			Compat = false;
+			string configurationFolder= null;
+			try {
+				configurationFolder = Path.Combine(Environment.GetFolderPath(
+					Environment.SpecialFolder.ApplicationData), "StorageManagementTool");
+				ConfigurationPath = Path.Combine(configurationFolder,
+					"MainConfiguration.json");
 			}
-			else {
+			catch (Exception ) {
+				Compat = true;
 				Configuration = MainConfiguration.Default;
-				if (!Directory.Exists(ConfigurationFolder)) {
-					Directory.CreateDirectory(ConfigurationFolder);
-				}
+			}
 
-				Singleton.SaveCfg();
+			if (!Compat) {
+				if (File.Exists(ConfigurationPath)) {
+					Configuration = JsonConvert.DeserializeObject<MainConfiguration>(File.ReadAllText(ConfigurationPath));
+				}
+				else {
+					Configuration = MainConfiguration.Default;
+					if (!Directory.Exists(configurationFolder)) {
+						Directory.CreateDirectory(configurationFolder);
+					}
+
+					Singleton.SaveCfg();
+				}
 			}
 
 			CultureInfo requestedCulture =
@@ -116,8 +126,10 @@ namespace StorageManagementCore {
 		///  Stores the configuration in a JSON file
 		/// </summary>
 		public void SaveCfg() {
-			File.WriteAllText(
-				ConfigurationPath, JsonConvert.SerializeObject(Configuration));
+			if (!Compat) {
+				File.WriteAllText(
+					ConfigurationPath, JsonConvert.SerializeObject(Configuration));
+			}
 		}
 	}
 }

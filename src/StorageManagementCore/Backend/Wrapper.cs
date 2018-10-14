@@ -19,10 +19,10 @@ namespace StorageManagementCore.Backend {
 	/// </summary>
 	public static class Wrapper {
 		/// <summary>
-		///  The file extensions, which are executeable as standalone
+		///  The file extensions, which are executable as standalone
 		/// </summary>
 		private static readonly IEnumerable<string>
-			ExecuteableExtensions = new[] {".exe", ".pif", ".com", ".bat", ".cmd"};
+			executableExtensions = new[] {".exe", ".pif", ".com", ".bat", ".cmd"};
 
 		/// <summary>
 		///  The path of the Windows Explorer
@@ -31,64 +31,66 @@ namespace StorageManagementCore.Backend {
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
 
-		//    public static (T1, T2) ToDirectTouple<T1, T2>(this Tuple<T1, T2> myTuple) => (myTuple.Item1, myTuple.Item2);
+		//    public static (T1, T2) ToDirectTuple<T1, T2>(this Tuple<T1, T2> myTuple) => (myTuple.Item1, myTuple.Item2);
 
 		/// <summary>
-		///  Executes an executeable
+		///  Executes an executable
 		/// </summary>
 		/// <param name="filename">The name of the File to execute</param>
-		/// <param name="parameters">The parameters to use when satrting the file</param>
+		/// <param name="parameters">The parameters to use when starting the file</param>
 		/// <param name="admin">Whether the file should be executed with</param>
-		/// <param name="hidden">Whether the Main Window of this executeable (if exists) should be shown</param>
-		/// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
-		/// <returns>Whether the operation were successfull</returns>
-		public static bool ExecuteExecuteable(string filename, string parameters, bool admin = false,
-			bool hidden = false, bool waitforexit = false) => ExecuteExecuteable(filename, parameters, out string[] _, out int _,
+		/// <param name="hidden">Whether the Main Window of this executable (if exists) should be shown</param>
+		/// <param name="waitForExit">Whether the code should wait until the executable exited</param>
+		/// <returns>Whether the operation were successful</returns>
+		public static bool Execute(string filename, string parameters, bool admin = false,
+			bool hidden = false, bool waitForExit = false) => Execute(filename, parameters, out string[] _, out int _,
 			out _,
-			waitforexit: waitforexit, hidden: hidden,
+			waitForExit: waitForExit, hidden: hidden,
 			admin: admin);
 
 		/// <summary>
-		///  Executes an Executeable
+		///  Executes an executable
 		/// </summary>
 		/// <param name="filename">The name of the file to execute</param>
-		/// <param name="parameters">The parameters to use when satrting the file</param>
+		/// <param name="parameters">The parameters to use when starting the file</param>
 		/// <param name="returnData"> The String returned by the file</param>
-		/// <param name="exitCode"> The exit code returned by the executable, only available if waitforexit=true</param>
+		/// <param name="exitCode"> The exit code returned by the executable, only available if waitForExit=true</param>
 		/// <param name="pid"></param>
-		/// <param name="readReturnData">Whether to Read the output of the executeable started</param>
-		/// <param name="waitforexit">Whether the code should wait until the executeable exited</param>
-		/// <param name="hidden">Whether the main window of this executeable (if existing) should be hidden</param>
+		/// <param name="readReturnData">Whether to Read the output of the executable started</param>
+		/// <param name="waitForExit">Whether the code should wait until the executable exited</param>
+		/// <param name="hidden">Whether the main window of this executable (if existing) should be hidden</param>
 		/// <param name="admin">Whether the file should be executed with</param>
-		/// <param name="asUser"></param>
 		/// <param name="getPID"></param>
-		/// <returns>Whether the operation were successfull</returns>
-		public static bool ExecuteExecuteable(string filename, string parameters, out string[] returnData,
-			out int exitCode, out int pid, bool readReturnData = false, bool waitforexit = false, bool hidden = false,
-			bool admin = false, bool asUser = false, bool getPID = false) {
+		/// <returns>Whether the operation were successful</returns>
+		public static bool Execute(string filename, string parameters, out string[] returnData,
+			out int exitCode, out int pid, bool readReturnData = false, bool waitForExit = false, bool hidden = false,
+			bool admin = false, bool getPID = false) {
+			if (Session.Singleton.IsAdmin) {
+				admin = false;
+			}
 			pid = 0;
 			FileInfo toRun = new FileInfo(filename);
 			exitCode = 0;
 			returnData = null;
 			if (!toRun.Exists) {
 				if (MessageBox.Show(
-					    string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound_Text, toRun.FullName),
+					    string.Format(WrapperStrings.ExecuteExecutable_FileNotFound_Text, toRun.FullName),
 					    WrapperStrings.Error, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
-					OpenFileDialog alternativeExecuteableSel = new OpenFileDialog {
+					OpenFileDialog alternativeExecutableSel = new OpenFileDialog {
 						Filter =
-							$"{WrapperStrings.ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", ExecuteableExtensions)}",
-						Title = string.Format(WrapperStrings.ExecuteExecuteable_FileNotFound_SelectionTitle, toRun.Name)
+							$"{WrapperStrings.ExecuteExecutable_FileNotFound_SelectionFilter}|*{string.Join(";*", executableExtensions)}",
+						Title = string.Format(WrapperStrings.ExecuteExecutable_FileNotFound_SelectionTitle, toRun.Name)
 					};
-					alternativeExecuteableSel.ShowDialog();
-					return ExecuteExecuteable(alternativeExecuteableSel.FileName, parameters, out returnData,
-						out exitCode, out pid, waitforexit: waitforexit, hidden: hidden, admin: admin, asUser: asUser,
+					alternativeExecutableSel.ShowDialog();
+					return Execute(alternativeExecutableSel.FileName, parameters, out returnData,
+						out exitCode, out pid, waitForExit: waitForExit, hidden: hidden, admin: admin,
 						getPID: getPID);
 				}
 			}
 
-			if (!ExecuteableExtensions.Contains(toRun.Extension)) {
+			if (!executableExtensions.Contains(toRun.Extension)) {
 				if (new DialogResult[] {DialogResult.No, DialogResult.None}.Contains(MessageBox.Show(
-					string.Format(WrapperStrings.ExecuteExecuteable_WrongEnding,
+					string.Format(WrapperStrings.ExecuteExecutable_WrongEnding,
 						toRun.FullName, toRun.Extension),
 					WrapperStrings.Error,
 					MessageBoxButtons.YesNo, MessageBoxIcon.Error))) {
@@ -103,28 +105,15 @@ namespace StorageManagementCore.Backend {
 				Arguments = parameters,
 				RedirectStandardOutput = readReturnData
 			};
-			if (readReturnData && admin) {
-				asUser = true;
-			}
+			if (readReturnData && admin) { }
 
 			startInfo.UseShellExecute = false;
-			if (asUser) {
-				if (!CredentialsManager.GetCredentials(admin, out Credentials tmp)) {
-					return false;
-				}
-
-				startInfo.Password = tmp.Password;
-				startInfo.UserName = tmp.Username;
-			}
-
 			if (admin) {
 				startInfo.Verb = "runas";
-				if (!asUser) {
-					startInfo.UseShellExecute = true;
-				}
+				startInfo.UseShellExecute = true;
 			}
 
-			if (!waitforexit) {
+			if (!waitForExit) {
 				process.Exited += (emitter, args) => ((Process) emitter).Dispose();
 			}
 
@@ -135,15 +124,15 @@ namespace StorageManagementCore.Backend {
 			catch (Win32Exception) {
 				DialogResult retry = MessageBox.Show(
 					string.Format(
-						WrapperStrings.ExecuteExecuteable_AdminError,
+						WrapperStrings.ExecuteExecutable_AdminError,
 						toRun.FullName),
 					WrapperStrings.Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
 				switch (retry) {
 					case DialogResult.Retry:
-						ExecuteExecuteable(filename, parameters, admin, hidden, waitforexit);
+						Execute(filename, parameters, admin, hidden, waitForExit);
 						break;
 					case DialogResult.Ignore:
-						ExecuteExecuteable(filename, parameters, false, hidden, waitforexit);
+						Execute(filename, parameters, false, hidden, waitForExit);
 						break;
 					default: return false;
 				}
@@ -153,7 +142,7 @@ namespace StorageManagementCore.Backend {
 				pid = process.Id;
 			}
 
-			if (waitforexit) {
+			if (waitForExit) {
 				process.WaitForExit();
 				if (readReturnData) {
 					returnData = process.StandardOutput.FromStream();
@@ -192,7 +181,7 @@ namespace StorageManagementCore.Backend {
 		/// </summary>
 		/// <param name="source">The string to add backslashes to</param>
 		/// <returns>The  source with backslashes</returns>
-		public static string AddBackslahes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
+		public static string AddBackslashes(string source) => source.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
 		/// <summary>
 		///  Checks if one Path is the parent of another
@@ -222,9 +211,8 @@ namespace StorageManagementCore.Backend {
 		public static bool ExecuteCommand(string cmd, bool admin, bool hidden, out string[] returnData,
 			bool waitforexit = true,
 			bool debug = false, bool readReturnData = false, bool asUser = false) =>
-			ExecuteExecuteable(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
-				(debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden, admin,
-				asUser)
+			Execute(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"cmd.exe"),
+				(debug ? "/K " : "/C ") + cmd, out returnData, out int tmp, out int _, readReturnData, waitforexit, hidden, admin)
 			&& tmp == 0;
 
 		#region From https://stackoverflow.com/a/3600342/6730162 access on 30.9.2017
@@ -250,7 +238,7 @@ namespace StorageManagementCore.Backend {
 		/// </summary>
 		public static void RestartProgram(bool administrator,string[] parameters= null,bool hexWrapper=false) {
 			parameters=parameters?? new string[0];
-			if (ExecuteExecuteable(Process.GetCurrentProcess().MainModule.FileName,(hexWrapper?"-Master:Hex "+UniversalCLIProvider.CommandlineMethods.toHexArgumentString(parameters):string.Join(" ", parameters)) ,
+			if (Execute(Process.GetCurrentProcess().MainModule.FileName,(hexWrapper?"-Master:Hex "+UniversalCLIProvider.CommandlineMethods.toHexArgumentString(parameters):string.Join(" ", parameters)) ,
 				administrator)) {
 				Environment.Exit(0);
 			}
@@ -282,7 +270,7 @@ namespace StorageManagementCore.Backend {
 		/// <summary>
 		///  Checks whether a given user is a local administrator
 		/// </summary>
-		/// <param name="username">The userame</param>
+		/// <param name="username">The username</param>
 		/// <returns></returns>
 		public static bool IsAdmin(string username) {
 			UserPrincipal user = UserPrincipal
@@ -361,12 +349,12 @@ namespace StorageManagementCore.Backend {
 
 		#endregion
 
-		public static bool RestartComputer() => ExecuteExecuteable(
+		public static bool RestartComputer() => Execute(
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/R /T 1", false,
 			true);
 
 		/// <summary>
-		///  Tests a given set of loacal CredetiaLS
+		///  Tests a given set of local Credentials
 		/// </summary>
 		/// <param name="credentials">The credentials to test</param>
 		/// <returns>Whether the set of credentials is valid for the local machine</returns>

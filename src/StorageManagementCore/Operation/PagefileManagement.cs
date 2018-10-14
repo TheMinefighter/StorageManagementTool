@@ -181,7 +181,7 @@ namespace StorageManagementCore.Operation {
 		/// <returns>Whether the operation were successful</returns>
 		public static bool GetCurrentPagefileConfiguration(out PagefileSysConfiguration cfg) {
 			cfg = new PagefileSysConfiguration();
-			if (!Wrapper.ExecuteExecuteable(
+			if (!Wrapper.Execute(
 				WmicPath, "pagefileset list /FORMAT:CSV"
 				, out string[] tmp, out int _, out int _, true, true, true
 				//,true
@@ -206,8 +206,8 @@ namespace StorageManagementCore.Operation {
 		///  Deletes all pagefiles
 		/// </summary>
 		/// <returns>Whether the operation were successful</returns>
-		private static bool DeleteAllPagefiles() => Wrapper.ExecuteExecuteable(WmicPath,
-			"pagefileset delete /NOINTERACTIVE", out _, out int _, out _, waitforexit: true, hidden: true,
+		private static bool DeleteAllPagefiles() => Wrapper.Execute(WmicPath,
+			"pagefileset delete /NOINTERACTIVE", out _, out int _, out _, waitForExit: true, hidden: true,
 			admin: true);
 
 		/// <summary>
@@ -216,7 +216,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="systemManaged">whether pagefiles should be system managed in the future</param>
 		/// <returns>Whether the operation were successful</returns>
 		private static bool SetSystemManaged(bool systemManaged) =>
-			Wrapper.ExecuteExecuteable(WmicPath, $" computersystem set AutomaticManagedPagefile={systemManaged}", true, true);
+			Wrapper.Execute(WmicPath, $" computersystem set AutomaticManagedPagefile={systemManaged}", true, true);
 
 		/// <summary>
 		///  Adds a pagefile to a specified drive
@@ -224,9 +224,9 @@ namespace StorageManagementCore.Operation {
 		/// <param name="drive">The <see cref="DriveInfo" /> to add the pagefile to</param>
 		/// <returns>Whether the Operation were successful</returns>
 		public static bool AddPagefile(DriveInfo drive) =>
-			Wrapper.ExecuteExecuteable(WmicPath,
+			Wrapper.Execute(WmicPath,
 				$"pagefileset create name=\"{Path.Combine(drive.Name, "Pagefile.sys")}\"", out _,
-				out int _, out _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile;
+				out int _, out _, waitForExit: true, hidden: true, admin: true); //Creates new Pagefile;
 
 		/// <summary>
 		///  Adds a pagefile with specified settings to a specified drive
@@ -241,9 +241,9 @@ namespace StorageManagementCore.Operation {
 		/// <param name="cfg">The configuration to apply to the pagefile</param>
 		/// <returns>Whether the Operation were successful</returns>
 		private static bool ChangePagefile(Pagefile cfg) =>
-			Wrapper.ExecuteExecuteable(WmicPath,
+			Wrapper.Execute(WmicPath,
 				$"pagefileset where where \" name=\'{cfg.Drive.LocalDrive.Name}\\pagefile.sys\' \" set InitialSize={cfg.MinSize},MaximumSize={cfg.MaxSize}",
-				out _, out int _, out _, waitforexit: true, hidden: true, admin: true);
+				out _, out int _, out _, waitForExit: true, hidden: true, admin: true);
 
 		/// <summary>
 		///  Deletes the pagefile on one specified drive
@@ -251,7 +251,7 @@ namespace StorageManagementCore.Operation {
 		/// <param name="drive">The drive to delete the pagefile from</param>
 		/// <returns>Whether the Operation were successful</returns>
 		private static bool DeletePagefile(DriveInfo drive) =>
-			Wrapper.ExecuteExecuteable(WmicPath,
+			Wrapper.Execute(WmicPath,
 				$"pagefileset where \" name=\'{drive.Name}\\pagefile.sys\' \" DELETE /NOINTERACTIVE");
 
 // Maybe I will write some WMIC GET API in the future...
@@ -262,7 +262,7 @@ namespace StorageManagementCore.Operation {
 		/// <returns>Whether the operation where successfull</returns>
 		private static bool GetSystemManaged(out bool systemManaged) {
 			systemManaged = false;
-			if (!Wrapper.ExecuteExecuteable(
+			if (!Wrapper.Execute(
 				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
 				, out string[] tmp, out int _, out int _, true, true, true
 				//, true
@@ -333,7 +333,7 @@ namespace StorageManagementCore.Operation {
 				return false;
 			}
 
-			if (Wrapper.ExecuteExecuteable(
+			if (Wrapper.Execute(
 				WmicPath, "computersystem get AutomaticManagedPagefile /Value"
 				, out string[] tmp, out int _, out int _, true, true, true, true)) //Tests
 			{
@@ -343,10 +343,10 @@ namespace StorageManagementCore.Operation {
 						+ Environment.ExpandEnvironmentVariables(
 							" computersystem where \"name='%computername%' \" set AutomaticManagedPagefile=False")
 						, true, true, out _); //Disables automatic Pagefile  management
-					Wrapper.ExecuteExecuteable(
+					Wrapper.Execute(
 						WmicPath
 						, "computersystem get AutomaticManagedPagefile /Value"
-						, out tmp, out int _, out _, waitforexit: true, hidden: true, admin: true);
+						, out tmp, out int _, out _, waitForExit: true, hidden: true, admin: true);
 					if (!bool.Parse(tmp[2].Split('=')[1])) {
 						MessageBox.Show(OperatingMethodsStrings.ChangePagefileSettings_CouldntDisableManagement,
 							OperatingMethodsStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -355,20 +355,20 @@ namespace StorageManagementCore.Operation {
 				}
 			}
 
-			Wrapper.ExecuteExecuteable(WmicPath,
-				"pagefileset delete /NOINTERACTIVE", out _, out int _, out _, waitforexit: true, hidden: true,
+			Wrapper.Execute(WmicPath,
+				"pagefileset delete /NOINTERACTIVE", out _, out int _, out _, waitForExit: true, hidden: true,
 				admin: true); //Deletes all Pagefiles
 
-			Wrapper.ExecuteExecuteable(WmicPath,
+			Wrapper.Execute(WmicPath,
 				$"pagefileset create name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\"", out _,
-				out int _, out _, waitforexit: true, hidden: true, admin: true); //Creates new Pagefile
+				out int _, out _, waitForExit: true, hidden: true, admin: true); //Creates new Pagefile
 
-			Wrapper.ExecuteExecuteable(WmicPath,
+			Wrapper.Execute(WmicPath,
 				$"pagefileset where name=\"{Path.Combine(toUse.Name, "Pagefile.sys")}\" set InitialSize={minSize},MaximumSize={maxSize}",
-				out _, out int _, out _, waitforexit: true, hidden: true, admin: true);
+				out _, out int _, out _, waitForExit: true, hidden: true, admin: true);
 			// Sets Pagefile Size
 
-			Wrapper.ExecuteExecuteable(WmicPath,
+			Wrapper.Execute(WmicPath,
 				" get", out tmp, out int _, out int _, true, true,
 				true, true); //Checks wether there is exactly 1 pagefile existing
 			if (tmp.Length != 2) {
