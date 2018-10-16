@@ -182,8 +182,7 @@ namespace StorageManagementCore.Operation {
 			if (newPath.Exists) {
 				if (RegistryMethods.SetRegistryValue(SearchDatatDirectoryRegistryValue,
 					newPath.CreateSubdirectory("Search").CreateSubdirectory("Data").FullName,
-					RegistryValueKind.String,
-					true)) {
+					RegistryValueKind.String)) {
 					return true;
 				}
 
