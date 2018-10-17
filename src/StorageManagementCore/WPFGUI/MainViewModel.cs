@@ -18,6 +18,7 @@ namespace StorageManagementCore.WPFGUI {
 		private Pagefile _selectedPagefile;
 		private string _proposedShellfolderPath = "";
 
+		public string ProgramVersion => Program.VersionTag;
 		public bool UpdateAvailable => Directory.Exists(Path.Combine(
 			Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),
 			UpdateInstaller.Update.UpdateDataDirectory));

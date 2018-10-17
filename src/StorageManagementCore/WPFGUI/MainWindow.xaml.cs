@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using StorageManagementCore.Backend;
@@ -49,8 +50,15 @@ namespace StorageManagementCore.WPFGUI {
 						case GUIModifier.UIProperties: {
 							if (modifierPair.Value is Dictionary<string, object> propertiesToSet) {
 								foreach (KeyValuePair<string, object> propertyPair in propertiesToSet) {
-									object element = typeof(MainWindow).GetProperty(propertyPair.Key.Split(',')[0]).GetValue(this);
-									element.GetType().GetProperty(propertyPair.Key.Split(',')[1]).SetValue(element, propertyPair.Value);
+									FieldInfo elementProperty = typeof(MainWindow).GetField(propertyPair.Key.Split(',')[0],BindingFlags.NonPublic| BindingFlags.Public|BindingFlags.Instance);
+									object element = elementProperty.GetValue(this);
+									PropertyInfo targetProperty = element.GetType().GetProperty(propertyPair.Key.Split(',')[1]);
+									if (targetProperty.PropertyType== typeof(int) && propertyPair.Value is long propertyPairValue) {
+										targetProperty.SetValue(element,unchecked ((int) propertyPairValue));
+									}
+									else {
+										targetProperty.SetValue(element, propertyPair.Value);
+									}
 								}
 							}
 
@@ -60,6 +68,8 @@ namespace StorageManagementCore.WPFGUI {
 					}
 				}
 			}
+
+		
 		}
 
 

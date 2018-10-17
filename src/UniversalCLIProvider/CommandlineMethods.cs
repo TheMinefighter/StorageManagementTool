@@ -123,7 +123,7 @@ namespace UniversalCLIProvider {
 					}
 					else if ((source.StartsWith("{") && source.EndsWith("}"))||(source.StartsWith("[") && source.EndsWith("]"))) {
 						try {
-							JsonConvert.DeserializeObject(source, expectedType);
+							value= JsonConvert.DeserializeObject(source, expectedType);
 						}
 						catch (Exception) {
 							return false;

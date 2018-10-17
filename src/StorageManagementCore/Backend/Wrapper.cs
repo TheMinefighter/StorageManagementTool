@@ -352,34 +352,5 @@ namespace StorageManagementCore.Backend {
 		public static bool RestartComputer() => Execute(
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/R /T 1", false,
 			true);
-
-		/// <summary>
-		///  Tests a given set of local Credentials
-		/// </summary>
-		/// <param name="credentials">The credentials to test</param>
-		/// <returns>Whether the set of credentials is valid for the local machine</returns>
-		public static bool TestCredentials(Credentials credentials) {
-			Process pProcess = new Process {
-				StartInfo = new ProcessStartInfo(
-					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe"),
-					" /C exit") {
-					WindowStyle = ProcessWindowStyle.Hidden,
-					UseShellExecute = false,
-					Password = new SecureString(),
-					UserName = credentials.Username
-				}
-			};
-
-			pProcess.StartInfo.Password = credentials.Password;
-
-			try {
-				pProcess.Start();
-			}
-			catch (Exception) {
-				return false;
-			}
-
-			return true;
-		}
 	}
 }

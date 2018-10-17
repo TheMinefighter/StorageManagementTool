@@ -14,7 +14,6 @@ namespace StorageManagementCore.WPFGUI {
 			SelectLanguageCmb.SelectedItem = (object) Session.Singleton.Configuration.LanguageOverride ?? DBNull.Value;
 			LocalizeSettings();
 			DefaultHDDPathChanged();
-			CredentialsManager.OnCredentialsChanged += (s, a) => { };
 			EnOrDisableCredentialsOnStartupCb.IsChecked = Session.Singleton.Configuration.CredentialsOnStartup;
 			//TODO IsAdministratorTb
 		}
@@ -22,7 +21,6 @@ namespace StorageManagementCore.WPFGUI {
 		private void LocalizeSettings() {
 			EnOrDisableCredentialsOnStartupCb.Content = EnOrDisableCredentialsOnStartupCbContent;
 			DeleteConfigurationBtn.Content = DeleteConfigurationBtnContent;
-			AuthorizationGb.Header = AuthorizationGbHeader;
 			AutomaticSetupBtn.Content = AutomaticSetupBtnContent;
 			EnOrDisableSendToHDDCb.Content = EnOrDisableSendToHDDCbContent;
 			//TODO Autolocalize that filename by desktop.ini
@@ -32,10 +30,6 @@ namespace StorageManagementCore.WPFGUI {
 			SettingsTi.Header = SettingsTiText;
 			UsePrereleasesCb.Content = UsePrereleasesText;
 			InstallUpdateBtn.Content = InstallUpdateText;
-		}
-
-		private void DisposeCredentialsBtn_Click(object sender, RoutedEventArgs e) {
-			CredentialsManager.DisposeCredentials();
 		}
 
 		private void DefaultHDDPathChanged() {
@@ -79,10 +73,6 @@ namespace StorageManagementCore.WPFGUI {
 
 			Session.Singleton.SaveCfg();
 			Wrapper.RestartProgram(false);
-		}
-
-		private void ChangeCredentialsBtn_OnClick(object sender, RoutedEventArgs e) {
-			CredentialsManager.GetCredentials(false, out Credentials _);
 		}
 
 		private void AutomaticSetupBtn_Click(object sender, RoutedEventArgs e) {

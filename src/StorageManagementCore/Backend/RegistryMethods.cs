@@ -21,9 +21,14 @@ namespace StorageManagementCore.Backend {
 			{RegistryHive.Users, "HKEY_USERS"}
 		};
 
-		public static bool GetRegistryValue(RegistryValue path, out object toReturn) {
+		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool admin) {
 			toReturn = null;
-			if (Session.Singleton.IsAdmin) {
+#if DEBUG
+						if (admin&&!Session.Singleton.IsAdmin) {
+         				throw new InvalidOperationException();
+         			}
+#endif
+			if (Session.Singleton.IsAdmin&&admin) {
 				if (!Wrapper.Execute(
 					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"reg.exe"),
 					$" query \"{path.RegistryKeyName}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true,
@@ -50,7 +55,7 @@ namespace StorageManagementCore.Backend {
 					       string.Format(WrapperStrings.GetRegistryValue_Exception,
 						       path.ValueName, path.RegistryKeyName, e.Message),
 					       WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
-				       DialogResult.Retry && GetRegistryValue(path, out toReturn);
+				       DialogResult.Retry && GetRegistryValue(path, out toReturn,admin);
 			}
 
 			toReturn = RegistryNumberFixGet(toReturn);
@@ -64,12 +69,12 @@ namespace StorageManagementCore.Backend {
 		/// <param name="source">The registry object to fix</param>
 		/// <returns>The fixed object</returns>
 		private static object RegistryNumberFixGet(object source) {
-			if (source is int) {
-				source = BitConverter.ToUInt32(BitConverter.GetBytes((int) source), 0);
+			if (source is int value) {
+				source = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
 			}
 
-			if (source is long) {
-				source = BitConverter.ToUInt64(BitConverter.GetBytes((long) source), 0);
+			if (source is long l) {
+				source = BitConverter.ToUInt64(BitConverter.GetBytes(l), 0);
 			}
 
 			return source;
@@ -81,12 +86,12 @@ namespace StorageManagementCore.Backend {
 		/// <param name="toReturn">The registry object to fix</param>
 		/// <returns>The fixed object</returns>
 		private static object RegistryNumberFixSet(object toReturn) {
-			if (toReturn is int) {
-				toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int) toReturn), 0);
+			if (toReturn is int value) {
+				toReturn = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
 			}
 
-			if (toReturn is long) {
-				toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long) toReturn), 0);
+			if (toReturn is long l) {
+				toReturn = BitConverter.ToUInt64(BitConverter.GetBytes(l), 0);
 			}
 
 			return toReturn;
@@ -219,7 +224,7 @@ namespace StorageManagementCore.Backend {
 			{RegistryValueKind.DWord, "REG_DWORD"},
 			{RegistryValueKind.MultiString, "REG_MULTI_SZ"},
 			{RegistryValueKind.QWord, "REG_QWORD"},
-			//Technically not the only solution but in 99% of the cases where this really iounlikely case is used it is correct
+			//Technically not the only solution but in 99% of the cases where this really unlikely case is used it is correct
 			{RegistryValueKind.Unknown, "REG_RESSOURCE_LIST"}
 		};
 

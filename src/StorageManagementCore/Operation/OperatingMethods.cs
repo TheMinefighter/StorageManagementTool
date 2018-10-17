@@ -234,7 +234,7 @@ namespace StorageManagementCore.Operation {
 		public static bool GetSearchDataPath(out DirectoryInfo directory) {
 			directory = null;
 
-			if (!RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text)) {
+			if (!RegistryMethods.GetRegistryValue(SearchDatatDirectoryRegistryValue, out object text,true)) {
 				return false;
 			}
 

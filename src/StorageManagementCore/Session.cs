@@ -86,7 +86,7 @@ namespace StorageManagementCore {
 				RegistryMethods.GetRegistryValue(
 					new RegistryValue(RegistryHive.LocalMachine,
 						"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock",
-						"AllowDevelopmentWithoutDevLicense"), out object isDevobject) &&
+						"AllowDevelopmentWithoutDevLicense"), out object isDevobject,false) &&
 				isDevobject is string isDevString &&
 				uint.TryParse(isDevString, out uint isDev) &&
 				isDev != 0 && Environment.OSVersion.Version.Major > 10 ||
@@ -95,7 +95,7 @@ namespace StorageManagementCore {
 					new RegistryValue(RegistryHive.LocalMachine,
 						"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
 						"ReleaseId"),
-					out object release) &&
+					out object release,false) &&
 				release is string releaseString &&
 				uint.TryParse(releaseString, out uint releaseId) &&
 				releaseId >= 1703;

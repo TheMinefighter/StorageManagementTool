@@ -120,7 +120,7 @@ namespace StorageManagementCore.Operation {
 		}
 
 		public static SwapfileState GetSwapfileState() {
-			if (!RegistryMethods.GetRegistryValue(SwapfileControl, out object regValue)) {
+			if (!RegistryMethods.GetRegistryValue(SwapfileControl, out object regValue,true)) {
 				return SwapfileState.None;
 			}
 
