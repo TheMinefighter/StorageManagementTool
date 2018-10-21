@@ -58,7 +58,7 @@ Section "StorageManagementTool Core" CoreComponent
 	WriteUninstaller "uninstall.exe"	
 	StrCmp $StartMenuFolder "<None>" SkipSM
 	CreateDirectory $StartMenuFolder
-	CreateShortCut $StartMenuFolder\StorageManagementTool.lnk $INSTDIR\bin\StorageManagementCLI.bat "" "$INSTDIR\bin\icon.ico"
+	CreateShortCut "$StartMenuFolder\StorageManagementTool.lnk" "$INSTDIR\bin\StorageManagementCLI.bat" "" "$INSTDIR\bin\icon.ico"
 	SkipSM:
   	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
@@ -139,14 +139,14 @@ Function LaunchLink
 FunctionEnd
 
 Section "uninstall"
-	Goto done
+	ExecShell "" "$WINDIR\System32\SCHTASKS.exe" "/DELETE /TN StorageManagementTool_SSDMonitoring /F"
 	ReadRegStr $IntSMName HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${COMPANYNAME} ${APPNAME}" "InternalStartmenuFolder"
 	;This could theoretically also be true if the user is called _FOLDER but nobody would do that
 	StrCmp $IntSMName "<NONE>" done
 	RMDir /r $IntSMName
 	done:
 	RMDir /r $INSTDIR\bin
- 
+ 	
 	# Remove uninstaller information from the registry
 	
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"

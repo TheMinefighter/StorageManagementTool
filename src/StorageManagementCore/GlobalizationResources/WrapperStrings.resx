@@ -120,13 +120,13 @@
   <data name="Error" xml:space="preserve">
     <value />
   </data>
-  <data name="ExecuteExecuteable_AdminError" xml:space="preserve">
+  <data name="ExecuteExecutable_AdminError" xml:space="preserve">
     <value />
   </data>
-  <data name="ExecuteExecuteable_FileNotFound_Text" xml:space="preserve">
+  <data name="ExecuteExecutable_FileNotFound_Text" xml:space="preserve">
     <value />
   </data>
-  <data name="ExecuteExecuteable_WrongEnding" xml:space="preserve">
+  <data name="ExecuteExecutable_WrongEnding" xml:space="preserve">
     <value />
   </data>
   <data name="GetRegistryValue_Exception" xml:space="preserve">
@@ -144,7 +144,7 @@
   <data name="ExecuteExecutable_FileNotFound_SelectionFilter" xml:space="preserve">
     <value></value>
   </data>
-  <data name="ExecuteExecuteable_FileNotFound_SelectionTitle" xml:space="preserve">
+  <data name="ExecuteExecutable_FileNotFound_SelectionTitle" xml:space="preserve">
     <value></value>
   </data>
 </root>

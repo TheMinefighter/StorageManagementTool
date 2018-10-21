@@ -120,13 +120,13 @@
   <data name="Error" xml:space="preserve">
     <value>Fehler</value>
   </data>
-  <data name="ExecuteExecuteable_AdminError" xml:space="preserve">
+  <data name="ExecuteExecutable_AdminError" xml:space="preserve">
     <value>Fehler beim ausführen der Datei "{0}": der Nutzer hat dem Programm den Zugriff auf Administroteren Privilegien verwehrt, die für dessen Ausführung wahrscheinlich nötig gewesen wären. Soll das Programm den Vorgang abbrechen, den Vorgang wiederholen oder das Problem ignorieren und den Befehl ohne Adminstratorrechte ausführen</value>
   </data>
-  <data name="ExecuteExecuteable_FileNotFound_Text" xml:space="preserve">
+  <data name="ExecuteExecutable_FileNotFound_Text" xml:space="preserve">
     <value>Das Programm "{0}" Konnte nicht ausgeführt werden, da dieses nicht unter dem erwarteten Pfad verfügbar war. Möchten sie den richtigen Pfad des Programms auswählen?</value>
   </data>
-  <data name="ExecuteExecuteable_WrongEnding" xml:space="preserve">
+  <data name="ExecuteExecutable_WrongEnding" xml:space="preserve">
     <value>Es sollte das Program "{0}" ausgeführt werden, jedoch ist nicht bekannt das Dateien mit der Dateiendung {1} unter Windows ausführbar sind. Soll trotzdem versucht werden diese Datei auszuführen?</value>
   </data>
   <data name="GetRegistryValue_Exception" xml:space="preserve">
@@ -144,7 +144,7 @@
   <data name="ExecuteExecutable_FileNotFound_SelectionFilter" xml:space="preserve">
     <value>Programme</value>
   </data>
-  <data name="ExecuteExecuteable_FileNotFound_SelectionTitle" xml:space="preserve">
+  <data name="ExecuteExecutable_FileNotFound_SelectionTitle" xml:space="preserve">
     <value>Wählen sie bitte den Pfad von "{0}" aus</value>
   </data>
 </root>

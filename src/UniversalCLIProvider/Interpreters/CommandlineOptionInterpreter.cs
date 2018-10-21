@@ -42,7 +42,7 @@ namespace UniversalCLIProvider.Interpreters {
 
 				int proposedLength;
 				try {
-					proposedLength = int.Parse(arg.Substring(0, 8), NumberStyles.HexNumber);
+					proposedLength = int.Parse(arg.Substring(currentOffset,8), NumberStyles.HexNumber);
 				}
 				catch (Exception) {
 					Console.WriteLine($"Error while parsing string length of argument {count}");
@@ -62,6 +62,7 @@ namespace UniversalCLIProvider.Interpreters {
 					currentOffset += 2;
 				}
 
+				count++;
 				newArgs.Add(encoding.GetString(rawArgument));
 			}
 

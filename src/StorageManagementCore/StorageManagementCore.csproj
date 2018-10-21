@@ -167,14 +167,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operation\BackgroundNotificationCreator.cs" />
-    <Compile Include="Operation\Credentials.cs" />
-    <Compile Include="Operation\CredentialsManager.cs" />
-    <Compile Include="Operation\EnterCredentialsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Operation\EnterCredentialsDialog.designer.cs">
-      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Operation\OperatingMethods.cs" />
     <Compile Include="Operation\PagefileManagement.cs" />
     <Compile Include="Operation\ScenarioPreset.cs" />
@@ -329,9 +321,6 @@
     <EmbeddedResource Include="MainGUI\GlobalizationRessources\ApplyPresetStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ApplyPresetStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Operation\EnterCredentialsDialog.resx">
-      <DependentUpon>EnterCredentialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -21,33 +21,33 @@ namespace StorageManagementCore.Backend {
 			{RegistryHive.Users, "HKEY_USERS"}
 		};
 
-		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool asUser = false) {
+		public static bool GetRegistryValue(RegistryValue path, out object toReturn, bool admin) {
 			toReturn = null;
-			if (asUser) {
-				if (!Wrapper.ExecuteExecuteable(
+#if DEBUG
+						if (admin&&!Session.Singleton.IsAdmin) {
+         				throw new InvalidOperationException();
+         			}
+#endif
+			if (Session.Singleton.IsAdmin&&admin) {
+				if (!Wrapper.Execute(
 					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"reg.exe"),
 					$" query \"{path.RegistryKeyName}\" /v \"{path.ValueName}\"", out string[] ret, out int _, out _, true,
-					true, true, true,
-					true)) {
+					true, true, true)) {
 					return false;
 				}
 
-				if (ret.Length == 2) {
+				if (ret.Length <= 2) {
 					return false;
 				}
 
-				string thirdLine = ret[2];
-				RegistryValueKind kind = FromWin32Api[thirdLine.Substring(8 + path.ValueName.Length).Split(' ')[0]];
-				string data = thirdLine.Substring(12 + path.ValueName.Length + kind.ToString().Length).Trim();
+				RegistryValueKind kind = FromWin32Api[ret[2].Substring(8 + path.ValueName.Length).Split(' ')[0]];
+				string data = ret[2].Substring(12 + path.ValueName.Length + kind.ToString().Length).Trim();
 				toReturn = RegistryObjectFromString(data, kind);
 
 				return true;
 			}
 
 			try {
-				//			RegistryKey.OpenBaseKey(path.Hive,RegistryView.Default).OpenSubKey(path.ValueName)
-//				RegistryKey.OpenBaseKey(RegistryRootKeys[path.RegistryKey.Split('\\')[0]],
-//					RegistryView.Registry64).OpenSubKey()
 				toReturn = Registry.GetValue(path.RegistryKeyName, path.ValueName, -1);
 			}
 			catch (Exception e) {
@@ -55,7 +55,7 @@ namespace StorageManagementCore.Backend {
 					       string.Format(WrapperStrings.GetRegistryValue_Exception,
 						       path.ValueName, path.RegistryKeyName, e.Message),
 					       WrapperStrings.Error, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) ==
-				       DialogResult.Retry && GetRegistryValue(path, out toReturn, asUser);
+				       DialogResult.Retry && GetRegistryValue(path, out toReturn,admin);
 			}
 
 			toReturn = RegistryNumberFixGet(toReturn);
@@ -64,34 +64,34 @@ namespace StorageManagementCore.Backend {
 		}
 
 		/// <summary>
-		///  Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
+		///  Fix for numbers stored in the registry, explanation available at https://github.com/dotnet/corefx/issues/26936
 		/// </summary>
 		/// <param name="source">The registry object to fix</param>
 		/// <returns>The fixed object</returns>
 		private static object RegistryNumberFixGet(object source) {
-			if (source is int) {
-				source = BitConverter.ToUInt32(BitConverter.GetBytes((int) source), 0);
+			if (source is int value) {
+				source = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
 			}
 
-			if (source is long) {
-				source = BitConverter.ToUInt64(BitConverter.GetBytes((long) source), 0);
+			if (source is long l) {
+				source = BitConverter.ToUInt64(BitConverter.GetBytes(l), 0);
 			}
 
 			return source;
 		}
 
 		/// <summary>
-		///  Fix for numbers stored in the registry, explaination available at https://github.com/dotnet/corefx/issues/26936
+		///  Fix for numbers stored in the registry, explanation available at https://github.com/dotnet/corefx/issues/26936
 		/// </summary>
 		/// <param name="toReturn">The registry object to fix</param>
 		/// <returns>The fixed object</returns>
 		private static object RegistryNumberFixSet(object toReturn) {
-			if (toReturn is int) {
-				toReturn = BitConverter.ToUInt32(BitConverter.GetBytes((int) toReturn), 0);
+			if (toReturn is int value) {
+				toReturn = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
 			}
 
-			if (toReturn is long) {
-				toReturn = BitConverter.ToUInt64(BitConverter.GetBytes((long) toReturn), 0);
+			if (toReturn is long l) {
+				toReturn = BitConverter.ToUInt64(BitConverter.GetBytes(l), 0);
 			}
 
 			return toReturn;
@@ -134,24 +134,17 @@ namespace StorageManagementCore.Backend {
 		/// <param name="valueLocation">The Location of the Value to change</param>
 		/// <param name="content">The content to write into the content</param>
 		/// <param name="registryValueKind">The type of the content</param>
-		/// <param name="asUser"></param>
 		/// <returns></returns>
 		public static bool SetRegistryValue(RegistryValue valueLocation, object content,
-			RegistryValueKind registryValueKind,
-			bool asUser = false) {
-			if (asUser) {
-				SetProtectedRegistryValue(valueLocation, content, registryValueKind);
-				return true;
-			}
-
+			RegistryValueKind registryValueKind) {
 			if (!Session.Singleton.IsAdmin) {
 				string value;
 				switch (registryValueKind) {
 					case RegistryValueKind.DWord:
-						value = content is int ? ((int) content).ToString() : ((uint) content).ToString();
+						value = content is int i ? i.ToString() : ((uint) content).ToString();
 						break;
 					case RegistryValueKind.QWord:
-						value = content is long ? ((long) content).ToString() : ((ulong) content).ToString();
+						value = content is long l ? l.ToString() : ((ulong) content).ToString();
 						break;
 					case RegistryValueKind.String:
 						value = ((string) content).Replace("\"", "\\\"");
@@ -168,10 +161,10 @@ namespace StorageManagementCore.Backend {
 				}
 
 				string kind = ToWin32Api[registryValueKind];
-				if (!Wrapper.ExecuteExecuteable(
+				if (!Wrapper.Execute(
 					    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "reg.exe"),
 					    $" add \"{valueLocation.RegistryKeyName}\" /v \"{valueLocation.ValueName}\" /t {kind} /d \"{value}\" /f",
-					    out string[] _, out int tmpExitCode, out _, true, true, true, true, asUser) || tmpExitCode == 1) {
+					    out string[] _, out int tmpExitCode, out _, true, true, true, true) || tmpExitCode == 1) {
 					return false;
 				}
 
@@ -222,91 +215,6 @@ namespace StorageManagementCore.Backend {
 			return true;
 		}
 
-		/// <summary>
-		///  Writes a protected registry value
-		/// </summary>
-		/// <param name="toSet">The value to set</param>
-		/// <param name="content">The content to set the value to</param>
-		/// <param name="kind">The RegistyValueKind of the content</param>
-		public static void SetProtectedRegistryValue(RegistryValue toSet, object content, RegistryValueKind kind) {
-			const string folderName = "StorageManagementToolRegistryData";
-			string path = Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChanges.reg");
-			new FileInfo(path).Directory.Create();
-			string toWrite = GetRegFileContent(content, kind);
-			File.WriteAllLines(path,
-				new[] {
-					"Windows Registry Editor Version 5.00",
-					"",
-					$"[{toSet.RegistryKeyName}]",
-					$"\"{Wrapper.AddBackslahes(toSet.ValueName)}\"={toWrite}"
-				});
-			// I know that the following is exploiting UAC a bit, but the Warning will not be suppressed, so I don´t see any real reasons not to do that
-			ApplyRegfile();
-		}
-
-		/// <summary>
-		///  Applies a Regfile generated using SetProtectedRegistryValue
-		/// </summary>
-		public static void ApplyRegfile() {
-			const string folderName = "StorageManagementToolRegistryData";
-			Wrapper.ExecuteExecuteable(Wrapper.ExplorerPath,
-				$" /select,\"{Path.Combine(Path.GetTempPath(), folderName, "OpenThisFileToApplyRegistryChanges.reg")}\"");
-/*			Thread.Sleep(1000);
-			SendKeys.SendWait("{ENTER}");
-			Thread.Sleep(1000);
-			ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
-			   $"/F /FI \"WINDOWTITLE eq {folderName}\" /IM explorer.exe");
-			//For people, who have the "Display full name in titlebar" option enabled
-			ExecuteExecuteable(Path.Combine(System32Path, "taskkill.exe"),
-			   $"/F /FI \"WINDOWTITLE eq {Path.Combine(Path.GetTempPath(), folderName)}\" /IM explorer.exe");*/
-		}
-
-		/// <summary>
-		///  Generates a value to write to a .reg file for Windows Registry Editor Version 5.00
-		/// </summary>
-		/// <param name="content">The object to be written in the file</param>
-		/// <param name="kind">The RegistryValueKind of the content</param>
-		/// <returns> A value to use in a .reg file</returns>
-		private static string GetRegFileContent(object content, RegistryValueKind kind) {
-			string toWrite;
-			switch (kind) {
-				case RegistryValueKind.String:
-					toWrite = $"\"{Wrapper.AddBackslahes((string) content)}\"";
-					break;
-				case RegistryValueKind.ExpandString:
-					toWrite = "hex(2):" + string.Join(",",
-						          Encoding.Unicode.GetBytes((string) content + "\0")
-							          .Select(x => x.ToString("X2").ToLower()));
-					break;
-				case RegistryValueKind.Binary:
-					toWrite = "hex:" + string.Join(",",
-						          Encoding.Unicode.GetBytes((string) content).Select(x => x.ToString("X2").ToLower()));
-					break;
-				case RegistryValueKind.DWord:
-					toWrite = "dword:" + ((uint) RegistryNumberFixGet(content)).ToString("D8");
-					break;
-				case RegistryValueKind.MultiString:
-					toWrite = "hex(7):" + string.Join(",",
-						          Encoding.Unicode.GetBytes(string.Join("\0", (string[]) content) + "\0\0")
-							          .Select(x => x.ToString("X2").ToLower()));
-					break;
-				case RegistryValueKind.QWord:
-					toWrite = "hex(b):" + string.Join(",",
-						          BitConverter.GetBytes((ulong) RegistryNumberFixGet(content))
-							          .Select(x => x.ToString("X2").ToLower()));
-					break;
-				case RegistryValueKind.None:
-					toWrite = "hex(0):" + string.Join(",",
-						          Encoding.Unicode.GetBytes((string) content).Select(x => x.ToString("X2").ToLower()));
-					break;
-
-				default:
-					throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
-			}
-
-			return toWrite;
-		}
-
 		#region Based upon https://en.wikipedia.org/wiki/Windows_Registry#Keys_and_values and https://msdn.microsoft.com/en-us/library/windows/desktop/bb773476(v=vs.85).aspx last access 14.02.2018
 
 		public static readonly Dictionary<RegistryValueKind, string> ToWin32Api = new Dictionary<RegistryValueKind, string> {
@@ -316,7 +224,7 @@ namespace StorageManagementCore.Backend {
 			{RegistryValueKind.DWord, "REG_DWORD"},
 			{RegistryValueKind.MultiString, "REG_MULTI_SZ"},
 			{RegistryValueKind.QWord, "REG_QWORD"},
-			//Technically not the only solution but in 99% of the cases where this really iounlikely case is used it is correct
+			//Technically not the only solution but in 99% of the cases where this really unlikely case is used it is correct
 			{RegistryValueKind.Unknown, "REG_RESSOURCE_LIST"}
 		};
 

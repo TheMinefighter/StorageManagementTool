@@ -70,7 +70,7 @@ namespace StorageManagementCore.Operation {
 		}
 
 		public static void RunUpdateInstaller() {//TODO Admin check
-			Wrapper.ExecuteExecuteable(Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),"UpdateInstaller.exe"), "", true);
+			Wrapper.Execute(Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),"UpdateInstaller.exe"), "", true);
 			Environment.Exit(0);
 		}
 
