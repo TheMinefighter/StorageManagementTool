@@ -65,15 +65,33 @@ namespace StorageManagementCore.Operation {
 
 			string tempLocation = Path.Combine(Path.GetTempPath(), "StorageManagementToolTask.xml");
 			File.WriteAllText(tempLocation, taskString);
-			return Wrapper.Execute(SchtasksPath,
-				$"/Create /XML \"{tempLocation}\" /TN {SSDMonitoringTaskName} /RP * /RU {Environment.UserName}",
-				out string[] _, out int _, out int _, false, true, false, true);
+			bool tempShown;
+			if (tempShown=!Program.isConsoleVisible) {
+				Program.SetConsoleVisibility(true);
+				Console.Clear();
+			}
+
+			string tmp = Console.Title;
+			Console.Title = SchtasksPath;
+			if (!Wrapper.ExecuteCommand(
+				$"\"{SchtasksPath}\" /Create /XML \"{tempLocation}\" /TN {SSDMonitoringTaskName} /RP * /RU {Environment.UserName}",
+				true, false
+			)) {
+				return false;
+			}
+
+			if (tempShown) {
+				Program.SetConsoleVisibility(false);
+			}
+
+			Console.Title = tmp;
+			return true;
 		}
 
 		/// <summary>
-		///  Checks whether SSD monitoring has been initalized
+		///  Checks whether SSD monitoring has been initialized
 		/// </summary>
-		/// <param name="initalized">Whether SSD monitoring has been initalized</param>
+		/// <param name="initalized">Whether SSD monitoring has been initialized</param>
 		/// <returns>Whether the check were successful</returns>
 		public static bool SSDMonitoringInitalized(out bool initalized) {
 			initalized = false;
@@ -128,18 +146,18 @@ namespace StorageManagementCore.Operation {
 		///  Sets whether SSD monitoring is enabled
 		/// </summary>
 		/// <param name="enable">Whether the monitoring should be enabled or disabled</param>
-		/// <param name="checkForInitalize">
-		///  Whether to check if SSD monitoring were allready initalized if it were not initalized
+		/// <param name="checkForInitialize">
+		///  Whether to check if SSD monitoring were already initialized if it were not initialized
 		///  it will be
 		/// </param>
 		/// <returns>Whether the operation were successful</returns>
-		public static bool SetSSDMonitoring(bool enable, bool checkForInitalize = true) {
-			if (checkForInitalize) {
-				if (!SSDMonitoringInitalized(out bool initalized)) {
+		public static bool SetSSDMonitoring(bool enable, bool checkForInitialize = true) {
+			if (checkForInitialize) {
+				if (!SSDMonitoringInitalized(out bool initialized)) {
 					return false;
 				}
 
-				if (!initalized) {
+				if (!initialized) {
 					if (!InitalizeSSDMonitoring()) {
 						return false;
 					}
@@ -147,7 +165,7 @@ namespace StorageManagementCore.Operation {
 			}
 
 			return Wrapper.Execute(SchtasksPath,
-				$"/CHANGE /TN {SSDMonitoringTaskName} {(enable ? "/ENABLE" : "/DISABLE")}", true, true, true);
+				$"/CHANGE /TN {SSDMonitoringTaskName} {(enable ? "/ENABLE" : "/DISABLE")}", out string[] _,out int _,out int _,waitForExit: true,admin: true);
 		}
 	}
 }

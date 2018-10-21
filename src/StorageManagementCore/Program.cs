@@ -23,11 +23,12 @@ namespace StorageManagementCore {
 		/// <remarks>This should be kept equivalent to the Git Release tag</remarks>
 		public const string VersionTag = "1.2-b-1.1";
 
+		 public static bool isConsoleVisible { get; private set; }
 		public static readonly CultureInfo[][] AvailableSpecificCultures =
 			{new[] {CultureInfo.CreateSpecificCulture("en-US")}, new[] {CultureInfo.CreateSpecificCulture("de-DE")}};
 
 		/// <summary>
-		///  A reference to an object containig methods for the console IO operations
+		///  A reference to an object containing methods for the console IO operations
 		/// </summary>
 		public static ConsoleIO ConsoleIOObject { get; set; }
 
@@ -358,6 +359,7 @@ private static void MoveObjectFromCommandline(List<string> args) {
 		}
 
 		public static void SetConsoleVisibility(bool visible) {
+			isConsoleVisible = visible;
 			ShowWindow(GetConsoleWindow(), visible ? SW_SHOW : SW_HIDE);
 		}
 
