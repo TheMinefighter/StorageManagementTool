@@ -21,7 +21,7 @@ namespace StorageManagementCore {
 		///  The version tag of this Version
 		/// </summary>
 		/// <remarks>This should be kept equivalent to the Git Release tag</remarks>
-		public const string VersionTag = "1.2-b-1.1";
+		public const string VersionTag = "1.2-b-2.0";
 
 		 public static bool isConsoleVisible { get; private set; }
 		public static readonly CultureInfo[][] AvailableSpecificCultures =
