@@ -560,7 +560,7 @@
 			<TabItem x:Name="AboutTi" Header="About">
 				<TextBlock x:Name="AboutTb" TextWrapping="WrapWithOverflow">
 					The StorageManagementTool (Version <Run Text="{Binding Path=ProgramVersion ,Mode=OneWay}" />) is project by Tobias Brohl published under MIT License. <LineBreak />
-					Attribution is hereby granted to the authors of the following libraries:
+					Attribution is hereby granted to the authors of the following libraries: <LineBreak />
 					<Hyperlink NavigateUri="https://raw.githubusercontent.com/Dirkster99/NumericUpDownLib/master/License.md"
 					           RequestNavigate="Hyperlink_OnRequestNavigate">
 						Dirkster99/NumericUpDownLib
