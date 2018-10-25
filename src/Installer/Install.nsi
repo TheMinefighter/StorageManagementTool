@@ -62,10 +62,10 @@ Section "StorageManagementTool Core" CoreComponent
 	CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
 	SetOutPath $INSTDIR\bin
 	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\StorageManagementTool.lnk" "$INSTDIR\bin\StorageManagementCLI.bat" "" "$INSTDIR\bin\icon.ico"
-	MessageBox MB_OK "$SMPROGRAMS\$StartMenuFolder\StorageManagementTool.lnk"
-	MessageBox MB_OK "$INSTDIR\bin\StorageManagementCLI.bat"
-	MessageBox MB_OK "$INSTDIR\bin\icon.ico"
-	Abort
+	;MessageBox MB_OK "$SMPROGRAMS\$StartMenuFolder\StorageManagementTool.lnk"
+	;MessageBox MB_OK "$INSTDIR\bin\StorageManagementCLI.bat"
+	;MessageBox MB_OK "$INSTDIR\bin\icon.ico"
+	;Abort
 	SkipSM:
   	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
