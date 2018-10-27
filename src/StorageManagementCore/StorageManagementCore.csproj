@@ -42,7 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConfirmationDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -460,9 +460,10 @@
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon.ico">
+    <Resource Include="AppIcon.ico" />
+    <None Include="Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

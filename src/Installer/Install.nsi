@@ -2,7 +2,6 @@
 ; I would not consider any of the parts represented in this documentes as significant.
 ; Anyway acknowledgement is hereby granted to all contributors of the nsis documentation
 !include "MUI.nsh"
-
 !include LogicLib.nsh
 ;!include StrContainsFun.nsi
 !include StrRepFun.nsi
@@ -17,11 +16,12 @@ ShowInstDetails show
 !define DESCRIPTION "A tool for managing the storage of your pc"
 !define VERSIONMAJOR 1
 !define VERSIONMINOR 2
-!define VERSIONBUILD 2
+!define VERSIONBUILD 4
 !define HELPURL "https://theminefighter.github.io/StorageManagementTool/"
 !define UPDATEURL "https://github.com/TheMinefighter/StorageManagementTool/releases" 
 !define ABOUTURL "https://theminefighter.github.io/" 
 !define INSTALLSIZE 12000
+
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "License.rtf"
@@ -42,6 +42,8 @@ Var IntSMName
  
 Section "StorageManagementTool Core" CoreComponent
 	SectionIn RO
+	;LogSet On
+	SetOverwrite try
  	Push $StartMenuFolder
  	Call ValidateSM
 	Pop $StartMenuFolder
@@ -57,8 +59,13 @@ Section "StorageManagementTool Core" CoreComponent
 	File ..\StorageManagementCore\bin\Release\en-US\*
 	WriteUninstaller "uninstall.exe"	
 	StrCmp $StartMenuFolder "<None>" SkipSM
-	CreateDirectory $StartMenuFolder
-	CreateShortCut "$StartMenuFolder\StorageManagementTool.lnk" "$INSTDIR\bin\StorageManagementCLI.bat" "" "$INSTDIR\bin\icon.ico"
+	CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
+	SetOutPath $INSTDIR\bin
+	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\StorageManagementTool.lnk" "$INSTDIR\bin\StorageManagementCLI.bat" "" "$INSTDIR\bin\icon.ico"
+	;MessageBox MB_OK "$SMPROGRAMS\$StartMenuFolder\StorageManagementTool.lnk"
+	;MessageBox MB_OK "$INSTDIR\bin\StorageManagementCLI.bat"
+	;MessageBox MB_OK "$INSTDIR\bin\icon.ico"
+	;Abort
 	SkipSM:
   	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
@@ -69,13 +76,14 @@ Section "StorageManagementTool Core" CoreComponent
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "HelpLink" "${HELPURL}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLUpdateInfo" "${UPDATEURL}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLInfoAbout" "${ABOUTURL}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "1.2-b-1.1"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "1.2-b-2.1"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InternalStartmenuFolder" "$StartMenuFolder"
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMajor" ${VERSIONMAJOR}
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMinor" ${VERSIONMINOR}
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoModify" 1
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoRepair" 1
 	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "EstimatedSize" ${INSTALLSIZE}
+
 SectionEnd
 
 Section "Automatic Update (Can be changed later)" AutoUpdates
