@@ -139,14 +139,12 @@ namespace StorageManagementCore.Operation {
 				return e;
 			}
 
-			return await releaseData.Left.FirstOrDefaultAsync(async x => {
+			Release proposed= await releaseData.Left.FirstOrDefaultAsync(async x => {
 				if (!x.Assets.Any(y => y.State == "uploaded" && y.Name == UpdatePackageName)) {
 					return false;
 				}
 
-				if (x.TagName == Program.VersionTag) {
-					return false;
-				}
+
 
 				RepositoryTag t = tags.FirstOrDefault(y => y.Name == x.TagName);
 				if (t is null) {
@@ -174,7 +172,14 @@ namespace StorageManagementCore.Operation {
 				}
 
 				return !x.Draft && usePrereleases || !x.Prerelease;
-			});
+				
+			});	
+			#if true
+			if (proposed.TagName == Program.VersionTag) {
+            					return (Exception) null;
+            				}
+#endif
+			return proposed;
 		}
 
 		/// <summary>
@@ -186,8 +191,10 @@ namespace StorageManagementCore.Operation {
 		internal static async Task<Exception> ExtractArchiveAsync(ZipArchive archive, string path) {
 			foreach (ZipArchiveEntry entry in archive.Entries) {
 				string destinationPath = Path.GetFullPath(Path.Combine(path, entry.FullName));
+				
 				if (destinationPath.StartsWith(path, StringComparison.Ordinal)) {
 					try {
+						new FileInfo(destinationPath).Directory.Create();
 						using (Stream destinationStream = File.Open(destinationPath, FileMode.CreateNew, FileAccess.Write)) {
 							using (Stream entryStream = entry.Open()) {
 								await entryStream.CopyToAsync(destinationStream);
@@ -195,6 +202,9 @@ namespace StorageManagementCore.Operation {
 						}
 					}
 					catch (Exception e) {
+#if DEBUG
+						throw e;
+#endif
 						return e;
 					}
 				}
