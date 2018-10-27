@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageManagementToolLauncher", "StorageManagementToolLauncher\StorageManagementToolLauncher.csproj", "{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedMessageBoxLibrary", "ExtendedMessageBoxLibrary\ExtendedMessageBoxLibrary.csproj", "{A421800C-1BCB-41C3-8172-8D7C3583649C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageManagementCore", "StorageManagementCore\StorageManagementCore.csproj", "{338EB406-98FB-4EFF-A8DA-20060C3DDEB0}"
@@ -29,15 +27,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Release|Any CPU.Deploy.0 = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Release|x64.ActiveCfg = Debug|Any CPU
-		{5FF9A6E7-FE01-40F4-95BD-77E00FE3306F}.Release|x86.ActiveCfg = Debug|Any CPU
 		{A421800C-1BCB-41C3-8172-8D7C3583649C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A421800C-1BCB-41C3-8172-8D7C3583649C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A421800C-1BCB-41C3-8172-8D7C3583649C}.Debug|x64.ActiveCfg = Debug|Any CPU
