@@ -1,4 +1,4 @@
-The Sourcecode of this program is published under MIT License:
+**The Sourcecode of this program is published under MIT License:**
 
 Copyright 2018 by Tobias Brohl
 
@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-**Compiled versions offered by me are distributed under MS-PL due to the [use of 3rd party libraries(https://theminefighter.github.io/StorageManagementTool/acknowledgements.html):**
+**Compiled versions offered by me are distributed under MS-PL due to the [use of 3rd party libraries](https://theminefighter.github.io/StorageManagementTool/acknowledgements.html):**
 
  Microsoft Public License (Ms-PL)
 
